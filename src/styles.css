@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+/* @import "~materialize-css/sass/materialize.scss"; */
+
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+.dante-blue {
+    color:#194F87 !important;
+}
