@@ -1,9 +1,0 @@
-.background {
-    background: url('../../assets/img/bg-preview.jpg') center / cover;
-    min-height: 600px;
-    height: auto;
-  }
-
-  button {
-    margin-left: 40%;
-  }

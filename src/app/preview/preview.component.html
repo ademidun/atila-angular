@@ -8,50 +8,48 @@
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-<!-- Compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css">
 
       <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   
-<!-- Compiled and minified JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
            
      </head>
 <body>
-  <div id="index-banner" class="parallax-container background">
-      <div class="container">
-        <h1 class="header center dante-blue text-lighten-2">Get Funding for Your Education</h1>
-        <div class="preview-form">
-            <div class="container">
-              <h3 class="form-header">Tell us a bit about Yourself</h3>
-              <form #previewForm="ngForm" (ngSubmit)="onSubmit(previewForm)">
-                <div class="row preview-questions">
-                  <div class="form-group input-field col s12 m4">
-                    <md-select [(ngModel)]="model.city" name="city" id="city" multiple=true required placeholder="City">
-                      <md-option *ngFor="let city of CITY_CHOICES" [value]="city">{{city}} </md-option>
-                    </md-select>
-                  </div>
-          
-                  <div class="form-group input-field col s12 m4">
-                    <md-select [(ngModel)]="model.level" name="level" id="level" multiple=true required placeholder="Type">
-                      <md-option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </md-option>
-                    </md-select>
-                  </div>
-          
-                  <div class="form-group input-field col s12 m4">
-                    <md-select [(ngModel)]="model.field" name="field" id="field" multiple=true required placeholder="Field">
-                      <md-option *ngFor="let field of EDUCATION_FIELD" [value]="field">{{field}} </md-option>
-                    </md-select>
-                  </div>
-                </div>
-                <br>
-                <button type="submit" class="waves-effect waves-light btn grant-btn">Get Funded</button>
-              </form>
-              <p *ngIf="diagnostic"> {{diagnostic}} </p>
-            </div>
-          </div>
+    <div class="background-image">
+        <div class="container">
+          <div class="subheader">Get Your Education  <br />Funded</div>
+        </div>
       </div>
-  </div>
+
+      <div class="preview-form">
+          <div class="container">
+            <h3 class="form-header">Tell us a bit about Yourself</h3>
+            <form #previewForm="ngForm" (ngSubmit)="onSubmit(previewForm)">
+              <div class="row preview-questions">
+                <div class="form-group input-field col s12 m4">
+                  <md-select [(ngModel)]="model.city" name="city" id="city" required placeholder="City">
+                    <md-option *ngFor="let city of CITY_CHOICES" [value]="city">{{city}} </md-option>
+                  </md-select>
+                </div>
+        
+                <div class="form-group input-field col s12 m4">
+                  <md-select [(ngModel)]="model.level" name="level" id="level" multiple=true required placeholder="Type">
+                    <md-option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </md-option>
+                  </md-select>
+                </div>
+        
+                <div class="form-group input-field col s12 m4">
+                  <md-select [(ngModel)]="model.field" name="field" id="field" multiple=true required placeholder="Field">
+                    <md-option *ngFor="let field of EDUCATION_FIELD" [value]="field">{{field}} </md-option>
+                  </md-select>
+                </div>
+              </div>
+              <br>
+              <button type="submit" class="waves-effect waves-light btn grant-btn">Get Funded</button>
+            </form>
+            <p *ngIf="diagnostic"> {{diagnostic}} </p>
+          </div>
+        </div>
+    
 
   </body>
 </html>

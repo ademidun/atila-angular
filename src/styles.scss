@@ -1,0 +1,10 @@
+@import './custom-theme';
+@import '~materialize-css/sass/components/color';
+
+$secondary-color: #194F87;
+$roboto-font-path: "/assets/fonts/roboto/";
+@import "~materialize-css/sass/materialize.scss";
+
+$primary: #194F87;
+$secondary: #FEFEFE;
+$tertiary: #54575a;

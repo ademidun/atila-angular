@@ -14,7 +14,7 @@ export class PreviewResponse {
 @Component({
   selector: 'app-preview',
   templateUrl: './preview.component.html',
-  styleUrls: ['./preview.component.css']
+  styleUrls: ['./preview.component.scss']
 })
 export class PreviewComponent implements OnInit {
 
@@ -36,7 +36,8 @@ export class PreviewComponent implements OnInit {
    
    EDUCATION_FIELD = [
        'Arts (Undergrad)',
-       'STEM (Undergrad)', 
+       'STEM (Undergrad)',
+       'Trade School', 
        'Visual + Performing Arts', 
        'Law School', 
        'Medical School', 
