@@ -1,0 +1,139 @@
+<div *ngIf="contentFetched; else noData">
+    <!--TODO: Why is this line giving me an error. <h5 > You qualify for <strong>{{ scholarships.length}}</strong> Scholarships</h5>-->
+    <br/>
+    <div *ngIf="form_data">
+      <!--TODO: Create gs-insights page, also a 404 page.-->
+      <div class="container" *ngIf="!isLoggedIn; else registeredContent">
+        <!--Unregistered user content -->
+        <div class="row center">
+          <h2 class="scholarship-preview-count"> You may qualify for <strong>{{scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and up to <strong>{{total_funding}}</strong> in funding</span>.</h2>
+          <img class="logo-img" src="../../assets/img/g-logo+pig.png" alt="">
+        </div>
+        <br>
+        <div class="row">
+            <div *ngFor="let scholarship of scholarships;  let i=index" class="col s12 m6 l4">
+                <ng-template [ngIf]="i<3">
+                  <md-card class="scholarship-card">
+                    <md-card-header>
+                      <div md-card-avatar [ngStyle]="{ 'background-image': 'url( '+ scholarship.img_url +' )' }" class="header-image"></div>
+                      <md-card-title><a href="{{scholarship.scholarship_url}}" class="card-title">{{scholarship.name}}</a></md-card-title>
+                      <md-card-subtitle class="card-text">{{scholarship.funding_amount | currency:'USD':true:'1.0-0'}}</md-card-subtitle>
+                    </md-card-header>
+                    <a [routerLink]="['../scholarship-detail', scholarship.id]">
+                    <img md-card-image class="my-md-card-image" src="{{scholarship.img_url}}">
+                    </a>
+                    <md-card-content>
+                        <p class="card-text">
+                          {{scholarship.description | truncate:250}}
+                        </p> 
+                    </md-card-content>
+                    <md-card-actions>
+                      <a href="{{scholarship._url}}"><button md-button><i class="material-icons">help_outline</i></button></a>
+                      <a href="{{scholarship.form_url}}"><button md-button><i class="material-icons">create</i></button></a>
+                      </md-card-actions>
+                  </md-card>
+                </ng-template>
+            </div>
+
+          <div class="row center">
+              <a class="waves-effect waves-light btn scholarship-btn" routerLink="/register">Register here to view the rest of the scholarships</a>
+          </div>
+
+        </div>
+      
+        <div class="row">
+            <div *ngFor="let scholarship of scholarships;  let i=index" class="col s12 m6 l4">
+              <ng-template [ngIf]="i<3">
+                <md-card class="scholarship-card-registered">
+                  <a [routerLink]="['../scholarship-detail', scholarship.id]">
+                    <img md-card-image class="my-md-card-image" src="{{scholarship.img_url}}">
+                  </a>
+                  <div class="card-container">
+                    <md-card-header>
+                      <md-card-title>
+                        <a class="registered-card-title">{{scholarship.name | truncate:50}}</a>
+                      </md-card-title>
+                    </md-card-header>
+                    <div class="card-sub-heading">
+                        Up to {{scholarship.funding_amount | currency:'USD':true:'1.0-0'}}
+                      </div>
+                    <br>
+  
+                    <md-card-content>
+                      <p class="registered-card-text">
+                        {{scholarship.description | truncate:250}}
+                      </p>
+                    </md-card-content>
+                  </div>
+                </md-card>
+              </ng-template>
+            </div>
+            <div class="row center">
+              <a class="waves-effect waves-light btn scholarship-btn" routerLink="/register">Register here to view the rest of the scholarships</a>
+            </div>
+          </div>
+      
+        </div>
+
+      <!--Registered user content -->
+      <ng-template #registeredContent>
+        <div class="container">
+          <h4 class="registered-title">
+            Explore <strong>{{ scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and up to {{total_funding}} in funding</span>.
+          </h4>
+          <div class="sort-container pull-right">
+            <p>Sort by </p>
+            <md-select [(ngModel)]="sortVal" name="sort" id="sort">
+              <md-option [value]=1>Relevance</md-option>
+              <md-option [value]=2>Funding</md-option>
+              <md-option [value]=3>Rating</md-option>
+            </md-select>
+          </div>
+          <p class="text-align-center"><i class="material-icons automate-tag">tag_faces</i> = Automated scholarships.</p>
+          <div class="row">
+            <div *ngFor="let scholarship of scholarships;  let i=index" class="col s12 m6 l4">
+              <md-card class="scholarship-card-registered">
+                <a [routerLink]="['../scholarship-detail', scholarship.id]">
+                  <img md-card-image class="my-md-card-image" src="{{scholarship.img_url}}">
+                </a>
+                <div class="card-container">
+                  <md-card-header>
+                    <md-card-title>
+                      <a [routerLink]="['../scholarship-detail', scholarship.id]" class="registered-card-title">{{scholarship.name | truncate:45}}</a>
+                    </md-card-title>
+                  </md-card-header>
+                  <br>
+
+                  <md-card-content>
+                    <p class="registered-card-text">
+                      {{scholarship.description | truncate:160}}
+                    </p>
+                  </md-card-content>
+                  <md-card-actions>
+                    <div class="row center">
+                      <a *ngIf=scholarship.is_automated [routerLink]="['../scholarship-detail', scholarship.id]"><button md-button><i class="material-icons automate-tag">tag_faces</i></button></a>
+                    </div>
+                  </md-card-actions>
+                </div>
+              </md-card>
+            </div>
+          </div>
+          <div class="row nav-buttons">
+            <div class="col s12">
+              <a class="waves-effect waves-light btn scholarship-btn" (click)="previousPage()" [ngClass]="{'hidden': pageNo == '1'}"><i class="fa fa-caret-left" aria-hidden="true"></i>  Previous</a>
+              <button md-button (click)="nextPage()" disabled="true">{{pageNo}}</button>
+              <a class="waves-effect waves-light btn scholarship-btn" (click)="nextPage()" [ngClass]="{'hidden': pageNo == pageLen}">Next  <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+</div>
+
+<ng-template #noData>
+  <div class="container">
+    <h2 class="scholarship-preview-count my-dark-blue-text">No available scholarships for the specified profile.</h2>
+    <!--TODO: Add page for scholarship advice-->
+    <h4 class="scholarship-preview-count my-dark-blue-text"><a href="/">Learn how to qualify for more scholarships.</a></h4>
+  </div>
+  </ng-template>

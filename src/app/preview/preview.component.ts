@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
 
+import { ScholarshipService } from "../_services/scholarship.service";
+
+import { Router, ActivatedRoute } from '@angular/router'
 export class PreviewResponse {
   
   constructor(
@@ -50,7 +53,8 @@ export class PreviewComponent implements OnInit {
    model = new PreviewResponse([this.CITY_CHOICES[0]],[this.EDUCATION_LEVEL[0]],[this.EDUCATION_FIELD[0]]);
    diagnostic: any;
    constructor(
-    
+    public scholarshipService: ScholarshipService,
+    private router: Router,
     ) { }
 
   ngOnInit() {
@@ -64,6 +68,10 @@ export class PreviewComponent implements OnInit {
   //console.log('JSON.stringify(previewForm): ', JSON.stringify(previewForm))
   console.log('previewForm: ', form.value);
   this.diagnostic = JSON.stringify(this.model);
+
+  this.scholarshipService.setScholarshipPreviewForm(form.value).then(
+    res => this.router.navigate(['scholarships-list']))  //use promise to ensure that form is saved to Service before navigating away
+    
 
 }
 

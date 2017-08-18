@@ -1,0 +1,186 @@
+@import '../../styles.scss';
+
+// .parallax-container {
+//     min-height: 380px;
+//     line-height: 0;
+//     height: auto;
+//     color: #003861;
+// }
+
+// .scholarship-card {
+//   /*width: 400px;*/
+//   margin: 5%;
+//   height: 250px;
+//   background-color: rgba(0,0,0,0.5) !important;
+// }
+
+// .my-md-card-image{
+//   display: block;
+//   margin: auto;
+//   width: 100%;
+//   max-height: 45%;
+// }
+
+//   md-card:hover {
+//     background-color: darken($tertiary, 5%);
+//     left: .1em;
+//   }
+
+  .scholarship-preview-count{
+      opacity:0.75;
+      // font-family:FuturaStd-Book;
+      font-size:20px;
+      color:#000000;
+      text-align:center;
+      display: inline-block;
+  }
+
+
+// .mat-card-header{
+//   line-height: 14px;
+// }
+
+// .mat-card-subtitle{
+//   margin-top:1%!important;
+// }
+
+// .row {
+//   margin-bottom: 0;
+// }
+
+// .background {
+//   background: url('../../assets/img/scholarship-default.jpg') center / cover;
+//   min-height: 600px;
+//   height: auto;
+// }
+
+// .loggedInBackground {
+//   min-height: 600px;
+//   height: auto;
+// }
+
+// .card-text {
+//   color: white;
+//   font-size: 14px;
+// }
+
+// .card-title {
+//   color: white;
+//   font-size: 20px;
+//   line-height: 20px;
+// }
+
+// .mat-card > a {
+//     color: white;
+//   }
+
+// .registered-title {
+//   // font-family:FuturaStd-Book;
+//   font-size:20px;
+//   color:#000000;
+//   display: inline-block;
+// }
+
+// .text-align-center{
+//   text-align: center;
+// }
+
+// .scholarship-card-registered {
+//   height: 450px;
+// }
+
+// .registered-card-text {
+//   color: white;
+//   // font-family:FuturaStd-Book;
+//   font-size:14px;
+//   color:#ffffff;
+//   text-align:left;
+// }
+
+// .registered-card-title {
+//   // font-family:Superclarendon-Regular;
+//   font-size:16px;
+//   color:#ffffff;
+//   text-align:left;
+//   display: block;
+//   width: 100%;
+//   padding-top: 10px;
+// }
+
+// .nav-buttons {
+//   padding: 25px;
+//   text-align: center;
+// }
+
+.btn {
+  margin: 15px;
+}
+
+// :host /deep/ .mat-raised-button:focus {
+//   background-color: white !important;
+// }
+
+// .sort-container {
+//   display: inline-block;
+// }
+
+// .sort-container * {
+//   display: inline-block !important;
+//   padding-right: 3px;
+//   vertical-align: middle;
+// }
+
+// .mat-card {
+//   padding: 0;
+//   background-color: $tertiary;
+//   margin: 20px 0 20px 0;
+// }
+
+// .card-sub-heading {
+//   display: block;
+//   color: white;
+// //   font-family:FuturaStd-Book;
+//   font-size:16px;
+// }
+
+// .rating {
+//   display: inline-block;
+// }
+
+// .card-container {
+//   padding: 0 10px 0 10px
+// }
+
+// strong {
+//   font-weight: bold;
+// }
+
+.logo-img {
+  height: 60px;
+}
+
+// .automate-tag {
+//   color: $primary;
+// }
+
+.scholarship-card {
+    /*width: 400px;*/
+    margin: 5%;
+  }
+
+  
+  .my-md-card-image{
+    margin-top: -5px !important;
+  }
+
+  
+    md-card:hover {
+      color: black;
+      background-color: #DDD;
+      left: .1em;
+    }
+
+    .header-image {
+      background-image: url('http://images.gawker.com/kagwpr0gnwckquouutb4/original.jpg');
+      background-size: cover;
+  }

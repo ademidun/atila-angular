@@ -1,6 +1,6 @@
   <nav class="white" role="navigation">
     <div class="nav-wrapper container dante-blue">
-      <a id="logo-container" href="#" class="brand-logo">Dante</a>
+      <a id="logo-container" href="/" class="brand-logo">Dante</a>
 
       <!-- Show on Desktop  -->
       <ul class="right hide-on-med-and-down">
@@ -8,10 +8,11 @@
       </ul>
 
       <!-- Show on Mobile  -->
-      <ul id="nav-mobile" class="side-nav">
-        <li ><a class="dante-blue" href="#">Log In</a></li>
-      </ul>
-      <a href="#" data-activates="nav-mobile" class="button-collapse dante-blue"><i class="material-icons">menu</i></a>
+      <a href="#" [mdMenuTriggerFor]="menu" class="button-collapse dante-blue"><i class="material-icons">menu</i></a>
+      <md-menu #menu="mdMenu" [overlapTrigger]="false">
+        <button md-menu-item>Login</button>
+        <button md-menu-item>Register</button>
+      </md-menu>
 
 
     </div>

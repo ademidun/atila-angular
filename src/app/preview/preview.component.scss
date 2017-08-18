@@ -1,13 +1,8 @@
 @import '../../styles.scss';
 .background-image {
     background: url('../../assets/img/bg-preview-3.jpg') center / cover;
-    background-size: fill;
-    height: 350px;
+    height: 450px;
     width: 100%; 
-  }
-
-  button {
-    margin-left: 40%;
   }
 
   md-select {
@@ -15,19 +10,19 @@
   }
   
   :host /deep/ .mat-select-value-text {
-    color: #54575a ;
+    color: $tertiary ;
   }
   
   :host /deep/ .mat-select-underline {
-    background-color: #54575a !important;
+    background-color: $tertiary !important;
   }
   
   :host /deep/ .mat-select-arrow {
-    color: #54575a !important;
+    color: $tertiary !important;
   }
   
   :host /deep/ .mat-select-placeholder {
-      color: #54575a;
+      color: $tertiary;
       font-size: 1.3em;
   }
 
@@ -47,5 +42,5 @@
   .form-header {
     text-align: center;
     font-size:28px;
-    color:#54575a;
+    color:$tertiary;
   }
