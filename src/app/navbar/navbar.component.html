@@ -8,8 +8,10 @@
       </ul>
 
       <!-- Show on Mobile  -->
-      <a href="#" [mdMenuTriggerFor]="menu" class="button-collapse dante-blue"><i class="material-icons">menu</i></a>
-      <md-menu #menu="mdMenu" [overlapTrigger]="false">
+      <button md-icon-button [mdMenuTriggerFor]="mobileMenu" class= "hide-on-large-only">
+          <md-icon>menu</md-icon>
+       </button>
+      <md-menu #mobileMenu="mdMenu" [overlapTrigger]="false">
         <button md-menu-item>Login</button>
         <button md-menu-item>Register</button>
       </md-menu>
