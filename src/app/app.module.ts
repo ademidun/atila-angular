@@ -17,6 +17,10 @@ import { ScholarshipService } from './_services/scholarship.service';
 import { UserProfileService } from './_services/user-profile.service';
 
 import { TruncatePipe } from './_pipes/truncate.pipe';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { CreateProfileComponent } from './create-profile/create-profile.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 
 @NgModule({
@@ -27,7 +31,11 @@ import { TruncatePipe } from './_pipes/truncate.pipe';
     FooterComponent,
     ScholarshipsListComponent,
     ScholarshipCardComponent,
-    TruncatePipe
+    TruncatePipe,
+    LoginComponent,
+    RegisterComponent,
+    CreateProfileComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,

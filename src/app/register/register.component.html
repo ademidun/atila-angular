@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="card">
+      <div class="row">
+        <div class="card-content">
+          <form #registerForm="ngForm" class="col s12">
+            <h4>Register</h4>
+            <div class="row">
+              <md-input-container class="col s12">
+                <input mdInput class="browser-default" id="username" type="text" 
+                  required [(ngModel)]="model.username" name="username" placeholder="Username">
+              </md-input-container>
+            </div>
+            <div class="row">
+              <md-input-container class="col s12">
+                <input mdInput class="browser-default" id="email" type="email" required
+                  [(ngModel)]="model.email" name="email" placeholder="Email">
+              </md-input-container>
+            </div>
+            <div class="row">
+              <md-input-container class="col s12">
+                <input mdInput class="browser-default" id="password" type="password" required
+                  [(ngModel)]="model.password" name="password" placeholder="Password">
+              </md-input-container>
+              <div class="col s12 button-container">
+                <a class="waves-effect waves-light btn right" (click)="registerUser(registerForm)">Register</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

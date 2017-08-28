@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="card">
+      <div class="row">
+        <div class="card-content">
+          <form #form="ngForm" (ngSubmit)="onLogin(form.value)"  class="col s12">
+            <h4>Login</h4>
+            <div class="row">
+              <md-input-container class="col s12">
+                <input mdInput class="browser-default" id="username" type="text" ngControl="username"
+                  required [(ngModel)]="credentials.username" name="username" placeholder="Username">
+              </md-input-container>
+            </div>
+            <div class="row">
+              <md-input-container class="col s12">
+                <input mdInput class="browser-default" id="password" type="password" required ngControl="password"
+                  [(ngModel)]="credentials.password" name="password" placeholder="Password">
+              </md-input-container>
+              <div class="col s12 button-container">
+                  <button type="submit" class="waves-effect waves-light btn left" (click)="onLogin()">Login</button>
+                  <a class="waves-effect waves-light right" routerLink="/register">Register</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,97 @@
+<div class="container">
+    <div class="card">
+      <div class="row">
+        <div class="card-content">
+          <form #profileForm="ngForm" class="col s12">
+            <h4>Create <span *ngIf="model.first_name">{{model.first_name}}'s</span> Profile</h4>
+            <div class="row">
+              <md-input-container class="col s6">
+                <input class="browser-default" mdInput id="first_name" type="text" required minlength="2" placeholder="First name"
+                  [(ngModel)]="model.first_name" name="first_name">
+              </md-input-container>
+              <md-input-container class="col s6">
+                <input class="browser-default" mdInput id="last_name" type="text" required minlength="2" placeholder="Last Name"
+                  [(ngModel)]="model.last_name" name="last_name">
+              </md-input-container>
+            </div>
+            <div class="row">
+              <md-input-container class="col s12">
+                <input class="browser-default" mdInput id="title" type="text" required placeholder="Title"
+                  [(ngModel)]="model.title" name="title">
+              </md-input-container>
+            </div>
+            <div class="row">
+              <md-input-container class="col s12">
+                <input class="browser-default" mdInput id="street_address" type="text" required placeholder="Street Address"
+                  [(ngModel)]="model.street_address" name="street_address">
+              </md-input-container>
+            </div>
+            <div class="row">
+              <md-input-container class="col s12">
+                <input class="browser-default" mdInput id="postal_code" type="text" required placeholder="Postal Code"
+                  [(ngModel)]="model.postal_code" name="postal_code">
+              </md-input-container>
+            </div>
+            <div class="row">
+              <md-input-container class="col s12">
+                <input class="browser-default" mdInput id="city" type="text" required placeholder="City"
+                  [(ngModel)]="model.city" name="city">
+              </md-input-container>
+            </div>
+            <div class="row">
+              <div class="input-field">
+                <md-select class="col s12" [(ngModel)]="model.province" name="province" id="province" placeholder="Province or Territory" required>
+                  <md-option *ngFor="let province of PROVINCE_CHOICES" [value]="province.value">{{province.name}} </md-option>
+                </md-select>
+              </div>
+            </div>
+            <div class="row">
+              <md-input-container class="col s12">
+                <input class="browser-default" mdInput id="bus_name" type="text" required placeholder="Business Name"
+                  [(ngModel)]="model.bus_name" name="bus_name">
+              </md-input-container>
+            </div>
+            <div class="row">
+              <md-input-container class="col s12">
+                <label>Date Founded</label>
+                <br/>
+                <input class="browser-default" mdInput id="date_bus_found" type="date" required
+                  [(ngModel)]="model.date_bus_found" name="date_bus_found">
+              </md-input-container>
+            </div>
+            <div class="row">
+              <div class="input-field">
+                <md-select class="col s12" [(ngModel)]="model.audience"  name="audience"  id="audience" multiple=true placeholder="Personal Information" required >                
+                  <md-option *ngFor="let audience of AUDIENCE_CHOICES" [value]="audience.value">{{audience.name}} </md-option>
+                </md-select>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="input-field">
+                <md-select class="col s12" [(ngModel)]="model.industry"  name="industry"  id="industry" multiple=true required placeholder="Industry">
+                  <md-option *ngFor="let industry of INDUSTRY_CHOICES" [value]="industry.value">{{industry.name}} </md-option>
+                </md-select>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="input-field">
+                <md-select class="col s12" [(ngModel)]="model.purpose" name="purpose" id="purpose" multiple=true required placeholder="Purpose">
+                  <md-option *ngFor="let purpose of PURPOSE_CHOICES" [value]="purpose.value">{{purpose.name}} </md-option>
+                </md-select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input class="browser-default" id="is_sponsor" type="checkbox"
+                  [(ngModel)]="model.is_sponsor" name="is_sponsor">
+                <label for="is_sponsor" data-error="Invalid input">Sponsor</label>
+              </div>
+              <a class="waves-effect waves-light btn right" (click)="createProfile(profileForm)">Create</a>
+            </div> 
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

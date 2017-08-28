@@ -4,7 +4,7 @@
 
       <!-- Show on Desktop  -->
       <ul class="right hide-on-med-and-down">
-        <li><a class="dante-blue" href="#">Log In</a></li>
+        <li><a class="dante-blue" routerLink="/login">Log In</a></li>
       </ul>
 
       <!-- Show on Mobile  -->
@@ -12,7 +12,7 @@
           <md-icon>menu</md-icon>
        </button>
       <md-menu #mobileMenu="mdMenu" [overlapTrigger]="false">
-        <button md-menu-item>Login</button>
+        <a routerLink="/login"><button md-menu-item>Login</button></a>
         <button md-menu-item>Register</button>
       </md-menu>
 
