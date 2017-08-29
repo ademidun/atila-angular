@@ -2,7 +2,6 @@
     <!--TODO: Why is this line giving me an error. <h5 > You qualify for <strong>{{ scholarships.length}}</strong> Scholarships</h5>-->
     <br/>
     <div *ngIf="form_data">
-      <!--TODO: Create gs-insights page, also a 404 page.-->
       <div class="container" *ngIf="!isLoggedIn; else registeredContent">
         <!--Unregistered user content -->
         <div class="row center">
@@ -28,20 +27,19 @@
                         </p> 
                     </md-card-content>
                     <md-card-actions>
-                      <a href="{{scholarship._url}}"><button md-button><i class="material-icons">help_outline</i></button></a>
+                      <a href="{{scholarship.scholarship_url}}"><button md-button><i class="material-icons">help_outline</i></button></a>
                       <a href="{{scholarship.form_url}}"><button md-button><i class="material-icons">create</i></button></a>
                       </md-card-actions>
                   </md-card>
                 </ng-template>
             </div>
+        </div>
 
-          <div class="row center">
-              <a class="waves-effect waves-light btn scholarship-btn" routerLink="/register">Register here to view the rest of the scholarships</a>
-          </div>
-
+        <div class="row center">
+          <a class="waves-effect waves-light btn scholarship-btn" routerLink="/register">Register here to view the rest of the scholarships</a>
         </div>
       
-        <div class="row">
+        <!-- <div class="row">
             <div *ngFor="let scholarship of scholarships;  let i=index" class="col s12 m6 l4">
               <ng-template [ngIf]="i<3">
                 <md-card class="scholarship-card-registered">
@@ -73,7 +71,7 @@
             </div>
           </div>
       
-        </div>
+        </div> -->
 
       <!--Registered user content -->
       <ng-template #registeredContent>
@@ -136,4 +134,4 @@
     <!--TODO: Add page for scholarship advice-->
     <h4 class="scholarship-preview-count my-dark-blue-text"><a href="/">Learn how to qualify for more scholarships.</a></h4>
   </div>
-  </ng-template>
+</ng-template>

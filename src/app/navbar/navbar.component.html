@@ -4,7 +4,16 @@
 
       <!-- Show on Desktop  -->
       <ul class="right hide-on-med-and-down">
-        <li><a class="dante-blue" routerLink="/login">Log In</a></li>
+        <li *ngIf="!isLoggedIn;else loggedIn"><a class="dante-blue" routerLink="/login">Log In</a></li>
+
+        <ng-template #loggedIn>
+            <button md-menu-item routerLink="/edit-profile">
+              <span>Edit profile</span>
+            </button>
+            <button md-menu-item (click)="logout()">
+                <span>Logout</span>
+            </button>
+        </ng-template>
       </ul>
 
       <!-- Show on Mobile  -->
@@ -12,8 +21,14 @@
           <md-icon>menu</md-icon>
        </button>
       <md-menu #mobileMenu="mdMenu" [overlapTrigger]="false">
-        <a routerLink="/login"><button md-menu-item>Login</button></a>
-        <button md-menu-item>Register</button>
+        <span *ngIf="!isLoggedIn">
+          <a routerLink="/login"><button md-menu-item>Login</button></a>
+          <button md-menu-item>Register</button>
+        </span>
+        <span *ngIf="isLoggedIn">
+            <a (click)="logout()"><button md-menu-item>Logout</button></a>
+            <a routerLink="/edit-profile"><button md-menu-item>Edit Profile</button></a>
+        </span>
       </md-menu>
 
 

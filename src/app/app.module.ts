@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -21,6 +22,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { CreateProfileComponent } from './create-profile/create-profile.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { AuthService } from './_services/auth.service';
 
 
 @NgModule({
@@ -38,6 +40,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
     EditProfileComponent
   ],
   imports: [
+    NgbModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -45,7 +48,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
     BrowserAnimationsModule,
     HttpModule,
   ],
-  providers: [ScholarshipService, UserProfileService],
+  providers: [ScholarshipService, UserProfileService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
