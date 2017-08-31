@@ -28,6 +28,10 @@ export class NavbarComponent implements OnInit {
     if (this.userProfileService.isLoggedIn()) {
       this.isLoggedIn = true;
     }
+
+    if (localStorage.getItem('userId')) {
+      this.isLoggedIn = true;
+    }
     
   }
 

@@ -6,14 +6,10 @@
       <ul class="right hide-on-med-and-down">
         <li *ngIf="!isLoggedIn;else loggedIn"><a class="dante-blue" routerLink="/login">Log In</a></li>
 
-        <ng-template #loggedIn>
-            <button md-menu-item routerLink="/edit-profile">
-              <span>Edit profile</span>
-            </button>
-            <button md-menu-item (click)="logout()">
-                <span>Logout</span>
-            </button>
-        </ng-template>
+        <span *ngIf="isLoggedIn">
+            <li ><a class="dante-blue" routerLink="/edit-profile">Edit profile</a></li>
+            <li><a class="dante-blue" (click)="logout()">Logout</a></li>
+        </span>
       </ul>
 
       <!-- Show on Mobile  -->
