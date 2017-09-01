@@ -1,1 +1,9 @@
-@import '../../styles.scss'
+@import '../../styles.scss';
+
+textarea {
+    border: 1px solid $primary;
+}
+
+.hidden{
+    display: none;
+}

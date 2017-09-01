@@ -4,7 +4,7 @@
         <div class="card-content">
         
         <form #profileForm="ngForm" (ngSubmit)="onSubmit(profileForm)" class="col s12">
-          <div *ngIf="profileInfo;else longAnswerQuestions">
+          <div [ngClass]='{hidden: !profileInfo}'>
             <h4>Create <span *ngIf="model.first_name">{{model.first_name}}'s</span> Profile</h4>
             <div class="row">
               <md-input-container class="col s6">
@@ -69,7 +69,8 @@
             </div>
             <br> <div class="row">
               <div class="input-field">
-                <md-select class="col s12" [(ngModel)]="model.industry"  name="education_field"  id="education_field" multiple=true required placeholder="Education Field">
+                <!-- TODO: Add a Modal or hover info explaining the diff. between Art and STEM -->
+                <md-select class="col s12" [(ngModel)]="model.education_field"  name="education_field"  id="education_field" multiple=true required placeholder="Education Field">
                   <md-option *ngFor="let field of EDUCATION_FIELD" [value]="field">{{field}} </md-option>
                 </md-select>
               </div>
@@ -112,12 +113,32 @@
               </div>
               <a class="waves-effect waves-light btn right" (click)="switchPage()">Next</a>
           </div>
-          <ng-template #longAnswerQuestions>  
+          <div [ngClass]='{hidden: profileInfo}'>
+              <div class="row">
+                    <!-- TODO: Get real % of scholarships asking for alternate rerefence letters. -->
+                    <h5> Long Answer Questions </h5>
+                    <p>You can answer these questions later. But remember, <b>{{documentScholarshipsPercent}}%</b> of scholarships ask at least one of these questions.
+                      <br>So the more questions you answer, the more scholarships we can automate for you.</p>
+                      <br><a >Need Help Answering these Questions?</a>
+                </div>  
+            <div class="row">
+              <label> Describe your school related activities and identify your significant contributions both to school and
+                  community.(500 Words or less) </label><br>
+                <textarea class="browser-default" mdInput id="extracurricular_description" type="text"
+                required placeholder="Type here..."[(ngModel)]="model.extracurricular_description" name="extracurricular_description"></textarea>
+            </div>
+
+            <div class="row">
+                <label> Describe your academic and career goals. (500 Words or less)</label><br>
+                  <textarea class="browser-default" mdInput id="academic_career_goals" type="text"
+                  required placeholder="Type here..."[(ngModel)]="model.academic_career_goals" name="academic_career_goals"></textarea>
+              </div>
+
             <div class="row">
               <a class="waves-effect waves-light btn left" (click)="switchPage()">Back</a>
               <button type="submit" class="btn btn-success right">Create Profile</button>
             </div> 
-          </ng-template>
+          </div>
           
           </form>
         </div>

@@ -8,9 +8,10 @@ export class AuthService {
   private loginUrl = 'http://127.0.0.1:8000/login/';
   constructor(private http: Http) { }
 
+  
   logout() {
     // remove user from local storage to log user out
-    localStorage.removeItem('token');
+    localStorage.clear();
   }
 
   login(credentials: any) {

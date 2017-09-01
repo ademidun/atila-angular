@@ -5,11 +5,14 @@ import { User } from '../_models/user';
 
 import { Observable } from 'rxjs/Rx';
 
+import { UserProfile } from '../_models/user-profile';
 @Injectable()
 export class UserProfileService {
 
   constructor(private http: Http) { }
   private userEndpoint = 'http://127.0.0.1:8000/users/';
+  
+  private userProfileEndpoint = 'http://127.0.0.1:8000/user-profiles/';
 
 
   createUser(user: User) {
@@ -23,11 +26,30 @@ export class UserProfileService {
   }
 
    isLoggedIn(): boolean {
-    // Determines if user is logged in from the token
-    var token = localStorage.getItem('token');
-    if (token) {
-        return true;
-    } 
-    return false;
-}
+        // Determines if user is logged in from the token
+        var token = localStorage.getItem('token');
+        if (token) {
+            return true;
+        } 
+        return false;
+    }
+
+    update(profile: UserProfile) {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers});
+  
+        return this.http.put(`${this.userProfileEndpoint}${profile['user']}/`, profile, this.jwt())
+          .map((response: Response) => response.json())
+          .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
+    private jwt() {
+        // create authorization header with jwt token
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (currentUser && currentUser.token) {
+            let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
+            return new RequestOptions({ headers: headers });
+        }
+    }
+
 }
