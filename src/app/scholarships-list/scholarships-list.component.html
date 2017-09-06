@@ -73,12 +73,16 @@
       
         </div> -->
 
-      <!--Registered user content -->
-      <ng-template #registeredContent>
-        <div class="container">
-          <h4 class="registered-title">
-            Explore <strong>{{ scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and up to {{total_funding}} in funding</span>.
-          </h4>
+      
+    </div>
+
+    <!--Registered user content -->
+    <ng-template #registeredContent>
+      <div class="container">
+        <h4 class="registered-title">
+          Explore <strong>{{ scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and up to {{total_funding}} in funding</span>.
+        </h4>
+        <div class="row">
           <div class="sort-container pull-right">
             <p>Sort by </p>
             <md-select [(ngModel)]="sortVal" name="sort" id="sort">
@@ -88,44 +92,45 @@
             </md-select>
           </div>
           <p class="text-align-center"><i class="material-icons automate-tag">tag_faces</i> = Automated scholarships.</p>
-          <div class="row">
-            <div *ngFor="let scholarship of scholarships;  let i=index" class="col s12 m6 l4">
-              <md-card class="scholarship-card-registered">
-                <a [routerLink]="['../scholarship-detail', scholarship.id]">
-                  <img md-card-image class="my-md-card-image" src="{{scholarship.img_url}}">
-                </a>
-                <div class="card-container">
-                  <md-card-header>
-                    <md-card-title>
-                      <a [routerLink]="['../scholarship-detail', scholarship.id]" class="registered-card-title">{{scholarship.name | truncate:45}}</a>
-                    </md-card-title>
-                  </md-card-header>
-                  <br>
+        </div>
+        <div class="row">
+          <div *ngFor="let scholarship of scholarships;  let i=index" class="col s12 m6 l4">
+            <md-card class="scholarship-card-registered">
+              <a [routerLink]="['../scholarship-detail', scholarship.id]">
+                <img md-card-image class="my-md-card-image" src="{{scholarship.img_url}}">
+              </a>
+              <div class="card-container">
+                <md-card-header>
+                  <md-card-title>
+                    <a [routerLink]="['../scholarship-detail', scholarship.id]" class="registered-card-title">{{scholarship.name | truncate:45}}</a>
+                  </md-card-title>
+                </md-card-header>
+                <br>
 
-                  <md-card-content>
-                    <p class="registered-card-text">
-                      {{scholarship.description | truncate:160}}
-                    </p>
-                  </md-card-content>
-                  <md-card-actions>
-                    <div class="row center">
-                      <a *ngIf=scholarship.is_automated [routerLink]="['../scholarship-detail', scholarship.id]"><button md-button><i class="material-icons automate-tag">tag_faces</i></button></a>
-                    </div>
-                  </md-card-actions>
-                </div>
-              </md-card>
-            </div>
-          </div>
-          <div class="row nav-buttons">
-            <div class="col s12">
-              <a class="waves-effect waves-light btn scholarship-btn" (click)="previousPage()" [ngClass]="{'hidden': pageNo == '1'}"><i class="fa fa-caret-left" aria-hidden="true"></i>  Previous</a>
-              <button md-button (click)="nextPage()" disabled="true">{{pageNo}}</button>
-              <a class="waves-effect waves-light btn scholarship-btn" (click)="nextPage()" [ngClass]="{'hidden': pageNo == pageLen}">Next  <i class="fa fa-caret-right" aria-hidden="true"></i></a>
-            </div>
+                <md-card-content>
+                  <p class="registered-card-text">
+                    {{scholarship.description | truncate:160}}
+                  </p>
+                </md-card-content>
+                <md-card-actions>
+                  <div class="row center">
+                    <a *ngIf=scholarship.is_automated [routerLink]="['../scholarship-detail', scholarship.id]"><button md-button><i class="material-icons automate-tag">tag_faces</i></button></a>
+                  </div>
+                </md-card-actions>
+              </div>
+            </md-card>
           </div>
         </div>
-      </ng-template>
-    </div>
+        <div class="row nav-buttons">
+          <div class="col s12 center">
+            <a class="waves-effect waves-light btn scholarship-btn" (click)="previousPage()" [ngClass]="{'hidden': pageNo == '1'}"><i class="fa fa-caret-left" aria-hidden="true"></i>  Previous</a>
+            <button md-button (click)="nextPage()" disabled="true">{{pageNo}}</button>
+            <a class="waves-effect waves-light btn scholarship-btn" (click)="nextPage()" [ngClass]="{'hidden': pageNo == pageLen}">Next  <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
 </div>
 
 <ng-template #noData>

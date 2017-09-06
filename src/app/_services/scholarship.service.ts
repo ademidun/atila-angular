@@ -27,6 +27,13 @@ export class ScholarshipService {
     return Promise.resolve(this.form_data);
   }
 
+  getScholarshipPreviewList(form_data): Observable<Scholarship[]> {
+    console.log('inside ScholarshipService getScholarshipPreviewList: ', form_data);
+    return this.http.post(this.scholarshipsPreviewUrl, form_data)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+  
   getPaginatedscholarships(form_data, page): Observable<Scholarship[]> {
     return this.http.post(`${this.scholarshipsPreviewUrl}?page=${page}/`, form_data)
                     .map(this.extractData)

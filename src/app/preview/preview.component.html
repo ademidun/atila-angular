@@ -16,13 +16,13 @@
                 </div>
         
                 <div class="form-group input-field col s12 m4">
-                  <md-select [(ngModel)]="model.level" name="level" id="level" multiple=true required placeholder="Type">
+                  <md-select [(ngModel)]="model.education_level" name="education_level" id="education_level" multiple=true required placeholder="Type">
                     <md-option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </md-option>
                   </md-select>
                 </div>
         
                 <div class="form-group input-field col s12 m4">
-                  <md-select [(ngModel)]="model.field" name="field" id="field" multiple=true required placeholder="Field">
+                  <md-select [(ngModel)]="model.education_field" name="education_field" id="education_field" multiple=true required placeholder="Field">
                     <md-option *ngFor="let field of EDUCATION_FIELD" [value]="field">{{field}} </md-option>
                   </md-select>
                 </div>

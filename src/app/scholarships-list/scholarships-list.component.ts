@@ -43,18 +43,18 @@ export class ScholarshipsListComponent implements OnInit {
     console.log('this.userId', this.userId);
     if (this.userId) {
       this.isLoggedIn = true;
-      // this.userProfileService.getById(parseInt(this.userId))
-      //   .subscribe(
-      //     data => {
-      //       this.form_data = {
-      //         'province': data.province[0],
-      //         'purpose': data.purpose[0],
-      //         'industry': data.industry[0]
-      //       }
-      //       this.getscholarshipPreview(this.pageNo);
-      //     }
-      //   )
-    } else {
+      this.userProfileService.getById(parseInt(this.userId))
+      .subscribe(
+        data => {
+          this.form_data = {
+            'city': data.city,
+            'education_level': data.education_level,
+            'education_field': data.education_field
+          }
+
+          this.getScholarshipPreview(this.pageNo);
+        }
+      )} else {
       this.isLoggedIn = false;
       this.scholarshipService.getScholarshipPreviewForm()
       .then(
@@ -97,5 +97,17 @@ export class ScholarshipsListComponent implements OnInit {
     }
 
     this.pageLen = Math.ceil(this.scholarship_count / this.paginationLen);
+  }
+
+  nextPage() {
+    this.pageNo++;
+    this.getScholarshipPreview(this.pageNo);
+    window.scrollTo(0, 0);
+  }
+
+  previousPage() {
+    this.pageNo--;
+    this.getScholarshipPreview(this.pageNo);
+    window.scrollTo(0, 0);
   }
 }

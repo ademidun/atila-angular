@@ -71,7 +71,10 @@ export class CreateProfileComponent implements OnInit {
     this.userDocuments[fileInput.target.files[0].name] = fileInput.target.files[0];
   }
 
+  // TODO: Remove this method? It doesn't actually get called.
   createProfile(profileForm: NgForm) {
+
+    console.log('just entered createProfile:', profileForm);
     if (profileForm.valid) {
       let postOperation: Observable<UserProfile>;
       postOperation = this.userProfileService.update(this.model);
@@ -103,7 +106,7 @@ export class CreateProfileComponent implements OnInit {
 
     if (profileForm.valid) {
       let postOperation: Observable<UserProfile>;
-      //postOperation = this.userProfileService.update(this.model);
+      postOperation = this.userProfileService.update(this.model);
 
       postOperation.subscribe(
         data => {

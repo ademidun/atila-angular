@@ -1,1 +1,11 @@
-@import '../../styles.scss'
+@import '../../styles.scss';
+// TODO: Import styles fromc reate profile
+textarea {
+    border: 1px solid $primary;
+    height: 15rem;
+    line-height: 30px;
+}
+
+.hidden{
+    display: none;
+}

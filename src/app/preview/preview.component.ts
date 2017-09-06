@@ -8,8 +8,8 @@ export class PreviewResponse {
   
   constructor(
   public city :string[],
-  public level :string[],
-  public field :string[],
+  public education_level :string[],
+  public education_field :string[],
     ) { }
 }
 

@@ -25,6 +25,12 @@ export class UserProfileService {
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+  getById(id: number): Observable<UserProfile> {
+    return this.http.get(`${this.userProfileEndpoint}${id}/`)
+      .map((response: Response) => response.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
    isLoggedIn(): boolean {
         // Determines if user is logged in from the token
         var token = localStorage.getItem('token');
