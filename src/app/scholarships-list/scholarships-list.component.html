@@ -80,7 +80,7 @@
     <ng-template #registeredContent>
       <div class="container">
         <h4 class="registered-title">
-          Explore <strong>{{ scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and up to {{total_funding}} in funding</span>.
+          Explore <strong>{{ scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and up to <strong>{{total_funding}}</strong> in funding</span>.
         </h4>
         <div class="row">
           <div class="sort-container pull-right">
@@ -104,6 +104,7 @@
                   <md-card-title>
                     <a [routerLink]="['../scholarship-detail', scholarship.id]" class="registered-card-title">{{scholarship.name | truncate:45}}</a>
                   </md-card-title>
+                  <md-card-subtitle class="card-text">{{scholarship.funding_amount | currency:'USD':true:'1.0-0'}}</md-card-subtitle>
                 </md-card-header>
                 <br>
 

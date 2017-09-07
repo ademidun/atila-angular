@@ -1,14 +1,14 @@
   <nav class="white" role="navigation">
-    <div class="nav-wrapper container dante-blue">
-      <a id="logo-container" href="/" class="brand-logo">Dante</a>
+    <div class="nav-wrapper container atila-blue">
+      <a id="logo-container" href="/" class="brand-logo">Atila</a>
 
       <!-- Show on Desktop  -->
       <ul class="right hide-on-med-and-down">
-        <li *ngIf="!isLoggedIn;else loggedIn"><a class="dante-blue" routerLink="/login">Log In</a></li>
+        <li *ngIf="!isLoggedIn;else loggedIn"><a class="atila-blue" routerLink="/login">Log In</a></li>
 
         <span *ngIf="isLoggedIn">
-            <li ><a class="dante-blue" routerLink="/edit-profile">Edit profile</a></li>
-            <li><a class="dante-blue" (click)="logout()">Logout</a></li>
+            <li ><a class="atila-blue" routerLink="/edit-profile">Edit profile</a></li>
+            <li><a class="atila-blue" (click)="logout()">Logout</a></li>
         </span>
       </ul>
 

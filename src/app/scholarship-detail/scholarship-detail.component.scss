@@ -1,0 +1,79 @@
+.scholarship-image {
+    height: 325px;
+    width: 90%;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+.rating {
+    display: inline-block;
+}
+
+.date-created {
+    display: inline-block;
+}
+
+.sub-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.review-card {
+    margin: 10px 0px;
+}
+
+.review-title {
+    font-size: 1.5em;
+    margin: 0px 15px;
+    display: inline-block;
+}
+
+.review-user {
+    font-size: 0.9em;
+    
+}
+
+.review-rating {
+    display: inline-block;
+}
+
+.review-user-section {
+    display: block;
+    width: 100%;
+    float: left;
+}
+
+.review-header-section {
+    display: block;
+    width: 100%;
+    text-align: left;
+}
+
+.mat-card-header {
+    display: inline-block;
+}
+
+.review-card-content {
+    display: inline-block;
+    width: 90%;
+}
+
+.review-card-vote {
+    display: inline-block;
+}
+
+.vote-arrow {
+    display: block;    
+    text-align: center
+}
+
+.vote-button {
+    display: inline-block;
+    min-width: 25px;
+}
+
+.vote-button:focus {
+    background-color: grey;
+}

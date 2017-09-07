@@ -110,7 +110,7 @@ export class CreateProfileComponent implements OnInit {
 
       postOperation.subscribe(
         data => {
-          this.snackBar.open("Succesfully Made Your Profile, Welcome to Dante",'What Next?',{
+          this.snackBar.open("Succesfully Made Your Profile, Welcome to Atila",'What Next?',{
             duration: 1000
           })
           .afterDismissed().subscribe( //navigate URLS after telling User that account creation is succesfule

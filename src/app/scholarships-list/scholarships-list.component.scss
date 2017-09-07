@@ -28,11 +28,15 @@
 
   .scholarship-preview-count{
       opacity:0.75;
-      // font-family:FuturaStd-Book;
+      //font-family:FuturaStd-Book;
       font-size:20px;
       color:#000000;
       text-align:center;
       display: inline-block;
+  }
+
+  .registered-title{
+    text-align: center;
   }
 
 
@@ -170,7 +174,10 @@
 
   
   .my-md-card-image{
+    display: block;
+    //margin: auto;
     margin-top: -5px !important;
+    max-height: 200px;
   }
 
   

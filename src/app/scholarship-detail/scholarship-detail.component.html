@@ -1,0 +1,46 @@
+<div class="container" *ngIf="scholarship">
+  <div class="row">
+    <div class="col s6">
+      <img class="scholarship-image" [src]="scholarship.img_url" />
+    </div>
+    <div class="col s6">
+      <h3>{{scholarship.name}}</h3>
+      <div class="sub-header">
+        <!-- TODO Add Scholarship Ratings -->
+        <!-- <div class="rating">
+          <star-rating-comp *ngIf="scholarship.rating;else noRating" [starType]="'icon'" [size]="'medium'" [readOnly]="true" [rating]="scholarship.rating"></star-rating-comp>
+          <ng-template #noRating>
+            <star-rating-comp [starType]="'icon'" [size]="'medium'" [readOnly]="true" [rating]="0"></star-rating-comp>
+          </ng-template>
+        </div> -->
+
+        <div class="date-created">
+          <div *ngIf="scholarshipOwner">
+            Created by: <a routerLink="/profile/{{scholarshipOwner.user}}">{{scholarshipOwner.first_name}} {{scholarshipOwner.last_name}}</a>
+          </div>          
+          Date Added: {{scholarship.date_created | date:'longDate'}}  
+        </div>
+      </div>
+      <br>
+      <div class="divider"></div>
+      <p>{{scholarship.description}}</p>
+      <p *ngIf="scholarship.funding_amount > 0">{{scholarship.funding_amount | currency:'USD':true:'1.0-0'}}</p>
+      <a *ngIf="scholarship.gov_url" href="{{scholarship.gov_url}}">More info</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12">
+      <h4>Criteria</h4>
+      <ul>
+        <li>
+          {{scholarship.criteria_info}}
+        </li>
+      </ul>
+      <ul>
+        <li>Located in: {{scholarship.province}}</li>
+        <li>Field: {{scholarship.education_field}}</li>
+      </ul>
+      <button md-raised-button *ngIf=scholarship.is_automated (click)="getOrCreateApp()">Apply now</button>
+    </div>
+  </div>
+</div>

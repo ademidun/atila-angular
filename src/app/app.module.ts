@@ -23,6 +23,8 @@ import { RegisterComponent } from './register/register.component';
 import { CreateProfileComponent } from './create-profile/create-profile.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { AuthService } from './_services/auth.service';
+import { ScholarshipDetailComponent } from './scholarship-detail/scholarship-detail.component';
+import { ApplicationService } from './_services/application.service';
 
 
 @NgModule({
@@ -37,7 +39,8 @@ import { AuthService } from './_services/auth.service';
     LoginComponent,
     RegisterComponent,
     CreateProfileComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    ScholarshipDetailComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -48,7 +51,7 @@ import { AuthService } from './_services/auth.service';
     BrowserAnimationsModule,
     HttpModule,
   ],
-  providers: [ScholarshipService, UserProfileService, AuthService],
+  providers: [ScholarshipService, UserProfileService, AuthService, ApplicationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

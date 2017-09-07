@@ -79,7 +79,7 @@ EDUCATION_FIELD = [
       .subscribe(
         data => {
           console.log("Updated Data:", JSON.stringify(data));
-          this.showSnackBar("Succesfully Updated Your Profile, Welcome to Dante",'What Next?', 3000);
+          this.showSnackBar("Succesfully Updated Your Profile, Welcome to Atila",'What Next?', 3000);
         },
         err => {
           this.showSnackBar('Profile updated unsuccessfully - ' + err,'', 3000);
@@ -106,7 +106,7 @@ EDUCATION_FIELD = [
     
           postOperation.subscribe(
             data => {
-              this.snackBar.open("Succesfully Made Your Profile, Welcome to Dante",'What Next?',{
+              this.snackBar.open("Succesfully Made Your Profile, Welcome to Atila",'What Next?',{
                 duration: 1000
               })
               .afterDismissed().subscribe( //navigate URLS after telling User that account creation is succesfule

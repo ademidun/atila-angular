@@ -40,6 +40,12 @@ export class ScholarshipService {
                     .catch(this.handleError);
   }
 
+  getById(id: number) {
+    return this.http.get(`${this.scholarshipsUrl}${id}/`)
+      .map(this.extractData)
+      .catch(this.handleError);
+}
+  
   private extractData(res: Response) {
     let body = res.json();
     return body || { };
