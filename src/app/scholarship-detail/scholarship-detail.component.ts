@@ -18,7 +18,7 @@ import { UserProfileService } from '../_services/user-profile.service';
 export class ScholarshipDetailComponent implements OnInit {
 
   scholarship: Scholarship;
-  scholarshipId: number;
+  scholarshipSlug: string;
   userId: number;
   appId: number;
 
@@ -37,13 +37,13 @@ export class ScholarshipDetailComponent implements OnInit {
     private userProfileService: UserProfileService
   ) {
     // Get the id that was passed in the route
-    this.scholarshipId = route.snapshot.params['id'];
+    this.scholarshipSlug = route.snapshot.params['slug'];
     this.userId = parseInt(localStorage.getItem('userId')); // Current user
   }
 
   ngOnInit() {
     // Load scholarship from the id
-    this.scholarshipService.getById(this.scholarshipId)
+    this.scholarshipService.getBySlug(this.scholarshipSlug)
       .subscribe(
         scholarship => {
           this.scholarship = scholarship;

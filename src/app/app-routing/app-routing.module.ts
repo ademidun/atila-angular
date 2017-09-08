@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'preview' , component: PreviewComponent, data: {title: 'Atila - Preview'}},
   { path: 'register' , component: RegisterComponent, data: {title: 'Atila - Register'}},
   { path: 'scholarships-list' , component: ScholarshipsListComponent, data: {title: 'Atila - Scholarships List'}},
-  { path: 'scholarship-detail/:id' , component: ScholarshipDetailComponent, data: {title: 'Atila - Scholarship Detail'}},
+  //{ path: 'scholarship-detail/:id' , component: ScholarshipDetailComponent, data: {title: 'Atila - Scholarship Detail'}},
   { path: 'scholarship-detail/:slug' , component: ScholarshipDetailComponent, data: {title: 'Atila - Scholarship Detail'}}
 ]
 

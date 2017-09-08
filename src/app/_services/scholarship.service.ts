@@ -12,7 +12,7 @@ export class ScholarshipService {
 
   private scholarshipsUrl = 'http://127.0.0.1:8000/scholarships/';
   private scholarshipsPreviewUrl = 'http://127.0.0.1:8000/scholarship-preview/';
-  
+  private scholarshipSlugUrl = 'http://127.0.0.1:8000/scholarship-slug/';
   constructor(private http: Http) { }
   form_data: any;
 
@@ -44,6 +44,12 @@ export class ScholarshipService {
     return this.http.get(`${this.scholarshipsUrl}${id}/`)
       .map(this.extractData)
       .catch(this.handleError);
+}
+
+getBySlug(slug: string) {
+  return this.http.get(`${this.scholarshipSlugUrl}?slug=${slug}/`)
+    .map(this.extractData)
+    .catch(this.handleError);
 }
   
   private extractData(res: Response) {
