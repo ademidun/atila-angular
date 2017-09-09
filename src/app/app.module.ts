@@ -25,6 +25,8 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { AuthService } from './_services/auth.service';
 import { ScholarshipDetailComponent } from './scholarship-detail/scholarship-detail.component';
 import { ApplicationService } from './_services/application.service';
+import { CreateScholarshipComponent } from './create-scholarship/create-scholarship.component';
+import { EditScholarshipComponent } from './edit-scholarship/edit-scholarship.component';
 
 
 @NgModule({
@@ -40,7 +42,9 @@ import { ApplicationService } from './_services/application.service';
     RegisterComponent,
     CreateProfileComponent,
     EditProfileComponent,
-    ScholarshipDetailComponent
+    ScholarshipDetailComponent,
+    CreateScholarshipComponent,
+    EditScholarshipComponent
   ],
   imports: [
     NgbModule.forRoot(),

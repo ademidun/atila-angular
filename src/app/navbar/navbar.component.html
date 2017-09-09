@@ -1,6 +1,7 @@
   <nav class="white" role="navigation">
     <div class="nav-wrapper container atila-blue">
-      <a id="logo-container" href="/" class="brand-logo">Atila</a>
+      <a *ngIf="!isLoggedIn" id="logo-container" routerLink="/" class="brand-logo">Atila</a>
+      <a *ngIf="isLoggedIn" id="logo-container" routerLink="/scholarships-list" class="brand-logo">Atila</a>
 
       <!-- Show on Desktop  -->
       <ul class="right hide-on-med-and-down">
