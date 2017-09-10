@@ -78,4 +78,36 @@ EDUCATION_FIELDS = [
     this.generalInfo = true;
   }
 
+  createScholarship(scholarshipForm) {
+
+    if (scholarshipForm.valid) {
+      console.log(this.scholarship);
+      let postOperation: Observable<Scholarship>;
+      this.scholarship.owner = this.userId;
+      postOperation = this.scholarshipService.create(this.scholarship);
+
+      postOperation.subscribe(
+        data => {
+          console.log('scholarship created:',data)
+          this.snackBar.open("Scholarship succesfully created", '', {
+            duration: 3000
+          });
+          this.showFormUpload = true;
+          this.scholarship=data;
+          // todo change to this.router.navigate(['my-scholarships'])
+          //this.router.navigate(['scholarships-list']);
+        },
+        err => {
+          this.snackBar.open("Error - " + err, '', {
+            duration: 3000
+          });
+        }
+      )
+    } else {
+      this.snackBar.open("Invalid form", '', {
+        duration: 3000
+      });
+    }
+  }
+
 }

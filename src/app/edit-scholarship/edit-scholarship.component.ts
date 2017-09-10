@@ -104,7 +104,12 @@ export class EditScholarshipComponent implements OnInit {
       this.generalInfo = true;
     }
 
-    saveEdits(){
+    saveEditScholarship(scholarshipForm: NgForm) {
+
+      if (scholarshipForm.valid){
+
+        this.scholarshipService.update(this.scholarship);
+      }
       
     }
 

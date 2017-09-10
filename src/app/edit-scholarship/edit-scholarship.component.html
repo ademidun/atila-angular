@@ -8,7 +8,8 @@
               <h5>General Information</h5>
               <div class="row">
                 <md-input-container class="col s12">
-                  <input (change)="disableEditNonUsers($scholarshipForm)" class="browser-default" mdInput id="name" type="text" required placeholder="Scholarship Name" [(ngModel)]="scholarship.name" name="name">
+                  <!-- TODO: Add Server Side Script to Prevent Editing the Scholarship Name -->
+                  <input (change)="disableEditNonUsers($scholarshipForm)" class="browser-default" mdInput id="name" type="text" required placeholder="Scholarship Name" [(ngModel)]="scholarship.name" name="name" disabled>
                 </md-input-container>
               </div>
               <div class="row">
@@ -19,8 +20,8 @@
               </div>
               <div class="row">
                 <md-input-container class="col s12">
-                  <input class="browser-default" mdInput id="gov_url" type=url placeholder="Government URL" [(ngModel)]="scholarship.gov_url"
-                    name="gov_url">
+                  <input class="browser-default" mdInput id="scholarship_url" type=url placeholder="Scholarship URL" [(ngModel)]="scholarship.scholarship_url"
+                    name="scholarship_url">
                 </md-input-container>
               </div>
               <div class="row">
@@ -129,7 +130,7 @@
                       <a routerLink="/scholarships-list">Skip</a>
                     </div>
                   </div>
-                  <a class="waves-effect waves-light btn right" (click)="createScholarship(scholarshipForm)">Create</a>
+                  <a class="waves-effect waves-light btn right" (click)="saveEditScholarship(scholarshipForm)">Save</a>
                 </div>
               </div>
             </ng-template>

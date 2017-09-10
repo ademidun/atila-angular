@@ -16,6 +16,24 @@ export class ScholarshipService {
   constructor(private http: Http) { }
   form_data: any;
 
+  create(scholarship: Scholarship): Observable<Scholarship>{
+    let headers = new Headers({ 'Content-Type': 'application/json', });
+    let options = new RequestOptions({ headers: headers});
+    
+    return this.http.post(this.scholarshipsUrl, scholarship, options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  update(scholarship: Scholarship): Observable<Scholarship>{
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers});
+
+    return this.http.put(`${this.scholarshipsUrl}${scholarship['id']}/`, scholarship, options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+  
   setScholarshipPreviewForm(user_data:any): Promise<any>{ //made a promise so we can wait til function is called before navigating url
     this.form_data = user_data;
     console.log('inside scholarshipService saving previewform', this.form_data);
