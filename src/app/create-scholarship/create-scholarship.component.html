@@ -20,8 +20,8 @@
             </div>
             <div class="row">
               <md-input-container class="col s12">
-                <input class="browser-default" mdInput id="gov_url" type=url placeholder="Government URL" [(ngModel)]="scholarship.gov_url"
-                  name="gov_url">
+                <input class="browser-default" mdInput id="scholarship_url" type=url placeholder="Schlarship URL" [(ngModel)]="scholarship.scholarship_url"
+                  name="scholarship_url">
               </md-input-container>
             </div>
             <div class="row">
@@ -30,11 +30,25 @@
               </md-input-container>
             </div>
             <div class="row">
+                <md-input-container class="col s12">
+                  <input class="browser-default" mdInput id="img_url" type=url placeholder="Scholarship Image URL" [(ngModel)]="scholarship.img_url"
+                    name="img_url">
+                </md-input-container>
+              </div>
+            <div class="row">
               <md-input-container class="col s12">
                 <input class="browser-default" mdInput id="funding_amount" type="number" placeholder="Funding Amount" [(ngModel)]="scholarship.funding_amount"
                   name="funding_amount">
               </md-input-container>
             </div>
+            <div class="row">
+                <md-input-container class="col s12">
+                  <label>Deadline</label>
+                  <br/>
+                  <input class="browser-default" mdInput id="deadline" type="date" required
+                    [(ngModel)]="scholarship.deadline" name="deadline">
+                </md-input-container>
+              </div>
             <label>Leave the city, province/state or country field blank, if there is no restriction for the respective place.
                Seperate multiple cities, provinces/states or countries with a comma.</label>            
             <div class="row">
@@ -67,7 +81,7 @@
             <br>
             <div class="row">
               <div class="input-field">
-                <md-select class="col s12" [(ngModel)]="scholarship.education_level" name="education_level" id="education_level" multiple=true placeholder="Personal Information">
+                <md-select class="col s12" [(ngModel)]="scholarship.education_level" name="education_level" id="education_level" multiple=true placeholder="Education Level">
                   <md-option *ngFor="let education_level of EDUCATION_LEVELS" [value]="education_level.value">{{education_level.name}} </md-option>
                 </md-select>
               </div>
@@ -75,20 +89,15 @@
             <br>
             <div class="row">
               <div class="input-field">
-                <md-select class="col s12" [(ngModel)]="scholarship.education_field" name="education_field" id="education_field" multiple=true required placeholder="Industry">
+                <md-select class="col s12" [(ngModel)]="scholarship.education_field" name="education_field" id="education_field" multiple=true required placeholder="Education Field">
                   <md-option *ngFor="let education_field of EDUCATION_FIELDS" [value]="education_field.value">{{education_field.name}} </md-option>
                 </md-select>
               </div>
-            </div>
-            <br>
-            <div class="row">
-              <md-input-container class="col s12">
-                <input class="browser-default" mdInput id="img_url" type=url placeholder="Scholarship Image URL" [(ngModel)]="scholarship.img_url"
-                  name="img_url">
-              </md-input-container>
+
 
               <a class="waves-effect waves-light btn right" (click)="next()">Next</a>
             </div>
+            <br>
           </div>
           <ng-template #appQuestions>
             <h5>Application Questions</h5>

@@ -7,6 +7,7 @@ export class Scholarship {
     description?: string;
     education_field?: any;
     education_level?: any;
+    extra_questions?: any;
     form_url?: string;
     funding_amount?: number;
     funding_type?: string[];

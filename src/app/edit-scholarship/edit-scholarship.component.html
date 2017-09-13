@@ -31,10 +31,31 @@
               </div>
               <div class="row">
                 <md-input-container class="col s12">
+                    <input class="browser-default" mdInput id="img_url" type=url placeholder="Scholarship Image URL" [(ngModel)]="scholarship.img_url"
+                      name="img_url">
+                  </md-input-container>
+                </div>
+              <div class="row">
+                <md-input-container class="col s12">
                   <input class="browser-default" mdInput id="funding_amount" type="number" placeholder="Funding Amount" [(ngModel)]="scholarship.funding_amount"
                     name="funding_amount">
                 </md-input-container>
               </div>
+              <div class="row">
+                  <md-input-container class="col s6">
+                    <label>Deadline</label>
+                    <br/>
+                    <input class="browser-default" mdInput id="deadline" type="datetime-local" required
+                      [(ngModel)]="scholarship.deadline" name="deadline">
+                  </md-input-container>
+
+
+                <span class="col s6">
+                  <!-- TODO: Wrong time zone offset on deadline -->
+                    Deadline: {{ scholarship.deadline | date:'fullDate' }} {{ scholarship.deadline | date:'shortTime' }}
+                </span>
+
+                </div>
               <label>Leave the city, province/state or country field blank, if there is no restriction for the respective place.
                  Seperate multiple cities, provinces/states or countries with a comma.</label>            
               <div class="row">
@@ -60,33 +81,29 @@
               <div class="row">
                 <div class="input-field">
                   <md-select class="col s12" [(ngModel)]="scholarship.funding_type" name="funding_type" id="funding_type" multiple=true placeholder="Funding Type">
-                    <md-option *ngFor="let type of FUNDING_TYPES" [value]="type.value">{{type.name}} </md-option>
+                    <md-option *ngFor="let type of FUNDING_TYPES" [value]="type">{{type}} </md-option>
                   </md-select>
                 </div>
               </div>
               <br>
               <div class="row">
                 <div class="input-field">
-                  <md-select class="col s12" [(ngModel)]="scholarship.education_level" name="education_level" id="education_level" multiple=true placeholder="Personal Information">
-                    <md-option *ngFor="let education_level of EDUCATION_LEVELS" [value]="education_level.value">{{education_level.name}} </md-option>
+                  <md-select class="col s12" [(ngModel)]="scholarship.education_level" name="education_level" id="education_level" multiple=true placeholder="Education Level">
+                    <md-option *ngFor="let education_level of EDUCATION_LEVELS" [value]="education_level">{{education_level}} </md-option>
                   </md-select>
                 </div>
               </div>
               <br>
               <div class="row">
                 <div class="input-field">
-                  <md-select class="col s12" [(ngModel)]="scholarship.education_field" name="education_field" id="education_field" multiple=true required placeholder="Industry">
-                    <md-option *ngFor="let education_field of EDUCATION_FIELDS" [value]="education_field.value">{{education_field.name}} </md-option>
+                  <md-select class="col s12" [(ngModel)]="scholarship.education_field" name="education_field" id="education_field" multiple=true required placeholder="Education Field">
+                    <md-option *ngFor="let education_field of EDUCATION_FIELDS" [value]="education_field">{{education_field}} </md-option>
                   </md-select>
                 </div>
               </div>
               <br>
               <div class="row">
-                <md-input-container class="col s12">
-                  <input class="browser-default" mdInput id="img_url" type=url placeholder="Scholarship Image URL" [(ngModel)]="scholarship.img_url"
-                    name="img_url">
-                </md-input-container>
-                <a class="waves-effect waves-light btn left" (click)="saveEdits()">Save</a>
+                <a class="waves-effect waves-light btn left" (click)="saveEditScholarship(scholarshipForm)">Save</a>
                 <a class="waves-effect waves-light btn right" (click)="next()">Next</a>
               </div>
             </div>
@@ -139,4 +156,3 @@
       </div>
     </div>
   </div>
-  

@@ -72,6 +72,8 @@ getBySlug(slug: string) {
   
   private extractData(res: Response) {
     let body = res.json();
+    console.log('scholarshipService res: ', res);
+    console.log('scholarshipService body: ', body);
     return body || { };
 
   }

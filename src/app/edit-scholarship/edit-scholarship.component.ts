@@ -10,6 +10,7 @@ import { MdDialog, MdDialogRef } from '@angular/material';
 import { MdSnackBar } from '@angular/material';
 import { UserProfileService } from '../_services/user-profile.service';
 import {NgForm} from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -18,6 +19,31 @@ import {NgForm} from '@angular/forms';
   styleUrls: ['./edit-scholarship.component.scss'],
 })
 export class EditScholarshipComponent implements OnInit {
+
+  EDUCATION_LEVELS = [
+    'University', 
+    'College', 
+    'Workplace or Apprenticeship',
+]
+
+EDUCATION_FIELDS = [
+    'Arts (Undergrad)',
+    'STEM (Undergrad)',
+    'Trade School', 
+    'Visual + Performing Arts', 
+    'Law School', 
+    'Medical School', 
+    'MBA', 
+    'Arts (Grad School)', 
+    'STEM (Grad School)', 
+    'Other' 
+]
+
+  FUNDING_TYPES = [
+    'Scholarship',
+    'Loan',
+    'Other',
+  ];
 
   scholarship: Scholarship;
   scholarshipSlug: string;
@@ -56,6 +82,7 @@ export class EditScholarshipComponent implements OnInit {
             .subscribe(
               user => {
                 this.scholarshipOwner = user;
+                console.log('edit-scholarship, ngOnInit: ', this.scholarship);
               },
               err => {
                 console.log(err);
@@ -106,9 +133,20 @@ export class EditScholarshipComponent implements OnInit {
 
     saveEditScholarship(scholarshipForm: NgForm) {
 
-      if (scholarshipForm.valid){
+      console.log('!!this.scholarship.extra_questions', !!this.scholarship.extra_questions);
 
-        this.scholarshipService.update(this.scholarship);
+      if(!this.scholarship.extra_questions){
+        this.scholarship.extra_questions = { };
+      }
+      if (scholarshipForm.valid){
+        this.scholarshipService.update(this.scholarship)
+        .subscribe(
+          res =>{
+            this.scholarship = res,
+            console.log('scholarshipService.update res', res);
+          },
+          err => console.log('scholarshipService.update err', err),
+        )
       }
       
     }

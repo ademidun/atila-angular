@@ -34,12 +34,11 @@ EDUCATION_FIELDS = [
     'Other' 
 ]
 
-  FUNDING_TYPES = [
-    {'value':'scholarship', 'name':'Scholarship'},
-    {'value':'loan', 'name':'Loans'},
-    {'value':'tax-credit', 'name':'Tax Credits'},
-    {'value':'other', 'name':'Other'},
-  ];
+FUNDING_TYPES = [
+  'Scholarship',
+  'Loan',
+  'Other',
+];;
   
   userId: number;
   scholarship: Scholarship = new Scholarship();

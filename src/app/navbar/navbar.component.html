@@ -8,8 +8,26 @@
         <li *ngIf="!isLoggedIn;else loggedIn"><a class="atila-blue" routerLink="/login">Log In</a></li>
 
         <span *ngIf="isLoggedIn">
-            <li ><a class="atila-blue" routerLink="/edit-profile">Edit profile</a></li>
-            <li><a class="atila-blue" (click)="logout()">Logout</a></li>
+            <button md-icon-button [mdMenuTriggerFor]="menu">
+                <md-icon aria-hidden="true" md-colors="{color:'primary'}">perm_identity</md-icon>
+              </button>
+              <!-- Dropdown Profile Menu -->
+              <md-menu #menu="mdMenu" [overlapTrigger]="false">
+
+                <button md-menu-item routerLink="/profile/{{userId}}">
+                  <span>View profile</span>
+                </button>
+                <!-- <button md-menu-item routerLink="/edit-profile">
+                  <span>Edit profile</span>
+                </button> -->
+                <button md-menu-item *ngIf="isLoggedIn" routerLink="/create-grant">
+                  <span>Create grant</span>
+                </button>
+                <button md-menu-item (click)="logout()">
+                  <span>Logout</span>
+                </button>
+              </md-menu>
+
         </span>
       </ul>
 
@@ -18,14 +36,18 @@
           <md-icon>menu</md-icon>
        </button>
       <md-menu #mobileMenu="mdMenu" [overlapTrigger]="false">
-        <span *ngIf="!isLoggedIn">
-          <a routerLink="/login"><button md-menu-item>Login</button></a>
-          <button md-menu-item>Register</button>
-        </span>
-        <span *ngIf="isLoggedIn">
-            <a (click)="logout()"><button md-menu-item>Logout</button></a>
-            <a routerLink="/edit-profile"><button md-menu-item>Edit Profile</button></a>
-        </span>
+          <button md-menu-item routerLink="/profile/{{userId}}">
+            <span>View profile</span>
+          </button>
+          <!-- <button md-menu-item routerLink="/edit-profile">
+            <span>Edit profile</span>
+          </button> -->
+          <button md-menu-item *ngIf="isLoggedIn" routerLink="/create-grant">
+            <span>Create grant</span>
+          </button>
+          <button md-menu-item (click)="logout()">
+            <span>Logout</span>
+          </button>
       </md-menu>
 
 
