@@ -9,11 +9,10 @@
             <h3 class="form-header">Tell us a bit about Yourself</h3>
             <form #previewForm="ngForm" (ngSubmit)="onSubmit(previewForm)">
               <div class="row preview-questions">
-                <div class="form-group input-field col s12 m4">
-                  <md-select [(ngModel)]="model.city" name="city" id="city" required placeholder="City">
-                    <md-option *ngFor="let city of CITY_CHOICES" [value]="city">{{city}} </md-option>
-                  </md-select>
-                </div>
+
+              <md-input-container class="browser-default col s12 m4">
+                  <input mdInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City">
+                </md-input-container> 
         
                 <div class="form-group input-field col s12 m4">
                   <md-select [(ngModel)]="model.education_level" name="education_level" id="education_level" multiple=true required placeholder="Type">

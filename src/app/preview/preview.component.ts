@@ -64,12 +64,13 @@ export class PreviewComponent implements OnInit {
     console.log('form: NgForm: ', form)
     // console.log('JSON.stringify(form): ',  JSON.stringify(form))
   console.log('model Json Stringify: ', JSON.stringify(this.model))
+  this.model.city[0] = form.value['city'];
   console.log('model data: ', this.model)
   //console.log('JSON.stringify(previewForm): ', JSON.stringify(previewForm))
   console.log('previewForm: ', form.value);
   this.diagnostic = JSON.stringify(this.model);
 
-  this.scholarshipService.setScholarshipPreviewForm(form.value).then(
+  this.scholarshipService.setScholarshipPreviewForm(this.model).then(
     res => this.router.navigate(['scholarships-list']))  //use promise to ensure that form is saved to Service before navigating away
     
 

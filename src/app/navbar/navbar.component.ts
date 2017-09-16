@@ -40,13 +40,14 @@ export class NavbarComponent implements OnInit {
     this.isLoggedIn = false;
     this.user = null;
 
-    let snackBarRef = this.snackBar.open("Successfully logged out", 'Undo', {
+    let snackBarRef = this.snackBar.open("Successfully logged out", 'Log In', {
       duration: 3000
     });
 
     snackBarRef.onAction().subscribe(
       () => {
         console.log('The snack-bar action was triggered!');
+        this.router.navigate(['login']);
       },
       err =>  console.log('The snack-bar action was triggered! error', err),
     )

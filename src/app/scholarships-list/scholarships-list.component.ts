@@ -46,8 +46,10 @@ export class ScholarshipsListComponent implements OnInit {
       this.userProfileService.getById(parseInt(this.userId))
       .subscribe(
         data => {
+          var tempCity = [];
+          tempCity.push(data.city);
           this.form_data = {
-            'city': data.city,
+            'city': tempCity,
             'education_level': data.education_level,
             'education_field': data.education_field
           }

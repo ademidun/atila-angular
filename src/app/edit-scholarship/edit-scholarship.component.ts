@@ -12,6 +12,9 @@ import { UserProfileService } from '../_services/user-profile.service';
 import {NgForm} from '@angular/forms';
 import { DatePipe } from '@angular/common';
 
+import { Title }     from '@angular/platform-browser';
+
+
 
 @Component({
   selector: 'app-edit-scholarship',
@@ -46,7 +49,10 @@ EDUCATION_FIELDS = [
   ];
 
   scholarship: Scholarship;
-  scholarshipSlug: string;
+  cityString: String;
+  provinceString: String = "";
+  countryString: String = "";
+  scholarshipSlug: string = "";
   userId: number;
   appId: number;
 
@@ -64,6 +70,7 @@ EDUCATION_FIELDS = [
     public dialog: MdDialog,
     private snackBar: MdSnackBar,
     private userProfileService: UserProfileService,
+    private titleService: Title,
   ) {
     // Get the id that was passed in the route
     this.scholarshipSlug = route.snapshot.params['slug'];
@@ -77,12 +84,16 @@ EDUCATION_FIELDS = [
         scholarship => {
           this.scholarship = scholarship;
           // Get the user profile of the scholarship owner
+
+          this.titleService.setTitle('Atila - Edit - ' + this.scholarship.name);
+
           if (this.scholarship.owner){
             this.userProfileService.getById(scholarship.owner)
             .subscribe(
               user => {
                 this.scholarshipOwner = user;
                 console.log('edit-scholarship, ngOnInit: ', this.scholarship);
+                this.arrayToString();
               },
               err => {
                 console.log(err);
@@ -99,10 +110,28 @@ EDUCATION_FIELDS = [
 
   }
 
-  toArrayInput(event: any){
+  //Convert the string input to the json object to match the respective scholarship fields.
+
+  stringInputToArray(event: any){
     console.log('toArrayInput, event', event);
-    this.scholarship[event.target.name] = event.target.value.split(",");
     console.log(this.scholarship);
+    this.scholarship[event.target.name] = {};
+    var tempString = event.target.value;
+    tempString = tempString.trim();
+    console.log('tempString', tempString);
+    var stringArray: string[] = tempString.split(",");
+    stringArray.forEach(element => {
+      element = element.trim();
+      this.scholarship[event.target.name][element] = element;
+    });
+    for( var key in stringArray){
+      
+      console.log("this.scholarship[event.target.name][key]", this.scholarship[event.target.name][key]);
+    }
+
+    console.log("this.scholarship[event.target.name]", this.scholarship[event.target.name]);
+    console.log("event.target.value.split(',')", event.target.value.split(","));
+    
 
    /* for (var i = 0; i < event.srcElement.form.length; i++) {
       console.log('form[',i,']: event.srcElement.form[i]', event.srcElement.form[i]);
@@ -110,6 +139,52 @@ EDUCATION_FIELDS = [
       
     }
     */
+
+
+    console.log('after stringInputToArray: this.scholarship:', this.scholarship);
+
+  }
+
+  //city, province, and country are stored as arrays (specifically Json dictionaries,)
+  //We must convert them to comma seperated strings in order to display them as text inputs
+  // TODO: Make this function less repetitive. 
+
+  arrayToString(){
+    var i =0;
+    for(var city in this.scholarship.city){
+      if(i==0){
+        console.log('city',city);
+        console.log('this.scholarship.city[city]',this.scholarship.city[city]);
+        this.cityString = city;
+      }
+      else{
+        this.cityString = this.cityString + ", " + city;
+      }
+      i++;
+    }
+
+    i =0;
+    for(var province in this.scholarship.province){
+      if(i==0){
+        this.provinceString = province;
+      }
+      else{
+        this.provinceString = this.provinceString + ", " + province;
+      }
+      i++;
+    }
+
+
+    i =0;
+    for(var country in this.scholarship.country){
+      if(i==0){
+        this.countryString = country;
+      }
+      else{
+        this.countryString = this.countryString + ", " + country;
+      }
+      i++;
+    }
 
   }
   
@@ -122,7 +197,7 @@ EDUCATION_FIELDS = [
     }
   }
 
-    // Go to next part of grant creation
+    // Go to next part of scholarship creation
     next() {
       this.generalInfo = false;
     }

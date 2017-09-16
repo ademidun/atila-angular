@@ -1,6 +1,7 @@
 export class Scholarship {
     applicants?: any[];
     city?: any;
+    country?: any;
     criteria_info?: string;
     date_created?: string;
     deadline?: string;

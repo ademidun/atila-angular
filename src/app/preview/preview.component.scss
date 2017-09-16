@@ -12,9 +12,19 @@
   :host /deep/ .mat-select-value-text {
     color: $tertiary ;
   }
+
+
   
   :host /deep/ .mat-select-underline {
     background-color: $tertiary !important;
+  }
+
+  md-input-container{
+    color: $tertiary ;
+  }
+  
+  :host /deep/ .mat-input-underline {
+    background-color: transparent !important;
   }
   
   :host /deep/ .mat-select-arrow {

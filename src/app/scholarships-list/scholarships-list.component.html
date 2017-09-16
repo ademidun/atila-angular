@@ -15,7 +15,7 @@
                   <md-card class="scholarship-card">
                     <md-card-header>
                       <div md-card-avatar [ngStyle]="{ 'background-image': 'url( '+ scholarship.img_url +' )' }" class="header-image"></div>
-                      <md-card-title><a href="{{scholarship.scholarship_url}}" class="card-title">{{scholarship.name}}</a></md-card-title>
+                      <md-card-title><a [routerLink]="['../scholarship-detail', scholarship.slug]" class="card-title">{{scholarship.name}}</a></md-card-title>
                       <md-card-subtitle class="card-text">{{scholarship.funding_amount | currency:'USD':true:'1.0-0'}}</md-card-subtitle>
                     </md-card-header>
                     <a [routerLink]="['../scholarship-detail', scholarship.slug]">

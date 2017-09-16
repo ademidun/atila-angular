@@ -60,21 +60,21 @@
                  Seperate multiple cities, provinces/states or countries with a comma.</label>            
               <div class="row">
                   <md-input-container class="col s12">
-                      <input class="browser-default"  type="text" mdInput [(ngModel)]="scholarship.city" name="city" id="city" placeholder="City"
-                      value="Any" (change)="toArrayInput($event)" >
+                      <input class="browser-default"  type="text" mdInput [(ngModel)]="cityString" name="city" id="city" placeholder="City"
+                      value="Any" (change)="stringInputToArray($event)" >
                   </md-input-container>
               </div>
               <div class="row">
                   <md-input-container class="col s12">
-                      <input class="browser-default"  type="text"  mdInput [(ngModel)]="scholarship.province" name="province" id="province" placeholder="Province or State"
-                      (change)="toArrayInput($event)" >
+                      <input class="browser-default"  type="text"  mdInput [(ngModel)]="provinceString" name="province" id="province" placeholder="Province or State"
+                      (change)="stringInputToArray($event)" >
                     </md-input-container>
               </div>
   
               <div class="row">
                   <md-input-container class="col s12">
-                      <input class="browser-default"   type="text" mdInput [(ngModel)]="scholarship.country" name="country" id="country" placeholder="Country"
-                      (change)="toArrayInput($event)" >
+                      <input class="browser-default"   type="text" mdInput [(ngModel)]="countryString" name="country" id="country" placeholder="Country"
+                      (change)="stringInputToArray($event)" >
                     </md-input-container>
               </div>
               <br>

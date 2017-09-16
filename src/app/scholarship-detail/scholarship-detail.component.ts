@@ -10,6 +10,8 @@ import { MdDialog, MdDialogRef } from '@angular/material';
 import { MdSnackBar } from '@angular/material';
 import { UserProfileService } from '../_services/user-profile.service';
 
+import { Title }     from '@angular/platform-browser';
+
 @Component({
   selector: 'app-scholarship-detail',
   templateUrl: './scholarship-detail.component.html',
@@ -34,7 +36,8 @@ export class ScholarshipDetailComponent implements OnInit {
     private _ngZone: NgZone,
     public dialog: MdDialog,
     private snackBar: MdSnackBar,
-    private userProfileService: UserProfileService
+    private userProfileService: UserProfileService,
+    private titleService: Title,
   ) {
     // Get the id that was passed in the route
     this.scholarshipSlug = route.snapshot.params['slug'];
@@ -47,6 +50,7 @@ export class ScholarshipDetailComponent implements OnInit {
       .subscribe(
         scholarship => {
           this.scholarship = scholarship;
+          this.titleService.setTitle('Atila - ' + this.scholarship.name);
           // Get the user profile of the scholarship owner
           if (this.scholarship.owner){
             this.userProfileService.getById(scholarship.owner)
