@@ -16,8 +16,8 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class QuestionService   {
 
-  private grantQuestionsUrl = 'http://127.0.0.1:8000/grant-questions/';
-  private saveGrantResponseUrl = 'http://127.0.0.1:8000/application-save-data/';
+  private scholarshipQuestionsUrl = 'http://127.0.0.1:8000/scholarship-questions/';
+  private saveScholarshipResponseUrl = 'http://127.0.0.1:8000/application-save-data/';
 
   
   constructor(private http: Http) { }
@@ -78,7 +78,7 @@ export class QuestionService   {
 
     console.log('in QuestionService, this.params:', this.params)
 
-    return this.observable = this.http.get(this.grantQuestionsUrl, this.requestOptions)
+    return this.observable = this.http.get(this.scholarshipQuestionsUrl, this.requestOptions)
         .map(this.extractData)
         .catch(this.handleError);
 
@@ -97,7 +97,7 @@ export class QuestionService   {
 
     console.log('data AFTER data["appId"]', data);
 
-    return this.http.post(this.saveGrantResponseUrl,data)
+    return this.http.post(this.saveScholarshipResponseUrl,data)
     .map(this.extractData)
     .catch(this.handleError);
   }

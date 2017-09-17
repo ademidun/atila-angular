@@ -138,11 +138,14 @@
                         </div>
                         <ol *ngIf="scholarship.extra_questions">
                             <li *ngFor="let question of generateArray(scholarship.extra_questions);let i = index" class="questions row">
-                                <div class="col s3">Type: {{question.controlType}}
+                                <div class="col s3">
+                                    Type: {{question.controlType}}
                                 </div>
-                                <div class="col s3">Question: {{question.label}}
+                                <div class="col s3">
+                                    Question: {{question.label}}
                                 </div>
-                                <div class="col s3">Key: {{question.key}}
+                                <div class="col s3">
+                                    Key: {{question.key}}
                                 </div>
                                 <div class="col s3">
                                     <a class="waves-effect waves-light btn left" (click)="edit(question.key)">

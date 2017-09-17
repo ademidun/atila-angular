@@ -28,6 +28,8 @@ export class ScholarshipDetailComponent implements OnInit {
   private reviewsLoaded: boolean = false;
   private scholarshipOwner;
 
+  public keyGetter = Object.keys;
+
   constructor(
     route: ActivatedRoute,
     private router: Router,
@@ -63,6 +65,8 @@ export class ScholarshipDetailComponent implements OnInit {
               }
             )
           }
+
+        console.log('this.keyGetter',this.keyGetter(this.scholarship.city));
         },
         err => {
           console.log(err);
@@ -70,6 +74,34 @@ export class ScholarshipDetailComponent implements OnInit {
       );
 
     // Load reviews
+  }
+
+
+  getOrCreateApp() {
+    var data = {
+      scholarshipId: this.scholarship.id,
+      userId: this.userId
+    }
+    let postOperation: Observable<any>;
+    postOperation = this.applicationService.getOrCreateApp(data);
+
+    postOperation
+      .subscribe(
+      application => {
+        this.appId = application.id;
+        console.log('application', application)
+        console.log('application.id', application.id);
+      },
+      error => {
+        console.log('scholarship-detail component error!:', error)
+      },
+      () => {
+
+        console.log('()', this.appId);
+        this.router.navigate(['applications', this.appId])
+      }
+      )
+
   }
 
 }

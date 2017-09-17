@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Rx';
 import { MdSnackBar } from '@angular/material'
 import { Router } from '@angular/router'
 import {MdDialog, MdDialogRef} from '@angular/material';
-//import {AddQuestionModalComponent} from '../add-question-modal/add-question-modal.component';
+import {AddQuestionModalComponent} from '../add-question-modal/add-question-modal.component';
 
 @Component({
   selector: 'app-create-scholarship',
@@ -116,6 +116,33 @@ FUNDING_TYPES = [
     this.scholarship.number_available_scholarships =1;
     this.stringDict.eligible_schools = 'Bishop Reding, Jean Vanier';
     this.stringDict['city'] = 'Milton';
+  }
+
+  openModal() {
+    let dialogRef = this.dialog.open(AddQuestionModalComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('dialogRef.afterClosed().subscribe(result => ', result);
+        this.scholarship.extra_questions[result.key] = result;
+      }      
+    });
+  }
+
+  // Edit existing question
+  edit(key: string) {
+    let dialogRef = this.dialog.open(AddQuestionModalComponent, {
+      data: this.scholarship.extra_questions[key]
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.scholarship.extra_questions[key] = result;
+      }      
+    });
+  }
+  
+  // Edit existing question from question array
+  delete(key: string) {
+    delete this.scholarship.extra_questions[key];
   }
 
   back() {

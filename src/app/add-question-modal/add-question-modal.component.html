@@ -1,0 +1,23 @@
+<h4 md-dialog-title *ngIf="!edit">Add Question</h4>
+<h4 md-dialog-title *ngIf="edit">Edit Question</h4>
+<div md-dialog-content>
+  <form #questionForm="ngForm">
+    <div class="row">
+      <md-select [(ngModel)]="question.type" class="col s11 input-wrapper" name="type" id="type" required placeholder="Question Type">
+        <md-option *ngFor="let type of TYPE_CHOICES" [value]="type.value">{{type.name}} </md-option>
+      </md-select>
+      <md-input-container class="col s11 input-wrapper">
+        <input class="browser-default" mdInput id="label" type="text" required placeholder="Question" [(ngModel)]="question.label" name="label">
+      </md-input-container>
+      <md-input-container class="col s11 input-wrapper">
+        <input class="browser-default" mdInput id="key" type="text" required placeholder="Key" [(ngModel)]="question.key" name="key">
+      </md-input-container>
+      <md-checkbox [(ngModel)]="question.required" name="required">Required</md-checkbox>
+    </div>
+  </form>
+</div>
+<div md-dialog-actions>
+  <button md-button class="left" md-dialog-close>Cancel</button>
+  <button md-button *ngIf="!edit" class="right" (click)="updateModel(); dialogRef.close(question)" [disabled]="!questionForm.valid">Add</button>
+  <button md-button *ngIf="edit" class="right" (click)="updateModel(); dialogRef.close(question)" [disabled]="!questionForm.valid">Save</button>
+</div>

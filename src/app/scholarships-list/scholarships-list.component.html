@@ -116,6 +116,10 @@
                 <md-card-actions>
                   <div class="row center">
                     <a *ngIf=scholarship.is_automated [routerLink]="['../scholarship-detail', scholarship.slug]"><button md-button><i class="material-icons automate-tag">tag_faces</i></button></a>
+                    <a href="{{scholarship.scholarship_url}}"><button md-button><i class="material-icons">help_outline</i></button></a>
+                    <a href="{{scholarship.form_url}}"><button md-button><i class="material-icons">create</i></button></a>
+                    <md-card-actions>
+                        </md-card-actions>
                   </div>
                 </md-card-actions>
               </div>

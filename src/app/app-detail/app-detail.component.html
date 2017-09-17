@@ -1,0 +1,78 @@
+<div class="container">
+    <div class="card">
+      <div class="row">
+        <div class="card-content" *ngIf="userProfile">
+          
+            <h4>{{userProfile.first_name}}'s Application for: <br> {{scholarship.name}}</h4>
+            <h6> Application ID #{{application.id}} </h6>
+            <br>
+            <form  #profileForm="ngForm"  class="col s12">
+              <h4>General Info</h4>
+              <div class="row">
+                <md-input-container class="col s6">
+                  <input class="browser-default" mdInput id="first_name" type="text" required minlength="2" placeholder="First name"
+                    [(ngModel)]="userProfile.first_name" name="first_name">
+                </md-input-container>
+                <md-input-container class="col s6">
+                  <input class="browser-default" mdInput id="last_name" type="text" required minlength="2" placeholder="Last Name"
+                    [(ngModel)]="userProfile.last_name" name="last_name">
+                </md-input-container>
+              </div>
+              <div class="row">
+                <md-input-container class="col s12">
+                  <input class="browser-default" mdInput id="street_address" type="text" required placeholder="Street Address"
+                    [(ngModel)]="userProfile.street_address" name="street_address">
+                </md-input-container>
+              </div>
+              <div class="row">
+                <md-input-container class="col s12">
+                  <input class="browser-default" mdInput id="postal_code" type="text" required placeholder="Postal Code"
+                    [(ngModel)]="userProfile.postal_code" name="postal_code">
+                </md-input-container>
+                  
+              </div>
+              <div class="row">
+                <div class="input-field">
+                  <md-select class="col s12" [(ngModel)]="userProfile.province" name="province" id="province" placeholder="Province or Territory" required>
+                    <md-option *ngFor="let province of PROVINCE_CHOICES" [value]="province.value">{{province.name}} </md-option>
+                  </md-select>
+                </div>
+              </div>
+              <div class="row">
+                <md-input-container class="col s12">
+                  <input class="browser-default" mdInput id="city" type="text" required placeholder="City"
+                    [(ngModel)]="userProfile.city" name="city">
+                </md-input-container>
+              </div>
+              <!-- <div class="row"> (ngSubmit)="onSubmit(profileForm)"
+                <div class="input-field">
+                  <md-select class="col s12" [(ngModel)]="userProfile.province" name="province" id="province" placeholder="Province or Territory" required>
+                    <md-option *ngFor="let province of PROVINCE_CHOICES" [value]="province.value">{{province.name}} </md-option>
+                  </md-select>
+                </div>
+              </div> -->
+              <div class="row">
+                <md-input-container class="col s12">
+                  <input class="browser-default" mdInput id="bus_name" type="text" required placeholder="Business Name"
+                    [(ngModel)]="userProfile.bus_name" name="bus_name">
+                </md-input-container>
+              </div>
+              <div class="row">
+                <md-input-container class="col s12">
+                  <label>Date Founded</label>
+                  <br/>
+                  <input class="browser-default" mdInput id="date_bus_found" type="date" required
+                    [(ngModel)]="userProfile.date_bus_found" name="date_bus_found">
+                </md-input-container>
+              </div>
+  
+              <button type="submit" class="btn" (click)="onSubmit(profileForm)" style="margin-bottom: 2%;"> Confirm</button>
+             
+            </form>
+            <app-dynamic-form [generalData]="generalData" [questions]="questions" [profileForm]="profileForm" [form]="dynamicForm"></app-dynamic-form>
+  
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -2,15 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Scholarship } from '../_models/scholarship';
 import { ScholarshipService } from '../_services/scholarship.service';
 import { Observable } from 'rxjs/Rx';
-import { MdSnackBar } from '@angular/material'
-import { ActivatedRoute } from '@angular/router'
+import { MdSnackBar } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
+
+import {NgForm} from '@angular/forms';
 
 import { UserProfileService } from '../_services/user-profile.service';
 
 import { Title }     from '@angular/platform-browser';
 import {MdDialog, MdDialogRef} from '@angular/material';
-//import {AddQuestionModalComponent} from '../add-question-modal/add-question-modal.component';
-import {NgForm} from '@angular/forms';
+import {AddQuestionModalComponent} from '../add-question-modal/add-question-modal.component';
 
 @Component({
   selector: 'app-edit-scholarship',
@@ -146,6 +147,40 @@ FUNDING_TYPES = [
 
     console.log('after stringInputToArray: this.scholarship:', this.scholarship);
 
+  }
+  openModal() {
+    let dialogRef = this.dialog.open(AddQuestionModalComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('dialogRef.afterClosed().subscribe(result => ', result);
+        this.scholarship.extra_questions[result.key] = result;
+      } 
+      
+      else{
+        console.log('else result',result);
+      }      
+    });
+  }
+
+  // Edit existing question
+  edit(key: string) {
+    let dialogRef = this.dialog.open(AddQuestionModalComponent, {
+      data: this.scholarship.extra_questions[key]
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('result',result);
+        this.scholarship.extra_questions[key] = result;
+      }
+      else{
+        console.log('else result',result);
+      }      
+    });
+  }
+  
+  // Edit existing question from question array
+  delete(key: string) {
+    delete this.scholarship.extra_questions[key];
   }
 
   next() {

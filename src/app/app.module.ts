@@ -7,10 +7,11 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PreviewComponent } from './preview/preview.component';
 import { FooterComponent } from './footer/footer.component';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+    
 import { AppRoutingModule } from './app-routing/app-routing.module';
-import { MaterialModule } from '@angular/material';
+import { MaterialModule, MdDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ScholarshipsListComponent } from './scholarships-list/scholarships-list.component';
 import { ScholarshipCardComponent } from './scholarship-card/scholarship-card.component';
@@ -29,9 +30,10 @@ import { CreateScholarshipComponent } from './create-scholarship/create-scholars
 import { EditScholarshipComponent } from './edit-scholarship/edit-scholarship.component';
 import { QuestionControlService } from './_services/question-control.service';
 import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
-import { QuestionComponent } from './_services/question/question.component';
 import { QuestionService } from './_services/question.service';
 import { DynamicFormQuestionComponent } from './dynamic-form-question/dynamic-form-question.component';
+import { AddQuestionModalComponent } from './add-question-modal/add-question-modal.component';
+import { AppDetailComponent } from './app-detail/app-detail.component';
 
 
 @NgModule({
@@ -51,19 +53,25 @@ import { DynamicFormQuestionComponent } from './dynamic-form-question/dynamic-fo
     CreateScholarshipComponent,
     EditScholarshipComponent,
     DynamicFormComponent,
-    QuestionComponent,
-    DynamicFormQuestionComponent
+    DynamicFormQuestionComponent,
+    AddQuestionModalComponent,
+    AppDetailComponent
   ],
   imports: [
     NgbModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     MaterialModule,
     BrowserAnimationsModule,
     HttpModule,
+    MdDialogModule,
   ],
   providers: [ScholarshipService, UserProfileService, AuthService, ApplicationService, QuestionControlService, QuestionService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    AddQuestionModalComponent,
+  ]
 })
 export class AppModule { }

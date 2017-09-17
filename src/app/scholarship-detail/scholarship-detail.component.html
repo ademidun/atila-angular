@@ -22,6 +22,10 @@
           <a *ngIf="scholarship.owner==userId" [routerLink]="['/edit-scholarship', scholarship.slug]"> Edit Scholarship </a>
           <a *ngIf="scholarship.owner!=userId" [routerLink]="['/edit-scholarship', scholarship.slug]"> Suggest/View Edits </a> 
         </div>
+
+
+      <button md-raised-button *ngIf=scholarship.is_automated (click)="getOrCreateApp()">Apply now</button>
+      
       </div>
       <br>
       <div class="divider"></div>
@@ -39,10 +43,13 @@
         </li>
       </ul>
       <ul>
-        <li>Located in: {{scholarship.province}}</li>
+        <!-- TODO: THis should actually be done using a pipe https://stackoverflow.com/questions/35534959/access-key-and-value-of-object-using-ngfor -->
+        
+        <li *ngIf="scholarship.city">Located in: 
+            {{keyGetter(scholarship.city)}}
+         </li>
         <li>Field: {{scholarship.education_field}}</li>
       </ul>
-      <button md-raised-button *ngIf=scholarship.is_automated (click)="getOrCreateApp()">Apply now</button>
     </div>
   </div>
 </div>

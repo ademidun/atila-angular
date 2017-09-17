@@ -24,7 +24,7 @@ export class DynamicFormComponent implements OnInit {
   payLoad = '';
 
   uploadUrl: string;
-
+  keyGetter = Object.keys;
   constructor(
     private qcs: QuestionControlService,
     private questionService: QuestionService,
@@ -35,6 +35,8 @@ export class DynamicFormComponent implements OnInit {
   ngOnInit() {
     if(this.questions){
       this.form = this.qcs.toFormGroup(this.questions);
+
+    
     }
 
     this.appData = this.generalData.appData.responses;

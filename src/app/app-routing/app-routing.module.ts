@@ -11,10 +11,12 @@ import { CreateProfileComponent } from '../create-profile/create-profile.compone
 import { EditProfileComponent } from '../edit-profile/edit-profile.component'
 
 import { EditScholarshipComponent } from '../edit-scholarship/edit-scholarship.component';
+import { AppDetailComponent } from '../app-detail/app-detail.component';
 
 
 const routes: Routes = [
   { path: '' , component: PreviewComponent, data: {title: 'Atila'}},
+  { path: 'applications/:id' , component: AppDetailComponent, data: {title: 'Application Detail'}},  
   { path: 'create-scholarship' , component: CreateScholarshipComponent, data: {title: 'Atila - Create Scholarship'}},
   { path: 'create-profile' , component: CreateProfileComponent, data: {title: 'Atila - Create Profile'}},
   { path: 'profile/:username' , component: EditProfileComponent, data: {title: 'Atila - Profile'}},
