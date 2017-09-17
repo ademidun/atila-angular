@@ -56,6 +56,7 @@ export class DynamicFormComponent implements OnInit {
     console.log('JSON.stringify(this.profileForm.value)', JSON.stringify(this.profileForm.value));
 
     this.payLoad = JSON.stringify(this.form.value);
+    this.payLoad += JSON.stringify(this.form.value);
     console.log('this.generalData', this.generalData);
     var sendData = {
       'generalData': this.generalData,

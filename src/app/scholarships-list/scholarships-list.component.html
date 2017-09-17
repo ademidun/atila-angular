@@ -92,6 +92,8 @@
             </md-select>
           </div>
           <p class="text-align-center"><i class="material-icons automate-tag">tag_faces</i> = Automated scholarships.</p>
+          <p class="text-align-center"><i class="material-icons automate-tag">help_outline</i> = Eternal Scholarship Information</p>
+          <p class="text-align-center"><i class="material-icons automate-tag">create</i> = Scholarship Application Form</p>
         </div>
         <div class="row">
           <div *ngFor="let scholarship of scholarships;  let i=index" class="col s12 m6 l4">
@@ -116,8 +118,8 @@
                 <md-card-actions>
                   <div class="row center">
                     <a *ngIf=scholarship.is_automated [routerLink]="['../scholarship-detail', scholarship.slug]"><button md-button><i class="material-icons automate-tag">tag_faces</i></button></a>
-                    <a href="{{scholarship.scholarship_url}}"><button md-button><i class="material-icons">help_outline</i></button></a>
-                    <a href="{{scholarship.form_url}}"><button md-button><i class="material-icons">create</i></button></a>
+                    <a *ngIf=scholarship.scholarship_url href="{{scholarship.scholarship_url}}"><button md-button><i class="material-icons">help_outline</i></button></a>
+                    <a *ngIf=scholarship.form_url href="{{scholarship.form_url}}"><button md-button><i class="material-icons">create</i></button></a>
                     <md-card-actions>
                         </md-card-actions>
                   </div>
