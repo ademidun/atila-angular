@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: '' , component: PreviewComponent, data: {title: 'Atila'}},
   { path: 'create-scholarship' , component: CreateScholarshipComponent, data: {title: 'Atila - Create Scholarship'}},
   { path: 'create-profile' , component: CreateProfileComponent, data: {title: 'Atila - Create Profile'}},
+  { path: 'profile/:username' , component: EditProfileComponent, data: {title: 'Atila - Profile'}},
   { path: 'edit-profile' , component: EditProfileComponent, data: {title: 'Atila - Edit Profile'}},
   { path: 'edit-scholarship/:slug' , component: EditScholarshipComponent, data: {title: 'Atila - Edit Scholarship'}},
   { path: 'login' , component: LoginComponent, data: {title: 'Atila - Login'}},

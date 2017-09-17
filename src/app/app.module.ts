@@ -27,6 +27,11 @@ import { ScholarshipDetailComponent } from './scholarship-detail/scholarship-det
 import { ApplicationService } from './_services/application.service';
 import { CreateScholarshipComponent } from './create-scholarship/create-scholarship.component';
 import { EditScholarshipComponent } from './edit-scholarship/edit-scholarship.component';
+import { QuestionControlService } from './_services/question-control.service';
+import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
+import { QuestionComponent } from './_services/question/question.component';
+import { QuestionService } from './_services/question.service';
+import { DynamicFormQuestionComponent } from './dynamic-form-question/dynamic-form-question.component';
 
 
 @NgModule({
@@ -44,7 +49,10 @@ import { EditScholarshipComponent } from './edit-scholarship/edit-scholarship.co
     EditProfileComponent,
     ScholarshipDetailComponent,
     CreateScholarshipComponent,
-    EditScholarshipComponent
+    EditScholarshipComponent,
+    DynamicFormComponent,
+    QuestionComponent,
+    DynamicFormQuestionComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -55,7 +63,7 @@ import { EditScholarshipComponent } from './edit-scholarship/edit-scholarship.co
     BrowserAnimationsModule,
     HttpModule,
   ],
-  providers: [ScholarshipService, UserProfileService, AuthService, ApplicationService],
+  providers: [ScholarshipService, UserProfileService, AuthService, ApplicationService, QuestionControlService, QuestionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

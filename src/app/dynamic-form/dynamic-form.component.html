@@ -1,0 +1,20 @@
+<div>
+    <form *ngIf="questions" (ngSubmit)="onSubmit()" [formGroup]="form">
+   
+    <h4>Specific Info</h4>
+      <div *ngFor="let question of questions" class="form-row">
+        <app-dynamic-form-question  [question]="question" [form]="form" [profileForm]="profileForm"
+         [generalData]="generalData"></app-dynamic-form-question>
+      </div>
+   
+      <div class="form-row" style=" margin-top: 1%;">
+        <button type="submit" class="btn" [disabled]="!form.valid">Automate!</button>
+        <a *ngIf="uploadUrl" href="{{uploadUrl}}">View Filled Application</a>
+      </div>
+    </form>
+  
+   
+    <div *ngIf="payLoad" class="form-row">
+      <strong>Saved the following values</strong><br>{{payLoad}}
+    </div>
+  </div>

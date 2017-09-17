@@ -14,7 +14,12 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   private isLoggedIn: boolean = false;
-  private user: UserProfile;
+  private userProfile: UserProfile;
+
+  private user = {
+    username: '',
+    email: '',
+  }
   constructor(
     private userProfileService: UserProfileService,
     private authService: AuthService,
@@ -32,13 +37,25 @@ export class NavbarComponent implements OnInit {
     if (localStorage.getItem('userId')) {
       this.isLoggedIn = true;
     }
+
+    if(this.isLoggedIn){
+      this.userProfileService.getById(parseInt(localStorage.getItem('userId')))
+      .subscribe(
+        
+        data => {
+          this.userProfile = data;
+          console.log('data',data);
+        },
+      ) 
+    }
+
     
   }
 
   logout() {
     this.authService.logout();
     this.isLoggedIn = false;
-    this.user = null;
+    this.userProfile = null;
 
     let snackBarRef = this.snackBar.open("Successfully logged out", 'Log In', {
       duration: 3000

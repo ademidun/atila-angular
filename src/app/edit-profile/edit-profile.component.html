@@ -5,51 +5,51 @@
       
       <form #profileForm="ngForm" (ngSubmit)="saveProfile(profileForm)" class="col s12">
         <div [ngClass]='{hidden: !profileInfo}'>
-          <h4>Edit <span *ngIf="model.first_name">{{model.first_name}}'s</span> Profile</h4>
+          <h4>Edit <span *ngIf="userProfile.first_name">{{userProfile.first_name}}'s</span> Profile</h4>
           <div class="row">
             <md-input-container class="col s6">
               <input class="browser-default" mdInput id="first_name" type="text" required minlength="2" placeholder="First name"
-                [(ngModel)]="model.first_name" name="first_name">
+                [(ngModel)]="userProfile.first_name" name="first_name">
             </md-input-container>
             <md-input-container class="col s6">
               <input class="browser-default" mdInput id="last_name" type="text" required minlength="2" placeholder="Last Name"
-                [(ngModel)]="model.last_name" name="last_name">
+                [(ngModel)]="userProfile.last_name" name="last_name">
             </md-input-container>
           </div>
           <div class="row">
             <md-input-container class="col s12">
               <input class="browser-default" mdInput id="street_address" type="text" required placeholder="Street Address"
-                [(ngModel)]="model.street_address" name="street_address">
+                [(ngModel)]="userProfile.street_address" name="street_address">
             </md-input-container>
           </div>
           <div class="row">
             <md-input-container class="col s12">
               <input class="browser-default" mdInput id="postal_code" type="text" required placeholder="Postal Code"
-                [(ngModel)]="model.postal_code" name="postal_code">
+                [(ngModel)]="userProfile.postal_code" name="postal_code">
             </md-input-container>
           </div>
           <div class="row">
             <md-input-container class="col s12">
               <input class="browser-default" mdInput id="city" type="text" required placeholder="City"
-                [(ngModel)]="model.city" name="city">
+                [(ngModel)]="userProfile.city" name="city">
             </md-input-container>
           </div>
           <div class="row">
               <md-input-container class="col s12">
                   <input class="browser-default" mdInput id="province" type="text" required placeholder="Province/State"
-                    [(ngModel)]="model.province" name="province">
+                    [(ngModel)]="userProfile.province" name="province">
                 </md-input-container>
           </div>
           <div class="row">
               <md-input-container class="col s12">
                   <input class="browser-default" mdInput id="country" type="text" required placeholder="Country"
-                    [(ngModel)]="model.country" name="country">
+                    [(ngModel)]="userProfile.country" name="country">
                 </md-input-container>
           </div>
           <!-- <div class="row">
             <md-input-container class="col s12">
               <input class="browser-default" mdInput id="bus_name" type="text" required placeholder="Business Name"
-                [(ngModel)]="model.bus_name" name="bus_name">
+                [(ngModel)]="userProfile.bus_name" name="bus_name">
             </md-input-container>
           </div> -->
           <div class="row">
@@ -57,12 +57,12 @@
               <label>Birth Date</label>
               <br/>
               <input class="browser-default" mdInput id="birth_date" type="date" required
-                [(ngModel)]="model.birth_date" name="birth_date">
+                [(ngModel)]="userProfile.birth_date" name="birth_date">
             </md-input-container>
           </div>
           <div class="row">
             <div class="input-field">
-              <md-select class="col s12" [(ngModel)]="model.education_level"  name="education_level"  id="education_level" multiple=true placeholder="Education Type" required >                
+              <md-select class="col s12" [(ngModel)]="userProfile.education_level"  name="education_level"  id="education_level" multiple=true placeholder="Education Type" required >                
                 <md-option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </md-option>
               </md-select>
             </div>
@@ -70,7 +70,7 @@
           <br> <div class="row">
             <div class="input-field">
               <!-- TODO: Add a Modal or hover info explaining the diff. between Art and STEM -->
-              <md-select class="col s12" [(ngModel)]="model.education_field"  name="education_field"  id="education_field" multiple=true required placeholder="Education Field">
+              <md-select class="col s12" [(ngModel)]="userProfile.education_field"  name="education_field"  id="education_field" multiple=true required placeholder="Education Field">
                 <md-option *ngFor="let field of EDUCATION_FIELD" [value]="field">{{field}} </md-option>
               </md-select>
             </div>
@@ -126,13 +126,13 @@
             <label> Describe your school related activities and identify your significant contributions both to school and
                 community.(500 Words or less) </label><br>
               <textarea class="browser-default" mdInput id="extracurricular_description" type="text"
-              placeholder="Type here..."[(ngModel)]="model.extracurricular_description" name="extracurricular_description"></textarea>
+              placeholder="Type here..."[(ngModel)]="userProfile.extracurricular_description" name="extracurricular_description"></textarea>
           </div>
 
           <div class="row">
               <label> Describe your academic and career goals. (500 Words or less)</label><br>
                 <textarea class="browser-default" mdInput id="academic_career_goals" type="text"
-                placeholder="Type here..."[(ngModel)]="model.academic_career_goals" name="academic_career_goals"></textarea>
+                placeholder="Type here..."[(ngModel)]="userProfile.academic_career_goals" name="academic_career_goals"></textarea>
             </div>
 
           <div class="row">

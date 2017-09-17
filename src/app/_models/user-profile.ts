@@ -6,12 +6,14 @@ export class UserProfile {
             public first_name?: string,
             public education_level?: string[],
             public education_field?: string[],
+            public email?: any,
             public is_sponsor?:any, 
             public last_name?: string,
             public postal_code?: string,
             public province?: string,
             public street_address?: string,
             public user?: number,
+            public username?:any,
             public user_img_url?: string,
             
             

@@ -8,3 +8,9 @@ $roboto-font-path: "/assets/fonts/roboto/";
 $primary: #194F87;
 $secondary: #FEFEFE;
 $tertiary: #326396;
+
+textarea {
+    border: 1px solid $primary;
+    height: 15rem;
+    line-height: 30px;
+}

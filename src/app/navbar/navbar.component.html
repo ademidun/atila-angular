@@ -13,10 +13,12 @@
               </button>
               <!-- Dropdown Profile Menu -->
               <md-menu #menu="mdMenu" [overlapTrigger]="false">
-
-                <button md-menu-item routerLink="/profile/{{userId}}">
+                  <a *ngIf="userProfile" [routerLink]="['/profile', userProfile.username]">
+                <button button md-menu-item >
                   <span>View profile</span>
+                 
                 </button>
+              </a>
                 <!-- <button md-menu-item routerLink="/edit-profile">
                   <span>Edit profile</span>
                 </button> -->

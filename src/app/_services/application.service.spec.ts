@@ -1,3 +1,4 @@
+// ng g s _services/question-control --module=app.module
 import { TestBed, inject } from '@angular/core/testing';
 
 import { ApplicationService } from './application.service';

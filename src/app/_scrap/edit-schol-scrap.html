@@ -1,0 +1,158 @@
+<div class="container">
+    <div class="card">
+      <div class="row">
+        <div class="card-content">
+          <form *ngIf="scholarship" #scholarshipForm="ngForm" (change)="disableEditNonUsers($scholarshipForm)" class="col s12">
+            <h4>Edit {{scholarship.name}}</h4>
+            <div *ngIf="generalInfo;else appQuestions">
+              <h5>General Information</h5>
+              <div class="row">
+                <md-input-container class="col s12">
+                  <!-- TODO: Add Server Side Script to Prevent Editing the Scholarship Name -->
+                  <input (change)="disableEditNonUsers($scholarshipForm)" class="browser-default" mdInput id="name" type="text" required placeholder="Scholarship Name" [(ngModel)]="scholarship.name" name="name" disabled>
+                </md-input-container>
+              </div>
+              <div class="row">
+                <md-input-container class="col s12">
+                  <input class="browser-default" mdInput id="description" type="text" required placeholder="Description" [(ngModel)]="scholarship.description"
+                    name="description">
+                </md-input-container>
+              </div>
+              <div class="row">
+                <md-input-container class="col s12">
+                  <input class="browser-default" mdInput id="scholarship_url" type=url placeholder="Scholarship URL" [(ngModel)]="scholarship.scholarship_url"
+                    name="scholarship_url">
+                </md-input-container>
+              </div>
+              <div class="row">
+                <md-input-container class="col s12">
+                  <input class="browser-default" mdInput id="form_url" type=url placeholder="Form URL" [(ngModel)]="scholarship.form_url" name="form_url">
+                </md-input-container>
+              </div>
+              <div class="row">
+                <md-input-container class="col s12">
+                    <input class="browser-default" mdInput id="img_url" type=url placeholder="Scholarship Image URL" [(ngModel)]="scholarship.img_url"
+                      name="img_url">
+                  </md-input-container>
+                </div>
+              <div class="row">
+                <md-input-container class="col s12">
+                  <input class="browser-default" mdInput id="funding_amount" type="number" placeholder="Funding Amount" [(ngModel)]="scholarship.funding_amount"
+                    name="funding_amount">
+                </md-input-container>
+              </div>
+              <div class="row">
+                  <md-input-container class="col s6">
+                    <label>Deadline</label>
+                    <br/>
+                    <input class="browser-default" mdInput id="deadline" type="datetime-local" required
+                      [(ngModel)]="scholarship.deadline" name="deadline">
+                  </md-input-container>
+
+
+                <span class="col s6">
+                  <!-- TODO: Wrong time zone offset on deadline -->
+                    Deadline: {{ scholarship.deadline | date:'fullDate' }} {{ scholarship.deadline | date:'shortTime' }}
+                </span>
+
+                </div>
+              <label>Leave the city, province/state or country field blank, if there is no restriction for the respective place.
+                 Seperate multiple cities, provinces/states or countries with a comma.</label>            
+              <div class="row">
+                  <md-input-container class="col s12">
+                      <input class="browser-default"  type="text" mdInput [(ngModel)]="cityString" name="city" id="city" placeholder="City"
+                      value="Any" (change)="stringInputToArray($event)" >
+                  </md-input-container>
+              </div>
+              <div class="row">
+                  <md-input-container class="col s12">
+                      <input class="browser-default"  type="text"  mdInput [(ngModel)]="provinceString" name="province" id="province" placeholder="Province or State"
+                      (change)="stringInputToArray($event)" >
+                    </md-input-container>
+              </div>
+  
+              <div class="row">
+                  <md-input-container class="col s12">
+                      <input class="browser-default"   type="text" mdInput [(ngModel)]="countryString" name="country" id="country" placeholder="Country"
+                      (change)="stringInputToArray($event)" >
+                    </md-input-container>
+              </div>
+              <br>
+              <div class="row">
+                <div class="input-field">
+                  <md-select class="col s12" [(ngModel)]="scholarship.funding_type" name="funding_type" id="funding_type" multiple=true placeholder="Funding Type">
+                    <md-option *ngFor="let type of FUNDING_TYPES" [value]="type">{{type}} </md-option>
+                  </md-select>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="input-field">
+                  <md-select class="col s12" [(ngModel)]="scholarship.education_level" name="education_level" id="education_level" multiple=true placeholder="Education Level">
+                    <md-option *ngFor="let education_level of EDUCATION_LEVELS" [value]="education_level">{{education_level}} </md-option>
+                  </md-select>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="input-field">
+                  <md-select class="col s12" [(ngModel)]="scholarship.education_field" name="education_field" id="education_field" multiple=true required placeholder="Education Field">
+                    <md-option *ngFor="let education_field of EDUCATION_FIELDS" [value]="education_field">{{education_field}} </md-option>
+                  </md-select>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <a class="waves-effect waves-light btn left" (click)="saveEditScholarship(scholarshipForm)">Save</a>
+                <a class="waves-effect waves-light btn right" (click)="next()">Next</a>
+              </div>
+            </div>
+            <ng-template #appQuestions>
+              <h5>Application Questions</h5>
+              <ol *ngIf="scholarship.questions">
+                <li *ngFor="let question of generateArray(scholarship.questions);let i = index" class="questions row">
+                  <div class="col s3">
+                    Type: {{question.controlType}}
+                  </div>
+                  <div class="col s3">
+                    Question: {{question.label}}
+                  </div>
+                  <div class="col s3">
+                    Key: {{question.key}}
+                  </div>
+                  <div class="col s3">
+                    <a class="waves-effect waves-light btn left" (click)="edit(question.key)"><i class="fa fa-pencil"></i></a>
+                    <a class="waves-effect waves-light btn right" (click)="delete(question.key)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                  </div>
+                </li>
+              </ol>
+              <div class="row">
+                <div class="col s12">
+                  <button class="waves-effect waves-light btn center" (click)="openModal()"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s12">
+                  <a class="waves-effect waves-light btn left" (click)="back()">Back</a>
+                  <div *ngIf="showFormUpload">
+                    <div class="row">
+                      <div class="col s3">
+                        <label> Upload an application form</label>
+                        <input class="browser-default" id="user_img_file" type="file" placeholder="Profile Picture"
+                          [(ngModel)]="scholarship.user_img_file" name="user_img_file" (change)="scholarshipAppFormChangeEvent($event)">
+                      </div>
+                      <div class="col s3">
+                        <button md-raised-button class="btn white-text" (click)="uploadScholarshipAppForm()">Upload</button>
+                      </div>
+                      <a routerLink="/scholarships-list">Skip</a>
+                    </div>
+                  </div>
+                  <a class="waves-effect waves-light btn right" (click)="saveEditScholarship(scholarshipForm)">Save</a>
+                </div>
+              </div>
+            </ng-template>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

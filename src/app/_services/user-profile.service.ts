@@ -13,6 +13,8 @@ export class UserProfileService {
   private userEndpoint = 'http://127.0.0.1:8000/users/';
   
   private userProfileEndpoint = 'http://127.0.0.1:8000/user-profiles/';
+  private userNameEndpoint = 'http://127.0.0.1:8000/user-profile-user-name/';
+  
 
 
   createUser(user: User) {
@@ -30,7 +32,11 @@ export class UserProfileService {
       .map((response: Response) => response.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
-
+getByUsername(username: string): Observable<UserProfile>{
+    return this.http.get(`${this.userNameEndpoint}?user-name=${username}/`)
+    .map((response: Response) => response.json())
+    .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+}
    isLoggedIn(): boolean {
         // Determines if user is logged in from the token
         var token = localStorage.getItem('token');

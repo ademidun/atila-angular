@@ -34,9 +34,13 @@ EDUCATION_FIELDS = [
     'Other' 
 ]
 
-cityString: String;
-provinceString: String = "";
-countryString: String = "";
+stringDict = {
+  'city': '',
+  'province': '',
+  'country': '',
+  'eligible_schools':''
+}
+
 
 FUNDING_TYPES = [
   'Scholarship',
@@ -45,11 +49,13 @@ FUNDING_TYPES = [
 ];;
   
   userId: number;
+  pageNo: number =1;
   scholarship: Scholarship = new Scholarship();
   generalInfo = true; // Display general info section
   showFormUpload = false;
   scholarshipFormFile: File;
   s3ApiKey: any;
+  
 
   constructor(
     private router: Router,
@@ -61,14 +67,15 @@ FUNDING_TYPES = [
   ngOnInit() {
     // Retrieve the user id
     this.userId = parseInt(localStorage.getItem('userId'));
-    this.scholarship.owner = this.userId;
-    this.scholarship.questions = {};
+    this.loadScholarshipDefaults();
 
   }
 
   stringInputToArray(event: any){
     console.log('toArrayInput, event', event);
+    console.log('this.stringDict; ', this.stringDict);
     console.log(this.scholarship);
+
     this.scholarship[event.target.name] = {};
     var tempString = event.target.value;
     tempString = tempString.trim();
@@ -100,17 +107,28 @@ FUNDING_TYPES = [
   }
 
   next() {
-    this.generalInfo = false;
+    this.pageNo = Math.min(3,this.pageNo+1);
+  }
+
+  loadScholarshipDefaults(){
+    this.scholarship.owner = this.userId;
+    this.scholarship.extra_questions = {};
+    this.scholarship.number_available_scholarships =1;
+    this.stringDict.eligible_schools = 'Bishop Reding, Jean Vanier';
+    this.stringDict['city'] = 'Milton';
   }
 
   back() {
-    this.generalInfo = true;
+    this.pageNo = Math.max(1,this.pageNo-1);
   }
 
+  generateArray(obj){
+    return Object.keys(obj).map((key)=>{ return obj[key]});
+ }
   createScholarship(scholarshipForm) {
 
     if (scholarshipForm.valid) {
-      console.log(this.scholarship);
+      console.log('createScholarship, this.scholarship: ',this.scholarship);
       let postOperation: Observable<Scholarship>;
       this.scholarship.owner = this.userId;
       postOperation = this.scholarshipService.create(this.scholarship);

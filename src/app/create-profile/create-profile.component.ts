@@ -37,7 +37,7 @@ export class CreateProfileComponent implements OnInit {
        'STEM (Grad School)', 
        'Other' 
    ]
-  model = new UserProfile();
+   userProfile = new UserProfile();
   userDocuments = { };
   private userId;
   
@@ -52,15 +52,15 @@ export class CreateProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.model.education_level = [this.EDUCATION_LEVEL[0]];
-    this.model.education_field = [this.EDUCATION_FIELD[0],this.EDUCATION_FIELD[1]];
+    this.userProfile.education_level = [this.EDUCATION_LEVEL[0]];
+    this.userProfile.education_field = [this.EDUCATION_FIELD[0],this.EDUCATION_FIELD[1]];
 
-    console.log('model:', this.model);
-    console.log('this.model.education_field:', this.model.education_field);
-    console.log('this.model.education_level:', this.model.education_level);
+    console.log('userProfile:', this.userProfile);
+    console.log('this.userProfile.education_field:', this.userProfile.education_field);
+    console.log('this.userProfile.education_level:', this.userProfile.education_level);
 
     this.userId = localStorage.getItem('userId');
-    this.model.user = this.userId;
+    this.userProfile.user = this.userId;
 
   }
 
@@ -77,7 +77,7 @@ export class CreateProfileComponent implements OnInit {
     console.log('just entered createProfile:', profileForm);
     if (profileForm.valid) {
       let postOperation: Observable<UserProfile>;
-      postOperation = this.userProfileService.update(this.model);
+      postOperation = this.userProfileService.update(this.userProfile);
 
       postOperation.subscribe(
         data => {
@@ -102,11 +102,11 @@ export class CreateProfileComponent implements OnInit {
 
     console.log("profileForm:", profileForm);
 
-    console.log("this.model:", this.model);
+    console.log("this.userProfile:", this.userProfile);
 
     if (profileForm.valid) {
       let postOperation: Observable<UserProfile>;
-      postOperation = this.userProfileService.update(this.model);
+      postOperation = this.userProfileService.update(this.userProfile);
 
       postOperation.subscribe(
         data => {

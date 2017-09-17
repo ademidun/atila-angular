@@ -16,7 +16,7 @@
 
         <div class="date-created">
           <div *ngIf="scholarshipOwner">
-            Created by: <a routerLink="/profile/{{scholarshipOwner.user}}">{{scholarshipOwner.first_name}} {{scholarshipOwner.last_name}}</a>
+            Created by: <a routerLink="/profile/{{scholarshipOwner.username}}">{{scholarshipOwner.first_name}} {{scholarshipOwner.last_name}}</a>
           </div>          
           Date Added: {{scholarship.date_created | date:'longDate'}}<br> 
           <a *ngIf="scholarship.owner==userId" [routerLink]="['/edit-scholarship', scholarship.slug]"> Edit Scholarship </a>

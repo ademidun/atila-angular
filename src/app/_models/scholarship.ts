@@ -8,6 +8,7 @@ export class Scholarship {
     description?: string;
     education_field?: any;
     education_level?: any;
+    eligible_schools?: any;
     extra_questions?: any;
     form_url?: string;
     funding_amount?: number;
@@ -15,10 +16,10 @@ export class Scholarship {
     id?: number;
     is_automated?: boolean;
     name?: string;
+    number_available_scholarships?: number;
     owner?: any;
     province?: any;
     purpose?: any;
-    questions?: any;
     reference_letter_required?:number;
     resume_required?:any;
     scholarship_img_url?: string;

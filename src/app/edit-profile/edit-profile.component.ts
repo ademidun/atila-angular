@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { UserProfile } from '../_models/user-profile'
 import { UserProfileService } from "../_services/user-profile.service";
 
@@ -9,6 +9,9 @@ import { Observable } from 'rxjs/Rx';
 import { Router, ActivatedRoute } from '@angular/router'
 import { MdSnackBar } from '@angular/material';
 
+import { Title }     from '@angular/platform-browser';
+
+    
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
@@ -35,25 +38,33 @@ EDUCATION_FIELD = [
     'Other' 
 ]
   
-  model = new UserProfile();
+  userProfile = new UserProfile();
   profileInfo = true;
+  
 
   userDocuments = {}; 
+
+  userName: string;
   constructor(
     private userProfileService: UserProfileService,
     private router: Router,
-    route: ActivatedRoute,
+    private route: ActivatedRoute,
     private snackBar: MdSnackBar,
-  ) { }
+    private titleService: Title,
+  ) { 
+    this.userName = route.snapshot.params['username'];
+  }
 
   ngOnInit() {
     let userId = localStorage.getItem('userId');
     if (userId) {
-      this.userProfileService.getById(parseInt(userId))
+      this.userProfileService.getByUsername(this.userName)
         .subscribe(
           data => {
-            this.model = data;
+            this.userProfile = data;
             console.log("Data:", JSON.stringify(data));
+          let profileTitle = this.userProfile.first_name + this.userProfile.last_name + "'s Profile"
+          this.titleService.setTitle('Atila - ' + profileTitle);
           },
           err => {
             console.log(err);
@@ -73,9 +84,9 @@ EDUCATION_FIELD = [
       
           console.log("profileForm:", profileForm);
       
-          console.log("this.model:", this.model);
+          console.log("this.userProfile:", this.userProfile);
 
-      this.userProfileService.update(this.model)
+      this.userProfileService.update(this.userProfile)
       .subscribe(
         data => {
           console.log("Updated Data:", JSON.stringify(data));
@@ -98,11 +109,11 @@ EDUCATION_FIELD = [
     
         console.log("profileForm:", profileForm);
     
-        console.log("this.model:", this.model);
+        console.log("this.userProfile:", this.userProfile);
     
         if (profileForm.valid) {
           let postOperation: Observable<UserProfile>;
-          //postOperation = this.userProfileService.update(this.model);
+          //postOperation = this.userProfileService.update(this.userProfile);
     
           postOperation.subscribe(
             data => {

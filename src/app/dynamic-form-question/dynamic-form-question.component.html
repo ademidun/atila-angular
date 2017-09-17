@@ -1,0 +1,39 @@
+<div [formGroup]="form">
+    <!-- <label [attr.for]="question.key">{{question.label}}</label> -->
+  
+    <div [ngSwitch]="question.controlType">
+  
+  
+    <md-input-container class="col s12" *ngSwitchCase="'textbox'">       
+      <input  mdInput class="browser-default"   [formControlName]="question.key" [placeholder]="question.label"
+              [id]="question.key" [type]="question.type" [(ngModel)]="appData[question.key]">
+    </md-input-container>
+    
+  
+    <!-- TODO: Figure out why it displays as an input element and not as a textarea element.
+    May have something to do with the runtime rendering order. -->
+      <md-input-container class="col s12"  *ngSwitchCase="'textboxlong'">
+        <textarea mdInput [placeholder]="question.label" [id]="question.key" 
+        [formControlName]="question.key" [(ngModel)]="appData[question.key]"></textarea>
+      </md-input-container>
+  
+    <md-input-container class="" *ngSwitchCase="'date'">
+      <label>{{question.label}}</label> 
+        <input mdInput [formControlName]="question.key"
+                [id]="question.key" [type]="question.type">
+    </md-input-container>
+  
+      <md-select mdInput [id]="question.key" *ngSwitchCase="'dropdown'"  [formControlName]="question.key" multiple=true [placeholder]="question.label">                
+        <md-option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</md-option>
+  
+      </md-select>
+      <!-- <select [id]="question.key" *ngSwitchCase="'dropdown'" [formControlName]="question.key">
+        <option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</option>
+       </select>-->
+  
+    </div> 
+  
+    <div class="errorMessage" *ngIf="!isValid">{{question.label}} is required</div>
+  
+    
+  </div>
