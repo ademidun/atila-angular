@@ -91,10 +91,13 @@
               <md-option [value]=3>Rating</md-option>
             </md-select>
           </div>
-          <p class="text-align-center"><i class="material-icons automate-tag">tag_faces</i> = Automated scholarships.</p>
-          <p class="text-align-center"><i class="material-icons automate-tag">help_outline</i> = Eternal Scholarship Information</p>
-          <p class="text-align-center"><i class="material-icons automate-tag">create</i> = Scholarship Application Form</p>
+          <div class="row">
+
+          <p class="text-align-center col s-3"><i class="material-icons automate-tag">tag_faces</i> = Automated scholarships.</p>
+          <!-- <p class="text-align-center col s-3"><i class="material-icons automate-tag">help_outline</i> = Eternal Scholarship Information</p>
+          <p class="text-align-center col s-3"><i class="material-icons automate-tag">create</i> = Scholarship Application Form</p> -->
         </div>
+      </div>
         <div class="row">
           <div *ngFor="let scholarship of scholarships;  let i=index" class="col s12 m6 l4">
             <md-card class="scholarship-card-registered">

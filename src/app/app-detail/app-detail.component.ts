@@ -104,6 +104,7 @@ export class AppDetailComponent implements OnInit {
         this.application = data.appData;
         this.userProfile = data.userProfile;
         this.scholarship = data.scholarship;
+        console.log('AppDetailComponent data', data);
         console.log('AppDetailComponent data.userProfile', data.userProfile);
         console.log('AppDetailComponent this.userProfile', this.userProfile);
         console.log(' this.application.responses', this.application.responses);

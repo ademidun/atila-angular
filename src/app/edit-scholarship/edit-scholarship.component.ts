@@ -58,7 +58,7 @@ FUNDING_TYPES = [
   pageNo: number =1;
   scholarship: Scholarship = new Scholarship();
   generalInfo = true; // Display general info section
-  showFormUpload = false;
+  showFormUpload = true;
   scholarshipFormFile: File;
   s3ApiKey: any;
 
