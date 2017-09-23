@@ -162,18 +162,21 @@
                                 <a class="waves-effect waves-light btn left" (click)="back()">Back</a>
                                 <a class="waves-effect waves-light btn left" (click)="saveEditScholarship(scholarshipForm)">Save</a>
                                     <div *ngIf="showFormUpload"class="row">
-                                        <div class="col s3">
+                                        <div class="col s2">
                                             <label>Upload an application form</label>
                                             <input class="browser-default" id="user_img_file" type="file" placeholder="Profile Picture" [(ngModel)]="scholarship.user_img_file" name="user_img_file" (change)="scholarshipAppFormChangeEvent($event)">
                                         </div>
-                                        <div class="col s3">
+                                        <div class="col s2">
                                             <button md-raised-button class="btn white-text" (click)="uploadScholarshipAppForm()">Upload</button>
                                         </div>
 
-                                        <div class="col s6">
+                                        <!-- <div class="col s6">
                                                 <input class="browser-default" mdInput id="form_url" type="text" minlength="2" placeholder="Scholarship Form Url"
-                                                  [(ngModel)]="model.form_url" name="form_url">
-                                        </div>
+                                                  [(ngModel)]="scholarship.form_url" name="form_url">
+                                        </div> -->
+                                        <div *ngIf="uploadFile" class="col s6">
+                                        {{uploadFile.name}} {{uploadResponse}}
+                                        </div> 
 
                                         <a routerLink="/scholarships-list">Skip</a>
                                     </div>
@@ -219,6 +222,7 @@
                                         </div>
                                         <div class="col s3">
                                             <button md-raised-button class="btn white-text" (click)="uploadScholarshipAppForm()">Upload</button>
+                                            {{uploadResponse}}
                                         </div>
                                         <a routerLink="/scholarships-list">Skip</a>
                                     </div>

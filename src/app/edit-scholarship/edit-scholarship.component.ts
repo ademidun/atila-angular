@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Scholarship } from '../_models/scholarship';
+import { UploadFile } from '../_models/upload-file';
 import { ScholarshipService } from '../_services/scholarship.service';
 import { Observable } from 'rxjs/Rx';
 import { MdSnackBar } from '@angular/material';
@@ -12,6 +13,7 @@ import { UserProfileService } from '../_services/user-profile.service';
 import { Title }     from '@angular/platform-browser';
 import {MdDialog, MdDialogRef} from '@angular/material';
 import {AddQuestionModalComponent} from '../add-question-modal/add-question-modal.component';
+import { MyFirebaseService } from "../_services/myfirebase.service";
 
 @Component({
   selector: 'app-edit-scholarship',
@@ -60,7 +62,7 @@ FUNDING_TYPES = [
   generalInfo = true; // Display general info section
   showFormUpload = true;
   scholarshipFormFile: File;
-  s3ApiKey: any;
+  appFormFile: UploadFile;
 
   scholarshipSlug: string = "";
   
@@ -74,6 +76,7 @@ FUNDING_TYPES = [
     public dialog: MdDialog,
     private userProfileService: UserProfileService,
     private titleService: Title,
+    private firebaseService: MyFirebaseService,
   ) { 
     this.scholarshipSlug = route.snapshot.params['slug']; 
     this.userId = parseInt(localStorage.getItem('userId')); // Current user
@@ -241,38 +244,82 @@ FUNDING_TYPES = [
           )
         }
         
+}
+
+createScholarship(scholarshipForm) {
+
+  if (scholarshipForm.valid) {
+    console.log('createScholarship, this.scholarship: ',this.scholarship);
+    let postOperation: Observable<Scholarship>;
+    this.scholarship.owner = this.userId;
+    postOperation = this.scholarshipService.create(this.scholarship);
+
+    postOperation.subscribe(
+      data => {
+        console.log('scholarship created:',data)
+        this.snackBar.open("Scholarship succesfully created", '', {
+          duration: 3000
+        });
+        this.showFormUpload = true;
+        this.scholarship=data;
+        // todo change to this.router.navigate(['my-scholarships'])
+        //this.router.navigate(['scholarships-list']);
+      },
+      err => {
+        this.snackBar.open("Error - " + err, '', {
+          duration: 3000
+        });
       }
-
-  createScholarship(scholarshipForm) {
-
-    if (scholarshipForm.valid) {
-      console.log('createScholarship, this.scholarship: ',this.scholarship);
-      let postOperation: Observable<Scholarship>;
-      this.scholarship.owner = this.userId;
-      postOperation = this.scholarshipService.create(this.scholarship);
-
-      postOperation.subscribe(
-        data => {
-          console.log('scholarship created:',data)
-          this.snackBar.open("Scholarship succesfully created", '', {
-            duration: 3000
-          });
-          this.showFormUpload = true;
-          this.scholarship=data;
-          // todo change to this.router.navigate(['my-scholarships'])
-          //this.router.navigate(['scholarships-list']);
-        },
-        err => {
-          this.snackBar.open("Error - " + err, '', {
-            duration: 3000
-          });
-        }
-      )
-    } else {
-      this.snackBar.open("Invalid form", '', {
-        duration: 3000
-      });
-    }
+    )
+  } else {
+    this.snackBar.open("Invalid form", '', {
+      duration: 3000
+    });
   }
+}
+
+scholarshipAppFormChangeEvent(fileInput: any){
+  console.log("fileInput:", fileInput);
+  this.scholarshipFormFile = fileInput.target.files[0];  
+}
+
+uploadScholarshipAppForm(){
+  //let uploadOperation: Observable<any>;
+  var uploadResponse;
+
+  //create Upload file and configure its properties before uploading.
+
+  this.appFormFile = new UploadFile(this.scholarshipFormFile);
+  this.appFormFile.name = this.scholarshipFormFile.name;
+  this.appFormFile.uploadInstructions = {
+    type: 'update_model',
+    model: "Scholarship",
+    id: this.scholarship.id,
+    fieldName: 'form_url'
+  }
+  console.log('this.scholarshipFormFile',this.scholarshipFormFile)
+  this.appFormFile.path = "scholarships/" + this.scholarship.id + "/scholarship-templates/"
+  this.appFormFile.path = this.appFormFile.path + this.appFormFile.name
+  console.log('this.appFormFile',this.appFormFile);
+  this.firebaseService.uploadFile(this.appFormFile,this.appFormFile.uploadInstructions)
+  .subscribe(
+    res => {
+      uploadResponse = res;
+      console.log('uploadResponse', uploadResponse);
+    },
+
+    err => {},
+    () =>{
+      console.log('() uploadResponse', uploadResponse);
+    }
+  )
+  .add(
+    () => console.log('add uploadResponse', uploadResponse),
+  )
 
 }
+
+
+}
+
+

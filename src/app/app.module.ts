@@ -34,6 +34,7 @@ import { QuestionService } from './_services/question.service';
 import { DynamicFormQuestionComponent } from './dynamic-form-question/dynamic-form-question.component';
 import { AddQuestionModalComponent } from './add-question-modal/add-question-modal.component';
 import { AppDetailComponent } from './app-detail/app-detail.component';
+import { MyFirebaseService } from './_services/myfirebase.service';
 
 
 @NgModule({
@@ -68,7 +69,10 @@ import { AppDetailComponent } from './app-detail/app-detail.component';
     HttpModule,
     MdDialogModule,
   ],
-  providers: [ScholarshipService, UserProfileService, AuthService, ApplicationService, QuestionControlService, QuestionService],
+  providers: [ScholarshipService, UserProfileService,
+     AuthService, ApplicationService,
+      QuestionControlService, QuestionService,
+       MyFirebaseService],
   bootstrap: [AppComponent],
   entryComponents: [
     AddQuestionModalComponent,

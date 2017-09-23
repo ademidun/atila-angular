@@ -8,6 +8,7 @@ export class AuthService {
   private loginUrl = 'http://127.0.0.1:8000/login/';
   private userUrl = 'http://127.0.0.1:8000/users/';
   private usernameUrl = 'http://127.0.0.1:8000/user-name/';
+  private apiKeyUrl = 'http://127.0.0.1:8000/api-keys/';
   constructor(private http: Http) { }
 
   
@@ -30,6 +31,13 @@ export class AuthService {
 
   getUser(userId: any){
     return this.http.get(`${this.usernameUrl}?user-id=${userId}/`)
+    .map(this.extractData)
+    .catch(this.handleError);
+  }
+
+
+  getAPIKey(apiKey: any){
+    return this.http.get(`${this.apiKeyUrl}?api-key-name=${apiKey}/`)
     .map(this.extractData)
     .catch(this.handleError);
   }
