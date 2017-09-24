@@ -127,11 +127,19 @@
                             </div>
                         </div>
                         <div class="row">
+                                <div class="col s12">
+                                    <input class="browser-default" id="is_automatable" type="checkbox" [(ngModel)]="scholarship.is_automatable" name="is_automatable">
+                                    <label for="is_automatable" data-error="Invalid input">Can this form be automated by Atila?<a> What is an automatable form?</a></label>
+                                </div>
+                            </div>
+                        <div class="row">
                             <md-input-container class="col s12">
                                 <input class="browser-default" mdInput id="reference_letter_required" type="number" [(ngModel)]="scholarship.reference_letter_required" name="reference_letter_required">
                                 <label for="reference_letter_required" data-error="Invalid input">Number of reference letters required? (Leave as 0 if reference letter is not required.)</label>
                             </md-input-container>
                         </div>
+
+
                         <div class="row">
                             <label for="criteria_info">Are there any additional criteria that were not covered by the previous questions? </label>
                               <textarea  class="browser-default" mdInput id="criteria_info" type="text" placeholder="Criteria Description" [(ngModel)]="scholarship.criteria_info" name="criteria_info"></textarea>
@@ -160,18 +168,6 @@
                         <div class="row">
                             <div class="col s12">
                                 <a class="waves-effect waves-light btn left" (click)="back()">Back</a>
-                                <div *ngIf="showFormUpload">
-                                    <div class="row">
-                                        <div class="col s3">
-                                            <label>Upload an application form</label>
-                                            <input class="browser-default" id="user_img_file" type="file" placeholder="Profile Picture" [(ngModel)]="scholarship.user_img_file" name="user_img_file" (change)="scholarshipAppFormChangeEvent($event)">
-                                        </div>
-                                        <div class="col s3">
-                                            <button md-raised-button class="btn white-text" (click)="uploadScholarshipAppForm()">Upload</button>
-                                        </div>
-                                        <a routerLink="/scholarships-list">Skip</a>
-                                    </div>
-                                </div>
                                 <a class="waves-effect waves-light btn right" (click)="next()">Next</a>
                             </div>
                         </div>
@@ -205,9 +201,10 @@
                         </div>
                         <div class="row">
                             <div class="col s12">
+                                <p>You can upload an application form for the scholarship after you create the scholarship.
+                                    Don't worry if you make a mistake, you can edit your scholarship later.</p>
                                 <a class="waves-effect waves-light btn left" (click)="back()">Back</a>
-                                <div *ngIf="showFormUpload">
-                                    <div class="row">
+                                    <div class="row" *ngIf="showFormUpload">
                                         <div class="col s3">
                                             <label>Upload an application form</label>
                                             <input class="browser-default" id="user_img_file" type="file" placeholder="Profile Picture" [(ngModel)]="scholarship.user_img_file" name="user_img_file" (change)="scholarshipAppFormChangeEvent($event)">
@@ -217,7 +214,6 @@
                                         </div>
                                         <a routerLink="/scholarships-list">Skip</a>
                                     </div>
-                                </div>
                                 <a class="waves-effect waves-light btn right" (click)="createScholarship(scholarshipForm)">Create</a>
                             </div>
                         </div>

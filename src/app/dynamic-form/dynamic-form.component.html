@@ -11,7 +11,7 @@
    
       <div class="form-row" style=" margin-top: 1%;">
         <button type="submit" class="btn" [disabled]="!form.valid">Automate!</button>
-        <a *ngIf="uploadUrl" href="{{uploadUrl}}">View Filled Application</a>
+        <a target="_blank" *ngIf="uploadUrl" href="{{uploadUrl}}">View Filled Application</a>
       </div>
     </form>
   

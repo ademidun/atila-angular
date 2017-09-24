@@ -9,11 +9,13 @@ import { ActivatedRoute } from '@angular/router';
 import {NgForm} from '@angular/forms';
 
 import { UserProfileService } from '../_services/user-profile.service';
-
+import { AuthService } from "../_services/auth.service";
 import { Title }     from '@angular/platform-browser';
 import {MdDialog, MdDialogRef} from '@angular/material';
 import {AddQuestionModalComponent} from '../add-question-modal/add-question-modal.component';
 import { MyFirebaseService } from "../_services/myfirebase.service";
+
+import * as firebase from "firebase";
 
 @Component({
   selector: 'app-edit-scholarship',
@@ -67,6 +69,8 @@ FUNDING_TYPES = [
   scholarshipSlug: string = "";
   
   private scholarshipOwner;
+
+  uploadResponse: any;
   
 
   constructor(
@@ -77,6 +81,7 @@ FUNDING_TYPES = [
     private userProfileService: UserProfileService,
     private titleService: Title,
     private firebaseService: MyFirebaseService,
+    private authService: AuthService,
   ) { 
     this.scholarshipSlug = route.snapshot.params['slug']; 
     this.userId = parseInt(localStorage.getItem('userId')); // Current user
@@ -280,12 +285,12 @@ createScholarship(scholarshipForm) {
 
 scholarshipAppFormChangeEvent(fileInput: any){
   console.log("fileInput:", fileInput);
-  this.scholarshipFormFile = fileInput.target.files[0];  
+  this.scholarshipFormFile = fileInput.target.files[0]; 
+  
 }
 
 uploadScholarshipAppForm(){
   //let uploadOperation: Observable<any>;
-  var uploadResponse;
 
   //create Upload file and configure its properties before uploading.
 
@@ -301,23 +306,78 @@ uploadScholarshipAppForm(){
   this.appFormFile.path = "scholarships/" + this.scholarship.id + "/scholarship-templates/"
   this.appFormFile.path = this.appFormFile.path + this.appFormFile.name
   console.log('this.appFormFile',this.appFormFile);
-  this.firebaseService.uploadFile(this.appFormFile,this.appFormFile.uploadInstructions)
+  
+  this.fileUpload(this.appFormFile)
   .subscribe(
-    res => {
-      uploadResponse = res;
-      console.log('uploadResponse', uploadResponse);
-    },
-
-    err => {},
-    () =>{
-      console.log('() uploadResponse', uploadResponse);
-    }
-  )
-  .add(
-    () => console.log('add uploadResponse', uploadResponse),
+    res => console.log('uploadScholarshipAppForm, subscribe() res', res)
   )
 
 }
+
+//TODO: Refactor this code into the firebase service
+fileUpload(uploadFile: UploadFile){
+  return this.authService.getAPIKey("FIREBASE_CONFIG_KEYS")
+  .map(res => this.uploadFileFirebase(res, uploadFile))
+  .catch(err=>Observable.throw(err))
+}
+
+uploadFileFirebase(res: Response, uploadFile: UploadFile){
+  
+        console.log("uploadFileInternal: res",res,'uploadFile',uploadFile);
+        
+        let config;
+        config = res['api_key'];
+        console.log("config",config);
+        if (!firebase.apps.length) {
+          firebase.initializeApp(config);
+        }
+        console.log("firebase after config",firebase);
+        uploadFile.name = config.toString();
+        //why does google documentation use var instead of ref
+        
+        //preparing the firebase storage for upload
+        var storage = firebase.storage();
+        let storageRef = storage.ref();
+        let uploadRef = storageRef.child(uploadFile.path);
+        var metadata = {
+          contentType: uploadFile.file.type,
+          size: uploadFile.file.size,
+          name: uploadFile.file.name,
+        };
+        console.log('uploadRef',uploadRef)
+        console.log('uploadRef.getDownloadURL()',uploadRef.getDownloadURL());
+          var uploadTask = uploadRef.put(uploadFile.file, metadata);
+          
+          //https://firebase.google.com/docs/storage/web/upload-files?authuser=0
+  
+          // Register three observers:
+          // 1. 'state_changed' observer, called any time the state changes
+          // 2. Error observer, called on failure
+          // 3. Completion observer, called on successful completion
+
+          uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+           (snapshot:any) => {
+            // Observe state change events such as progress, pause, and resume
+            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');
+          },
+           (error)=> {
+            console.log(error);
+          },
+           () => {
+            // Handle successful uploads on complete
+            // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+            //var downloadURL = uploadTask.snapshot.downloadURL;
+            console.log('Finished upload: uploadTask.snapshot', uploadTask.snapshot );
+            this.scholarship.form_url = uploadTask.snapshot.downloadURL;
+                                                              
+          });
+  
+  
+    }
+
+
 
 
 }

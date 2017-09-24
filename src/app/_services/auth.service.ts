@@ -37,7 +37,7 @@ export class AuthService {
 
 
   getAPIKey(apiKey: any){
-    return this.http.get(`${this.apiKeyUrl}?api-key-name=${apiKey}/`)
+    return this.http.get(`${this.apiKeyUrl}?api-key-name=${apiKey}`)
     .map(this.extractData)
     .catch(this.handleError);
   }

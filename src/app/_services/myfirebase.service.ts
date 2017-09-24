@@ -79,9 +79,7 @@ export class MyFirebaseService {
           // For instance, get the download URL: https://firebasestorage.googleapis.com/...
           //var downloadURL = uploadTask.snapshot.downloadURL;
           console.log('Finished upload: uploadTask.snapshot', uploadTask.snapshot );
-
-          return this.saveUploadResult(uploadTask.snapshot,uploadInstructions);
-          
+           this.saveUploadResult(uploadTask.snapshot,uploadFile.uploadInstructions);                                                   
         });
 
 
@@ -97,15 +95,9 @@ export class MyFirebaseService {
     }
 
     return this.http.post(this.saveFirebaseUrl,postData)
-    .subscribe(
-      res =>{ 
-        this.extractData(res);
-         console.log('inside post.map() saveUploadResult',res)
-        },
-      err => this.handleError(err),
-
-
-    )
+    .map(this.extractData)
+    .catch(this.handleError)
+    
     // .map( res => )
     // .catch(this.handleError).subscribe(res => console.log('inside post.subscribe() saveUploadResult',res))
 

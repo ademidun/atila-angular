@@ -11,7 +11,14 @@ import { MdSnackBar } from '@angular/material';
 
 import { Title }     from '@angular/platform-browser';
 
-    
+import { UploadFile } from '../_models/upload-file';
+
+import { AuthService } from "../_services/auth.service";
+
+import { MyFirebaseService } from "../_services/myfirebase.service";
+
+import * as firebase from "firebase";
+
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
@@ -40,17 +47,23 @@ EDUCATION_FIELD = [
   
   userProfile = new UserProfile();
   profileInfo = true;
-  
+  documentScholarshipsPercent =87;
 
   userDocuments = {}; 
 
   userName: string;
+
+  formFile: File;
+  formFileEvent: any;
+  uploadFile: UploadFile;
+
   constructor(
     private userProfileService: UserProfileService,
     private router: Router,
     private route: ActivatedRoute,
     private snackBar: MdSnackBar,
     private titleService: Title,
+    private authService: AuthService,
   ) { 
     this.userName = route.snapshot.params['username'];
   }
@@ -104,6 +117,7 @@ EDUCATION_FIELD = [
     }
   }
   onSubmit(profileForm: NgForm){
+
     
         console.log("userDocuments:", this.userDocuments);
     
@@ -140,12 +154,107 @@ EDUCATION_FIELD = [
     
       }
       
-  // SnackBar notification
-  showSnackBar(text: string, action = '', duration: number) {
-    this.snackBar.open(text, action, {
-      duration: duration
-    });
+  
+fileChangeEvent(fileInput: any){
+  console.log("fileInput:", fileInput);
+
+  //TODO: this seems a bit redundant
+  this.formFile = fileInput.target.files[0];
+  this.formFileEvent = fileInput;  
+}
+
+uploadUserDocuments(){
+  //let uploadOperation: Observable<any>;
+
+  //create Upload file and configure its properties before uploading.
+
+  this.uploadFile = new UploadFile(this.formFile);
+  this.uploadFile.name = this.formFile.name;
+  this.uploadFile.path = "user-profiles/" + this.userProfile.user + "/documents/"
+  this.uploadFile.path = this.uploadFile.path + this.uploadFile.name
+  console.log('this.uploadFile',this.uploadFile);
+  
+  this.fileUpload(this.uploadFile)
+  .subscribe(
+    res => console.log('uploadScholarshipAppForm, subscribe() res', res)
+  )
+
+}
+
+//TODO: Refactor this code into the firebase service
+fileUpload(uploadFile: UploadFile){
+  return this.authService.getAPIKey("FIREBASE_CONFIG_KEYS")
+  .map(res => this.uploadFileFirebase(res, uploadFile))
+  .catch(err=>Observable.throw(err))
+}
+
+uploadFileFirebase(res: Response, uploadFile: UploadFile){
+  
+  console.log("uploadFileInternal: res",res,'uploadFile',uploadFile);
+  
+  let config;
+  config = res['api_key'];
+  console.log("config",config);
+  if (!firebase.apps.length) {
+    firebase.initializeApp(config);
   }
+  console.log("firebase after config",firebase);
+  uploadFile.name = config.toString();
+  //why does google documentation use var instead of ref
+  
+  //preparing the firebase storage for upload
+  var storage = firebase.storage();
+  let storageRef = storage.ref();
+  let uploadRef = storageRef.child(uploadFile.path);
+  var metadata = {
+    contentType: uploadFile.file.type,
+    size: uploadFile.file.size,
+    name: uploadFile.file.name,
+  };
+  console.log('uploadRef',uploadRef)
+  console.log('uploadRef.getDownloadURL()',uploadRef.getDownloadURL());
+    var uploadTask = uploadRef.put(uploadFile.file, metadata);
+    
+    //https://firebase.google.com/docs/storage/web/upload-files?authuser=0
+
+    // Register three observers:
+    // 1. 'state_changed' observer, called any time the state changes
+    // 2. Error observer, called on failure
+    // 3. Completion observer, called on successful completion
+
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+      (snapshot:any) => {
+      // Observe state change events such as progress, pause, and resume
+      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+      var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + progress + '% done');
+    },
+      (error)=> {
+      console.log(error);
+    },
+      () => {
+      // Handle successful uploads on complete
+      // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+      //var downloadURL = uploadTask.snapshot.downloadURL;
+      console.log('Finished upload: uploadTask.snapshot', uploadTask.snapshot );
+      //this.userProfile.form_url = uploadTask.snapshot.downloadURL;
+
+      //get the userProfile attribute that needs to be saved.
+      //Will this have a significant impact on speed? As opposed to just saving the event ID as a variable   
+      this.userProfile[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
+      console.log('this.userProfile[this.formFileEvent.target.id]',this.userProfile[this.formFileEvent.target.id])                                               
+    });
+  
+  
+    }
+
+  
+// SnackBar notification
+showSnackBar(text: string, action = '', duration: number) {
+  this.snackBar.open(text, action, {
+    duration: duration
+  });
+}
 
 }
 
