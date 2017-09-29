@@ -35,7 +35,13 @@
           <label>{{question.label}}</label>
          <input [formControlName]="question.key"
          [id]="question.key" [type]="question.type" [required]="question.required ? 'required' : null" (change)="fileChangeEvent($event)">
-       </span>
+       
+         <div *ngIf="appData[question.key]" class="col s3">
+            <a  class="scholarship-document" [name]="question.key" target="_blank" href="{{appData[question.key]}}"> View Document ({{question.key}}) </a>
+        </div>
+        </span>
+
+       
 
 
        <span *ngSwitchCase="'number'">

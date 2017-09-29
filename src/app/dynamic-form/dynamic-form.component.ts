@@ -56,12 +56,11 @@ export class DynamicFormComponent implements OnInit {
     if(this.questions){
       this.form = this.qcs.toFormGroup(this.questions);
 
-    
     }
 
     this.appData = this.generalData.appData.responses;
   }
-  saveDocuments(){
+  saveDocumentsUrls(){
     var results = document.getElementsByClassName("scholarship-document");
     console.log('saveDocuments().results',results);
     this.generalData.documentUploads = { };
@@ -78,26 +77,33 @@ export class DynamicFormComponent implements OnInit {
 
   }
   onSubmit() {
-    this.payLoad = JSON.stringify(this.form.value);
-    this.payLoad += JSON.stringify(this.form.value);
+    this.payLoad = this.form.value;
 
+
+    for(var key in this.generalData.documentUploads) {
+      
+      this.payLoad[key]= this.generalData.documentUploads[key];
+     
+    }
+    this.payLoad = JSON.stringify(this.payLoad);
     var sendData = {
-      'generalData': this.generalData,
+      //'generalData': this.generalData,We only need 
       'profileForm': this.profileForm.value,
       'appForm': this.form.value,
+      'documentUrls':this.generalData.documentUploads,
     }
     var appId = this.generalData.appData.id;
     console.log('onSubmit() sendData:' , sendData);
 
-    // this.observable = this.questionService.saveResponse(appId,sendData);
-    // this.observable.subscribe(
-    //   res => {
-    //     console.log('Response succesful:' , res);
-    //     this.uploadUrl = res.upload_url;
-    //   },
+    this.observable = this.questionService.saveResponse(appId,sendData);
+    this.observable.subscribe(
+      res => {
+        console.log('Response succesful:' , res);
+        this.uploadUrl = res.upload_url;
+      },
 
-    //   err =>console.log('Error DynamicFormComponent:' , err)
-    // )
+      err =>console.log('Error DynamicFormComponent:' , err)
+    )
   }
 
   fileChangeEvent(fileInput: any){
@@ -112,7 +118,8 @@ export class DynamicFormComponent implements OnInit {
     //let uploadOperation: Observable<any>;
   
     //create Upload file and configure its properties before uploading.
-  
+    console.log('uploadUserDocuments() this.generalData.appData.responses',this.generalData.appData.responses);
+    console.log('uploadUserDocuments() formFileEvent ',this.formFileEvent);
     this.uploadFile = new UploadFile(this.formFile);
     this.uploadFile.name = this.formFile.name;
     this.uploadFile.path = "scholarships/" + this.generalData.scholarship.id + "/application-documents/" + this.generalData.appData.id + "/";
@@ -184,10 +191,9 @@ export class DynamicFormComponent implements OnInit {
         console.log('Finished upload: uploadTask.snapshot', uploadTask.snapshot );
         //this.userProfile.form_url = uploadTask.snapshot.downloadURL;
   
-        //get the userProfile attribute that needs to be saved.
-        //Will this have a significant impact on speed? As opposed to just saving the event ID as a variable   
-        this.generalData.userProfile[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
-        console.log('this.userProfile[this.formFileEvent.target.id]',this.generalData.userProfile[this.formFileEvent.target.id])                                               
+        //this.generalData.userProfile[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
+        this.generalData.appData.responses[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
+        console.log('this.generalData.appData.responses[this.formFileEvent.target.id]',this.generalData.appData.responses[this.formFileEvent.target.id]) ;                                              
       });
     
     
