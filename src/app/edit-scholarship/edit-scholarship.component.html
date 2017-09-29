@@ -163,7 +163,12 @@
                                 <a class="waves-effect waves-light btn left" (click)="saveEditScholarship(scholarshipForm)">Save</a>
                                     <div *ngIf="showFormUpload"class="row">
                                         <div class="col s2">
-                                            <label>Upload an application form</label>
+                                            <span *ngIf="scholarship.form_url">
+                                                    <label>Change application form</label>
+                                            </span>
+                                            <span *ngIf="!scholarship.form_url">
+                                                <label>Upload an application form</label>
+                                            </span>
                                             <input class="browser-default" id="user_img_file" type="file" placeholder="Profile Picture" [(ngModel)]="scholarship.user_img_file" name="user_img_file" (change)="scholarshipAppFormChangeEvent($event)">
                                         </div>
                                         <div class="col s2">

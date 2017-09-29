@@ -6,7 +6,8 @@ import { QuestionService } from '../_services/question.service';
 import { QuestionControlService } from '../_services/question-control.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from "rxjs/Rx";
-import { Scholarship } from '../_models/scholarship'
+import { Scholarship } from '../_models/scholarship';
+
 @Component({
   selector: 'app-app-detail',
   templateUrl: './app-detail.component.html',
@@ -46,11 +47,13 @@ export class AppDetailComponent implements OnInit {
   observable: Observable<any>;
   dynamicForm: FormGroup;
 
+    
+
   constructor(
     private applicationService: ApplicationService,
     route: ActivatedRoute,
     private qService: QuestionService,
-    private qcs: QuestionControlService
+    private qcs: QuestionControlService,
   ) {
     this.appId = parseInt(route.snapshot.params['id']);
     console.log("route.snapshot.params['id']", route.snapshot.params['id']);
@@ -125,5 +128,4 @@ export class AppDetailComponent implements OnInit {
     this.profileForm = form;
     console.log('this.profileForm', this.profileForm);
   }
-
 }

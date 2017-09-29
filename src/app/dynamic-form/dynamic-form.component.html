@@ -10,6 +10,7 @@
    </div>
    
       <div class="form-row" style=" margin-top: 1%;">
+          <a class="btn" (click)="saveDocuments()">Save Documents</a>
         <button type="submit" class="btn" [disabled]="!form.valid">Automate!</button>
         <a target="_blank" *ngIf="uploadUrl" href="{{uploadUrl}}">View Filled Application</a>
       </div>

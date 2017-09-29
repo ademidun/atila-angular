@@ -15,7 +15,8 @@ export class AddQuestionModalComponent implements OnInit {
     { 'value': 'textfield', 'name': 'Text Field' },
     { 'value': 'textarea', 'name': 'Text Area' },
     { 'value': 'number', 'name': 'Number' },
-    { 'value': 'date', 'name': 'Date' } 
+    { 'value': 'date', 'name': 'Date' },
+    { 'value': 'file', 'name': 'File' }  
   ]
 
   question = {
@@ -50,11 +51,4 @@ export class AddQuestionModalComponent implements OnInit {
 
   
   
-  updateModel() {
-    if (this.question.type === "date") {
-      this.question.controlType = "date";
-    } else {
-      this.question.controlType = "textbox";
-    }
-  }
 }

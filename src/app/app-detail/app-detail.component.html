@@ -1,7 +1,7 @@
 <div class="container">
     <div class="card">
       <div class="row">
-        <div class="card-content" *ngIf="userProfile">
+        <div class="card-content" *ngIf="userProfile && scholarship">
           
             <h4>{{userProfile.first_name}}'s Application for: <br> {{scholarship.name}}</h4>
             <h6> Application ID #{{application.id}} </h6>
@@ -63,9 +63,67 @@
                         [(ngModel)]="userProfile.phone_number" name="phone_number">
                     </md-input-container>
               </div>
+
+            <div class="row">
+              <span  *ngIf="scholarship.resume_required" >
+              <div class="col s3">
+                  <label>Change Resume</label>
+                <input class="browser-default" id="resume" type="file" placeholder="Resume"
+                  name="resume" (change)="fileChangeEvent($event)">
+              </div>
+
+              <div *ngIf="userProfile.resume" class="col s3">
+                  <a class="scholarship-document" name="resume" target="_blank" href="{{userProfile.resume}}"> View Resume </a>
+              </div>
+
+              </span>
+              <span  *ngIf="scholarship.transcript_required" >
+              <div class="col s3">
+                  <label>Upload Transcript</label>
+                  <input class="browser-default" id="transcript" type="file" placeholder="Transcript"
+                    name="transcript" (change)="fileChangeEvent($event)">
+                </div>
+
+              <div *ngIf="userProfile.transcript" class="col s3">
+                  <a  class="scholarship-document"  name="transcript" [attr.data-question-type]="scholarshipDocument" [attr.data-questionkey]="transcript" data-questionkey="transcript" attr.data-questionkey="transcript" target="_blank" href="{{userProfile.transcript}}"> View Transcript </a>
+              </div>
+              </span>
+            </div>
+            <div class="row">
+              <span  *ngIf="scholarship.reference_letter_required>0" >
+                <div class="col s3">
+                   <label>Upload Reference Letter </label>
+                  <input class="browser-default" id="reference_letter" type="file" placeholder="Reference Letter"
+                    name="reference_letter" (change)="fileChangeEvent($event)">
+                </div>
+
+                <div *ngIf="userProfile.reference_letter" class="col s3">
+                    <a  class="scholarship-document" name="reference_letter" [attr.data-question-type]="scholarshipDocument" [attr.data-question-key]="reference_letter" data-question-key="reference_letter"  target="_blank" href="{{userProfile.reference_letter}}"> View Reference Letter </a>
+                </div>
+              </span>
+              <span *ngIf="scholarship.reference_letter_required>1" >
+                <div class="col s3">
+                    <label>Upload Alternate Reference Letter</label>
+                   <input class="browser-default" id="reference_letter_alternate" type="file" placeholder="Alternate Reference Letter"
+                     name="reference_letter_alternate" (change)="fileChangeEvent($event)">
+                 </div>
+
+                <div *ngIf="userProfile.reference_letter_alternate" class="col s3">
+                    <a  class="scholarship-document" name="reference_letter_alternate" [attr.data-question-type]="scholarshipDocument" [attr.data-question-key]="reference_letter_alternate" data-question-key="reference_letter_alternate"  target="_blank" href="{{userProfile.reference_letter_alternate}}"> View Alternate Reference Letter </a>
+                </div>
+              </span>
+              </div>
+              <div class="row">
+
+                  <button md-raised-button class="btn white-text" (click)="uploadUserDocuments()" style="margin-left:1%">Upload Document</button>
+                  <button type="submit" class="btn btn-success left">Save Profile</button>
+                  <a class="waves-effect waves-light btn right" (click)="switchPage()">Next</a>
+              </div>
+      
   
               <button type="submit" class="btn" (click)="onSubmit(profileForm)" style="margin-bottom: 2%;"> Confirm</button>
              
+            
             </form>
             <span *ngIf="dynamicForm">
                 <app-dynamic-form [generalData]="generalData" [questions]="questions" [profileForm]="profileForm" [form]="dynamicForm"></app-dynamic-form>

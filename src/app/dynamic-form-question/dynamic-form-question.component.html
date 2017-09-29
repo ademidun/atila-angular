@@ -30,6 +30,21 @@
       <!-- <select [id]="question.key" *ngSwitchCase="'dropdown'" [formControlName]="question.key">
         <option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</option>
        </select>-->
+
+       <span *ngSwitchCase="'file'">
+          <label>{{question.label}}</label>
+         <input [formControlName]="question.key"
+         [id]="question.key" [type]="question.type" [required]="question.required ? 'required' : null" (change)="fileChangeEvent($event)">
+       </span>
+
+
+       <span *ngSwitchCase="'number'">
+          <label>{{question.label}}</label>
+            <md-input-container class="col s12">
+                <input class="browser-default scholarship-document" mdInput id="phone_number" type="number" [formControlName]="question.key"
+                [id]="question.key" [type]="question.type" [required]="question.required ? 'required' : null">
+              </md-input-container>
+       </span>
   
     </div> 
   
