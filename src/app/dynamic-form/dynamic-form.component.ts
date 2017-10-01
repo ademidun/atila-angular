@@ -83,7 +83,7 @@ export class DynamicFormComponent implements OnInit {
     for(var key in this.generalData.documentUploads) {
       
       this.payLoad[key]= this.generalData.documentUploads[key];
-     
+
     }
     this.payLoad = JSON.stringify(this.payLoad);
     var sendData = {
