@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Rx';
 
 import { UserProfileService } from '../_services/user-profile.service';
 
+import { AuthService } from "../_services/auth.service";
 
 
 @Component({
@@ -45,7 +46,8 @@ EDUCATION_FIELD = [
   constructor(
     private router: Router,
     private snackBar: MdSnackBar,
-    private userProfileService: UserProfileService) { }
+    private userProfileService: UserProfileService,
+    private authService: AuthService) { }
 
 
 userProfile = new UserProfile();
@@ -66,6 +68,7 @@ userProfile = new UserProfile();
         data => {
           this.model = new User('','','');
           this.showSnackBar('Registration successful', 3000);
+          this.authService.isLoggedIn = true;
           // Store userId in loacl storage
           console.log('registration data: ', data);
           if (data.id) {

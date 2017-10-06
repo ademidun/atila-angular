@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { CreateScholarshipComponent } from "../create-scholarship/create-scholarship.component";
+import { AddScholarshipComponent } from "../add-scholarship/add-scholarship.component";
 import { PreviewComponent } from "../preview/preview.component";
 import { ScholarshipsListComponent } from "../scholarships-list/scholarships-list.component";
 import { ScholarshipDetailComponent } from "../scholarship-detail/scholarship-detail.component";
@@ -17,7 +17,7 @@ import { AppDetailComponent } from '../app-detail/app-detail.component';
 const routes: Routes = [
   { path: '' , component: PreviewComponent, data: {title: 'Atila'}},
   { path: 'applications/:id' , component: AppDetailComponent, data: {title: 'Application Detail'}},  
-  { path: 'create-scholarship' , component: CreateScholarshipComponent, data: {title: 'Atila - Create Scholarship'}},
+  { path: 'add-scholarship' , component: AddScholarshipComponent, data: {title: 'Atila - Create Scholarship'}},
   { path: 'create-profile' , component: CreateProfileComponent, data: {title: 'Atila - Create Profile'}},
   { path: 'profile/:username' , component: EditProfileComponent, data: {title: 'Atila - Profile'}},
   { path: 'edit-profile' , component: EditProfileComponent, data: {title: 'Atila - Edit Profile'}},

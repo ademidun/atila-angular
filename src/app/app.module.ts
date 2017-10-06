@@ -25,8 +25,8 @@ import { CreateProfileComponent } from './create-profile/create-profile.componen
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { AuthService } from './_services/auth.service';
 import { ScholarshipDetailComponent } from './scholarship-detail/scholarship-detail.component';
+import { AddScholarshipComponent } from './add-scholarship/add-scholarship.component';
 import { ApplicationService } from './_services/application.service';
-import { CreateScholarshipComponent } from './create-scholarship/create-scholarship.component';
 import { EditScholarshipComponent } from './edit-scholarship/edit-scholarship.component';
 import { QuestionControlService } from './_services/question-control.service';
 import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
@@ -52,7 +52,7 @@ import { CreateProfileQuickComponent } from './create-profile-quick/create-profi
     CreateProfileComponent,
     EditProfileComponent,
     ScholarshipDetailComponent,
-    CreateScholarshipComponent,
+    AddScholarshipComponent,
     EditScholarshipComponent,
     DynamicFormComponent,
     DynamicFormQuestionComponent,

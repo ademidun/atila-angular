@@ -5,7 +5,7 @@
 
       <!-- Show on Desktop  -->
       <ul class="right hide-on-med-and-down">
-        <li *ngIf="!authService.isLoggedIn;else loggedIn"><a class="atila-blue" routerLink="/login">Log In</a></li>
+        <li *ngIf="!authService.isLoggedIn;else loggedIn"><a class="atila-blue" routerLink="/login">Register/Log In</a></li>
 
         <span *ngIf="authService.isLoggedIn">
             <button md-icon-button [mdMenuTriggerFor]="menu">
@@ -19,15 +19,23 @@
                  
                 </button>
               </a>
-                <!-- <button md-menu-item routerLink="/edit-profile">
+              <a routerLink="/edit-profile">
+                <button md-menu-item>
                   <span>Edit profile</span>
-                </button> -->
-                <button md-menu-item *ngIf="authService.isLoggedIn" routerLink="/create-scholarship">
-                  <span>Create scholarship</span>
                 </button>
-                <button md-menu-item (click)="logout()">
+              </a>
+              <a routerLink="/add-scholarship">
+                <button md-menu-item>
+                  <span>Add scholarship</span>
+                </button>
+
+              </a>
+
+              <a (click)="logout()">
+                <button md-menu-item>
                   <span>Logout</span>
                 </button>
+            </a>
               </md-menu>
 
         </span>
@@ -44,8 +52,8 @@
           <!-- <button md-menu-item routerLink="/edit-profile">
             <span>Edit profile</span>
           </button> -->
-          <button md-menu-item *ngIf="authService.isLoggedIn" routerLink="/create-scholarship">
-            <span>Create Scholarship</span>
+          <button md-menu-item *ngIf="authService.isLoggedIn" routerLink="/add-scholarship">
+            <span>Add Scholarship</span>
           </button>
           <button md-menu-item (click)="logout()">
             <span>Logout</span>

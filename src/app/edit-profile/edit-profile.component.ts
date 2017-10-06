@@ -71,7 +71,7 @@ EDUCATION_FIELD = [
   ngOnInit() {
     let userId = localStorage.getItem('userId');
     if (userId) {
-      this.userProfileService.getByUsername(this.userName)
+      this.userProfileService.getById(parseInt(userId))
         .subscribe(
           data => {
             this.userProfile = data;

@@ -18,11 +18,11 @@ import { MyFirebaseService } from "../_services/myfirebase.service";
 import * as firebase from "firebase";
 
 @Component({
-  selector: 'app-create-scholarship',
-  templateUrl: './create-scholarship.component.html',
-  styleUrls: ['./create-scholarship.component.scss']
+  selector: 'app-add-scholarship',
+  templateUrl: './add-scholarship.component.html',
+  styleUrls: ['./add-scholarship.component.scss']
 })
-export class CreateScholarshipComponent implements OnInit {
+export class AddScholarshipComponent implements OnInit {
 
 
 EDUCATION_LEVELS = [
