@@ -46,7 +46,7 @@
                             <md-input-container class="col s6">
                               <label>Deadline</label>
                               <br/>
-                              <input class="browser-default" mdInput id="deadline" type="datetime-local" required
+                              <input class="browser-default" mdInput id="deadline" type="datetime-local"
                                 [(ngModel)]="scholarship.deadline" name="deadline">
                             </md-input-container>
           
@@ -76,7 +76,7 @@
                         <br>
                         <div class="row">
                             <div class="input-field">
-                                <md-select class="col s12" [(ngModel)]="scholarship.funding_type" name="funding_type" id="funding_type" multiple=true placeholder="Funding Type">
+                                <md-select class="col s12" [(ngModel)]="scholarship.funding_type" name="funding_type" required id="funding_type" multiple=true placeholder="Funding Type">
                                     <md-option *ngFor="let type of FUNDING_TYPES" [value]="type">{{type}} </md-option>
                                 </md-select>
                             </div>
@@ -84,7 +84,7 @@
                         <br>
                         <div class="row">
                             <div class="input-field">
-                                <md-select class="col s12" [(ngModel)]="scholarship.education_level" name="education_level" id="education_level" multiple=true placeholder="Education Level">
+                                <md-select class="col s12" [(ngModel)]="scholarship.education_level" name="education_level" id="education_level" required multiple=true placeholder="Education Level">
                                     <md-option *ngFor="let education_level of EDUCATION_LEVELS" [value]="education_level">{{education_level}} </md-option>
                                 </md-select>
                             </div>
@@ -211,6 +211,10 @@
                                         </div>
                                         <div class="col s3">
                                             <button md-raised-button class="btn white-text" (click)="uploadScholarshipAppForm()">Upload</button>
+                                            
+                                        <div *ngIf="scholarship.form_url" class="col s4">
+                                            <a target="_blank" href="{{scholarship.form_url}}">View Current Application</a>
+                                        </div> 
                                         </div>
                                         <a routerLink="/scholarships-list">Skip</a>
                                     </div>

@@ -1,13 +1,13 @@
   <nav class="white" role="navigation">
     <div class="nav-wrapper container atila-blue">
-      <a *ngIf="!isLoggedIn" id="logo-container" routerLink="/" class="brand-logo">Atila</a>
-      <a *ngIf="isLoggedIn" id="logo-container" routerLink="/scholarships-list" class="brand-logo">Atila</a>
+      <a *ngIf="!authService.isLoggedIn" id="logo-container" routerLink="/" class="brand-logo">Atila</a>
+      <a *ngIf="authService.isLoggedIn" id="logo-container" routerLink="/scholarships-list" class="brand-logo">Atila</a>
 
       <!-- Show on Desktop  -->
       <ul class="right hide-on-med-and-down">
-        <li *ngIf="!isLoggedIn;else loggedIn"><a class="atila-blue" routerLink="/login">Log In</a></li>
+        <li *ngIf="!authService.isLoggedIn;else loggedIn"><a class="atila-blue" routerLink="/login">Log In</a></li>
 
-        <span *ngIf="isLoggedIn">
+        <span *ngIf="authService.isLoggedIn">
             <button md-icon-button [mdMenuTriggerFor]="menu">
                 <md-icon aria-hidden="true" md-colors="{color:'primary'}">perm_identity</md-icon>
               </button>
@@ -22,7 +22,7 @@
                 <!-- <button md-menu-item routerLink="/edit-profile">
                   <span>Edit profile</span>
                 </button> -->
-                <button md-menu-item *ngIf="isLoggedIn" routerLink="/create-scholarship">
+                <button md-menu-item *ngIf="authService.isLoggedIn" routerLink="/create-scholarship">
                   <span>Create scholarship</span>
                 </button>
                 <button md-menu-item (click)="logout()">
@@ -44,7 +44,7 @@
           <!-- <button md-menu-item routerLink="/edit-profile">
             <span>Edit profile</span>
           </button> -->
-          <button md-menu-item *ngIf="isLoggedIn" routerLink="/create-scholarship">
+          <button md-menu-item *ngIf="authService.isLoggedIn" routerLink="/create-scholarship">
             <span>Create Scholarship</span>
           </button>
           <button md-menu-item (click)="logout()">

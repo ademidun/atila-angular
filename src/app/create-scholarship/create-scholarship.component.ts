@@ -124,8 +124,8 @@ FUNDING_TYPES = [
     this.scholarship.owner = this.userId;
     this.scholarship.extra_questions = {};
     this.scholarship.number_available_scholarships =1;
-    this.stringDict.eligible_schools = 'Bishop Reding, Jean Vanier';
-    this.stringDict['city'] = 'Milton';
+    this.stringDict.eligible_schools = '';
+    this.stringDict['city'] = '';
   }
 
   openModal() {

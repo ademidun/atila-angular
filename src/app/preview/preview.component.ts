@@ -50,7 +50,7 @@ export class PreviewComponent implements OnInit {
        'Other' 
    ]
 
-   model = new PreviewResponse([this.CITY_CHOICES[0]],[this.EDUCATION_LEVEL[0]],[this.EDUCATION_FIELD[0]]);
+   model = new PreviewResponse([''],[this.EDUCATION_LEVEL[0]],[this.EDUCATION_FIELD[0]]);
    diagnostic: any;
    constructor(
     public scholarshipService: ScholarshipService,

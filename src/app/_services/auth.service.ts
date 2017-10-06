@@ -9,6 +9,7 @@ export class AuthService {
   private userUrl = 'http://127.0.0.1:8000/users/';
   private usernameUrl = 'http://127.0.0.1:8000/user-name/';
   private apiKeyUrl = 'http://127.0.0.1:8000/api-keys/';
+  public  isLoggedIn: boolean = false;
   constructor(private http: Http) { }
 
   

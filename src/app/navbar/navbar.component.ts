@@ -29,13 +29,15 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    this.authService.isLoggedIn =false;
     if (this.userProfileService.isLoggedIn()) {
       this.isLoggedIn = true;
+      this.authService.isLoggedIn = true;
     }
 
     if (localStorage.getItem('userId')) {
       this.isLoggedIn = true;
+      this.authService.isLoggedIn = true;
     }
 
     if(this.isLoggedIn){
@@ -72,5 +74,6 @@ export class NavbarComponent implements OnInit {
     this.router.navigate([''])
     localStorage.clear();
   }
+
 
 }

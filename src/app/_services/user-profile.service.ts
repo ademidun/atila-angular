@@ -27,6 +27,16 @@ export class UserProfileService {
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+  createUserAndProfile(data: any) {
+    let headers = new Headers({ 'Content-Type': 'application/json', });
+    // headers.append("Authorization","JWT YW5ndWxhci13YXJlaG91c2Utc2VydmljZXM6MTIzNDU2");
+    let options = new RequestOptions({ headers: headers, });
+    
+    return this.http.post(this.userEndpoint, data, options)
+      .map((response: Response) => response.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
   getById(id: number): Observable<UserProfile> {
     return this.http.get(`${this.userProfileEndpoint}${id}/`)
       .map((response: Response) => response.json())

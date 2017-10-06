@@ -183,7 +183,7 @@
                                         {{uploadFile.name}} {{uploadResponse}} {{scholarship.form_url}}
                                         </div>  -->
 
-                                        <div class="col s4">
+                                        <div *ngIf="scholarship.form_url" class="col s4">
                                                 <a target="_blank" href="{{scholarship.form_url}}">View Current Application</a>
                                         </div> 
 
@@ -236,7 +236,7 @@
                                         <a routerLink="/scholarships-list">Skip</a>
                                     </div>
                                 </div>
-                                <a class="waves-effect waves-light btn right" (click)="saveEditScholarship(scholarshipForm)">Create</a>
+                                <a class="waves-effect waves-light btn right" (click)="saveEditScholarship(scholarshipForm)">Save</a>
                             </div>
                         </div>
                     </div>

@@ -35,6 +35,7 @@ import { DynamicFormQuestionComponent } from './dynamic-form-question/dynamic-fo
 import { AddQuestionModalComponent } from './add-question-modal/add-question-modal.component';
 import { AppDetailComponent } from './app-detail/app-detail.component';
 import { MyFirebaseService } from './_services/myfirebase.service';
+import { CreateProfileQuickComponent } from './create-profile-quick/create-profile-quick.component';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import { MyFirebaseService } from './_services/myfirebase.service';
     DynamicFormComponent,
     DynamicFormQuestionComponent,
     AddQuestionModalComponent,
-    AppDetailComponent
+    AppDetailComponent,
+    CreateProfileQuickComponent
   ],
   imports: [
     NgbModule.forRoot(),

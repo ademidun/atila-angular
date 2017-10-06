@@ -3,9 +3,9 @@
     <div class="row">
       <div class="card-content">
       
-      <form #profileForm="ngForm" (ngSubmit)="saveProfile(profileForm)" class="col s12">
+      <form #profileForm="ngForm" (ngSubmit)="onSubmit(profileForm)" class="col s12">
         <div [ngClass]='{hidden: !profileInfo}'>
-          <h4>Edit <span *ngIf="userProfile.first_name">{{userProfile.first_name}}'s</span> Profile</h4>
+          <h4>Create <span *ngIf="userProfile.first_name">{{userProfile.first_name}}'s</span> Profile</h4>
           <div class="row">
             <md-input-container class="col s6">
               <input class="browser-default" mdInput id="first_name" type="text" required minlength="2" placeholder="First name"
@@ -18,13 +18,13 @@
           </div>
           <div class="row">
             <md-input-container class="col s12">
-              <input class="browser-default" mdInput id="street_address" type="text" placeholder="Street Address"
+              <input class="browser-default" mdInput id="street_address" type="text" required placeholder="Street Address"
                 [(ngModel)]="userProfile.street_address" name="street_address">
             </md-input-container>
           </div>
           <div class="row">
             <md-input-container class="col s12">
-              <input class="browser-default" mdInput id="postal_code" type="text" placeholder="Postal Code"
+              <input class="browser-default" mdInput id="postal_code" type="text" required placeholder="Postal Code"
                 [(ngModel)]="userProfile.postal_code" name="postal_code">
             </md-input-container>
           </div>
@@ -46,20 +46,6 @@
                     [(ngModel)]="userProfile.country" name="country">
                 </md-input-container>
           </div>
-          <div class="row">
-              <md-input-container class="col s12">
-                  <input class="browser-default" mdInput id="email" type="text" placeholder="Email"
-                    [(ngModel)]="userProfile.email" name="email">
-                </md-input-container>
-          </div>
-
-          <div class="row">
-            <label> This field is optional. We ask for your phone number because most scholarships ask for your phone number when you apply. It can also be used to help recover and further secure your account.</label>
-              <md-input-container class="col s12">
-                  <input class="browser-default" mdInput id="phone_number" type="number" placeholder="Phone Number"
-                    [(ngModel)]="userProfile.phone_number" name="phone_number">
-                </md-input-container>
-          </div>
           <!-- <div class="row">
             <md-input-container class="col s12">
               <input class="browser-default" mdInput id="bus_name" type="text" required placeholder="Business Name"
@@ -70,7 +56,7 @@
             <md-input-container class="col s12">
               <label>Birth Date</label>
               <br/>
-              <input class="browser-default" mdInput id="birth_date" type="date"
+              <input class="browser-default" mdInput id="birth_date" type="date" required
                 [(ngModel)]="userProfile.birth_date" name="birth_date">
             </md-input-container>
           </div>
@@ -91,66 +77,62 @@
           </div>
           <br>
           <!-- TODO: Do we need to explain this? Perhaps do some A/B Testing? -->
-
-            <!-- TODO: Do we need to explain this? Perhaps do some A/B Testing? -->
-            <div class="row">
-                <div class="col s6">
-                  <!-- TODO: Get real % of scholarships asking for alternate rerefence letters. -->
-                  <h5> Additional Documents </h5>
-                  <p>Click upload once for each time you choose a file.</p>
-                  <a placement="bottom" [ngbTooltip]="tipContent">Why do I need this?</a>
-                  <ng-template #tipContent><b>{{documentScholarshipsPercent}}%</b> of scholarships require either a resume, transcript or reference_letter.
-                  These documents allow us to automate the application process.</ng-template>
-                </div>
+          <div class="row">
+            <div class="col s6">
+              <!-- TODO: Get real % of scholarships asking for alternate rerefence letters. -->
+              <h5> Additional Documents </h5>
+              <p>Click upload once for each time you choose a file.</p>
+              <a placement="bottom" [ngbTooltip]="tipContent">Why do I need this?</a>
+              <ng-template #tipContent><b>{{documentScholarshipsPercent}}%</b> of scholarships require either a resume, transcript or reference_letter.
+              These documents allow us to automate the application process.</ng-template>
+            </div>
+          </div>
+          <div class="row">
+              <div class="col s3">
+                 <label>Upload Resume</label>
+                <input class="browser-default" id="resume" type="file" placeholder="Resume"
+                  name="resume" (change)="fileChangeEvent($event)">
               </div>
-              <div class="row">
-                  <div class="col s3">
-                     <label>Upload Resume</label>
-                    <input class="browser-default" id="resume" type="file" placeholder="Resume"
-                      name="resume" (change)="fileChangeEvent($event)">
-                  </div>
-  
-                  <div *ngIf="userProfile.resume" class="col s3">
-                      <a target="_blank" href="{{userProfile.resume}}"> View Resume </a>
-                  </div>
-                  <div class="col s3">
-                      <label>Upload Transcript</label>
-                     <input class="browser-default" id="transcript" type="file" placeholder="Transcript"
-                       name="transcript" (change)="fileChangeEvent($event)">
-                   </div>
-  
-                  <div *ngIf="userProfile.transcript" class="col s3">
-                      <a target="_blank" href="{{userProfile.transcript}}"> View Transcript </a>
-                  </div>
-                </div>
-  
-              <div class="row">
-                  <div class="col s3">
-                     <label>Upload Reference Letter </label>
-                    <input class="browser-default" id="reference_letter" type="file" placeholder="Reference Letter"
-                      name="reference_letter" (change)="fileChangeEvent($event)">
-                  </div>
-  
-                  <div *ngIf="userProfile.reference_letter" class="col s3">
-                      <a target="_blank" href="{{userProfile.reference_letter}}"> View Reference Letter </a>
-                  </div>
-                  <div class="col s3">
-                      <label>Upload Alternate Reference Letter</label>
-                     <input class="browser-default" id="reference_letter_alternate" type="file" placeholder="Alternate Reference Letter"
-                       name="reference_letter_alternate" (change)="fileChangeEvent($event)">
-                   </div>
-  
-                  <div *ngIf="userProfile.reference_letter_alternate" class="col s3">
-                      <a target="_blank" href="{{userProfile.reference_letter_alternate}}"> View Alternate Reference Letter </a>
-                  </div>
-                </div>
-                <div class="row">
 
-                    <button md-raised-button class="btn white-text" (click)="uploadUserDocuments()" style="margin-left:1%">Upload Document</button>
-                    <button type="submit" class="btn btn-success left">Save Profile</button>
-                    <a class="waves-effect waves-light btn right" (click)="switchPage()">Next</a>
-                </div>
-        </div>
+              <div *ngIf="userProfile.resume" class="col s3">
+                  <a target="_blank" href="{{userProfile.resume}}"> View Resume </a>
+              </div>
+              <div class="col s3">
+                  <label>Upload Transcript</label>
+                 <input class="browser-default" id="transcript" type="file" placeholder="Transcript"
+                   name="transcript" (change)="fileChangeEvent($event)">
+               </div>
+
+              <div *ngIf="userProfile.transcript" class="col s3">
+                  <a target="_blank" href="{{userProfile.transcript}}"> View Transcript </a>
+              </div>
+            </div>
+
+          <div class="row">
+              <div class="col s3">
+                 <label>Upload Reference Letter </label>
+                <input class="browser-default" id="reference_letter" type="file" placeholder="Reference Letter"
+                  name="reference_letter" (change)="fileChangeEvent($event)">
+              </div>
+
+              <div *ngIf="userProfile.reference_letter" class="col s3">
+                  <a target="_blank" href="{{userProfile.reference_letter}}"> View Reference Letter </a>
+              </div>
+              <div class="col s3">
+                  <label>Upload Alternate Reference Letter</label>
+                 <input class="browser-default" id="reference_letter_alternate" type="file" placeholder="Alternate Reference Letter"
+                   name="reference_letter_alternate" (change)="fileChangeEvent($event)">
+               </div>
+
+              <div *ngIf="userProfile.reference_letter_alternate" class="col s3">
+                  <a target="_blank" href="{{userProfile.reference_letter_alternate}}"> View Alternate Reference Letter </a>
+              </div>
+            </div>
+
+                <button md-raised-button class="btn white-text" (click)="uploadUserDocument()">Upload Document</button>
+            <a class="waves-effect waves-light btn right" (click)="switchPage()">Next</a>
+        
+          </div>
         <div [ngClass]='{hidden: profileInfo}'>
             <div class="row">
                   <!-- TODO: Get real % of scholarships asking for alternate rerefence letters. -->

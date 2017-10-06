@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { AuthService } from "../_services/auth.service";
 import {Router, RouterModule} from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 import { MdSnackBar } from '@angular/material';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 export class Credentials {
   username: string;
@@ -17,6 +18,8 @@ export class Credentials {
 })
 
 export class LoginComponent implements OnInit {
+
+  @ViewChild(NavbarComponent) navbarComponent: NavbarComponent;
 
   credentials: Credentials = {
     username:'',
@@ -40,8 +43,10 @@ export class LoginComponent implements OnInit {
         data => {
           localStorage.setItem('token', data.token);
           // this.cookieService.putObject('userId', data.id);
-          localStorage.setItem('userId', data.id)
-          this.router.navigateByUrl("/scholarships-list");
+          localStorage.setItem('userId', data.id);
+
+          this.auth.isLoggedIn = true;
+          this.router.navigate(["/scholarships-list"]);
         },
         err => {
           this.snackBar.open("Incorrect login credentials", '', {

@@ -19,14 +19,36 @@ import { UserProfileService } from '../_services/user-profile.service';
 export class RegisterComponent implements OnInit {
 
   
+
+  model = new User('','','');
   
+  pageNo: number =1;
+
+EDUCATION_LEVEL = [
+  'University', 
+  'College', 
+  'Workplace or Apprenticeship',
+]
+
+EDUCATION_FIELD = [
+  'Arts (Undergrad)',
+  'STEM (Undergrad)',
+  'Trade School', 
+  'Visual + Performing Arts', 
+  'Law School', 
+  'Medical School', 
+  'MBA', 
+  'Arts (Grad School)', 
+  'STEM (Grad School)', 
+  'Other' 
+]  
   constructor(
     private router: Router,
     private snackBar: MdSnackBar,
     private userProfileService: UserProfileService) { }
 
-  model = new User('','','');
 
+userProfile = new UserProfile();
   ngOnInit() {
   }
 
@@ -34,7 +56,11 @@ export class RegisterComponent implements OnInit {
     if (registerForm.valid) {
       let postOperation: Observable<any>;
       // Create a new User
-      postOperation = this.userProfileService.createUser(this.model);
+      var sendData = {
+        user: this.model,
+        userProfile: this.userProfile
+      };
+      postOperation = this.userProfileService.createUserAndProfile(sendData);
       // Subscribe to Observable
       postOperation.subscribe( 
         data => {
@@ -49,7 +75,7 @@ export class RegisterComponent implements OnInit {
           if (data.token) {
             localStorage.setItem('token', data.token); 
           }
-          this.router.navigate(['create-profile']);
+          this.router.navigate(['scholarships-list']);
         },
         err => {
           this.showSnackBar(err, 3000);
@@ -65,6 +91,15 @@ export class RegisterComponent implements OnInit {
     this.snackBar.open(text, '', {
       duration: duration
     });
+  }
+
+
+  nextPage() {
+    this.pageNo = Math.min(3,this.pageNo+1);
+  }
+
+  prevPage() {
+    this.pageNo = Math.max(1,this.pageNo-1);
   }
 
 }
