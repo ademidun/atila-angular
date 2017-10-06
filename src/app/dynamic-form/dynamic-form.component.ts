@@ -12,7 +12,7 @@ import { UploadFile } from '../_models/upload-file';
 import { AuthService } from "../_services/auth.service";
 
 import { MyFirebaseService } from "../_services/myfirebase.service";
-
+import {MdProgressBarModule} from '@angular/material';
 import * as firebase from "firebase";
 
 
@@ -42,7 +42,7 @@ export class DynamicFormComponent implements OnInit {
   formFile: File;
   formFileEvent: any;
   uploadFile: UploadFile;
-
+  showAutomationLoading=false;
     
   constructor(
     private qcs: QuestionControlService,
@@ -77,6 +77,7 @@ export class DynamicFormComponent implements OnInit {
 
   }
   onSubmit() {
+    this.showAutomationLoading = true;
     this.payLoad = this.form.value;
 
 
@@ -102,7 +103,11 @@ export class DynamicFormComponent implements OnInit {
         this.uploadUrl = res.upload_url;
       },
 
-      err =>console.log('Error DynamicFormComponent:' , err)
+      err =>console.log('Error DynamicFormComponent:' , err),
+
+      () => {
+        this.showAutomationLoading = false;
+      }
     )
   }
 

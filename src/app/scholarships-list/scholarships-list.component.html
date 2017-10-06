@@ -5,7 +5,9 @@
       <div class="container" *ngIf="!isLoggedIn; else registeredContent">
         <!--Unregistered user content -->
         <div class="row center">
-          <h2 class="scholarship-preview-count"> You may qualify for <strong>{{scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and up to <strong>{{total_funding}}</strong> in funding</span>.</h2>
+          <h2 *ngIf="scholarship_count!=0" class="scholarship-preview-count"> You may qualify for <strong>{{scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and up to <strong>{{total_funding}}</strong> in funding</span>.</h2>
+          <h2 *ngIf="scholarship_count==0" class="scholarship-preview-count"> Unfortunately, you currently qualify for <strong>{{scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and <strong>{{total_funding}}</strong> in funding</span>.</h2>
+          
           <img class="logo-img" src="../../assets/img/g-logo+pig.png" alt="">
         </div>
         <br>
@@ -15,7 +17,7 @@
                   <md-card class="scholarship-card">
                     <md-card-header>
                       <div md-card-avatar [ngStyle]="{ 'background-image': 'url( '+ scholarship.img_url +' )' }" class="header-image"></div>
-                      <md-card-title><a [routerLink]="['../scholarship-detail', scholarship.slug]" class="card-title">{{scholarship.name}}</a></md-card-title>
+                      <md-card-title><a [routerLink]="['../scholarship-detail', scholarship.slug]" class="card-title">{{scholarship.name | truncate:45}}</a></md-card-title>
                       <md-card-subtitle class="card-text">{{scholarship.funding_amount | currency:'USD':true:'1.0-0'}}</md-card-subtitle>
                     </md-card-header>
                     <a [routerLink]="['../scholarship-detail', scholarship.slug]">
@@ -23,12 +25,13 @@
                     </a>
                     <md-card-content>
                         <p class="card-text">
-                          {{scholarship.description | truncate:250}}
+                          {{scholarship.description | truncate:140}}
                         </p> 
                     </md-card-content>
                     <md-card-actions>
-                      <a href="{{scholarship.scholarship_url}}"><button md-button><i class="material-icons">help_outline</i></button></a>
-                      <a href="{{scholarship.form_url}}"><button md-button><i class="material-icons">create</i></button></a>
+                      <a *ngIf=scholarship.is_automated [routerLink]="['../scholarship-detail', scholarship.slug]" title="Automated Scholarships"><button md-button><i class="material-icons automate-tag">tag_faces</i></button></a>
+                      <a href="{{scholarship.scholarship_url}}"><button md-button><i class="material-icons" title="External Scholarship Website">help_outline</i></button></a>
+                      <a href="{{scholarship.form_url}}"><button md-button><i class="material-icons" title="Application Form">create</i></button></a>
                       </md-card-actions>
                   </md-card>
                 </ng-template>
@@ -36,42 +39,10 @@
         </div>
 
         <div class="row center">
-          <a class="waves-effect waves-light btn scholarship-btn" routerLink="/register">Register here to view the rest of the scholarships</a>
+            <a *ngIf="scholarship_count!=0"class="waves-effect waves-light btn scholarship-btn" routerLink="/register">Register here to view the rest of the scholarships</a>            
+          <a *ngIf="scholarship_count==0"class="waves-effect waves-light btn scholarship-btn" routerLink="/register">Register here to start qualifying for scholarships</a>
         </div>
-      
-        <!-- <div class="row">
-            <div *ngFor="let scholarship of scholarships;  let i=index" class="col s12 m6 l4">
-              <ng-template [ngIf]="i<3">
-                <md-card class="scholarship-card-registered">
-                  <a [routerLink]="['../scholarship-detail', scholarship.slug]">
-                    <img md-card-image class="my-md-card-image" src="{{scholarship.img_url}}">
-                  </a>
-                  <div class="card-container">
-                    <md-card-header>
-                      <md-card-title>
-                        <a class="registered-card-title">{{scholarship.name | truncate:50}}</a>
-                      </md-card-title>
-                    </md-card-header>
-                    <div class="card-sub-heading">
-                        Up to {{scholarship.funding_amount | currency:'USD':true:'1.0-0'}}
-                      </div>
-                    <br>
-  
-                    <md-card-content>
-                      <p class="registered-card-text">
-                        {{scholarship.description | truncate:250}}
-                      </p>
-                    </md-card-content>
-                  </div>
-                </md-card>
-              </ng-template>
-            </div>
-            <div class="row center">
-              <a class="waves-effect waves-light btn scholarship-btn" routerLink="/register">Register here to view the rest of the scholarships</a>
-            </div>
-          </div>
-      
-        </div> -->
+
 
       
     </div>
@@ -100,35 +71,26 @@
       </div>
         <div class="row">
           <div *ngFor="let scholarship of scholarships;  let i=index" class="col s12 m6 l4">
-            <md-card class="scholarship-card-registered">
-              <a [routerLink]="['../scholarship-detail', scholarship.slug]">
-                <img md-card-image class="my-md-card-image" src="{{scholarship.img_url}}">
-              </a>
-              <div class="card-container">
-                <md-card-header>
-                  <md-card-title>
-                    <a [routerLink]="['../scholarship-detail', scholarship.slug]" class="registered-card-title">{{scholarship.name | truncate:45}}</a>
-                  </md-card-title>
-                  <md-card-subtitle class="card-text">{{scholarship.funding_amount | currency:'USD':true:'1.0-0'}}</md-card-subtitle>
-                </md-card-header>
-                <br>
-
-                <md-card-content>
-                  <p class="registered-card-text">
-                    {{scholarship.description | truncate:160}}
-                  </p>
-                </md-card-content>
-                <md-card-actions>
-                  <div class="row center">
-                    <a *ngIf=scholarship.is_automated [routerLink]="['../scholarship-detail', scholarship.slug]"><button md-button><i class="material-icons automate-tag">tag_faces</i></button></a>
-                    <a target="_blank" *ngIf=scholarship.scholarship_url href="{{scholarship.scholarship_url}}"><button md-button><i class="material-icons">help_outline</i></button></a>
-                    <a target="_blank" *ngIf=scholarship.form_url href="{{scholarship.form_url}}"><button md-button><i class="material-icons">create</i></button></a>
-                    <md-card-actions>
-                        </md-card-actions>
-                  </div>
-                </md-card-actions>
-              </div>
-            </md-card>
+              <md-card class="scholarship-card">
+                  <md-card-header>
+                    <div md-card-avatar [ngStyle]="{ 'background-image': 'url( '+ scholarship.img_url +' )' }" class="header-image"></div>
+                    <md-card-title><a [routerLink]="['../scholarship-detail', scholarship.slug]" class="card-title">{{scholarship.name | truncate:45}}</a></md-card-title>
+                    <md-card-subtitle class="card-text">{{scholarship.funding_amount | currency:'USD':true:'1.0-0'}}</md-card-subtitle>
+                  </md-card-header>
+                  <a [routerLink]="['../scholarship-detail', scholarship.slug]">
+                  <img md-card-image class="my-md-card-image" src="{{scholarship.img_url}}">
+                  </a>
+                  <md-card-content>
+                      <p class="card-text">
+                        {{scholarship.description | truncate:140}}
+                      </p> 
+                  </md-card-content>
+                  <md-card-actions>
+                      <a *ngIf=scholarship.is_automated [routerLink]="['../scholarship-detail', scholarship.slug]" title="Automated Scholarships"><button md-button><i class="material-icons automate-tag">tag_faces</i></button></a>
+                      <a href="{{scholarship.scholarship_url}}"><button md-button><i class="material-icons" title="External Scholarship Website">help_outline</i></button></a>
+                      <a href="{{scholarship.form_url}}"><button md-button><i class="material-icons" title="Application Form">create</i></button></a>
+                    </md-card-actions>
+                </md-card>
           </div>
         </div>
         <div class="row nav-buttons">
@@ -143,10 +105,12 @@
 
 </div>
 
+</div>
+
 <ng-template #noData>
   <div class="container">
     <h2 class="scholarship-preview-count my-dark-blue-text">No available scholarships for the specified profile.</h2>
     <!--TODO: Add page for scholarship advice-->
-    <h4 class="scholarship-preview-count my-dark-blue-text"><a href="/">Learn how to qualify for more scholarships.</a></h4>
+    <h4 class="scholarship-preview-count my-dark-blue-text"><a routerLink="/register">Learn how to qualify for more scholarships.</a></h4>
   </div>
 </ng-template>

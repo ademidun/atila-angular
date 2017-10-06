@@ -13,6 +13,12 @@
           <a class="btn" (click)="uploadUserDocuments()" style="margin-left:1%">Upload Document</a>
           <a class="btn" (click)="saveDocumentsUrls()">Save Documents</a>
         <button type="submit" class="btn" [disabled]="!form.valid">Automate!</button>
+        
+        <div  *ngIf="showAutomationLoading">
+            Automating Engine Running Please Wait...
+            <md-progress-bar aria-label="Automating Engine Running Please Wait..." mode="indeterminate"></md-progress-bar>
+        </div>
+
         <a target="_blank" *ngIf="uploadUrl" href="{{uploadUrl}}">View Filled Application</a>
       </div>
     </form>

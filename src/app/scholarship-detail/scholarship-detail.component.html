@@ -6,28 +6,27 @@
     <div class="col s6">
       <h3>{{scholarship.name}}</h3>
       <div class="sub-header">
-        <!-- TODO Add Scholarship Ratings -->
-        <!-- <div class="rating">
-          <star-rating-comp *ngIf="scholarship.rating;else noRating" [starType]="'icon'" [size]="'medium'" [readOnly]="true" [rating]="scholarship.rating"></star-rating-comp>
-          <ng-template #noRating>
-            <star-rating-comp [starType]="'icon'" [size]="'medium'" [readOnly]="true" [rating]="0"></star-rating-comp>
-          </ng-template>
-        </div> -->
+          <!-- TODO Add Scholarship Ratings -->
+          <!-- <div class="rating">
+            <star-rating-comp *ngIf="scholarship.rating;else noRating" [starType]="'icon'" [size]="'medium'" [readOnly]="true" [rating]="scholarship.rating"></star-rating-comp>
+            <ng-template #noRating>
+              <star-rating-comp [starType]="'icon'" [size]="'medium'" [readOnly]="true" [rating]="0"></star-rating-comp>
+            </ng-template>
+          </div> -->
 
-        <div class="date-created">
-          <div *ngIf="scholarshipOwner">
-            Created by: <a routerLink="/profile/{{scholarshipOwner.username}}">{{scholarshipOwner.first_name}} {{scholarshipOwner.last_name}}</a>
-          </div>          
-          Date Added: {{scholarship.date_created | date:'longDate'}}<br> 
-          <a *ngIf="scholarship.owner==userId" [routerLink]="['/edit-scholarship', scholarship.slug]"> Edit Scholarship </a><br>
-          <a *ngIf="scholarship.owner!=userId" [routerLink]="['/edit-scholarship', scholarship.slug]"> Suggest/View Edits </a><br>
-          <a target="_blank" *ngIf="scholarship.form_url" href="{{scholarship.form_url}}"> View Application Form </a><br>
-          <a target="_blank" *ngIf="scholarship.scholarship_url" href="{{scholarship.scholarship_url}}"> Visit Scholarship Website </a> <br>
-        </div>
+          <div class="date-created">
+            <div *ngIf="scholarshipOwner">
+              Created by: <a routerLink="/profile/{{scholarshipOwner.username}}">{{scholarshipOwner.first_name}} {{scholarshipOwner.last_name}}</a>
+            </div>          
+            Date Added: {{scholarship.date_created | date:'longDate'}}<br> 
+            <a *ngIf="scholarship.owner==userId" [routerLink]="['/edit-scholarship', scholarship.slug]"> Edit Scholarship </a><br>
+            <a *ngIf="scholarship.owner!=userId" [routerLink]="['/edit-scholarship', scholarship.slug]"> Suggest/View Edits </a><br>
+            <a target="_blank" *ngIf="scholarship.form_url" href="{{scholarship.form_url}}"> View Application Form </a><br>
+            <a target="_blank" *ngIf="scholarship.scholarship_url" href="{{scholarship.scholarship_url}}"> Visit Scholarship Website </a> <br>
+          </div>
 
 
-      <button md-raised-button *ngIf=scholarship.is_automated (click)="getOrCreateApp()">Apply now</button>
-      
+        <button md-raised-button *ngIf=scholarship.is_automated (click)="getOrCreateApp()">Apply now</button>
       </div>
       <br>
       <div class="divider"></div>

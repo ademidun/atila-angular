@@ -78,30 +78,46 @@ export class ScholarshipDetailComponent implements OnInit {
 
 
   getOrCreateApp() {
-    var data = {
-      scholarshipId: this.scholarship.id,
-      userId: this.userId
-    }
-    let postOperation: Observable<any>;
-    postOperation = this.applicationService.getOrCreateApp(data);
-
-    postOperation
-      .subscribe(
-      application => {
-        this.appId = application.id;
-        console.log('application', application)
-        console.log('application.id', application.id);
-      },
-      error => {
-        console.log('scholarship-detail component error!:', error)
-      },
-      () => {
-
-        console.log('()', this.appId);
-        this.router.navigate(['applications', this.appId])
+    if(this.userId){
+      var data = {
+        scholarshipId: this.scholarship.id,
+        userId: this.userId
       }
+      let postOperation: Observable<any>;
+      postOperation = this.applicationService.getOrCreateApp(data);
+  
+      postOperation
+        .subscribe(
+        application => {
+          this.appId = application.id;
+          console.log('application', application)
+          console.log('application.id', application.id);
+        },
+        error => {
+          console.log('scholarship-detail component error!:', error)
+        },
+        () => {
+  
+          console.log('()', this.appId);
+          this.router.navigate(['applications', this.appId])
+        }
+        )
+  
+    
+    }
+    else{
+      let snackBarRef = this.snackBar.open("Account Required to Apply", 'Create Account', {
+        duration: 3000
+      });
+  
+      snackBarRef.onAction().subscribe(
+        () => {
+          console.log('The snack-bar action was triggered!');
+          this.router.navigate(['login']);
+        },
+        err =>  console.log('The snack-bar action was triggered! error', err),
       )
-
-  }
+    }
+   }
 
 }

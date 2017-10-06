@@ -81,9 +81,14 @@ export class ScholarshipsListComponent implements OnInit {
         },
         error => {
           console.log('error in getscholarshipPreviewList', error);
-          this.contentFetched = true;
+          this.contentFetched = false;
         }
       );
+    }
+
+    if(!this.scholarships){
+      console.log('contentFetched', this.contentFetched);
+      this.contentFetched = false;
     }
   }
 
