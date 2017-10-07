@@ -63,8 +63,9 @@ export class PreviewComponent implements OnInit {
   onSubmit(form: NgForm){
     console.log('form: NgForm: ', form)
     // console.log('JSON.stringify(form): ',  JSON.stringify(form))
-  console.log('model Json Stringify: ', JSON.stringify(this.model))
-  this.model.city[0] = form.value['city'];
+  console.log('model Json Stringify: ', JSON.stringify(this.model));
+  const capitalizeFirstChar = str => str.charAt(0).toUpperCase() + str.substring(1);
+  this.model.city[0] = capitalizeFirstChar(form.value['city']);
   console.log('model data: ', this.model)
   //console.log('JSON.stringify(previewForm): ', JSON.stringify(previewForm))
   console.log('previewForm: ', form.value);
