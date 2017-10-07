@@ -37,7 +37,8 @@ import { AppDetailComponent } from './app-detail/app-detail.component';
 import { MyFirebaseService } from './_services/myfirebase.service';
 import { CreateProfileQuickComponent } from './create-profile-quick/create-profile-quick.component';
 
-
+import { MdIconRegistry, MdIconModule } from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,6 +71,7 @@ import { CreateProfileQuickComponent } from './create-profile-quick/create-profi
     BrowserAnimationsModule,
     HttpModule,
     MdDialogModule,
+    MdIconModule
   ],
   providers: [ScholarshipService, UserProfileService,
      AuthService, ApplicationService,
@@ -80,4 +82,8 @@ import { CreateProfileQuickComponent } from './create-profile-quick/create-profi
     AddQuestionModalComponent,
   ]
 })
-export class AppModule { }
+export class AppModule { 
+  constructor(mdIconRegistry: MdIconRegistry, domSanitizer: DomSanitizer){
+    mdIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('../assets/mdi.svg')); // Or whatever path you placed mdi.svg at
+}
+}

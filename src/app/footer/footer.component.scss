@@ -1,5 +1,18 @@
 @import '../../styles.scss';
 
 .page-footer{
-    background-color: $primary
+    background-color: $primary;
+    color: white
 }
+
+ul#connect-links li {
+    display:inline;
+}
+
+li a{
+    color: white !important;
+}
+
+li:hover{
+    color: #5096D4 !important;
+  }

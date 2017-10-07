@@ -13,12 +13,12 @@
               </button>
               <!-- Dropdown Profile Menu -->
               <md-menu #menu="mdMenu" [overlapTrigger]="false">
-                  <a *ngIf="userProfile" [routerLink]="['/profile', userProfile.username]">
+                  <!-- <a *ngIf="userProfile" [routerLink]="['/profile', userProfile.username]">
                 <button button md-menu-item >
                   <span>View profile</span>
                  
                 </button>
-              </a>
+              </a> -->
               <a routerLink="/edit-profile">
                 <button md-menu-item>
                   <span>Edit profile</span>
@@ -45,19 +45,31 @@
       <button md-icon-button [mdMenuTriggerFor]="mobileMenu" class= "hide-on-large-only">
           <md-icon>menu</md-icon>
        </button>
-      <md-menu #mobileMenu="mdMenu" [overlapTrigger]="false">
-          <button md-menu-item routerLink="/profile/{{userId}}">
-            <span>View profile</span>
-          </button>
-          <!-- <button md-menu-item routerLink="/edit-profile">
-            <span>Edit profile</span>
-          </button> -->
-          <button md-menu-item *ngIf="authService.isLoggedIn" routerLink="/add-scholarship">
-            <span>Add Scholarship</span>
-          </button>
-          <button md-menu-item (click)="logout()">
-            <span>Logout</span>
-          </button>
+       <md-menu #mobileMenu="mdMenu" [overlapTrigger]="false">
+          <!-- <a *ngIf="userProfile" [routerLink]="['/profile', userProfile.username]">
+            <button button md-menu-item >
+              <span>View profile</span>
+            
+            </button>
+          </a> -->
+      <a routerLink="/edit-profile">
+        <button md-menu-item>
+          <span>Edit profile</span>
+        </button>
+      </a>
+      
+      <a routerLink="/add-scholarship">
+        <button md-menu-item>
+          <span>Add scholarship</span>
+        </button>
+
+      </a>
+
+      <a (click)="logout()">
+        <button md-menu-item>
+          <span>Logout</span>
+        </button>
+      </a>
       </md-menu>
 
 

@@ -18,7 +18,10 @@
             <div *ngIf="scholarshipOwner">
               Created by: <a routerLink="/profile/{{scholarshipOwner.username}}">{{scholarshipOwner.first_name}} {{scholarshipOwner.last_name}}</a>
             </div>          
-            Date Added: {{scholarship.date_created | date:'longDate'}}<br> 
+            Deadline: {{scholarship.deadline | date:'longDate'}}<br> 
+            <strong>
+            <p *ngIf="scholarship.funding_amount > 0">{{scholarship.funding_amount | currency:'USD':true:'1.0-0'}}</p>
+            </strong>
             <a *ngIf="scholarship.owner==userId" [routerLink]="['/edit-scholarship', scholarship.slug]"> Edit Scholarship </a><br>
             <a *ngIf="scholarship.owner!=userId" [routerLink]="['/edit-scholarship', scholarship.slug]"> Suggest/View Edits </a><br>
             <a target="_blank" *ngIf="scholarship.form_url" href="{{scholarship.form_url}}"> View Application Form </a><br>
@@ -31,7 +34,6 @@
       <br>
       <div class="divider"></div>
       <p>{{scholarship.description}}</p>
-      <p *ngIf="scholarship.funding_amount > 0">{{scholarship.funding_amount | currency:'USD':true:'1.0-0'}}</p>
       <!-- <a *ngIf="scholarship.gov_url" href="{{scholarship.gov_url}}">More info</a> -->
     </div>
   </div>
