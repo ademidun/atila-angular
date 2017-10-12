@@ -98,7 +98,7 @@
                                 </md-select>
                             </div>
                             
-                            <a class="waves-effect waves-light btn left" (click)="saveEditScholarship(scholarshipForm)">Save</a>
+                            <a class="waves-effect waves-light btn left" (click)="saveScholarshipEdit(scholarshipForm)">Save</a>
                             <a class="waves-effect waves-light btn right" (click)="next()">Next</a>
                         </div>
                         <br>
@@ -143,7 +143,7 @@
                         <div class="row">
                             <div class="col s12">
                                 <a class="waves-effect waves-light btn left" (click)="back()">Back</a>
-                                <a class="waves-effect waves-light btn left" (click)="saveEditScholarship(scholarshipForm)">Save</a>
+                                <a class="waves-effect waves-light btn left" (click)="saveScholarshipEdit(scholarshipForm)">Save</a>
                                     <div *ngIf="showFormUpload"class="row">
                                         <div class="col s2">
                                             <span *ngIf="scholarship.form_url">
@@ -220,7 +220,7 @@
                                         <a routerLink="/scholarships-list">Skip</a>
                                     </div>
                                 </div>
-                                <a class="waves-effect waves-light btn right" (click)="saveEditScholarship(scholarshipForm)">Save</a>
+                                <a class="waves-effect waves-light btn right" (click)="saveScholarshipEdit(scholarshipForm)">Save</a>
                             </div>
                         </div>
                     </div>

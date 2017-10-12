@@ -1,7 +1,7 @@
 <div>
     <form (ngSubmit)="onSubmit()" [formGroup]="form">
       {{questions}}
-   <div *ngIf="questions!='{}'" >
+   <div *ngIf="questions.length!=0" >
     <h4>Specific Info</h4>
       <div *ngFor="let question of questions" class="form-row">
         <app-dynamic-form-question  [question]="question" [form]="form" [profileForm]="profileForm"
@@ -10,9 +10,9 @@
    </div>
    
       <div class="form-row" style=" margin-top: 1%;">
-          <a class="btn" (click)="uploadUserDocuments()" style="margin-left:1%">Upload Document</a>
-          <a class="btn" (click)="saveDocumentsUrls()">Save Documents</a>
-        <button type="submit" class="btn" [disabled]="!form.valid">Automate!</button>
+          <button md-raised-button style="background-color: #184E87;"class="btn white-text" (click)="uploadUserDocuments()" style="margin-left:1%">Upload Document</button>
+          <button md-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveDocumentsUrls()">Save Documents</button>
+          <button md-raised-button style="background-color: #184E87;" class="btn white-text" type="submit" [disabled]="!form.valid">Automate!</button>
         
         <div  *ngIf="showAutomationLoading">
             Automating Engine Running Please Wait...
@@ -25,6 +25,17 @@
   
    
     <div *ngIf="payLoad" class="form-row">
+      <div>
+        <h4>Custom Email for your Application</h4>
+        Good Morning,
+        <br>
+        My name is {{generalData.userProfile.first_name}} {{generalData.userProfile.last_name}}.
+        This email contains my application for the {{generalData.scholarship.name}}, please see attatched. Thank you for sponsoring this scholarship.
+        <br>
+        Regards,
+        {{generalData.userProfile.first_name}}
+
+      </div>
       <strong>Saved the following values: </strong><br>{{payLoad}}
     </div>
   </div>

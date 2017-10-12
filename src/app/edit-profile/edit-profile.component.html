@@ -31,41 +31,45 @@
           <div class="row">
             <md-input-container class="col s12">
               <input class="browser-default" mdInput id="city" type="text" required placeholder="City"
-                [(ngModel)]="userProfile.city" name="city">
+                [(ngModel)]="locationData.city" name="city">
             </md-input-container>
           </div>
           <div class="row">
               <md-input-container class="col s12">
                   <input class="browser-default" mdInput id="province" type="text" required placeholder="Province/State"
-                    [(ngModel)]="userProfile.province" name="province">
+                    [(ngModel)]="locationData.province" name="province">
                 </md-input-container>
           </div>
           <div class="row">
               <md-input-container class="col s12">
                   <input class="browser-default" mdInput id="country" type="text" required placeholder="Country"
-                    [(ngModel)]="userProfile.country" name="country">
+                    [(ngModel)]="locationData.country" name="country">
                 </md-input-container>
           </div>
+          <div class="row">
+              <md-input-container class="col s12">
+                    <input class="browser-default" mdInput id="phone_number" type="number" placeholder="Phone Number"
+                      [(ngModel)]="userProfile.phone_number" name="phone_number">
+                  </md-input-container>
+            </div>
           <div class="row">
               <md-input-container class="col s12">
                   <input class="browser-default" mdInput id="email" type="text" placeholder="Email"
                     [(ngModel)]="userProfile.email" name="email">
                 </md-input-container>
           </div>
-
           <div class="row">
-            <label> This field is optional. We ask for your phone number because most scholarships ask for your phone number when you apply. It can also be used to help recover and further secure your account.</label>
               <md-input-container class="col s12">
-                  <input class="browser-default" mdInput id="phone_number" type="number" placeholder="Phone Number"
-                    [(ngModel)]="userProfile.phone_number" name="phone_number">
+                  <input class="browser-default" mdInput id="secondary_school" type="text" placeholder="Secondary School"
+                    [(ngModel)]="userProfile.secondary_school" name="secondary_school">
                 </md-input-container>
           </div>
-          <!-- <div class="row">
-            <md-input-container class="col s12">
-              <input class="browser-default" mdInput id="bus_name" type="text" required placeholder="Business Name"
-                [(ngModel)]="userProfile.bus_name" name="bus_name">
-            </md-input-container>
-          </div> -->
+          <div class="row">
+              <md-input-container class="col s12">
+                  <input class="browser-default" mdInput id="post_secondary_school" type="text" placeholder="Post Secondary School"
+                    [(ngModel)]="userProfile.post_secondary_school" name="post_secondary_school">
+                </md-input-container>
+          </div>
           <div class="row">
             <md-input-container class="col s12">
               <label>Birth Date</label>

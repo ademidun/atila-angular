@@ -6,6 +6,7 @@ md-card{
 
 md-card-content{
   height: 100px;
+  overflow: hidden;
 }
 .my-md-card-image{
   height: 200px;
@@ -32,11 +33,11 @@ md-card-content{
   text-align: center;
 }
 .mat-button{
-  min-width: 75px;
+  min-width: 65px;
 }
 
 .btn {
-margin: 15px;
+margin: 10px;
 }
 
 

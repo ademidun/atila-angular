@@ -56,6 +56,11 @@ EDUCATION_FIELD = [
   formFile: File;
   formFileEvent: any;
   uploadFile: UploadFile;
+  locationData = {
+    'city': '',
+    'province': '',
+    'country': '',
+  }
 
   constructor(
     private userProfileService: UserProfileService,
@@ -76,8 +81,10 @@ EDUCATION_FIELD = [
           data => {
             this.userProfile = data;
             console.log("Data:", JSON.stringify(data));
-          let profileTitle = this.userProfile.first_name + this.userProfile.last_name + "'s Profile"
-          this.titleService.setTitle('Atila - ' + profileTitle);
+            console.log("Data:", data);
+            let profileTitle = this.userProfile.first_name +' '+ this.userProfile.last_name + "'s Profile"
+            this.titleService.setTitle('Atila - ' + profileTitle);
+            this.initializeLocations(this.userProfile.city);
           },
           err => {
             console.log(err);
@@ -89,20 +96,34 @@ EDUCATION_FIELD = [
   switchPage(){
     this.profileInfo = !this.profileInfo;
   }
-
+// https://stackoverflow.com/questions/44227682/angular2-dynamically-add-inputs-for-an-array-of-items
+  
+initializeLocations(cities: Array<any>){
+    
+    if(cities.length>0){
+      this.locationData.city= cities[0].name;
+      this.locationData.country=cities[0].country;
+      this.locationData.province=cities[0].province;
+    }
+    
+  }
   saveProfile(profileForm) {
     if (profileForm.valid) {
-          
+       
+      var sendData = {
+        userProfile: this.userProfile,
+        locationData: this.locationData,
+      }
       console.log("userDocuments:", this.userDocuments);
       
-          console.log("profileForm:", profileForm);
+      console.log("profileForm:", profileForm);
       
-          console.log("this.userProfile:", this.userProfile);
+      console.log("this.userProfile:", this.userProfile);
 
-      this.userProfileService.update(this.userProfile)
+      this.userProfileService.updateAny(sendData)
       .subscribe(
         data => {
-          console.log("Updated Data:", JSON.stringify(data));
+          console.log("Updated Data:", data);
           this.showSnackBar("Succesfully Updated Your Profile, Welcome to Atila",'What Next?', 3000);
         },
         err => {
@@ -116,10 +137,9 @@ EDUCATION_FIELD = [
       this.showSnackBar("Profile is not valid",'', 3000);
     }
   }
-  onSubmit(profileForm: NgForm){
-
-    
-        console.log("userDocuments:", this.userDocuments);
+  /*onSubmit(profileForm: NgForm){
+        
+        console.log("onSubmit(), userDocuments:", this.userDocuments);
     
         console.log("profileForm:", profileForm);
     
@@ -152,34 +172,34 @@ EDUCATION_FIELD = [
           });
         }
     
-      }
+  }
+  */
       
-  
-fileChangeEvent(fileInput: any){
-  console.log("fileInput:", fileInput);
+  fileChangeEvent(fileInput: any){
+    console.log("fileInput:", fileInput);
 
-  //TODO: this seems a bit redundant
-  this.formFile = fileInput.target.files[0];
-  this.formFileEvent = fileInput;  
-}
+    //TODO: this seems a bit redundant
+    this.formFile = fileInput.target.files[0];
+    this.formFileEvent = fileInput;  
+  }
 
-uploadUserDocuments(){
-  //let uploadOperation: Observable<any>;
+  uploadUserDocuments(){
+    //let uploadOperation: Observable<any>;
 
-  //create Upload file and configure its properties before uploading.
+    //create Upload file and configure its properties before uploading.
 
-  this.uploadFile = new UploadFile(this.formFile);
-  this.uploadFile.name = this.formFile.name;
-  this.uploadFile.path = "user-profiles/" + this.userProfile.user + "/documents/"
-  this.uploadFile.path = this.uploadFile.path + this.uploadFile.name
-  console.log('this.uploadFile',this.uploadFile);
-  
-  this.fileUpload(this.uploadFile)
-  .subscribe(
-    res => console.log('uploadScholarshipAppForm, subscribe() res', res)
-  )
+    this.uploadFile = new UploadFile(this.formFile);
+    this.uploadFile.name = this.formFile.name;
+    this.uploadFile.path = "user-profiles/" + this.userProfile.user + "/documents/"
+    this.uploadFile.path = this.uploadFile.path + this.uploadFile.name
+    console.log('this.uploadFile',this.uploadFile);
+    
+    this.fileUpload(this.uploadFile)
+    .subscribe(
+      res => console.log('uploadScholarshipAppForm, subscribe() res', res)
+    )
 
-}
+  }
 
 //TODO: Refactor this code into the firebase service
 fileUpload(uploadFile: UploadFile){

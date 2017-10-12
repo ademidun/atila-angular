@@ -37,17 +37,19 @@ export class UserProfileService {
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  getById(id: number): Observable<UserProfile> {
-    return this.http.get(`${this.userProfileEndpoint}${id}/`)
-      .map((response: Response) => response.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    getById(id: number): Observable<UserProfile> {
+        return this.http.get(`${this.userProfileEndpoint}${id}/`)
+        .map((response: Response) => response.json())
+        .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
-getByUsername(username: string): Observable<UserProfile>{
-    return this.http.get(`${this.userNameEndpoint}?user-name=${username}/`)
-    .map((response: Response) => response.json())
-    .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
-}
-   isLoggedIn(): boolean {
+
+    getByUsername(username: string): Observable<UserProfile>{
+        return this.http.get(`${this.userNameEndpoint}?user-name=${username}/`)
+        .map((response: Response) => response.json())
+        .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
+    isLoggedIn(): boolean {
         // Determines if user is logged in from the token
         var token = localStorage.getItem('token');
         if (token) {
@@ -63,6 +65,12 @@ getByUsername(username: string): Observable<UserProfile>{
         return this.http.put(`${this.userProfileEndpoint}${profile['user']}/`, profile, this.jwt())
           .map((response: Response) => response.json())
           .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
+    updateAny(data:any){
+        return this.http.put(`${this.userProfileEndpoint}${data.userProfile['user']}/`, data, this.jwt())
+        .map((response: Response) => response.json())
+        .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
     private jwt() {

@@ -65,7 +65,9 @@ FUNDING_TYPES = [
   showFormUpload = false;
   scholarshipFormFile: File;
   appFormFile: UploadFile;
-  
+  showUploadLoading=false;
+  locationData = [];
+
   constructor(
     private router: Router,
     private snackBar: MdSnackBar,
@@ -116,6 +118,17 @@ FUNDING_TYPES = [
 
   }
 
+  createLocation(){
+    this.locationData.push({});
+  }
+
+  deleteLocation(index:number){
+    this.locationData.splice(index,1);
+  }
+
+  EditLocation(index:number, key: string, value: string){
+    this.locationData[index].key = value;
+  }
   next() {
     this.pageNo = Math.min(3,this.pageNo+1);
   }
@@ -203,7 +216,7 @@ FUNDING_TYPES = [
     //let uploadOperation: Observable<any>;
   
     //create Upload file and configure its properties before uploading.
-  
+    this.showUploadLoading = true;
     this.appFormFile = new UploadFile(this.scholarshipFormFile);
     this.appFormFile.name = this.scholarshipFormFile.name;
     this.appFormFile.uploadInstructions = {
@@ -281,15 +294,45 @@ FUNDING_TYPES = [
         //var downloadURL = uploadTask.snapshot.downloadURL;
         console.log('Finished upload: uploadTask.snapshot', uploadTask.snapshot );
         this.scholarship.form_url = uploadTask.snapshot.downloadURL;
+        this.showUploadLoading = false;
                                                           
       });
     
     
+  }
+
+
+  saveEditScholarship(scholarshipForm: NgForm) {
+    
+    console.log('!!this.scholarship.extra_questions', !!this.scholarship.extra_questions);
+
+    if(!this.scholarship.extra_questions){
+      this.scholarship.extra_questions = { };
+    }
+    if (scholarshipForm.valid){
+      this.scholarshipService.update(this.scholarship)
+      .subscribe(
+        res =>{
+          this.scholarship = res,
+          console.log('scholarshipService.update res', res);
+          this.snackBar.open("Scholarship succesfully Saved", '', {
+            duration: 3000
+          });
+        },
+        err => {console.log('scholarshipService.update err', err);
+          this.snackBar.open("Error - " + err, '', {
+          duration: 3000
+        });
       }
+      )
+    }
+          
+  }
   
   
   
   
   }
+
 
 

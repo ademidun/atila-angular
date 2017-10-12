@@ -57,6 +57,7 @@ export class AppDetailComponent implements OnInit {
   ) {
     this.appId = parseInt(route.snapshot.params['id']);
     console.log("route.snapshot.params['id']", route.snapshot.params['id']);
+
   }
 
 
@@ -104,6 +105,7 @@ export class AppDetailComponent implements OnInit {
 
       () => {
         this.generalData = data;
+        this.generalData.documentUploads = { };
         this.application = data.appData;
         this.userProfile = data.userProfile;
         this.scholarship = data.scholarship;
@@ -114,6 +116,7 @@ export class AppDetailComponent implements OnInit {
 
         this.applicationData = Object.keys(this.application.responses);
         console.log('(2)this.applicationData', this.applicationData);
+
 
         //to create dynamic forms:
         // https://angular.io/guide/dynamic-form

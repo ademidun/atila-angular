@@ -8,7 +8,13 @@
           <h2 *ngIf="scholarship_count!=0" class="scholarship-preview-count"> You may qualify for <strong>{{scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and up to <strong>{{total_funding}}</strong> in funding</span>.</h2>
           <h2 *ngIf="scholarship_count==0" class="scholarship-preview-count"> Unfortunately, you currently qualify for <strong>{{scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and <strong>{{total_funding}}</strong> in funding</span>.</h2>
           
-          <img class="logo-img" src="../../assets/img/g-logo+pig.png" alt="">
+          <!-- <img class="logo-img" src="../../assets/img/g-logo+pig.png" alt=""> -->
+        </div>
+        <div class="row">
+            <p class="text-align-center col s-3"><i class="material-icons automate-tag">tag_faces</i> = Automated scholarships.</p>
+            <p class="text-align-center col s-3"><md-icon svgIcon="plus-one"></md-icon> = One-Click Scholarships.</p>
+            <!-- <p class="text-align-center col s-3"><i class="material-icons automate-tag">help_outline</i> = Eternal Scholarship Information</p>
+            <p class="text-align-center col s-3"><i class="material-icons automate-tag">create</i> = Scholarship Application Form</p> -->
         </div>
         <br>
         <div class="row">
@@ -30,8 +36,7 @@
                     </md-card-content>
                     <md-card-actions>
                       <a *ngIf=scholarship.is_automated [routerLink]="['../scholarship-detail', scholarship.slug]" title="Automated Scholarships"><button md-button><i class="material-icons automate-tag">tag_faces</i></button></a>
-                      <a href="{{scholarship.scholarship_url}}"><button md-button><i class="material-icons" title="External Scholarship Website">help_outline</i></button></a>
-                      <a href="{{scholarship.form_url}}"><button md-button><i class="material-icons" title="Application Form">create</i></button></a>
+                      <a [routerLink]="['../scholarship-detail', scholarship.slug]" ><button md-button><md-icon svgIcon="plus-one"></md-icon></button></a>
                       </md-card-actions>
                   </md-card>
                 </ng-template>
@@ -63,8 +68,8 @@
             </md-select>
           </div>
           <div class="row">
-
           <p class="text-align-center col s-3"><i class="material-icons automate-tag">tag_faces</i> = Automated scholarships.</p>
+          <p class="text-align-center col s-3"><md-icon svgIcon="plus-one"></md-icon> = One-Click Scholarships.</p>
           <!-- <p class="text-align-center col s-3"><i class="material-icons automate-tag">help_outline</i> = Eternal Scholarship Information</p>
           <p class="text-align-center col s-3"><i class="material-icons automate-tag">create</i> = Scholarship Application Form</p> -->
         </div>
@@ -87,8 +92,7 @@
                   </md-card-content>
                   <md-card-actions>
                       <a *ngIf=scholarship.is_automated [routerLink]="['../scholarship-detail', scholarship.slug]" title="Automated Scholarships"><button md-button><i class="material-icons automate-tag">tag_faces</i></button></a>
-                      <a href="{{scholarship.scholarship_url}}"><button md-button><i class="material-icons" title="External Scholarship Website">help_outline</i></button></a>
-                      <a href="{{scholarship.form_url}}"><button md-button><i class="material-icons" title="Application Form">create</i></button></a>
+                      <a [routerLink]="['../scholarship-detail', scholarship.slug]" ><button md-button><md-icon svgIcon="plus-one"></md-icon></button></a>
                     </md-card-actions>
                 </md-card>
           </div>

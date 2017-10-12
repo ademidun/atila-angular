@@ -43,6 +43,7 @@ export class DynamicFormComponent implements OnInit {
   formFileEvent: any;
   uploadFile: UploadFile;
   showAutomationLoading=false;
+  cusomEmail: any;
     
   constructor(
     private qcs: QuestionControlService,
@@ -63,14 +64,12 @@ export class DynamicFormComponent implements OnInit {
   saveDocumentsUrls(){
     var results = document.getElementsByClassName("scholarship-document");
     console.log('saveDocuments().results',results);
-    this.generalData.documentUploads = { };
     for (var i = 0; i < results.length; i++) {
       let documentKey = results[i].getAttribute("name");
-
       let documentUrl = results[i].getAttribute("href"); 
       this.generalData.documentUploads[documentKey] = documentUrl;
+    }
 
-  }
 
 
   console.log('saveDocuments().this.generalData.documentUploads',this.generalData.documentUploads);
@@ -204,6 +203,17 @@ export class DynamicFormComponent implements OnInit {
     
   }
   
+  generateCustomEmail(){
+    var bodySentence = [
+      'This email contains my application for the' +  this.generalData.scholarship.name+', please see attatched.',
+      'This email is in response to the' +  this.generalData.scholarship.name+'. Please see attatched for the relevant documents.',
+    ]
+
+    var concludingSentence = [
+      'Thank you for sponsoring this scholarship.',
+      
+    ]
+  }
     
   
 

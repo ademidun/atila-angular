@@ -8,7 +8,7 @@
           <div class="container">
             <h3 class="form-header">Tell us a bit about Yourself</h3>
             <form #previewForm="ngForm" (ngSubmit)="onSubmit(previewForm)">
-              <div class="row preview-questions">
+              <div style="margin-bottom: -22px;" class="row preview-questions">
 
               <md-input-container class="browser-default col s12 m4">
                   <input mdInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City">
@@ -27,7 +27,7 @@
                 </div>
               </div>
               <br>
-              <div class="row center">
+              <div class="row center" style="text-align: center;">
                   <button class="waves-effect waves-light btn scholarship-btn" type="submit">Get Funded</button>
                   </div>
             </form>

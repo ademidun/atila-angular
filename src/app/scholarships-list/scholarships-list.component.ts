@@ -49,7 +49,7 @@ export class ScholarshipsListComponent implements OnInit {
           var tempCity = [];
           tempCity.push(data.city);
           this.form_data = {
-            'city': tempCity,
+            'city': data.city,
             'education_level': data.education_level,
             'education_field': data.education_field
           }

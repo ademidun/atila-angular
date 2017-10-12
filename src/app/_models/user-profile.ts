@@ -1,7 +1,7 @@
 export class UserProfile {    
         constructor(
-            public city?: string,
-            public country?: string,
+            public city?: any,
+            public country?: any,
             public birth_date?: Date,
             public first_name?: string,
             public education_level?: string[],
@@ -10,7 +10,7 @@ export class UserProfile {
             public is_sponsor?:any, 
             public last_name?: string,
             public postal_code?: string,
-            public province?: string,
+            public province?: any,
             public street_address?: string,
             public user?: number,
             public username?:any,

@@ -223,163 +223,161 @@ FUNDING_TYPES = [
 
   generateArray(obj){
     return Object.keys(obj).map((key)=>{ return obj[key]});
- }
- saveEditScholarship(scholarshipForm: NgForm) {
-  
-        console.log('!!this.scholarship.extra_questions', !!this.scholarship.extra_questions);
-  
-        if(!this.scholarship.extra_questions){
-          this.scholarship.extra_questions = { };
-        }
-        if (scholarshipForm.valid){
-          this.scholarshipService.update(this.scholarship)
-          .subscribe(
-            res =>{
-              this.scholarship = res,
-              console.log('scholarshipService.update res', res);
-              this.snackBar.open("Scholarship succesfully Saved", '', {
-                duration: 3000
-              });
-            },
-            err => {console.log('scholarshipService.update err', err);
-              this.snackBar.open("Error - " + err, '', {
+  }
+  saveScholarshipEdit(scholarshipForm: NgForm) {
+    
+      console.log('!!this.scholarship.extra_questions', !!this.scholarship.extra_questions);
+      if(!this.scholarship.extra_questions){
+        this.scholarship.extra_questions = { };
+      }
+      if (scholarshipForm.valid){
+        this.scholarshipService.update(this.scholarship)
+        .subscribe(
+          res =>{
+            this.scholarship = res,
+            console.log('scholarshipService.update res', res);
+            this.snackBar.open("Scholarship succesfully Saved", '', {
               duration: 3000
             });
-          }
-          )
-        }
-        
-}
-
-createScholarship(scholarshipForm) {
-
-  if (scholarshipForm.valid) {
-    console.log('createScholarship, this.scholarship: ',this.scholarship);
-    let postOperation: Observable<Scholarship>;
-    this.scholarship.owner = this.userId;
-    postOperation = this.scholarshipService.create(this.scholarship);
-
-    postOperation.subscribe(
-      data => {
-        console.log('scholarship created:',data)
-        this.snackBar.open("Scholarship succesfully created", '', {
-          duration: 3000
-        });
-        this.showFormUpload = true;
-        this.scholarship=data;
-        // todo change to this.router.navigate(['my-scholarships'])
-        //this.router.navigate(['scholarships-list']);
-      },
-      err => {
-        this.snackBar.open("Error - " + err, '', {
-          duration: 3000
-        });
-      }
-    )
-  } else {
-    this.snackBar.open("Invalid form", '', {
-      duration: 3000
-    });
-  }
-}
-
-scholarshipAppFormChangeEvent(fileInput: any){
-  console.log("fileInput:", fileInput);
-  this.scholarshipFormFile = fileInput.target.files[0]; 
-  
-}
-
-uploadScholarshipAppForm(){
-  //let uploadOperation: Observable<any>;
-
-  //create Upload file and configure its properties before uploading.
-
-  this.appFormFile = new UploadFile(this.scholarshipFormFile);
-  this.appFormFile.name = this.scholarshipFormFile.name;
-  this.appFormFile.uploadInstructions = {
-    type: 'update_model',
-    model: "Scholarship",
-    id: this.scholarship.id,
-    fieldName: 'form_url'
-  }
-  console.log('this.scholarshipFormFile',this.scholarshipFormFile)
-  this.appFormFile.path = "scholarships/" + this.scholarship.id + "/scholarship-templates/"
-  this.appFormFile.path = this.appFormFile.path + this.appFormFile.name
-  console.log('this.appFormFile',this.appFormFile);
-  
-  this.fileUpload(this.appFormFile)
-  .subscribe(
-    res => console.log('uploadScholarshipAppForm, subscribe() res', res)
-  )
-
-}
-
-//TODO: Refactor this code into the firebase service
-fileUpload(uploadFile: UploadFile){
-  return this.authService.getAPIKey("FIREBASE_CONFIG_KEYS")
-  .map(res => this.uploadFileFirebase(res, uploadFile))
-  .catch(err=>Observable.throw(err))
-}
-
-uploadFileFirebase(res: Response, uploadFile: UploadFile){
-  
-        console.log("uploadFileInternal: res",res,'uploadFile',uploadFile);
-        
-        let config;
-        config = res['api_key'];
-        console.log("config",config);
-        if (!firebase.apps.length) {
-          firebase.initializeApp(config);
-        }
-        console.log("firebase after config",firebase);
-        uploadFile.name = config.toString();
-        //why does google documentation use var instead of ref
-        
-        //preparing the firebase storage for upload
-        var storage = firebase.storage();
-        let storageRef = storage.ref();
-        let uploadRef = storageRef.child(uploadFile.path);
-        var metadata = {
-          contentType: uploadFile.file.type,
-          size: uploadFile.file.size,
-          name: uploadFile.file.name,
-        };
-        console.log('uploadRef',uploadRef)
-        console.log('uploadRef.getDownloadURL()',uploadRef.getDownloadURL());
-          var uploadTask = uploadRef.put(uploadFile.file, metadata);
-          
-          //https://firebase.google.com/docs/storage/web/upload-files?authuser=0
-  
-          // Register three observers:
-          // 1. 'state_changed' observer, called any time the state changes
-          // 2. Error observer, called on failure
-          // 3. Completion observer, called on successful completion
-
-          uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-           (snapshot:any) => {
-            // Observe state change events such as progress, pause, and resume
-            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log('Upload is ' + progress + '% done');
           },
-           (error)=> {
-            console.log(error);
-          },
-           () => {
-            // Handle successful uploads on complete
-            // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-            //var downloadURL = uploadTask.snapshot.downloadURL;
-            console.log('Finished upload: uploadTask.snapshot', uploadTask.snapshot );
-            this.scholarship.form_url = uploadTask.snapshot.downloadURL;
-                                                              
+          err => {console.log('scholarshipService.update err', err);
+            this.snackBar.open("Error - " + err, '', {
+            duration: 3000
           });
-  
-  
+        }
+        )
+      }
+          
+  }
+
+  createScholarship(scholarshipForm) {
+
+    if (scholarshipForm.valid) {
+      console.log('createScholarship, this.scholarship: ',this.scholarship);
+      let postOperation: Observable<Scholarship>;
+      this.scholarship.owner = this.userId;
+      postOperation = this.scholarshipService.create(this.scholarship);
+
+      postOperation.subscribe(
+        data => {
+          console.log('scholarship created:',data)
+          this.snackBar.open("Scholarship succesfully created", '', {
+            duration: 3000
+          });
+          this.showFormUpload = true;
+          this.scholarship=data;
+          // todo change to this.router.navigate(['my-scholarships'])
+          //this.router.navigate(['scholarships-list']);
+        },
+        err => {
+          this.snackBar.open("Error - " + err, '', {
+            duration: 3000
+          });
+        }
+      )
+    } else {
+      this.snackBar.open("Invalid form", '', {
+        duration: 3000
+      });
     }
+  }
+
+  scholarshipAppFormChangeEvent(fileInput: any){
+    console.log("fileInput:", fileInput);
+    this.scholarshipFormFile = fileInput.target.files[0]; 
+    
+  }
+
+  uploadScholarshipAppForm(){
+    //let uploadOperation: Observable<any>;
+
+    //create Upload file and configure its properties before uploading.
+
+    this.appFormFile = new UploadFile(this.scholarshipFormFile);
+    this.appFormFile.name = this.scholarshipFormFile.name;
+    this.appFormFile.uploadInstructions = {
+      type: 'update_model',
+      model: "Scholarship",
+      id: this.scholarship.id,
+      fieldName: 'form_url'
+    }
+    console.log('this.scholarshipFormFile',this.scholarshipFormFile)
+    this.appFormFile.path = "scholarships/" + this.scholarship.id + "/scholarship-templates/"
+    this.appFormFile.path = this.appFormFile.path + this.appFormFile.name
+    console.log('this.appFormFile',this.appFormFile);
+    
+    this.fileUpload(this.appFormFile)
+    .subscribe(
+      res => console.log('uploadScholarshipAppForm, subscribe() res', res)
+    )
+
+  }
+
+  //TODO: Refactor this code into the firebase service
+  fileUpload(uploadFile: UploadFile){
+    return this.authService.getAPIKey("FIREBASE_CONFIG_KEYS")
+    .map(res => this.uploadFileFirebase(res, uploadFile))
+    .catch(err=>Observable.throw(err))
+  }
+
+  uploadFileFirebase(res: Response, uploadFile: UploadFile){
+    
+    console.log("uploadFileInternal: res",res,'uploadFile',uploadFile);
+    
+    let config;
+    config = res['api_key'];
+    console.log("config",config);
+    if (!firebase.apps.length) {
+      firebase.initializeApp(config);
+    }
+    console.log("firebase after config",firebase);
+    uploadFile.name = config.toString();
+    //why does google documentation use var instead of ref
+    
+    //preparing the firebase storage for upload
+    var storage = firebase.storage();
+    let storageRef = storage.ref();
+    let uploadRef = storageRef.child(uploadFile.path);
+    var metadata = {
+      contentType: uploadFile.file.type,
+      size: uploadFile.file.size,
+      name: uploadFile.file.name,
+    };
+    console.log('uploadRef',uploadRef)
+    console.log('uploadRef.getDownloadURL()',uploadRef.getDownloadURL());
+    
+    var uploadTask = uploadRef.put(uploadFile.file, metadata);
+    
+    //https://firebase.google.com/docs/storage/web/upload-files?authuser=0
+
+    // Register three observers:
+    // 1. 'state_changed' observer, called any time the state changes
+    // 2. Error observer, called on failure
+    // 3. Completion observer, called on successful completion
+
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+    (snapshot:any) => {
+      // Observe state change events such as progress, pause, and resume
+      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+      var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + progress + '% done');
+    },
+    (error)=> {
+      console.log(error);
+    },
+    () => {
+      // Handle successful uploads on complete
+      // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+      //var downloadURL = uploadTask.snapshot.downloadURL;
+      console.log('Finished upload: uploadTask.snapshot', uploadTask.snapshot );
+      this.scholarship.form_url = uploadTask.snapshot.downloadURL;
+                                                        
+    });
+    
+    
+  }
 
 
 
 
 }
-
-

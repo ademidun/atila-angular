@@ -17,7 +17,7 @@ import { AppDetailComponent } from '../app-detail/app-detail.component';
 const routes: Routes = [
   { path: '' , component: PreviewComponent, data: {title: 'Atila'}},
   { path: 'applications/:id' , component: AppDetailComponent, data: {title: 'Application Detail'}},  
-  { path: 'add-scholarship' , component: AddScholarshipComponent, data: {title: 'Atila - Create Scholarship'}},
+  { path: 'add-scholarship' , component: AddScholarshipComponent, data: {title: 'Atila - Add Scholarship'}},
   { path: 'create-profile' , component: CreateProfileComponent, data: {title: 'Atila - Create Profile'}},
   { path: 'profile/:username' , component: EditProfileComponent, data: {title: 'Atila - Profile'}},
   { path: 'edit-profile' , component: EditProfileComponent, data: {title: 'Atila - Edit Profile'}},
