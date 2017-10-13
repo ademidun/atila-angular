@@ -67,7 +67,13 @@ FUNDING_TYPES = [
   appFormFile: UploadFile;
   showUploadLoading=false;
   locationData = [];
+  countries = [];
+  provinces = []
+  cities = []
 
+  activeCountry = '';
+  activeProvince:any = {};
+  myJson = JSON;
   constructor(
     private router: Router,
     private snackBar: MdSnackBar,
@@ -118,17 +124,169 @@ FUNDING_TYPES = [
 
   }
 
-  createLocation(){
-    this.locationData.push({});
+  createLocation(type:string){
+
+    switch (type) {
+      case 'countries':
+        { 
+          this.countries.push({
+            'country': ''
+          });
+        }
+        break;
+      case 'provinces':
+      { 
+        this.provinces.push({
+          'country': this.activeCountry,
+          'province':''
+        });
+      }
+      break;
+      case 'provinces':
+      { 
+        this.provinces.push({
+          'country': this.activeCountry,
+          'province':''
+        });
+      }
+      break;
+      
+      case 'cities':
+      { 
+        //loop through the provinces objects, looking for the 
+        //matching province and extract its country
+        this.cities.push({
+          'country': this.activeProvince.country,
+          'province':this.activeProvince.province,
+          'city': ''
+        });
+
+        console.log('editLocation this.provinces', this.provinces);
+        console.log('editLocation this.provinces[0].province', this.provinces[0].province);
+        console.log('editLocation this.activeProvince', this.activeProvince);
+      }
+      break;
+      
+      default:
+        break;
+    }
+
+    console.log('editLocation this[type]', this[type]);
   }
 
-  deleteLocation(index:number){
-    this.locationData.splice(index,1);
+  removeLocation(index:number,type:string, value:string){
+
+    
+    console.log('removeLocation', index,type, value);
+    console.log('this[type]', this[type]);
+    
+    this[type].splice(index,1);
+    
+    /*switch (type) {
+      case 'countries':
+        { 
+          this.countries.splice(index,1);
+        }
+        break;
+      case 'provinces':
+      { 
+        this.provinces.splice(index,1);
+      }
+      break;
+      case 'cities':
+      { 
+        this.cities.splice(index,1);
+      }
+      break;
+      
+      default:
+        break;
+    }
+    */
+    
   }
 
-  EditLocation(index:number, key: string, value: string){
-    this.locationData[index].key = value;
+  editLocation(index:number, type: string, event: any){
+
+    switch (type) {
+      case 'countries':
+        { 
+          this.countries[index] = {
+            'country':event.target.value
+          };
+        }
+        break;
+      case 'provinces':
+      { 
+        this.provinces[index] = {
+          'country': this.activeCountry,
+          'province':event.target.value
+        };
+      }
+      break;
+
+      case 'cities':
+      {
+        //loop through the provinces objects, looking for the 
+        //matching province and extract its country
+
+        this.cities[index] = {
+          'country': this.activeProvince.country,
+          'province':this.activeProvince.province,
+          'city': event.target.value
+        };
+      }
+      break;
+      
+      default:
+        break;
+    }
+    console.log('editLocation', index, event.target.value);
   }
+
+  setActiveLocation(event:any, type:string, value: any[]){
+    //value will be an array of locations, we are looking for the
+    //value where event.value == value[i].type
+    
+    console.log('setActiveLocation before',this.activeCountry);
+    console.log('setActiveLocation before event',event);
+    switch (type) {
+      case 'country':
+        {
+          this.activeCountry = event.value;
+        }
+        break;
+        
+      case 'province':
+      {
+        this.activeProvince = {
+          'country': '',
+          'province': event.value
+        } 
+
+        for (var i = 0; i < this.provinces.length; i++) {
+          var element = this.provinces[i];
+          if(element.province==this.activeProvince.province){
+            console.log('match  element.province,this.activeProvince', element.province,this.activeProvince);
+            this.activeProvince.country = element.country;
+            break;
+          }
+        }
+
+      }
+
+      break;
+      default:
+        break;
+  }
+    console.log('setActiveLocation AFTER',this.activeCountry);
+  }
+
+  trackByFn(index: any, item: any) {
+    return index;
+
+  }
+
   next() {
     this.pageNo = Math.min(3,this.pageNo+1);
   }
@@ -181,7 +339,18 @@ FUNDING_TYPES = [
       console.log('createScholarship, this.scholarship: ',this.scholarship);
       let postOperation: Observable<Scholarship>;
       this.scholarship.owner = this.userId;
-      postOperation = this.scholarshipService.create(this.scholarship);
+
+      let locationData  = {
+        countries: this.countries,
+        provinces: this.provinces,
+        cities: this.cities
+      }
+
+      let sendData = {
+        'scholarship': this.scholarship,
+        'locationData': locationData,
+      }
+      postOperation = this.scholarshipService.createAny(sendData);
 
       postOperation.subscribe(
         data => {

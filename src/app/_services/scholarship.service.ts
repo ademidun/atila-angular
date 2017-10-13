@@ -25,6 +25,15 @@ export class ScholarshipService {
       .catch(this.handleError);
   }
 
+  createAny(data: any): Observable<Scholarship>{
+    let headers = new Headers({ 'Content-Type': 'application/json', });
+    let options = new RequestOptions({ headers: headers});
+    
+    return this.http.post(this.scholarshipsUrl, data, options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   update(scholarship: Scholarship): Observable<Scholarship>{
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers});

@@ -69,14 +69,71 @@
                                 <input class="browser-default" type="text" mdInput [(ngModel)]="this.stringDict['elgible_schools']" name="country" id="country" placeholder="Country" (change)="stringInputToArray($event)">
                             </md-input-container>
                         </div> -->
+                        <!-- https://stackoverflow.com/questions/42322968/angular2-dynamic-input-field-lose-focus-when-input-changes?noredirect=1&lq=1 -->
+                        <!-- https://stackoverflow.com/questions/44227682/angular2-dynamically-add-inputs-for-an-array-of-items -->
+                        
+
+                        {{ myJson.stringify(countries) }}
+                        {{ myJson.stringify(provinces) }}
+                        {{ myJson.stringify(cities) }}
+                        <br>
                         <label> Add a country </label>
                         <div class="row">
-                            <div *ngFor="let value of field.values; let i=index; trackBy:trackByFn">
-                                    <input type="text" [(ngModel)]="field.values[i]"  /><br/>
+                                <div class="col s12">
+                                    <div *ngFor="let country of countries; let i=index; trackBy:trackByFn">
+                                            <input [value]="country.country" type="text" (change)='editLocation(i, "countries", $event)'/><br/>
+                                            <button class="btn location-btn" (click)="removeLocation(i,'countries',country)">Remove Country<i class="material-icons md-light">add_circle_outline</i></button>
+                                    </div>
+                                    <div>
+                                        <button class="btn location-btn" (click)="createLocation('countries')">Add Country<i class="material-icons md-light">add_circle_outline</i></button>
+                                    </div>
                                 </div>
-                                <div>
-                                    <button (click)="addValue(field)">Click</button>
+
+
+                        <label> Select a Country, THEN click add a Province/State </label>
+                        <div class="row">
+                            <!-- https://stackoverflow.com/questions/33700266/how-can-i-get-new-selection-in-select-in-angular-2 -->
+                                
+                            
+                            <div *ngFor="let province of provinces; let i=index; trackBy:trackByFn">
+                                <div class="input-field">
+                                        <md-select class="col s6" (change)="setActiveLocation($event, 'country')"  name="country-dropdown" required id="country-dropdown" multiple=false placeholder="Country">
+                                            <md-option *ngFor="let country of countries" [value]="country.country">{{country.country}} </md-option>
+                                        </md-select>
+                                </div>
+                                    <div class="col s6">
+                                        <input [value]="province.province" type="text" (change)='editLocation(i, "provinces", $event)'/><br/>
+                                        <button class="btn location-btn" (click)="removeLocation(i,'provinces',province)">Remove Province<i class="material-icons md-light">add_circle_outline</i></button>
+                                     </div>
                             </div>
+                            <div>
+                                <button class="btn location-btn" (click)="createLocation('provinces')">Add Province<i class="material-icons md-light">add_circle_outline</i></button>
+                            </div>
+
+                        </div>
+
+                        <label> Select a Province/State, THEN click Add City</label>
+                        <div class="row">
+                            <!-- https://stackoverflow.com/questions/33700266/how-can-i-get-new-selection-in-select-in-angular-2 -->
+                                
+                            
+                            <div *ngFor="let city of cities; let i=index; trackBy:trackByFn">
+                                <div class="input-field">
+                                        <md-select class="col s6" (change)="setActiveLocation($event, 'province')"  name="province-dropdown" required id="province-dropdown" multiple=false placeholder="province">
+                                            <md-option *ngFor="let province of provinces" [value]="province.province">{{province.province}} </md-option>
+                                        </md-select>
+                                </div>
+                                    <div class="col s6">
+                                        <input [value]="city.city" type="text" (change)='editLocation(i, "cities", $event)'/><br/>
+                                        <button class="btn location-btn" (click)="removeLocation(i,'cities',city)">Remove city<i class="material-icons md-light">add_circle_outline</i></button>
+                                    </div>
+                            </div>
+                            <div>
+                                <button class="btn location-btn" (click)="createLocation('cities')">Add city<i class="material-icons md-light">add_circle_outline</i></button>
+                            </div>
+                            
+                        </div>
+
                         </div>
 
                         <br>
