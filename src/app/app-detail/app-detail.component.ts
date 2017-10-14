@@ -48,7 +48,11 @@ export class AppDetailComponent implements OnInit {
   dynamicForm: FormGroup;
 
     
-
+  locationData = {
+    'city': '',
+    'province': '',
+    'country': '',
+  }
   constructor(
     private applicationService: ApplicationService,
     route: ActivatedRoute,
@@ -116,7 +120,8 @@ export class AppDetailComponent implements OnInit {
 
         this.applicationData = Object.keys(this.application.responses);
         console.log('(2)this.applicationData', this.applicationData);
-
+        
+        this.initializeLocations(this.scholarship.city);
 
         //to create dynamic forms:
         // https://angular.io/guide/dynamic-form
@@ -127,6 +132,17 @@ export class AppDetailComponent implements OnInit {
 
   }
 
+  initializeLocations(cities: Array<any>){
+    
+    if(cities.length>0){
+      this.locationData.city= cities[0].name;
+      this.locationData.country=cities[0].country;
+      this.locationData.province=cities[0].province;
+    }
+
+    this.generalData.locationData = this.locationData;
+    
+  }
   onSubmit(form: NgForm) {
     this.profileForm = form;
     console.log('this.profileForm', this.profileForm);

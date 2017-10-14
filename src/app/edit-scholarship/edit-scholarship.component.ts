@@ -444,7 +444,6 @@ FUNDING_TYPES = [
         this.scholarshipService.updateAny(sendData)
         .subscribe(
           res =>{
-            this.scholarship = res.scholarship,
             console.log('scholarshipService.update res', res);
             this.snackBar.open("Scholarship succesfully Saved", '', {
               duration: 3000
