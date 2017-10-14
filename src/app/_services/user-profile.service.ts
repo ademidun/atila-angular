@@ -33,8 +33,8 @@ export class UserProfileService {
     let options = new RequestOptions({ headers: headers, });
     
     return this.http.post(this.userEndpoint, data, options)
-      .map((response: Response) => response.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 
     getById(id: number): Observable<UserProfile> {
@@ -69,7 +69,7 @@ export class UserProfileService {
 
     updateAny(data:any){
         return this.http.put(`${this.userProfileEndpoint}${data.userProfile['user']}/`, data, this.jwt())
-        .map((response: Response) => response.json())
+        .map(this.extractData)
         .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
@@ -80,6 +80,35 @@ export class UserProfileService {
             let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
             return new RequestOptions({ headers: headers });
         }
+    }
+
+    private extractData(res: Response) {
+        let body = res.json();
+        console.log('user-profile.service res: ', res);
+        console.log('user-profile.service res: ', res.status);
+        console.log('user-profile.service res: ', res);
+        console.log('user-profile.service body: ', body);
+        return body || { };
+    
+    }
+
+    private handleError (error: Response | any) {
+        // In a real world app, you might use a remote logging infrastructure
+        let errMsg: string;
+        let err: any;
+        if (error instanceof Response) {
+          const body = error.json() || '';
+          err = body.error || JSON.stringify(body);
+          errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+        } else {
+          errMsg = error.message ? error.message : error.toString();
+          const body = error.json() || '';
+          err = body.error || JSON.stringify(body);
+        }
+        console.log('user-profile.service error.json(): ', error.json());
+        console.log('user-profile.service error: ', error);
+        console.error(errMsg);
+        return Observable.throw(err);
     }
 
 }

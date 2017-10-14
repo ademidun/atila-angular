@@ -42,6 +42,15 @@ export class ScholarshipService {
       .map(this.extractData)
       .catch(this.handleError);
   }
+
+  updateAny(data: any): Observable<any>{
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers});
+
+    return this.http.put(`${this.scholarshipsUrl}${data.scholarship['id']}/`, data, options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
   
   setScholarshipPreviewForm(user_data:any): Promise<any>{ //made a promise so we can wait til function is called before navigating url
     this.form_data = user_data;

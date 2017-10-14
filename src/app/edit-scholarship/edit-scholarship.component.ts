@@ -71,7 +71,14 @@ FUNDING_TYPES = [
   private scholarshipOwner;
 
   uploadResponse: any;
-  
+  locationData = [];
+  countries = [];
+  provinces = []
+  cities = []
+
+  activeCountry = '';
+  activeProvince:any = {};
+  myJson = JSON;
 
   constructor(
     private route: ActivatedRoute,
@@ -113,6 +120,8 @@ FUNDING_TYPES = [
              }
            )
          }
+
+         this.initializeLocations();
        },
        err => {
          console.log(err);
@@ -156,6 +165,196 @@ FUNDING_TYPES = [
     console.log('after stringInputToArray: this.scholarship:', this.scholarship);
 
   }
+  
+  initializeLocations(){
+    // See createLocations() int edit-scholarship or add-scholarship.component.ts
+    for (var index = 0; index < this.scholarship.country.length; index++) {
+      var element = this.scholarship.country[index];
+      this.countries.push({
+        'country': element.name
+      });
+    }
+
+    for (var index = 0; index < this.scholarship.province.length; index++) {
+      var element = this.scholarship.province[index];
+      this.provinces.push({
+        'country': element.country,
+        'province':element.name
+      });
+    }
+
+    for (var index = 0; index < this.scholarship.city.length; index++) {
+      var element = this.scholarship.city[index];
+      this.cities.push({
+        'country': element.country,
+        'province':element.province,
+        'city': element.name,
+      });
+    }
+  }
+  createLocation(type:string){
+    
+        switch (type) {
+          case 'countries':
+            { 
+              this.countries.push({
+                'country': ''
+              });
+            }
+            break;
+          case 'provinces':
+          { 
+            this.provinces.push({
+              'country': this.activeCountry,
+              'province':''
+            });
+          }
+          break;
+          case 'provinces':
+          { 
+            this.provinces.push({
+              'country': this.activeCountry,
+              'province':''
+            });
+          }
+          break;
+          
+          case 'cities':
+          { 
+            //loop through the provinces objects, looking for the 
+            //matching province and extract its country
+            this.cities.push({
+              'country': this.activeProvince.country,
+              'province':this.activeProvince.province,
+              'city': ''
+            });
+    
+            console.log('editLocation this.provinces', this.provinces);
+            console.log('editLocation this.provinces[0].province', this.provinces[0].province);
+            console.log('editLocation this.activeProvince', this.activeProvince);
+          }
+          break;
+          
+          default:
+            break;
+        }
+    
+        console.log('editLocation this[type]', this[type]);
+  }
+    
+  removeLocation(index:number,type:string, value:string){
+
+    
+    console.log('removeLocation', index,type, value);
+    console.log('this[type]', this[type]);
+    
+    this[type].splice(index,1);
+    
+    /*switch (type) {
+      case 'countries':
+        { 
+          this.countries.splice(index,1);
+        }
+        break;
+      case 'provinces':
+      { 
+        this.provinces.splice(index,1);
+      }
+      break;
+      case 'cities':
+      { 
+        this.cities.splice(index,1);
+      }
+      break;
+      
+      default:
+        break;
+    }
+    */
+    
+  }
+
+  editLocation(index:number, type: string, event: any){
+
+    switch (type) {
+      case 'countries':
+        { 
+          this.countries[index] = {
+            'country':event.target.value
+          };
+        }
+        break;
+      case 'provinces':
+      { 
+        this.provinces[index] = {
+          'country': this.activeCountry,
+          'province':event.target.value
+        };
+      }
+      break;
+
+      case 'cities':
+      {
+        //loop through the provinces objects, looking for the 
+        //matching province and extract its country
+
+        this.cities[index] = {
+          'country': this.activeProvince.country,
+          'province':this.activeProvince.province,
+          'city': event.target.value
+        };
+      }
+      break;
+      
+      default:
+        break;
+    }
+    console.log('editLocation', index, event.target.value);
+  }
+
+  setActiveLocation(event:any, type:string, value: any[]){
+    //value will be an array of locations, we are looking for the
+    //value where event.value == value[i].type
+    
+    console.log('setActiveLocation before',this.activeCountry);
+    console.log('setActiveLocation before event',event);
+    switch (type) {
+      case 'country':
+        {
+          this.activeCountry = event.value;
+        }
+        break;
+        
+      case 'province':
+      {
+        this.activeProvince = {
+          'country': '',
+          'province': event.value
+        } 
+
+        for (var i = 0; i < this.provinces.length; i++) {
+          var element = this.provinces[i];
+          if(element.province==this.activeProvince.province){
+            console.log('match  element.province,this.activeProvince', element.province,this.activeProvince);
+            this.activeProvince.country = element.country;
+            break;
+          }
+        }
+
+      }
+
+      break;
+      default:
+        break;
+    }
+    console.log('setActiveLocation AFTER',this.activeCountry);
+  }
+
+  trackByFn(index: any, item: any) {
+    return index;
+
+  }
+
   openModal() {
     let dialogRef = this.dialog.open(AddQuestionModalComponent);
     dialogRef.afterClosed().subscribe(result => {
@@ -230,11 +429,22 @@ FUNDING_TYPES = [
       if(!this.scholarship.extra_questions){
         this.scholarship.extra_questions = { };
       }
+      console.log('scholarshipForm',scholarshipForm)
       if (scholarshipForm.valid){
-        this.scholarshipService.update(this.scholarship)
+        let locationData  = {
+          countries: this.countries,
+          provinces: this.provinces,
+          cities: this.cities
+        }
+  
+        let sendData = {
+          'scholarship': this.scholarship,
+          'locationData': locationData,
+        }
+        this.scholarshipService.updateAny(sendData)
         .subscribe(
           res =>{
-            this.scholarship = res,
+            this.scholarship = res.scholarship,
             console.log('scholarshipService.update res', res);
             this.snackBar.open("Scholarship succesfully Saved", '', {
               duration: 3000
@@ -247,10 +457,16 @@ FUNDING_TYPES = [
         }
         )
       }
+      else {
+        this.snackBar.open("Invalid form - " + scholarshipForm.errors, '', {
+          duration: 3000
+        });
+      }
+
           
   }
 
-  createScholarship(scholarshipForm) {
+  /*createScholarship(scholarshipForm) {
 
     if (scholarshipForm.valid) {
       console.log('createScholarship, this.scholarship: ',this.scholarship);
@@ -280,7 +496,7 @@ FUNDING_TYPES = [
         duration: 3000
       });
     }
-  }
+  }*/
 
   scholarshipAppFormChangeEvent(fileInput: any){
     console.log("fileInput:", fileInput);

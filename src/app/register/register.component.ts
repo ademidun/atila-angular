@@ -43,6 +43,11 @@ EDUCATION_FIELD = [
   'STEM (Grad School)', 
   'Other' 
 ]  
+locationData = {
+  'city': '',
+  'province': '',
+  'country': '',
+}
   constructor(
     private router: Router,
     private snackBar: MdSnackBar,
@@ -58,9 +63,15 @@ userProfile = new UserProfile();
     if (registerForm.valid) {
       let postOperation: Observable<any>;
       // Create a new User
+      Array('country','province','city').forEach(element => {
+        console.log('looping the array elements', element);
+        
+        this.locationData[element]= this.userProfile[element];
+      });
       var sendData = {
         user: this.model,
-        userProfile: this.userProfile
+        userProfile: this.userProfile,
+        locationData: this.locationData,
       };
       postOperation = this.userProfileService.createUserAndProfile(sendData);
       // Subscribe to Observable
@@ -88,6 +99,7 @@ userProfile = new UserProfile();
       this.showSnackBar("Invalid form", 3000);
     }
   }
+
 
   // SnackBar notification
   showSnackBar(text: string, duration: number) {

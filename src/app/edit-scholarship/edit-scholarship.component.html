@@ -59,21 +59,85 @@
           
                           </div>
                         <label>Leave the city, province/state or country field blank, if there is no restriction for the respective place. Seperate multiple cities, provinces/states or countries with a comma.</label>
+                        <!-- Location Data -->
+                        {{ myJson.stringify(countries) }}
+                        {{ myJson.stringify(provinces) }}
+                        {{ myJson.stringify(cities) }}
+                        <br>
                         <div class="row">
-                            <md-input-container class="col s12">
-                                <input class="browser-default" type="text" mdInput [(ngModel)]="this.stringDict['city']" name="city" id="city" placeholder="City" value="Any" (change)="stringInputToArray($event)">
-                            </md-input-container>
+                            <label> Add a country </label>
+                            <div class="col s12">
+                                <div *ngFor="let country of countries; let i=index; trackBy:trackByFn">
+                                        <input [value]="country.country" type="text" (change)='editLocation(i, "countries", $event)'/><br/>
+                                        <button class="btn location-btn" (click)="removeLocation(i,'countries',country)">Remove Country<i class="material-icons md-light">add_circle_outline</i></button>
+                                </div>
+                                <div>
+                                    <button class="btn location-btn" (click)="createLocation('countries')">Add Country<i class="material-icons md-light">add_circle_outline</i></button>
+                                </div>
+                            </div>
+
+
+                            <label> Select a Country, THEN click add a Province/State </label>
+                            <div class="row">
+                                <!-- https://stackoverflow.com/questions/33700266/how-can-i-get-new-selection-in-select-in-angular-2 -->
+                                <div *ngFor="let province of provinces; let i=index; trackBy:trackByFn">
+                                    <div class="input-field">
+                                            <md-select class="col s6" (change)="setActiveLocation($event, 'country')"  name="country-dropdown" id="country-dropdown" multiple=false placeholder="Country">
+                                                <md-option *ngFor="let country of countries" [value]="country.country">{{country.country}} </md-option>
+                                            </md-select>
+                                    </div>
+                                        <div class="col s6">
+                                            <input [value]="province.province" type="text" (change)='editLocation(i, "provinces", $event)'/><br/>
+                                            <button class="btn location-btn" (click)="removeLocation(i,'provinces',province)">Remove Province<i class="material-icons md-light">add_circle_outline</i></button>
+                                            </div>
+                                </div>
+                                <div>
+                                    <button class="btn location-btn" (click)="createLocation('provinces')">Add Province<i class="material-icons md-light">add_circle_outline</i></button>
+                                </div>
+
+                            </div>
+
+                            <label> Select a Province/State, THEN click Add City</label>
+                            <div class="row">
+                                <!-- https://stackoverflow.com/questions/33700266/how-can-i-get-new-selection-in-select-in-angular-2 -->
+                                    
+                                
+                                <div *ngFor="let city of cities; let i=index; trackBy:trackByFn">
+                                    <div class="input-field">
+                                            <md-select class="col s6" (change)="setActiveLocation($event, 'province')"  name="province-dropdown" id="province-dropdown" multiple=false placeholder="province">
+                                                <md-option *ngFor="let province of provinces" [value]="province.province">{{province.province}} </md-option>
+                                            </md-select>
+                                    </div>
+                                        <div class="col s6">
+                                            <input [value]="city.city" type="text" (change)='editLocation(i, "cities", $event)'/><br/>
+                                            <button class="btn location-btn" (click)="removeLocation(i,'cities',city)">Remove city<i class="material-icons md-light">add_circle_outline</i></button>
+                                        </div>
+                                </div>
+                                <div>
+                                    <button class="btn location-btn" (click)="createLocation('cities')">Add city<i class="material-icons md-light">add_circle_outline</i></button>
+                                </div>
+                                
+                            </div>
+
+                            <!-- <div class="row"> 
+                                        <md-input-container class="col s12">
+                                            <input class="browser-default" type="text" mdInput [(ngModel)]="this.stringDict['city']" name="city" id="city" placeholder="City" value="Any" (change)="stringInputToArray($event)">
+                                        </md-input-container>
+                                    </div>
+                                    <div class="row">
+                                        <md-input-container class="col s12">
+                                            <input class="browser-default" type="text" mdInput [(ngModel)]="this.stringDict.province" name="province" id="province" placeholder="Province or State" (change)="stringInputToArray($event)">
+                                        </md-input-container>
+                                    </div>
+                                    <div class="row">
+                                        <md-input-container class="col s12">
+                                            <input class="browser-default" type="text" mdInput [(ngModel)]="this.stringDict['elgible_schools']" name="country" id="country" placeholder="Country" (change)="stringInputToArray($event)">
+                                        </md-input-container>
+                                    </div>
+                                -->
                         </div>
-                        <div class="row">
-                            <md-input-container class="col s12">
-                                <input class="browser-default" type="text" mdInput [(ngModel)]="this.stringDict.province" name="province" id="province" placeholder="Province or State" (change)="stringInputToArray($event)">
-                            </md-input-container>
-                        </div>
-                        <div class="row">
-                            <md-input-container class="col s12">
-                                <input class="browser-default" type="text" mdInput [(ngModel)]="this.stringDict['elgible_schools']" name="country" id="country" placeholder="Country" (change)="stringInputToArray($event)">
-                            </md-input-container>
-                        </div>
+                        
+                        
                         <br>
                         <div class="row">
                             <div class="input-field">
