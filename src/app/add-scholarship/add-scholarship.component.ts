@@ -25,38 +25,46 @@ import * as firebase from "firebase";
 export class AddScholarshipComponent implements OnInit {
 
 
-EDUCATION_LEVELS = [
-    'University', 
-    'College', 
-    'Workplace or Apprenticeship',
-]
+  EDUCATION_LEVELS = [
+      'University', 
+      'College', 
+      'Workplace or Apprenticeship',
+  ]
 
-EDUCATION_FIELDS = [
-    'Arts (Undergrad)',
-    'STEM (Undergrad)',
-    'Trade School', 
-    'Visual + Performing Arts', 
-    'Law School', 
-    'Medical School', 
-    'MBA', 
-    'Arts (Grad School)', 
-    'STEM (Grad School)', 
-    'Other' 
-]
+  EDUCATION_FIELDS = [
+      'Arts (Undergrad)',
+      'STEM (Undergrad)',
+      'Trade School', 
+      'Visual + Performing Arts', 
+      'Law School', 
+      'Medical School', 
+      'MBA', 
+      'Arts (Grad School)', 
+      'STEM (Grad School)', 
+      'Other' 
+  ]
 
-stringDict = {
-  'city': '',
-  'province': '',
-  'country': '',
-  'eligible_schools':''
-}
+  stringDict = {
+    'city': '',
+    'province': '',
+    'country': '',
+    'eligible_schools':''
+  }
 
 
-FUNDING_TYPES = [
-  'Scholarship',
-  'Loan',
-  'Other',
-];;
+  FUNDING_TYPES = [
+    'Scholarship',
+    'Loan',
+    'Other',
+  ];
+
+  APPLICATION_FORM_TYPES = [
+    'PDF',
+    'Web',
+    'Other'
+  ]
+
+
   
   userId: number;
   pageNo: number =1;
@@ -294,6 +302,10 @@ FUNDING_TYPES = [
   loadScholarshipDefaults(){
     this.scholarship.owner = this.userId;
     this.scholarship.extra_questions = {};
+    this.scholarship.submission_info = {};
+    // TODO: Are most scholarships pdf forms this.APPLICATION_FORM_TYPES[0] or web forms this.APPLICATION_FORM_TYPES[1]
+    this.scholarship.submission_info.application_form_type = [this.APPLICATION_FORM_TYPES[0]];
+    this.scholarship.reference_letter_required =0;
     this.scholarship.number_available_scholarships =1;
     this.stringDict.eligible_schools = '';
     this.stringDict['city'] = '';

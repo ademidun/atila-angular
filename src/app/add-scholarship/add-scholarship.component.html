@@ -165,10 +165,25 @@
                     </div>
                     <div *ngIf="pageNo==2">
                         <h5>General Information {{pageNo}}/3</h5>
+
+                        <div class="row">
+                                <div class="col s12">
+                                    <input class="browser-default" id="is_automatable" type="checkbox" [(ngModel)]="scholarship.is_automatable" name="is_automatable">
+                                    <label for="is_automatable" data-error="Invalid input">Can this form be automated by Atila?<a> What is an automatable form?</a></label>
+                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field">
+                                <md-select class="col s12" [(ngModel)]="scholarship.submission_info.application_form_type" name="application_form_type" id="application_form_type" placeholder="Application Form Type">
+                                    <md-option *ngFor="let type of APPLICATION_FORM_TYPES" [value]="type">{{type}} </md-option>
+                                </md-select>
+                            </div>
+                            <label for="application_form_type" data-error="Invalid input">What type of form is the application?</label>
+                        </div>
                         <div class="row">
                             <md-input-container class="col s12">
-                                <label>Is the scholarship restricted to students attending certain schools?</label>
                                 <input class="browser-default" type="text" mdInput [(ngModel)]="this.stringDict.eligible_schools" name="eligible_schools" id="eligible_schools" placeholder="Eligible Schools" (change)="stringInputToArray($event)">
+                                <label>Is the scholarship restricted to students attending certain schools?</label>
                             </md-input-container>
                         </div>
                         <div class="row">
@@ -189,12 +204,7 @@
                                 <label for="enrollment_proof_required" data-error="Invalid input">Proof of Enrollment required?</label>
                             </div>
                         </div>
-                        <div class="row">
-                                <div class="col s12">
-                                    <input class="browser-default" id="is_automatable" type="checkbox" [(ngModel)]="scholarship.is_automatable" name="is_automatable">
-                                    <label for="is_automatable" data-error="Invalid input">Can this form be automated by Atila?<a> What is an automatable form?</a></label>
-                                </div>
-                            </div>
+                        
                         <div class="row">
                             <md-input-container class="col s12">
                                 <input class="browser-default" mdInput id="reference_letter_required" type="number" [(ngModel)]="scholarship.reference_letter_required" name="reference_letter_required">
@@ -266,11 +276,10 @@
                             <div class="col s12">
                                 <p>You can upload an application form for the scholarship after you create the scholarship.
                                     Don't worry if you make a mistake, you can edit your scholarship later.</p>
-                                <a class="waves-effect waves-light btn left" (click)="back()">Back</a>
                                     <div class="row" *ngIf="showFormUpload">
                                         <div class="col s3">
                                             <label>Upload an application form</label>
-                                            <input class="browser-default" id="user_img_file" type="file" placeholder="Profile Picture" [(ngModel)]="scholarship.user_img_file" name="user_img_file" (change)="scholarshipAppFormChangeEvent($event)">
+                                            <input class="browser-default" id="form_url" type="file" placeholder="Profile Picture" [(ngModel)]="scholarship.form_url" name="form_url" (change)="scholarshipAppFormChangeEvent($event)">
                                         </div>
                                         <div class="col s3">
                                             <button md-raised-button class="btn white-text" (click)="uploadScholarshipAppForm()">Upload</button>
@@ -292,6 +301,7 @@
                                     <input class="browser-default" mdInput id="form_url" type=url placeholder="Form URL" [(ngModel)]="scholarship.form_url" name="form_url">
                                 </md-input-container>
                             </div>
+                                <a class="waves-effect waves-light btn left" (click)="back()">Back</a>
                                 <a *ngIf="!showFormUpload" class="waves-effect waves-light btn right" (click)="createScholarship(scholarshipForm)">Create</a>
                                 <a *ngIf="showFormUpload" class="waves-effect waves-light btn right" (click)="saveScholarshipEdit(scholarshipForm)">Save</a>
                             </div>
