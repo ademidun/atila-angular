@@ -8,7 +8,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { PreviewComponent } from './preview/preview.component';
 import { FooterComponent } from './footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { TableLayoutModule } from './table-layout/table-layout.module';
     
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { MaterialModule, MdDialogModule } from '@angular/material';
@@ -39,6 +39,7 @@ import { CreateProfileQuickComponent } from './create-profile-quick/create-profi
 
 import { MdIconRegistry, MdIconModule } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,7 +72,8 @@ import { DomSanitizer } from '@angular/platform-browser';
     BrowserAnimationsModule,
     HttpModule,
     MdDialogModule,
-    MdIconModule
+    MdIconModule,
+    TableLayoutModule
   ],
   providers: [ScholarshipService, UserProfileService,
      AuthService, ApplicationService,

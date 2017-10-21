@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Scholarship } from '../_models/scholarship';
 import { UploadFile } from '../_models/upload-file';
+import { WEBFORMS } from '../_models/web-form';
 import { ScholarshipService } from '../_services/scholarship.service';
 import { Observable } from 'rxjs/Rx';
 import { MdSnackBar } from '@angular/material';
@@ -14,6 +15,9 @@ import { Title }     from '@angular/platform-browser';
 import {MdDialog, MdDialogRef} from '@angular/material';
 import {AddQuestionModalComponent} from '../add-question-modal/add-question-modal.component';
 import { MyFirebaseService } from "../_services/myfirebase.service";
+
+import { PERSONNEL, PROJECTS } from '../table-layout/fakedata';
+import { Project, Person, ColumnSetting } from '../table-layout/models';
 
 import * as firebase from "firebase";
 
@@ -74,8 +78,31 @@ FUNDING_TYPES = [
   locationData = [];
   countries = [];
   provinces = []
-  cities = []
+  cities = [];
 
+  // used to test the creating web forms feature
+  people = PERSONNEL;
+  projects = PROJECTS;
+  webForms = WEBFORMS;
+  //optional settings for the web form rows 
+  projectSettings: ColumnSetting[] = 
+  [
+      {
+          primaryKey: 'name',
+          header: 'Name'
+      },
+      {
+          primaryKey: 'first_flight',
+          header: 'First launch',
+          alternativeKeys: ['launch', 'first_flight']
+      },
+      {
+          primaryKey: 'cost',
+          header: 'Cost',
+          format: 'currency',
+          alternativeKeys: ['total_cost']
+      }
+  ];
   activeCountry = '';
   activeProvince:any = {};
   myJson = JSON;
@@ -92,6 +119,9 @@ FUNDING_TYPES = [
   ) { 
     this.scholarshipSlug = route.snapshot.params['slug']; 
     this.userId = parseInt(localStorage.getItem('userId')); // Current user
+
+    console.log('this.projects ',this.projects);
+    console.log('this.people ',this.people);
   }
 
   ngOnInit() {
@@ -165,6 +195,11 @@ FUNDING_TYPES = [
     console.log('after stringInputToArray: this.scholarship:', this.scholarship);
 
   }
+
+  saveTableChanges(tableData: any[]){
+    this.webForms = tableData;
+    console.log('saveTableChanges() this.webForms: ', this.webForms);
+  }
   
   initializeLocations(){
     // See createLocations() int edit-scholarship or add-scholarship.component.ts
@@ -193,7 +228,9 @@ FUNDING_TYPES = [
     }
   }
   createLocation(type:string){
-    
+    /*create a locationData object,
+    conditional
+    */ 
         switch (type) {
           case 'countries':
             { 

@@ -284,6 +284,23 @@
                                 </button>
                             </div>
                         </div>
+                        <h5>Web Form Questions{{pageNo}}/3</h5>
+                        <div class="container-fluid">
+                            <div class="page-header">
+                                <h1>{{ title }}</h1>
+                            </div>
+                            <my-table [records]="webForms"
+                            [caption]="'Web Form Entries'" (tableEditEvent)="saveTableChanges($tableData)">
+                            </my-table>
+                            <!-- <my-table [records]="projects"
+                                      [caption]="'NASA Projects'"
+                                      [settings]="projectSettings">
+                            </my-table> -->
+                            <!-- <my-table [records]="people"
+                                      [caption]="'NASA Astronauts'"
+                                      >
+                            </my-table> -->
+                        </div>
                         <div class="row">
                             <div class="col s12">
                                 <a class="waves-effect waves-light btn left" (click)="back()">Back</a>

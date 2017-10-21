@@ -1,0 +1,31 @@
+
+<table class="table">
+  <caption *ngIf="caption">{{ caption }}</caption>
+  <thead>
+      <tr>
+          <th *ngFor="let map of columnMaps">{{ map.header }}</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let record of records; let i = index"><!-- For each row (or entry) of data  -->
+        <!-- initialize the columns of data, and format using formatCell pipe -->
+          <!-- <td *ngFor="let map of columnMaps" [appStyleCell]="record[map.access(record)]">{{ record[map.access(record)] | formatCell:map.format }}
+          <br> -->
+          <!-- Each time a value is changed, update the parent component Is calling the Event emitter on each change too frequent? -->
+          <input (change)="tableEditEvent()" [value]="record[map.access(record)] | formatCell:map.format ">
+          </td>
+          <!--  TODO Figure out how to use javascript, pipes etc. within attribute directives-->
+          <!-- <input [value]="record[map.access(record)] | formatCell:map.format ">  -->
+          <!-- <a class="waves-effect waves-light btn left" (click)="editRow(i)">
+            <i class="fa fa-pencil"></i>
+        </a> -->
+        <a class="waves-effect waves-light btn right" (click)="deleteRow(i)">
+            <i class="fa fa-trash-o" aria-hidden="true"></i>
+        </a>
+      </tr>
+  </tbody>
+
+  <button class="waves-effect waves-light btn center" (click)="addRow()">
+    <i class="fa fa-plus" aria-hidden="true"></i>
+</button>
+</table> 
