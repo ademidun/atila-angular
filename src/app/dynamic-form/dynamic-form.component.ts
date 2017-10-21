@@ -100,6 +100,7 @@ export class DynamicFormComponent implements OnInit {
       res => {
         console.log('Response succesful:' , res);
         this.uploadUrl = res.upload_url;
+        this.payLoad = res;
       },
 
       err =>console.log('Error DynamicFormComponent:' , err),

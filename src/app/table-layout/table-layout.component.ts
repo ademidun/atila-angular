@@ -12,7 +12,7 @@ export class TableLayoutComponent implements OnChanges {
   @Input() records: any[];
   @Input() caption: string;
   @Input() settings: ColumnSetting[];
-  @Output() tableEditEvent = new EventEmitter<any[]>();
+  @Output() tableEditEvent:EventEmitter<any[]>  = new EventEmitter<any[]>();
   columnMaps: ColumnMap[]; 
   
   ngOnChanges() {
@@ -38,6 +38,7 @@ export class TableLayoutComponent implements OnChanges {
 
     console.log('deleteRow index: ', index);
     this.records.splice(index,1);
+    this.sendEdits();
   }
 
   addRow(){
@@ -52,7 +53,9 @@ export class TableLayoutComponent implements OnChanges {
 
   }
   sendEdits() {
-    this.tableEditEvent.emit(this.records)
+    var sendData = this.records;
+    console.log('sendEdits() sendData: ', sendData);
+    this.tableEditEvent.emit(sendData)
   }
 
 

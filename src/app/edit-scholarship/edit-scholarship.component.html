@@ -284,13 +284,14 @@
                                 </button>
                             </div>
                         </div>
-                        <h5>Web Form Questions{{pageNo}}/3</h5>
-                        <div class="container-fluid">
+                        <div class="container-fluid"  *ngIf="this.scholarship.submission_info.application_form_type=='Web' && this.scholarship.is_automated" > <!-- Web form details -->
+                            <h5>Web Form Questions{{pageNo}}/3</h5>
                             <div class="page-header">
                                 <h1>{{ title }}</h1>
                             </div>
+                            <!-- display the web form editing table if appropriate for this scholarship and it is automated -->
                             <my-table [records]="webForms"
-                            [caption]="'Web Form Entries'" (tableEditEvent)="saveTableChanges($tableData)">
+                            [caption]="'Web Form Entries'" (tableEditEvent)="saveTableChanges($event)">
                             </my-table>
                             <!-- <my-table [records]="projects"
                                       [caption]="'NASA Projects'"
@@ -300,10 +301,9 @@
                                       [caption]="'NASA Astronauts'"
                                       >
                             </my-table> -->
-                        </div>
+                        </div>  <!--  ENDWeb form details -->
                         <div class="row">
                             <div class="col s12">
-                                <a class="waves-effect waves-light btn left" (click)="back()">Back</a>
                                 <div *ngIf="showFormUpload">
                                     <div class="row">
                                         <div class="col s3">
@@ -317,6 +317,7 @@
                                         <a routerLink="/scholarships-list">Skip</a>
                                     </div>
                                 </div>
+                                <a class="waves-effect waves-light btn left" (click)="back()">Back</a>
                                 <a class="waves-effect waves-light btn right" (click)="saveScholarshipEdit(scholarshipForm)">Save</a>
                             </div>
                         </div>

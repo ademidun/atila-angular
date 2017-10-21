@@ -12,7 +12,8 @@
           <!-- <td *ngFor="let map of columnMaps" [appStyleCell]="record[map.access(record)]">{{ record[map.access(record)] | formatCell:map.format }}
           <br> -->
           <!-- Each time a value is changed, update the parent component Is calling the Event emitter on each change too frequent? -->
-          <input (change)="tableEditEvent()" [value]="record[map.access(record)] | formatCell:map.format ">
+          <td  *ngFor="let map of columnMaps" [appStyleCell]="record[map.access(record)]">
+          <input (change)="sendEdits()" [value]="record[map.access(record)] | formatCell:map.format ">
           </td>
           <!--  TODO Figure out how to use javascript, pipes etc. within attribute directives-->
           <!-- <input [value]="record[map.access(record)] | formatCell:map.format ">  -->

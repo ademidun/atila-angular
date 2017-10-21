@@ -61,6 +61,12 @@ FUNDING_TYPES = [
   'Loan',
   'Other',
 ];;
+
+APPLICATION_FORM_TYPES = [
+  'PDF',
+  'Web',
+  'Other'
+]
   
   userId: number;
   pageNo: number =1;
@@ -198,7 +204,11 @@ FUNDING_TYPES = [
 
   saveTableChanges(tableData: any[]){
     this.webForms = tableData;
+    console.log('saveTableChanges() tableData: ', tableData);
     console.log('saveTableChanges() this.webForms: ', this.webForms);
+    console.log('saveTableChanges() this.scholarship.submission_info: ', this.scholarship.submission_info);
+    this.scholarship.submission_info.web_form_entries= tableData;
+    console.log('saveTableChanges() this.scholarship',this.scholarship)
   }
   
   initializeLocations(){
@@ -227,6 +237,7 @@ FUNDING_TYPES = [
       });
     }
   }
+
   createLocation(type:string){
     /*create a locationData object,
     conditional

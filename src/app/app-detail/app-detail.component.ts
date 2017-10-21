@@ -121,7 +121,7 @@ export class AppDetailComponent implements OnInit {
         this.applicationData = Object.keys(this.application.responses);
         console.log('(2)this.applicationData', this.applicationData);
         
-        this.initializeLocations(this.scholarship.city);
+        this.initializeLocations(this.userProfile.city);
 
         //to create dynamic forms:
         // https://angular.io/guide/dynamic-form
@@ -133,7 +133,6 @@ export class AppDetailComponent implements OnInit {
   }
 
   initializeLocations(cities: Array<any>){
-    
     if(cities.length>0){
       this.locationData.city= cities[0].name;
       this.locationData.country=cities[0].country;
