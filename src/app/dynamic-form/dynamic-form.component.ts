@@ -4,7 +4,7 @@ import { FormGroup, NgForm }                 from '@angular/forms';
 import { QuestionBase }              from '../_models/question-base';
 import { QuestionService }    from '../_services/question.service';
 import { QuestionControlService }    from '../_services/question-control.service';
-
+// import { WebFormsService } from "../_services/web-forms.service";
 import { Observable } from "rxjs/Rx";
 
 import { UploadFile } from '../_models/upload-file';
@@ -44,11 +44,15 @@ export class DynamicFormComponent implements OnInit {
   uploadFile: UploadFile;
   showAutomationLoading=false;
   cusomEmail: any;
+
+  // A base 64 encoded string image of the screenshot of the automated web form.
+  screenshotConfirmationImage: any;
     
   constructor(
     private qcs: QuestionControlService,
     private questionService: QuestionService,
     private authService: AuthService,
+    // private webFormService: WebFormsService
   ) { 
     
    }
@@ -94,21 +98,35 @@ export class DynamicFormComponent implements OnInit {
     }
     var appId = this.generalData.appData.id;
     console.log('onSubmit() sendData:' , sendData);
+    /*
+    TODO: Add client-side selenium hosting
+    if(this.generalData.scholarship.submission_info.application_form_type=='Web' && this.generalData.scholarship.is_automated){
+      console.log("this.generalData.scholarship.submission_info.application_form_type=='Web' && this.generalData.scholarship.is_automated"
+       , this.generalData.scholarship.submission_info.application_form_type +  JSON.stringify(this.generalData.scholarship.is_automated));
 
+       this.webFormService.fillWebForm(this.generalData.scholarship.submission_info, this.form.value, sendData)
+       .then(
+         res => console.log('WebformDriver, filled: ', res),
+          err =>console.log('WebformDriver, Error: ', err)
+       )
+    }
+    */
+    
     this.observable = this.questionService.saveResponse(appId,sendData);
     this.observable.subscribe(
       res => {
         console.log('Response succesful:' , res);
         this.uploadUrl = res.upload_url;
-        this.payLoad = res;
+        this.screenshotConfirmationImage = "data:image/png;base64," +res.screenshot_confirmation_image;
+
+        this.payLoad = JSON.stringify(res.message);
       },
-
       err =>console.log('Error DynamicFormComponent:' , err),
-
       () => {
         this.showAutomationLoading = false;
       }
     )
+    
   }
 
   fileChangeEvent(fileInput: any){

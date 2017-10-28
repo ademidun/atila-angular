@@ -78,7 +78,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   providers: [ScholarshipService, UserProfileService,
      AuthService, ApplicationService,
       QuestionControlService, QuestionService,
-       MyFirebaseService],
+       MyFirebaseService,],
   bootstrap: [AppComponent],
   entryComponents: [
     AddQuestionModalComponent,

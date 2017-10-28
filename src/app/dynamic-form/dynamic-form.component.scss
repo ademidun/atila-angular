@@ -1,1 +1,9 @@
 @import '../../styles.scss';
+
+
+#screenshotConfirmationFrame {
+    border: solid $primary;
+    overflow: auto;
+    max-width: 100%;  // or width instead of max-width
+    max-height: 300px; // or height instead of max-height
+  }
