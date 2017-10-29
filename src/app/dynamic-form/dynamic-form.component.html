@@ -23,9 +23,13 @@
 
         <div *ngIf="screenshotConfirmationImage"> 
            <h6> A confirmation screenshot of the automated web form: </h6>
-          <a target="_blank" *ngIf="screenshotConfirmationImage" href="{{screenshotConfirmationImage}}">View Confirmation Screenshot</a> (right click, and open in new tab)
+          
+          
           <div id="screenshotConfirmationFrame" style=" border: solid;overflow: auto; max-width: 100%; max-height: 300px;">
-              <img *ngIf="screenshotConfirmationImage" src = "{{screenshotConfirmationImage}}"/>
+              
+                <!-- https://stackoverflow.com/questions/43141534/angular2-base64-sanitizing-unsafe-url-value -->
+                  <a target="_blank" *ngIf="screenshotConfirmationImage" [href]="screenshotConfirmationImage | safeHtml">View Confirmation Screenshot</a>
+                  <img *ngIf="screenshotConfirmationImage" [src]="screenshotConfirmationImage | safeHtml" style="width: 100%;"/>
           </div>
           
         </div> 

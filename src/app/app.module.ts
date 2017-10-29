@@ -39,6 +39,7 @@ import { CreateProfileQuickComponent } from './create-profile-quick/create-profi
 
 import { MdIconRegistry, MdIconModule } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
+import { SafeHtmlPipe } from './_pipes/safe-html.pipe';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { DomSanitizer } from '@angular/platform-browser';
     DynamicFormQuestionComponent,
     AddQuestionModalComponent,
     AppDetailComponent,
-    CreateProfileQuickComponent
+    CreateProfileQuickComponent,
+    SafeHtmlPipe
   ],
   imports: [
     NgbModule.forRoot(),

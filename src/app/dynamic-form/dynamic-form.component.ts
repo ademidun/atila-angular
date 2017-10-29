@@ -115,13 +115,21 @@ export class DynamicFormComponent implements OnInit {
     this.observable = this.questionService.saveResponse(appId,sendData);
     this.observable.subscribe(
       res => {
-        console.log('Response succesful:' , res);
+        console.log('dynamic form submision Response succesful:' , res);
         this.uploadUrl = res.upload_url;
-        this.screenshotConfirmationImage = "data:image/png;base64," +res.screenshot_confirmation_image;
+
+        this.screenshotConfirmationImage = "data:image/png;base64," + res.screenshot_confirmation_image;
+        
+        console.log('dynamic form submision this.screenshotConfirmationImage:' , this.screenshotConfirmationImage);
 
         this.payLoad = JSON.stringify(res.message);
       },
-      err =>console.log('Error DynamicFormComponent:' , err),
+      err =>{
+        console.log('Error DynamicFormComponent:' , err);
+        this.showAutomationLoading = false;
+        this.payLoad = JSON.stringify(err.message);
+
+      },
       () => {
         this.showAutomationLoading = false;
       }

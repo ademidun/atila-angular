@@ -99,7 +99,9 @@ export class QuestionService   {
 
     return this.http.post(this.saveScholarshipResponseUrl,data)
     .map(this.extractData)
-    .catch(this.handleError);
+    .catch(this.handleError)
+    .timeout(30000)
+    // TODO: Change the timeout based on what type of form is being automated
   }
 
    private handleError (error: Response | any) {
