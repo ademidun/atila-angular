@@ -87,28 +87,31 @@ APPLICATION_FORM_TYPES = [
   cities = [];
 
   // used to test the creating web forms feature
-  people = PERSONNEL;
-  projects = PROJECTS;
-  webForms = WEBFORMS;
-  //optional settings for the web form rows 
-  projectSettings: ColumnSetting[] = 
-  [
-      {
-          primaryKey: 'name',
-          header: 'Name'
-      },
-      {
-          primaryKey: 'first_flight',
-          header: 'First launch',
-          alternativeKeys: ['launch', 'first_flight']
-      },
-      {
-          primaryKey: 'cost',
-          header: 'Cost',
-          format: 'currency',
-          alternativeKeys: ['total_cost']
-      }
-  ];
+  /*
+    people = PERSONNEL;
+    projects = PROJECTS;
+    webForms = WEBFORMS;
+    //optional settings for the web form rows 
+    projectSettings: ColumnSetting[] = 
+    [
+        {
+            primaryKey: 'name',
+            header: 'Name'
+        },
+        {
+            primaryKey: 'first_flight',
+            header: 'First launch',
+            alternativeKeys: ['launch', 'first_flight']
+        },
+        {
+            primaryKey: 'cost',
+            header: 'Cost',
+            format: 'currency',
+            alternativeKeys: ['total_cost']
+        }
+    ];
+  */
+  webForms;
   activeCountry = '';
   activeProvince:any = {};
   myJson = JSON;
@@ -126,8 +129,6 @@ APPLICATION_FORM_TYPES = [
     this.scholarshipSlug = route.snapshot.params['slug']; 
     this.userId = parseInt(localStorage.getItem('userId')); // Current user
 
-    console.log('this.projects ',this.projects);
-    console.log('this.people ',this.people);
   }
 
   ngOnInit() {

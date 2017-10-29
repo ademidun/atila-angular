@@ -490,6 +490,7 @@ export class AddScholarshipComponent implements OnInit {
     if(!this.scholarship.extra_questions){
       this.scholarship.extra_questions = { };
     }
+    if(this.scholarship.submission_info)
     if (scholarshipForm.valid){
       this.scholarshipService.update(this.scholarship)
       .subscribe(
