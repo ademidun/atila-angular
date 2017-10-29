@@ -111,6 +111,8 @@ APPLICATION_FORM_TYPES = [
         }
     ];
   */
+  /** The values used to populate the web form for this scholarship,
+   *  populated from scholarship.submission_info.web_form_entries.*/
   webForms;
   activeCountry = '';
   activeProvince:any = {};
@@ -135,10 +137,27 @@ APPLICATION_FORM_TYPES = [
     // Retrieve the user id
     this.userId = parseInt(localStorage.getItem('userId'));
      // Load scholarship from the id
+     //Nested Observable (is this good practice?)
+     //First, we get the scholarship data based on the URl slug, then we get the current logged in User
+     
      this.scholarshipService.getBySlug(this.scholarshipSlug)
      .subscribe(
        scholarship => {
          this.scholarship = scholarship;
+
+         //If the current scholarship has a web form and the web_form_entries have not been defined, initialize them with default values
+         if(this.scholarship.submission_info.application_form_type=='Web' && !this.scholarship.submission_info.web_form_entries){
+          this.scholarship.submission_info.web_form_entries = [
+            {
+                attribute_type : '',
+                attribute_value: '',
+                question_key: ''
+            },
+          ];
+         }
+         //The webForms value in the table is populated using the scholarship.submission_info.web_form_entries
+         this.webForms = this.scholarship.submission_info.web_form_entries;
+         
          // Get the user profile of the scholarship owner
 
          this.titleService.setTitle('Atila - Edit - ' + this.scholarship.name);
@@ -474,10 +493,6 @@ APPLICATION_FORM_TYPES = [
   }
   saveScholarshipEdit(scholarshipForm: NgForm) {
     
-      console.log('!!this.scholarship.extra_questions', !!this.scholarship.extra_questions);
-      if(!this.scholarship.extra_questions){
-        this.scholarship.extra_questions = { };
-      }
       console.log('scholarshipForm',scholarshipForm)
       if (scholarshipForm.valid){
         let locationData  = {

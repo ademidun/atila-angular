@@ -490,7 +490,15 @@ export class AddScholarshipComponent implements OnInit {
     if(!this.scholarship.extra_questions){
       this.scholarship.extra_questions = { };
     }
-    if(this.scholarship.submission_info)
+    //If the form type is a webForm, create default web_form_entries array
+    if(this.scholarship.submission_info.application_form_type=='Web'){
+      this.scholarship.submission_info.web_form_entries = [
+        {
+            attribute_type : '',
+            attribute_value: '',
+            question_key: ''
+        },]
+    }
     if (scholarshipForm.valid){
       this.scholarshipService.update(this.scholarship)
       .subscribe(

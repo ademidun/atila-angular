@@ -21,13 +21,17 @@ export class TableLayoutComponent implements OnChanges {
           this.columnMaps = this.settings
                         .map(col => new ColumnMap(col));
       }
-
       else { // no settings, create column maps with defaults
+
+        //Each key in scholarship.submission_info.web_form_entries is a column header
           this.columnMaps = Object.keys(this.records[0])
               .map( key => { //for each key item, return an object of primaryKey and header field
                    return new ColumnMap({primaryKey: key})
           });
       }
+
+
+    console.log('ngOnChanges() columnMaps, records', this.columnMaps, this.records);
   }
 
   editRow(index: number){
@@ -38,7 +42,7 @@ export class TableLayoutComponent implements OnChanges {
 
     console.log('deleteRow index: ', index);
     this.records.splice(index,1);
-    this.sendEdits();
+    this.sendEditsBlank();
   }
 
   addRow(){
@@ -52,7 +56,21 @@ export class TableLayoutComponent implements OnChanges {
     this.records.push(rowItem);
 
   }
-  sendEdits() {
+  sendEdits($event, i,map) {
+    console.log('$event', $event);
+    console.log('i', i);
+    console.log('records[i]', this.records[i]);
+    console.log('this.records[i][map.access()]', this.records[i][map.access()]);
+    this.records[i][map.access()] = $event.target.value;
+
+    console.log('sendEdits() this.columnMaps, map.access(),this.records', this.columnMaps, map.access(),this.records);
+    var sendData = this.records;
+    console.log('sendEdits() sendData: ', sendData);
+    this.tableEditEvent.emit(sendData)
+  }
+
+  sendEditsBlank() {
+    console.log('sendEditsBlank() records', this.columnMaps, this.records);
     var sendData = this.records;
     console.log('sendEdits() sendData: ', sendData);
     this.tableEditEvent.emit(sendData)

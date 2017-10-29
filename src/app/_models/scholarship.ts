@@ -24,9 +24,6 @@ export class Scholarship {
     resume_required?:any;
     scholarship_img_url?: string;
     scholarship_url?: string;
-    submission_info?:{
-      application_form_type: string,
-
-    } | any
+    submission_info?:any;
     transcript_required?:any;
   }
