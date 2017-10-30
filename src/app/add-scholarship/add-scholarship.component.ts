@@ -498,6 +498,12 @@ export class AddScholarshipComponent implements OnInit {
             attribute_value: '',
             question_key: ''
         },]
+
+      this.scholarship.submission_info.web_form_parent = {   
+            element_type: '',
+            attribute_type : '',
+            attribute_value: '',
+        };
     }
     if (scholarshipForm.valid){
       this.scholarshipService.update(this.scholarship)

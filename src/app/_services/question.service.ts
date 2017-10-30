@@ -24,7 +24,7 @@ export class QuestionService   {
   private params = new URLSearchParams();
   private requestOptions = new RequestOptions();
   private observable: Observable<any>;
-
+  private timeoutLength: number = 45000; //set timeOut for form Autoamtion at 45 seconds
   // Todo: get from a remote source of question metadata
   // Todo: make asynchronous
   getQuestions() {
@@ -100,7 +100,7 @@ export class QuestionService   {
     return this.http.post(this.saveScholarshipResponseUrl,data)
     .map(this.extractData)
     .catch(this.handleError)
-    .timeout(30000)
+    .timeout(this.timeoutLength)
     // TODO: Change the timeout based on what type of form is being automated
   }
 

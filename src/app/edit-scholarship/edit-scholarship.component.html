@@ -289,6 +289,19 @@
                             <div class="page-header">
                                 <h1>{{ title }}</h1>
                             </div>
+                            <table class="table">
+                                    <h6>Form Parent Description</h6>
+                                    <tr>
+                                      <th>Element Type</th>
+                                      <th>Element Attribute</th> 
+                                      <th>Attribute Value</th>
+                                    </tr>
+                                    <tr>
+                                      <td><input [(ngModel)]="scholarship.submission_info.web_form_parent.element_type" name="web_form_parent.element_type" class="browser-default" placeholder="ex. div"></td>
+                                      <td><input [(ngModel)]="scholarship.submission_info.web_form_parent.attribute_type" name="web_form_parent.attribute_type" class="browser-default" placeholder="ex. id"></td> 
+                                      <td><input [(ngModel)]="scholarship.submission_info.web_form_parent.attribute_value" name="web_form_parent.attribute_value" class="browser-default" placeholder="ex. myFormId"></td>
+                                    </tr>
+                                  </table>
                             <!-- display the web form editing table if appropriate for this scholarship and it is automated -->
                             <my-table [records]="webForms"
                             [caption]="'Web Form Entries'" (tableEditEvent)="saveTableChanges($event)">

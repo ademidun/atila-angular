@@ -42,10 +42,12 @@ export class TableLayoutComponent implements OnChanges {
 
     console.log('deleteRow index: ', index);
     this.records.splice(index,1);
-    this.sendEditsBlank();
+    this.sendEdits();
   }
 
   addRow(){
+    //Add a row as a dictionary, where each key corresponds to a column.
+    
     let rowItem = {};
 
     this.columnMaps.forEach( 
@@ -56,25 +58,11 @@ export class TableLayoutComponent implements OnChanges {
     this.records.push(rowItem);
 
   }
-  sendEdits($event, i,map) {
-    console.log('$event', $event);
-    console.log('i', i);
-    console.log('records[i]', this.records[i]);
-    console.log('this.records[i][map.access()]', this.records[i][map.access()]);
-    this.records[i][map.access()] = $event.target.value;
-
-    console.log('sendEdits() this.columnMaps, map.access(),this.records', this.columnMaps, map.access(),this.records);
-    var sendData = this.records;
-    console.log('sendEdits() sendData: ', sendData);
-    this.tableEditEvent.emit(sendData)
+  sendEdits() {
+    console.log('sendEdits() sendData: ', this.records);
+    this.tableEditEvent.emit(this.records)
   }
 
-  sendEditsBlank() {
-    console.log('sendEditsBlank() records', this.columnMaps, this.records);
-    var sendData = this.records;
-    console.log('sendEdits() sendData: ', sendData);
-    this.tableEditEvent.emit(sendData)
-  }
 
 
 }

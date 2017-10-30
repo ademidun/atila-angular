@@ -8,11 +8,13 @@ import { StyleCellDirective } from './style-cell.directive';
 
 import { FormatCellPipe } from '../_pipes/format-cell.pipe';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
-    imports: [ CommonModule ],
+    imports: [ CommonModule,
+    FormsModule ],
     declarations: [ TableLayoutComponent,
     StyleCellDirective,
-    FormatCellPipe ],
+    FormatCellPipe,],
     exports: [
         CommonModule, 
         TableLayoutComponent 

@@ -155,6 +155,13 @@ APPLICATION_FORM_TYPES = [
             },
           ];
          }
+         if(this.scholarship.submission_info.application_form_type=='Web' && !this.scholarship.submission_info.web_form_parent){
+          this.scholarship.submission_info.web_form_parent = {   
+            element_type: '',
+            attribute_type : '',
+            attribute_value: '',
+          };
+         }
          //The webForms value in the table is populated using the scholarship.submission_info.web_form_entries
          this.webForms = this.scholarship.submission_info.web_form_entries;
          

@@ -120,8 +120,6 @@ export class DynamicFormComponent implements OnInit {
 
         this.screenshotConfirmationImage = "data:image/png;base64," + res.screenshot_confirmation_image;
         
-        console.log('dynamic form submision this.screenshotConfirmationImage:' , this.screenshotConfirmationImage);
-
         this.payLoad = JSON.stringify(res.message);
       },
       err =>{
