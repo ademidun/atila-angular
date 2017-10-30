@@ -43,5 +43,6 @@ export class DynamicFormQuestionComponent implements OnInit {
 
    fileChangeEvent(fileInput: any) {
     this.uploaded.emit(fileInput);
+    console.log('fileChangeEvent this.form: ', this.form)
   }
 }

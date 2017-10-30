@@ -1,4 +1,4 @@
-import { Component, Input, OnInit }  from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef, AfterViewInit }  from '@angular/core';
 import { FormGroup, NgForm }                 from '@angular/forms';
 
 import { QuestionBase }              from '../_models/question-base';
@@ -23,7 +23,7 @@ import * as firebase from "firebase";
   templateUrl: './dynamic-form.component.html',
   providers: [ QuestionControlService ]
 })
-export class DynamicFormComponent implements OnInit {
+export class DynamicFormComponent implements OnInit, AfterViewInit {
 
   @Input() questions: QuestionBase<any>[] = [];
   @Input() form: FormGroup;
@@ -34,6 +34,7 @@ export class DynamicFormComponent implements OnInit {
   isFormReady: boolean;
 
   payLoad = '';
+  myJSON = JSON;
 
   uploadUrl: string;
   keyGetter = Object.keys;
@@ -52,6 +53,7 @@ export class DynamicFormComponent implements OnInit {
     private qcs: QuestionControlService,
     private questionService: QuestionService,
     private authService: AuthService,
+    private cdr: ChangeDetectorRef
     // private webFormService: WebFormsService
   ) { 
     
@@ -64,21 +66,73 @@ export class DynamicFormComponent implements OnInit {
     }
 
     this.appData = this.generalData.appData.responses;
+    console.log('ngOnInit().this.form',this.form);
   }
-  saveDocumentsUrls(){
+
+  ngAfterViewInit(){
+    this.cdr.detectChanges();
+    console.log('ngAfterViewInit().this.form',this.form);
+  }
+  /**
+   * Save the application to the database without automating and save the uploaded document urls.
+   * @param event 
+   */
+  saveApplication(event: Event){
+    // First, we will save the URLs of the uploaded documents
+    event.preventDefault();
     var results = document.getElementsByClassName("scholarship-document");
     console.log('saveDocuments().results',results);
+    console.log('saveDocuments().event',event);
     for (var i = 0; i < results.length; i++) {
       let documentKey = results[i].getAttribute("name");
       let documentUrl = results[i].getAttribute("href"); 
       this.generalData.documentUploads[documentKey] = documentUrl;
     }
 
-
-
   console.log('saveDocuments().this.generalData.documentUploads',this.generalData.documentUploads);
+  
+  //Next, we will save the application edits to the database.
+  this.showAutomationLoading = true;
+  this.payLoad = this.form.value;
+
+
+  for(var key in this.generalData.documentUploads) {
+    
+    this.payLoad[key]= this.generalData.documentUploads[key];
 
   }
+
+
+  this.payLoad = JSON.stringify(this.payLoad);
+  var sendData = {
+    //'generalData': this.generalData,We only need 
+    'profileForm': this.profileForm.value,
+    'appForm': this.form.value,
+    'documentUrls':this.generalData.documentUploads,
+  }
+  var appId = this.generalData.appData.id;
+
+  console.log('saveApplication() sendData:' , sendData);
+  
+  this.observable = this.questionService.saveResponse(appId,sendData);
+  this.observable.subscribe(
+    res => {
+      console.log('dynamic form submision Response succesful:' , res);
+      this.payLoad = JSON.stringify(res.message);
+    },
+    err =>{
+      console.log('Error DynamicFormComponent:' , err);
+      this.showAutomationLoading = false;
+      this.payLoad = JSON.stringify(err.message);
+
+    },
+    () => {
+      this.showAutomationLoading = false;
+    }
+  )
+
+  }
+
   onSubmit() {
     this.showAutomationLoading = true;
     this.payLoad = this.form.value;
@@ -112,7 +166,7 @@ export class DynamicFormComponent implements OnInit {
     }
     */
     
-    this.observable = this.questionService.saveResponse(appId,sendData);
+    this.observable = this.questionService.automateResponse(appId,sendData);
     this.observable.subscribe(
       res => {
         console.log('dynamic form submision Response succesful:' , res);
@@ -143,7 +197,10 @@ export class DynamicFormComponent implements OnInit {
     this.formFileEvent = fileInput;  
   }
   
-  uploadUserDocuments(){
+  uploadUserDocuments(event: Event){
+
+
+    event.preventDefault();
     //let uploadOperation: Observable<any>;
   
     //create Upload file and configure its properties before uploading.

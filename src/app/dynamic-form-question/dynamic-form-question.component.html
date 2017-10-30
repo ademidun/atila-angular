@@ -38,8 +38,10 @@
     </md-input-container>
 
     <span *ngSwitchCase="'file'">
+        {{question.label}}
+        <!-- TODO: Add required attribute later, its giving me problems with file inputs ATM.[required]="question.required ? 'required' : null" -->
       <input [formControlName]="question.key"
-      [id]="question.key" [placeholder]="question.label" [type]="question.type" [required]="question.required ? 'required' : null" (change)="fileChangeEvent($event)">
+      [id]="question.key" [placeholder]="question.label" [type]="question.type"  (change)="fileChangeEvent($event)">
     
       <div *ngIf="appData[question.key]" class="col s3">
         <a  class="scholarship-document" [name]="question.key" target="_blank" href="{{appData[question.key]}}"> View Document ({{question.key}}) </a>

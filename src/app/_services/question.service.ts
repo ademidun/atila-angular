@@ -17,8 +17,9 @@ import 'rxjs/add/operator/toPromise';
 export class QuestionService   {
 
   private scholarshipQuestionsUrl = 'http://127.0.0.1:8000/scholarship-questions/';
-  private saveScholarshipResponseUrl = 'http://127.0.0.1:8000/application-save-data/';
-
+  private saveScholarshipResponseUrl = 'http://127.0.0.1:8000/application-save-response/';
+  private automateScholarshipResponseUrl = 'http://127.0.0.1:8000/application-automate-response/';
+  
   
   constructor(private http: Http) { }
   private params = new URLSearchParams();
@@ -90,6 +91,20 @@ export class QuestionService   {
     console.log('in QuestionService, extractData body:', body)
     return body || { };
   }
+  automateResponse(appId: number | any, data:any): Observable<any>{
+    console.log('data before data["appId"]', data);
+
+    data['appId'] = appId;
+
+    console.log('data AFTER data["appId"]', data);
+
+    return this.http.post(this.automateScholarshipResponseUrl,data)
+    .map(this.extractData)
+    .catch(this.handleError)
+    .timeout(this.timeoutLength)
+    // TODO: Change the timeout based on what type of form is being automated
+  }
+
   saveResponse(appId: number | any, data:any): Observable<any>{
     console.log('data before data["appId"]', data);
 
@@ -101,7 +116,6 @@ export class QuestionService   {
     .map(this.extractData)
     .catch(this.handleError)
     .timeout(this.timeoutLength)
-    // TODO: Change the timeout based on what type of form is being automated
   }
 
    private handleError (error: Response | any) {

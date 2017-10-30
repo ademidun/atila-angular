@@ -1,6 +1,6 @@
 <div>
     <form (ngSubmit)="onSubmit()" [formGroup]="form">
-      {{questions}}
+      {{myJSON.stringify(questions)}}
    <div *ngIf="questions.length!=0" >
     <h4>Specific Info</h4>
       <div *ngFor="let question of questions" class="form-row">
@@ -10,8 +10,8 @@
    </div>
    
       <div class="form-row" style=" margin-top: 1%;">
-          <button md-raised-button style="background-color: #184E87;margin-left:1%"class="btn white-text" (click)="uploadUserDocuments()" >Upload Document</button>
-          <button md-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveDocumentsUrls()">Save Documents</button>
+          <button md-raised-button style="background-color: #184E87;margin-left:1%"class="btn white-text" (click)="uploadUserDocuments($event)" >Upload Document</button>
+          <button md-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveApplication($event)">Save Application</button>
           <button md-raised-button style="background-color: #184E87;" class="btn white-text" type="submit" [disabled]="!form.valid">Automate!</button>
         
         <div  *ngIf="showAutomationLoading">
