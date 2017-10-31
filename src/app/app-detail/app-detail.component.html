@@ -83,6 +83,7 @@
                 </div>
 
               <div *ngIf="userProfile.transcript" class="col s3">
+                  <!-- Why does this element have so many attributes? TODO: Can we remove them? -->
                   <a  class="scholarship-document"  name="transcript" [attr.data-question-type]="scholarshipDocument" [attr.data-questionkey]="transcript" data-questionkey="transcript" attr.data-questionkey="transcript" target="_blank" href="{{userProfile.transcript}}"> View Transcript </a>
               </div>
               </span>
@@ -113,13 +114,14 @@
               </div>
               <div class="row">
                   <button md-raised-button class="btn white-text left" (click)="uploadUserDocuments()" style="margin-left:1%">Upload Document</button>
-                  <button type="submit" class="btn btn-success right">Save Profile</button>
+                  <button (click)="saveUserProfile(profileForm)"class="btn btn-success right">Save Profile</button>
               </div>
   
              
             
             </form>
             <span *ngIf="dynamicForm">
+              
                 <app-dynamic-form [generalData]="generalData" [questions]="questions" [profileForm]="profileForm" [form]="dynamicForm"></app-dynamic-form>
             </span>
   

@@ -272,6 +272,30 @@
                                 </button>
                             </div>
                         </div>
+                        <!--  Start Web form details -->
+                        <div class="container-fluid"  *ngIf="this.scholarship.submission_info.application_form_type=='Web' && this.scholarship.is_automated" > <!-- Web form details -->
+                            <h5>Web Form Questions{{pageNo}}/3</h5>
+                            <div class="page-header">
+                                <h1>{{ title }}</h1>
+                            </div>
+                            <table class="table">
+                                    <h6>Form Parent Description</h6>
+                                    <tr>
+                                      <th>Element Type</th>
+                                      <th>Element Attribute</th> 
+                                      <th>Attribute Value</th>
+                                    </tr>
+                                    <tr>
+                                      <td><input [(ngModel)]="scholarship.submission_info.web_form_parent.element_type" name="web_form_parent.element_type" class="browser-default" placeholder="ex. div"></td>
+                                      <td><input [(ngModel)]="scholarship.submission_info.web_form_parent.attribute_type" name="web_form_parent.attribute_type" class="browser-default" placeholder="ex. id"></td> 
+                                      <td><input [(ngModel)]="scholarship.submission_info.web_form_parent.attribute_value" name="web_form_parent.attribute_value" class="browser-default" placeholder="ex. myFormId"></td>
+                                    </tr>
+                                  </table>
+                            <!-- display the web form editing table if appropriate for this scholarship and it is automated -->
+                            <my-table [records]="webForms"
+                            [caption]="'Web Form Entries'" (tableEditEvent)="saveTableChanges($event)">
+                            </my-table>
+                        </div>  <!--  ENDWeb form details -->
                         <div class="row">
                             <div class="col s12">
                                 <p>You can upload an application form for the scholarship after you create the scholarship.

@@ -23,8 +23,8 @@ export class UserProfileService {
     let options = new RequestOptions({ headers: headers, });
     
     return this.http.post(this.userEndpoint, user, options)
-      .map((response: Response) => response.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 
   createUserAndProfile(data: any) {
@@ -39,14 +39,14 @@ export class UserProfileService {
 
     getById(id: number): Observable<UserProfile> {
         return this.http.get(`${this.userProfileEndpoint}${id}/`)
-        .map((response: Response) => response.json())
-        .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+        .map(this.extractData)
+        .catch(this.handleError);
     }
 
     getByUsername(username: string): Observable<UserProfile>{
         return this.http.get(`${this.userNameEndpoint}?user-name=${username}/`)
-        .map((response: Response) => response.json())
-        .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+        .map(this.extractData)
+        .catch(this.handleError);
     }
 
     isLoggedIn(): boolean {
@@ -63,14 +63,14 @@ export class UserProfileService {
         let options = new RequestOptions({ headers: headers});
   
         return this.http.put(`${this.userProfileEndpoint}${profile['user']}/`, profile, this.jwt())
-          .map((response: Response) => response.json())
-          .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+          .map(this.extractData)
+          .catch(this.handleError);
     }
 
     updateAny(data:any){
         return this.http.put(`${this.userProfileEndpoint}${data.userProfile['user']}/`, data, this.jwt())
         .map(this.extractData)
-        .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+        .catch(this.handleError);
     }
 
     private jwt() {

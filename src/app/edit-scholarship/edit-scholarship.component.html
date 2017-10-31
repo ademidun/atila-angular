@@ -55,6 +55,8 @@
                           <span *ngIf="scholarship.deadline" class="col s6">
                             <!-- TODO: Wrong time zone offset on deadline -->
                               Deadline: {{ scholarship.deadline | date:'fullDate' }} {{ scholarship.deadline | date:'shortTime' }}
+                              <br>
+                              <small>Please note that due to time zone differences, deadlines may be a few hours different from the time shown.</small>
                           </span>
           
                           </div>
@@ -65,8 +67,9 @@
                         {{ myJson.stringify(cities) }}
                         <br>
                         <div class="row">
+                            <div class="col s12 location-input-row">
+
                             <label> Add a country </label>
-                            <div class="col s12">
                                 <div *ngFor="let country of countries; let i=index; trackBy:trackByFn">
                                         <input [value]="country.country" type="text" (change)='editLocation(i, "countries", $event)'/><br/>
                                         <button class="btn location-btn" (click)="removeLocation(i,'countries',country)">Remove Country<i class="material-icons md-light">add_circle_outline</i></button>
@@ -77,8 +80,9 @@
                             </div>
 
 
+                            <div class="col s12 location-input-row">
+
                             <label> Select a Country, THEN click add a Province/State </label>
-                            <div class="row">
                                 <!-- https://stackoverflow.com/questions/33700266/how-can-i-get-new-selection-in-select-in-angular-2 -->
                                 <div *ngFor="let province of provinces; let i=index; trackBy:trackByFn">
                                     <div class="input-field">
@@ -97,12 +101,11 @@
 
                             </div>
 
+                            <div class="col s12 location-input-row">
                             <label> Select a Province/State, THEN click Add City</label>
-                            <div class="row">
                                 <!-- https://stackoverflow.com/questions/33700266/how-can-i-get-new-selection-in-select-in-angular-2 -->
-                                    
                                 
-                                <div *ngFor="let city of cities; let i=index; trackBy:trackByFn">
+                                <div *ngFor="let city of cities; let i=index; trackBy:trackByFn" class="col s12">
                                     <div class="input-field">
                                             <md-select class="col s6" (change)="setActiveLocation($event, 'province')"  name="province-dropdown" id="province-dropdown" multiple=false placeholder="province">
                                                 <md-option *ngFor="let province of provinces" [value]="province.province">{{province.province}} </md-option>
@@ -220,44 +223,43 @@
                             <label for="criteria_info">Are there any additional criteria that were not covered by the previous questions? </label>
                               <textarea  class="browser-default" mdInput id="criteria_info" type="text" placeholder="Criteria Description" [(ngModel)]="scholarship.criteria_info" name="criteria_info"></textarea>
                         </div>
+                        <div *ngIf="showFormUpload"class="row">
+                                <div class="col s3">
+                                    <span *ngIf="scholarship.form_url">
+                                            <label>Change application form</label>
+                                    </span>
+                                    <span *ngIf="!scholarship.form_url">
+                                        <label>Upload an application form</label>
+                                    </span>
+                                    <input class="browser-default" id="user_img_file" type="file" placeholder="Profile Picture" [(ngModel)]="scholarship.user_img_file" name="user_img_file" (change)="scholarshipAppFormChangeEvent($event)">
+                                </div>
+                                <div class="col s3">
+                                    <button md-raised-button class="btn white-text" (click)="uploadScholarshipAppForm()">Upload</button>
+                                </div>
+
+                                <!-- <div class="col s6">
+                                        <input class="browser-default" mdInput id="form_url" type="text" minlength="2" placeholder="Scholarship Form Url"
+                                          [(ngModel)]="scholarship.form_url" name="form_url">
+                                </div> -->
+                                <!-- <div *ngIf="uploadFile" class="col s6">
+                                {{uploadFile.name}} {{uploadResponse}} {{scholarship.form_url}}
+                                </div>  -->
+
+                                <div *ngIf="scholarship.form_url" class="col s4">
+                                        <a target="_blank" href="{{scholarship.form_url}}">View Current Application</a>
+                                </div> 
+                                <a routerLink="/scholarships-list">Skip</a>
+                            </div>
                         <div class="row">
                             <div class="col s12">
                                 <a class="waves-effect waves-light btn left" (click)="back()">Back</a>
-                                <a class="waves-effect waves-light btn left" (click)="saveScholarshipEdit(scholarshipForm)">Save</a>
-                                    <div *ngIf="showFormUpload"class="row">
-                                        <div class="col s2">
-                                            <span *ngIf="scholarship.form_url">
-                                                    <label>Change application form</label>
-                                            </span>
-                                            <span *ngIf="!scholarship.form_url">
-                                                <label>Upload an application form</label>
-                                            </span>
-                                            <input class="browser-default" id="user_img_file" type="file" placeholder="Profile Picture" [(ngModel)]="scholarship.user_img_file" name="user_img_file" (change)="scholarshipAppFormChangeEvent($event)">
-                                        </div>
-                                        <div class="col s2">
-                                            <button md-raised-button class="btn white-text" (click)="uploadScholarshipAppForm()">Upload</button>
-                                        </div>
-
-                                        <!-- <div class="col s6">
-                                                <input class="browser-default" mdInput id="form_url" type="text" minlength="2" placeholder="Scholarship Form Url"
-                                                  [(ngModel)]="scholarship.form_url" name="form_url">
-                                        </div> -->
-                                        <!-- <div *ngIf="uploadFile" class="col s6">
-                                        {{uploadFile.name}} {{uploadResponse}} {{scholarship.form_url}}
-                                        </div>  -->
-
-                                        <div *ngIf="scholarship.form_url" class="col s4">
-                                                <a target="_blank" href="{{scholarship.form_url}}">View Current Application</a>
-                                        </div> 
-
-                                        <a routerLink="/scholarships-list">Skip</a>
-                                    </div>
+                                <a class="waves-effect waves-light btn left"  style="margin-left: 5%;"(click)="saveScholarshipEdit(scholarshipForm)">Save</a>
                                 <a class="waves-effect waves-light btn right" (click)="next()">Next</a>
                             </div>
                         </div>
                     </div>
-
-                    <div *ngIf="pageNo==3">
+                    <!-- TODO: Seperate Application Questions and Web Form into 2 seperate pages  -->
+                    <div *ngIf="pageNo==3"> 
                         <h5>Application Questions{{pageNo}}/3</h5>
                         <ol *ngIf="scholarship.extra_questions">
                             <li *ngFor="let question of generateArray(scholarship.extra_questions);let i = index" class="questions row">
@@ -284,6 +286,7 @@
                                 </button>
                             </div>
                         </div>
+                        <!--  Start Web form details -->
                         <div class="container-fluid"  *ngIf="this.scholarship.submission_info.application_form_type=='Web' && this.scholarship.is_automated" > <!-- Web form details -->
                             <h5>Web Form Questions{{pageNo}}/3</h5>
                             <div class="page-header">

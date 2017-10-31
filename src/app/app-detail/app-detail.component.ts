@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, NgForm } from '@angular/forms';
 import { UserProfile } from '../_models/user-profile';
 import { ApplicationService } from '../_services/application.service';
+import { UserProfileService } from '../_services/user-profile.service';
 import { QuestionService } from '../_services/question.service';
 import { QuestionControlService } from '../_services/question-control.service';
 import { ActivatedRoute } from '@angular/router';
@@ -24,7 +25,10 @@ export class AppDetailComponent implements OnInit {
   application: any;
   appId: number;
   applicationData: any[];
-  generalData: any; //scholarship, application and UserProfile data
+  /**
+   * Share scholarship, application and UserProfile data with children components. e.g. Dynamic Form component
+   */
+  generalData: any; 
   profileForm: NgForm;
 
   PROVINCE_CHOICES = [
@@ -53,11 +57,13 @@ export class AppDetailComponent implements OnInit {
     'province': '',
     'country': '',
   }
+
   constructor(
     private applicationService: ApplicationService,
     route: ActivatedRoute,
     private qService: QuestionService,
     private qcs: QuestionControlService,
+    private userProfileService: UserProfileService,
   ) {
     this.appId = parseInt(route.snapshot.params['id']);
     console.log("route.snapshot.params['id']", route.snapshot.params['id']);
@@ -122,7 +128,7 @@ export class AppDetailComponent implements OnInit {
         console.log('(2)this.applicationData', this.applicationData);
         
         this.initializeLocations(this.userProfile.city);
-
+        
         //to create dynamic forms:
         // https://angular.io/guide/dynamic-form
         // https://toddmotto.com/angular-dynamic-components-forms
@@ -146,4 +152,32 @@ export class AppDetailComponent implements OnInit {
     this.profileForm = form;
     console.log('this.profileForm', this.profileForm);
   }
+
+  saveUserProfile(form: NgForm){
+    console.log('app-detail saveProfile() form: NgForm:', form);
+    console.log('app-detail saveProfile() this.profileForm:', this.profileForm);
+    console.log('app-detail saveProfile() this.userProfile', this.userProfile);
+
+
+    var sendData = {
+      userProfile: this.userProfile,
+      locationData: this.locationData,
+    }
+
+
+    console.log('app-detail saveProfile() sendData: ', sendData);
+
+    let saveProfileObservable = this.userProfileService.updateAny(sendData);
+
+    saveProfileObservable.subscribe(
+      res => {
+        console.log('app-detail saveUserProfile() succesful res', res);
+      },
+      err =>{
+        console.log('app-detail saveUserProfile() err', err)
+      }
+    );
+
+  }
+
 }

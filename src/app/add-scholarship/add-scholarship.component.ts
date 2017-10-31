@@ -81,6 +81,8 @@ export class AddScholarshipComponent implements OnInit {
 
   activeCountry = '';
   activeProvince:any = {};
+
+  webForms;
   myJson = JSON;
   constructor(
     private router: Router,
@@ -309,6 +311,20 @@ export class AddScholarshipComponent implements OnInit {
     this.scholarship.number_available_scholarships =1;
     this.stringDict.eligible_schools = '';
     this.stringDict['city'] = '';
+
+    this.scholarship.submission_info.web_form_entries = [
+      {
+          attribute_type : '',
+          attribute_value: '',
+          question_key: ''
+      },];
+
+    this.scholarship.submission_info.web_form_parent = {   
+          element_type: '',
+          attribute_type : '',
+          attribute_value: '',
+      };
+    
   }
 
   openModal() {
@@ -482,29 +498,19 @@ export class AddScholarshipComponent implements OnInit {
     
   }
 
-
+  
+    saveTableChanges(tableData: any[]){
+      this.webForms = tableData;
+      console.log('saveTableChanges() tableData: ', tableData);
+      console.log('saveTableChanges() this.webForms: ', this.webForms);
+      console.log('saveTableChanges() this.scholarship.submission_info: ', this.scholarship.submission_info);
+      this.scholarship.submission_info.web_form_entries= tableData;
+      console.log('saveTableChanges() this.scholarship',this.scholarship)
+    }
   saveEditScholarship(scholarshipForm: NgForm) {
     
     console.log('!!this.scholarship.extra_questions', !!this.scholarship.extra_questions);
 
-    if(!this.scholarship.extra_questions){
-      this.scholarship.extra_questions = { };
-    }
-    //If the form type is a webForm, create default web_form_entries array
-    if(this.scholarship.submission_info.application_form_type=='Web'){
-      this.scholarship.submission_info.web_form_entries = [
-        {
-            attribute_type : '',
-            attribute_value: '',
-            question_key: ''
-        },]
-
-      this.scholarship.submission_info.web_form_parent = {   
-            element_type: '',
-            attribute_type : '',
-            attribute_value: '',
-        };
-    }
     if (scholarshipForm.valid){
       this.scholarshipService.update(this.scholarship)
       .subscribe(
