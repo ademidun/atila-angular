@@ -9,11 +9,20 @@
             <h3 class="form-header">Tell us a bit about Yourself</h3>
             <form #previewForm="ngForm" (ngSubmit)="onSubmit(previewForm)">
               <div style="margin-bottom: -22px;" class="row preview-questions">
+                
+                <!-- Try using Google Maps Places Autocomplete API: https://developers.google.com/maps/documentation/javascript/places-autocomplete#address_forms -->
+                <!-- https://stackoverflow.com/questions/42341930/google-places-autocomplete-angular2 -->
+                <md-input-container class="browser-default col s12 m4">
 
-              <md-input-container class="browser-default col s12 m4">
+                    <!-- <input mdInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
+                    <input mdInput type="text" class="form-control" required [placeholder]="locationPlaceHolder" name="location" id="location" [(ngModel)]="model.location.city" #LocationCtrl="ngModel"
+                    appGooglePlace (setAddress)="placeAutoComplete($event,LocationCtrl)"  (googlePlaceNoLoad)="googlePlaceNoLoad()" (keydown)="keyDownHandler($event)">
+                  </md-input-container> 
+
+                <!-- <md-input-container class="browser-default col s12 m4" *ngIf="False">
                   <input mdInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City">
-                </md-input-container> 
-        
+                </md-input-container>  -->
+                
                 <div class="form-group input-field col s12 m4">
                   <md-select [(ngModel)]="model.education_level" name="education_level" id="education_level" multiple=true required placeholder="Type">
                     <md-option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </md-option>

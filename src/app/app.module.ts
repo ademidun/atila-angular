@@ -40,6 +40,7 @@ import { CreateProfileQuickComponent } from './create-profile-quick/create-profi
 import { MdIconRegistry, MdIconModule } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SafeHtmlPipe } from './_pipes/safe-html.pipe';
+import { GooglePlaceDirective } from './_directives/google-place.directive';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { SafeHtmlPipe } from './_pipes/safe-html.pipe';
     AddQuestionModalComponent,
     AppDetailComponent,
     CreateProfileQuickComponent,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    GooglePlaceDirective
   ],
   imports: [
     NgbModule.forRoot(),

@@ -15,8 +15,7 @@ export class DynamicFormQuestionComponent implements OnInit {
   @Input() form: FormGroup;
   @Input()profileForm: NgForm;
   @Input() generalData: any;
-  @Output()
-  uploaded:EventEmitter<any> = new EventEmitter();
+  @Output() uploaded:EventEmitter<any> = new EventEmitter();
   appData: any;
   
   ngOnInit() {
@@ -42,6 +41,11 @@ export class DynamicFormQuestionComponent implements OnInit {
    }
 
    fileChangeEvent(fileInput: any) {
+     //When a file is changed, call the function which uploaded is bound to from the parent component
+     //i.e. call fileChangeEvent()in the dynamic-form.componenent.ts
+    //  <app-dynamic-form-question  [question]="question" [form]="form" [profileForm]="profileForm"
+    //  [generalData]="generalData" (uploaded)="fileChangeEvent($event)"></app-dynamic-form-question>
+
     this.uploaded.emit(fileInput);
     console.log('fileChangeEvent this.form: ', this.form)
   }
