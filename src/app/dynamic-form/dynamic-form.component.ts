@@ -87,7 +87,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
       let documentKey = results[i].getAttribute("name");
       let documentUrl = results[i].getAttribute("href"); 
       this.generalData.documentUploads[documentKey] = documentUrl;
-    }
+  }
 
   console.log('saveDocuments().this.generalData.documentUploads',this.generalData.documentUploads);
   
@@ -141,7 +141,8 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     for(var key in this.generalData.documentUploads) {
       
       this.payLoad[key]= this.generalData.documentUploads[key];
-
+      this.form.value[key]= this.generalData.documentUploads[key];
+      
     }
     this.payLoad = JSON.stringify(this.payLoad);
     var sendData = {
@@ -197,6 +198,10 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     this.formFileEvent = fileInput;  
   }
   
+  /**
+   * Upload the user documents to the cloud database and save the url path to the document as this.generalData.documentUploads[documentKey] = documentUrl;
+   * @param event 
+   */
   uploadUserDocuments(event: Event){
 
 
@@ -214,7 +219,9 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     
     this.fileUpload(this.uploadFile)
     .subscribe(
-      res => console.log('uploadScholarshipAppForm, subscribe() res', res)
+      res =>{
+        console.log('uploadScholarshipAppForm, subscribe() res', res);
+      } 
     )
   
   }
@@ -279,6 +286,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   
         //this.generalData.userProfile[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
         this.generalData.appData.responses[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
+        this.generalData.documentUploads[this.formFileEvent.target.id] =  uploadTask.snapshot.downloadURL;
         console.log('this.generalData.appData.responses[this.formFileEvent.target.id]',this.generalData.appData.responses[this.formFileEvent.target.id]) ;                                              
       });
     

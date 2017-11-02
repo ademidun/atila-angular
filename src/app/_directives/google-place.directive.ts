@@ -13,8 +13,11 @@ declare var google: any;
   }
 })
 //https://stackoverflow.com/questions/42341930/google-places-autocomplete-angular2
+
 export class GooglePlaceDirective {
-  
+ /**
+ * This directive is used to add the [Google Place Autocomplete Api]{@link https://developers.google.com/maps/documentation/javascript/places-autocomplete#address_forms} to an input element 
+ */ 
      @Output() setAddress: EventEmitter<any> = new EventEmitter();
      @Output() googlePlaceNoLoad: EventEmitter<any> = new EventEmitter();
       modelValue:any;

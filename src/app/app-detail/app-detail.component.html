@@ -30,6 +30,19 @@
                     [(ngModel)]="userProfile.postal_code" name="postal_code">
                 </md-input-container>
               </div>
+
+                <div class="row">
+                  <md-input-container class="col s12">
+                      <input class="browser-default" mdInput id="secondary_school" type="text" placeholder="Secondary School"
+                        [(ngModel)]="userProfile.secondary_school" name="secondary_school">
+                    </md-input-container>
+              </div>
+              <div class="row">
+                  <md-input-container class="col s12">
+                      <input class="browser-default" mdInput id="post_secondary_school" type="text" placeholder="Post Secondary School"
+                        [(ngModel)]="userProfile.post_secondary_school" name="post_secondary_school">
+                    </md-input-container>
+              </div>
               <div class="row">
                 <md-input-container class="col s12">
                   <input class="browser-default" mdInput id="city" type="text" required placeholder="City"
