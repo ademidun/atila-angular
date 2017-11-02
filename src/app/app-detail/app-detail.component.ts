@@ -115,13 +115,13 @@ export class AppDetailComponent implements OnInit {
 
       () => {
         this.generalData = data;
-        this.generalData.documentUploads = { };
+        this.generalData.documentUploads = data.appData.document_urls? data.appData.document_urls : {};
         this.application = data.appData;
         this.userProfile = data.userProfile;
         this.scholarship = data.scholarship;
-        console.log('AppDetailComponent data', data);
-        console.log('AppDetailComponent data.userProfile', data.userProfile);
-        console.log('AppDetailComponent this.userProfile', this.userProfile);
+
+        console.log('AppDetailComponent data.appData.document_urls', data.appData.document_urls);
+        console.log('AppDetailComponent this.generalData.documentUploads', this.generalData.documentUploads);
         console.log(' this.application.responses', this.application.responses);
 
         this.applicationData = Object.keys(this.application.responses);

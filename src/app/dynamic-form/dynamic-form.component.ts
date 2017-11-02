@@ -139,12 +139,23 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     this.payLoad = this.form.value;
 
 
+    console.log('onSubmit() sendData:' , this.form.value);
+    console.log('onSubmit() this.generalData.appData.document_urls:' , this.generalData.appData.document_urls);
+    
+    console.log('onSubmit() this.generalData.documentUpload:' , this.generalData.documentUploads);
+    
+    if(!this.generalData.documentUploads || Object.keys(this.generalData.documentUploads).length === 0){ //if the dictionary is empty use the default values.
+      this.generalData.documentUploads = this.generalData.appData.document_urls;
+    }
     for(var key in this.generalData.documentUploads) {
       
       this.payLoad[key]= this.generalData.documentUploads[key];
       this.form.value[key]= this.generalData.documentUploads[key];
       
     }
+
+
+    console.log('onSubmit() after generalData sendData:' , this.form.value);
     this.payLoad = JSON.stringify(this.payLoad);
     var sendData = {
       //'generalData': this.generalData,We only need 
@@ -294,7 +305,8 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
         //this.generalData.userProfile[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
         this.generalData.appData.responses[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
         this.generalData.documentUploads[this.formFileEvent.target.id] =  uploadTask.snapshot.downloadURL;
-        console.log('this.generalData.appData.responses[this.formFileEvent.target.id]',this.generalData.appData.responses[this.formFileEvent.target.id]) ;                                              
+        console.log('this.generalData.appData.responses[this.formFileEvent.target.id]',this.generalData.appData.responses[this.formFileEvent.target.id]) ; 
+        console.log('this.generalData.documentUploads',this.generalData.documentUploads) ;                                              
       });
     
     
