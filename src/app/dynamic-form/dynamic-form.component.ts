@@ -15,6 +15,7 @@ import { MyFirebaseService } from "../_services/myfirebase.service";
 import {MdProgressBarModule} from '@angular/material';
 import * as firebase from "firebase";
 
+import { TruncatePipe } from '../_pipes/truncate.pipe';
 
 
 
@@ -46,8 +47,8 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   showAutomationLoading=false;
   cusomEmail: any;
 
-  // A base 64 encoded string image of the screenshot of the automated web form.
-  screenshotConfirmationImage: any;
+  // A base 64 encoded string image of the screenshot of the automated web form before and After Submission.
+  preAndPostScreenshots: any[];
     
   constructor(
     private qcs: QuestionControlService,
@@ -173,8 +174,13 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
         console.log('dynamic form submision Response succesful:' , res);
         this.uploadUrl = res.upload_url;
 
-        this.screenshotConfirmationImage = "data:image/png;base64," + res.screenshot_confirmation_image;
-        
+        this.preAndPostScreenshots = res.screenshot_confirmation_images;
+        for (var i = 0; i < this.preAndPostScreenshots.length; i++) {
+          this.preAndPostScreenshots[i] = "data:image/png;base64," + this.preAndPostScreenshots[i];
+          
+        }
+
+        console.log('this.preAndPostScreenshots',this.preAndPostScreenshots);
         this.payLoad = JSON.stringify(res.message);
       },
       err =>{
@@ -185,6 +191,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
       },
       () => {
         this.showAutomationLoading = false;
+
       }
     )
     
