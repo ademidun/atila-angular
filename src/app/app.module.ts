@@ -41,6 +41,7 @@ import { MdIconRegistry, MdIconModule } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SafeHtmlPipe } from './_pipes/safe-html.pipe';
 import { GooglePlaceDirective } from './_directives/google-place.directive';
+import { CommentService } from './_services/comment.service';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { GooglePlaceDirective } from './_directives/google-place.directive';
   providers: [ScholarshipService, UserProfileService,
      AuthService, ApplicationService,
       QuestionControlService, QuestionService,
-       MyFirebaseService,],
+       MyFirebaseService,
+       CommentService,],
   bootstrap: [AppComponent],
   entryComponents: [
     AddQuestionModalComponent,

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 
 import { Scholarship } from "../_models/scholarship";
+import { Comment } from "../_models/comment";
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -87,6 +88,8 @@ getBySlug(slug: string) {
     .map(this.extractData)
     .catch(this.handleError);
 }
+
+
   
   private extractData(res: Response) {
     let body = res.json();
@@ -95,6 +98,7 @@ getBySlug(slug: string) {
     return body || { };
 
   }
+
 
   private handleError (error: Response | any) {
     // In a real world app, you might use a remote logging infrastructure
@@ -109,5 +113,6 @@ getBySlug(slug: string) {
     console.error(errMsg);
     return Observable.throw(errMsg);
   }
+
 
 }

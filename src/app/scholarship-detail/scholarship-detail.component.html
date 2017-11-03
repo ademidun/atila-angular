@@ -48,4 +48,27 @@
       </ul>
     </div>
   </div>
+  <div class="row">
+      <h4>Comments</h4>
+
+      <div class="col s12">
+          <md-form-field>
+              <textarea style="min-height: 1em" rows="1" placeholder="Comment Title..." mdInput [(ngModel)]="userComment.title">
+              </textarea>
+            </md-form-field>
+        <md-form-field>
+          <textarea style="min-height: 1em" rows="1" placeholder="Leave a comment..." mdInput [(ngModel)]="userComment.text">
+          </textarea>
+        </md-form-field>
+        <button md-raised-button style="background-color: #184E87;" class="btn white-text" (click)="postComment()" >Comment</button>
+        <!-- TODO: Use a directive or a pipe to format the comments -->
+      </div>
+
+      <div *ngFor="let comment of scholarshipComments" class="col s12"> 
+        <h5>{{comment.title}}</h5><small>{{comment.date_created | date:'medium'}}</small> <span *ngIf="comment.owner">{{comment.owner.first_name}} {{comment.owner.last_name}}  </span>
+        <br>
+         {{ json.stringify(comment) }}
+      </div>
+
+  </div>
 </div>
