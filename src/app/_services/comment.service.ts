@@ -11,18 +11,25 @@ import 'rxjs/add/operator/toPromise';
 export class CommentService {
 
   private commentsUrl = 'http://127.0.0.1:8000/comments/';
+  
   constructor(private http: Http) { }
 
 
-  saveComment(comment: Comment): Observable<Comment>{
+  create(comment: Comment): Observable<Comment>{
     return this.http.post(this.commentsUrl, comment)
     .map(this.extractData)
     .catch(this.handleError);
   }
 
+  update(comment: Comment): Observable<any>{
+    return this.http.put(`${this.commentsUrl}${comment.id}/`, comment)
+    .map(this.extractData)
+    .catch(this.handleError);
+  }
+
   getComments(modelType:String, modelID: number){
-    console.log('getComments GET: ', `${this.commentsUrl}?parent_model_type=${modelType}&parent_model_id=${modelID}`);
-    return this.http.get(`${this.commentsUrl}?parent_model_type=${modelType}&parent_model_id=${modelID}`)
+    console.log('getComments GET: ', `${this.commentsUrl}get-model-comments/?parent-model-type=${modelType}&parent-model-id=${modelID}`);
+    return this.http.get(`${this.commentsUrl}get-model-comments/?parent-model-type=${modelType}&parent-model-id=${modelID}`)
     .map(this.extractData)
     .catch(this.handleError);
   }

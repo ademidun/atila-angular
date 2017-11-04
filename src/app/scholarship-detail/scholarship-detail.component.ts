@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Scholarship } from '../_models/scholarship';
-import { Comment } from "../_models/comment";
+import { Comment, upVoteComment, downVoteComment } from "../_models/comment";
 import { ActivatedRoute, Router } from '@angular/router';
 import { ScholarshipService } from '../_services/scholarship.service';
 import { ApplicationService } from '../_services/application.service';
@@ -50,8 +50,8 @@ export class ScholarshipDetailComponent implements OnInit {
   ) {
     // Get the id that was passed in the route
     this.scholarshipSlug = route.snapshot.params['slug'];
-    this.userId = parseInt(localStorage.getItem('userId')); // Current user
-
+    this.userId = parseInt(localStorage.getItem('userId')); // Current user, TODO: Should we use the request user ID?
+    console.log('localStorage userID: ',this.userId);
 
   }
 
@@ -101,7 +101,8 @@ export class ScholarshipDetailComponent implements OnInit {
     postOperation.subscribe(
       res => {
         console.log('get Comment response; ', res);
-        this.scholarshipComments = res.results;
+        this.scholarshipComments = res.comments;
+        this.getCommentsMetaData();
       }
     )
     
@@ -110,11 +111,12 @@ export class ScholarshipDetailComponent implements OnInit {
   postComment(){
     
     //prevent ScholarshipComments from tracking the changes to UserComment;
+    // TODO: Consider using deepcopy of comment
     var commentTemp:Comment = new Comment(this.userId, 'Scholarship',this.scholarship.id);
     commentTemp.text = this.userComment.text;
     commentTemp.title = this.userComment.title;
     console.log('about to save the comment commentTemp; ', commentTemp);
-    let postOperation = this.commentService.saveComment(commentTemp);
+    let postOperation = this.commentService.create(commentTemp);
 
     postOperation.subscribe(
       res => {
@@ -130,6 +132,60 @@ export class ScholarshipDetailComponent implements OnInit {
     
     this.userComment.text = "";
     this.userComment.title = "";
+  }
+
+
+  commentVote(index: number, voteType: string){
+
+      console.log('index', index, 'voteType', voteType)
+      
+      if(voteType=='upVote'){
+        this.scholarshipComments[index]= upVoteComment(this.userId,this.scholarshipComments[index]);
+      }
+      else{
+        this.scholarshipComments[index]= downVoteComment(this.userId,this.scholarshipComments[index]);
+      }
+      
+      //convert the owner attribute to only keep the id, as per the API format.
+      var sendData = this.scholarshipComments[index];
+      sendData.owner = sendData.owner.id;
+  
+      //update the database with the new upvote score and update the UI based on the database response
+      let postOperation = this.commentService.update(sendData);
+      postOperation.subscribe(
+        res => {
+          console.log('updating comment res:', res);
+          //this.scholarshipComments[index] = res; TODO: Do we need the updated result from the database?
+        }
+      )
+  
+  }
+
+  /**
+   * TODO: Make this an exported function
+   */
+  getCommentsMetaData(){
+    /**
+     * Get meta data about the comments when first loaded, for example. Check what comments the user has already upvoted or downvoted.
+     */
+    for (var index = 0; index < this.scholarshipComments.length; index++) {//for each comment check who has upvoted or downovted
+      var element = this.scholarshipComments[index];
+      
+      if(element.up_votes_id.includes(this.userId)){//if the current user (ID) already liked the video, disable the up_vote_button
+        this.scholarshipComments[index]['user_already_upvoted'] = true;
+      }else{
+        this.scholarshipComments[index]['user_already_upvoted'] = false;
+      }
+
+      if(element.down_votes_id.includes(this.userId)){
+         this.scholarshipComments[index]['user_already_downvoted'] = true;
+      }else{
+        this.scholarshipComments[index]['user_already_downvoted'] = false;
+      }
+    }
+
+    console.log('getCommentsMetaData(),this.scholarshipComments: ',this.scholarshipComments);
+
   }
 
   getOrCreateApp() {
@@ -174,5 +230,23 @@ export class ScholarshipDetailComponent implements OnInit {
       )
     }
    }
+
+   //Make this an exported member function of comment
+   upVoteComment(userId: number, comment: Comment): Comment{
+
+     console.log('inside Commment.up_vote_comment, this', this, 'userID:', userId);
+
+    if(comment.up_votes_id.includes(userId)){
+
+        console.log('inside Commment.up_vote_comment, user has already upvoted this', this, 'userID:', userId);
+        return comment;
+    }
+    else{
+        this['user_already_upvoted'] = true;
+        comment.up_votes_count = comment.up_votes_id.push(userId);
+        console.log('inside Commment.up_vote_comment, userID just upvoted this', this, 'userID:', userId);
+        return comment.up_votes_count;
+    }
+  }
 
 }

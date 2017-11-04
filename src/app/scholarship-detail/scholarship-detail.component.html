@@ -64,10 +64,24 @@
         <!-- TODO: Use a directive or a pipe to format the comments -->
       </div>
 
-      <div *ngFor="let comment of scholarshipComments" class="col s12"> 
+      <div *ngFor="let comment of scholarshipComments; let i = index" class="col s12"> 
         <h5>{{comment.title}}</h5><small>{{comment.date_created | date:'medium'}}</small> <span *ngIf="comment.owner">{{comment.owner.first_name}} {{comment.owner.last_name}}  </span>
         <br>
          {{ json.stringify(comment) }}
+         <!-- <button md-icon-button><i class="material-icons md-24" aria-label="Like the comment" (click)="commentVote(i,'upVote')">thumb_up</i></button>{{comment.up_votes}} -->
+         <!-- <button md-icon-button><i class="material-icons md-24" aria-label="Dislike the comment"  (click)="commentVote(i,'downVote')">thumb_down</i></button>{{comment.down_votes}} -->
+
+         <div  class="col s12"> 
+
+          <button md-mini-fab style="background-color: transparent" [disabled]="comment.user_already_upvoted" (click)="commentVote(i,'upVote')">
+            <md-icon class="md-24" aria-label="Like the comment">thumb_up</md-icon>
+          </button>{{comment.up_votes_count}}
+
+          <button md-mini-fab style="background-color: transparent" [disabled]="comment.user_already_downvoted" (click)="commentVote(i,'downVote')">
+            <md-icon class="md-24" aria-label="Dislike the comment">thumb_down</md-icon>
+          </button>{{comment.down_votes_count}}
+
+         </div>
       </div>
 
   </div>
