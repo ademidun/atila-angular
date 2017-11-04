@@ -13,13 +13,14 @@ import { EditProfileComponent } from '../edit-profile/edit-profile.component'
 import { EditScholarshipComponent } from '../edit-scholarship/edit-scholarship.component';
 import { AppDetailComponent } from '../app-detail/app-detail.component';
 
+import { ProfileViewComponent } from '../profile-view/profile-view.component';
 
 const routes: Routes = [
   { path: '' , component: PreviewComponent, data: {title: 'Atila'}},
   { path: 'applications/:id' , component: AppDetailComponent, data: {title: 'Application Detail'}},  
   { path: 'add-scholarship' , component: AddScholarshipComponent, data: {title: 'Atila - Add Scholarship'}},
   { path: 'create-profile' , component: CreateProfileComponent, data: {title: 'Atila - Create Profile'}},
-  { path: 'profile/:username' , component: EditProfileComponent, data: {title: 'Atila - Profile'}},
+  { path: 'profile/:username' , component: ProfileViewComponent, data: {title: 'Atila - Profile'}},
   { path: 'edit-profile' , component: EditProfileComponent, data: {title: 'Atila - Edit Profile'}},
   { path: 'edit-scholarship/:slug' , component: EditScholarshipComponent, data: {title: 'Atila - Edit Scholarship'}},
   { path: 'login' , component: LoginComponent, data: {title: 'Atila - Login'}},

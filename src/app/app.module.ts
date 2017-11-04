@@ -42,6 +42,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { SafeHtmlPipe } from './_pipes/safe-html.pipe';
 import { GooglePlaceDirective } from './_directives/google-place.directive';
 import { CommentService } from './_services/comment.service';
+import { ProfileViewComponent } from './profile-view/profile-view.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { CommentService } from './_services/comment.service';
     AppDetailComponent,
     CreateProfileQuickComponent,
     SafeHtmlPipe,
-    GooglePlaceDirective
+    GooglePlaceDirective,
+    ProfileViewComponent
   ],
   imports: [
     NgbModule.forRoot(),

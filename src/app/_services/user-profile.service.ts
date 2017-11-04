@@ -13,7 +13,6 @@ export class UserProfileService {
   private userEndpoint = 'http://127.0.0.1:8000/users/';
   
   private userProfileEndpoint = 'http://127.0.0.1:8000/user-profiles/';
-  private userNameEndpoint = 'http://127.0.0.1:8000/user-profile-user-name/';
   
 
 
@@ -44,7 +43,8 @@ export class UserProfileService {
     }
 
     getByUsername(username: string): Observable<UserProfile>{
-        return this.http.get(`${this.userNameEndpoint}?user-name=${username}/`)
+        // note urls missing the apropriate '/' will be redirected and be blocked by CORS policy.
+        return this.http.get(`${this.userProfileEndpoint}user-name/?username=${username}/`)
         .map(this.extractData)
         .catch(this.handleError);
     }

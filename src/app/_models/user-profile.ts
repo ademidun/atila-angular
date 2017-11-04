@@ -14,7 +14,7 @@ export class UserProfile {
             public street_address?: string,
             public user?: number,
             public username?:any,
-            public user_img_url?: string,
+            public profile_pic_url?: string,
             
             
         ) { }

@@ -1,0 +1,26 @@
+<div class="container" *ngIf="userProfile">
+    <md-card class="profile-header">
+      <md-card-header>
+        <div md-card-avatar [ngStyle]="{ 'background-image': 'url( '+ userProfile.profile_pic_url +' )' }" class="header-image"></div>
+        <md-card-title>{{userProfile.first_name}} {{userProfile.last_name}} | {{userProfile.bus_name}}</md-card-title>
+        <md-card-subtitle class="title">{{userProfile.title}}</md-card-subtitle>
+        <md-card-subtitle>{{userProfile.city}}, {{userProfile.province}}</md-card-subtitle>
+        <div class="header-buttons">
+          <button md-raised-button (click)="message()">Message</button>
+        </div>
+      </md-card-header>
+    </md-card>
+    <md-card class="background-card">
+      <h3>Background</h3>
+      <md-card-content>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam lectus tellus, fermentum et lorem suscipit, 
+          tempus dictum metus. Nullam lobortis nisi a ante elementum varius. Mauris ac varius orci. Phasellus porta 
+          maximus auctor. Sed eu massa pellentesque, consequat turpis ac, blandit diam. Integer et leo rhoncus, 
+          vulputate dolor ac, porta nisl. Sed pellentesque ac est porta molestie. Sed vel sapien in magna porttitor tristique. 
+          Ut lobortis risus id efficitur ultrices. Fusce vulputate, velit et vulputate consectetur, erat nisi efficitur dui, 
+          at dictum dolor mi ultrices nulla.
+        </p>
+      </md-card-content>
+    </md-card>
+  </div>
