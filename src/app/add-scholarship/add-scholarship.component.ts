@@ -442,7 +442,9 @@ export class AddScholarshipComponent implements OnInit {
   }
   
   uploadFileFirebase(res: Response, uploadFile: UploadFile){
-    
+    /**
+     * Refactor this into a firebase service, using streaming of observables.
+     */
     console.log("uploadFileInternal: res",res,'uploadFile',uploadFile);
     
     let config;

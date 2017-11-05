@@ -67,6 +67,26 @@ export class UserProfileService {
           .catch(this.handleError);
     }
 
+    updateHelper(userProfile: UserProfile){
+        /**
+         * Put method, with added feature of automatically extracting the location data to match the API backend format.
+         */
+        var locationData:any = {}
+        if(userProfile.city.length>0){
+            locationData.city= userProfile.city[0].name;
+            locationData.country=userProfile.city[0].country;
+            locationData.province=userProfile.city[0].province;
+          }
+
+          var sendData = {
+            userProfile: userProfile,
+            locationData: locationData,
+          }
+          return this.http.put(`${this.userProfileEndpoint}${userProfile['user']}/`, sendData, this.jwt())
+          .map(this.extractData)
+          .catch(this.handleError);
+    }
+
     updateAny(data:any){
         return this.http.put(`${this.userProfileEndpoint}${data.userProfile['user']}/`, data, this.jwt())
         .map(this.extractData)
