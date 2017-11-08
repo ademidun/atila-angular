@@ -501,14 +501,14 @@ export class AddScholarshipComponent implements OnInit {
   }
 
   
-    saveTableChanges(tableData: any[]){
-      this.webForms = tableData;
-      console.log('saveTableChanges() tableData: ', tableData);
-      console.log('saveTableChanges() this.webForms: ', this.webForms);
-      console.log('saveTableChanges() this.scholarship.submission_info: ', this.scholarship.submission_info);
-      this.scholarship.submission_info.web_form_entries= tableData;
-      console.log('saveTableChanges() this.scholarship',this.scholarship)
-    }
+  saveTableChanges(tableData: any[]){
+    this.webForms = tableData;
+    console.log('saveTableChanges() tableData: ', tableData);
+    console.log('saveTableChanges() this.webForms: ', this.webForms);
+    console.log('saveTableChanges() this.scholarship.submission_info: ', this.scholarship.submission_info);
+    this.scholarship.submission_info.web_form_entries= tableData;
+    console.log('saveTableChanges() this.scholarship',this.scholarship)
+  }
   saveEditScholarship(scholarshipForm: NgForm) {
     
     console.log('!!this.scholarship.extra_questions', !!this.scholarship.extra_questions);

@@ -6,6 +6,9 @@
       <form #profileForm="ngForm" (ngSubmit)="saveProfile(profileForm)" class="col s12">
         <div [ngClass]='{hidden: !profileInfo}'>
           <h4>Edit <span *ngIf="userProfile.first_name">{{userProfile.first_name}}'s</span> Profile</h4>
+          <span>
+          <a [routerLink]="['../profile', userProfile.username]" >View Profile</a>
+          </span>
           <div class="row">
             <md-input-container class="col s6">
               <input class="browser-default" mdInput id="first_name" type="text" required minlength="2" placeholder="First name"

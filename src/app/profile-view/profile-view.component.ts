@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { UserProfile } from '../_models/user-profile';
 
+import { UploadFile } from '../_models/upload-file';
 import { UserProfileService } from '../_services/user-profile.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Title }     from '@angular/platform-browser';
-
+import { AuthService } from "../_services/auth.service";
 import { MdSnackBar } from '@angular/material';
 
+import { Observable } from 'rxjs/Rx';
+import * as firebase from "firebase";
 @Component({
   selector: 'app-profile-view',
   templateUrl: './profile-view.component.html',
@@ -18,11 +21,15 @@ export class ProfileViewComponent implements OnInit {
   userProfile: UserProfile;
   userNameSlug: string;
   profileOwner: boolean;
+  profilePicFile: UploadFile;
+  uploadProgress: number;
+  showPreview:boolean = false;
   constructor(
     route: ActivatedRoute,
     private userProfileService: UserProfileService,
     private titleService: Title,
     private snackBar: MdSnackBar,
+    private authService: AuthService,
   ) { 
     this.userNameSlug = route.snapshot.params['username'];
   }
@@ -39,9 +46,105 @@ export class ProfileViewComponent implements OnInit {
     )
   }
 
-  uploadProfilePic(){
+
+
+//TODO: Nov 5 implement profile pic upload
+  uploadProfilePic(uploadPicInput:HTMLInputElement){
+    //let uploadOperation: Observable<any>;
+
+    //create Upload file and configure its properties before uploading.
+    console.log('uploadPicInput',uploadPicInput);
+
+    var uploadPicFile = uploadPicInput.files[0];
+
+    console.log('uploadPicFile',uploadPicFile);
+
+    
+    this.profilePicFile = new UploadFile(uploadPicFile);
+
+    // Instructions on how the file should be saved to the database
+    this.profilePicFile.uploadInstructions = {
+      type: 'update_model',
+      model: "UserProfile",
+      id: this.userProfile.user,
+      fieldName: 'profile_pic_url'
+    }
+    console.log('this.profilePicFile',this.profilePicFile)
+
+    // the path where the file should be saved on firebase
+    this.profilePicFile.path = "user-profiles/" + this.userProfile.user+ "/profile-pictures/"
+    this.profilePicFile.path = this.profilePicFile.path + this.profilePicFile.name
+    console.log('this.profilePicFile',this.profilePicFile);
+    
+    this.fileUpload(this.profilePicFile)
+    .subscribe(
+      res => console.log('uploadScholarshipAppForm, subscribe() res', res)
+    )
+    
+    
 
   }
+
+  //TODO: Refactor this code into the firebase service
+  //TODO: 
+  fileUpload(uploadFile: UploadFile){
+    /**
+     * Upload handler which gets the Firebase API keys before we upload the file.
+     */
+    return this.authService.getAPIKey("FIREBASE_CONFIG_KEYS")
+    .map(res => this.uploadFileFirebase(res, uploadFile))
+    .catch(err=>Observable.throw(err))
+  }
+
+  //TODO: Refactor this code into the firebase service
+  //TODO: How can we get uploadFileFirebase to return an observable with the URL of the uploaded file
+  uploadFileFirebase(res: Response, uploadFile: UploadFile){
+    
+    console.log("uploadFileInternal: res",res,'uploadFile',uploadFile);
+    
+    let config;
+    config = res['api_key'];
+    console.log("config",config);
+    if (!firebase.apps.length) {
+      firebase.initializeApp(config);
+    }
+    
+    //Initiliazing the firebase client
+    //https://angularfirebase.com/lessons/angular-file-uploads-to-firebase-storage/
+    //
+
+    uploadFile.name = config.toString();
+    var storage = firebase.storage();
+    let storageRef = storage.ref();
+    let uploadRef = storageRef.child(uploadFile.path);
+    var metadata = {
+      contentType: uploadFile.file.type,
+      size: uploadFile.file.size,
+      name: uploadFile.file.name,
+    };
+    
+    var uploadTask = uploadRef.put(uploadFile.file, metadata);
+
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+    (snapshot:any) => {
+      var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      this.uploadProgress = progress;
+      console.log('Upload is ' + progress + '% done');
+    },
+    (error)=> {
+      console.log(error);
+    },
+    () => {
+      console.log('Finished upload: uploadTask.snapshot', uploadTask.snapshot );
+      this.userProfile.profile_pic_url = uploadTask.snapshot.downloadURL;
+      this.uploadProgress = null;
+      this.saveProfile();
+                                                        
+    });
+    
+    
+  }
+  
 
   saveProfile(){
     this.userProfileService.updateHelper(this.userProfile)

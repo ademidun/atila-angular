@@ -13,12 +13,12 @@
               </button>
               <!-- Dropdown Profile Menu -->
               <md-menu #menu="mdMenu" [overlapTrigger]="false">
-                  <!-- <a *ngIf="userProfile" [routerLink]="['/profile', userProfile.username]">
+                  <a *ngIf="userProfile" [routerLink]="['/profile', userProfile.username]">
                 <button button md-menu-item >
-                  <span>View profile</span>
+                  <span>My profile</span>
                  
                 </button>
-              </a> -->
+              </a>
               <a routerLink="/edit-profile">
                 <button md-menu-item>
                   <span>Edit profile</span>
@@ -46,12 +46,12 @@
           <md-icon>menu</md-icon>
        </button>
        <md-menu #mobileMenu="mdMenu" [overlapTrigger]="false">
-          <!-- <a *ngIf="userProfile" [routerLink]="['/profile', userProfile.username]">
+          <a *ngIf="userProfile" [routerLink]="['/profile', userProfile.username]">
             <button button md-menu-item >
-              <span>View profile</span>
+              <span>My profile</span>
             
             </button>
-          </a> -->
+          </a>
       <a routerLink="/edit-profile">
         <button md-menu-item>
           <span>Edit profile</span>

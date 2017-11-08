@@ -1,3 +1,4 @@
+// https://angularfirebase.com/lessons/angular-file-uploads-to-firebase-storage/
 export class UploadFile {
     $key: string;
     file:File;
@@ -14,6 +15,7 @@ export class UploadFile {
     }
     constructor(file:File) {
       this.file = file;
+      this.name = file.name;
     }
     
   }
