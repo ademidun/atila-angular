@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit } from '@angular/core';
 import { UserProfile } from '../_models/user-profile';
 
 import { UploadFile } from '../_models/upload-file';
@@ -9,14 +9,20 @@ import { Title }     from '@angular/platform-browser';
 import { AuthService } from "../_services/auth.service";
 import { MdSnackBar } from '@angular/material';
 
+
+import { MessagingService } from '../_services/messaging.service';
+
+import { Thread } from '../_models/thread';
+
 import { Observable } from 'rxjs/Rx';
 import * as firebase from "firebase";
+import * as $ from 'jquery';
 @Component({
   selector: 'app-profile-view',
   templateUrl: './profile-view.component.html',
   styleUrls: ['./profile-view.component.scss']
 })
-export class ProfileViewComponent implements OnInit {
+export class ProfileViewComponent implements OnInit, AfterContentInit {
 
   userProfile: UserProfile;
   userNameSlug: string;
@@ -24,12 +30,16 @@ export class ProfileViewComponent implements OnInit {
   profilePicFile: UploadFile;
   uploadProgress: number;
   showPreview:boolean = false;
+
+  currentUser:number;
   constructor(
     route: ActivatedRoute,
     private userProfileService: UserProfileService,
     private titleService: Title,
     private snackBar: MdSnackBar,
     private authService: AuthService,
+    private router: Router,
+    private messagingService: MessagingService
   ) { 
     this.userNameSlug = route.snapshot.params['username'];
   }
@@ -40,13 +50,26 @@ export class ProfileViewComponent implements OnInit {
         this.userProfile = res;
         this.titleService.setTitle('Atila - ' + this.userProfile.first_name + " " +this.userProfile.last_name +"'s profile");
 
-        var activeUserId = parseInt(localStorage.getItem('userId')); // Current user
-        this.profileOwner = (activeUserId == this.userProfile.user);
+        this.currentUser = parseInt(localStorage.getItem('userId')); // Current user
+        this.profileOwner = (this.currentUser == this.userProfile.user);
       } 
     )
+
+    //hide the .mat-card-header text div
+
+    
   }
 
+  ngAfterContentInit() {
+    // https://stackoverflow.com/questions/43934727/how-to-use-jquery-plugin-with-angular-4
+    console.log('ngAfterContentInit to hide .mat-card-header-text BEFORE',$('.mat-card-header-text'));
+    
+    $('.mat-card-header-text').css('display','none');
+    
 
+
+    console.log('ngAfterContentInit to hide .mat-card-header-text AFTER',$('.mat-card-header-text'));
+  }
 
 //TODO: Nov 5 implement profile pic upload
   uploadProfilePic(uploadPicInput:HTMLInputElement){
@@ -164,6 +187,22 @@ export class ProfileViewComponent implements OnInit {
     this.snackBar.open(text, action, {
       duration: duration
     });
+  }
+
+  message() {
+    let thread = new Thread([this.currentUser, this.userProfile.user]);
+    this.messagingService.getOrCreateThread(thread)
+      .subscribe(
+        res => {
+          console.log(res);
+          //todo assosciate a username with a thread
+          // this.router.navigate(['messages', this.currentUser]);
+          this.router.navigate(['messages']);
+        }, 
+        err => {
+          console.log(err);
+        }
+      )
   }
 
 }

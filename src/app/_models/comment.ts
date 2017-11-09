@@ -1,6 +1,6 @@
 export class Comment {
     id?: any;    
-    owner?: any;
+    user?: any;
     text?: string;
     title?: string;
     date_created?: any;
@@ -11,8 +11,8 @@ export class Comment {
     down_votes_count?: any;
     up_votes_id?: any[];
     down_votes_id?: any[];
-    constructor(owner: number, parent_model_type: string,  parent_model_id: any, text?:string, title?:string) {
-        this.owner = owner;
+    constructor(user: number, parent_model_type: string,  parent_model_id: any, text?:string, title?:string) {
+        this.user = user;
         this.parent_model_type=parent_model_type;
         this.parent_model_id = parent_model_id;
         this.text = text ? text : '';

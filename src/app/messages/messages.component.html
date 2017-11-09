@@ -1,0 +1,80 @@
+<div class="container">
+  <div *ngIf="true;else noMessages">
+  <!-- <div *ngIf="hasMessages;else noMessages"> -->
+    <div class="row">
+      <div class="col s4 m4 inbox-col">
+        <table>
+          <thead>
+            <tr>
+              <th>
+                <h5 class="inbox-title">Messages</h5>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="threads-container" *ngIf="threadsLoaded">
+            <tr *ngFor="let thread of threads; let i=index">
+              <td class="thread-item" (click)="threadSelected(thread, i)" [ngClass]="{'selected': i == selectedThreadNdx}">
+                <img class="profile-img" src="{{recipient(i).profile_pic_url}}"> {{recipient(i).first_name}} {{recipient(i).last_name}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col s8 m8 inbox-col">
+        <div class="vertical-line">
+          <table class="bordered">
+            <thead>
+              <tr>
+                <th class="inbox-header">
+                  <h5 class="inbox-title" *ngIf="messages">{{recipient(selectedThreadNdx).first_name}} {{recipient(selectedThreadNdx).last_name}}</h5>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="message-thread">
+                  <ol #discussion class="discussion">
+                    <div *ngIf="messages">
+                      <ng-container *ngFor="let message of messages">
+                        <li *ngIf="message.user == currentUser;else otherUser" class="self">
+                          <div class="avatar">
+                            <img class="avatar-img" src="{{userProfileMap[message.user].profile_pic_url}}" alt="userProfile">
+                          </div>
+                          <div class="messages">
+                            <p>{{message.message}}</p>
+                            <p class="time">{{message.date_created | date:'short'}}</p>
+                          </div>
+                        </li>
+                        <ng-template #otherUser>
+                          <li class="other">
+                            <div class="avatar">
+                              <a routerLink="/profile/{{recipient(selectedThreadNdx).user}}"><img class="avatar-img" src="{{userProfileMap[message.user].profile_pic_url}}" alt="userProfile"></a>
+                            </div>
+                            <div class="messages">
+                              <p>{{message.message}}</p>
+                              <p class="time">{{message.date_created | date:'short'}}</p>
+                            </div>
+                          </li>
+                        </ng-template>
+                      </ng-container>
+                    </div>
+                  </ol>
+                </td>
+              </tr>
+              <tr>
+                <td class="message-box">
+                  <input class="browser-default message-input" type="text" placeholder="Type a message (Enter to send)" (keydown.enter)="sendMessage()" [(ngModel)]="message.message">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #noMessages>
+    <div class="no-msg-container">
+      <h3 class="grey-text text-darken-2">You don't have any messages yet.</h3>
+    </div>
+  </ng-template>
+</div>

@@ -1,14 +1,18 @@
 <div class="container" *ngIf="userProfile">
     <md-card class="profile-header">
-      <md-card-header>
-        <div md-card-avatar [ngStyle]="{ 'background-image': 'url( '+ userProfile.profile_pic_url +' )' }" class="header-image"></div>
-        <md-card-title>{{userProfile.first_name}} {{userProfile.last_name}}</md-card-title>
-        <md-card-subtitle class="title">{{userProfile.title}}</md-card-subtitle>
-        <md-card-subtitle *ngIf="userProfile.post_secondary_school" class="title">{{userProfile.post_secondary_school}}</md-card-subtitle>
-        <md-card-subtitle *ngIf="!userProfile.secondary_school" class="title">{{userProfile.secondary_school}}</md-card-subtitle>
-        <div class="header-buttons">
-          <button md-raised-button class="btn white-text" (click)="message()">Message</button>
-          <a *ngIf="profileOwner" (click)="showPreview = !showPreview"  href="javascript:undefined">Preview Profile</a>
+      <md-card-header class="row">
+        <!-- NOTE Mat card header text is hidden in css -->
+        <div class="col-sm-4" md-card-avatar [ngStyle]="{ 'background-image': 'url( '+ userProfile.profile_pic_url +' )' }" class="header-image"></div>
+        
+        <div class="col-sm-8" style="margin-left:5%">
+          <md-card-title><h4>{{userProfile.first_name}} {{userProfile.last_name}}</h4></md-card-title>
+          <md-card-subtitle class="title"><h5>{{userProfile.title}}</h5></md-card-subtitle>
+          <md-card-subtitle *ngIf="userProfile.post_secondary_school" class="title"><h5>{{userProfile.post_secondary_school}}</h5></md-card-subtitle>
+          <md-card-subtitle *ngIf="!userProfile.secondary_school" class="title"><h5>{{userProfile.secondary_school}}</h5></md-card-subtitle>
+          <div class="header-buttons">
+            <button md-raised-button class="btn white-text" (click)="message()">Message</button>
+            <a *ngIf="profileOwner" (click)="showPreview = !showPreview"  href="javascript:undefined">Preview Profile</a>
+          </div>
         </div>
       </md-card-header>
     </md-card>
@@ -62,3 +66,4 @@
     </md-card>
     
   </div>
+

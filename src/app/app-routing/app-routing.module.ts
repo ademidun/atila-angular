@@ -14,6 +14,7 @@ import { EditScholarshipComponent } from '../edit-scholarship/edit-scholarship.c
 import { AppDetailComponent } from '../app-detail/app-detail.component';
 
 import { ProfileViewComponent } from '../profile-view/profile-view.component';
+import { MessagesComponent } from '../messages/messages.component';
 
 const routes: Routes = [
   { path: '' , component: PreviewComponent, data: {title: 'Atila'}},
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'edit-profile' , component: EditProfileComponent, data: {title: 'Atila - Edit Profile'}},
   { path: 'edit-scholarship/:slug' , component: EditScholarshipComponent, data: {title: 'Atila - Edit Scholarship'}},
   { path: 'login' , component: LoginComponent, data: {title: 'Atila - Login'}},
+  { path: 'messages' , component: MessagesComponent, data: {title: 'Atila - My Messages'}},
   { path: 'preview' , component: PreviewComponent, data: {title: 'Atila - Preview'}},
   { path: 'register' , component: RegisterComponent, data: {title: 'Atila - Register'}},
   { path: 'scholarships-list' , component: ScholarshipsListComponent, data: {title: 'Atila - Scholarships List'}},

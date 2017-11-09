@@ -148,7 +148,7 @@ export class ScholarshipDetailComponent implements OnInit {
       
       //convert the owner attribute to only keep the id, as per the API format.
       var sendData = this.scholarshipComments[index];
-      sendData.owner = sendData.owner.id;
+      sendData.user = sendData.user.id;
   
       //update the database with the new upvote score and update the UI based on the database response
       let postOperation = this.commentService.update(sendData);

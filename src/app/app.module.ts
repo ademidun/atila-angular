@@ -43,6 +43,8 @@ import { SafeHtmlPipe } from './_pipes/safe-html.pipe';
 import { GooglePlaceDirective } from './_directives/google-place.directive';
 import { CommentService } from './_services/comment.service';
 import { ProfileViewComponent } from './profile-view/profile-view.component';
+import { MessagesComponent } from './messages/messages.component';
+import { MessagingService } from './_services/messaging.service';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,8 @@ import { ProfileViewComponent } from './profile-view/profile-view.component';
     CreateProfileQuickComponent,
     SafeHtmlPipe,
     GooglePlaceDirective,
-    ProfileViewComponent
+    ProfileViewComponent,
+    MessagesComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -86,7 +89,8 @@ import { ProfileViewComponent } from './profile-view/profile-view.component';
      AuthService, ApplicationService,
       QuestionControlService, QuestionService,
        MyFirebaseService,
-       CommentService,],
+       CommentService,
+       MessagingService,],
   bootstrap: [AppComponent],
   entryComponents: [
     AddQuestionModalComponent,
