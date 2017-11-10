@@ -14,7 +14,7 @@
           <tbody class="threads-container" *ngIf="threadsLoaded">
             <tr *ngFor="let thread of threads; let i=index">
               <td class="thread-item" (click)="threadSelected(thread, i)" [ngClass]="{'selected': i == selectedThreadNdx}">
-                <img class="profile-img" src="{{recipient(i).profile_pic_url}}"> {{recipient(i).first_name}} {{recipient(i).last_name}}
+                <img class="profile-img" src="{{recipient(i).profile_pic_url}}"> <br> {{recipient(i).first_name}} {{recipient(i).last_name}}
               </td>
             </tr>
           </tbody>

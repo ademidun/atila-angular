@@ -12,6 +12,10 @@
           <div class="header-buttons">
             <button md-raised-button class="btn white-text" (click)="message()">Message</button>
             <a *ngIf="profileOwner" (click)="showPreview = !showPreview"  href="javascript:undefined">Preview Profile</a>
+            <!-- <span  *ngIf="profileOwner" >
+                <a *ngIf="!showPreview" (click)="showPreview = !showPreview"  href="javascript:undefined">Preview Profile</a>
+                <a *ngIf="showPreview" (click)="showPreview = !showPreview"  href="javascript:undefined">Edit Profile</a>
+            </span> -->
           </div>
         </div>
       </md-card-header>
