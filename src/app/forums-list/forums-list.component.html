@@ -4,21 +4,35 @@
   <div class="row">
     <h4 style="text-align: center;">Forums</h4>
 
+    <div class="col s12 forum-box"> 
+      <md-card class="scholarship-card">
+          
+        <md-card-content>
+            <input id="new_forum_post" placeholder="What's on your mind?" (keydown.enter)="postForum()">
+        </md-card-content>
+
+        <md-card-actions>
+          <button md-raised-button style="background-color: #184E87;" class="btn white-text" (click)="postForum()">Post</button>
+        </md-card-actions>
+                      
+      </md-card>
+    </div>
     <div *ngFor="let forum of forums; let i = index" class="col s12 forum-box"> 
+
 
       <md-card class="scholarship-card">
 
           <md-card-header>
-          <md-card-title><a routerLink="/forum/{{forum.slug}}"><h5>{{forum.title}}</h5></a></md-card-title>
+          <md-card-title><a routerLink="/forum/{{forum.slug}}"><h5>{{forum.title | truncate:50}}</h5></a></md-card-title>
           <md-card-subtitle class="card-text">
           <small>{{forum.date_created | date:'medium'}}</small>
-          <span *ngIf="forum.user"><a routerLink="/profile/{{forum.user.username}}">{{forum.user.username}}</a> </span>
+          <span *ngIf="forum.user"><a routerLink="/profile/{{forum.user.username}}">{{forum.user.first_name}} {{forum.user.last_name}}</a> </span>
           </md-card-subtitle>
         </md-card-header>
 
         <md-card-content>
             <p class="card-text">
-                {{forum.starting_comment.text}}
+                {{forum.starting_comment.text | truncate:140}}
             </p> 
         </md-card-content>
 

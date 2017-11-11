@@ -36,12 +36,21 @@
               </md-menu>
               
               <li>
+                  <a routerLink="/forum">
+                    <button button md-icon-button >
+                        <md-icon  class="atila-blue" aria-hidden="true" md-colors="{color:'primary'}">forum</md-icon>
+                    </button>
+                  </a>
+                </li>
+
+              <li>
               <a routerLink="/messages">
                 <button button md-icon-button >
                     <md-icon  class="atila-blue" aria-hidden="true" md-colors="{color:'primary'}">email</md-icon>
                 </button>
               </a>
               </li>
+
 
         </span>
       </ul>
@@ -71,8 +80,15 @@
           </a>
 
           <a routerLink="/messages">
-            <button button md-icon-button >
+            <button md-menu-item>
                 <span>Messages</span>
+            </button>
+          </a>
+
+
+          <a routerLink="/forum">
+            <button md-menu-item>
+                <span>Forums</span>
             </button>
           </a>
 

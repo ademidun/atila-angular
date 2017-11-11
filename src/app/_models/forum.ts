@@ -7,8 +7,6 @@ export class Forum {
     public id?: number;
     public slug?: any;
     public date_created?: any;
-    public starting_comment?: Comment;
-    constructor(
-        
-    ) { }
+    public starting_comment?: any;
+    constructor(user,   ) { }
 }

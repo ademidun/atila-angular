@@ -4,7 +4,6 @@ import { UserProfileService } from '../_services/user-profile.service';
 
 import { Scholarship } from '../_models/scholarship';
 
-import { TruncatePipe } from '../_pipes/truncate.pipe';
 import { Router } from '@angular/router';
 
 @Component({
