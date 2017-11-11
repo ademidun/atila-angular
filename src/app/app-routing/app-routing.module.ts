@@ -15,6 +15,8 @@ import { AppDetailComponent } from '../app-detail/app-detail.component';
 
 import { ProfileViewComponent } from '../profile-view/profile-view.component';
 import { MessagesComponent } from '../messages/messages.component';
+import { ForumsListComponent } from '../forums-list/forums-list.component';
+import { ForumDetailComponent } from '../forum-detail/forum-detail.component';
 
 const routes: Routes = [
   { path: '' , component: PreviewComponent, data: {title: 'Atila'}},
@@ -24,6 +26,8 @@ const routes: Routes = [
   { path: 'profile/:username' , component: ProfileViewComponent, data: {title: 'Atila - Profile'}},
   { path: 'edit-profile' , component: EditProfileComponent, data: {title: 'Atila - Edit Profile'}},
   { path: 'edit-scholarship/:slug' , component: EditScholarshipComponent, data: {title: 'Atila - Edit Scholarship'}},
+  { path: 'forum' , component: ForumsListComponent, data: {title: 'Atila - Forums'}},
+  { path: 'forum/:slug' , component: ForumDetailComponent, data: {title: 'Atila - Forums'}},
   { path: 'login' , component: LoginComponent, data: {title: 'Atila - Login'}},
   { path: 'messages' , component: MessagesComponent, data: {title: 'Atila - My Messages'}},
   { path: 'preview' , component: PreviewComponent, data: {title: 'Atila - Preview'}},

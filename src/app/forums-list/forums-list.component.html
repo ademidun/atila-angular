@@ -1,0 +1,38 @@
+
+<div class="container">
+
+  <div class="row">
+    <h4 style="text-align: center;">Forums</h4>
+
+    <div *ngFor="let forum of forums; let i = index" class="col s12 forum-box"> 
+
+      <md-card class="scholarship-card">
+
+          <md-card-header>
+          <md-card-title><a routerLink="/forum/{{forum.slug}}"><h5>{{forum.title}}</h5></a></md-card-title>
+          <md-card-subtitle class="card-text">
+          <small>{{forum.date_created | date:'medium'}}</small>
+          <span *ngIf="forum.user"><a routerLink="/profile/{{forum.user.username}}">{{forum.user.username}}</a> </span>
+          </md-card-subtitle>
+        </md-card-header>
+
+        <md-card-content>
+            <p class="card-text">
+                {{forum.starting_comment.text}}
+            </p> 
+        </md-card-content>
+
+        <md-card-actions>
+            
+              <md-icon class="md-24" aria-label="Like the comment">thumb_up</md-icon>{{forum.starting_comment.up_votes_count}}
+  
+              <md-icon class="md-24" aria-label="Dislike the comment">thumb_down</md-icon>{{forum.starting_comment.down_votes_count}}
+  
+          </md-card-actions>
+
+      </md-card>
+
+    </div>
+  </div>
+
+</div>

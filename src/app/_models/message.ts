@@ -7,4 +7,4 @@ export class Message {
             private id?: number,
             private date_created?: string,
         ) { }
-    }
+}

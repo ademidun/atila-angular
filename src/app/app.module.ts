@@ -45,6 +45,9 @@ import { CommentService } from './_services/comment.service';
 import { ProfileViewComponent } from './profile-view/profile-view.component';
 import { MessagesComponent } from './messages/messages.component';
 import { MessagingService } from './_services/messaging.service';
+import { ForumsListComponent } from './forums-list/forums-list.component';
+import { ForumDetailComponent } from './forum-detail/forum-detail.component';
+import { ForumService } from './_services/forum.service';
 
 @NgModule({
   declarations: [
@@ -70,7 +73,9 @@ import { MessagingService } from './_services/messaging.service';
     SafeHtmlPipe,
     GooglePlaceDirective,
     ProfileViewComponent,
-    MessagesComponent
+    MessagesComponent,
+    ForumsListComponent,
+    ForumDetailComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -90,7 +95,8 @@ import { MessagingService } from './_services/messaging.service';
       QuestionControlService, QuestionService,
        MyFirebaseService,
        CommentService,
-       MessagingService,],
+       MessagingService,
+       ForumService,],
   bootstrap: [AppComponent],
   entryComponents: [
     AddQuestionModalComponent,

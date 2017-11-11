@@ -65,7 +65,7 @@
       </div>
 
       <div *ngFor="let comment of scholarshipComments; let i = index" class="col s6 comment-box"> 
-        <h5>{{comment.title}}</h5><small>{{comment.date_created | date:'medium'}}</small> <span *ngIf="comment.owner">{{comment.owner.first_name}} {{comment.owner.last_name}}  </span>
+        <h5>{{comment.title}}</h5><small>{{comment.date_created | date:'medium'}}</small> <span *ngIf="comment.user"> <a routerLink="/profile/{{comment.user.username}}"> {{comment.user.first_name}} {{comment.user.last_name}} </a> </span>
          <p>
          {{comment.text}}
          <p>
