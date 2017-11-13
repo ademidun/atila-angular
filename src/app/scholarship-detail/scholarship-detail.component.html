@@ -48,38 +48,28 @@
       </ul>
     </div>
   </div>
+  
   <div class="row">
-      <h4>Comments</h4>
+      <div class="col s12 forum-box"> 
+          <h5 > Comments </h5> 
 
-      <div class="col s12">
-          <md-form-field>
-              <textarea style="min-height: 1em" rows="1" placeholder="Comment Title..." mdInput [(ngModel)]="userComment.title">
-              </textarea>
-            </md-form-field>
-        <md-form-field>
-          <textarea style="min-height: 1em" rows="1" placeholder="Leave a comment..." mdInput [(ngModel)]="userComment.text">
-          </textarea>
-        </md-form-field>
-        <button md-raised-button style="background-color: #184E87;" class="btn white-text" (click)="postComment()" >Comment</button>
-        <!-- TODO: Use a directive or a pipe to format the comments -->
-      </div>
+                  <md-card class="comment-card">
+                      
+                    <md-card-content>
+                        <input id="forum_title" placeholder="Title" [(ngModel)]="userComment.title">
+                        <input id="forum_comment_text" placeholder="What do you think?" (keydown.enter)="postComment()" [(ngModel)]="userComment.text">
+                    </md-card-content>
+            
+                    <md-card-actions>
+                        <button md-raised-button style="background-color: #184E87;" class="btn white-text" (click)="postComment()">Post</button>
+                    </md-card-actions>
+                                  
+                  </md-card>
 
-      <div *ngFor="let comment of scholarshipComments; let i = index" class="col s6 comment-box"> 
-        <h5>{{comment.title}}</h5><small>{{comment.date_created | date:'medium'}}</small> <span *ngIf="comment.user"> <a routerLink="/profile/{{comment.user.username}}"> {{comment.user.first_name}} {{comment.user.last_name}} </a> </span>
-         <p>
-         {{comment.text}}
-         <p>
-         <div  class="col s12"> 
+                  <div  *ngFor="let comment of scholarshipComments; i as index; first as isFirst; trackBy:trackByFn" class="forum-comments">
+                      <app-comment  [comment]="comment" commentType="Forum"> </app-comment>
+                  </div>
 
-          <button md-mini-fab style="background-color: transparent" [disabled]="comment.user_already_upvoted" (click)="commentVote(i,'upVote')">
-            <md-icon class="md-24" aria-label="Like the comment">thumb_up</md-icon>
-          </button>{{comment.up_votes_count}}
-
-          <button md-mini-fab style="background-color: transparent" [disabled]="comment.user_already_downvoted" (click)="commentVote(i,'downVote')">
-            <md-icon class="md-24" aria-label="Dislike the comment">thumb_down</md-icon>
-          </button>{{comment.down_votes_count}}
-
-         </div>
       </div>
 
   </div>

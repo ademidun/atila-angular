@@ -45,7 +45,7 @@ export class ForumDetailComponent implements OnInit {
         this.forum = forum;
         this.forum.starting_comment = null;
         this.titleService.setTitle('Atila Forum - ' + this.forum.title);
-        this.forumService.getComments(this.forum.id).subscribe(
+        this.commentService.getComments(this.forum.id,'Forum').subscribe(
           res => {
             console.log('forumService.getComments',res)
             this.forum.starting_comment = res.starting_comment;
@@ -55,18 +55,21 @@ export class ForumDetailComponent implements OnInit {
       }
     )
 
-    this.userComment = new Comment(this.userId,'','');
+    this.userComment = new Comment(this.userId);
   }
 
   postComment(){
     
     //prevent ScholarshipComments from tracking the changes to UserComment;
     // TODO: Consider using deepcopy of comment
-    var commentTemp:Comment = new Comment(this.userId,'','');
+    var commentTemp:Comment = new Comment(this.userId);
+
+    commentTemp['forum'] = this.forum.id;
+
     commentTemp.text = this.userComment.text;
     commentTemp.title = this.userComment.title;
     console.log('about to save the comment commentTemp; ', commentTemp);
-    /*
+    
     let postOperation = this.commentService.create(commentTemp);
 
     postOperation.subscribe(
@@ -80,9 +83,13 @@ export class ForumDetailComponent implements OnInit {
       }
       
     )
-    */
+    
     this.userComment.text = "";
     this.userComment.title = "";
+  }
+  trackByFn(index: any, item: any) {
+    return index;
+
   }
 
 }

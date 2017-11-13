@@ -20,12 +20,12 @@
                     </md-card-content>
             
                     <md-card-actions>
-                        <button md-raised-button style="background-color: #184E87;" class="btn white-text" (click)="postForum()">Post</button>
+                        <button md-raised-button style="background-color: #184E87;" class="btn white-text" (click)="postComment()">Post</button>
                     </md-card-actions>
                                     
                     </md-card>
 
-            <div  *ngFor="let comment of comments; i as index; first as isFirst" class="forum-comments">
+            <div  *ngFor="let comment of comments; i as index; first as isFirst; trackBy:trackByFn" class="forum-comments">
                 <app-comment  [comment]="comment" commentType="Forum"> </app-comment>
             </div>
 

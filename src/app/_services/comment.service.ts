@@ -16,7 +16,9 @@ export class CommentService {
 
 
   create(comment: Comment): Observable<Comment>{
-    return this.http.post(this.commentsUrl, comment)
+    console.log('create Comment', comment);
+    var commenturl = this.getUrl(comment);
+    return this.http.post(`${commenturl}`, comment)
     .map(this.extractData)
     .catch(this.handleError);
   }
@@ -29,10 +31,19 @@ export class CommentService {
     .catch(this.handleError);
   }
 
-
+/*
   getComments(modelType:String, modelID: number){
     console.log('getComments GET: ', `${this.commentsUrl}get-model-comments/?parent-model-type=${modelType}&parent-model-id=${modelID}`);
     return this.http.get(`${this.commentsUrl}get-model-comments/?parent-model-type=${modelType}&parent-model-id=${modelID}`)
+    .map(this.extractData)
+    .catch(this.handleError);
+  }
+  */
+  getComments(id:number, modelType:string){
+  
+    var commenturl = this.parentUrl(modelType);
+
+    return this.http.get(`${commenturl}${id}/comments/`)
     .map(this.extractData)
     .catch(this.handleError);
   }
@@ -60,10 +71,30 @@ export class CommentService {
     return Observable.throw(errMsg);
   }
 
+  private parentUrl(commentType:string){
+
+    switch (commentType) {
+
+      case 'Forum':
+        return 'http://127.0.0.1:8000/forum/forums/';
+
+      case 'Scholarship':
+        return 'http://127.0.0.1:8000/scholarships/';
+    
+      default:
+        break;
+    }
+
+  }
+
   private getUrl(comment:Comment){
 
     if ( comment.hasOwnProperty('forum') ) {
       return 'http://127.0.0.1:8000/forum/forum-comments/';
+      
+    }
+    else if( comment.hasOwnProperty('scholarship') ) {
+      return 'http://127.0.0.1:8000/comments/';
       
     }
      return this.commentsUrl;

@@ -90,17 +90,6 @@
           </a>
       </md-menu>
 
-      <a routerLink="/messages" class="right hide-on-large-only">
-        <button button md-icon-button >
-            <md-icon  class="atila-blue" aria-hidden="true" md-colors="{color:'primary'}">email</md-icon>
-        </button>
-      </a>
-
-      <a routerLink="/add-scholarship" class="right hide-on-large-only">
-        <button button md-icon-button >
-            <md-icon  class="atila-blue" aria-hidden="true" aria-label="Add a Scholarship" md-colors="{color:'primary'}">add_circle_outline</md-icon>
-        </button>
-      </a>
       <!-- Show on Mobile  -->
       <button md-icon-button [mdMenuTriggerFor]="profileMenu" class= "right hide-on-large-only">
           <md-icon>perm_identity</md-icon>
@@ -124,6 +113,13 @@
             </button>
           </a>
       </md-menu>
+      
+      <a routerLink="/messages" class="right hide-on-large-only">
+        <button button md-icon-button >
+            <md-icon  class="atila-blue" aria-hidden="true" md-colors="{color:'primary'}">email</md-icon>
+        </button>
+      </a>
+
 
     </div>
   </nav>

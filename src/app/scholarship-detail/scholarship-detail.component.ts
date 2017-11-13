@@ -91,18 +91,17 @@ export class ScholarshipDetailComponent implements OnInit {
 
   getScholarshipComments(){
     //create an empty UserComment object
-    this.userComment = new Comment(this.userId,'','', 'Scholarship',this.scholarship.id);
+    this.userComment = new Comment(this.userId);
 
     console.log('getScholarshipComments() this.userComment: ', this.userComment);
     //this.scholarshipComments = new Array<Comment>();
 
-    let postOperation = this.commentService.getComments('Scholarship',this.scholarship.id);
+    let postOperation = this.commentService.getComments(this.scholarship.id,'Scholarship');
 
     postOperation.subscribe(
       res => {
         console.log('get Comment response; ', res);
         this.scholarshipComments = res.comments;
-        this.getCommentsMetaData();
       }
     )
     
@@ -112,7 +111,8 @@ export class ScholarshipDetailComponent implements OnInit {
     
     //prevent ScholarshipComments from tracking the changes to UserComment;
     // TODO: Consider using deepcopy of comment
-    var commentTemp:Comment = new Comment(this.userId,'','', 'Scholarship',this.scholarship.id);
+    var commentTemp:Comment = new Comment(this.userId);
+    commentTemp['scholarship'] = this.scholarship.id;
     commentTemp.text = this.userComment.text;
     commentTemp.title = this.userComment.title;
     console.log('about to save the comment commentTemp; ', commentTemp);
@@ -135,56 +135,8 @@ export class ScholarshipDetailComponent implements OnInit {
   }
 
 
-  commentVote(index: number, voteType: string){
-
-      console.log('index', index, 'voteType', voteType)
-      
-      if(voteType=='upVote'){
-        this.scholarshipComments[index]= upVoteComment(this.userId,this.scholarshipComments[index]);
-      }
-      else{
-        this.scholarshipComments[index]= downVoteComment(this.userId,this.scholarshipComments[index]);
-      }
-      
-      //convert the owner attribute to only keep the id, as per the API format.
-      var sendData = this.scholarshipComments[index];
-      sendData.user = sendData.user.id;
-  
-      //update the database with the new upvote score and update the UI based on the database response
-      let postOperation = this.commentService.update(sendData);
-      postOperation.subscribe(
-        res => {
-          console.log('updating comment res:', res);
-          //this.scholarshipComments[index] = res; TODO: Do we need the updated result from the database?
-        }
-      )
-  
-  }
-
-  /**
-   * TODO: Make this an exported function
-   */
-  getCommentsMetaData(){
-    /**
-     * Get meta data about the comments when first loaded, for example. Check what comments the user has already upvoted or downvoted.
-     */
-    for (var index = 0; index < this.scholarshipComments.length; index++) {//for each comment check who has upvoted or downovted
-      var element = this.scholarshipComments[index];
-      
-      if(element.up_votes_id.includes(this.userId)){//if the current user (ID) already liked the video, disable the up_vote_button
-        this.scholarshipComments[index]['user_already_upvoted'] = true;
-      }else{
-        this.scholarshipComments[index]['user_already_upvoted'] = false;
-      }
-
-      if(element.down_votes_id.includes(this.userId)){
-         this.scholarshipComments[index]['user_already_downvoted'] = true;
-      }else{
-        this.scholarshipComments[index]['user_already_downvoted'] = false;
-      }
-    }
-
-    console.log('getCommentsMetaData(),this.scholarshipComments: ',this.scholarshipComments);
+  trackByFn(index: any, item: any) {
+    return index;
 
   }
 
