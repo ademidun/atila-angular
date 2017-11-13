@@ -23,33 +23,66 @@ import { Title }     from '@angular/platform-browser';
 export class ForumDetailComponent implements OnInit {
 
   comments: Comment[];
+  //commentType ="Forum";
   forum: Forum;
-  parentComment:Comment;
+  userComment:Comment;
   userProfile: UserProfile;
-
+  userId;
   constructor(    
     private route: ActivatedRoute,
     private _ngZone: NgZone,
     private userProfileService: UserProfileService,
     private titleService: Title,
     private commentService: CommentService,
-    private forumService: ForumService,) { }
+    private forumService: ForumService,) { 
+      this.userId = parseInt(localStorage.getItem('userId'));
+    }
 
   ngOnInit() {
 
     this.forumService.getBySlug(this.route.snapshot.params['slug']).subscribe(
       forum => {
         this.forum = forum;
-
+        this.forum.starting_comment = null;
         this.titleService.setTitle('Atila Forum - ' + this.forum.title);
         this.forumService.getComments(this.forum.id).subscribe(
-          comments => {
-            console.log('forumService.getComments',comments)
-            this.comments = comments;
+          res => {
+            console.log('forumService.getComments',res)
+            this.forum.starting_comment = res.starting_comment;
+            this.comments = res.forum_comments;
           }
         )
       }
     )
+
+    this.userComment = new Comment(this.userId,'','');
+  }
+
+  postComment(){
+    
+    //prevent ScholarshipComments from tracking the changes to UserComment;
+    // TODO: Consider using deepcopy of comment
+    var commentTemp:Comment = new Comment(this.userId,'','');
+    commentTemp.text = this.userComment.text;
+    commentTemp.title = this.userComment.title;
+    console.log('about to save the comment commentTemp; ', commentTemp);
+    /*
+    let postOperation = this.commentService.create(commentTemp);
+
+    postOperation.subscribe(
+      res => {
+        console.log('postComment response; ', res);
+        this.comments.unshift(res);
+      },
+
+      err =>{
+        console.log('postComment err: ', err);
+      }
+      
+    )
+    */
+    this.userComment.text = "";
+    this.userComment.title = "";
   }
 
 }

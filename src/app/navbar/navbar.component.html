@@ -35,6 +35,16 @@
                 </a>
               </md-menu>
               
+
+              <li>
+                  <a routerLink="/add-scholarship">
+                    <button button md-icon-button >
+                        <md-icon  class="atila-blue" aria-hidden="true" aria-label="Add a Scholarship" md-colors="{color:'primary'}">add_circle_outline</md-icon>
+                    </button>
+                  </a>
+                </li>
+
+              <li>
               <li>
                   <a routerLink="/forum">
                     <button button md-icon-button >
@@ -56,35 +66,16 @@
       </ul>
 
       <!-- Show on Mobile  -->
-      <button md-icon-button [mdMenuTriggerFor]="mobileMenu" class= "hide-on-large-only">
+      <button md-icon-button [mdMenuTriggerFor]="mobileMenu" class= "left hide-on-large-only">
           <md-icon>menu</md-icon>
        </button>
        <md-menu #mobileMenu="mdMenu" [overlapTrigger]="false">
-          <a *ngIf="userProfile" [routerLink]="['/profile', userProfile.username]">
-            <button button md-menu-item >
-              <span>My profile</span>
-            
-            </button>
-          </a>
-          <a routerLink="/edit-profile">
-            <button md-menu-item>
-              <span>Edit profile</span>
-            </button>
-          </a>
-      
-          <a routerLink="/add-scholarship">
-            <button md-menu-item>
-              <span>Add scholarship</span>
-            </button>
-
-          </a>
 
           <a routerLink="/messages">
             <button md-menu-item>
                 <span>Messages</span>
             </button>
           </a>
-
 
           <a routerLink="/forum">
             <button md-menu-item>
@@ -99,6 +90,40 @@
           </a>
       </md-menu>
 
+      <a routerLink="/messages" class="right hide-on-large-only">
+        <button button md-icon-button >
+            <md-icon  class="atila-blue" aria-hidden="true" md-colors="{color:'primary'}">email</md-icon>
+        </button>
+      </a>
+
+      <a routerLink="/add-scholarship" class="right hide-on-large-only">
+        <button button md-icon-button >
+            <md-icon  class="atila-blue" aria-hidden="true" aria-label="Add a Scholarship" md-colors="{color:'primary'}">add_circle_outline</md-icon>
+        </button>
+      </a>
+      <!-- Show on Mobile  -->
+      <button md-icon-button [mdMenuTriggerFor]="profileMenu" class= "right hide-on-large-only">
+          <md-icon>perm_identity</md-icon>
+       </button>
+       <md-menu #profileMenu="mdMenu" [overlapTrigger]="false">
+          <a *ngIf="userProfile" [routerLink]="['/profile', userProfile.username]">
+            <button button md-menu-item >
+              <span>My profile</span>
+            
+            </button>
+          </a>
+          <a routerLink="/edit-profile">
+            <button md-menu-item>
+              <span>Edit profile</span>
+            </button>
+          </a>
+
+          <a (click)="logout()">
+            <button md-menu-item>
+              <span>Logout</span>
+            </button>
+          </a>
+      </md-menu>
 
     </div>
   </nav>

@@ -54,3 +54,10 @@ export function downVoteComment(userId: number, comment: Comment): Comment{
         return comment;
     }
 }
+
+export function countVotes(comment: Comment){
+    comment.up_votes_count = comment.up_votes_id.length;
+    comment.down_votes_count = comment.down_votes_id.length;
+
+    return comment;
+}

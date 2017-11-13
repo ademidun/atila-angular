@@ -17,9 +17,13 @@
 
       <md-card-actions>
           
-            <md-icon class="md-24" aria-label="Like the comment">thumb_up</md-icon>{{comment.up_votes_count}}
-
-            <md-icon class="md-24" aria-label="Dislike the comment">thumb_down</md-icon>{{comment.down_votes_count}}
+            <button md-mini-fab style="background-color: transparent" [disabled]="comment.user_already_upvoted" (click)="commentVote('upVote')">
+                    <md-icon class="md-24" aria-label="Like the comment">thumb_up</md-icon>
+                  </button>{{comment.up_votes_count}}
+        
+                  <button md-mini-fab style="background-color: transparent" [disabled]="comment.user_already_downvoted" (click)="commentVote('downVote')">
+                    <md-icon class="md-24" aria-label="Dislike the comment">thumb_down</md-icon>
+                  </button>{{comment.down_votes_count}}
 
         </md-card-actions>
     </span>

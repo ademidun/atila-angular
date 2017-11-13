@@ -1,17 +1,35 @@
 <div class="container">
     
-    <div  *ngIf="forum" class="row">
+    <div class="row" *ngIf="forum" >
         <a routerLink="/forum/{{forum.slug}}"><h4 style="text-align: center;">{{forum.title}}</h4></a>
 
         <div class="col s12 forum-box"> 
-            <app-comment [comment]="forum.starting_comment"> </app-comment>
-          </div>
+            <app-comment *ngIf="forum.starting_comment" [comment]="forum.starting_comment" commentType="Forum"> </app-comment>
+        </div>
 
-          
-          <div *ngFor="let comment of comments; i as index; first as isFirst" class="col s12 forum-box"> 
-              <h5 *ngIf="isFirst"> Comments </h5> 
-              <app-comment [comment]="comment"> </app-comment>
-          </div>
+        
+
+        <div class="col s12 forum-box"> 
+            <h5 > Comments </h5> 
+
+                    <md-card class="forum-card">
+                        
+                    <md-card-content>
+                        <input id="forum_title" placeholder="Title" [(ngModel)]="userComment.title">
+                        <input id="forum_comment_text" placeholder="What do you think?" (keydown.enter)="postComment()" [(ngModel)]="userComment.text">
+                    </md-card-content>
+            
+                    <md-card-actions>
+                        <button md-raised-button style="background-color: #184E87;" class="btn white-text" (click)="postForum()">Post</button>
+                    </md-card-actions>
+                                    
+                    </md-card>
+
+            <div  *ngFor="let comment of comments; i as index; first as isFirst" class="forum-comments">
+                <app-comment  [comment]="comment" commentType="Forum"> </app-comment>
+            </div>
+
+        </div>
     </div>
 
 </div>

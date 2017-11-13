@@ -22,10 +22,13 @@ export class CommentService {
   }
 
   update(comment: Comment): Observable<any>{
-    return this.http.put(`${this.commentsUrl}${comment.id}/`, comment)
+    
+    var commenturl = this.getUrl(comment);
+    return this.http.put(`${commenturl}${comment.id}/`, comment)
     .map(this.extractData)
     .catch(this.handleError);
   }
+
 
   getComments(modelType:String, modelID: number){
     console.log('getComments GET: ', `${this.commentsUrl}get-model-comments/?parent-model-type=${modelType}&parent-model-id=${modelID}`);
@@ -55,5 +58,15 @@ export class CommentService {
     }
     console.error(errMsg);
     return Observable.throw(errMsg);
+  }
+
+  private getUrl(comment:Comment){
+
+    if ( comment.hasOwnProperty('forum') ) {
+      return 'http://127.0.0.1:8000/forum/forum-comments/';
+      
+    }
+     return this.commentsUrl;
+
   }
 }
