@@ -5,10 +5,11 @@
     <h4 style="text-align: center;">Forums</h4>
 
     <div class="col s12 forum-box"> 
-      <md-card class="scholarship-card">
+      <md-card class="forum-card">
           
         <md-card-content>
-            <input id="new_forum_post" placeholder="What's on your mind?" (keydown.enter)="postForum()">
+            <input *ngIf="newForum" id="forum_title" placeholder="Title" [(ngModel)]="newForum.title">
+            <input *ngIf="forumComment"  id="forum_comment_text" placeholder="What's on your mind?" (keydown.enter)="postForum()" [(ngModel)]="forumComment.text">
         </md-card-content>
 
         <md-card-actions>

@@ -11,7 +11,9 @@ export class Comment {
     down_votes_count?: any;
     up_votes_id?: any[];
     down_votes_id?: any[];
-    constructor(user: number, parent_model_type: string,  parent_model_id: any, text?:string, title?:string) {
+    //constructor(user?: number, text?:string, title?:string)
+    //use pprivate keyword (private user) , to avoid redundant typing of  this.user = user;
+    constructor(user?: number, text?:string, title?:string, parent_model_type?: string,  parent_model_id?: any) {
         this.user = user;
         this.parent_model_type=parent_model_type;
         this.parent_model_id = parent_model_id;

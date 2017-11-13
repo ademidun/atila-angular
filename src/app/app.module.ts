@@ -48,6 +48,7 @@ import { MessagingService } from './_services/messaging.service';
 import { ForumsListComponent } from './forums-list/forums-list.component';
 import { ForumDetailComponent } from './forum-detail/forum-detail.component';
 import { ForumService } from './_services/forum.service';
+import { CommentComponent } from './comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { ForumService } from './_services/forum.service';
     ProfileViewComponent,
     MessagesComponent,
     ForumsListComponent,
-    ForumDetailComponent
+    ForumDetailComponent,
+    CommentComponent
   ],
   imports: [
     NgbModule.forRoot(),

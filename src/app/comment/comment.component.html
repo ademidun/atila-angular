@@ -1,0 +1,27 @@
+<md-card class="comment-card">
+
+    <span id="{{comment.id}}">
+        <md-card-header>
+        <md-card-title><h5>{{comment.title}}</h5></md-card-title>
+        <md-card-subtitle class="card-text">
+        <small>{{comment.date_created | date:'medium'}}</small>
+        <span *ngIf="comment.user"><a routerLink="/profile/{{comment.user.username}}">{{comment.user.first_name}} {{comment.user.last_name}}</a> </span>
+        </md-card-subtitle>
+      </md-card-header>
+
+      <md-card-content>
+          <p class="card-text">
+              {{comment.text}}
+          </p> 
+      </md-card-content>
+
+      <md-card-actions>
+          
+            <md-icon class="md-24" aria-label="Like the comment">thumb_up</md-icon>{{comment.up_votes_count}}
+
+            <md-icon class="md-24" aria-label="Dislike the comment">thumb_down</md-icon>{{comment.down_votes_count}}
+
+        </md-card-actions>
+    </span>
+    
+  </md-card>

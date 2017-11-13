@@ -91,7 +91,7 @@ export class ScholarshipDetailComponent implements OnInit {
 
   getScholarshipComments(){
     //create an empty UserComment object
-    this.userComment = new Comment(this.userId, 'Scholarship',this.scholarship.id);
+    this.userComment = new Comment(this.userId,'','', 'Scholarship',this.scholarship.id);
 
     console.log('getScholarshipComments() this.userComment: ', this.userComment);
     //this.scholarshipComments = new Array<Comment>();
@@ -112,7 +112,7 @@ export class ScholarshipDetailComponent implements OnInit {
     
     //prevent ScholarshipComments from tracking the changes to UserComment;
     // TODO: Consider using deepcopy of comment
-    var commentTemp:Comment = new Comment(this.userId, 'Scholarship',this.scholarship.id);
+    var commentTemp:Comment = new Comment(this.userId,'','', 'Scholarship',this.scholarship.id);
     commentTemp.text = this.userComment.text;
     commentTemp.title = this.userComment.title;
     console.log('about to save the comment commentTemp; ', commentTemp);

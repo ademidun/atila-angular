@@ -1,3 +1,18 @@
-<p>
-  forum-detail works!
-</p>
+<div class="container">
+    
+    <div  *ngIf="forum" class="row">
+        <a routerLink="/forum/{{forum.slug}}"><h4 style="text-align: center;">{{forum.title}}</h4></a>
+
+        <div class="col s12 forum-box"> 
+            <app-comment [comment]="forum.starting_comment"> </app-comment>
+          </div>
+
+          
+          <div *ngFor="let comment of comments; i as index; first as isFirst" class="col s12 forum-box"> 
+              <h5 *ngIf="isFirst"> Comments </h5> 
+              <app-comment [comment]="comment"> </app-comment>
+          </div>
+    </div>
+
+</div>
+      
