@@ -49,6 +49,9 @@ import { ForumsListComponent } from './forums-list/forums-list.component';
 import { ForumDetailComponent } from './forum-detail/forum-detail.component';
 import { ForumService } from './_services/forum.service';
 import { CommentComponent } from './comment/comment.component';
+import { BlogsListComponent } from './blogs-list/blogs-list.component';
+import { BlogPostCreateComponent } from './blog-post-create/blog-post-create.component';
+import { HtmlEditorComponent } from './html-editor/html-editor.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +80,10 @@ import { CommentComponent } from './comment/comment.component';
     MessagesComponent,
     ForumsListComponent,
     ForumDetailComponent,
-    CommentComponent
+    CommentComponent,
+    BlogsListComponent,
+    BlogPostCreateComponent,
+    HtmlEditorComponent
   ],
   imports: [
     NgbModule.forRoot(),

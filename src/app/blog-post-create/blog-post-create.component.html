@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+
+    <div class="col s12">
+      <h1> {{blogPost.title}} </h1>
+    <textarea id="{{elementId}}"></textarea>
+    </div>
+
+    <br>
+    <div [innerHTML]="blogPost.html"></div>
+    <div class="col s12">
+        {{ blogPost.html }}
+        {{myJson.stringify(this.blogPost)}}
+    </div>
+    {{ blogPost.html }}
+    myJson.stringify(this.blogPost)
+    {{myJson.stringify(this.blogPost)}}
+  </div>
+</div>

@@ -33,6 +33,7 @@
     "materialize-css": "^0.100.1",
     "rxjs": "^5.1.0",
     "selenium-webdriver": "^3.6.0",
+    "tinymce": "^4.5.3",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {

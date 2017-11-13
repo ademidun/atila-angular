@@ -18,10 +18,13 @@ import { MessagesComponent } from '../messages/messages.component';
 import { ForumsListComponent } from '../forums-list/forums-list.component';
 import { ForumDetailComponent } from '../forum-detail/forum-detail.component';
 
+import { BlogPostCreateComponent } from '../blog-post-create/blog-post-create.component';
+
 const routes: Routes = [
   { path: '' , component: PreviewComponent, data: {title: 'Atila'}},
   { path: 'applications/:id' , component: AppDetailComponent, data: {title: 'Application Detail'}},  
   { path: 'add-scholarship' , component: AddScholarshipComponent, data: {title: 'Atila - Add Scholarship'}},
+  { path: 'create-blog-post' , component: BlogPostCreateComponent, data: {title: 'Atila - Create Blog Post'}},
   { path: 'create-profile' , component: CreateProfileComponent, data: {title: 'Atila - Create Profile'}},
   { path: 'profile/:username' , component: ProfileViewComponent, data: {title: 'Atila - Profile'}},
   { path: 'edit-profile' , component: EditProfileComponent, data: {title: 'Atila - Edit Profile'}},
