@@ -39,7 +39,7 @@ export class ScholarshipsListComponent implements OnInit {
 
   ngOnInit() {
     this.userId = localStorage.getItem('userId');
-    console.log('this.userId', this.userId);
+    
     if (this.userId) {
       this.isLoggedIn = true;
       this.userProfileService.getById(parseInt(this.userId))
@@ -92,8 +92,8 @@ export class ScholarshipsListComponent implements OnInit {
   }
 
   saveScholarships(res: any){
-    console.log("res", res);
-    console.log("res['data']", res['data']);
+    
+    
     this.scholarships = res['data'];
     this.scholarship_count = res['length'];
     this.total_funding = res['funding'];

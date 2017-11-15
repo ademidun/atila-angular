@@ -1,8 +1,9 @@
 @import '../../styles.scss';
 
 .scholarship-image {
-    height: 325px;
-    width: 90%;
+    max-width: 100%;
+    display: block;
+    margin: auto;
 }
 .comment-card{
     margin-bottom: 5%;

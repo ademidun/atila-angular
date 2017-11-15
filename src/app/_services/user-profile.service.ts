@@ -104,8 +104,8 @@ export class UserProfileService {
 
     private extractData(res: Response) {
         let body = res.json();
-        console.log('user-profile.service res: ', res);
-        console.log('user-profile.service res: ', res.status);
+        
+        
         console.log('user-profile.service res: ', res);
         console.log('user-profile.service body: ', body);
         return body || { };

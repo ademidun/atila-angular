@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit} from '@angular/core';
 import { Scholarship } from '../_models/scholarship';
 import { UploadFile } from '../_models/upload-file';
 import { ScholarshipService } from '../_services/scholarship.service';
@@ -24,7 +24,7 @@ import * as firebase from "firebase";
   templateUrl: './add-scholarship.component.html',
   styleUrls: ['./add-scholarship.component.scss']
 })
-export class AddScholarshipComponent implements OnInit {
+export class AddScholarshipComponent implements OnInit, AfterViewInit{
 
 
   EDUCATION_LEVELS = [
@@ -66,7 +66,7 @@ export class AddScholarshipComponent implements OnInit {
     'Other'
   ]
 
-
+  LOCATION_TYPES = ['city','province','country']
   
   userId: number;
   pageNo: number =1;
@@ -83,7 +83,8 @@ export class AddScholarshipComponent implements OnInit {
   locationInput: any = {
   city: '',
   }
-  locationPlaceHolder
+  locationPlaceHolder;
+  isOwner = false;
   countries = [];
   provinces = []
   cities = []
@@ -122,15 +123,21 @@ export class AddScholarshipComponent implements OnInit {
 
   }
 
+  ngAfterViewInit() {
+    if(this.editMode && !this.isOwner){
+      $("#scholarshipForm :input").prop("disabled", true);
+    }
+  }
+
   stringInputToArray(event: any){
-    console.log('toArrayInput, event', event);
-    console.log('this.stringDict; ', this.stringDict);
-    console.log(this.scholarship);
+    
+    
+    
 
     this.scholarship[event.target.name] = {};
     var tempString = event.target.value;
     tempString = tempString.trim();
-    console.log('tempString', tempString);
+    
     var stringArray: string[] = tempString.split(",");
     stringArray.forEach(element => {
       element = element.trim();
@@ -138,22 +145,22 @@ export class AddScholarshipComponent implements OnInit {
     });
     for( var key in stringArray){
       
-      console.log("this.scholarship[event.target.name][key]", this.scholarship[event.target.name][key]);
+      
     }
 
-    console.log("this.scholarship[event.target.name]", this.scholarship[event.target.name]);
-    console.log("event.target.value.split(',')", event.target.value.split(","));
+    
+    
     
 
    /* for (var i = 0; i < event.srcElement.form.length; i++) {
-      console.log('form[',i,']: event.srcElement.form[i]', event.srcElement.form[i]);
+      
       event.srcElement.form[i].disabled = true;
       
     }
     */
 
 
-    console.log('after stringInputToArray: this.scholarship:', this.scholarship);
+    
 
   }
 
@@ -194,9 +201,9 @@ export class AddScholarshipComponent implements OnInit {
           'city': ''
         });
 
-        console.log('editLocation this.provinces', this.provinces);
-        console.log('editLocation this.provinces[0].province', this.provinces[0].province);
-        console.log('editLocation this.activeProvince', this.activeProvince);
+        
+        
+        
       }
       break;
       
@@ -204,14 +211,14 @@ export class AddScholarshipComponent implements OnInit {
         break;
     }
 
-    console.log('editLocation this[type]', this[type]);
+    
   }
 
   removeLocation(index:number,type:string, value:string){
 
     
-    console.log('removeLocation', index,type, value);
-    console.log('this[type]', this[type]);
+    
+    
     
     this[type].splice(index,1);
     
@@ -274,15 +281,12 @@ export class AddScholarshipComponent implements OnInit {
       default:
         break;
     }
-    console.log('editLocation', index, event.target.value);
+    
   }
 
   setActiveLocation(event:any, type:string, value: any[]){
     //value will be an array of locations, we are looking for the
     //value where event.value == value[i].type
-    
-    console.log('setActiveLocation before',this.activeCountry);
-    console.log('setActiveLocation before event',event);
     switch (type) {
       case 'country':
         {
@@ -300,7 +304,7 @@ export class AddScholarshipComponent implements OnInit {
         for (var i = 0; i < this.provinces.length; i++) {
           var element = this.provinces[i];
           if(element.province==this.activeProvince.province){
-            console.log('match  element.province,this.activeProvince', element.province,this.activeProvince);
+            
             this.activeProvince.country = element.country;
             break;
           }
@@ -312,7 +316,7 @@ export class AddScholarshipComponent implements OnInit {
       default:
         break;
   }
-    console.log('setActiveLocation AFTER',this.activeCountry);
+    
   }
 
   trackByFn(index: any, item: any) {
@@ -356,6 +360,7 @@ export class AddScholarshipComponent implements OnInit {
       scholarship => {
         this.scholarship = scholarship;
 
+
         //If the current scholarship has a web form and the web_form_entries have not been defined, initialize them with default values
         if(this.scholarship.submission_info.application_form_type=='Web' && !this.scholarship.submission_info.web_form_entries){
          this.scholarship.submission_info.web_form_entries = [
@@ -385,21 +390,23 @@ export class AddScholarshipComponent implements OnInit {
           .subscribe(
             user => {
               this.scholarshipOwner = user;
-              console.log('edit-scholarship, ngOnInit: ', this.scholarship);
+              if (this.userId==this.scholarship.owner) {
+                this.isOwner = true;
+              }
               this.arrayToString();
               
             },
             err => {
-              console.log(err);
-            }
+              
+            },
           )
         }
 
         this.initializeLocations();
       },
       err => {
-        console.log(err);
-      }
+        
+      },
     );
   }
 
@@ -407,7 +414,7 @@ export class AddScholarshipComponent implements OnInit {
     let dialogRef = this.dialog.open(AddQuestionModalComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('dialogRef.afterClosed().subscribe(result => ', result);
+        
         this.scholarship.extra_questions[result.key] = result;
       }      
     });
@@ -436,11 +443,17 @@ export class AddScholarshipComponent implements OnInit {
 
   generateArray(obj){
     return Object.keys(obj).map((key)=>{ return obj[key]});
- }
-  createScholarship(scholarshipForm) {
+  }
 
+  saveScholarship(scholarshipForm) {
+
+    if(this.editMode && !this.isOwner){
+      this.snackBar.open("You are not authorized to make Changes", '', {
+        duration: 3000
+      });
+      return;
+    }
     if (scholarshipForm.valid) {
-      console.log('createScholarship, this.scholarship: ',this.scholarship);
       let postOperation: Observable<Scholarship>;
       this.scholarship.owner = this.userId;
 
@@ -456,18 +469,20 @@ export class AddScholarshipComponent implements OnInit {
       }
 
 
-      console.log('createScholarship, sendData: ',sendData);
+      
 
       if(this.editMode){
+
+        
         this.scholarshipService.updateAny(sendData)
         .subscribe(
           res =>{
-            console.log('scholarshipService.update res', res);
+            
             this.snackBar.open("Scholarship succesfully Saved", '', {
               duration: 3000
             });
           },
-          err => {console.log('scholarshipService.update err', err);
+          err => {
             this.snackBar.open("Error - " + err, '', {
             duration: 3000
           });
@@ -481,7 +496,7 @@ export class AddScholarshipComponent implements OnInit {
         
         postOperation.subscribe(
           data => {
-            console.log('scholarship created:',data)
+            
             this.snackBar.open("Scholarship succesfully created", '', {
               duration: 3000
             });
@@ -506,7 +521,7 @@ export class AddScholarshipComponent implements OnInit {
   }
 
   scholarshipAppFormChangeEvent(fileInput: any){
-    console.log("fileInput:", fileInput);
+    
     this.scholarshipFormFile = fileInput.target.files[0];  
   }
   
@@ -523,14 +538,14 @@ export class AddScholarshipComponent implements OnInit {
       id: this.scholarship.id,
       fieldName: 'form_url'
     }
-    console.log('this.scholarshipFormFile',this.scholarshipFormFile)
+    
     this.appFormFile.path = "scholarships/" + this.scholarship.id + "/scholarship-templates/"
     this.appFormFile.path = this.appFormFile.path + this.appFormFile.name
-    console.log('this.appFormFile',this.appFormFile);
+    
     
     this.fileUpload(this.appFormFile)
     .subscribe(
-      res => console.log('uploadScholarshipAppForm, subscribe() res', res)
+      res => console.log('this.fileUpload() res:',res),
     )
   
   }
@@ -546,15 +561,15 @@ export class AddScholarshipComponent implements OnInit {
     /**
      * Refactor this into a firebase service, using streaming of observables.
      */
-    console.log("uploadFileInternal: res",res,'uploadFile',uploadFile);
+    
     
     let config;
     config = res['api_key'];
-    console.log("config",config);
+    
     if (!firebase.apps.length) {
       firebase.initializeApp(config);
     }
-    console.log("firebase after config",firebase);
+    
     uploadFile.name = config.toString();
     //why does google documentation use var instead of ref
     
@@ -567,8 +582,8 @@ export class AddScholarshipComponent implements OnInit {
       size: uploadFile.file.size,
       name: uploadFile.file.name,
     };
-    console.log('uploadRef',uploadRef)
-    console.log('uploadRef.getDownloadURL()',uploadRef.getDownloadURL());
+    
+    
       var uploadTask = uploadRef.put(uploadFile.file, metadata);
       
       //https://firebase.google.com/docs/storage/web/upload-files?authuser=0
@@ -583,16 +598,16 @@ export class AddScholarshipComponent implements OnInit {
         // Observe state change events such as progress, pause, and resume
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log('Upload is ' + progress + '% done');
+        
       },
         (error)=> {
-        console.log(error);
+        
       },
         () => {
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         //var downloadURL = uploadTask.snapshot.downloadURL;
-        console.log('Finished upload: uploadTask.snapshot', uploadTask.snapshot );
+        
         this.scholarship.form_url = uploadTask.snapshot.downloadURL;
         this.showUploadLoading = false;
                                                           
@@ -606,14 +621,14 @@ export class AddScholarshipComponent implements OnInit {
     // See createLocations() int edit-scholarship or add-scholarship.component.ts
     for (var index = 0; index < this.scholarship.country.length; index++) {
       var element = this.scholarship.country[index];
-      this.countries.push({
+      this.locationList.push({
         'country': element.name
       });
     }
 
     for (var index = 0; index < this.scholarship.province.length; index++) {
       var element = this.scholarship.province[index];
-      this.provinces.push({
+      this.locationList.push({
         'country': element.country,
         'province':element.name
       });
@@ -621,37 +636,39 @@ export class AddScholarshipComponent implements OnInit {
 
     for (var index = 0; index < this.scholarship.city.length; index++) {
       var element = this.scholarship.city[index];
-      this.cities.push({
+      this.locationList.push({
         'country': element.country,
         'province':element.province,
         'city': element.name,
       });
     }
+
+
   }
   
+  deleteLocationRow(index: number){
+    this.locationList.splice(index,1)
+  }
   saveTableChanges(tableData: any[]){
     this.webForms = tableData;
-    console.log('saveTableChanges() tableData: ', tableData);
-    console.log('saveTableChanges() this.webForms: ', this.webForms);
-    console.log('saveTableChanges() this.scholarship.submission_info: ', this.scholarship.submission_info);
     this.scholarship.submission_info.web_form_entries= tableData;
-    console.log('saveTableChanges() this.scholarship',this.scholarship)
+    
   }
   saveEditScholarship(scholarshipForm: NgForm) {
     
-    console.log('!!this.scholarship.extra_questions', !!this.scholarship.extra_questions);
+    
 
     if (scholarshipForm.valid){
       this.scholarshipService.update(this.scholarship)
       .subscribe(
         res =>{
           this.scholarship = res,
-          console.log('scholarshipService.update res', res);
+          
           this.snackBar.open("Scholarship succesfully Saved", '', {
             duration: 3000
           });
         },
-        err => {console.log('scholarshipService.update err', err);
+        err => {
           this.snackBar.open("Error - " + err, '', {
           duration: 3000
         });
@@ -668,8 +685,8 @@ export class AddScholarshipComponent implements OnInit {
     i =0;
       for(var element in this.scholarship[key]){ //i.e. for each value within the city key, append each city value to a city string
           if(i==0){
-            console.log('city',);
-            console.log('this.scholarship.city[city]',this.scholarship[key]);
+            
+            
             this.stringDict[key]= element;
           }
           else{
@@ -679,6 +696,12 @@ export class AddScholarshipComponent implements OnInit {
       }
 
     }
+
+
+    if(this.editMode && !this.isOwner){
+      $("#scholarshipForm :input").prop("disabled", true);
+    }
+
 
   }
   
@@ -693,11 +716,13 @@ export class AddScholarshipComponent implements OnInit {
    * https://stackoverflow.com/questions/42341930/google-places-autocomplete-angular2
    */
   placeAutoComplete(placeResult:any, locationModel: NgModel){ //Assign types to the parameters place result is a PlaceResult Type, see documentation
-    console.log('Preview.componenent placeAutoComplete() event: ', placeResult, 'location: ', location);
+    
 
     this.predictLocation(this.locationInput, placeResult);
     
   }
+
+
 
   /**
    * Translate the PlaceResult object into an Atila location object, containing only the city, province/state and country.
@@ -711,12 +736,12 @@ export class AddScholarshipComponent implements OnInit {
 
     //TODO: Find a more elegant solution for this.
     //remove the autocomplet original query
-    console.log('BEFORE delete this.locationInput', this.locationInput);
+    
     this.locationInput = {};
     
-    console.log('AFTER delete this.locationInput', this.locationInput);
+    
     addressComponents.forEach(element => {
-      console.log('addressComponents.forEach(element', element);
+      
       if(element.types[0]=='locality' || element.types[0]=='administrative_area_level_3'){
         this.locationInput.city = element.long_name;
         this.locationInput.name = this.locationInput.city;
@@ -734,13 +759,13 @@ export class AddScholarshipComponent implements OnInit {
     //prevent changes in locationInput to be tracked in LocationList
     this.locationList.push(JSON.parse(JSON.stringify(this.locationInput)));
 
-    console.log('locationList:', this.locationList);
+    
 
     
 
     
   }
-/**
+  /**
  * If the Google Place API did not load, then change the placeholder message to only ask for a city (or country?).
  */
   googlePlaceNoLoad(){
@@ -751,18 +776,18 @@ export class AddScholarshipComponent implements OnInit {
    * If user presses enter on location button, don't allow the form to submit because we still need to pull the location Data from Google Maps.
    */
   keyDownHandler(event: Event) {
-    console.log('keyDownHandler, regular key press NBD ', event);
+    
     
     if((<KeyboardEvent>event).keyCode == 13) {
-      console.log('you just clicked enter');
+      
       // rest of your code
-      console.log('keyDownHandler', event);
+      
 
       event.preventDefault(); 
     }
     //TODO! Change this, allow user to submit with enterButton.
   }
-  }
+}
 
 
 
