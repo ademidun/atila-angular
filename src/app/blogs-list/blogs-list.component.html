@@ -3,10 +3,10 @@
       <div class="row">
         <h4 style="text-align: center;">Blogs</h4>
     
-        <div class="col s12 blog-box"> 
+        <div class="col s12 m8 offset-m2 blog-box"> 
           <md-card class="mat-card">
           <md-card-content>
-            <a routerLink="/blog-post-create">
+            <a routerLink="/create-blog-post">
               <button button md-icon-button >
                   Write a Blog Post
                   <md-icon  class="atila-blue" aria-hidden="true" aria-label="Add a Blog Post" md-colors="{color:'primary'}">add_circle_outline</md-icon>
@@ -16,7 +16,7 @@
                           
           </md-card>
         </div>
-        <div *ngFor="let blog of blogs; let i = index" class="col s12 blog-box"> 
+        <div *ngFor="let blog of blogs; let i = index" class="col s12 m8 offset-m2 blog-box"> 
     
     
           <md-card class="mat-card">
