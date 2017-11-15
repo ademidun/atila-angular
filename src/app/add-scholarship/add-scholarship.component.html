@@ -73,11 +73,25 @@
                         <!-- https://stackoverflow.com/questions/44227682/angular2-dynamically-add-inputs-for-an-array-of-items -->
                         
                         <!-- TODO: Check if this affects the speed of web page performance. -->
+                        
+                        {{locationList}}
                         {{ myJson.stringify(countries) }}
                         {{ myJson.stringify(provinces) }}
                         {{ myJson.stringify(cities) }}
+                        {{ myJson.stringify(locationList) }}
                         <br>
-                        <div class="row">
+                        
+                        <!-- Try using Google Maps Places Autocomplete API: https://developers.google.com/maps/documentation/javascript/places-autocomplete#address_forms -->
+                <!-- https://stackoverflow.com/questions/42341930/google-places-autocomplete-angular2 -->
+                        <md-input-container class="browser-default col s12 m4">
+                        
+                        <!-- <input mdInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
+                        <input mdInput type="text" class="form-control" required [placeholder]="locationPlaceHolder" name="location" id="location" [(ngModel)]="locationInput.city" #LocationCtrl="ngModel"
+                        appGooglePlace (setAddress)="placeAutoComplete($event,LocationCtrl)"  (googlePlaceNoLoad)="googlePlaceNoLoad()" (keydown)="keyDownHandler($event)">
+                        </md-input-container> 
+                        <!-- TODO Refactor Location Creatin manual method -->
+                        <!-- https://stackoverflow.com/questions/33700266/how-can-i-get-new-selection-in-select-in-angular-2 -->
+                        <!-- <div class="row">
                             <label> Add a country </label>
                             <div class="col s12">
                                 <div *ngFor="let country of countries; let i=index; trackBy:trackByFn">
@@ -92,7 +106,6 @@
 
                             <label> Select a Country, THEN click add a Province/State </label>
                             <div class="row">
-                                <!-- https://stackoverflow.com/questions/33700266/how-can-i-get-new-selection-in-select-in-angular-2 -->
                                     
                                 
                                 <div *ngFor="let province of provinces; let i=index; trackBy:trackByFn">
@@ -114,7 +127,6 @@
 
                             <label> Select a Province/State, THEN click Add City</label>
                             <div class="row">
-                                <!-- https://stackoverflow.com/questions/33700266/how-can-i-get-new-selection-in-select-in-angular-2 -->
                                     
                                 
                                 <div *ngFor="let city of cities; let i=index; trackBy:trackByFn">
@@ -134,7 +146,7 @@
                                 
                             </div>
 
-                        </div>
+                        </div> -->
 
                         <br>
                         <div class="row">

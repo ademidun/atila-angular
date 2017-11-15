@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import {NgForm} from '@angular/forms';
 
+import {NgModel} from '@angular/forms';
 import { UserProfileService } from '../_services/user-profile.service';
 import { AuthService } from "../_services/auth.service";
 import { Title }     from '@angular/platform-browser';
@@ -15,6 +16,7 @@ import {MdDialog, MdDialogRef} from '@angular/material';
 import {AddQuestionModalComponent} from '../add-question-modal/add-question-modal.component';
 import { MyFirebaseService } from "../_services/myfirebase.service";
 
+import { GooglePlaceDirective } from "../_directives/google-place.directive";
 import * as firebase from "firebase";
 
 @Component({
@@ -72,15 +74,23 @@ export class AddScholarshipComponent implements OnInit {
   generalInfo = true; // Display general info section
   showFormUpload = false;
   scholarshipFormFile: File;
+  scholarshipSlug;
   appFormFile: UploadFile;
   showUploadLoading=false;
+  editMode =false;
   locationData = [];
+  locationList = [];
+  locationInput: any = {
+  city: '',
+  }
+  locationPlaceHolder
   countries = [];
   provinces = []
   cities = []
 
   activeCountry = '';
   activeProvince:any = {};
+  scholarshipOwner;
 
   webForms;
   myJson = JSON;
@@ -90,11 +100,24 @@ export class AddScholarshipComponent implements OnInit {
     private scholarshipService: ScholarshipService,
     public dialog: MdDialog,
     private authService: AuthService,
-  ) { }
+    private route: ActivatedRoute,
+    private userProfileService: UserProfileService,
+    private titleService: Title,
+  ) {
+    this.scholarshipSlug = route.snapshot.params['slug']; 
+   }
 
   ngOnInit() {
     // Retrieve the user id
     this.userId = parseInt(localStorage.getItem('userId'));
+
+    if(this.scholarshipSlug){
+      this.editMode = true;
+      this.loadScholarshipDatabase();
+    }
+
+    
+
     this.loadScholarshipDefaults();
 
   }
@@ -327,6 +350,59 @@ export class AddScholarshipComponent implements OnInit {
     
   }
 
+  loadScholarshipDatabase(){
+    this.scholarshipService.getBySlug(this.scholarshipSlug)
+    .subscribe(
+      scholarship => {
+        this.scholarship = scholarship;
+
+        //If the current scholarship has a web form and the web_form_entries have not been defined, initialize them with default values
+        if(this.scholarship.submission_info.application_form_type=='Web' && !this.scholarship.submission_info.web_form_entries){
+         this.scholarship.submission_info.web_form_entries = [
+           {
+               attribute_type : '',
+               attribute_value: '',
+               question_key: ''
+           },
+         ];
+        }
+        if(this.scholarship.submission_info.application_form_type=='Web' && !this.scholarship.submission_info.web_form_parent){
+         this.scholarship.submission_info.web_form_parent = {   
+           element_type: '',
+           attribute_type : '',
+           attribute_value: '',
+         };
+        }
+        //The webForms value in the table is populated using the scholarship.submission_info.web_form_entries
+        this.webForms = this.scholarship.submission_info.web_form_entries;
+        
+        // Get the user profile of the scholarship owner
+
+        this.titleService.setTitle('Atila - Edit - ' + this.scholarship.name);
+
+        if (this.scholarship.owner){
+          this.userProfileService.getById(scholarship.owner)
+          .subscribe(
+            user => {
+              this.scholarshipOwner = user;
+              console.log('edit-scholarship, ngOnInit: ', this.scholarship);
+              this.arrayToString();
+              
+            },
+            err => {
+              console.log(err);
+            }
+          )
+        }
+
+        this.initializeLocations();
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
   openModal() {
     let dialogRef = this.dialog.open(AddQuestionModalComponent);
     dialogRef.afterClosed().subscribe(result => {
@@ -376,28 +452,53 @@ export class AddScholarshipComponent implements OnInit {
 
       let sendData = {
         'scholarship': this.scholarship,
-        'locationData': locationData,
+        'locationData': this.locationList,
       }
-      postOperation = this.scholarshipService.createAny(sendData);
 
-      postOperation.subscribe(
-        data => {
-          console.log('scholarship created:',data)
-          this.snackBar.open("Scholarship succesfully created", '', {
-            duration: 3000
-          });
-          this.showFormUpload = true;
-          this.scholarship=data;
-          // todo change to this.router.navigate(['my-scholarships'])
-          //this.router.navigate(['scholarships-list']);
-        },
-        err => {
-          this.snackBar.open("Error - " + err, '', {
+
+      console.log('createScholarship, sendData: ',sendData);
+
+      if(this.editMode){
+        this.scholarshipService.updateAny(sendData)
+        .subscribe(
+          res =>{
+            console.log('scholarshipService.update res', res);
+            this.snackBar.open("Scholarship succesfully Saved", '', {
+              duration: 3000
+            });
+          },
+          err => {console.log('scholarshipService.update err', err);
+            this.snackBar.open("Error - " + err, '', {
             duration: 3000
           });
         }
-      )
-    } else {
+        )
+      }
+
+      else{
+
+        postOperation = this.scholarshipService.createAny(sendData);
+        
+        postOperation.subscribe(
+          data => {
+            console.log('scholarship created:',data)
+            this.snackBar.open("Scholarship succesfully created", '', {
+              duration: 3000
+            });
+            this.showFormUpload = true;
+            this.scholarship=data;
+            // todo change to this.router.navigate(['my-scholarships'])
+            //this.router.navigate(['scholarships-list']);
+          },
+          err => {
+            this.snackBar.open("Error - " + err, '', {
+              duration: 3000
+            });
+          }
+        )
+      }
+    } 
+    else {
       this.snackBar.open("Invalid form", '', {
         duration: 3000
       });
@@ -500,6 +601,33 @@ export class AddScholarshipComponent implements OnInit {
     
   }
 
+
+  initializeLocations(){
+    // See createLocations() int edit-scholarship or add-scholarship.component.ts
+    for (var index = 0; index < this.scholarship.country.length; index++) {
+      var element = this.scholarship.country[index];
+      this.countries.push({
+        'country': element.name
+      });
+    }
+
+    for (var index = 0; index < this.scholarship.province.length; index++) {
+      var element = this.scholarship.province[index];
+      this.provinces.push({
+        'country': element.country,
+        'province':element.name
+      });
+    }
+
+    for (var index = 0; index < this.scholarship.city.length; index++) {
+      var element = this.scholarship.city[index];
+      this.cities.push({
+        'country': element.country,
+        'province':element.province,
+        'city': element.name,
+      });
+    }
+  }
   
   saveTableChanges(tableData: any[]){
     this.webForms = tableData;
@@ -533,9 +661,107 @@ export class AddScholarshipComponent implements OnInit {
           
   }
   
+  arrayToString(){
+    var i =0;
+    //convert the various JSOn values to string for displaying in the text input
+    for (var key in this.stringDict){//for each key [ 'city', 'proince',...] 
+    i =0;
+      for(var element in this.scholarship[key]){ //i.e. for each value within the city key, append each city value to a city string
+          if(i==0){
+            console.log('city',);
+            console.log('this.scholarship.city[city]',this.scholarship[key]);
+            this.stringDict[key]= element;
+          }
+          else{
+            this.stringDict[key] = this.stringDict[key] + ", " + element;
+          }
+          i++;
+      }
+
+    }
+
+  }
   
+  //Location Google API
+
+    /**
+   * Adding Google Places API Autocomplete for User Location:
+   * @param {google.maps.places.PlaceResult} placeResult
+   * https://developers.google.com/maps/documentation/javascript/reference#PlaceResult
+   * https://developers.google.com/maps/documentation/javascript/places-autocomplete#address_forms
+   * https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform
+   * https://stackoverflow.com/questions/42341930/google-places-autocomplete-angular2
+   */
+  placeAutoComplete(placeResult:any, locationModel: NgModel){ //Assign types to the parameters place result is a PlaceResult Type, see documentation
+    console.log('Preview.componenent placeAutoComplete() event: ', placeResult, 'location: ', location);
+
+    this.predictLocation(this.locationInput, placeResult);
+    
+  }
+
+  /**
+   * Translate the PlaceResult object into an Atila location object, containing only the city, province/state and country.
+   * @param location 
+   * @param placeResult 
+   */
+  predictLocation(location, placeResult){
+    var addressComponents = placeResult.address_components ;
+
+    var keys = ['city', 'province', 'country'];
+
+    //TODO: Find a more elegant solution for this.
+    //remove the autocomplet original query
+    console.log('BEFORE delete this.locationInput', this.locationInput);
+    this.locationInput = {};
+    
+    console.log('AFTER delete this.locationInput', this.locationInput);
+    addressComponents.forEach(element => {
+      console.log('addressComponents.forEach(element', element);
+      if(element.types[0]=='locality' || element.types[0]=='administrative_area_level_3'){
+        this.locationInput.city = element.long_name;
+        this.locationInput.name = this.locationInput.city;
+      }
+
+      if(element.types[0]=='administrative_area_level_1'){
+        this.locationInput.province = element.long_name;
+      }
+
+      if(element.types[0]=='country'){
+        this.locationInput[element.types[0]] = element.long_name;
+      }
+    });
+
+    //prevent changes in locationInput to be tracked in LocationList
+    this.locationList.push(JSON.parse(JSON.stringify(this.locationInput)));
+
+    console.log('locationList:', this.locationList);
+
+    
+
+    
+  }
+/**
+ * If the Google Place API did not load, then change the placeholder message to only ask for a city (or country?).
+ */
+  googlePlaceNoLoad(){
+    this.locationPlaceHolder = 'City'
+  }
   
-  
+  /**
+   * If user presses enter on location button, don't allow the form to submit because we still need to pull the location Data from Google Maps.
+   */
+  keyDownHandler(event: Event) {
+    console.log('keyDownHandler, regular key press NBD ', event);
+    
+    if((<KeyboardEvent>event).keyCode == 13) {
+      console.log('you just clicked enter');
+      // rest of your code
+      console.log('keyDownHandler', event);
+
+      event.preventDefault(); 
+    }
+    //TODO! Change this, allow user to submit with enterButton.
+  }
   }
 
 
