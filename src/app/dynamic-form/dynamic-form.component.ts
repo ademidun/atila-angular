@@ -46,6 +46,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   uploadFile: UploadFile;
   showAutomationLoading=false;
   cusomEmail: any;
+  timeOfDay;
 
   // A base 64 encoded string image of the screenshot of the automated web form before and After Submission.
   preAndPostScreenshots: any[];
@@ -80,57 +81,59 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
    */
   saveApplication(event: Event){
     // First, we will save the URLs of the uploaded documents
-    event.preventDefault();
-    var results = document.getElementsByClassName("scholarship-document");
-    console.log('saveDocuments().results',results);
-    console.log('saveDocuments().event',event);
-    for (var i = 0; i < results.length; i++) {
-      let documentKey = results[i].getAttribute("name");
-      let documentUrl = results[i].getAttribute("href"); 
-      this.generalData.documentUploads[documentKey] = documentUrl;
-  }
+      event.preventDefault();
+      var results = document.getElementsByClassName("scholarship-document");
+      console.log('saveDocuments().results',results);
+      console.log('saveDocuments().event',event);
+      for (var i = 0; i < results.length; i++) {
+        let documentKey = results[i].getAttribute("name");
+        let documentUrl = results[i].getAttribute("href"); 
+        this.generalData.documentUploads[documentKey] = documentUrl;
+      }
 
-  console.log('saveDocuments().this.generalData.documentUploads',this.generalData.documentUploads);
-  
-  //Next, we will save the application edits to the database.
-  this.showAutomationLoading = true;
-  this.payLoad = this.form.value;
-
-
-  for(var key in this.generalData.documentUploads) {
     
-    this.payLoad[key]= this.generalData.documentUploads[key];
+    console.log('saveDocuments().this.generalData.documentUploads',this.generalData.documentUploads);
+    
+    //Next, we will save the application edits to the database.
+    this.showAutomationLoading = true;
+    this.payLoad = this.form.value;
 
-  }
 
+    for(var key in this.generalData.documentUploads) {
+      
+      this.payLoad[key]= this.generalData.documentUploads[key];
 
-  this.payLoad = JSON.stringify(this.payLoad);
-  var sendData = {
-    //'generalData': this.generalData,We only need 
-    'profileForm': this.profileForm.value,
-    'appForm': this.form.value,
-    'documentUrls':this.generalData.documentUploads,
-  }
-  var appId = this.generalData.appData.id;
-
-  console.log('saveApplication() sendData:' , sendData);
-  
-  this.observable = this.questionService.saveResponse(appId,sendData);
-  this.observable.subscribe(
-    res => {
-      console.log('dynamic form submision Response succesful:' , res);
-      this.payLoad = JSON.stringify(res.message);
-    },
-    err =>{
-      console.log('Error DynamicFormComponent:' , err);
-      this.showAutomationLoading = false;
-      this.payLoad = JSON.stringify(err.message);
-
-    },
-    () => {
-      this.showAutomationLoading = false;
     }
-  )
+
+
+    this.payLoad = JSON.stringify(this.payLoad);
+    var sendData = {
+      //'generalData': this.generalData,We only need 
+      'profileForm': this.profileForm.value,
+      'appForm': this.form.value,
+      'documentUrls':this.generalData.documentUploads,
+    }
+    var appId = this.generalData.appData.id;
+
+
+    console.log('saveApplication() sendData:' , sendData);
+    
+    this.observable = this.questionService.saveResponse(appId,sendData);
+    this.observable.subscribe(
+      res => {
+        console.log('dynamic form submision Response succesful:' , res);
+        this.payLoad = JSON.stringify(res.message);
+      },
+      err =>{
+        console.log('Error DynamicFormComponent:' , err);
+        this.showAutomationLoading = false;
+        this.payLoad = JSON.stringify(err.message);
+
+      },
+      () => {
+        this.showAutomationLoading = false;
+      }
+    )
 
   }
 
@@ -313,6 +316,17 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   }
   
   generateCustomEmail(){
+      var myDate = new Date();
+      var hrs = myDate.getHours();
+    
+    
+      if (hrs < 12)
+          this.timeOfDay = 'Morning';
+      else if (hrs >= 12 && hrs <= 17)
+          this.timeOfDay = 'Afternoon';
+      else if (hrs >= 17 && hrs <= 24)
+          this.timeOfDay = 'Evening';
+
     var bodySentence = [
       'This email contains my application for the' +  this.generalData.scholarship.name+', please see attatched.',
       'This email is in response to the' +  this.generalData.scholarship.name+'. Please see attatched for the relevant documents.',

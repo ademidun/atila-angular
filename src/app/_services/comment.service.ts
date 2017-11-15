@@ -80,7 +80,10 @@ export class CommentService {
 
       case 'Scholarship':
         return 'http://127.0.0.1:8000/scholarships/';
-    
+
+      case 'BlogPost':
+        return 'http://127.0.0.1:8000/blog/blog-posts/';
+  
       default:
         break;
     }
@@ -91,6 +94,10 @@ export class CommentService {
 
     if ( comment.hasOwnProperty('forum') ) {
       return 'http://127.0.0.1:8000/forum/forum-comments/';
+      
+    }
+    else if( comment.hasOwnProperty('blog_post') ) {
+      return 'http://127.0.0.1:8000/blog/blog-comments/';
       
     }
     else if( comment.hasOwnProperty('scholarship') ) {

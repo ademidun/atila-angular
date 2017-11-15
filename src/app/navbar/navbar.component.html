@@ -5,7 +5,7 @@
 
       <!-- Show on Desktop  -->
       <ul class="right hide-on-med-and-down">
-        <li *ngIf="!authService.isLoggedIn;else loggedIn"><a class="atila-blue" routerLink="/login">Register/Log In</a></li>
+        <li *ngIf="!authService.isLoggedIn;else loggedIn"><a class="atila-blue" routerLink="/login">Log In</a></li>
 
         <span *ngIf="authService.isLoggedIn">
             <button md-icon-button [mdMenuTriggerFor]="menu">
@@ -35,11 +35,10 @@
                 </a>
               </md-menu>
               
-
               <li>
-                  <a routerLink="/add-scholarship">
+                  <a routerLink="/blog">
                     <button button md-icon-button >
-                        <md-icon  class="atila-blue" aria-hidden="true" aria-label="Add a Scholarship" md-colors="{color:'primary'}">add_circle_outline</md-icon>
+                        <md-icon  class="atila-blue" aria-hidden="true" aria-label="See Blogs" md-colors="{color:'primary'}">chrome_reader_mode</md-icon>
                     </button>
                   </a>
                 </li>
@@ -60,16 +59,27 @@
                 </button>
               </a>
               </li>
+              
+            <li>
+                <a routerLink="/add-scholarship">
+                  <button button md-icon-button >
+                      <md-icon  class="atila-blue" aria-hidden="true" aria-label="Add a Scholarship" md-colors="{color:'primary'}">add_circle_outline</md-icon>
+                  </button>
+                </a>
+              </li>
 
 
         </span>
       </ul>
 
-      <!-- Show on Mobile  -->
+      <!-- Show on Mobile  -->        
+      
+      <span *ngIf="authService.isLoggedIn">
       <button md-icon-button [mdMenuTriggerFor]="mobileMenu" class= "left hide-on-large-only">
           <md-icon>menu</md-icon>
        </button>
        <md-menu #mobileMenu="mdMenu" [overlapTrigger]="false">
+
 
           <a routerLink="/messages">
             <button md-menu-item>
@@ -83,42 +93,57 @@
             </button>
           </a>
 
+          <a routerLink="/blog">
+            <button md-menu-item>
+                <span>Blogs</span>
+            </button>
+          </a>
+
           <a (click)="logout()">
             <button md-menu-item>
               <span>Logout</span>
             </button>
           </a>
       </md-menu>
+      </span>
 
       <!-- Show on Mobile  -->
-      <button md-icon-button [mdMenuTriggerFor]="profileMenu" class= "right hide-on-large-only">
-          <md-icon>perm_identity</md-icon>
-       </button>
-       <md-menu #profileMenu="mdMenu" [overlapTrigger]="false">
-          <a *ngIf="userProfile" [routerLink]="['/profile', userProfile.username]">
-            <button button md-menu-item >
-              <span>My profile</span>
-            
-            </button>
-          </a>
-          <a routerLink="/edit-profile">
-            <button md-menu-item>
-              <span>Edit profile</span>
-            </button>
-          </a>
+      <span *ngIf="authService.isLoggedIn">
+        <button md-icon-button [mdMenuTriggerFor]="profileMenu" class= "right hide-on-large-only">
+            <md-icon>perm_identity</md-icon>
+        </button>
+        <md-menu #profileMenu="mdMenu" [overlapTrigger]="false">
+              <a routerLink="/add-scholarship">
+                <button md-menu-item>
+                    <span>Add Scholarship</span>
+                </button>
+              </a>
+              <a *ngIf="userProfile" [routerLink]="['/profile', userProfile.username]">
+                <button button md-menu-item >
+                  <span>My profile</span>
+                
+                </button>
+              </a>
+              <a routerLink="/edit-profile">
+                <button md-menu-item>
+                  <span>Edit profile</span>
+                </button>
+              </a>
 
-          <a (click)="logout()">
-            <button md-menu-item>
-              <span>Logout</span>
-            </button>
-          </a>
-      </md-menu>
-      
-      <a routerLink="/messages" class="right hide-on-large-only">
+            <a (click)="logout()">
+              <button md-menu-item>
+                <span>Logout</span>
+              </button>
+            </a>
+          </md-menu>
+      </span>
+      <a *ngIf="authService.isLoggedIn" routerLink="/messages" class="right hide-on-large-only">
         <button button md-icon-button >
             <md-icon  class="atila-blue" aria-hidden="true" md-colors="{color:'primary'}">email</md-icon>
         </button>
       </a>
+      <a *ngIf="!authService.isLoggedIn" routerLink="/login" class="atila-blue right hide-on-large-only">Login</a>
+
 
 
     </div>

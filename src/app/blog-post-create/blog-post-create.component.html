@@ -1,19 +1,68 @@
 <div class="container">
   <div class="row">
 
-    <div class="col s12">
-      <h1> {{blogPost.title}} </h1>
-    <textarea id="{{elementId}}"></textarea>
+    <div class="col s11">
+      <h3> {{blogPost.title}} </h3>
+
+      <md-card class="forum-card">
+          
+      <md-card-content>
+          <input id="forum_title" placeholder="Title" [(ngModel)]="blogPost.title" (change)="titleToSlug(blogSlugInput)">
+
+        <a (click)="extraBlogOptions = !extraBlogOptions"  href="javascript:undefined">More Settings</a>
+        
+        <div [hidden]="!extraBlogOptions">
+
+        <div class="row">
+
+            <div class="col s12 l5">
+                <label>Paste an image url for blog Post Header Image</label>
+              <input [(ngModel)]="blogPost.header_image_url" class="browser-default" id="header_image_url" type="text" placeholder="Paste header image url"
+                 #uploadPicInput name="header_image_url">
+            </div>
+            <div class="col s12 l5">
+                <label>Or upload a blog Post Header Image</label>
+              <input class="browser-default" id="header_image_url_file" type="file" placeholder="Upload your Header Image"
+                 #uploadPicInput name="header_image_url_file">
+            </div>
+            
+            <md-progress-bar style="margin-bottom: 1%;" *ngIf="uploadProgress" mode="determinate" [value]="uploadProgress"></md-progress-bar>
+
+            <div class="col s6 l2">
+              <button md-raised-button class="btn white-text" (click)="uploadPicture(uploadPicInput)">Upload</button>
+            </div>
+
+        </div>
+
+          <span class="example-tooltip-host" mdTooltip="A short preview of your article. Used for social media or search engines." mdTooltipPosition="below">
+            <md-icon aria-label="Why add a description">help_outline</md-icon>
+          </span>
+          <input id="blog_post_description" class="prefix_input" placeholder="Blog preview" [(ngModel)]="blogPost.description">
+          <div><span *ngIf="userProfile" id="url_prefix">atila.ca/blog/{{userProfile.username}}/</span>
+            <input class="prefix_input" #blogSlugInput type="text" [(ngModel)]="blogPost.slug" placeholder="Blog URL">
+          </div>
+        </div>
+          
+      </md-card-content>
+
+      <md-card-actions>
+          <button md-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveBlog('false')">Save</button>
+      </md-card-actions>
+                      
+      </md-card>
+
+    <textarea id="{{editorId}}"></textarea>
+    <button md-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveBlog('false')">Save</button>
+    <button md-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveBlog('true')">Publish</button>
     </div>
 
     <br>
-    <div [innerHTML]="blogPost.html"></div>
-    <div class="col s12">
-        {{ blogPost.html }}
-        {{myJson.stringify(this.blogPost)}}
+    <div style="margin-top:3%" class="col m8 offset-m2 l8 offset-l2 s11">
+      <h5>Preview</h5>
+      <h3> {{blogPost.title}} </h3>
+      <img [src]="blogPost.header_image_url" style="max-height: 100%;max-width: 100%;"/>
     </div>
-    {{ blogPost.html }}
-    myJson.stringify(this.blogPost)
-    {{myJson.stringify(this.blogPost)}}
+    <div [innerHTML]="blogPost.body" class="col m8 offset-m2 l8 offset-l2 s11"></div>
+    
   </div>
 </div>

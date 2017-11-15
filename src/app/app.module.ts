@@ -52,6 +52,8 @@ import { CommentComponent } from './comment/comment.component';
 import { BlogsListComponent } from './blogs-list/blogs-list.component';
 import { BlogPostCreateComponent } from './blog-post-create/blog-post-create.component';
 import { HtmlEditorComponent } from './html-editor/html-editor.component';
+import { BlogPostService } from './_services/blog-post.service';
+import { BlogPostDetailComponent } from './blog-post-detail/blog-post-detail.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +85,8 @@ import { HtmlEditorComponent } from './html-editor/html-editor.component';
     CommentComponent,
     BlogsListComponent,
     BlogPostCreateComponent,
-    HtmlEditorComponent
+    HtmlEditorComponent,
+    BlogPostDetailComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -104,7 +107,8 @@ import { HtmlEditorComponent } from './html-editor/html-editor.component';
        MyFirebaseService,
        CommentService,
        MessagingService,
-       ForumService,],
+       ForumService,
+       BlogPostService,],
   bootstrap: [AppComponent],
   entryComponents: [
     AddQuestionModalComponent,

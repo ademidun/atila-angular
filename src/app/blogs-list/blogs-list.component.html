@@ -1,3 +1,51 @@
-<p>
-  blogs-list works!
-</p>
+<div class="container">
+    
+      <div class="row">
+        <h4 style="text-align: center;">Blogs</h4>
+    
+        <div class="col s12 blog-box"> 
+          <md-card class="mat-card">
+          <md-card-content>
+            <a routerLink="/blog-post-create">
+              <button button md-icon-button >
+                  Write a Blog Post
+                  <md-icon  class="atila-blue" aria-hidden="true" aria-label="Add a Blog Post" md-colors="{color:'primary'}">add_circle_outline</md-icon>
+              </button>
+            </a>
+          </md-card-content>
+                          
+          </md-card>
+        </div>
+        <div *ngFor="let blog of blogs; let i = index" class="col s12 blog-box"> 
+    
+    
+          <md-card class="mat-card">
+    
+              <md-card-header>
+              <md-card-title><a routerLink="/blog/{{blog.author.username}}/{{blog.slug}}"><h5>{{blog.title | truncate:50}}</h5></a></md-card-title>
+              <md-card-subtitle class="card-text">
+              <small>{{blog.date_created | date:'medium'}}</small>
+              <span *ngIf="blog.author"><a routerLink="/profile/{{blog.author.username}}">{{blog.author.first_name}} {{blog.author.last_name}}</a> </span>
+              </md-card-subtitle>
+            </md-card-header>
+            <img md-card-image class="my-md-card-image" src="{{blog.header_image_url}}">
+            <md-card-content>
+                <p class="card-text">
+                    {{blog.description | truncate:200}}
+                </p> 
+            </md-card-content>
+    
+            <md-card-actions>
+                
+                  <md-icon class="md-24" aria-label="Like the comment">thumb_up</md-icon>{{blog.up_votes_count}}
+      
+                  <md-icon class="md-24" aria-label="Dislike the comment">thumb_down</md-icon>{{blog.down_votes_count}}
+      
+              </md-card-actions>
+    
+          </md-card>
+    
+        </div>
+      </div>
+    
+    </div>

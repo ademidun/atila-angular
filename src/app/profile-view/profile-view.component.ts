@@ -66,8 +66,6 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
     
     $('.mat-card-header-text').css('display','none');
     
-
-
     console.log('ngAfterContentInit to hide .mat-card-header-text AFTER',$('.mat-card-header-text'));
   }
 
