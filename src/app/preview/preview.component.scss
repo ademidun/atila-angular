@@ -59,7 +59,7 @@
     color:$tertiary;
   }
 
-  @media (min-width:320px), (min-width:481px)   {
+  @media (max-width:320px), (max-width:481px)   {
      /* smartphones, iPhone, portrait 480x320 phones */
      /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
 
@@ -69,6 +69,7 @@
     }
     .subheader{
       padding-top: 50%;
+      width: 100%;
     }
 
 }

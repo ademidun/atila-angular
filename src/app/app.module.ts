@@ -54,6 +54,11 @@ import { BlogPostCreateComponent } from './blog-post-create/blog-post-create.com
 import { HtmlEditorComponent } from './html-editor/html-editor.component';
 import { BlogPostService } from './_services/blog-post.service';
 import { BlogPostDetailComponent } from './blog-post-detail/blog-post-detail.component';
+import { AuthGuard } from './_guards/auth.guard';
+
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
+import { TokenInterceptor } from './_services/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -99,7 +104,8 @@ import { BlogPostDetailComponent } from './blog-post-detail/blog-post-detail.com
     HttpModule,
     MdDialogModule,
     MdIconModule,
-    TableLayoutModule
+    TableLayoutModule,
+    HttpClientModule,
   ],
   providers: [ScholarshipService, UserProfileService,
      AuthService, ApplicationService,
@@ -108,7 +114,14 @@ import { BlogPostDetailComponent } from './blog-post-detail/blog-post-detail.com
        CommentService,
        MessagingService,
        ForumService,
-       BlogPostService,],
+       BlogPostService,
+       AuthGuard,
+       {
+        provide: HTTP_INTERCEPTORS,
+        useClass: TokenInterceptor,
+        multi: true
+      },
+    ],
   bootstrap: [AppComponent],
   entryComponents: [
     AddQuestionModalComponent,

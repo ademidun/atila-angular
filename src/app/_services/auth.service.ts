@@ -10,7 +10,10 @@ export class AuthService {
   private usernameUrl = 'http://127.0.0.1:8000/user-name/';
   private apiKeyUrl = 'http://127.0.0.1:8000/api-keys/';
   public  isLoggedIn: boolean = false; //should this be private or protected?
-  constructor(private http: Http) { }
+  token: string;
+  constructor(private http: Http) {
+    this.token = localStorage.token;
+   }
 
   
   logout() {
@@ -20,15 +23,20 @@ export class AuthService {
   }
 
   login(credentials: any) {
+    console.log('auth.service this',this);
     return this.http.post(this.loginUrl, credentials)
-       .map(this.getToken)
+       .map(this.extractToken)
        .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
    }
 
-   private getToken(res: Response) {
+   private extractToken(res: Response) {
     let body = res.json();
-
+    this.token = body.token;
     return body || { };
+  }
+
+  public getToken(): string {
+    return localStorage.getItem('token');
   }
 
   getUser(userId: any){

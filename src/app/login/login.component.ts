@@ -47,6 +47,7 @@ export class LoginComponent implements OnInit {
 
           this.auth.isLoggedIn = true;
           this.router.navigate(["/scholarships-list"]);
+          console.log('login.componenent this.auth',this.auth);
         },
         err => {
           this.snackBar.open("Incorrect login credentials", '', {

@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
 
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
 import { User } from '../_models/user';
 
 import { Observable } from 'rxjs/Rx';
 
 import { UserProfile } from '../_models/user-profile';
+import { AuthService } from "./auth.service";
+
+import { MdSnackBar } from '@angular/material';
 @Injectable()
 export class UserProfileService {
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient,
+                private authService: AuthService,
+                private snackBar: MdSnackBar,) { }
   private userEndpoint = 'http://127.0.0.1:8000/users/';
   
   private userProfileEndpoint = 'http://127.0.0.1:8000/user-profiles/';
@@ -17,26 +22,22 @@ export class UserProfileService {
 
 
   createUser(user: User) {
-    let headers = new Headers({ 'Content-Type': 'application/json', });
-    // headers.append("Authorization","JWT YW5ndWxhci13YXJlaG91c2Utc2VydmljZXM6MTIzNDU2");
-    let options = new RequestOptions({ headers: headers, });
     
-    return this.http.post(this.userEndpoint, user, options)
+    return this.http.post(this.userEndpoint, user)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
   createUserAndProfile(data: any) {
-    let headers = new Headers({ 'Content-Type': 'application/json', });
-    // headers.append("Authorization","JWT YW5ndWxhci13YXJlaG91c2Utc2VydmljZXM6MTIzNDU2");
-    let options = new RequestOptions({ headers: headers, });
     
-    return this.http.post(this.userEndpoint, data, options)
+    return this.http.post(this.userEndpoint, data)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
     getById(id: number): Observable<UserProfile> {
+        // add authorization header with jwt token
+        console.log('getById options', this.authService.getToken());
         return this.http.get(`${this.userProfileEndpoint}${id}/`)
         .map(this.extractData)
         .catch(this.handleError);
@@ -59,10 +60,8 @@ export class UserProfileService {
     }
 
     update(profile: UserProfile) {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers});
   
-        return this.http.put(`${this.userProfileEndpoint}${profile['user']}/`, profile, this.jwt())
+        return this.http.put(`${this.userProfileEndpoint}${profile['user']}/`, profile)
           .map(this.extractData)
           .catch(this.handleError);
     }
@@ -82,33 +81,24 @@ export class UserProfileService {
             userProfile: userProfile,
             locationData: locationData,
           }
-          return this.http.put(`${this.userProfileEndpoint}${userProfile['user']}/`, sendData, this.jwt())
+          return this.http.put(`${this.userProfileEndpoint}${userProfile['user']}/`, sendData)
           .map(this.extractData)
           .catch(this.handleError);
     }
 
     updateAny(data:any){
-        return this.http.put(`${this.userProfileEndpoint}${data.userProfile['user']}/`, data, this.jwt())
+        return this.http.put(`${this.userProfileEndpoint}${data.userProfile['user']}/`, data)
         .map(this.extractData)
         .catch(this.handleError);
     }
 
-    private jwt() {
-        // create authorization header with jwt token
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (currentUser && currentUser.token) {
-            let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
-            return new RequestOptions({ headers: headers });
-        }
-    }
-
-    private extractData(res: Response) {
-        let body = res.json();
+    private extractData(res: HttpResponse<any>) {
+        let body = res.body;
         
         
         console.log('user-profile.service res: ', res);
         console.log('user-profile.service body: ', body);
-        return body || { };
+        return res || { };
     
     }
 
@@ -116,19 +106,9 @@ export class UserProfileService {
         // In a real world app, you might use a remote logging infrastructure
         let errMsg: string;
         let err: any;
-        if (error instanceof Response) {
-          const body = error.json() || '';
-          err = body.error || JSON.stringify(body);
-          errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-        } else {
-          errMsg = error.message ? error.message : error.toString();
-          const body = error.json() || '';
-          err = body.error || JSON.stringify(body);
-        }
-        console.log('user-profile.service error.json(): ', error.json());
         console.log('user-profile.service error: ', error);
-        console.error(errMsg);
-        return Observable.throw(err);
+        return Observable.throw(error);
+        
     }
 
 }
