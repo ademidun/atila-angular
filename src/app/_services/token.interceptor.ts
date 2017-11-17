@@ -3,11 +3,13 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor, HttpResponse, HttpErrorResponse
 } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs/Observable';
-
+import 'rxjs/add/operator/do';
+import { Router } from '@angular/router'
+import { MdSnackBar } from '@angular/material';
 // https://ryanchenkie.com/angular-authentication-using-the-http-client-and-http-interceptors
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -20,16 +22,16 @@ export class TokenInterceptor implements HttpInterceptor {
     //     Authorization: `Bearer ${this.auth.getToken()}`
     //   }
     // });
-    console.log('tokenInterceptor req.headers',req.headers);
+
     if(!this.auth.getToken()){
         return next.handle(req);
     }
     // We should use `JWT ${this.auth.getToken()}` but we don't want to trigger the actual jwt verification on backend
     // so we use Bearer for now, so we can parse the content from JSON
-    console.log(`Basic ${this.auth.decryptLocalStorage('token2')}`);
+
     req = req.clone({
         setHeaders: {
-          Authorization: `JWT ${this.auth.decryptLocalStorage('token2')}`,
+          Authorization: `JWT ${this.auth.decryptLocalStorage('token')}`,
         }
       });
       console.log('tokenInterceptor req.headers',req.headers);

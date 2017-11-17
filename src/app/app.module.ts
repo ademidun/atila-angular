@@ -39,7 +39,7 @@ import { CreateProfileQuickComponent } from './create-profile-quick/create-profi
 
 import { MdIconRegistry, MdIconModule } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SafeHtmlPipe } from './_pipes/safe-html.pipe';
+import { SafeResourcePipe } from './_pipes/safe-resource.pipe';
 import { GooglePlaceDirective } from './_directives/google-place.directive';
 import { CommentService } from './_services/comment.service';
 import { ProfileViewComponent } from './profile-view/profile-view.component';
@@ -55,10 +55,13 @@ import { HtmlEditorComponent } from './html-editor/html-editor.component';
 import { BlogPostService } from './_services/blog-post.service';
 import { BlogPostDetailComponent } from './blog-post-detail/blog-post-detail.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { SafeHtmlPipe } from './_pipes/safe-html.pipe';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import {HttpClientModule} from '@angular/common/http';
 import { TokenInterceptor } from './_services/token.interceptor';
+
+import { UnAuthorizedInterceptor } from './_services/unauthorized.interceptor';
 
 @NgModule({
   declarations: [
@@ -81,7 +84,7 @@ import { TokenInterceptor } from './_services/token.interceptor';
     AddQuestionModalComponent,
     AppDetailComponent,
     CreateProfileQuickComponent,
-    SafeHtmlPipe,
+    SafeResourcePipe,
     GooglePlaceDirective,
     ProfileViewComponent,
     MessagesComponent,
@@ -91,7 +94,8 @@ import { TokenInterceptor } from './_services/token.interceptor';
     BlogsListComponent,
     BlogPostCreateComponent,
     HtmlEditorComponent,
-    BlogPostDetailComponent
+    BlogPostDetailComponent,
+    SafeHtmlPipe
   ],
   imports: [
     NgbModule.forRoot(),
@@ -121,6 +125,11 @@ import { TokenInterceptor } from './_services/token.interceptor';
         useClass: TokenInterceptor,
         multi: true
       },
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: UnAuthorizedInterceptor,
+        multi: true
+      }
     ],
   bootstrap: [AppComponent],
   entryComponents: [

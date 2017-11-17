@@ -5,7 +5,7 @@ import { UserProfileService } from '../_services/user-profile.service';
 import { Scholarship } from '../_models/scholarship';
 
 import { Router } from '@angular/router';
-
+import { AuthService } from "../_services/auth.service";
 @Component({
   selector: 'app-scholarships-list',
   templateUrl: './scholarships-list.component.html',
@@ -16,7 +16,8 @@ export class ScholarshipsListComponent implements OnInit {
   constructor(
     public scholarshipService: ScholarshipService,
     private userProfileService: UserProfileService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
   ) { }
 
   form_data: Object;
@@ -38,7 +39,7 @@ export class ScholarshipsListComponent implements OnInit {
 
 
   ngOnInit() {
-    this.userId = localStorage.getItem('userId');
+    this.userId = this.authService.decryptLocalStorage('uid');
     
     if (this.userId) {
       this.isLoggedIn = true;

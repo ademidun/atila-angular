@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 
+import { Router } from '@angular/router'
 import { Observable } from 'rxjs/Rx';
 import * as CryptoJS from "crypto-js";
 //import * as crypto from "crypto";
 //ES6 style imports
 //https://stackoverflow.com/questions/39415661/what-does-resolves-to-a-non-module-entity-and-cannot-be-imported-using-this
 
+import { MdSnackBar } from '@angular/material';
 @Injectable()
 export class AuthService {
 
@@ -18,21 +20,26 @@ export class AuthService {
   public  isLoggedIn: boolean = false; //should this be private or protected?
   public secretKey:string;
   token: string;
-  constructor(private http: Http) {
+  constructor(private http: Http,
+              private snackBar: MdSnackBar,
+              private router: Router,) {
     this.token = localStorage.token;
-    this.secretKey = this.randomString(16);
-    console.log('this.secretKey',this.secretKey);
+
+    this.initializeSecretKey();
    }
    
   
   logout() {
     // remove user from local storage to log user out
     localStorage.clear();
+    
+    // there should always be a secret key available even after you clear local storage
+    this.initializeSecretKey(true);
+
     this.isLoggedIn = false;
   }
 
   login(credentials: any) {
-    console.log('auth.service this',this);
     return this.http.post(this.loginUrl, credentials)
        .map(this.extractToken)
        .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
@@ -46,27 +53,28 @@ export class AuthService {
     */
    public encryptlocalStorage(key:string, value: any){
      //base64 values must be converted to string first, before they can be saved
+      this.initializeSecretKey();
 
-      console.log('key, CryptoJS.AES.encrypt(userId.toString(),this.secretKey).toString()',key, CryptoJS.AES.encrypt(value.toString(),this.secretKey).toString());
       var encryptedData = CryptoJS.AES.encrypt(value.toString(),this.secretKey).toString();
       localStorage.setItem(key,encryptedData);
      
-
      this.decryptLocalStorage(key);
+
     }
 
    public decryptLocalStorage(key:string){
-        var encryptedData = localStorage.getItem(key);
-        console.log('key, this, encrpyteddata, secretKey', this, encryptedData, this.secretKey);
-        var decryptedValue = '';
-        if (encryptedData){
-          //var encoder = encoding == 'base64'? CryptoJS.enc.Base64 : CryptoJS.enc.Utf8;
-          console.log('CryptoJS.AES.decrypt(encryptedData, this.secretKey).toString(CryptoJS.enc.Utf8)',CryptoJS.AES.decrypt(encryptedData, this.secretKey).toString(CryptoJS.enc.Utf8));
-          decryptedValue = CryptoJS.AES.decrypt(encryptedData, this.secretKey).toString(CryptoJS.enc.Utf8);
-          
-          return decryptedValue;
-        }
-            
+
+      var encryptedData = localStorage.getItem(key);
+
+      var decryptedValue = '';
+      if (encryptedData){
+        //var encoder = encoding == 'base64'? CryptoJS.enc.Base64 : CryptoJS.enc.Utf8;
+        console.log('CryptoJS.AES.decrypt(encryptedData, this.secretKey).toString(CryptoJS.enc.Utf8)',CryptoJS.AES.decrypt(encryptedData, this.secretKey).toString(CryptoJS.enc.Utf8));
+
+        decryptedValue = CryptoJS.AES.decrypt(encryptedData, this.secretKey).toString(CryptoJS.enc.Utf8);
+        return decryptedValue;
+      }
+         
         return null;
    }
 
@@ -121,7 +129,26 @@ export class AuthService {
     var result = '';
     for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
     return result;
-}
+  }
+
+  /**
+   * Always have a randomly generated key available for encrypting local storage values. Maintain the keys between browser refresh.
+   */
+  initializeSecretKey(forceInsert=false){
+    console.log("forceInsert, localStorage.getItem('xkcd')", forceInsert, localStorage.getItem('xkcd'));
+
+    if (forceInsert || !localStorage.getItem('xkcd')) {
+      this.secretKey = this.randomString(16);
+      this.secretKey = CryptoJS.AES.encrypt(this.secretKey,'dante').toString();
+      localStorage.setItem('xkcd', this.secretKey);
+    }
+
+    this.secretKey = localStorage.getItem('xkcd');
+    this.secretKey = CryptoJS.AES.decrypt(this.secretKey, 'dante').toString(CryptoJS.enc.Utf8);
+    
+    console.log("forceInsert, localStorage.getItem('xkcd'), this.secretKey", forceInsert, localStorage.getItem('xkcd'),this.secretKey);
+
+  }
 
 }
 

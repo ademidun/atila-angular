@@ -15,7 +15,7 @@
                     <md-icon class="md-24" aria-label="Dislike the comment">thumb_down</md-icon>
                 </button>{{blogPost.down_votes_count}}
 
-                <div [innerHTML]="blogPost.body"></div>
+                <div [innerHTML]="blogPost.body | safeHtml"></div>
                 
             </div>
 

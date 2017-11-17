@@ -37,13 +37,13 @@ export class NavbarComponent implements OnInit {
       console.log('navbar.component.ts this.authService.secretKey', this.authService.secretKey);
     }
 
-    if (localStorage.getItem('userId')) {
+    if (this.authService.decryptLocalStorage('uid')) {
       this.isLoggedIn = true;
       this.authService.isLoggedIn = true;
     }
 
     if(this.isLoggedIn){
-      this.userProfileService.getById(parseInt(localStorage.getItem('userId')))
+      this.userProfileService.getById(parseInt(this.authService.decryptLocalStorage('uid')))
       .subscribe(
         
         data => {

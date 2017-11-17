@@ -129,13 +129,13 @@ APPLICATION_FORM_TYPES = [
     private authService: AuthService,
   ) { 
     this.scholarshipSlug = route.snapshot.params['slug']; 
-    this.userId = parseInt(localStorage.getItem('userId')); // Current user
+    this.userId = parseInt(this.authService.decryptLocalStorage('uid')); // Current user
 
   }
 
   ngOnInit() {
     // Retrieve the user id
-    this.userId = parseInt(localStorage.getItem('userId'));
+    this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
      // Load scholarship from the id
      //Nested Observable (is this good practice?)
      //First, we get the scholarship data based on the URl slug, then we get the current logged in User

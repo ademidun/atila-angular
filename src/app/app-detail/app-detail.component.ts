@@ -5,10 +5,10 @@ import { ApplicationService } from '../_services/application.service';
 import { UserProfileService } from '../_services/user-profile.service';
 import { QuestionService } from '../_services/question.service';
 import { QuestionControlService } from '../_services/question-control.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from "rxjs/Rx";
 import { Scholarship } from '../_models/scholarship';
-
+import { AuthService } from "../_services/auth.service";
 @Component({
   selector: 'app-app-detail',
   templateUrl: './app-detail.component.html',
@@ -30,6 +30,7 @@ export class AppDetailComponent implements OnInit {
    */
   generalData: any; 
   profileForm: NgForm;
+  userId;
 
   PROVINCE_CHOICES = [
     { 'value': 'ON', 'name': 'Ontario' },
@@ -64,6 +65,8 @@ export class AppDetailComponent implements OnInit {
     private qService: QuestionService,
     private qcs: QuestionControlService,
     private userProfileService: UserProfileService,
+    authService: AuthService,
+    private router: Router,
   ) {
     this.appId = parseInt(route.snapshot.params['id']);
     console.log("route.snapshot.params['id']", route.snapshot.params['id']);
@@ -109,7 +112,11 @@ export class AppDetailComponent implements OnInit {
       .subscribe(
       res => {
         data = res;
-        console.log('AppDetailComponent res', res);
+        console.log('AppDetailComponent res', res); 
+
+        if (this.userId!=res.appData.user) {
+          this.router.navigate(['/login']);
+        }
       },
       error => console.log('AppDetailComponent getAppData', error),
 
@@ -117,6 +124,7 @@ export class AppDetailComponent implements OnInit {
         this.generalData = data;
         this.generalData.documentUploads = data.appData.document_urls? data.appData.document_urls : {};
         this.application = data.appData;
+
         this.userProfile = data.userProfile;
         this.scholarship = data.scholarship;
 

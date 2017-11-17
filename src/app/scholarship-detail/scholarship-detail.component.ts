@@ -12,7 +12,7 @@ import { MdSnackBar } from '@angular/material';
 import { UserProfileService } from '../_services/user-profile.service';
 
 import { CommentService } from '../_services/comment.service';
-
+import { AuthService } from "../_services/auth.service";
 import { Title }     from '@angular/platform-browser';
 
 
@@ -47,10 +47,11 @@ export class ScholarshipDetailComponent implements OnInit {
     private userProfileService: UserProfileService,
     private titleService: Title,
     private commentService: CommentService,
+    private authService: AuthService,
   ) {
     // Get the id that was passed in the route
     this.scholarshipSlug = route.snapshot.params['slug'];
-    this.userId = parseInt(localStorage.getItem('userId')); // Current user, TODO: Should we use the request user ID?
+    this.userId = parseInt(this.authService.decryptLocalStorage('uid')); // Current user, TODO: Should we use the request user ID?
     console.log('localStorage userID: ',this.userId);
 
   }

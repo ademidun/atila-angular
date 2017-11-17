@@ -4,7 +4,7 @@ import { MessagingService } from '../_services/messaging.service';
 import { Thread } from '../_models/thread';
 import { UserProfileService } from '../_services/user-profile.service';
 import { UserProfile } from '../_models/user-profile';
-
+import { AuthService } from "../_services/auth.service";
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
@@ -29,11 +29,12 @@ export class MessagesComponent implements OnInit {
 
   constructor(
     private messagingService: MessagingService,
-    private userProfileService: UserProfileService
+    private userProfileService: UserProfileService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit() {
-    this.currentUser = parseInt(localStorage.getItem('userId'));
+    this.currentUser = parseInt(this.authService.decryptLocalStorage('uid'));
     this.message = new Message("", this.currentUser, this.thread);
     // Get user's threads
     this.messagingService.getUsersThreads(this.currentUser)

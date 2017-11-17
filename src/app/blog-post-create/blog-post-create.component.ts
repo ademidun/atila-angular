@@ -8,6 +8,10 @@ import 'tinymce/plugins/link';
 import 'tinymce/plugins/toc';
 import 'tinymce/plugins/preview';
 import 'tinymce/plugins/lists';
+import 'tinymce/plugins/media';
+import 'tinymce/plugins/autolink';
+import 'tinymce/plugins/code';
+
 
 import { BlogPost } from "../_models/blog-post";
 import { UserProfile } from '../_models/user-profile';
@@ -54,23 +58,26 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
     private snackBar: MdSnackBar,
     private route: ActivatedRoute,) { 
 
-      this.userId = parseInt(localStorage.getItem('userId'));
+      this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
       this.blogPost = new BlogPost(this.userId);
     }
 
   ngOnInit() {
     var blogId = this.route.snapshot.params['id'];
 
-    console.log("Editor: " + this.editor + "in ngOninit");
+    
     if(blogId){
       this.editMode = true;
       this.blogPostService.getById(blogId).subscribe(
         res => {
           this.blogPost = res;
+          if (this.userId!=this.blogPost.author.id) {
+            this.router.navigate(['/login']);
+          }
           if(this.editor){
 
-            console.log("Editor: " + this.editor + "in blogPostService");
-            console.log("Editor: " + this.editor + "in blogPostService");
+            
+            
             //this.editor.setContent(this.blogPost.body);
             //$('#'+this.editorId).html(this.blogPost.body);
             tinymce.get(this.editorId).setContent(this.blogPost.body);
@@ -82,10 +89,11 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
 
     else{
 
-    this.blogPost.body =`<p>This was potentially my favorite blog post to write.</p> <ol> <li>It was actionable</li> <li>It was on a 
-    topic which I really enjoyed.</li> <li>I think I may be right.&nbsp;</li> </ol> <blockquote> <p>"An investment in 
-    education pays the best interest."</p> <p>&nbsp; &nbsp; - Benjamin Franklin</p> </blockquote> <p>This is why I
-    would prefer going back to my regular writing.</p> <p>&nbsp;</p>`;
+    // this.blogPost.body =`<p>This was potentially my favorite blog post to write.</p> <ol> <li>It was actionable</li> <li>It was on a 
+    // topic which I really enjoyed.</li> <li>I think I may be right.&nbsp;</li> </ol> <blockquote> <p>"An investment in 
+    // education pays the best interest."</p> <p>&nbsp; &nbsp; - Benjamin Franklin</p> </blockquote> <p>This is why I
+    // would prefer going back to my regular writing.</p> <p>&nbsp;</p>`;
+    this.blogPost.body = ``;
     }
     this.userProfileService.getById(this.userId).subscribe(
       res => {
@@ -98,9 +106,10 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
   ngAfterViewInit() {
     tinymce.init({
       selector: '#' + this.editorId,
-      plugins: ['link', 'table','toc','preview','lists'],
+      plugins: ['link', 'table','toc','preview','lists','media','autolink','code'],
       skin_url: '/assets/skins/lightgray',
       height : "500",
+      invalid_elements : 'script',
       setup: editor => {
         this.editor = editor;
         editor.on('keyup change', (e) => {
@@ -109,7 +118,7 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
         });
       },
       init_instance_callback : (editor) => {
-        console.log("Editor: " + editor.id + " is now initialized.");
+        
         if(this.blogPost.body){ //body may not be loaded from server yet
           editor.setContent(this.blogPost.body);
         }
@@ -132,17 +141,19 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
 
     if((<KeyboardEvent>event).keyCode == 13) {
       
-      console.log('onEditorContentChange: event, content',event, content);
-      console.log('onEditorContentChange: editor, ', editor);
+      
+      
       this.blogPost.body = content;
-      console.log('onEditorContentChange: this.blogPost, ', this.blogPost);
+      
     }
     this.blogPost.body = content;
-    this.ref.detectChanges();
+    if (!this.ref['destroyed']) {
+      this.ref.detectChanges();
+  }
   }
 
   saveBlog(isPublished:boolean){
-    console.log('saveBlog(), isPublished, editor.content, blogPost', isPublished, this.editor.content, this.blogPost);
+    
 
     //if the blog has already been published, keep the publication status.
     this.blogPost.published = this.blogPost.published? this.blogPost.published: isPublished;
@@ -177,10 +188,12 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
       
           snackBarRef.onAction().subscribe(
             () => {
-              console.log('The snack-bar action was triggered!');
+              
               this.router.navigate(['blog',this.userProfile.username,this.blogPost.slug]);
             },
-            err =>  console.log('The snack-bar action was triggered! error', err),
+            err =>  {
+              console.error('snackbar error')
+            }
           )
         }
 
@@ -190,7 +203,7 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
           });
         }
         
-        console.log('end of saveBlog() this.blogPost: ',this.blogPost);
+        
       
       }
     )
@@ -199,7 +212,7 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   titleToSlug(slugInput: HTMLInputElement){
-    console.log('titleToSlug, slugInput: ', slugInput);
+    
 
       this.blogPost.slug = this.convertToSlug(this.blogPost.title);
   }
@@ -217,11 +230,11 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
     //let uploadOperation: Observable<any>;
 
     //create Upload file and configure its properties before uploading.
-    console.log('uploadPicInput',uploadPicInput);
+    
 
     var uploadPicFile = uploadPicInput.files[0];
 
-    console.log('uploadPicFile',uploadPicFile);
+    
 
     
     this.pictureFile = new UploadFile(uploadPicFile);
@@ -233,16 +246,16 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
       id: this.userProfile.user,
       fieldName: 'profile_pic_url'
     }
-    console.log('this.pictureFile',this.pictureFile)
+    
 
     // the path where the file should be saved on firebase
     this.pictureFile.path = "blogs/" + this.userProfile.user+ "/" + 1 + "/"
     this.pictureFile.path = this.pictureFile.path + this.pictureFile.name
-    console.log('this.pictureFile',this.pictureFile);
+    
     
     this.fileUpload(this.pictureFile)
     .subscribe(
-      res => console.log('uploadScholarshipAppForm, subscribe() res', res)
+      res => {}
     )
     
     
@@ -264,11 +277,11 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
   //TODO: How can we get uploadFileFirebase to return an observable with the URL of the uploaded file
   uploadFileFirebase(res: Response, uploadFile: UploadFile){
     
-    console.log("uploadFileInternal: res",res,'uploadFile',uploadFile);
+    
     
     let config;
     config = res['api_key'];
-    console.log("config",config);
+    
     if (!firebase.apps.length) {
       firebase.initializeApp(config);
     }
@@ -293,7 +306,7 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
     (snapshot:any) => {
       var progress = (uploadTask.snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       this.uploadProgress = progress;
-      console.log('Upload is ' + progress + '% done');
+      
     },
     (error)=> {
       this.snackBar.open(error.message,'', {
@@ -301,7 +314,7 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
       });
     },
     () => {
-      console.log('Finished upload: uploadTask.snapshot', uploadTask.snapshot );
+      
       this.blogPost.header_image_url = uploadTask.snapshot.downloadURL;
       this.uploadProgress = null;
       this.saveBlog(false);

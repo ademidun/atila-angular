@@ -14,7 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { NgZone } from '@angular/core';
 import { Title }     from '@angular/platform-browser';
-
+import { AuthService } from "../_services/auth.service";
 @Component({
   selector: 'app-forum-detail',
   templateUrl: './forum-detail.component.html',
@@ -34,8 +34,9 @@ export class ForumDetailComponent implements OnInit {
     private userProfileService: UserProfileService,
     private titleService: Title,
     private commentService: CommentService,
-    private forumService: ForumService,) { 
-      this.userId = parseInt(localStorage.getItem('userId'));
+    private forumService: ForumService,
+    private authService: AuthService,) { 
+      this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
     }
 
   ngOnInit() {

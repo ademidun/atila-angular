@@ -12,6 +12,7 @@ import { UserProfileService } from '../_services/user-profile.service';
 import {NgForm} from '@angular/forms';
 import { DatePipe } from '@angular/common';
 
+import { AuthService } from "../_services/auth.service";
 import { Title }     from '@angular/platform-browser';
 
 
@@ -70,10 +71,11 @@ EDUCATION_FIELDS = [
     private snackBar: MdSnackBar,
     private userProfileService: UserProfileService,
     private titleService: Title,
+    private authService: AuthService,
   ) {
     // Get the id that was passed in the route
     this.scholarshipSlug = route.snapshot.params['slug']; 
-    this.userId = parseInt(localStorage.getItem('userId')); // Current user
+    this.userId = parseInt(this.authService.decryptLocalStorage('uid')); // Current user
   }
 
   ngOnInit() {

@@ -8,7 +8,7 @@ import { UserProfileService } from '../_services/user-profile.service';
 
 import { Router, ActivatedRoute } from '@angular/router'
 import { MdSnackBar } from '@angular/material';
-
+import { AuthService } from "../_services/auth.service";
     
 @Component({
   selector: 'app-create-profile',
@@ -48,6 +48,7 @@ export class CreateProfileComponent implements OnInit {
     private router: Router,
     route: ActivatedRoute,
     private snackBar: MdSnackBar,
+    private authService: AuthService,
 
   ) { }
 
@@ -59,7 +60,7 @@ export class CreateProfileComponent implements OnInit {
     console.log('this.userProfile.education_field:', this.userProfile.education_field);
     console.log('this.userProfile.education_level:', this.userProfile.education_level);
 
-    this.userId = localStorage.getItem('userId');
+    this.userId = this.authService.decryptLocalStorage('uid');
     this.userProfile.user = this.userId;
 
   }

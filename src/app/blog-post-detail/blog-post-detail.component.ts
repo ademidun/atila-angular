@@ -15,6 +15,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgZone } from '@angular/core';
 import { Title }     from '@angular/platform-browser';
 
+import { AuthService } from "../_services/auth.service";
+
+    
 @Component({
   selector: 'app-blog-post-detail',
   templateUrl: './blog-post-detail.component.html',
@@ -35,8 +38,10 @@ export class BlogPostDetailComponent implements OnInit {
     private titleService: Title,
     private commentService: CommentService,
     private blogPostService: BlogPostService,
+
+    private authService: AuthService,
     ) { 
-      this.userId = parseInt(localStorage.getItem('userId'));
+      this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
     }
 
   ngOnInit() {
@@ -65,6 +70,7 @@ export class BlogPostDetailComponent implements OnInit {
     this.userComment = new Comment(this.userId);
   }
 
+  
   postComment(){
     
     //prevent ScholarshipComments from tracking the changes to UserComment;

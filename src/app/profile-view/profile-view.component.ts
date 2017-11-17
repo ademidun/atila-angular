@@ -50,7 +50,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
         this.userProfile = res;
         this.titleService.setTitle('Atila - ' + this.userProfile.first_name + " " +this.userProfile.last_name +"'s profile");
 
-        this.currentUser = parseInt(localStorage.getItem('userId')); // Current user
+        this.currentUser = parseInt(this.authService.decryptLocalStorage('uid')); // Current user
         this.profileOwner = (this.currentUser == this.userProfile.user);
       } 
     )
@@ -171,11 +171,11 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
     this.userProfileService.updateHelper(this.userProfile)
     .subscribe(
       data => {
-        this.showSnackBar("Succesfully Updated Your Profile, Welcome to Atila",'What Next?', 3000);
+        this.showSnackBar("Succesfully Updated Your Profile",'', 3000);
         this.userProfile = data;
       },
       err => {
-        this.showSnackBar('Profile updated unsuccessfully - ' + err,'', 3000);
+        this.showSnackBar('Profile updated unsuccessfully - ' + err.error,'', 3000);
       }
     )
   }

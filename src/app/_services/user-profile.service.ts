@@ -37,7 +37,6 @@ export class UserProfileService {
 
     getById(id: number): Observable<UserProfile> {
         // add authorization header with jwt token
-        console.log('getById options', this.authService.getToken());
         return this.http.get(`${this.userProfileEndpoint}${id}/`)
         .map(this.extractData)
         .catch(this.handleError);

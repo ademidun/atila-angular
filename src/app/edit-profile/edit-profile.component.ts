@@ -74,7 +74,7 @@ EDUCATION_FIELD = [
   }
 
   ngOnInit() {
-    let userId = localStorage.getItem('userId');
+    let userId = this.authService.decryptLocalStorage('uid');
     if (userId) {
       this.userProfileService.getById(parseInt(userId))
         .subscribe(
@@ -88,6 +88,7 @@ EDUCATION_FIELD = [
           },
           err => {
             console.log(err);
+            
           }
         )
     } 

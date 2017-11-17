@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
  
    };
   constructor(
-    private auth: AuthService, 
+    private authService: AuthService, 
     private router: Router,
     private snackBar: MdSnackBar) { }
 
@@ -36,19 +36,18 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     let loginOperation: Observable<any>;
-    loginOperation = this.auth.login(this.credentials);
+    loginOperation = this.authService.login(this.credentials);
     loginOperation.subscribe(
         // We're assuming the response will be an object
         // with the JWT on an id_token key
         data => {
-          localStorage.setItem('token', data.token);
-          this.auth.encryptlocalStorage('token2', data.token);
+
+          this.authService.encryptlocalStorage('token', data.token);
           // this.cookieService.putObject('userId', data.id);
-          localStorage.setItem('userId', data.id);
-          this.auth.encryptlocalStorage('uid',data.id);
-          this.auth.isLoggedIn = true;
+          this.authService.encryptlocalStorage('uid',data.id);
+          this.authService.isLoggedIn = true;
           this.router.navigate(["/scholarships-list"]);
-          console.log('login.componenent this.auth',this.auth);
+          console.log('login.componenent this.auth',this.authService);
         },
         err => {
           this.snackBar.open("Incorrect login credentials", '', {

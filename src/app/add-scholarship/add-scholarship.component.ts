@@ -110,7 +110,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
 
   ngOnInit() {
     // Retrieve the user id
-    this.userId = parseInt(localStorage.getItem('userId'));
+    this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
 
     if(this.scholarshipSlug){
       this.editMode = true;

@@ -7,7 +7,7 @@ import { Comment } from "../_models/comment";
 import { UserProfile } from '../_models/user-profile';
 
 import { UserProfileService } from '../_services/user-profile.service';
-
+import { AuthService } from "../_services/auth.service";
 @Component({
   selector: 'app-forums-list',
   templateUrl: './forums-list.component.html',
@@ -22,10 +22,11 @@ export class ForumsListComponent implements OnInit {
   constructor(
     private forumService: ForumService,
     private userProfileService: UserProfileService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit() {
-    var userId = parseInt(localStorage.getItem('userId'));
+    var userId = parseInt(this.authService.decryptLocalStorage('uid'));
     this.newForum = new Forum(userId,'');
     this.forumComment = new Comment(userId,'','');
     this.userProfileService.getById(userId).subscribe(

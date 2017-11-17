@@ -1,7 +1,7 @@
 import { Component, OnInit , Input} from '@angular/core';
 import { Comment, upVoteComment, downVoteComment, countVotes } from "../_models/comment";
 
-
+import { AuthService } from "../_services/auth.service";
 import { CommentService } from '../_services/comment.service';
 @Component({
   selector: 'app-comment',
@@ -15,10 +15,11 @@ export class CommentComponent implements OnInit {
   userId: number;
 
   constructor(
-    private commentService: CommentService
+    private commentService: CommentService,
+    private authService: AuthService,
   ) { 
 
-    this.userId = parseInt(localStorage.getItem('userId'));
+    this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
     console.log('CONSTRUCTOR comment.ts, comment Type', this.commentType, this.comment);
    }
 
