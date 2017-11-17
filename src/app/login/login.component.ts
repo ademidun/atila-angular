@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
         // with the JWT on an id_token key
         data => {
 
+          console.log('login.componenent this.auth',this.authService);
           this.authService.encryptlocalStorage('token', data.token);
           // this.cookieService.putObject('userId', data.id);
           this.authService.encryptlocalStorage('uid',data.id);
@@ -50,6 +51,8 @@ export class LoginComponent implements OnInit {
           console.log('login.componenent this.auth',this.authService);
         },
         err => {
+
+          console.log('login.componenent err',err);
           this.snackBar.open("Incorrect login credentials", '', {
             duration: 3000
           })

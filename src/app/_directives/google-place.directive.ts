@@ -34,7 +34,6 @@ export class GooglePlaceDirective {
       this.modelValue = this.model;
       var input = this._el;
       if(typeof google !== 'undefined'){
-        console.log('google:', google);
       this.autocomplete = new google.maps.places.Autocomplete(<HTMLInputElement>input, {});
       google.maps.event.addListener(this.autocomplete, 'place_changed', ()=> {
         var place = this.autocomplete.getPlace();
@@ -46,7 +45,6 @@ export class GooglePlaceDirective {
       }
 
       else{
-        console.log('google is not currently working:');
         //TODO: Emit event to let preview form that Google Autocomplete is not working.
         this.googlePlaceNoLoad.emit();
       }
@@ -57,8 +55,6 @@ export class GooglePlaceDirective {
     }
   
     onInputChange() {
-      console.log('google-place.directive onInputChange():',this.model);
-      console.log('google-place.directive onInputChange() this._el:',this._el);
     }
   }
   

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
@@ -11,30 +11,34 @@ import 'rxjs/add/operator/do';
 import { Router } from '@angular/router'
 import { MdSnackBar } from '@angular/material';
 // https://ryanchenkie.com/angular-authentication-using-the-http-client-and-http-interceptors
+
+//cyclic dependency https://github.com/angular/angular/issues/18224
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(public auth: AuthService) {}
+  constructor(private inj: Injector) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+    const auth = this.inj.get(AuthService);
     // req = req.clone({
     //   setHeaders: {
     //     Authorization: `Bearer ${this.auth.getToken()}`
     //   }
     // });
 
-    if(!this.auth.getToken()){
+    if(!auth.getToken()){
         return next.handle(req);
     }
     // We should use `JWT ${this.auth.getToken()}` but we don't want to trigger the actual jwt verification on backend
     // so we use Bearer for now, so we can parse the content from JSON
-
+    console.log('tokenInterceptor req, next',req, next);
     req = req.clone({
         setHeaders: {
-          Authorization: `JWT ${this.auth.decryptLocalStorage('token')}`,
+          Authorization: `JWT ${auth.decryptLocalStorage('token')}`,
         }
       });
-      console.log('tokenInterceptor req.headers',req.headers);
+      console.log('tokenInterceptor req, next',req, next);
     return next.handle(req);
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import { HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
 
 import { Router } from '@angular/router'
 import { Observable } from 'rxjs/Rx';
@@ -20,7 +20,7 @@ export class AuthService {
   public  isLoggedIn: boolean = false; //should this be private or protected?
   public secretKey:string;
   token: string;
-  constructor(private http: Http,
+  constructor(private http: HttpClient,
               private snackBar: MdSnackBar,
               private router: Router,) {
     this.token = localStorage.token;
@@ -42,7 +42,7 @@ export class AuthService {
   login(credentials: any) {
     return this.http.post(this.loginUrl, credentials)
        .map(this.extractToken)
-       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+       .catch((error: any) => Observable.throw(error));
    }
 
    //https://stackoverflow.com/questions/35739791/encrypting-the-client-side-local-storage-data-using-angularjs
@@ -68,9 +68,6 @@ export class AuthService {
 
       var decryptedValue = '';
       if (encryptedData){
-        //var encoder = encoding == 'base64'? CryptoJS.enc.Base64 : CryptoJS.enc.Utf8;
-        console.log('CryptoJS.AES.decrypt(encryptedData, this.secretKey).toString(CryptoJS.enc.Utf8)',CryptoJS.AES.decrypt(encryptedData, this.secretKey).toString(CryptoJS.enc.Utf8));
-
         decryptedValue = CryptoJS.AES.decrypt(encryptedData, this.secretKey).toString(CryptoJS.enc.Utf8);
         return decryptedValue;
       }
@@ -78,10 +75,9 @@ export class AuthService {
         return null;
    }
 
-   private extractToken(res: Response) {
-    let body = res.json();
-    this.token = body.token;
-    return body || { };
+   private extractToken(res: HttpResponse<any>) {
+    this.token = res['token'];
+    return res || { };
     }
 
     public getToken(): string {
@@ -96,32 +92,21 @@ export class AuthService {
 
 
     getAPIKey(apiKey: any){
-      console.log('auth.service.getAPIKey, apiKey: ', apiKey);
+
       return this.http.get(`${this.apiKeyUrl}?api-key-name=${apiKey}`)
       .map(this.extractData)
       .catch(this.handleError);
     }
 
     private extractData(res: Response) {
-      let body = res.json();
-      console.log('scholarshipService res: ', res);
-      console.log('scholarshipService body: ', body);
-      return body || { };
+      console.log('private extractData res', res);
+      return res;
 
     }
 
     private handleError (error: Response | any) {
       // In a real world app, you might use a remote logging infrastructure
-      let errMsg: string;
-      if (error instanceof Response) {
-        const body = error.json() || '';
-        const err = body.error || JSON.stringify(body);
-        errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-      } else {
-        errMsg = error.message ? error.message : error.toString();
-      }
-      console.error(errMsg);
-      return Observable.throw(errMsg);
+      return Observable.throw(error);
     }
 
    randomString(length) {
@@ -135,7 +120,6 @@ export class AuthService {
    * Always have a randomly generated key available for encrypting local storage values. Maintain the keys between browser refresh.
    */
   initializeSecretKey(forceInsert=false){
-    console.log("forceInsert, localStorage.getItem('xkcd')", forceInsert, localStorage.getItem('xkcd'));
 
     if (forceInsert || !localStorage.getItem('xkcd')) {
       this.secretKey = this.randomString(16);
@@ -146,7 +130,6 @@ export class AuthService {
     this.secretKey = localStorage.getItem('xkcd');
     this.secretKey = CryptoJS.AES.decrypt(this.secretKey, 'dante').toString(CryptoJS.enc.Utf8);
     
-    console.log("forceInsert, localStorage.getItem('xkcd'), this.secretKey", forceInsert, localStorage.getItem('xkcd'),this.secretKey);
 
   }
 
@@ -154,23 +137,14 @@ export class AuthService {
 
 
 export function handleError (error: Response | any) {
-  // In a real world app, you might use a remote logging infrastructure
-  let errMsg: string;
-  if (error instanceof Response) {
-    const body = error.json() || '';
-    const err = body.error || JSON.stringify(body);
-    errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-  } else {
-    errMsg = error.message ? error.message : error.toString();
-  }
-  console.error(errMsg);
-  return Observable.throw(errMsg);
+
+  return Observable.throw(error);
 }
 
-export function extractData(res: Response) {
+export function extractData(res: Response | any) {
   let body = res.json();
   console.log('authservice extractData res: ', res);
   console.log('authservice body: ', body);
-  return body || { };
+  return body;
 
 }

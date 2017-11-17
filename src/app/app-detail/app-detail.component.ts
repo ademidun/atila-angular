@@ -65,38 +65,30 @@ export class AppDetailComponent implements OnInit {
     private qService: QuestionService,
     private qcs: QuestionControlService,
     private userProfileService: UserProfileService,
-    authService: AuthService,
+    private authService: AuthService,
     private router: Router,
   ) {
     this.appId = parseInt(route.snapshot.params['id']);
-    console.log("route.snapshot.params['id']", route.snapshot.params['id']);
 
   }
 
 
   ngOnInit() {
     this.getAppData();
-    console.log("AppDetailComponent, this.questions", this.questions);
     this.observable = this.qService.getQuestions2(this.appId);
     this.observable.subscribe(
       res => {
-        console.log('in AppDetailComponent.subscribe, res:', res)
         res = res.scholarshipQuestions;
           this.questions = Object.keys(res).map(function (k) { return res[k] }); //similiar to python or LISP's lambda
 
-          console.log('in AppDetailComponent.subscribe, questions:', this.questions);
-
       },
-      err => console.log('error! in AppDetailComponent QuestionService', this.profileForm),
+      err => console.error('error! in AppDetailComponent QuestionService', this.profileForm),
       () => {
 
-        console.log('in AppDetailComponent.subscribe onComplete, questions:', this.questions);
 
         if (this.questions) {
           this.dynamicForm = this.qcs.toFormGroup(this.questions);
-          console.log('in AppDetailComponent.subscribe onComplete, inside if, this.dynamicForm:', this.dynamicForm);
         }
-        console.log('in AppDetailComponent.subscribe onComplete, this.dynamicForm:', this.dynamicForm);
 
       }
     )
@@ -106,19 +98,19 @@ export class AppDetailComponent implements OnInit {
   getAppData() {
     var data: any;
     let postOperation: Observable<any>;
+    this.userId = this.authService.decryptLocalStorage('uid');
     postOperation = this.applicationService.getAppData(this.appId);
 
     postOperation
       .subscribe(
       res => {
         data = res;
-        console.log('AppDetailComponent res', res); 
 
         if (this.userId!=res.appData.user) {
-          this.router.navigate(['/login']);
+          this.router.navigate(['login']);
         }
       },
-      error => console.log('AppDetailComponent getAppData', error),
+      error => console.error('AppDetailComponent getAppData', error),
 
       () => {
         this.generalData = data;
@@ -128,12 +120,7 @@ export class AppDetailComponent implements OnInit {
         this.userProfile = data.userProfile;
         this.scholarship = data.scholarship;
 
-        console.log('AppDetailComponent data.appData.document_urls', data.appData.document_urls);
-        console.log('AppDetailComponent this.generalData.documentUploads', this.generalData.documentUploads);
-        console.log(' this.application.responses', this.application.responses);
-
         this.applicationData = Object.keys(this.application.responses);
-        console.log('(2)this.applicationData', this.applicationData);
         
         this.initializeLocations(this.userProfile.city);
         
@@ -158,13 +145,9 @@ export class AppDetailComponent implements OnInit {
   }
   onSubmit(form: NgForm) {
     this.profileForm = form;
-    console.log('this.profileForm', this.profileForm);
   }
 
   saveUserProfile(form: NgForm){
-    console.log('app-detail saveProfile() form: NgForm:', form);
-    console.log('app-detail saveProfile() this.profileForm:', this.profileForm);
-    console.log('app-detail saveProfile() this.userProfile', this.userProfile);
 
 
     var sendData = {
@@ -173,16 +156,13 @@ export class AppDetailComponent implements OnInit {
     }
 
 
-    console.log('app-detail saveProfile() sendData: ', sendData);
-
     let saveProfileObservable = this.userProfileService.updateAny(sendData);
 
     saveProfileObservable.subscribe(
       res => {
-        console.log('app-detail saveUserProfile() succesful res', res);
       },
       err =>{
-        console.log('app-detail saveUserProfile() err', err)
+        console.error('app-detail saveUserProfile() err', err)
       }
     );
 

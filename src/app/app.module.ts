@@ -125,11 +125,7 @@ import { UnAuthorizedInterceptor } from './_services/unauthorized.interceptor';
         useClass: TokenInterceptor,
         multi: true
       },
-      {
-        provide: HTTP_INTERCEPTORS,
-        useClass: UnAuthorizedInterceptor,
-        multi: true
-      }
+      UnAuthorizedInterceptor,
     ],
   bootstrap: [AppComponent],
   entryComponents: [
