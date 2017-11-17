@@ -80,12 +80,11 @@ EDUCATION_FIELD = [
         .subscribe(
           data => {
             this.userProfile = data;
-            console.log("Data:", data);
             let profileTitle = this.userProfile.first_name +' '+ this.userProfile.last_name + "'s Profile"
             this.titleService.setTitle('Atila - ' + profileTitle);
             this.initializeLocations(this.userProfile.city);
 
-      console.log('edit-profile.component.ts this.authService.decryptLocalStorage("uid")', this.authService.decryptLocalStorage('uid'));
+            console.log('edit-profile.component.ts this.authService.decryptLocalStorage("uid")', this.authService.decryptLocalStorage('uid'));
           },
           err => {
             console.log(err);

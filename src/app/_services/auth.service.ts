@@ -39,71 +39,82 @@ export class AuthService {
    }
 
    //https://stackoverflow.com/questions/35739791/encrypting-the-client-side-local-storage-data-using-angularjs
-   public encryptlocalStorage(userId: number){
-     console.log('CryptoJS.AES.encrypt(userId.toString(),this.secretKey).toString()',CryptoJS.AES.encrypt(userId.toString(),this.secretKey).toString());
-     var encryptedData = CryptoJS.AES.encrypt(userId.toString(),this.secretKey).toString();
-     localStorage.setItem('uid',encryptedData);
+   /**
+    * Encrypt a certain value berfore placing it in Local storage pseudocode = localstorage.setItem(key, encrypy(secretKey, value))
+    * @param key 
+    * @param value 
+    */
+   public encryptlocalStorage(key:string, value: any, encoding ='utf8'){
+     //base64 values must be converted to string first, before they can be saved
 
-     this.decryptLocalStorage('uid');
-   }
+      console.log('key, CryptoJS.AES.encrypt(userId.toString(),this.secretKey).toString()',key, CryptoJS.AES.encrypt(value.toString(),this.secretKey).toString());
+      var encryptedData = CryptoJS.AES.encrypt(value.toString(),this.secretKey).toString();
+      localStorage.setItem(key,encryptedData);
+     
 
-   public decryptLocalStorage(key:string){
+     this.decryptLocalStorage(key, encoding);
+    }
+
+   public decryptLocalStorage(key:string, encoding?:string){
         var encryptedData = localStorage.getItem(key);
-        console.log('this, encrpyteddata, secretKey', this, encryptedData, this.secretKey);
+        console.log('key, this, encrpyteddata, secretKey', this, encryptedData, this.secretKey);
         var decryptedValue = '';
         if (encryptedData){
+          //var encoder = encoding == 'base64'? CryptoJS.enc.Base64 : CryptoJS.enc.Utf8;
           console.log('CryptoJS.AES.decrypt(encryptedData, this.secretKey).toString(CryptoJS.enc.Utf8)',CryptoJS.AES.decrypt(encryptedData, this.secretKey).toString(CryptoJS.enc.Utf8));
           decryptedValue = CryptoJS.AES.decrypt(encryptedData, this.secretKey).toString(CryptoJS.enc.Utf8);
+          
           return decryptedValue;
         }
             
         return null;
    }
+
    private extractToken(res: Response) {
     let body = res.json();
     this.token = body.token;
     return body || { };
-  }
-
-  public getToken(): string {
-    return localStorage.getItem('token');
-  }
-
-  getUser(userId: any){
-    return this.http.get(`${this.usernameUrl}?user-id=${userId}/`)
-    .map(this.extractData)
-    .catch(this.handleError);
-  }
-
-
-  getAPIKey(apiKey: any){
-    console.log('auth.service.getAPIKey, apiKey: ', apiKey);
-    return this.http.get(`${this.apiKeyUrl}?api-key-name=${apiKey}`)
-    .map(this.extractData)
-    .catch(this.handleError);
-  }
-
-  private extractData(res: Response) {
-    let body = res.json();
-    console.log('scholarshipService res: ', res);
-    console.log('scholarshipService body: ', body);
-    return body || { };
-
-  }
-
-  private handleError (error: Response | any) {
-    // In a real world app, you might use a remote logging infrastructure
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
     }
-    console.error(errMsg);
-    return Observable.throw(errMsg);
-  }
+
+    public getToken(): string {
+      return localStorage.getItem('token');
+    }
+
+    getUser(userId: any){
+      return this.http.get(`${this.usernameUrl}?user-id=${userId}/`)
+      .map(this.extractData)
+      .catch(this.handleError);
+    }
+
+
+    getAPIKey(apiKey: any){
+      console.log('auth.service.getAPIKey, apiKey: ', apiKey);
+      return this.http.get(`${this.apiKeyUrl}?api-key-name=${apiKey}`)
+      .map(this.extractData)
+      .catch(this.handleError);
+    }
+
+    private extractData(res: Response) {
+      let body = res.json();
+      console.log('scholarshipService res: ', res);
+      console.log('scholarshipService body: ', body);
+      return body || { };
+
+    }
+
+    private handleError (error: Response | any) {
+      // In a real world app, you might use a remote logging infrastructure
+      let errMsg: string;
+      if (error instanceof Response) {
+        const body = error.json() || '';
+        const err = body.error || JSON.stringify(body);
+        errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+      } else {
+        errMsg = error.message ? error.message : error.toString();
+      }
+      console.error(errMsg);
+      return Observable.throw(errMsg);
+    }
 
    randomString(length) {
      var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

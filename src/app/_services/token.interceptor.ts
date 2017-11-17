@@ -26,10 +26,10 @@ export class TokenInterceptor implements HttpInterceptor {
     }
     // We should use `JWT ${this.auth.getToken()}` but we don't want to trigger the actual jwt verification on backend
     // so we use Bearer for now, so we can parse the content from JSON
-
+    console.log(`Basic ${this.auth.decryptLocalStorage('token2')}`);
     req = req.clone({
         setHeaders: {
-          Authorization: `JWT ${this.auth.getToken()}`
+          Authorization: `JWT ${this.auth.getToken()}`,
         }
       });
     return next.handle(req);
