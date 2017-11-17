@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
 
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+
+import { Observable } from 'rxjs/Rx';
+import * as CryptoJS from "crypto-js";
+//import * as crypto from "crypto";
+//ES6 style imports
+//https://stackoverflow.com/questions/39415661/what-does-resolves-to-a-non-module-entity-and-cannot-be-imported-using-this
+
 @Injectable()
 export class AuthService {
 
@@ -10,11 +16,14 @@ export class AuthService {
   private usernameUrl = 'http://127.0.0.1:8000/user-name/';
   private apiKeyUrl = 'http://127.0.0.1:8000/api-keys/';
   public  isLoggedIn: boolean = false; //should this be private or protected?
+  public secretKey:string;
   token: string;
   constructor(private http: Http) {
     this.token = localStorage.token;
+    this.secretKey = this.randomString(16);
+    console.log('this.secretKey',this.secretKey);
    }
-
+   
   
   logout() {
     // remove user from local storage to log user out
@@ -29,6 +38,27 @@ export class AuthService {
        .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
    }
 
+   //https://stackoverflow.com/questions/35739791/encrypting-the-client-side-local-storage-data-using-angularjs
+   public encryptlocalStorage(userId: number){
+     console.log('CryptoJS.AES.encrypt(userId.toString(),this.secretKey).toString()',CryptoJS.AES.encrypt(userId.toString(),this.secretKey).toString());
+     var encryptedData = CryptoJS.AES.encrypt(userId.toString(),this.secretKey).toString();
+     localStorage.setItem('uid',encryptedData);
+
+     this.decryptLocalStorage('uid');
+   }
+
+   public decryptLocalStorage(key:string){
+        var encryptedData = localStorage.getItem(key);
+        console.log('this, encrpyteddata, secretKey', this, encryptedData, this.secretKey);
+        var decryptedValue = '';
+        if (encryptedData){
+          console.log('CryptoJS.AES.decrypt(encryptedData, this.secretKey).toString(CryptoJS.enc.Utf8)',CryptoJS.AES.decrypt(encryptedData, this.secretKey).toString(CryptoJS.enc.Utf8));
+          decryptedValue = CryptoJS.AES.decrypt(encryptedData, this.secretKey).toString(CryptoJS.enc.Utf8);
+          return decryptedValue;
+        }
+            
+        return null;
+   }
    private extractToken(res: Response) {
     let body = res.json();
     this.token = body.token;
@@ -75,6 +105,12 @@ export class AuthService {
     return Observable.throw(errMsg);
   }
 
+   randomString(length) {
+     var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var result = '';
+    for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+    return result;
+}
 
 }
 

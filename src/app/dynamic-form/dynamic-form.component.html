@@ -38,20 +38,24 @@
 
       </div>
     </form>
-  
-   
-    <div *ngIf="payLoad" class="form-row">
-      <div>
+
+    <div *ngIf="emailBody">
         <h4>Custom Email for your Application</h4>
-        Good {{timeOfDay}},
-        <br>
-        My name is {{generalData.userProfile.first_name}} {{generalData.userProfile.last_name}}.
-        This email contains my application for the {{generalData.scholarship.name}}, please see attatched. Thank you for sponsoring this scholarship.
-        <br>
-        Regards,<br>
-        {{generalData.userProfile.first_name}}
+        <div style="white-space: pre-line" >
+          {{emailBody}}
+        </div>
+
+        <a target="_blank" href="{{appMailToLink}}">Send Email</a>
+        <button  md-raised-button style="background-color: #184E87;margin:1%"class="btn white-text"
+         (click)="saveToClipBoard('email-content')" class="btn btn-success white-text">Copy to Clipboard</button>
+
+        <textarea [(ngModel)]="emailBody" id="email-content" style="height: 15em"></textarea>
+
 
       </div>
+   
+    <div *ngIf="payLoad" class="form-row">
+
       <strong>Saved the following values: </strong><br>{{payLoad}}
     </div>
   </div>

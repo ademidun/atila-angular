@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('token', data.token);
           // this.cookieService.putObject('userId', data.id);
           localStorage.setItem('userId', data.id);
-
+          this.auth.encryptlocalStorage(data.id);
           this.auth.isLoggedIn = true;
           this.router.navigate(["/scholarships-list"]);
           console.log('login.componenent this.auth',this.auth);

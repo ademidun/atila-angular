@@ -95,9 +95,6 @@ export class UserProfileService {
     private extractData(res: HttpResponse<any>) {
         let body = res.body;
         
-        
-        console.log('user-profile.service res: ', res);
-        console.log('user-profile.service body: ', body);
         return res || { };
     
     }

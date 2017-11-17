@@ -80,11 +80,12 @@ EDUCATION_FIELD = [
         .subscribe(
           data => {
             this.userProfile = data;
-            console.log("Data:", JSON.stringify(data));
             console.log("Data:", data);
             let profileTitle = this.userProfile.first_name +' '+ this.userProfile.last_name + "'s Profile"
             this.titleService.setTitle('Atila - ' + profileTitle);
             this.initializeLocations(this.userProfile.city);
+
+      console.log('edit-profile.component.ts this.authService.decryptLocalStorage("uid")', this.authService.decryptLocalStorage('uid'));
           },
           err => {
             console.log(err);
@@ -114,12 +115,8 @@ initializeLocations(cities: Array<any>){
         userProfile: this.userProfile,
         locationData: this.locationData,
       }
-      console.log("userDocuments:", this.userDocuments);
-      
-      console.log("profileForm:", profileForm);
-      
-      console.log("this.userProfile:", this.userProfile);
-
+      console.log('edit-profile.component.ts this.authService.secretKey', this.authService.secretKey);
+      console.log('edit-profile.component.ts this.authService.decryptLocalStorage("uid")', this.authService.decryptLocalStorage('uid'));
       this.userProfileService.updateAny(sendData)
       .subscribe(
         data => {
@@ -127,7 +124,8 @@ initializeLocations(cities: Array<any>){
           this.showSnackBar("Succesfully Updated Your Profile, Welcome to Atila",'What Next?', 3000);
         },
         err => {
-          this.showSnackBar('Profile updated unsuccessfully - ' + err,'', 3000);
+          console.log('saveProfile err',err);
+          this.showSnackBar('Profile updated unsuccessfully - ' + err.error? err.error: err,'', 3000);
         }
       )
 
@@ -176,7 +174,6 @@ initializeLocations(cities: Array<any>){
   */
       
   fileChangeEvent(fileInput: any){
-    console.log("fileInput:", fileInput);
 
     //TODO: this seems a bit redundant
     this.formFile = fileInput.target.files[0];
@@ -196,7 +193,7 @@ initializeLocations(cities: Array<any>){
     
     this.fileUpload(this.uploadFile)
     .subscribe(
-      res => console.log('uploadScholarshipAppForm, subscribe() res', res)
+      res => {}
     )
 
   }
@@ -210,15 +207,15 @@ fileUpload(uploadFile: UploadFile){
 
 uploadFileFirebase(res: Response, uploadFile: UploadFile){
   
-  console.log("uploadFileInternal: res",res,'uploadFile',uploadFile);
+  
   
   let config;
   config = res['api_key'];
-  console.log("config",config);
+  
   if (!firebase.apps.length) {
     firebase.initializeApp(config);
   }
-  console.log("firebase after config",firebase);
+  
   uploadFile.name = config.toString();
   //why does google documentation use var instead of ref
   
@@ -231,7 +228,7 @@ uploadFileFirebase(res: Response, uploadFile: UploadFile){
     size: uploadFile.file.size,
     name: uploadFile.file.name,
   };
-  console.log('uploadRef',uploadRef)
+  
   console.log('uploadRef.getDownloadURL()',uploadRef.getDownloadURL());
     var uploadTask = uploadRef.put(uploadFile.file, metadata);
     

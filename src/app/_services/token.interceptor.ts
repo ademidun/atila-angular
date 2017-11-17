@@ -21,16 +21,17 @@ export class TokenInterceptor implements HttpInterceptor {
     //   }
     // });
     
-    console.log('tokenInterceptor req.headers',req.headers);
     if(!this.auth.getToken()){
         return next.handle(req);
     }
+    // We should use `JWT ${this.auth.getToken()}` but we don't want to trigger the actual jwt verification on backend
+    // so we use Bearer for now, so we can parse the content from JSON
+
     req = req.clone({
         setHeaders: {
           Authorization: `JWT ${this.auth.getToken()}`
         }
       });
-    console.log('tokenInterceptor req.headers',req.headers);
     return next.handle(req);
   }
 }

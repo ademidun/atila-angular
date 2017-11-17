@@ -8,6 +8,7 @@ import { QuestionControlService }    from '../_services/question-control.service
 import { Observable } from "rxjs/Rx";
 
 import { UploadFile } from '../_models/upload-file';
+import { MdSnackBar } from '@angular/material';
 
 import { AuthService } from "../_services/auth.service";
 
@@ -41,11 +42,14 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   keyGetter = Object.keys;
 
 
+
   formFile: File;
   formFileEvent: any;
   uploadFile: UploadFile;
   showAutomationLoading=false;
   cusomEmail: any;
+  emailBody: any;
+  appMailToLink: any;
   timeOfDay;
 
   // A base 64 encoded string image of the screenshot of the automated web form before and After Submission.
@@ -55,7 +59,8 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     private qcs: QuestionControlService,
     private questionService: QuestionService,
     private authService: AuthService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private snackBar: MdSnackBar,
     // private webFormService: WebFormsService
   ) { 
     
@@ -63,12 +68,14 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     if(this.questions){
+    this.timeOfDay = this.getTimeOfDay();
       this.form = this.qcs.toFormGroup(this.questions);
 
     }
 
     this.appData = this.generalData.appData.responses;
     console.log('ngOnInit().this.form',this.form);
+    this.writeEmail();
   }
 
   ngAfterViewInit(){
@@ -168,6 +175,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     }
     var appId = this.generalData.appData.id;
     console.log('onSubmit() sendData:' , sendData);
+    this.writeEmail();
     /*
     TODO: Add client-side selenium hosting
     if(this.generalData.scholarship.submission_info.application_form_type=='Web' && this.generalData.scholarship.is_automated){
@@ -187,7 +195,8 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
       res => {
         console.log('dynamic form submision Response succesful:' , res);
         this.uploadUrl = res.upload_url;
-
+        if(this.generalData.scholarship.submission_info.application_form_type=='Web'){
+          
         this.preAndPostScreenshots = res.screenshot_confirmation_images;
         for (var i = 0; i < this.preAndPostScreenshots.length; i++) {
           this.preAndPostScreenshots[i] = "data:image/png;base64," + this.preAndPostScreenshots[i];
@@ -195,6 +204,9 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
         }
 
         console.log('this.preAndPostScreenshots',this.preAndPostScreenshots);
+        }
+
+        
         this.payLoad = JSON.stringify(res.message);
       },
       err =>{
@@ -336,6 +348,66 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
       'Thank you for sponsoring this scholarship.',
       
     ]
+  }
+  
+  getTimeOfDay(){
+    var myDate = new Date();
+    var hrs = myDate.getHours();
+  
+    var timeString;
+    if (hrs < 12)
+        timeString = 'Morning';
+    else if (hrs >= 12 && hrs <= 17)
+        timeString = 'Afternoon';
+    else if (hrs >= 17 && hrs <= 24)
+        timeString = 'Evening';
+
+    return timeString;
+  }
+
+  /**
+   * TODO: Make this more dynamic/customized TRY to be DRY.
+   */
+  writeEmail(){
+
+    this.emailBody = `        
+    To: ${this.generalData.scholarship.submission_info.email_address}
+    
+    Subject: ${this.generalData.userProfile.first_name} ${this.generalData.userProfile.last_name}'s ${this.generalData.scholarship.name} Application
+    
+    Good ${this.timeOfDay},
+  
+    My name is ${this.generalData.userProfile.first_name} ${this.generalData.userProfile.last_name}.
+    This email contains my application for the ${this.generalData.scholarship.name}, please see attatched. Thank you for sponsoring this scholarship.
+  
+    Regards,
+    ${this.generalData.userProfile.first_name}`;
+
+    this.appMailToLink = `mailto:${this.generalData.scholarship.submission_info.email_address}
+    ?&subject=${this.generalData.userProfile.first_name} ${this.generalData.userProfile.last_name}'s ${this.generalData.scholarship.name} Application
+    &body=Good ${this.timeOfDay},
+    
+    My name is ${this.generalData.userProfile.first_name} ${this.generalData.userProfile.last_name}.
+    This email contains my application for the ${this.generalData.scholarship.name}, please see attached. Thank you for sponsoring this scholarship.
+    
+    Regards,
+    ${this.generalData.userProfile.first_name}`;
+
+      this.appMailToLink = encodeURI(this.appMailToLink);
+  }
+  saveToClipBoard(divId: string){
+      console.log('this.emailBody', this.emailBody);
+      var copyText = $(divId);
+      //var copyText = document.getElementById("myInput");
+      copyText.select();
+      document.execCommand("copy");
+      console.log("Copied the text: " + copyText);
+
+      console.log("Copied the text: copyText:", copyText);
+
+      this.snackBar.open("Copied to Clipboard",' Send Email',{
+        duration: 3000
+      });
   }
     
   

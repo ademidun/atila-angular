@@ -69,8 +69,6 @@ export class ScholarshipsListComponent implements OnInit {
 
 
   getScholarshipPreview(page: number = 1){
-    console.log('inside getScholarshipPreview', this.scholarships);
-    console.log('inside getScholarshipPreview page', page);
     if (typeof this.form_data != 'undefined') {
       this.scholarshipService.getPaginatedscholarships(this.form_data, page)
       .subscribe(
@@ -86,7 +84,6 @@ export class ScholarshipsListComponent implements OnInit {
     }
 
     if(!this.scholarships){
-      console.log('contentFetched', this.contentFetched);
       this.contentFetched = false;
     }
   }

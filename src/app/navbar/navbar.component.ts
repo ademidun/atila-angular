@@ -33,6 +33,8 @@ export class NavbarComponent implements OnInit {
     if (this.userProfileService.isLoggedIn()) {
       this.isLoggedIn = true;
       this.authService.isLoggedIn = true;
+
+      console.log('navbar.component.ts this.authService.secretKey', this.authService.secretKey);
     }
 
     if (localStorage.getItem('userId')) {
@@ -47,9 +49,13 @@ export class NavbarComponent implements OnInit {
         data => {
           this.userProfile = data;
           console.log('data',data);
+
+          console.log('navbar.component.ts this.authService.secretKey', this.authService.secretKey);
         },
       ) 
     }
+
+    console.log('navbar.component.ts this.authService.secretKey', this.authService.secretKey);
 
     
   }
