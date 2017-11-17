@@ -20,7 +20,7 @@ export class TokenInterceptor implements HttpInterceptor {
     //     Authorization: `Bearer ${this.auth.getToken()}`
     //   }
     // });
-    
+    console.log('tokenInterceptor req.headers',req.headers);
     if(!this.auth.getToken()){
         return next.handle(req);
     }
@@ -29,9 +29,10 @@ export class TokenInterceptor implements HttpInterceptor {
     console.log(`Basic ${this.auth.decryptLocalStorage('token2')}`);
     req = req.clone({
         setHeaders: {
-          Authorization: `JWT ${this.auth.getToken()}`,
+          Authorization: `JWT ${this.auth.decryptLocalStorage('token2')}`,
         }
       });
+      console.log('tokenInterceptor req.headers',req.headers);
     return next.handle(req);
   }
 }

@@ -44,7 +44,7 @@ export class AuthService {
     * @param key 
     * @param value 
     */
-   public encryptlocalStorage(key:string, value: any, encoding ='utf8'){
+   public encryptlocalStorage(key:string, value: any){
      //base64 values must be converted to string first, before they can be saved
 
       console.log('key, CryptoJS.AES.encrypt(userId.toString(),this.secretKey).toString()',key, CryptoJS.AES.encrypt(value.toString(),this.secretKey).toString());
@@ -52,10 +52,10 @@ export class AuthService {
       localStorage.setItem(key,encryptedData);
      
 
-     this.decryptLocalStorage(key, encoding);
+     this.decryptLocalStorage(key);
     }
 
-   public decryptLocalStorage(key:string, encoding?:string){
+   public decryptLocalStorage(key:string){
         var encryptedData = localStorage.getItem(key);
         console.log('key, this, encrpyteddata, secretKey', this, encryptedData, this.secretKey);
         var decryptedValue = '';

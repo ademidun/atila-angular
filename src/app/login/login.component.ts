@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
         // with the JWT on an id_token key
         data => {
           localStorage.setItem('token', data.token);
-          this.auth.encryptlocalStorage('token2', data.token,'base64');
+          this.auth.encryptlocalStorage('token2', data.token);
           // this.cookieService.putObject('userId', data.id);
           localStorage.setItem('userId', data.id);
           this.auth.encryptlocalStorage('uid',data.id);
