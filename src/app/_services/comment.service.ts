@@ -10,13 +10,13 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class CommentService {
 
-  public commentsUrl = 'http://127.0.0.1:8000/comments/';
+  public commentsUrl = 'http://127.0.0.1:8000/api/comments/';
   
   constructor(public http: Http) { }
 
 
   create(comment: Comment): Observable<Comment>{
-    console.log('create Comment', comment);
+    
     var commenturl = this.getUrl(comment);
     return this.http.post(`${commenturl}`, comment)
     .map(this.extractData)
@@ -33,7 +33,7 @@ export class CommentService {
 
 /*
   getComments(modelType:String, modelID: number){
-    console.log('getComments GET: ', `${this.commentsUrl}get-model-comments/?parent-model-type=${modelType}&parent-model-id=${modelID}`);
+    
     return this.http.get(`${this.commentsUrl}get-model-comments/?parent-model-type=${modelType}&parent-model-id=${modelID}`)
     .map(this.extractData)
     .catch(this.handleError);
@@ -51,8 +51,8 @@ export class CommentService {
   public extractData(res: Response) {
 
     let body = res.json();
-    console.log('commentservice res: ', res);
-    console.log('commentservice body: ', body);
+    
+    
     return body || { };
 
   }
@@ -76,13 +76,13 @@ export class CommentService {
     switch (commentType) {
 
       case 'Forum':
-        return 'http://127.0.0.1:8000/forum/forums/';
+        return 'http://127.0.0.1:8000/api/forum/forums/';
 
       case 'Scholarship':
-        return 'http://127.0.0.1:8000/scholarships/';
+        return 'http://127.0.0.1:8000/api/scholarships/';
 
       case 'BlogPost':
-        return 'http://127.0.0.1:8000/blog/blog-posts/';
+        return 'http://127.0.0.1:8000/api/blog/blog-posts/';
   
       default:
         break;
@@ -93,15 +93,15 @@ export class CommentService {
   public getUrl(comment:Comment){
 
     if ( comment.hasOwnProperty('forum') ) {
-      return 'http://127.0.0.1:8000/forum/forum-comments/';
+      return 'http://127.0.0.1:8000/api/forum/forum-comments/';
       
     }
     else if( comment.hasOwnProperty('blog_post') ) {
-      return 'http://127.0.0.1:8000/blog/blog-comments/';
+      return 'http://127.0.0.1:8000/api/blog/blog-comments/';
       
     }
     else if( comment.hasOwnProperty('scholarship') ) {
-      return 'http://127.0.0.1:8000/comments/';
+      return 'http://127.0.0.1:8000/api/comments/';
       
     }
      return this.commentsUrl;

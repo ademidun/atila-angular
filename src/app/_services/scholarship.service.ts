@@ -11,9 +11,9 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class ScholarshipService {
 
-  public scholarshipsUrl = 'http://127.0.0.1:8000/scholarships/';
-  public scholarshipsPreviewUrl = 'http://127.0.0.1:8000/scholarship-preview/';
-  public scholarshipSlugUrl = 'http://127.0.0.1:8000/scholarship-slug/';
+  public scholarshipsUrl = 'http://127.0.0.1:8000/api/scholarships/';
+  public scholarshipsPreviewUrl = 'http://127.0.0.1:8000/api/scholarship-preview/';
+  public scholarshipSlugUrl = 'http://127.0.0.1:8000/api/scholarship-slug/';
   constructor(public http: HttpClient) { }
   form_data: any;
 
@@ -47,17 +47,17 @@ export class ScholarshipService {
   
   setScholarshipPreviewForm(user_data:any): Promise<any>{ //made a promise so we can wait til function is called before navigating url
     this.form_data = user_data;
-    console.log('inside scholarshipService saving previewform', this.form_data);
+    
     return Promise.resolve(this.form_data);
   }
 
   getScholarshipPreviewForm(): Promise<any>{
-    console.log('inside ScholarshipService returning previewform', this.form_data);
+    
     return Promise.resolve(this.form_data);
   }
 
   getScholarshipPreviewList(form_data): Observable<Scholarship[]> {
-    console.log('inside ScholarshipService getScholarshipPreviewList: ', form_data);
+    
     return this.http.post(this.scholarshipsPreviewUrl, form_data)
                     .map(this.extractData)
                     .catch(this.handleError);
@@ -85,7 +85,7 @@ getBySlug(slug: string) {
   
   public extractData(res: HttpResponse<any>) {
     
-    console.log('scholarshipService res: ', res);
+    
     return res || { };
 
   }

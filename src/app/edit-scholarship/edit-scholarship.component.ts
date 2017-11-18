@@ -174,12 +174,12 @@ APPLICATION_FORM_TYPES = [
            .subscribe(
              user => {
                this.scholarshipOwner = user;
-               console.log('edit-scholarship, ngOnInit: ', this.scholarship);
+               
                this.arrayToString();
                
              },
              err => {
-               console.log(err);
+               
              }
            )
          }
@@ -187,7 +187,7 @@ APPLICATION_FORM_TYPES = [
          this.initializeLocations();
        },
        err => {
-         console.log(err);
+         
        }
      );
 
@@ -195,14 +195,14 @@ APPLICATION_FORM_TYPES = [
   }
 
   stringInputToArray(event: any){
-    console.log('toArrayInput, event', event);
-    console.log('this.stringDict; ', this.stringDict);
-    console.log(this.scholarship);
+    
+    
+    
 
     this.scholarship[event.target.name] = {};
     var tempString = event.target.value;
     tempString = tempString.trim();
-    console.log('tempString', tempString);
+    
     var stringArray: string[] = tempString.split(",");
     stringArray.forEach(element => {
       element = element.trim();
@@ -210,32 +210,32 @@ APPLICATION_FORM_TYPES = [
     });
     for( var key in stringArray){
       
-      console.log("this.scholarship[event.target.name][key]", this.scholarship[event.target.name][key]);
+      
     }
 
-    console.log("this.scholarship[event.target.name]", this.scholarship[event.target.name]);
-    console.log("event.target.value.split(',')", event.target.value.split(","));
+    
+    
     
 
    /* for (var i = 0; i < event.srcElement.form.length; i++) {
-      console.log('form[',i,']: event.srcElement.form[i]', event.srcElement.form[i]);
+      
       event.srcElement.form[i].disabled = true;
       
     }
     */
 
 
-    console.log('after stringInputToArray: this.scholarship:', this.scholarship);
+    
 
   }
 
   saveTableChanges(tableData: any[]){
     this.webForms = tableData;
-    console.log('saveTableChanges() tableData: ', tableData);
-    console.log('saveTableChanges() this.webForms: ', this.webForms);
-    console.log('saveTableChanges() this.scholarship.submission_info: ', this.scholarship.submission_info);
+    
+    
+    
     this.scholarship.submission_info.web_form_entries= tableData;
-    console.log('saveTableChanges() this.scholarship',this.scholarship)
+    
   }
   
   initializeLocations(){
@@ -304,9 +304,9 @@ APPLICATION_FORM_TYPES = [
               'city': ''
             });
     
-            console.log('editLocation this.provinces', this.provinces);
-            console.log('editLocation this.provinces[0].province', this.provinces[0].province);
-            console.log('editLocation this.activeProvince', this.activeProvince);
+            
+            
+            
           }
           break;
           
@@ -314,14 +314,14 @@ APPLICATION_FORM_TYPES = [
             break;
         }
     
-        console.log('editLocation this[type]', this[type]);
+        
   }
     
   removeLocation(index:number,type:string, value:string){
 
     
-    console.log('removeLocation', index,type, value);
-    console.log('this[type]', this[type]);
+    
+    
     
     this[type].splice(index,1);
     
@@ -384,15 +384,15 @@ APPLICATION_FORM_TYPES = [
       default:
         break;
     }
-    console.log('editLocation', index, event.target.value);
+    
   }
 
   setActiveLocation(event:any, type:string, value: any[]){
     //value will be an array of locations, we are looking for the
     //value where event.value == value[i].type
     
-    console.log('setActiveLocation before',this.activeCountry);
-    console.log('setActiveLocation before event',event);
+    
+    
     switch (type) {
       case 'country':
         {
@@ -410,7 +410,7 @@ APPLICATION_FORM_TYPES = [
         for (var i = 0; i < this.provinces.length; i++) {
           var element = this.provinces[i];
           if(element.province==this.activeProvince.province){
-            console.log('match  element.province,this.activeProvince', element.province,this.activeProvince);
+            
             this.activeProvince.country = element.country;
             break;
           }
@@ -422,7 +422,7 @@ APPLICATION_FORM_TYPES = [
       default:
         break;
     }
-    console.log('setActiveLocation AFTER',this.activeCountry);
+    
   }
 
   trackByFn(index: any, item: any) {
@@ -434,12 +434,12 @@ APPLICATION_FORM_TYPES = [
     let dialogRef = this.dialog.open(AddQuestionModalComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('dialogRef.afterClosed().subscribe(result => ', result);
+        
         this.scholarship.extra_questions[result.key] = result;
       } 
       
       else{
-        console.log('else result',result);
+        
       }      
     });
   }
@@ -451,11 +451,11 @@ APPLICATION_FORM_TYPES = [
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('result',result);
+        
         this.scholarship.extra_questions[key] = result;
       }
       else{
-        console.log('else result',result);
+        
       }      
     });
   }
@@ -477,8 +477,8 @@ APPLICATION_FORM_TYPES = [
     i =0;
       for(var element in this.scholarship[key]){ //i.e. for each value within the city key, append each city value to a city string
           if(i==0){
-            console.log('city',);
-            console.log('this.scholarship.city[city]',this.scholarship[key]);
+            
+            
             this.stringDict[key]= element;
           }
           else{
@@ -500,7 +500,7 @@ APPLICATION_FORM_TYPES = [
   }
   saveScholarshipEdit(scholarshipForm: NgForm) {
     
-      console.log('scholarshipForm',scholarshipForm)
+      
       if (scholarshipForm.valid){
         let locationData  = {
           countries: this.countries,
@@ -515,12 +515,12 @@ APPLICATION_FORM_TYPES = [
         this.scholarshipService.updateAny(sendData)
         .subscribe(
           res =>{
-            console.log('scholarshipService.update res', res);
+            
             this.snackBar.open("Scholarship succesfully Saved", '', {
               duration: 3000
             });
           },
-          err => {console.log('scholarshipService.update err', err);
+          err => {
             this.snackBar.open("Error - " + err, '', {
             duration: 3000
           });
@@ -539,14 +539,14 @@ APPLICATION_FORM_TYPES = [
   /*createScholarship(scholarshipForm) {
 
     if (scholarshipForm.valid) {
-      console.log('createScholarship, this.scholarship: ',this.scholarship);
+      
       let postOperation: Observable<Scholarship>;
       this.scholarship.owner = this.userId;
       postOperation = this.scholarshipService.create(this.scholarship);
 
       postOperation.subscribe(
         data => {
-          console.log('scholarship created:',data)
+          
           this.snackBar.open("Scholarship succesfully created", '', {
             duration: 3000
           });
@@ -569,7 +569,7 @@ APPLICATION_FORM_TYPES = [
   }*/
 
   scholarshipAppFormChangeEvent(fileInput: any){
-    console.log("fileInput:", fileInput);
+    
     this.scholarshipFormFile = fileInput.target.files[0]; 
     
   }
@@ -587,14 +587,14 @@ APPLICATION_FORM_TYPES = [
       id: this.scholarship.id,
       fieldName: 'form_url'
     }
-    console.log('this.scholarshipFormFile',this.scholarshipFormFile)
+    
     this.appFormFile.path = "scholarships/" + this.scholarship.id + "/scholarship-templates/"
     this.appFormFile.path = this.appFormFile.path + this.appFormFile.name
-    console.log('this.appFormFile',this.appFormFile);
+    
     
     this.fileUpload(this.appFormFile)
     .subscribe(
-      res => console.log('uploadScholarshipAppForm, subscribe() res', res)
+      res => {}
     )
 
   }
@@ -608,15 +608,15 @@ APPLICATION_FORM_TYPES = [
 
   uploadFileFirebase(res: Response, uploadFile: UploadFile){
     
-    console.log("uploadFileInternal: res",res,'uploadFile',uploadFile);
+    
     
     let config;
     config = res['api_key'];
-    console.log("config",config);
+    
     if (!firebase.apps.length) {
       firebase.initializeApp(config);
     }
-    console.log("firebase after config",firebase);
+    
     uploadFile.name = config.toString();
     //why does google documentation use var instead of ref
     
@@ -629,8 +629,8 @@ APPLICATION_FORM_TYPES = [
       size: uploadFile.file.size,
       name: uploadFile.file.name,
     };
-    console.log('uploadRef',uploadRef)
-    console.log('uploadRef.getDownloadURL()',uploadRef.getDownloadURL());
+    
+    
     
     var uploadTask = uploadRef.put(uploadFile.file, metadata);
     
@@ -646,16 +646,16 @@ APPLICATION_FORM_TYPES = [
       // Observe state change events such as progress, pause, and resume
       // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
       var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      console.log('Upload is ' + progress + '% done');
+      
     },
     (error)=> {
-      console.log(error);
+      
     },
     () => {
       // Handle successful uploads on complete
       // For instance, get the download URL: https://firebasestorage.googleapis.com/...
       //var downloadURL = uploadTask.snapshot.downloadURL;
-      console.log('Finished upload: uploadTask.snapshot', uploadTask.snapshot );
+      
       this.scholarship.form_url = uploadTask.snapshot.downloadURL;
                                                         
     });

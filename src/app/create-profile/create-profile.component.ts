@@ -56,9 +56,9 @@ export class CreateProfileComponent implements OnInit {
     this.userProfile.education_level = [this.EDUCATION_LEVEL[0]];
     this.userProfile.education_field = [this.EDUCATION_FIELD[0],this.EDUCATION_FIELD[1]];
 
-    console.log('userProfile:', this.userProfile);
-    console.log('this.userProfile.education_field:', this.userProfile.education_field);
-    console.log('this.userProfile.education_level:', this.userProfile.education_level);
+    
+    
+    
 
     this.userId = this.authService.decryptLocalStorage('uid');
     this.userProfile.user = this.userId;
@@ -68,14 +68,14 @@ export class CreateProfileComponent implements OnInit {
   fileChangeEvent(fileInput: any) {
     
     //Save each file in a dictionary of file inputs
-    console.log("fileInput:", fileInput);
+    
     this.userDocuments[fileInput.target.files[0].name] = fileInput.target.files[0];
   }
 
   // TODO: Remove this method? It doesn't actually get called.
   createProfile(profileForm: NgForm) {
 
-    console.log('just entered createProfile:', profileForm);
+    
     if (profileForm.valid) {
       let postOperation: Observable<UserProfile>;
       postOperation = this.userProfileService.update(this.userProfile);
@@ -99,11 +99,11 @@ export class CreateProfileComponent implements OnInit {
 
   onSubmit(profileForm: NgForm){
 
-    console.log("userDocuments:", this.userDocuments);
+    
 
-    console.log("profileForm:", profileForm);
+    
 
-    console.log("this.userProfile:", this.userProfile);
+    
 
     if (profileForm.valid) {
       let postOperation: Observable<UserProfile>;

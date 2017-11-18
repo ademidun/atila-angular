@@ -545,7 +545,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
     
     this.fileUpload(this.appFormFile)
     .subscribe(
-      res => console.log('this.fileUpload() res:',res),
+      res => {}
     )
   
   }

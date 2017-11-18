@@ -62,11 +62,11 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
 
   ngAfterContentInit() {
     // https://stackoverflow.com/questions/43934727/how-to-use-jquery-plugin-with-angular-4
-    console.log('ngAfterContentInit to hide .mat-card-header-text BEFORE',$('.mat-card-header-text'));
+    
     
     $('.mat-card-header-text').css('display','none');
     
-    console.log('ngAfterContentInit to hide .mat-card-header-text AFTER',$('.mat-card-header-text'));
+    
   }
 
 //TODO: Nov 5 implement profile pic upload
@@ -74,11 +74,11 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
     //let uploadOperation: Observable<any>;
 
     //create Upload file and configure its properties before uploading.
-    console.log('uploadPicInput',uploadPicInput);
+    
 
     var uploadPicFile = uploadPicInput.files[0];
 
-    console.log('uploadPicFile',uploadPicFile);
+    
 
     
     this.profilePicFile = new UploadFile(uploadPicFile);
@@ -90,16 +90,16 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
       id: this.userProfile.user,
       fieldName: 'profile_pic_url'
     }
-    console.log('this.profilePicFile',this.profilePicFile)
+    
 
     // the path where the file should be saved on firebase
     this.profilePicFile.path = "user-profiles/" + this.userProfile.user+ "/profile-pictures/"
     this.profilePicFile.path = this.profilePicFile.path + this.profilePicFile.name
-    console.log('this.profilePicFile',this.profilePicFile);
+    
     
     this.fileUpload(this.profilePicFile)
     .subscribe(
-      res => console.log('uploadScholarshipAppForm, subscribe() res', res)
+      res => {}
     )
     
     
@@ -121,11 +121,11 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
   //TODO: How can we get uploadFileFirebase to return an observable with the URL of the uploaded file
   uploadFileFirebase(res: Response, uploadFile: UploadFile){
     
-    console.log("uploadFileInternal: res",res,'uploadFile',uploadFile);
+    
     
     let config;
     config = res['api_key'];
-    console.log("config",config);
+    
     if (!firebase.apps.length) {
       firebase.initializeApp(config);
     }
@@ -150,13 +150,13 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
     (snapshot:any) => {
       var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       this.uploadProgress = progress;
-      console.log('Upload is ' + progress + '% done');
+      
     },
     (error)=> {
-      console.log(error);
+      
     },
     () => {
-      console.log('Finished upload: uploadTask.snapshot', uploadTask.snapshot );
+      
       this.userProfile.profile_pic_url = uploadTask.snapshot.downloadURL;
       this.uploadProgress = null;
       this.saveProfile();
@@ -192,13 +192,13 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
     this.messagingService.getOrCreateThread(thread)
       .subscribe(
         res => {
-          console.log(res);
+          
           //todo assosciate a username with a thread
           // this.router.navigate(['messages', this.currentUser]);
           this.router.navigate(['messages']);
         }, 
         err => {
-          console.log(err);
+          
         }
       )
   }

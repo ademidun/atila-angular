@@ -54,7 +54,7 @@ export class ForumsListComponent implements OnInit {
     //TODO remove this when you reformat scholarships to inherit from BaseComment in backend
     delete this.forumComment.parent_model_type;
     delete this.forumComment.parent_model_id;
-    console.log('postForum() sendData', sendData);
+    
 
     this.forumService.create(sendData).subscribe(
       res => this.forums.unshift(res),

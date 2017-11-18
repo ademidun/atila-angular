@@ -19,7 +19,7 @@ export class WebFormsService {
 
   fillWebForm(webForm,formData, userData): Promise<any>{
     
-    console.log('filling web form:',);
+    
     var By = webdriver.By;
 
     var until = webdriver.until;
@@ -29,11 +29,11 @@ export class WebFormsService {
         .build();
 
     driver.get('http://www.google.com/ncr');
-    console.log('opened the driver:', driver);
+    
 
     driver.findElement(By.name('q')).sendKeys('webdriver');
     let element = driver.findElement(By.name('btnG'));
-    console.log('about to click:',element);
+    
     element.click()
     driver.wait(until.titleIs('webdriver - Google Search'), 1000);
 

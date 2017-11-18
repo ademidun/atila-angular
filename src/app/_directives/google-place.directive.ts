@@ -37,8 +37,8 @@ export class GooglePlaceDirective {
       this.autocomplete = new google.maps.places.Autocomplete(<HTMLInputElement>input, {});
       google.maps.event.addListener(this.autocomplete, 'place_changed', ()=> {
         var place = this.autocomplete.getPlace();
-        console.log('google-place.directive place:',place);
-        console.log('google-place.directive this._el:',this._el);
+        
+        
         this.invokeEvent(place);
   
       });

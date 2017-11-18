@@ -31,16 +31,16 @@ export class TableLayoutComponent implements OnChanges {
       }
 
 
-    console.log('ngOnChanges() columnMaps, records', this.columnMaps, this.records);
+    
   }
 
   editRow(index: number){
-    console.log('editRow index: ', index);
+    
   }
   
   deleteRow(index: number){
 
-    console.log('deleteRow index: ', index);
+    
     this.records.splice(index,1);
     this.sendEdits();
   }
@@ -53,13 +53,13 @@ export class TableLayoutComponent implements OnChanges {
     this.columnMaps.forEach( 
       column => rowItem[column.primaryKey]= '' 
     )
-    console.log('addRow rowItem: ', rowItem)
+    
 
     this.records.push(rowItem);
 
   }
   sendEdits() {
-    console.log('sendEdits() sendData: ', this.records);
+    
     this.tableEditEvent.emit(this.records)
   }
 

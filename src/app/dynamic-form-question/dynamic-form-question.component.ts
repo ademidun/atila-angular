@@ -21,11 +21,11 @@ export class DynamicFormQuestionComponent implements OnInit {
   
   ngOnInit() {
     this.appData = this.generalData.appData.responses;
-    console.log('this.generalData.appData.responses', this.generalData.appData.responses);
+    
 
     if(this.form){
       var results = document.getElementsByClassName("scholarship-document");
-      console.log('ngOnInit();document.getElementsByClassName("scholarship-document").results',results);
+      
       this.generalData.documentUploads = { };
       for (var i = 0; i < results.length; i++) {
         let documentKey = results[i].getAttribute("name");
@@ -48,6 +48,6 @@ export class DynamicFormQuestionComponent implements OnInit {
     //  [generalData]="generalData" (uploaded)="fileChangeEvent($event)"></app-dynamic-form-question>
 
     this.uploaded.emit(fileInput);
-    console.log('fileChangeEvent this.form: ', this.form)
+    
   }
 }

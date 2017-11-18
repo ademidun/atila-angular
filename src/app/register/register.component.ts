@@ -64,7 +64,7 @@ userProfile = new UserProfile();
       let postOperation: Observable<any>;
       // Create a new User
       Array('country','province','city').forEach(element => {
-        console.log('looping the array elements', element);
+        
         
         this.locationData[element]= this.userProfile[element];
       });
@@ -81,7 +81,7 @@ userProfile = new UserProfile();
           this.showSnackBar('Registration successful', 3000);
           this.authService.isLoggedIn = true;
           // Store userId in loacl storage
-          console.log('registration data: ', data);
+          
           if (data.id) {
             // this.cookieService.putObject('userId', data.id);
             localStorage.setItem('userId', data.id); 

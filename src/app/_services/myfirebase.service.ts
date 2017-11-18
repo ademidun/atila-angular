@@ -11,8 +11,8 @@ import * as firebase from "firebase";
 export class MyFirebaseService {
 
   
-  public apiKeyUrl = 'http://127.0.0.1:8000/api-keys/';
-  public saveFirebaseUrl = 'http://127.0.0.1:8000/save-firebase/';
+  public apiKeyUrl = 'http://127.0.0.1:8000/api/api-keys/';
+  public saveFirebaseUrl = 'http://127.0.0.1:8000/api/save-firebase/';
   constructor(public http: Http) { 
 
   }
@@ -21,7 +21,7 @@ export class MyFirebaseService {
 
   //reference: https://angularfirebase.com/lessons/angular-file-uploads-to-firebase-storage/
   uploadFile(uploadFile: UploadFile, uploadInstructions: any): Observable<any>{
-    console.log("firebase service, uploadFile:",uploadFile);
+    
 
     //1. Get the API keys used to configure firebase from backend database.
 
@@ -35,14 +35,14 @@ export class MyFirebaseService {
   
   uploadFileFirebase(res: Response, uploadFile: UploadFile, uploadInstructions: any){
 
-      console.log("myfirebase.service uploadFileInternal: res",res,'uploadFile',uploadFile);
+      
         let config;
         config = res['api_key'];
-        console.log("config",config);
+        
         if (!firebase.apps.length) {
           firebase.initializeApp(config);
         }
-        console.log("firebase after config",firebase);
+        
         uploadFile.name = config.toString();
         //why does google documentation use var instead of ref
         
@@ -69,7 +69,7 @@ export class MyFirebaseService {
           // Observe state change events such as progress, pause, and resume
           // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
           var progress = ( snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log('Upload is ' + progress + '% done');
+          
         },
          (error)=> {
           this.handleError(error);
@@ -78,7 +78,7 @@ export class MyFirebaseService {
           // Handle successful uploads on complete
           // For instance, get the download URL: https://firebasestorage.googleapis.com/...
           //var downloadURL = uploadTask.snapshot.downloadURL;
-          console.log('Finished upload: uploadTask.snapshot', uploadTask.snapshot );
+          
            this.saveUploadResult(uploadTask.snapshot,uploadFile.uploadInstructions);                                                   
         });
 
@@ -87,8 +87,8 @@ export class MyFirebaseService {
   
   saveUploadResult(uploadResult, uploadInstructions){
 
-    console.log('saveUploadResult:',uploadResult,)
-    console.log('uploadInstructions:',uploadInstructions,)
+    
+    
     let postData = {
       "uploadResult": uploadResult,
       "uploadInstructions": uploadInstructions,
@@ -99,9 +99,9 @@ export class MyFirebaseService {
     .catch(this.handleError)
     
     // .map( res => )
-    // .catch(this.handleError).subscribe(res => console.log('inside post.subscribe() saveUploadResult',res))
+    // .catch(this.handleError).subscribe(res => 
 
-    //console.log('after saveUploadResult post:',uploadInstructions,)
+    //
     
   }
 
@@ -115,8 +115,8 @@ export class MyFirebaseService {
 
   public extractData(res: Response) {
     let body = res.json();
-    console.log('scholarshipService res: ', res);
-    console.log('scholarshipService body: ', body);
+    
+    
     return body || { };
 
   }

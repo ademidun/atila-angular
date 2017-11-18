@@ -9,10 +9,10 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class ForumService {
 
-  public forumsUrl = 'http://127.0.0.1:8000/forum/forums/';
-  public forumComments = 'http://127.0.0.1:8000/forum/forum-comments/';
+  public forumsUrl = 'http://127.0.0.1:8000/api/forum/forums/';
+  public forumComments = 'http://127.0.0.1:8000/api/forum/forum-comments/';
 
-  public forumsSlugUrl = 'http://127.0.0.1:8000/forum/forum-slug/';
+  public forumsSlugUrl = 'http://127.0.0.1:8000/api/forum/forum-slug/';
 
   constructor(public http: Http) { }
 

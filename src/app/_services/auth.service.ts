@@ -13,10 +13,10 @@ import { MatSnackBar } from '@angular/material';
 @Injectable()
 export class AuthService {
 
-  public loginUrl = 'http://127.0.0.1:8000/login/';
-  public userUrl = 'http://127.0.0.1:8000/users/';
-  public usernameUrl = 'http://127.0.0.1:8000/user-name/';
-  public apiKeyUrl = 'http://127.0.0.1:8000/api-keys/';
+  public loginUrl = 'http://127.0.0.1:8000/api/login/';
+  public userUrl = 'http://127.0.0.1:8000/api/users/';
+  public usernameUrl = 'http://127.0.0.1:8000/api/user-name/';
+  public apiKeyUrl = 'http://127.0.0.1:8000/api/api-keys/';
   public  isLoggedIn: boolean = false; //should this be public or protected?
   public secretKey:string;
   token: string;
@@ -142,8 +142,8 @@ export function handleError (error: Response | any) {
 
 export function extractData(res: Response | any) {
   let body = res.json();
-  console.log('authservice extractData res: ', res);
-  console.log('authservice body: ', body);
+  
+  
   return body;
 
 }

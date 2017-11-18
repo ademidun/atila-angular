@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {NgForm} from '@angular/forms';
 
 import { ScholarshipService } from "../_services/scholarship.service";
@@ -28,9 +28,9 @@ export class PreviewResponse {
 @Component({
   selector: 'app-preview',
   templateUrl: './preview.component.html',
-  styleUrls: ['./preview.component.scss']
+  styleUrls: ['./preview.component.scss'],
 })
-export class PreviewComponent implements OnInit {
+export class PreviewComponent implements OnInit, OnDestroy {
 
   CITY_CHOICES = [
     'Milton',
@@ -78,12 +78,18 @@ export class PreviewComponent implements OnInit {
    constructor(
     public scholarshipService: ScholarshipService,
     public router: Router,
-    ) { }
+    ) { 
+
+    }
 
   ngOnInit() {
+
+    document.body.style.backgroundColor = '#194F87';
   }
 
-
+  ngOnDestroy() {
+    document.body.style.backgroundColor = null;
+  }
   /**
    * Adding Google Places API Autocomplete for User Location:
    * @param {google.maps.places.PlaceResult} placeResult
@@ -93,7 +99,7 @@ export class PreviewComponent implements OnInit {
    * https://stackoverflow.com/questions/42341930/google-places-autocomplete-angular2
    */
   placeAutoComplete(placeResult:any, locationModel: NgModel){ //Assign types to the parameters place result is a PlaceResult Type, see documentation
-    console.log('Preview.componenent placeAutoComplete() event: ', placeResult, 'location: ', location);
+    
 
     this.predictLocation(this.model.location, placeResult);
     

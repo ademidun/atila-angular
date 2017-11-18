@@ -23,14 +23,14 @@ export class UnAuthorizedInterceptor implements HttpInterceptor {
         return next.handle(request).do((event: HttpEvent<any>) => {
           if (event instanceof HttpResponse) {
             // do stuff with response if you want
-            console.log('UnAuthorizedInterceptor request, event', request, event )
+            
             return next.handle(request);
           }
         }, (err: any) => {
           if (err instanceof HttpErrorResponse) {
             if (err.status === 401) {
   
-              console.log('UnAuthorizedInterceptor request, event', request, err );
+              
               // redirect to the login route
               this.snackBar.open('Please log in' + err.message, '', {
                 duration: 3000

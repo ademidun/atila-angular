@@ -60,7 +60,7 @@ export class MessagesComponent implements OnInit {
                     }
                   },
                   err => {
-                    console.log(err);
+                    
                   }
                 );
               });
@@ -72,7 +72,7 @@ export class MessagesComponent implements OnInit {
         }
       },
       err => {
-        console.log(err);
+        
       });
   }
 
@@ -86,7 +86,7 @@ export class MessagesComponent implements OnInit {
         this.message.message = "";
       },
       err => {
-        console.log(err);
+        
       }
       );
   }
@@ -98,7 +98,7 @@ export class MessagesComponent implements OnInit {
         this.messages = messages;
       },
       err => {
-        console.log(err);
+        
       }
       );
   }
@@ -112,7 +112,7 @@ export class MessagesComponent implements OnInit {
     try {
       this.discussionContainer.nativeElement.scrollTop = this.discussionContainer.nativeElement.scrollHeight;
     } catch (err) {
-      console.log(err);
+      
     }
   }
 

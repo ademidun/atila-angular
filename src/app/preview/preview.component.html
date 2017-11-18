@@ -23,17 +23,17 @@
                   <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City">
                 </mat-form-field>  -->
                 
-                <div class="form-group input-field col s12 m4">
+                <mat-form-field class="form-group input-field col s12 m4">
                   <mat-select [(ngModel)]="model.education_level" name="education_level" id="education_level" multiple=true required placeholder="Type">
                     <mat-option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </mat-option>
                   </mat-select>
-                </div>
+                </mat-form-field>
         
-                <div class="form-group input-field col s12 m4">
+                <mat-form-field class="form-group input-field col s12 m4">
                   <mat-select [(ngModel)]="model.education_field" name="education_field" id="education_field" multiple=true required placeholder="Field">
                     <mat-option *ngFor="let field of EDUCATION_FIELD" [value]="field">{{field}} </mat-option>
                   </mat-select>
-                </div>
+                </mat-form-field>
               </div>
               <br>
               <div class="row center" style="text-align: center;margin-bottom: 0px;">

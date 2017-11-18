@@ -36,7 +36,7 @@ import { AddQuestionModalComponent } from './add-question-modal/add-question-mod
 import { AppDetailComponent } from './app-detail/app-detail.component';
 import { MyFirebaseService } from './_services/myfirebase.service';
 
-import { MatIconRegistry, MatIconModule, MatMenuModule, MatFormFieldModule,
+import { MatIconRegistry, MatIconModule, MatMenuModule, MatFormFieldModule,MatButtonModule,
    MatSelectModule, MatCardModule,MatCheckboxModule,MatInputModule,MatProgressSpinnerModule, MatSnackBarModule } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SafeResourcePipe } from './_pipes/safe-resource.pipe';
@@ -105,6 +105,7 @@ import { UnAuthorizedInterceptor } from './_services/unauthorized.interceptor';
     BrowserAnimationsModule,
     HttpModule,
     MatDialogModule,
+    MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
     MatProgressBarModule,

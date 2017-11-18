@@ -33,7 +33,7 @@ export class NavbarComponent implements OnInit {
       this.isLoggedIn = true;
       this.authService.isLoggedIn = true;
 
-      console.log('navbar.component.ts this.authService.secretKey', this.authService.secretKey);
+      
     }
 
     if (this.authService.decryptLocalStorage('uid')) {
@@ -47,14 +47,14 @@ export class NavbarComponent implements OnInit {
         
         data => {
           this.userProfile = data;
-          console.log('data',data);
+          
 
-          console.log('navbar.component.ts this.authService.secretKey', this.authService.secretKey);
+          
         },
       ) 
     }
 
-    console.log('navbar.component.ts this.authService.secretKey', this.authService.secretKey);
+    
 
     
   }
@@ -70,10 +70,10 @@ export class NavbarComponent implements OnInit {
 
     snackBarRef.onAction().subscribe(
       () => {
-        console.log('The snack-bar action was triggered!');
+        
         this.router.navigate(['login']);
       },
-      err =>  console.log('The snack-bar action was triggered! error', err),
+      err =>  {}
     )
 
     this.router.navigate([''])

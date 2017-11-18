@@ -53,7 +53,7 @@ export class BlogPostDetailComponent implements OnInit {
         
         this.commentService.getComments(this.blogPost.id,'BlogPost').subscribe(
           res => {
-            console.log('blogPostService.getComments',res)
+            
             this.comments = res.comments;
           }
         )
@@ -81,18 +81,18 @@ export class BlogPostDetailComponent implements OnInit {
 
     commentTemp.text = this.userComment.text;
     commentTemp.title = this.userComment.title;
-    console.log('about to save the comment commentTemp; ', commentTemp);
+    
     
     let postOperation = this.commentService.create(commentTemp);
 
     postOperation.subscribe(
       res => {
-        console.log('postComment response; ', res);
+        
         this.comments.unshift(res);
       },
 
       err =>{
-        console.log('postComment err: ', err);
+        
       }
       
     )

@@ -5,7 +5,7 @@
 
       <!-- Show on Desktop  -->
       <ul class="right hide-on-med-and-down">
-        <li *ngIf="!authService.isLoggedIn;else loggedIn"><a class="atila-blue" routerLink="/login">Log In</a></li>
+        <li *ngIf="!authService.isLoggedIn"><a class="atila-blue" routerLink="/login">Log In</a></li>
 
         <span *ngIf="authService.isLoggedIn">
             <button mat-icon-button [matMenuTriggerFor]="menu">
@@ -37,7 +37,7 @@
               
               <li>
                   <a routerLink="/blog" title="Blogs" >
-                    <button button mat-icon-button >
+                    <button mat-icon-button >
                         <mat-icon  class="atila-blue" aria-hidden="true" aria-label="See Blogs" md-colors="{color:'primary'}">chrome_reader_mode</mat-icon>
                     </button>
                   </a>
@@ -54,7 +54,7 @@
 
               <li>
               <a routerLink="/messages" title="Messages">
-                <button button mat-icon-button >
+                <button button mat-icon-button md-icon-button>
                     <mat-icon  class="atila-blue" aria-hidden="true" md-colors="{color:'primary'}">email</mat-icon>
                 </button>
               </a>
@@ -62,7 +62,7 @@
               
             <li>
                 <a routerLink="/add-scholarship" title="Add Scholarship">
-                  <button button mat-icon-button >
+                  <button md-icon-button mat-icon-button >
                       <mat-icon  class="atila-blue" aria-hidden="true" aria-label="Add a Scholarship" md-colors="{color:'primary'}">add_circle_outline</mat-icon>
                   </button>
                 </a>

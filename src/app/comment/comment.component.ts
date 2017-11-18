@@ -20,18 +20,18 @@ export class CommentComponent implements OnInit {
   ) { 
 
     this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
-    console.log('CONSTRUCTOR comment.ts, comment Type', this.commentType, this.comment);
+    
    }
 
   ngOnInit() {
-    console.log('ngOnInit comment.ts, comment Type', this.commentType, this.comment);
+    
     this.getCommentMetadata();
   }
 
   commentVote(voteType: string){
     
-          console.log('voteType', voteType);
-          console.log('this.comment',this.comment);
+          
+          
           
           if(voteType=='upVote'){
             this.comment= upVoteComment(this.userId,this.comment);
@@ -46,11 +46,11 @@ export class CommentComponent implements OnInit {
       
           //update the database with the new upvote score and update the UI based on the database response
           //why is commentType sometimes defined and sometimes undefined?
-          console.log('comment.ts, comment Type', this.commentType);
+          
           let postOperation = this.commentService.update(sendData);
           postOperation.subscribe(
             res => {
-              console.log('updating comment res:', res);
+              
               //this.comment = res; TODO: Do we need the updated result from the database?
             }
           )

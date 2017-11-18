@@ -13,7 +13,7 @@
             </div>          
             Deadline: {{scholarship.deadline | date:'longDate'}}<br> 
             <strong>
-            <p *ngIf="scholarship.funding_amount > 0">{{scholarship.funding_amount | currency:'USD':true:'1.0-0'}}</p>
+            <p *ngIf="scholarship.funding_amount > 0">{{scholarship.funding_amount | currency:'USD':'symbol':'1.0-0'}}</p>
             </strong>
             <a *ngIf="scholarship.owner==userId" [routerLink]="['/edit-scholarship', scholarship.slug]"> Edit Scholarship </a><br>
             <a *ngIf="scholarship.owner!=userId" [routerLink]="['/edit-scholarship', scholarship.slug]"> Suggest/View Edits </a><br>

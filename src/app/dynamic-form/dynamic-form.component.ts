@@ -74,13 +74,13 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     }
 
     this.appData = this.generalData.appData.responses;
-    console.log('ngOnInit().this.form',this.form);
+    
     this.writeEmail();
   }
 
   ngAfterViewInit(){
     this.cdr.detectChanges();
-    console.log('ngAfterViewInit().this.form',this.form);
+    
   }
   /**
    * Save the application to the database without automating and save the uploaded document urls.
@@ -90,8 +90,8 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     // First, we will save the URLs of the uploaded documents
       event.preventDefault();
       var results = document.getElementsByClassName("scholarship-document");
-      console.log('saveDocuments().results',results);
-      console.log('saveDocuments().event',event);
+      
+      
       for (var i = 0; i < results.length; i++) {
         let documentKey = results[i].getAttribute("name");
         let documentUrl = results[i].getAttribute("href"); 
@@ -99,7 +99,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
       }
 
     
-    console.log('saveDocuments().this.generalData.documentUploads',this.generalData.documentUploads);
+    
     
     //Next, we will save the application edits to the database.
     this.showAutomationLoading = true;
@@ -123,16 +123,16 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     var appId = this.generalData.appData.id;
 
 
-    console.log('saveApplication() sendData:' , sendData);
+    
     
     this.observable = this.questionService.saveResponse(appId,sendData);
     this.observable.subscribe(
       res => {
-        console.log('dynamic form submision Response succesful:' , res);
+        
         this.payLoad = JSON.stringify(res.message);
       },
       err =>{
-        console.log('Error DynamicFormComponent:' , err);
+        
         this.showAutomationLoading = false;
         this.payLoad = JSON.stringify(err.message);
 
@@ -149,10 +149,10 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     this.payLoad = this.form.value;
 
 
-    console.log('onSubmit() sendData:' , this.form.value);
-    console.log('onSubmit() this.generalData.appData.document_urls:' , this.generalData.appData.document_urls);
     
-    console.log('onSubmit() this.generalData.documentUpload:' , this.generalData.documentUploads);
+    
+    
+    
     
     if(!this.generalData.documentUploads || Object.keys(this.generalData.documentUploads).length === 0){ //if the dictionary is empty use the default values.
       this.generalData.documentUploads = this.generalData.appData.document_urls;
@@ -165,7 +165,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     }
 
 
-    console.log('onSubmit() after generalData sendData:' , this.form.value);
+    
     this.payLoad = JSON.stringify(this.payLoad);
     var sendData = {
       //'generalData': this.generalData,We only need 
@@ -174,18 +174,18 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
       'documentUrls':this.generalData.documentUploads,
     }
     var appId = this.generalData.appData.id;
-    console.log('onSubmit() sendData:' , sendData);
+    
     this.writeEmail();
     /*
     TODO: Add client-side selenium hosting
     if(this.generalData.scholarship.submission_info.application_form_type=='Web' && this.generalData.scholarship.is_automated){
-      console.log("this.generalData.scholarship.submission_info.application_form_type=='Web' && this.generalData.scholarship.is_automated"
+      
        , this.generalData.scholarship.submission_info.application_form_type +  JSON.stringify(this.generalData.scholarship.is_automated));
 
        this.webFormService.fillWebForm(this.generalData.scholarship.submission_info, this.form.value, sendData)
        .then(
-         res => console.log('WebformDriver, filled: ', res),
-          err =>console.log('WebformDriver, Error: ', err)
+         res => 
+          err =>
        )
     }
     */
@@ -193,7 +193,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     this.observable = this.questionService.automateResponse(appId,sendData);
     this.observable.subscribe(
       res => {
-        console.log('dynamic form submision Response succesful:' , res);
+        
         this.uploadUrl = res.upload_url;
         if(this.generalData.scholarship.submission_info.application_form_type=='Web'){
           
@@ -203,14 +203,14 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
           
         }
 
-        console.log('this.preAndPostScreenshots',this.preAndPostScreenshots);
+        
         }
 
         
         this.payLoad = JSON.stringify(res.message);
       },
       err =>{
-        console.log('Error DynamicFormComponent:' , err);
+        
         this.showAutomationLoading = false;
         this.payLoad = JSON.stringify(err.message);
 
@@ -224,7 +224,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   }
 
   fileChangeEvent(fileInput: any){
-    console.log("fileInput:", fileInput);
+    
   
     //TODO: this seems a bit redundant
     this.formFile = fileInput.target.files[0];
@@ -242,18 +242,18 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     //let uploadOperation: Observable<any>;
   
     //create Upload file and configure its properties before uploading.
-    console.log('uploadUserDocuments() this.generalData.appData.responses',this.generalData.appData.responses);
-    console.log('uploadUserDocuments() formFileEvent ',this.formFileEvent);
+    
+    
     this.uploadFile = new UploadFile(this.formFile);
     this.uploadFile.name = this.formFile.name;
     this.uploadFile.path = "scholarships/" + this.generalData.scholarship.id + "/application-documents/" + this.generalData.appData.id + "/";
     this.uploadFile.path = this.uploadFile.path + this.uploadFile.name
-    console.log('this.uploadFile',this.uploadFile);
+    
     
     this.fileUpload(this.uploadFile)
     .subscribe(
       res =>{
-        console.log('uploadScholarshipAppForm, subscribe() res', res);
+        
       } 
     )
   
@@ -268,15 +268,15 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
 
   uploadFileFirebase(res: Response, uploadFile: UploadFile){
     
-    console.log("uploadFileInternal: res",res,'uploadFile',uploadFile);
+    
     
     let config;
     config = res['api_key'];
-    console.log("config",config);
+    
     if (!firebase.apps.length) {
       firebase.initializeApp(config);
     }
-    console.log("firebase after config",firebase);
+    
     uploadFile.name = config.toString();
     //why does google documentation use var instead of ref
     
@@ -289,8 +289,8 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
       size: uploadFile.file.size,
       name: uploadFile.file.name,
     };
-    console.log('uploadRef',uploadRef)
-    console.log('uploadRef.getDownloadURL()',uploadRef.getDownloadURL());
+    
+    
       var uploadTask = uploadRef.put(uploadFile.file, metadata);
       
       //https://firebase.google.com/docs/storage/web/upload-files?authuser=0
@@ -305,23 +305,23 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
         // Observe state change events such as progress, pause, and resume
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log('Upload is ' + progress + '% done');
+        
       },
         (error)=> {
-        console.log(error);
+        
       },
         () => {
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         //var downloadURL = uploadTask.snapshot.downloadURL;
-        console.log('Finished upload: uploadTask.snapshot', uploadTask.snapshot );
+        
         //this.userProfile.form_url = uploadTask.snapshot.downloadURL;
   
         //this.generalData.userProfile[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
         this.generalData.appData.responses[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
         this.generalData.documentUploads[this.formFileEvent.target.id] =  uploadTask.snapshot.downloadURL;
-        console.log('this.generalData.appData.responses[this.formFileEvent.target.id]',this.generalData.appData.responses[this.formFileEvent.target.id]) ; 
-        console.log('this.generalData.documentUploads',this.generalData.documentUploads) ;                                              
+        
+        
       });
     
     
@@ -396,14 +396,14 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
       this.appMailToLink = encodeURI(this.appMailToLink);
   }
   saveToClipBoard(divId: string){
-      console.log('this.emailBody', this.emailBody);
+      
       var copyText = $(divId);
       //var copyText = document.getElementById("myInput");
       copyText.select();
       document.execCommand("copy");
-      console.log("Copied the text: " + copyText);
+      
 
-      console.log("Copied the text: copyText:", copyText);
+      
 
       this.snackBar.open("Copied to Clipboard",' Send Email',{
         duration: 3000

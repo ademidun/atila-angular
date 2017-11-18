@@ -52,7 +52,7 @@ export class ScholarshipDetailComponent implements OnInit {
     // Get the id that was passed in the route
     this.scholarshipSlug = route.snapshot.params['slug'];
     this.userId = parseInt(this.authService.decryptLocalStorage('uid')); // Current user, TODO: Should we use the request user ID?
-    console.log('localStorage userID: ',this.userId);
+    
 
   }
 
@@ -71,15 +71,15 @@ export class ScholarshipDetailComponent implements OnInit {
                 this.scholarshipOwner = user;
               },
               err => {
-                console.log(err);
+                
               }
             )
           }
 
-        console.log('this.keyGetter',this.keyGetter(this.scholarship.city));
+        
         },
         err => {
-          console.log(err);
+          
         },
 
         () => {
@@ -94,14 +94,14 @@ export class ScholarshipDetailComponent implements OnInit {
     //create an empty UserComment object
     this.userComment = new Comment(this.userId);
 
-    console.log('getScholarshipComments() this.userComment: ', this.userComment);
+    
     //this.scholarshipComments = new Array<Comment>();
 
     let postOperation = this.commentService.getComments(this.scholarship.id,'Scholarship');
 
     postOperation.subscribe(
       res => {
-        console.log('get Comment response; ', res);
+        
         this.scholarshipComments = res.comments;
       }
     )
@@ -116,17 +116,17 @@ export class ScholarshipDetailComponent implements OnInit {
     commentTemp['scholarship'] = this.scholarship.id;
     commentTemp.text = this.userComment.text;
     commentTemp.title = this.userComment.title;
-    console.log('about to save the comment commentTemp; ', commentTemp);
+    
     let postOperation = this.commentService.create(commentTemp);
 
     postOperation.subscribe(
       res => {
-        console.log('postComment response; ', res);
+        
         this.scholarshipComments.unshift(res);
       },
 
       err =>{
-        console.log('postComment err: ', err);
+        
       }
       
     )
@@ -154,15 +154,15 @@ export class ScholarshipDetailComponent implements OnInit {
         .subscribe(
         application => {
           this.appId = application.id;
-          console.log('application', application)
-          console.log('application.id', application.id);
+          
+          
         },
         error => {
-          console.log('scholarship-detail component error!:', error)
+          
         },
         () => {
   
-          console.log('()', this.appId);
+          
           this.router.navigate(['applications', this.appId])
         }
         )
@@ -176,10 +176,10 @@ export class ScholarshipDetailComponent implements OnInit {
   
       snackBarRef.onAction().subscribe(
         () => {
-          console.log('The snack-bar action was triggered!');
+          
           this.router.navigate(['login']);
         },
-        err =>  console.log('The snack-bar action was triggered! error', err),
+        err =>  {}
       )
     }
    }
@@ -187,17 +187,17 @@ export class ScholarshipDetailComponent implements OnInit {
    //Make this an exported member function of comment
    upVoteComment(userId: number, comment: Comment): Comment{
 
-     console.log('inside Commment.up_vote_comment, this', this, 'userID:', userId);
+     
 
     if(comment.up_votes_id.includes(userId)){
 
-        console.log('inside Commment.up_vote_comment, user has already upvoted this', this, 'userID:', userId);
+        
         return comment;
     }
     else{
         this['user_already_upvoted'] = true;
         comment.up_votes_count = comment.up_votes_id.push(userId);
-        console.log('inside Commment.up_vote_comment, userID just upvoted this', this, 'userID:', userId);
+        
         return comment.up_votes_count;
     }
   }

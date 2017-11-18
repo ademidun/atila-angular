@@ -27,17 +27,17 @@ export class Comment {
 
 export function upVoteComment(userId: number, comment: Comment): Comment{
 
-    console.log('inside exported function Commment.up_vote_comment, comment', comment, 'userID:', userId);
+    
 
     if(comment.up_votes_id.includes(userId)){
 
-        console.log('inside Commment.up_vote_comment, user has already upvoted comment', comment, 'userID:', userId);
+        
         return comment;
     }
     else{
         comment['user_already_upvoted'] = true;
         comment.up_votes_count = comment.up_votes_id.push(userId);
-        console.log('inside Commment.up_vote_comment, userID just upvoted comment', comment, 'userID:', userId);
+        
         return comment;
     }
 }

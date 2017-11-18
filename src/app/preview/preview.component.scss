@@ -24,8 +24,16 @@ mat-select {
 
 .scholarship-btn{
   margin: 1%;
+  background-color: #1976d2;
 }
 
+:host/deep/ .mat-pseudo-checkbox-checked{
+  background-color: $primary;
+}
+
+// .input-field{
+//   border-bottom: solid white;
+// }
 :host/deep/ .mat-input-placeholder {
   color: white;
 }
@@ -68,7 +76,7 @@ mat-form-field.location-div .mat-input-wrapper{
 .preview-form {
   background: transparent; 
   padding: 1px 0 0px 0;
-  margin-top: -20%;
+  margin-top: -11%;
 }
 
 .form-header {

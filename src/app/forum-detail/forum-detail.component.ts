@@ -48,7 +48,7 @@ export class ForumDetailComponent implements OnInit {
         this.titleService.setTitle('Atila Forum - ' + this.forum.title);
         this.commentService.getComments(this.forum.id,'Forum').subscribe(
           res => {
-            console.log('forumService.getComments',res)
+            
             this.forum.starting_comment = res.starting_comment;
             this.comments = res.forum_comments;
           }
@@ -69,18 +69,18 @@ export class ForumDetailComponent implements OnInit {
 
     commentTemp.text = this.userComment.text;
     commentTemp.title = this.userComment.title;
-    console.log('about to save the comment commentTemp; ', commentTemp);
+    
     
     let postOperation = this.commentService.create(commentTemp);
 
     postOperation.subscribe(
       res => {
-        console.log('postComment response; ', res);
+        
         this.comments.unshift(res);
       },
 
       err =>{
-        console.log('postComment err: ', err);
+        
       }
       
     )

@@ -15,9 +15,9 @@ export class UserProfileService {
   constructor(public http: HttpClient,
                 public authService: AuthService,
                 public snackBar: MatSnackBar,) { }
-  public userEndpoint = 'http://127.0.0.1:8000/users/';
+  public userEndpoint = 'http://127.0.0.1:8000/api/users/';
   
-  public userProfileEndpoint = 'http://127.0.0.1:8000/user-profiles/';
+  public userProfileEndpoint = 'http://127.0.0.1:8000/api/user-profiles/';
   
 
 
@@ -102,7 +102,7 @@ export class UserProfileService {
         // In a real world app, you might use a remote logging infrastructure
         let errMsg: string;
         let err: any;
-        console.log('user-profile.service error: ', error);
+        
         return Observable.throw(error);
         
     }

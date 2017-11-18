@@ -84,10 +84,10 @@ EDUCATION_FIELD = [
             this.titleService.setTitle('Atila - ' + profileTitle);
             this.initializeLocations(this.userProfile.city);
 
-            console.log('edit-profile.component.ts this.authService.decryptLocalStorage("uid")', this.authService.decryptLocalStorage('uid'));
+            
           },
           err => {
-            console.log(err);
+            
             
           }
         )
@@ -115,16 +115,16 @@ initializeLocations(cities: Array<any>){
         userProfile: this.userProfile,
         locationData: this.locationData,
       }
-      console.log('edit-profile.component.ts this.authService.secretKey', this.authService.secretKey);
-      console.log('edit-profile.component.ts this.authService.decryptLocalStorage("uid")', this.authService.decryptLocalStorage('uid'));
+      
+      
       this.userProfileService.updateAny(sendData)
       .subscribe(
         data => {
-          console.log("Updated Data:", data);
+          
           this.showSnackBar("Succesfully Updated Your Profile, Welcome to Atila",'What Next?', 3000);
         },
         err => {
-          console.log('saveProfile err',err);
+          
           this.showSnackBar('Profile updated unsuccessfully - ' + err.error? err.error: err,'', 3000);
         }
       )
@@ -137,11 +137,11 @@ initializeLocations(cities: Array<any>){
   }
   /*onSubmit(profileForm: NgForm){
         
-        console.log("onSubmit(), userDocuments:", this.userDocuments);
+        
     
-        console.log("profileForm:", profileForm);
+        
     
-        console.log("this.userProfile:", this.userProfile);
+        
     
         if (profileForm.valid) {
           let postOperation: Observable<UserProfile>;
@@ -189,7 +189,7 @@ initializeLocations(cities: Array<any>){
     this.uploadFile.name = this.formFile.name;
     this.uploadFile.path = "user-profiles/" + this.userProfile.user + "/documents/"
     this.uploadFile.path = this.uploadFile.path + this.uploadFile.name
-    console.log('this.uploadFile',this.uploadFile);
+    
     
     this.fileUpload(this.uploadFile)
     .subscribe(
@@ -229,7 +229,7 @@ uploadFileFirebase(res: Response, uploadFile: UploadFile){
     name: uploadFile.file.name,
   };
   
-  console.log('uploadRef.getDownloadURL()',uploadRef.getDownloadURL());
+  
     var uploadTask = uploadRef.put(uploadFile.file, metadata);
     
     //https://firebase.google.com/docs/storage/web/upload-files?authuser=0
@@ -244,22 +244,22 @@ uploadFileFirebase(res: Response, uploadFile: UploadFile){
       // Observe state change events such as progress, pause, and resume
       // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
       var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      console.log('Upload is ' + progress + '% done');
+      
     },
       (error)=> {
-      console.log(error);
+      
     },
       () => {
       // Handle successful uploads on complete
       // For instance, get the download URL: https://firebasestorage.googleapis.com/...
       //var downloadURL = uploadTask.snapshot.downloadURL;
-      console.log('Finished upload: uploadTask.snapshot', uploadTask.snapshot );
+      
       //this.userProfile.form_url = uploadTask.snapshot.downloadURL;
 
       //get the userProfile attribute that needs to be saved.
       //Will this have a significant impact on speed? As opposed to just saving the event ID as a variable   
       this.userProfile[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
-      console.log('this.userProfile[this.formFileEvent.target.id]',this.userProfile[this.formFileEvent.target.id])                                               
+      
     });
   
   

@@ -16,9 +16,9 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class QuestionService   {
 
-  public scholarshipQuestionsUrl = 'http://127.0.0.1:8000/scholarship-questions/';
-  public saveScholarshipResponseUrl = 'http://127.0.0.1:8000/application-save-response/';
-  public automateScholarshipResponseUrl = 'http://127.0.0.1:8000/application-automate-response/';
+  public scholarshipQuestionsUrl = 'http://127.0.0.1:8000/api/scholarship-questions/';
+  public saveScholarshipResponseUrl = 'http://127.0.0.1:8000/api/application-save-response/';
+  public automateScholarshipResponseUrl = 'http://127.0.0.1:8000/api/application-automate-response/';
   
   
   constructor(public http: Http) { }
@@ -77,7 +77,7 @@ export class QuestionService   {
     this.params.set('app-id', appId);
     this.requestOptions.params = this.params;
 
-    console.log('in QuestionService, this.params:', this.params)
+    
 
     return this.observable = this.http.get(this.scholarshipQuestionsUrl, this.requestOptions)
         .map(this.extractData)
@@ -86,17 +86,17 @@ export class QuestionService   {
   }
 
     public extractData(res: Response) {
-    console.log('in QuestionService, extractData res:', res)
+    
     let body = res.json();
-    console.log('in QuestionService, extractData body:', body)
+    
     return body || { };
   }
   automateResponse(appId: number | any, data:any): Observable<any>{
-    console.log('data before data["appId"]', data);
+    
 
     data['appId'] = appId;
 
-    console.log('data AFTER data["appId"]', data);
+    
 
     return this.http.post(this.automateScholarshipResponseUrl,data)
     .map(this.extractData)
@@ -106,11 +106,11 @@ export class QuestionService   {
   }
 
   saveResponse(appId: number | any, data:any): Observable<any>{
-    console.log('data before data["appId"]', data);
+    
 
     data['appId'] = appId;
 
-    console.log('data AFTER data["appId"]', data);
+    
 
     return this.http.post(this.saveScholarshipResponseUrl,data)
     .map(this.extractData)
