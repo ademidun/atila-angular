@@ -15,7 +15,7 @@ import { Title } from '@angular/platform-browser'
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [,]
+  providers: []
 })
 export class AppComponent {
   loading: boolean = true;

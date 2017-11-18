@@ -138,12 +138,8 @@ export class PreviewComponent implements OnInit {
    * If user presses enter on location button, don't allow the form to submit because we still need to pull the location Data from Google Maps.
    */
   keyDownHandler(event: Event) {
-    console.log('keyDownHandler, regular key press NBD ', event);
     
     if((<KeyboardEvent>event).keyCode == 13) {
-      console.log('you just clicked enter');
-      // rest of your code
-      console.log('keyDownHandler', event);
 
       event.preventDefault(); 
     }
@@ -151,18 +147,8 @@ export class PreviewComponent implements OnInit {
   }
 
   onSubmit(form: NgForm){
-    console.log('form: NgForm: ', form)
-    // console.log('JSON.stringify(form): ',  JSON.stringify(form))
-    console.log('model Json Stringify: ', JSON.stringify(this.model));
-    //const capitalizeFirstChar = str => str.charAt(0).toUpperCase() + str.substring(1);
-    //this.model.city[0] = capitalizeFirstChar(form.value['city']);
-    //this.model.city[0] = form.value['location'];
-
     this.model.location.name = this.model.location.city; //ensures that our object matches the Atila Location API
 
-    console.log('model data: ', this.model)
-    //console.log('JSON.stringify(previewForm): ', JSON.stringify(previewForm))
-    console.log('previewForm: ', form.value);
     this.diagnostic = JSON.stringify(this.model);
 
     this.scholarshipService.setScholarshipPreviewForm(this.model).then(
