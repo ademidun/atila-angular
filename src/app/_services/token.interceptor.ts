@@ -9,14 +9,14 @@ import { AuthService } from './auth.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
 import { Router } from '@angular/router'
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 // https://ryanchenkie.com/angular-authentication-using-the-http-client-and-http-interceptors
 
 //cyclic dependency https://github.com/angular/angular/issues/18224
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(private inj: Injector) {}
+  constructor(public inj: Injector) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 

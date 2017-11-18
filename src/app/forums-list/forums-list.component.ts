@@ -15,14 +15,14 @@ import { AuthService } from "../_services/auth.service";
 })
 export class ForumsListComponent implements OnInit {
 
-  private forums: Forum[]
+  public forums: Forum[]
   newForum: Forum;
   forumComment:Comment;
   userProfile: UserProfile;
   constructor(
-    private forumService: ForumService,
-    private userProfileService: UserProfileService,
-    private authService: AuthService,
+    public forumService: ForumService,
+    public userProfileService: UserProfileService,
+    public authService: AuthService,
   ) { }
 
   ngOnInit() {

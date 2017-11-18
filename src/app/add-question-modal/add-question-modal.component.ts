@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { QuestionBase } from '../_models/question-base';
 import { DateQuestion } from '../_models/question-date';
 import { DropdownQuestion } from '../_models/question-dropdown';
@@ -32,8 +32,8 @@ export class AddQuestionModalComponent implements OnInit {
   edit = false; // Default case is that we are adding a question
 
   constructor(
-    public dialogRef: MdDialogRef<AddQuestionModalComponent>,
-    @Inject(MD_DIALOG_DATA) public data
+    public dialogRef: MatDialogRef<AddQuestionModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data
   ) { 
     if (data) {
       this.question = data;

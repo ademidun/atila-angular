@@ -8,16 +8,16 @@ import { Observable } from 'rxjs/Rx';
 import { UserProfile } from '../_models/user-profile';
 import { AuthService } from "./auth.service";
 
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 @Injectable()
 export class UserProfileService {
 
-  constructor(private http: HttpClient,
-                private authService: AuthService,
-                private snackBar: MdSnackBar,) { }
-  private userEndpoint = 'http://127.0.0.1:8000/users/';
+  constructor(public http: HttpClient,
+                public authService: AuthService,
+                public snackBar: MatSnackBar,) { }
+  public userEndpoint = 'http://127.0.0.1:8000/users/';
   
-  private userProfileEndpoint = 'http://127.0.0.1:8000/user-profiles/';
+  public userProfileEndpoint = 'http://127.0.0.1:8000/user-profiles/';
   
 
 
@@ -91,14 +91,14 @@ export class UserProfileService {
         .catch(this.handleError);
     }
 
-    private extractData(res: HttpResponse<any>) {
+    public extractData(res: HttpResponse<any>) {
         let body = res.body;
         
         return res || { };
     
     }
 
-    private handleError (error: Response | any) {
+    public handleError (error: Response | any) {
         // In a real world app, you might use a remote logging infrastructure
         let errMsg: string;
         let err: any;

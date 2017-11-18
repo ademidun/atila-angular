@@ -7,8 +7,8 @@ import { ScholarshipService } from '../_services/scholarship.service';
 import { ApplicationService } from '../_services/application.service';
 import { Observable } from 'rxjs/Rx';
 import { NgZone } from '@angular/core';
-import { MdDialog, MdDialogRef } from '@angular/material';
-import { MdSnackBar } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { UserProfileService } from '../_services/user-profile.service';
 
 import { CommentService } from '../_services/comment.service';
@@ -31,23 +31,23 @@ export class ScholarshipDetailComponent implements OnInit {
   appId: number;
   json = JSON; 
 
-  private reviews: any[];
-  private reviewsLoaded: boolean = false;
-  private scholarshipOwner;
+  public reviews: any[];
+  public reviewsLoaded: boolean = false;
+  public scholarshipOwner;
   public keyGetter = Object.keys;
 
   constructor(
     route: ActivatedRoute,
-    private router: Router,
-    private scholarshipService: ScholarshipService,
-    private applicationService: ApplicationService,
-    private _ngZone: NgZone,
-    public dialog: MdDialog,
-    private snackBar: MdSnackBar,
-    private userProfileService: UserProfileService,
-    private titleService: Title,
-    private commentService: CommentService,
-    private authService: AuthService,
+    public router: Router,
+    public scholarshipService: ScholarshipService,
+    public applicationService: ApplicationService,
+    public _ngZone: NgZone,
+    public dialog: MatDialog,
+    public snackBar: MatSnackBar,
+    public userProfileService: UserProfileService,
+    public titleService: Title,
+    public commentService: CommentService,
+    public authService: AuthService,
   ) {
     // Get the id that was passed in the route
     this.scholarshipSlug = route.snapshot.params['slug'];

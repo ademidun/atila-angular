@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Rx';
 import { UserProfileService } from '../_services/user-profile.service';
 
 import { Router, ActivatedRoute } from '@angular/router'
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { AuthService } from "../_services/auth.service";
     
 @Component({
@@ -39,16 +39,16 @@ export class CreateProfileComponent implements OnInit {
    ]
    userProfile = new UserProfile();
   userDocuments = { };
-  private userId;
+  public userId;
   
   documentScholarshipsPercent = 93; // TODO: Calculate % of scholarhips that require either a transcript, resume or reference letter.
   profileInfo = true;
   constructor(
-    private userProfileService: UserProfileService,
-    private router: Router,
+    public userProfileService: UserProfileService,
+    public router: Router,
     route: ActivatedRoute,
-    private snackBar: MdSnackBar,
-    private authService: AuthService,
+    public snackBar: MatSnackBar,
+    public authService: AuthService,
 
   ) { }
 

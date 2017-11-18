@@ -10,13 +10,13 @@
    </div>
    
       <div class="form-row" style=" margin-top: 1%;">
-          <button md-raised-button style="background-color: #184E87;margin-left:1%"class="btn white-text" (click)="uploadUserDocuments($event)" >Upload Document</button>
-          <button md-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveApplication($event)">Save Application</button>
-          <button md-raised-button style="background-color: #184E87;" class="btn white-text" type="submit" [disabled]="!form.valid">Automate!</button>
+          <button mat-raised-button style="background-color: #184E87;margin-left:1%"class="btn white-text" (click)="uploadUserDocuments($event)" >Upload Document</button>
+          <button mat-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveApplication($event)">Save Application</button>
+          <button mat-raised-button style="background-color: #184E87;" class="btn white-text" type="submit" [disabled]="!form.valid">Automate!</button>
         
         <div  *ngIf="showAutomationLoading">
             Automating Engine Running Please Wait...
-            <md-progress-bar aria-label="Automating Engine Running Please Wait..." mode="indeterminate"></md-progress-bar>
+            <mat-progress-bar aria-label="Automating Engine Running Please Wait..." mode="indeterminate"></mat-progress-bar>
         </div>
 
         <a target="_blank" *ngIf="uploadUrl" href="{{uploadUrl}}">View Filled Application</a>
@@ -46,7 +46,7 @@
         </div>
 
         <a target="_blank" href="{{appMailToLink}}">Send Email</a>
-        <button  md-raised-button style="background-color: #184E87;margin:1%"class="btn white-text"
+        <button  mat-raised-button style="background-color: #184E87;margin:1%"class="btn white-text"
          (click)="saveToClipBoard('email-content')" class="btn btn-success white-text">Copy to Clipboard</button>
 
         <textarea [(ngModel)]="emailBody" id="email-content" style="height: 15em"></textarea>

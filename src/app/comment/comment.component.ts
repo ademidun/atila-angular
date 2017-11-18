@@ -15,8 +15,8 @@ export class CommentComponent implements OnInit {
   userId: number;
 
   constructor(
-    private commentService: CommentService,
-    private authService: AuthService,
+    public commentService: CommentService,
+    public authService: AuthService,
   ) { 
 
     this.userId = parseInt(this.authService.decryptLocalStorage('uid'));

@@ -6,7 +6,7 @@ export class BlogPost {
     date_created?: any;
     header_image_url?: any;
     body?: any;
-
+    description?:any;
     contributors: any[];
     published?: boolean;
     up_votes_count?: any;

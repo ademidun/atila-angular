@@ -9,20 +9,20 @@ import * as CryptoJS from "crypto-js";
 //ES6 style imports
 //https://stackoverflow.com/questions/39415661/what-does-resolves-to-a-non-module-entity-and-cannot-be-imported-using-this
 
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 @Injectable()
 export class AuthService {
 
-  private loginUrl = 'http://127.0.0.1:8000/login/';
-  private userUrl = 'http://127.0.0.1:8000/users/';
-  private usernameUrl = 'http://127.0.0.1:8000/user-name/';
-  private apiKeyUrl = 'http://127.0.0.1:8000/api-keys/';
-  public  isLoggedIn: boolean = false; //should this be private or protected?
+  public loginUrl = 'http://127.0.0.1:8000/login/';
+  public userUrl = 'http://127.0.0.1:8000/users/';
+  public usernameUrl = 'http://127.0.0.1:8000/user-name/';
+  public apiKeyUrl = 'http://127.0.0.1:8000/api-keys/';
+  public  isLoggedIn: boolean = false; //should this be public or protected?
   public secretKey:string;
   token: string;
-  constructor(private http: HttpClient,
-              private snackBar: MdSnackBar,
-              private router: Router,) {
+  constructor(public http: HttpClient,
+              public snackBar: MatSnackBar,
+              public router: Router,) {
     this.token = localStorage.token;
 
     this.initializeSecretKey();
@@ -75,7 +75,7 @@ export class AuthService {
         return null;
    }
 
-   private extractToken(res: HttpResponse<any>) {
+   public extractToken(res: HttpResponse<any>) {
     this.token = res['token'];
     return res || { };
     }
@@ -98,13 +98,12 @@ export class AuthService {
       .catch(this.handleError);
     }
 
-    private extractData(res: Response) {
-      console.log('private extractData res', res);
+    public extractData(res: Response) {
       return res;
 
     }
 
-    private handleError (error: Response | any) {
+    public handleError (error: Response | any) {
       // In a real world app, you might use a remote logging infrastructure
       return Observable.throw(error);
     }

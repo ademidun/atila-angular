@@ -9,12 +9,12 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class ForumService {
 
-  private forumsUrl = 'http://127.0.0.1:8000/forum/forums/';
-  private forumComments = 'http://127.0.0.1:8000/forum/forum-comments/';
+  public forumsUrl = 'http://127.0.0.1:8000/forum/forums/';
+  public forumComments = 'http://127.0.0.1:8000/forum/forum-comments/';
 
-  private forumsSlugUrl = 'http://127.0.0.1:8000/forum/forum-slug/';
+  public forumsSlugUrl = 'http://127.0.0.1:8000/forum/forum-slug/';
 
-  constructor(private http: Http) { }
+  constructor(public http: Http) { }
 
   list(): Observable<any>{
     return this.http.get(`${this.forumsUrl}`)

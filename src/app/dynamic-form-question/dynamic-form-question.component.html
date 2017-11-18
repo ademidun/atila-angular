@@ -4,38 +4,38 @@
     <div [ngSwitch]="question.controlType">
   
   
-    <md-input-container class="col s12" *ngSwitchCase="'textfield'">       
-      <input  mdInput class="browser-default"   [formControlName]="question.key" [placeholder]="question.label"
+    <mat-form-field class="col s12" *ngSwitchCase="'textfield'">       
+      <input  matInput class="browser-default"   [formControlName]="question.key" [placeholder]="question.label"
               [id]="question.key" [type]="question.type" [(ngModel)]="appData[question.key]" [required]="question.required ? 'required' : null">
-    </md-input-container>
+    </mat-form-field>
     
   
     <!-- TODO: Figure out why it displays as an input element and not as a textarea element.
     May have something to do with the runtime rendering order. -->
-      <md-input-container class="col s12"  *ngSwitchCase="'textarea'">
-        <textarea mdInput [placeholder]="question.label" [id]="question.key" 
+      <mat-form-field class="col s12"  *ngSwitchCase="'textarea'">
+        <textarea matInput [placeholder]="question.label" [id]="question.key" 
         [formControlName]="question.key" [(ngModel)]="appData[question.key]" [required]="question.required ? 'required' : null"></textarea>
-      </md-input-container>
+      </mat-form-field>
   
-    <md-input-container class="" *ngSwitchCase="'date'">
+    <mat-form-field class="" *ngSwitchCase="'date'">
       <label>{{question.label}}</label> 
-        <input mdInput [formControlName]="question.key"
+        <input matInput [formControlName]="question.key"
                 [id]="question.key" [type]="question.type" [required]="question.required ? 'required' : null">
-    </md-input-container>
+    </mat-form-field>
   
-    <md-select mdInput [id]="question.key" *ngSwitchCase="'dropdown'" [required]="question.required ? 'required' : null"  [formControlName]="question.key" multiple=true [placeholder]="question.label">                
-      <md-option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</md-option>
+    <mat-select matInput [id]="question.key" *ngSwitchCase="'dropdown'" [required]="question.required ? 'required' : null"  [formControlName]="question.key" multiple=true [placeholder]="question.label">                
+      <mat-option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</mat-option>
 
-    </md-select>
+    </mat-select>
     <!-- <select [id]="question.key" *ngSwitchCase="'dropdown'" [formControlName]="question.key">
       <option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</option>
       </select>-->
 
-    <md-input-container *ngSwitchCase="'number'" class="col s12">
-          <input class="browser-default" mdInput id="phone_number" type="number" [formControlName]="question.key"
+    <mat-form-field *ngSwitchCase="'number'" class="col s12">
+          <input class="browser-default" matInput id="phone_number" type="number" [formControlName]="question.key"
           [id]="question.key" [type]="question.type" [placeholder]="question.label"  [required]="question.required ? 'required' : null">
           
-    </md-input-container>
+    </mat-form-field>
 
     <span *ngSwitchCase="'file'">
         {{question.label}}

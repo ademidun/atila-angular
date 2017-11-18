@@ -9,12 +9,12 @@ import 'rxjs/add/operator/toPromise';
 export class BlogPostService {
 
 
-  private blogsUrl = 'http://127.0.0.1:8000/blog/blog-posts/';
+  public blogsUrl = 'http://127.0.0.1:8000/blog/blog-posts/';
 
-  private blogUrl = 'http://127.0.0.1:8000/blog/';
+  public blogUrl = 'http://127.0.0.1:8000/blog/';
 
-  private blogsSlugUrl = 'http://127.0.0.1:8000/blog/blog-slug/';
-  constructor(private http: Http) { }
+  public blogsSlugUrl = 'http://127.0.0.1:8000/blog/blog-slug/';
+  constructor(public http: Http) { }
 
   list(): Observable<any>{
     return this.http.get(`${this.blogsUrl}`)

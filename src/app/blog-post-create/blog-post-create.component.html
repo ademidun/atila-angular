@@ -4,9 +4,9 @@
     <div class="col s11">
       <h3> {{blogPost.title}} </h3>
 
-      <md-card class="forum-card">
+      <mat-card class="forum-card">
           
-      <md-card-content>
+      <mat-card-content>
           <input id="forum_title" placeholder="Title" [(ngModel)]="blogPost.title" (change)="titleToSlug(blogSlugInput)">
 
         <a (click)="extraBlogOptions = !extraBlogOptions"  href="javascript:undefined">More Settings</a>
@@ -26,16 +26,16 @@
                  #uploadPicInput name="header_image_url_file">
             </div>
             
-            <md-progress-bar style="margin-bottom: 1%;" *ngIf="uploadProgress" mode="determinate" [value]="uploadProgress"></md-progress-bar>
+            <mat-progress-bar style="margin-bottom: 1%;" *ngIf="uploadProgress" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
 
             <div class="col s6 l2">
-              <button md-raised-button class="btn white-text" (click)="uploadPicture(uploadPicInput)">Upload</button>
+              <button mat-raised-button class="btn white-text" (click)="uploadPicture(uploadPicInput)">Upload</button>
             </div>
 
         </div>
 
-          <span class="example-tooltip-host" mdTooltip="A short preview of your article. Used for social media or search engines." mdTooltipPosition="below">
-            <md-icon aria-label="Why add a description">help_outline</md-icon>
+          <span class="example-tooltip-host" matTooltip="A short preview of your article. Used for social media or search engines." matTooltipPosition="below">
+            <mat-icon aria-label="Why add a description">help_outline</mat-icon>
           </span>
           <input id="blog_post_description" class="prefix_input" placeholder="Blog preview" [(ngModel)]="blogPost.description">
           <div><span *ngIf="userProfile" id="url_prefix">atila.ca/blog/{{userProfile.username}}/</span>
@@ -43,17 +43,17 @@
           </div>
         </div>
           
-      </md-card-content>
+      </mat-card-content>
 
-      <md-card-actions>
-          <button md-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveBlog('false')">Save</button>
-      </md-card-actions>
+      <mat-card-actions>
+          <button mat-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveBlog(false)">Save</button>
+      </mat-card-actions>
                       
-      </md-card>
+      </mat-card>
 
     <textarea id="{{editorId}}"></textarea>
-    <button md-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveBlog('false')">Save</button>
-    <button md-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveBlog('true')">Publish</button>
+    <button mat-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveBlog(false)">Save</button>
+    <button mat-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveBlog(true)">Publish</button>
     </div>
 
     <br>

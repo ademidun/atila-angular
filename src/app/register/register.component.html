@@ -6,22 +6,22 @@
             <h4>Register</h4>
             <div *ngIf="pageNo==1">
               <div class="row">
-                <md-input-container class="col s12">
-                  <input mdInput class="browser-default" id="username" type="text" 
+                <mat-form-field class="col s12">
+                  <input matInput class="browser-default" id="username" type="text" 
                     required [(ngModel)]="model.username" name="username" placeholder="Username">
-                </md-input-container>
+                </mat-form-field>
               </div>
               <div class="row">
-                <md-input-container class="col s12">
-                  <input mdInput class="browser-default" id="email" type="email" required
+                <mat-form-field class="col s12">
+                  <input matInput class="browser-default" id="email" type="email" required
                     [(ngModel)]="model.email" name="email" placeholder="Email">
-                </md-input-container>
+                </mat-form-field>
               </div>
               <div class="row">
-                <md-input-container class="col s12">
-                  <input mdInput class="browser-default" id="password" type="password" required
+                <mat-form-field class="col s12">
+                  <input matInput class="browser-default" id="password" type="password" required
                     [(ngModel)]="model.password" name="password" placeholder="Password">
-                </md-input-container>
+                </mat-form-field>
               </div>
 
               <div class="col s12 button-container">
@@ -30,48 +30,48 @@
             </div>
 
             <div *ngIf="pageNo==2">
-                <md-input-container class="col s6">
-                    <input class="browser-default" mdInput id="first_name" type="text" required minlength="2" placeholder="First name"
+                <mat-form-field class="col s6">
+                    <input class="browser-default" matInput id="first_name" type="text" required minlength="2" placeholder="First name"
                     [(ngModel)]="userProfile.first_name" name="first_name">
-                </md-input-container>
-                <md-input-container class="col s6">
-                  <input class="browser-default" mdInput id="last_name" type="text" required minlength="2" placeholder="Last Name"
+                </mat-form-field>
+                <mat-form-field class="col s6">
+                  <input class="browser-default" matInput id="last_name" type="text" required minlength="2" placeholder="Last Name"
                     [(ngModel)]="userProfile.last_name" name="last_name">
-                </md-input-container>
+                </mat-form-field>
 
               <div class="row">
-                <md-input-container class="col s12">
-                  <input class="browser-default" mdInput id="city" type="text" required placeholder="City"
+                <mat-form-field class="col s12">
+                  <input class="browser-default" matInput id="city" type="text" required placeholder="City"
                     [(ngModel)]="userProfile.city" name="city">
-                </md-input-container>
+                </mat-form-field>
               </div>
               <div class="row">
-                  <md-input-container class="col s12">
-                      <input class="browser-default" mdInput id="province" type="text" required placeholder="Province/State"
+                  <mat-form-field class="col s12">
+                      <input class="browser-default" matInput id="province" type="text" required placeholder="Province/State"
                         [(ngModel)]="userProfile.province" name="province">
-                    </md-input-container>
+                    </mat-form-field>
               </div>
               <div class="row">
-                  <md-input-container class="col s12">
-                      <input class="browser-default" mdInput id="country" type="text" required placeholder="Country"
+                  <mat-form-field class="col s12">
+                      <input class="browser-default" matInput id="country" type="text" required placeholder="Country"
                         [(ngModel)]="userProfile.country" name="country">
-                    </md-input-container>
+                    </mat-form-field>
               </div>
 
               <div class="row">
                 <div class="input-field">
-                  <md-select class="col s12" [(ngModel)]="userProfile.education_level"  name="education_level"  id="education_level" multiple=true placeholder="Education Type" required >                
-                    <md-option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </md-option>
-                  </md-select>
+                  <mat-select class="col s12" [(ngModel)]="userProfile.education_level"  name="education_level"  id="education_level" multiple=true placeholder="Education Type" required >                
+                    <mat-option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </mat-option>
+                  </mat-select>
                 </div>
               </div>
               <br> 
               <div class="row">
                 <div class="input-field">
                   <!-- TODO: Add a Modal or hover info explaining the diff. between Art and STEM -->
-                  <md-select class="col s12" [(ngModel)]="userProfile.education_field"  name="education_field"  id="education_field" multiple=true required placeholder="Education Field">
-                    <md-option *ngFor="let field of EDUCATION_FIELD" [value]="field">{{field}} </md-option>
-                  </md-select>
+                  <mat-select class="col s12" [(ngModel)]="userProfile.education_field"  name="education_field"  id="education_field" multiple=true required placeholder="Education Field">
+                    <mat-option *ngFor="let field of EDUCATION_FIELD" [value]="field">{{field}} </mat-option>
+                  </mat-select>
                 </div>
                 </div>
 

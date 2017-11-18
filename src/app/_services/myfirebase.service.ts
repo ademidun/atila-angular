@@ -11,9 +11,9 @@ import * as firebase from "firebase";
 export class MyFirebaseService {
 
   
-  private apiKeyUrl = 'http://127.0.0.1:8000/api-keys/';
-  private saveFirebaseUrl = 'http://127.0.0.1:8000/save-firebase/';
-  constructor(private http: Http) { 
+  public apiKeyUrl = 'http://127.0.0.1:8000/api-keys/';
+  public saveFirebaseUrl = 'http://127.0.0.1:8000/save-firebase/';
+  constructor(public http: Http) { 
 
   }
 
@@ -113,7 +113,7 @@ export class MyFirebaseService {
   }
 
 
-  private extractData(res: Response) {
+  public extractData(res: Response) {
     let body = res.json();
     console.log('scholarshipService res: ', res);
     console.log('scholarshipService body: ', body);
@@ -121,7 +121,7 @@ export class MyFirebaseService {
 
   }
 
-  private handleError (error: Response | any) {
+  public handleError (error: Response | any) {
     // In a real world app, you might use a remote logging infrastructure
     let errMsg: string;
     if (error instanceof Response) {

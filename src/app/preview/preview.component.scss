@@ -1,75 +1,105 @@
 @import '../../styles.scss';
 
 .background-image {
-    background: url('../../assets/img/bg-preview-3.jpg') center / cover;
+    background: url('../../assets/img/bg-preview-1x.jpg') center / cover;
+    background-image: -webkit-image-set(  
+      url('../../assets/img/bg-preview-1x.jpg') 1x center / cover,  
+      url('../../assets/img/bg-preview-2x.jpg') 2x  center / cover 
+    );  
+    background-image: image-set(  
+      url('../../assets/img/bg-preview-1x.jpg') 1x center / cover,  
+      url('../../assets/img/bg-preview-2x.jpg') 2x center / cover 
+    );
     height: 450px;
     width: 100%; 
-  }
+}
 
-  md-select {
-    width: 90%;
-  }
-  
-  :host /deep/ .mat-select-value-text {
-    color: $tertiary ;
-  }
+mat-select {
+  width: 90%;
+}
 
-  .scholarship-btn{
-    margin: 1%;
-  }
+:host /deep/ .mat-select-value-text {
+  color: white ;
+}
 
-  
-  :host /deep/ .mat-select-underline {
-    background-color: $tertiary !important;
-  }
+.scholarship-btn{
+  margin: 1%;
+}
 
-  md-input-container{
-    color: $tertiary ;
-  }
-  
-  :host /deep/ .mat-input-underline {
-    background-color: transparent !important;
-  }
-  
-  :host /deep/ .mat-select-arrow {
-    color: $tertiary !important;
-  }
-  
-  :host /deep/ .mat-select-placeholder {
-      color: $tertiary;
-      font-size: 1.3em;
-  }
+:host/deep/ .mat-input-placeholder {
+  color: white;
+}
+:host /deep/ .mat-select-underline {
+  background-color: white !important;
+}
 
-  .subheader {
-    font-size: 3.2em;
-    color:#FFFFFF;
-    width: 45%;
-    padding: 50px 0px;
-  }
-  
-  
-  .preview-form {
-    background: #FAF7F7; 
-    padding: 1px 0 50px 0;
-  }
-  
-  .form-header {
-    text-align: center;
-    font-size:28px;
-    color:$tertiary;
-  }
+mat-form-field{
+  color: white ;
+}
 
-  @media (max-width:320px), (max-width:481px)   {
-     /* smartphones, iPhone, portrait 480x320 phones */
-     /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+:host /deep/ .mat-input-underline {
+  background-color: transparent !important;
+}
 
-    .background-image{
-      background-position-x: 60%;
-      height: 30em;
-    }
-    .subheader{
-      padding-top: 50%;
-      width: 100%;
-    }
+:host /deep/ .mat-select-arrow {
+  color: white !important;
+}
+
+:host /deep/ .mat-select-placeholder {
+    color: white;
+    font-size: 1.3em;
+}
+
+.subheader {
+  font-size: 3.2em;
+  color:#FFFFFF;
+  width: 45%;
+  padding: 50px 0px;
+  margin-left: 5%;
+}
+mat-form-field.location-div .mat-input-wrapper{
+  padding-bottom: 0%;
+}
+
+#location{
+  border-bottom: 1px solid white;
+  margin-bottom: 0%;
+}
+.preview-form {
+  background: transparent; 
+  padding: 1px 0 0px 0;
+  margin-top: -20%;
+}
+
+.form-header {
+  text-align: center;
+  font-size:28px;
+  color:white;
+}
+.mat-input-placeholder{
+  color: white;
+}
+@media (max-width:320px), (max-width:481px)   {
+    /* smartphones, iPhone, portrait 480x320 phones */
+    /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+
+  .background-image{
+    background: url('../../assets/img/bg-preview-mobile.jpg') center / cover; max-width:100%;
+    background-position-x: 73%;
+    height: 30em;
+  }
+  .preview-form{
+    margin-top: -69%;
+  }
+  .form-header{
+    font-size: 1.9em;
+  }
+  .subheader{
+    padding-top: 50%;
+    width: 100%;
+  }
+  input[type = text]{
+    margin-bottom: 0;
+  }
 
 }

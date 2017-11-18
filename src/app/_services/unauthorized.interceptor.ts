@@ -9,14 +9,14 @@ import {
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
 import { Router } from '@angular/router'
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 // https://ryanchenkie.com/angular-authentication-using-the-http-client-and-http-interceptors
 @Injectable()
 
 export class UnAuthorizedInterceptor implements HttpInterceptor {
     
-      constructor(private router: Router,
-                  private snackBar: MdSnackBar) {}
+      constructor(public router: Router,
+                  public snackBar: MatSnackBar) {}
     
       intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         

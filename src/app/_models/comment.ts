@@ -11,7 +11,9 @@ export class Comment {
     down_votes_count?: any;
     up_votes_id?: any[];
     down_votes_id?: any[];
-    //use pprivate keyword (private user) , to avoid redundant typing of  this.user = user;
+    user_already_upvoted?:any;
+    user_already_downvoted?:any;
+    //use ppublic keyword (public user) , to avoid redundant typing of  this.user = user;
     constructor(user?: number, text?:string, title?:string) {
         this.user = user;
         this.text = text ? text : '';

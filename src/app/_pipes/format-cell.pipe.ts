@@ -8,7 +8,7 @@ import { CurrencyPipe } from '@angular/common';
 export class FormatCellPipe implements PipeTransform {
   
   constructor(
-    private currencyPipe: CurrencyPipe
+    public currencyPipe: CurrencyPipe
   ){}
   transform(value: any, format?: string, args?: any): any {
     if ( value === undefined ) {

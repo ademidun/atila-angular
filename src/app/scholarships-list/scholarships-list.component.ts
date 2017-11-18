@@ -15,9 +15,9 @@ export class ScholarshipsListComponent implements OnInit {
 
   constructor(
     public scholarshipService: ScholarshipService,
-    private userProfileService: UserProfileService,
-    private router: Router,
-    private authService: AuthService,
+    public userProfileService: UserProfileService,
+    public router: Router,
+    public authService: AuthService,
   ) { }
 
   form_data: Object;

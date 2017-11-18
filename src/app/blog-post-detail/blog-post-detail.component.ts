@@ -32,14 +32,14 @@ export class BlogPostDetailComponent implements OnInit {
   userProfile: UserProfile;
   userId;
   constructor(    
-    private route: ActivatedRoute,
-    private _ngZone: NgZone,
-    private userProfileService: UserProfileService,
-    private titleService: Title,
-    private commentService: CommentService,
-    private blogPostService: BlogPostService,
+    public route: ActivatedRoute,
+    public _ngZone: NgZone,
+    public userProfileService: UserProfileService,
+    public titleService: Title,
+    public commentService: CommentService,
+    public blogPostService: BlogPostService,
 
-    private authService: AuthService,
+    public authService: AuthService,
     ) { 
       this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
     }

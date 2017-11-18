@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from "../_services/auth.service";
 import {Router, RouterModule} from '@angular/router';
 import { Observable } from 'rxjs/Rx';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { NavbarComponent } from '../navbar/navbar.component';
 
 export class Credentials {
@@ -27,14 +27,14 @@ export class LoginComponent implements OnInit {
  
    };
   constructor(
-    private authService: AuthService, 
-    private router: Router,
-    private snackBar: MdSnackBar) { }
+    public authService: AuthService, 
+    public router: Router,
+    public snackBar: MatSnackBar) { }
 
   ngOnInit() {
   }
 
-  onLogin() {
+  onLogin(form:any) {
     let loginOperation: Observable<any>;
     loginOperation = this.authService.login(this.credentials);
     loginOperation.subscribe(

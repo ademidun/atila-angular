@@ -6,8 +6,8 @@ import { Directive, ElementRef,
 export class StyleCellDirective implements OnInit {
   @Input() appStyleCell: string;
   constructor(
-  private el: ElementRef, 
-  private renderer: Renderer) { }
+  public el: ElementRef, 
+  public renderer: Renderer) { }
   
   ngOnInit() {
     if (this.appStyleCell === undefined) {

@@ -16,16 +16,16 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class QuestionService   {
 
-  private scholarshipQuestionsUrl = 'http://127.0.0.1:8000/scholarship-questions/';
-  private saveScholarshipResponseUrl = 'http://127.0.0.1:8000/application-save-response/';
-  private automateScholarshipResponseUrl = 'http://127.0.0.1:8000/application-automate-response/';
+  public scholarshipQuestionsUrl = 'http://127.0.0.1:8000/scholarship-questions/';
+  public saveScholarshipResponseUrl = 'http://127.0.0.1:8000/application-save-response/';
+  public automateScholarshipResponseUrl = 'http://127.0.0.1:8000/application-automate-response/';
   
   
-  constructor(private http: Http) { }
-  private params = new URLSearchParams();
-  private requestOptions = new RequestOptions();
-  private observable: Observable<any>;
-  private timeoutLength: number = 45000; //set timeOut for form Autoamtion at 45 seconds
+  constructor(public http: Http) { }
+  public params = new URLSearchParams();
+  public requestOptions = new RequestOptions();
+  public observable: Observable<any>;
+  public timeoutLength: number = 45000; //set timeOut for form Autoamtion at 45 seconds
   // Todo: get from a remote source of question metadata
   // Todo: make asynchronous
   getQuestions() {
@@ -85,7 +85,7 @@ export class QuestionService   {
 
   }
 
-    private extractData(res: Response) {
+    public extractData(res: Response) {
     console.log('in QuestionService, extractData res:', res)
     let body = res.json();
     console.log('in QuestionService, extractData body:', body)
@@ -118,7 +118,7 @@ export class QuestionService   {
     .timeout(this.timeoutLength)
   }
 
-   private handleError (error: Response | any) {
+   public handleError (error: Response | any) {
     // In a real world app, you might use a remote logging infrastructure
     let errMsg: string;
     if (error instanceof Response) {

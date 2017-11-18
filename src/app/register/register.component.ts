@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from "@angular/forms";
 import { Router, RouterModule } from "@angular/router";
 
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { UserProfile } from '../_models/user-profile';
 import { User } from '../_models/user';
 import { Observable } from 'rxjs/Rx';
@@ -49,10 +49,10 @@ locationData = {
   'country': '',
 }
   constructor(
-    private router: Router,
-    private snackBar: MdSnackBar,
-    private userProfileService: UserProfileService,
-    private authService: AuthService) { }
+    public router: Router,
+    public snackBar: MatSnackBar,
+    public userProfileService: UserProfileService,
+    public authService: AuthService) { }
 
 
 userProfile = new UserProfile();

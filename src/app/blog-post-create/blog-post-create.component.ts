@@ -17,7 +17,7 @@ import { BlogPost } from "../_models/blog-post";
 import { UserProfile } from '../_models/user-profile';
 
 import { UserProfileService } from '../_services/user-profile.service';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 
 import { BlogPostService } from "../_services/blog-post.service";
 import { ActivatedRoute, Router } from '@angular/router';
@@ -50,13 +50,13 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
   uploadProgress: number;
   editor: any;
   editMode=false;
-  constructor(private ref:ChangeDetectorRef,
-    private userProfileService: UserProfileService,
-    private blogPostService: BlogPostService,
-    private authService: AuthService,
-    private router: Router,
-    private snackBar: MdSnackBar,
-    private route: ActivatedRoute,) { 
+  constructor(public ref:ChangeDetectorRef,
+    public userProfileService: UserProfileService,
+    public blogPostService: BlogPostService,
+    public authService: AuthService,
+    public router: Router,
+    public snackBar: MatSnackBar,
+    public route: ActivatedRoute,) { 
 
       this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
       this.blogPost = new BlogPost(this.userId);

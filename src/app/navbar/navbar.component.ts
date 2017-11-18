@@ -4,7 +4,7 @@ import { UserProfileService } from "../_services/user-profile.service";
 import { AuthService } from '../_services/auth.service';
 
 import { UserProfile } from '../_models/user-profile';
-import { MdSnackBar} from '@angular/material';
+import { MatSnackBar} from '@angular/material';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,18 +13,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  private isLoggedIn: boolean = false;
-  private userProfile: UserProfile;
+  public isLoggedIn: boolean = false;
+  public userProfile: UserProfile;
 
-  private user = {
+  public user = {
     username: '',
     email: '',
   }
   constructor(
-    private userProfileService: UserProfileService,
-    private authService: AuthService,
-    private snackBar: MdSnackBar,
-    private router: Router,
+    public userProfileService: UserProfileService,
+    public authService: AuthService,
+    public snackBar: MatSnackBar,
+    public router: Router,
     
   ) { }
 

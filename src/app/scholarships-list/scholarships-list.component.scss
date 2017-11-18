@@ -1,14 +1,14 @@
 @import '../../styles.scss';
 
-md-card{
+mat-card{
   margin-bottom: 7%;
 }
 
-md-card-content{
+mat-card-content{
   height: 100px;
   overflow: hidden;
 }
-.my-md-card-image{
+.my-mat-card-image{
   height: 200px;
 }
 
@@ -51,13 +51,13 @@ height: 60px;
 }
 
 
-.my-md-card-image{
+.my-mat-card-image{
   display: block;
   margin-top: -5px !important;
   max-height: 200px;
 }
 
-md-card:hover {
+mat-card:hover {
   color: black;
   background-color: #DDD;
   left: .1em;

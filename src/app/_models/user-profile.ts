@@ -15,6 +15,15 @@ export class UserProfile {
             public user?: number,
             public username?:any,
             public profile_pic_url?: string,
+            phone_number?:any,
+            resume?:any,
+            transcript?:any,
+            reference_letter?:any,
+            reference_letter_alternate?:any,
+            extracurricular_description?:any,
+            academic_career_goals?:any,
+            secondary_school?:any,
+            post_secondary_school?:any,
             
             
         ) { }

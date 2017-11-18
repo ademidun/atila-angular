@@ -8,37 +8,37 @@
         <li *ngIf="!authService.isLoggedIn;else loggedIn"><a class="atila-blue" routerLink="/login">Log In</a></li>
 
         <span *ngIf="authService.isLoggedIn">
-            <button md-icon-button [mdMenuTriggerFor]="menu">
-                <md-icon aria-hidden="true" md-colors="{color:'primary'}">perm_identity</md-icon>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon aria-hidden="true" md-colors="{color:'primary'}">perm_identity</mat-icon>
               </button>
               <!-- Dropdown Profile Menu -->
-              <md-menu #menu="mdMenu" [overlapTrigger]="false">
+              <mat-menu #menu="matMenu" [overlapTrigger]="false">
                 <a *ngIf="userProfile" [routerLink]="['/profile', userProfile.username]">
-                    <button button md-menu-item >
+                    <button button mat-menu-item >
                     <span>My profile</span>
                   </button>
                 </a>
                 <a routerLink="/edit-profile">
-                  <button md-menu-item>
+                  <button mat-menu-item>
                     <span>Edit profile</span>
                   </button>
                 </a>
                 <a routerLink="/add-scholarship">
-                  <button md-menu-item>
+                  <button mat-menu-item>
                     <span>Add scholarship</span>
                   </button>
                 </a>
                 <a (click)="logout()">
-                  <button md-menu-item>
+                  <button mat-menu-item>
                     <span>Logout</span>
                   </button>
                 </a>
-              </md-menu>
+              </mat-menu>
               
               <li>
                   <a routerLink="/blog" title="Blogs" >
-                    <button button md-icon-button >
-                        <md-icon  class="atila-blue" aria-hidden="true" aria-label="See Blogs" md-colors="{color:'primary'}">chrome_reader_mode</md-icon>
+                    <button button mat-icon-button >
+                        <mat-icon  class="atila-blue" aria-hidden="true" aria-label="See Blogs" md-colors="{color:'primary'}">chrome_reader_mode</mat-icon>
                     </button>
                   </a>
                 </li>
@@ -46,24 +46,24 @@
               <li>
               <li>
                   <a routerLink="/forum" title="Forums">
-                    <button button md-icon-button >
-                        <md-icon  class="atila-blue" aria-hidden="true" md-colors="{color:'primary'}">forum</md-icon>
+                    <button button mat-icon-button >
+                        <mat-icon  class="atila-blue" aria-hidden="true" md-colors="{color:'primary'}">forum</mat-icon>
                     </button>
                   </a>
                 </li>
 
               <li>
               <a routerLink="/messages" title="Messages">
-                <button button md-icon-button >
-                    <md-icon  class="atila-blue" aria-hidden="true" md-colors="{color:'primary'}">email</md-icon>
+                <button button mat-icon-button >
+                    <mat-icon  class="atila-blue" aria-hidden="true" md-colors="{color:'primary'}">email</mat-icon>
                 </button>
               </a>
               </li>
               
             <li>
                 <a routerLink="/add-scholarship" title="Add Scholarship">
-                  <button button md-icon-button >
-                      <md-icon  class="atila-blue" aria-hidden="true" aria-label="Add a Scholarship" md-colors="{color:'primary'}">add_circle_outline</md-icon>
+                  <button button mat-icon-button >
+                      <mat-icon  class="atila-blue" aria-hidden="true" aria-label="Add a Scholarship" md-colors="{color:'primary'}">add_circle_outline</mat-icon>
                   </button>
                 </a>
               </li>
@@ -75,71 +75,71 @@
       <!-- Show on Mobile  -->        
       
       <span *ngIf="authService.isLoggedIn">
-      <button md-icon-button [mdMenuTriggerFor]="mobileMenu" class= "left hide-on-large-only">
-          <md-icon>menu</md-icon>
+      <button mat-icon-button [matMenuTriggerFor]="mobileMenu" class= "left hide-on-large-only">
+          <mat-icon>menu</mat-icon>
        </button>
-       <md-menu #mobileMenu="mdMenu" [overlapTrigger]="false">
+       <mat-menu #mobileMenu="matMenu" [overlapTrigger]="false">
 
 
           <a routerLink="/messages">
-            <button md-menu-item>
+            <button mat-menu-item>
                 <span>Messages</span>
             </button>
           </a>
 
           <a routerLink="/forum">
-            <button md-menu-item>
+            <button mat-menu-item>
                 <span>Forums</span>
             </button>
           </a>
 
           <a routerLink="/blog">
-            <button md-menu-item>
+            <button mat-menu-item>
                 <span>Blogs</span>
             </button>
           </a>
 
           <a (click)="logout()">
-            <button md-menu-item>
+            <button mat-menu-item>
               <span>Logout</span>
             </button>
           </a>
-      </md-menu>
+      </mat-menu>
       </span>
 
       <!-- Show on Mobile  -->
       <span *ngIf="authService.isLoggedIn">
-        <button md-icon-button [mdMenuTriggerFor]="profileMenu" class= "right hide-on-large-only">
-            <md-icon>perm_identity</md-icon>
+        <button mat-icon-button [matMenuTriggerFor]="profileMenu" class= "right hide-on-large-only">
+            <mat-icon>perm_identity</mat-icon>
         </button>
-        <md-menu #profileMenu="mdMenu" [overlapTrigger]="false">
+        <mat-menu #profileMenu="matMenu" [overlapTrigger]="false">
               <a routerLink="/add-scholarship">
-                <button md-menu-item>
+                <button mat-menu-item>
                     <span>Add Scholarship</span>
                 </button>
               </a>
               <a *ngIf="userProfile" [routerLink]="['/profile', userProfile.username]">
-                <button button md-menu-item >
+                <button button mat-menu-item >
                   <span>My profile</span>
                 
                 </button>
               </a>
               <a routerLink="/edit-profile">
-                <button md-menu-item>
+                <button mat-menu-item>
                   <span>Edit profile</span>
                 </button>
               </a>
 
             <a (click)="logout()">
-              <button md-menu-item>
+              <button mat-menu-item>
                 <span>Logout</span>
               </button>
             </a>
-          </md-menu>
+          </mat-menu>
       </span>
       <a *ngIf="authService.isLoggedIn" routerLink="/messages" class="right hide-on-large-only">
-        <button button md-icon-button >
-            <md-icon  class="atila-blue" aria-hidden="true" md-colors="{color:'primary'}">email</md-icon>
+        <button button mat-icon-button >
+            <mat-icon  class="atila-blue" aria-hidden="true" md-colors="{color:'primary'}">email</mat-icon>
         </button>
       </a>
       <a *ngIf="!authService.isLoggedIn" routerLink="/login" class="atila-blue right hide-on-large-only">Login</a>

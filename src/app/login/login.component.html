@@ -5,16 +5,16 @@
           <form #form="ngForm" (ngSubmit)="onLogin(form.value)"  class="col s12">
             <h4>Login</h4>
             <div class="row">
-              <md-input-container class="col s12">
-                <input mdInput class="browser-default" id="username" type="text" ngControl="username"
+              <mat-form-field class="col s12">
+                <input matInput class="browser-default" id="username" type="text" ngControl="username"
                   required [(ngModel)]="credentials.username" name="username" placeholder="Email or username">
-              </md-input-container>
+              </mat-form-field>
             </div>
             <div class="row">
-              <md-input-container class="col s12">
-                <input mdInput class="browser-default" id="password" type="password" required ngControl="password"
+              <mat-form-field class="col s12">
+                <input matInput class="browser-default" id="password" type="password" required ngControl="password"
                   [(ngModel)]="credentials.password" name="password" placeholder="Password">
-              </md-input-container>
+              </mat-form-field>
               <div class="col s12 button-container">
                   <button type="submit" class="waves-effect waves-light btn left" (click)="onLogin()">Login</button>
                   <a class="waves-effect waves-light btn right" routerLink="/register">Register</a>

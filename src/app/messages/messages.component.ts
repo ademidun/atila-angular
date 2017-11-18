@@ -13,24 +13,24 @@ import { AuthService } from "../_services/auth.service";
 })
 export class MessagesComponent implements OnInit {
 
-  @ViewChild('discussion') private discussionContainer: ElementRef;
+  @ViewChild('discussion') public discussionContainer: ElementRef;
 
-  private currentUser: number;
-  private message: Message;
-  private messages: Message[];
-  private thread: number = 1;
-  private threads: Thread[] = [];
-  private selectedThreadNdx: number = 0;
+  public currentUser: number;
+  public message: Message;
+  public messages: Message[];
+  public thread: number = 1;
+  public threads: Thread[] = [];
+  public selectedThreadNdx: number = 0;
   //The current active thread, as selected by the user. 
 
-  private threadsLoaded: boolean = false;
-  private userProfileMap = {};
-  private hasMessages: boolean;
+  public threadsLoaded: boolean = false;
+  public userProfileMap = {};
+  public hasMessages: boolean;
 
   constructor(
-    private messagingService: MessagingService,
-    private userProfileService: UserProfileService,
-    private authService: AuthService,
+    public messagingService: MessagingService,
+    public userProfileService: UserProfileService,
+    public authService: AuthService,
   ) { }
 
   ngOnInit() {

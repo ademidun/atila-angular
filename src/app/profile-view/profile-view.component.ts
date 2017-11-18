@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Title }     from '@angular/platform-browser';
 import { AuthService } from "../_services/auth.service";
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 
 
 import { MessagingService } from '../_services/messaging.service';
@@ -34,12 +34,12 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
   currentUser:number;
   constructor(
     route: ActivatedRoute,
-    private userProfileService: UserProfileService,
-    private titleService: Title,
-    private snackBar: MdSnackBar,
-    private authService: AuthService,
-    private router: Router,
-    private messagingService: MessagingService
+    public userProfileService: UserProfileService,
+    public titleService: Title,
+    public snackBar: MatSnackBar,
+    public authService: AuthService,
+    public router: Router,
+    public messagingService: MessagingService
   ) { 
     this.userNameSlug = route.snapshot.params['username'];
   }

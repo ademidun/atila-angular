@@ -73,11 +73,11 @@ export class PreviewComponent implements OnInit {
    /**
     * If the Google Places API is not working, only ask for city.
     */
-    private locationPlaceHolder = 'City, State or Country';
+    public locationPlaceHolder = 'City, State or Country';
 
    constructor(
     public scholarshipService: ScholarshipService,
-    private router: Router,
+    public router: Router,
     ) { }
 
   ngOnInit() {

@@ -38,8 +38,8 @@ export class ColumnSetting {
  */
 export class ColumnMap {
     primaryKey: string;
-    private _header: string;
-    private _format: string;
+    public _header: string;
+    public _format: string;
     alternativeKeys?: string[];
 
     constructor ( settings ) {

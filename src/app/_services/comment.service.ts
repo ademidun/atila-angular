@@ -10,9 +10,9 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class CommentService {
 
-  private commentsUrl = 'http://127.0.0.1:8000/comments/';
+  public commentsUrl = 'http://127.0.0.1:8000/comments/';
   
-  constructor(private http: Http) { }
+  constructor(public http: Http) { }
 
 
   create(comment: Comment): Observable<Comment>{
@@ -48,7 +48,7 @@ export class CommentService {
     .catch(this.handleError);
   }
 
-  private extractData(res: Response) {
+  public extractData(res: Response) {
 
     let body = res.json();
     console.log('commentservice res: ', res);
@@ -57,7 +57,7 @@ export class CommentService {
 
   }
 
-  private handleError (error: Response | any) {
+  public handleError (error: Response | any) {
     // In a real world app, you might use a remote logging infrastructure
     let errMsg: string;
     if (error instanceof Response) {
@@ -71,7 +71,7 @@ export class CommentService {
     return Observable.throw(errMsg);
   }
 
-  private parentUrl(commentType:string){
+  public parentUrl(commentType:string){
 
     switch (commentType) {
 
@@ -90,7 +90,7 @@ export class CommentService {
 
   }
 
-  private getUrl(comment:Comment){
+  public getUrl(comment:Comment){
 
     if ( comment.hasOwnProperty('forum') ) {
       return 'http://127.0.0.1:8000/forum/forum-comments/';

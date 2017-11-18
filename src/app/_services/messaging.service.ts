@@ -10,11 +10,11 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class MessagingService {
 
-  private messagesUrl = 'http://127.0.0.1:8000/messages/';
-  private threadUrl = 'http://127.0.0.1:8000/threads/';
-  private usersThreadsUrl = 'http://127.0.0.1:8000/user-threads/';
+  public messagesUrl = 'http://127.0.0.1:8000/messages/';
+  public threadUrl = 'http://127.0.0.1:8000/threads/';
+  public usersThreadsUrl = 'http://127.0.0.1:8000/user-threads/';
 
-  constructor(private http: Http) { }
+  constructor(public http: Http) { }
 
   sendMessage(message: Message) {
     let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -50,7 +50,7 @@ export class MessagingService {
         .catch(this.handleError);
   }
 
-  private handleError (error: Response | any) {
+  public handleError (error: Response | any) {
     let errMsg: string;
     if (error instanceof Response) {
       const body = error.json() || '';

@@ -4,7 +4,7 @@ export class Message {
             public message: string,
             public user: number,
             public thread: number,
-            private id?: number,
-            private date_created?: string,
+            public id?: number,
+            public date_created?: string,
         ) { }
 }

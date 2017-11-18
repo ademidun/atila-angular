@@ -8,12 +8,12 @@ import { QuestionControlService }    from '../_services/question-control.service
 import { Observable } from "rxjs/Rx";
 
 import { UploadFile } from '../_models/upload-file';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 
 import { AuthService } from "../_services/auth.service";
 
 import { MyFirebaseService } from "../_services/myfirebase.service";
-import {MdProgressBarModule} from '@angular/material';
+import {MatProgressBar} from '@angular/material';
 import * as firebase from "firebase";
 
 import { TruncatePipe } from '../_pipes/truncate.pipe';
@@ -56,12 +56,12 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   preAndPostScreenshots: any[];
     
   constructor(
-    private qcs: QuestionControlService,
-    private questionService: QuestionService,
-    private authService: AuthService,
-    private cdr: ChangeDetectorRef,
-    private snackBar: MdSnackBar,
-    // private webFormService: WebFormsService
+    public qcs: QuestionControlService,
+    public questionService: QuestionService,
+    public authService: AuthService,
+    public cdr: ChangeDetectorRef,
+    public snackBar: MatSnackBar,
+    // public webFormService: WebFormsService
   ) { 
     
    }

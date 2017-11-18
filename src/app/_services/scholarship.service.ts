@@ -11,10 +11,10 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class ScholarshipService {
 
-  private scholarshipsUrl = 'http://127.0.0.1:8000/scholarships/';
-  private scholarshipsPreviewUrl = 'http://127.0.0.1:8000/scholarship-preview/';
-  private scholarshipSlugUrl = 'http://127.0.0.1:8000/scholarship-slug/';
-  constructor(private http: HttpClient) { }
+  public scholarshipsUrl = 'http://127.0.0.1:8000/scholarships/';
+  public scholarshipsPreviewUrl = 'http://127.0.0.1:8000/scholarship-preview/';
+  public scholarshipSlugUrl = 'http://127.0.0.1:8000/scholarship-slug/';
+  constructor(public http: HttpClient) { }
   form_data: any;
 
   create(scholarship: Scholarship): Observable<Scholarship>{
@@ -83,7 +83,7 @@ getBySlug(slug: string) {
 
 
   
-  private extractData(res: HttpResponse<any>) {
+  public extractData(res: HttpResponse<any>) {
     
     console.log('scholarshipService res: ', res);
     return res || { };
@@ -91,7 +91,7 @@ getBySlug(slug: string) {
   }
 
 
-  private handleError (error: HttpResponse<any> | any) {
+  public handleError (error: HttpResponse<any> | any) {
     // In a real world app, you might use a remote logging infrastructure
     
     console.error(error);

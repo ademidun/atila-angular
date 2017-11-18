@@ -4,7 +4,7 @@ import { UploadFile } from '../_models/upload-file';
 import { WEBFORMS } from '../_models/web-form';
 import { ScholarshipService } from '../_services/scholarship.service';
 import { Observable } from 'rxjs/Rx';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 
 import {NgForm} from '@angular/forms';
@@ -12,7 +12,7 @@ import {NgForm} from '@angular/forms';
 import { UserProfileService } from '../_services/user-profile.service';
 import { AuthService } from "../_services/auth.service";
 import { Title }     from '@angular/platform-browser';
-import {MdDialog, MdDialogRef} from '@angular/material';
+import {MatDialog, MatDialogRef} from '@angular/material';
 import {AddQuestionModalComponent} from '../add-question-modal/add-question-modal.component';
 import { MyFirebaseService } from "../_services/myfirebase.service";
 
@@ -78,7 +78,7 @@ APPLICATION_FORM_TYPES = [
 
   scholarshipSlug: string = "";
   
-  private scholarshipOwner;
+  public scholarshipOwner;
 
   uploadResponse: any;
   locationData = [];
@@ -119,14 +119,14 @@ APPLICATION_FORM_TYPES = [
   myJson = JSON;
 
   constructor(
-    private route: ActivatedRoute,
-    private snackBar: MdSnackBar,
-    private scholarshipService: ScholarshipService,
-    public dialog: MdDialog,
-    private userProfileService: UserProfileService,
-    private titleService: Title,
-    private firebaseService: MyFirebaseService,
-    private authService: AuthService,
+    public route: ActivatedRoute,
+    public snackBar: MatSnackBar,
+    public scholarshipService: ScholarshipService,
+    public dialog: MatDialog,
+    public userProfileService: UserProfileService,
+    public titleService: Title,
+    public firebaseService: MyFirebaseService,
+    public authService: AuthService,
   ) { 
     this.scholarshipSlug = route.snapshot.params['slug']; 
     this.userId = parseInt(this.authService.decryptLocalStorage('uid')); // Current user

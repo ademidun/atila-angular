@@ -60,13 +60,13 @@ export class AppDetailComponent implements OnInit {
   }
 
   constructor(
-    private applicationService: ApplicationService,
+    public applicationService: ApplicationService,
     route: ActivatedRoute,
-    private qService: QuestionService,
-    private qcs: QuestionControlService,
-    private userProfileService: UserProfileService,
-    private authService: AuthService,
-    private router: Router,
+    public qService: QuestionService,
+    public qcs: QuestionControlService,
+    public userProfileService: UserProfileService,
+    public authService: AuthService,
+    public router: Router,
   ) {
     this.appId = parseInt(route.snapshot.params['id']);
 

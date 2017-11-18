@@ -11,7 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableLayoutModule } from './table-layout/table-layout.module';
     
 import { AppRoutingModule } from './app-routing/app-routing.module';
-import { MaterialModule, MdDialogModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ScholarshipsListComponent } from './scholarships-list/scholarships-list.component';
 import { ScholarshipCardComponent } from './scholarship-card/scholarship-card.component';
@@ -35,9 +35,8 @@ import { DynamicFormQuestionComponent } from './dynamic-form-question/dynamic-fo
 import { AddQuestionModalComponent } from './add-question-modal/add-question-modal.component';
 import { AppDetailComponent } from './app-detail/app-detail.component';
 import { MyFirebaseService } from './_services/myfirebase.service';
-import { CreateProfileQuickComponent } from './create-profile-quick/create-profile-quick.component';
 
-import { MdIconRegistry, MdIconModule } from '@angular/material';
+import { MatIconRegistry, MatIconModule } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SafeResourcePipe } from './_pipes/safe-resource.pipe';
 import { GooglePlaceDirective } from './_directives/google-place.directive';
@@ -83,7 +82,6 @@ import { UnAuthorizedInterceptor } from './_services/unauthorized.interceptor';
     DynamicFormQuestionComponent,
     AddQuestionModalComponent,
     AppDetailComponent,
-    CreateProfileQuickComponent,
     SafeResourcePipe,
     GooglePlaceDirective,
     ProfileViewComponent,
@@ -103,11 +101,10 @@ import { UnAuthorizedInterceptor } from './_services/unauthorized.interceptor';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule,
     BrowserAnimationsModule,
     HttpModule,
-    MdDialogModule,
-    MdIconModule,
+    MatDialogModule,
+    MatIconModule,
     TableLayoutModule,
     HttpClientModule,
   ],
@@ -133,7 +130,7 @@ import { UnAuthorizedInterceptor } from './_services/unauthorized.interceptor';
   ]
 })
 export class AppModule { 
-  constructor(mdIconRegistry: MdIconRegistry, domSanitizer: DomSanitizer){
-    mdIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('../assets/mdi.svg')); // Or whatever path you placed mdi.svg at
+  constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer){
+    matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('../assets/mdi.svg')); // Or whatever path you placed mdi.svg at
 }
 }

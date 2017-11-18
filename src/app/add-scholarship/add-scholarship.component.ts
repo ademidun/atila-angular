@@ -3,7 +3,7 @@ import { Scholarship } from '../_models/scholarship';
 import { UploadFile } from '../_models/upload-file';
 import { ScholarshipService } from '../_services/scholarship.service';
 import { Observable } from 'rxjs/Rx';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import {NgForm} from '@angular/forms';
@@ -12,7 +12,7 @@ import {NgModel} from '@angular/forms';
 import { UserProfileService } from '../_services/user-profile.service';
 import { AuthService } from "../_services/auth.service";
 import { Title }     from '@angular/platform-browser';
-import {MdDialog, MdDialogRef} from '@angular/material';
+import {MatDialog, MatDialogRef} from '@angular/material';
 import {AddQuestionModalComponent} from '../add-question-modal/add-question-modal.component';
 import { MyFirebaseService } from "../_services/myfirebase.service";
 
@@ -96,14 +96,14 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
   webForms;
   myJson = JSON;
   constructor(
-    private router: Router,
-    private snackBar: MdSnackBar,
-    private scholarshipService: ScholarshipService,
-    public dialog: MdDialog,
-    private authService: AuthService,
-    private route: ActivatedRoute,
-    private userProfileService: UserProfileService,
-    private titleService: Title,
+    public router: Router,
+    public snackBar: MatSnackBar,
+    public scholarshipService: ScholarshipService,
+    public dialog: MatDialog,
+    public authService: AuthService,
+    public route: ActivatedRoute,
+    public userProfileService: UserProfileService,
+    public titleService: Title,
   ) {
     this.scholarshipSlug = route.snapshot.params['slug']; 
    }

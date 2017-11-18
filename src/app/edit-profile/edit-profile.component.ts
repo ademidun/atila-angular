@@ -7,7 +7,7 @@ import {NgForm} from '@angular/forms';
 import { Observable } from 'rxjs/Rx';
 
 import { Router, ActivatedRoute } from '@angular/router'
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 
 import { Title }     from '@angular/platform-browser';
 
@@ -63,12 +63,12 @@ EDUCATION_FIELD = [
   }
 
   constructor(
-    private userProfileService: UserProfileService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private snackBar: MdSnackBar,
-    private titleService: Title,
-    private authService: AuthService,
+    public userProfileService: UserProfileService,
+    public router: Router,
+    public route: ActivatedRoute,
+    public snackBar: MatSnackBar,
+    public titleService: Title,
+    public authService: AuthService,
   ) { 
     this.userName = route.snapshot.params['username'];
   }

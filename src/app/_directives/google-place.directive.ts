@@ -22,14 +22,14 @@ export class GooglePlaceDirective {
      @Output() googlePlaceNoLoad: EventEmitter<any> = new EventEmitter();
       modelValue:any;
       autocomplete:any;
-      private _el:HTMLElement;
+      public _el:HTMLElement;
   
     //Adding Autocomplete for User Location:
   // https://developers.google.com/maps/documentation/javascript/places-autocomplete#address_forms
   // https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform
   //https://stackoverflow.com/questions/42341930/google-places-autocomplete-angular2
 
-    constructor(el: ElementRef,private model:NgModel) {
+    constructor(el: ElementRef,public model:NgModel) {
       this._el = el.nativeElement;
       this.modelValue = this.model;
       var input = this._el;

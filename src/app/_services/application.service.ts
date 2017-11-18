@@ -7,15 +7,15 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class ApplicationService {
 
-  private applicationUrl = 'http://127.0.0.1:8000/application-get-create/';
-  private applicationDataUrl = 'http://127.0.0.1:8000/application-data/';
+  public applicationUrl = 'http://127.0.0.1:8000/application-get-create/';
+  public applicationDataUrl = 'http://127.0.0.1:8000/application-data/';
 
-  private applicationsUrl = 'http://127.0.0.1:8000/applications/';
+  public applicationsUrl = 'http://127.0.0.1:8000/applications/';
   
-  constructor(private http: HttpClient) {
+  constructor(public http: HttpClient) {
    }
 
-   private params = new URLSearchParams();
+   public params = new URLSearchParams();
 
   getOrCreateApp(data: any): Observable<any> {
     console.log('in ApplicationService, POST data:', data);

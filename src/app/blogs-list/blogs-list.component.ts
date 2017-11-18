@@ -15,14 +15,14 @@ import { AuthService } from "../_services/auth.service";
 })
 export class BlogsListComponent implements OnInit {
 
-  private blogs: BlogPost[]
+  public blogs: BlogPost[]
   newBlog: BlogPost;
   blogComment:Comment;
   userProfile: UserProfile;
   constructor(
-    private blogService: BlogPostService,
-    private userProfileService: UserProfileService,
-    private authService: AuthService,
+    public blogService: BlogPostService,
+    public userProfileService: UserProfileService,
+    public authService: AuthService,
   ) { }
 
   ngOnInit() {
