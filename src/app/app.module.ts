@@ -11,7 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableLayoutModule } from './table-layout/table-layout.module';
     
 import { AppRoutingModule } from './app-routing/app-routing.module';
-import { MatDialogModule } from '@angular/material';
+import { MatDialogModule, MatProgressBarModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ScholarshipsListComponent } from './scholarships-list/scholarships-list.component';
 import { ScholarshipCardComponent } from './scholarship-card/scholarship-card.component';
@@ -36,7 +36,8 @@ import { AddQuestionModalComponent } from './add-question-modal/add-question-mod
 import { AppDetailComponent } from './app-detail/app-detail.component';
 import { MyFirebaseService } from './_services/myfirebase.service';
 
-import { MatIconRegistry, MatIconModule } from '@angular/material';
+import { MatIconRegistry, MatIconModule, MatMenuModule, MatFormFieldModule,
+   MatSelectModule, MatCardModule,MatCheckboxModule,MatInputModule,MatProgressSpinnerModule, MatSnackBarModule } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SafeResourcePipe } from './_pipes/safe-resource.pipe';
 import { GooglePlaceDirective } from './_directives/google-place.directive';
@@ -104,7 +105,16 @@ import { UnAuthorizedInterceptor } from './_services/unauthorized.interceptor';
     BrowserAnimationsModule,
     HttpModule,
     MatDialogModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatMenuModule,
     MatIconModule,
+    MatSnackBarModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatCardModule,
     TableLayoutModule,
     HttpClientModule,
   ],

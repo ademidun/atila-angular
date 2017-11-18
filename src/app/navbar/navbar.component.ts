@@ -6,11 +6,10 @@ import { AuthService } from '../_services/auth.service';
 import { UserProfile } from '../_models/user-profile';
 import { MatSnackBar} from '@angular/material';
 import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
   public isLoggedIn: boolean = false;
