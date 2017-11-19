@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit} from '@angular/core';
 import { Scholarship } from '../_models/scholarship';
 import { UploadFile } from '../_models/upload-file';
 import { ScholarshipService } from '../_services/scholarship.service';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 

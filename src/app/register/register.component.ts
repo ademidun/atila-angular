@@ -5,7 +5,7 @@ import { Router, RouterModule } from "@angular/router";
 import { MatSnackBar } from '@angular/material';
 import { UserProfile } from '../_models/user-profile';
 import { User } from '../_models/user';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 
 import { UserProfileService } from '../_services/user-profile.service';
 

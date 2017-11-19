@@ -7,10 +7,10 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class ApplicationService {
 
-  public applicationUrl = 'http://127.0.0.1:8000/api/application-get-create/';
-  public applicationDataUrl = 'http://127.0.0.1:8000/api/application-data/';
+  public applicationUrl = 'https://1552b637.ngrok.io/api/application-get-create/';
+  public applicationDataUrl = 'https://1552b637.ngrok.io/api/application-data/';
 
-  public applicationsUrl = 'http://127.0.0.1:8000/api/applications/';
+  public applicationsUrl = 'https://1552b637.ngrok.io/api/applications/';
   
   constructor(public http: HttpClient) {
    }

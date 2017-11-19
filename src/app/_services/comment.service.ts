@@ -10,7 +10,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class CommentService {
 
-  public commentsUrl = 'http://127.0.0.1:8000/api/comments/';
+  public commentsUrl = 'https://1552b637.ngrok.io/api/comments/';
   
   constructor(public http: Http) { }
 
@@ -76,13 +76,13 @@ export class CommentService {
     switch (commentType) {
 
       case 'Forum':
-        return 'http://127.0.0.1:8000/api/forum/forums/';
+        return 'https://1552b637.ngrok.io/api/forum/forums/';
 
       case 'Scholarship':
-        return 'http://127.0.0.1:8000/api/scholarships/';
+        return 'https://1552b637.ngrok.io/api/scholarships/';
 
       case 'BlogPost':
-        return 'http://127.0.0.1:8000/api/blog/blog-posts/';
+        return 'https://1552b637.ngrok.io/api/blog/blog-posts/';
   
       default:
         break;
@@ -93,15 +93,15 @@ export class CommentService {
   public getUrl(comment:Comment){
 
     if ( comment.hasOwnProperty('forum') ) {
-      return 'http://127.0.0.1:8000/api/forum/forum-comments/';
+      return 'https://1552b637.ngrok.io/api/forum/forum-comments/';
       
     }
     else if( comment.hasOwnProperty('blog_post') ) {
-      return 'http://127.0.0.1:8000/api/blog/blog-comments/';
+      return 'https://1552b637.ngrok.io/api/blog/blog-comments/';
       
     }
     else if( comment.hasOwnProperty('scholarship') ) {
-      return 'http://127.0.0.1:8000/api/comments/';
+      return 'https://1552b637.ngrok.io/api/comments/';
       
     }
      return this.commentsUrl;

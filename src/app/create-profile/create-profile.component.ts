@@ -3,7 +3,7 @@ import { UserProfile } from '../_models/user-profile';
 
 import {NgForm} from '@angular/forms';
 
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { UserProfileService } from '../_services/user-profile.service';
 
 import { Router, ActivatedRoute } from '@angular/router'
@@ -138,7 +138,7 @@ export class CreateProfileComponent implements OnInit {
     this.profileInfo = !this.profileInfo;
   }
 
-  uploadDocuments(){
+  uploadUserDocument(){
 
   }
 

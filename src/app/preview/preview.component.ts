@@ -85,6 +85,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     document.body.style.backgroundColor = '#194F87';
+    console.log('Welcome to Atila','https://atila-7.firebaseapp.com');
   }
 
   ngOnDestroy() {

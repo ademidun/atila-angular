@@ -4,7 +4,7 @@ import { UserProfileService } from "../_services/user-profile.service";
 
 import {NgForm} from '@angular/forms';
 
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 
 import { Router, ActivatedRoute } from '@angular/router'
 import { MatSnackBar } from '@angular/material';

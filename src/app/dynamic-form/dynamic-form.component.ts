@@ -5,7 +5,7 @@ import { QuestionBase }              from '../_models/question-base';
 import { QuestionService }    from '../_services/question.service';
 import { QuestionControlService }    from '../_services/question-control.service';
 // import { WebFormsService } from "../_services/web-forms.service";
-import { Observable } from "rxjs/Rx";
+import { Observable } from 'rxjs/Observable';
 
 import { UploadFile } from '../_models/upload-file';
 import { MatSnackBar } from '@angular/material';

@@ -26,7 +26,7 @@ import { UploadFile } from '../_models/upload-file';
 
 import { AuthService } from "../_services/auth.service";
 
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 
 import * as firebase from "firebase";
 declare var tinymce: any;

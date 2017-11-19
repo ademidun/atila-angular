@@ -3,7 +3,7 @@ import { Scholarship } from '../_models/scholarship';
 import { UploadFile } from '../_models/upload-file';
 import { WEBFORMS } from '../_models/web-form';
 import { ScholarshipService } from '../_services/scholarship.service';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 

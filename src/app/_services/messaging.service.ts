@@ -10,9 +10,9 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class MessagingService {
 
-  public messagesUrl = 'http://127.0.0.1:8000/api/messages/';
-  public threadUrl = 'http://127.0.0.1:8000/api/threads/';
-  public usersThreadsUrl = 'http://127.0.0.1:8000/api/user-threads/';
+  public messagesUrl = 'https://1552b637.ngrok.io/api/messages/';
+  public threadUrl = 'https://1552b637.ngrok.io/api/threads/';
+  public usersThreadsUrl = 'https://1552b637.ngrok.io/api/user-threads/';
 
   constructor(public http: Http) { }
 

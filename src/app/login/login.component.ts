@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { AuthService } from "../_services/auth.service";
 import {Router, RouterModule} from '@angular/router';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import { MatSnackBar } from '@angular/material';
 import { NavbarComponent } from '../navbar/navbar.component';
 
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  onLogin(form:any) {
+  login() {
     let loginOperation: Observable<any>;
     loginOperation = this.authService.login(this.credentials);
     loginOperation.subscribe(

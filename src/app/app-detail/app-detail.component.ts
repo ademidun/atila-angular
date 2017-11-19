@@ -6,7 +6,7 @@ import { UserProfileService } from '../_services/user-profile.service';
 import { QuestionService } from '../_services/question.service';
 import { QuestionControlService } from '../_services/question-control.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from "rxjs/Rx";
+import { Observable } from 'rxjs/Observable';
 import { Scholarship } from '../_models/scholarship';
 import { AuthService } from "../_services/auth.service";
 @Component({

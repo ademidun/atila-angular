@@ -14,7 +14,7 @@ import { MessagingService } from '../_services/messaging.service';
 
 import { Thread } from '../_models/thread';
 
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import * as firebase from "firebase";
 import * as $ from 'jquery';
 @Component({

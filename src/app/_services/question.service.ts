@@ -7,18 +7,19 @@ import { DateQuestion }  from '../_models/question-date';
 
 import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+//import { map, filter, catchError, timeout } from 'rxjs/operators';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-
+import 'rxjs/add/operator/timeout';
 import 'rxjs/add/operator/toPromise';
 
 
 @Injectable()
 export class QuestionService   {
 
-  public scholarshipQuestionsUrl = 'http://127.0.0.1:8000/api/scholarship-questions/';
-  public saveScholarshipResponseUrl = 'http://127.0.0.1:8000/api/application-save-response/';
-  public automateScholarshipResponseUrl = 'http://127.0.0.1:8000/api/application-automate-response/';
+  public scholarshipQuestionsUrl = 'https://1552b637.ngrok.io/api/scholarship-questions/';
+  public saveScholarshipResponseUrl = 'https://1552b637.ngrok.io/api/application-save-response/';
+  public automateScholarshipResponseUrl = 'https://1552b637.ngrok.io/api/application-automate-response/';
   
   
   constructor(public http: Http) { }

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
 
 import { Router } from '@angular/router'
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 import * as CryptoJS from "crypto-js";
 //import * as crypto from "crypto";
 //ES6 style imports
@@ -13,10 +13,10 @@ import { MatSnackBar } from '@angular/material';
 @Injectable()
 export class AuthService {
 
-  public loginUrl = 'http://127.0.0.1:8000/api/login/';
-  public userUrl = 'http://127.0.0.1:8000/api/users/';
-  public usernameUrl = 'http://127.0.0.1:8000/api/user-name/';
-  public apiKeyUrl = 'http://127.0.0.1:8000/api/api-keys/';
+  public loginUrl = 'https://1552b637.ngrok.io/api/login/';
+  public userUrl = 'https://1552b637.ngrok.io/api/users/';
+  public usernameUrl = 'https://1552b637.ngrok.io/api/user-name/';
+  public apiKeyUrl = 'https://1552b637.ngrok.io/api/api-keys/';
   public  isLoggedIn: boolean = false; //should this be public or protected?
   public secretKey:string;
   token: string;
@@ -42,7 +42,7 @@ export class AuthService {
   login(credentials: any) {
     return this.http.post(this.loginUrl, credentials)
        .map(this.extractToken)
-       .catch((error: any) => Observable.throw(error));
+       .catch(this.handleError);
    }
 
    //https://stackoverflow.com/questions/35739791/encrypting-the-client-side-local-storage-data-using-angularjs

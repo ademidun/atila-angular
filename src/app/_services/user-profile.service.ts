@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
 import { User } from '../_models/user';
 
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 
 import { UserProfile } from '../_models/user-profile';
 import { AuthService } from "./auth.service";
@@ -15,9 +15,9 @@ export class UserProfileService {
   constructor(public http: HttpClient,
                 public authService: AuthService,
                 public snackBar: MatSnackBar,) { }
-  public userEndpoint = 'http://127.0.0.1:8000/api/users/';
+  public userEndpoint = 'https://1552b637.ngrok.io/api/users/';
   
-  public userProfileEndpoint = 'http://127.0.0.1:8000/api/user-profiles/';
+  public userProfileEndpoint = 'https://1552b637.ngrok.io/api/user-profiles/';
   
 
 

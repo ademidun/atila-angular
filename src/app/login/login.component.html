@@ -2,7 +2,7 @@
     <div class="card">
       <div class="row">
         <div class="card-content">
-          <form #form="ngForm" (ngSubmit)="onLogin(form.value)"  class="col s12">
+          <form #form="ngForm" (ngSubmit)="login()"  class="col s12">
             <h4>Login</h4>
             <div class="row">
               <mat-form-field class="col s12">
@@ -16,7 +16,7 @@
                   [(ngModel)]="credentials.password" name="password" placeholder="Password">
               </mat-form-field>
               <div class="col s12 button-container">
-                  <button type="submit" class="waves-effect waves-light btn left" (click)="onLogin()">Login</button>
+                  <button type="submit" class="waves-effect waves-light btn left" (click)="login()">Login</button>
                   <a class="waves-effect waves-light btn right" routerLink="/register">Register</a>
               </div>
             </div>
