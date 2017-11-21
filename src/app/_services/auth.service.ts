@@ -13,10 +13,10 @@ import { MatSnackBar } from '@angular/material';
 @Injectable()
 export class AuthService {
 
-  public loginUrl = 'https://1552b637.ngrok.io/api/login/';
-  public userUrl = 'https://1552b637.ngrok.io/api/users/';
-  public usernameUrl = 'https://1552b637.ngrok.io/api/user-name/';
-  public apiKeyUrl = 'https://1552b637.ngrok.io/api/api-keys/';
+  public loginUrl = 'http://127.0.0.1:8000/api/login/';
+  public userUrl = 'http://127.0.0.1:8000/api/users/';
+  public usernameUrl = 'http://127.0.0.1:8000/api/user-name/';
+  public apiKeyUrl = 'http://127.0.0.1:8000/api/api-keys/';
   public  isLoggedIn: boolean = false; //should this be public or protected?
   public secretKey:string;
   token: string;

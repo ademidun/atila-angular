@@ -15,9 +15,9 @@ export class UserProfileService {
   constructor(public http: HttpClient,
                 public authService: AuthService,
                 public snackBar: MatSnackBar,) { }
-  public userEndpoint = 'https://1552b637.ngrok.io/api/users/';
+  public userEndpoint = 'http://127.0.0.1:8000/api/users/';
   
-  public userProfileEndpoint = 'https://1552b637.ngrok.io/api/user-profiles/';
+  public userProfileEndpoint = 'http://127.0.0.1:8000/api/user-profiles/';
   
 
 

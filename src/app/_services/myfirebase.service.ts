@@ -11,8 +11,8 @@ import * as firebase from "firebase";
 export class MyFirebaseService {
 
   
-  public apiKeyUrl = 'https://1552b637.ngrok.io/api/api-keys/';
-  public saveFirebaseUrl = 'https://1552b637.ngrok.io/api/save-firebase/';
+  public apiKeyUrl = 'http://127.0.0.1:8000/api/api-keys/';
+  public saveFirebaseUrl = 'http://127.0.0.1:8000/api/save-firebase/';
   constructor(public http: Http) { 
 
   }

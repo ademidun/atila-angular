@@ -17,9 +17,9 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class QuestionService   {
 
-  public scholarshipQuestionsUrl = 'https://1552b637.ngrok.io/api/scholarship-questions/';
-  public saveScholarshipResponseUrl = 'https://1552b637.ngrok.io/api/application-save-response/';
-  public automateScholarshipResponseUrl = 'https://1552b637.ngrok.io/api/application-automate-response/';
+  public scholarshipQuestionsUrl = 'http://127.0.0.1:8000/api/scholarship-questions/';
+  public saveScholarshipResponseUrl = 'http://127.0.0.1:8000/api/application-save-response/';
+  public automateScholarshipResponseUrl = 'http://127.0.0.1:8000/api/application-automate-response/';
   
   
   constructor(public http: Http) { }

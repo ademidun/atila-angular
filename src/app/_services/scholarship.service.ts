@@ -11,9 +11,9 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class ScholarshipService {
 
-  public scholarshipsUrl = 'https://1552b637.ngrok.io/api/scholarships/';
-  public scholarshipsPreviewUrl = 'https://1552b637.ngrok.io/api/scholarship-preview/';
-  public scholarshipSlugUrl = 'https://1552b637.ngrok.io/api/scholarship-slug/';
+  public scholarshipsUrl = 'http://127.0.0.1:8000/api/scholarships/';
+  public scholarshipsPreviewUrl = 'http://127.0.0.1:8000/api/scholarship-preview/';
+  public scholarshipSlugUrl = 'http://127.0.0.1:8000/api/scholarship-slug/';
   constructor(public http: HttpClient) { }
   form_data: any;
 
