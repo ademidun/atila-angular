@@ -7,16 +7,17 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 import 'rxjs/add/operator/toPromise';
+import {environment} from '../../environments/environment';
 @Injectable()
 export class CommentService {
 
-  public commentsUrl = 'http://127.0.0.1:8000/api/comments/';
-  
+  public commentsUrl = environment.apiUrl + 'comments/';
+
   constructor(public http: Http) { }
 
 
   create(comment: Comment): Observable<Comment>{
-    
+
     var commenturl = this.getUrl(comment);
     return this.http.post(`${commenturl}`, comment)
     .map(this.extractData)
@@ -24,7 +25,7 @@ export class CommentService {
   }
 
   update(comment: Comment): Observable<any>{
-    
+
     var commenturl = this.getUrl(comment);
     return this.http.put(`${commenturl}${comment.id}/`, comment)
     .map(this.extractData)
@@ -33,14 +34,14 @@ export class CommentService {
 
 /*
   getComments(modelType:String, modelID: number){
-    
+
     return this.http.get(`${this.commentsUrl}get-model-comments/?parent-model-type=${modelType}&parent-model-id=${modelID}`)
     .map(this.extractData)
     .catch(this.handleError);
   }
   */
   getComments(id:number, modelType:string){
-  
+
     var commenturl = this.parentUrl(modelType);
 
     return this.http.get(`${commenturl}${id}/comments/`)
@@ -51,8 +52,8 @@ export class CommentService {
   public extractData(res: Response) {
 
     let body = res.json();
-    
-    
+
+
     return body || { };
 
   }
@@ -76,14 +77,14 @@ export class CommentService {
     switch (commentType) {
 
       case 'Forum':
-        return 'http://127.0.0.1:8000/api/forum/forums/';
+        return environment.apiUrl + 'forum/forums/';
 
       case 'Scholarship':
-        return 'http://127.0.0.1:8000/api/scholarships/';
+        return environment.apiUrl + 'scholarships/';
 
       case 'BlogPost':
-        return 'http://127.0.0.1:8000/api/blog/blog-posts/';
-  
+        return environment.apiUrl + 'blog/blog-posts/';
+
       default:
         break;
     }
@@ -93,16 +94,16 @@ export class CommentService {
   public getUrl(comment:Comment){
 
     if ( comment.hasOwnProperty('forum') ) {
-      return 'http://127.0.0.1:8000/api/forum/forum-comments/';
-      
+      return environment.apiUrl + 'forum/forum-comments/';
+
     }
     else if( comment.hasOwnProperty('blog_post') ) {
-      return 'http://127.0.0.1:8000/api/blog/blog-comments/';
-      
+      return environment.apiUrl + 'blog/blog-comments/';
+
     }
     else if( comment.hasOwnProperty('scholarship') ) {
-      return 'http://127.0.0.1:8000/api/comments/';
-      
+      return environment.apiUrl + 'comments/';
+
     }
      return this.commentsUrl;
 

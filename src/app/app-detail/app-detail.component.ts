@@ -28,7 +28,7 @@ export class AppDetailComponent implements OnInit {
   /**
    * Share scholarship, application and UserProfile data with children components. e.g. Dynamic Form component
    */
-  generalData: any; 
+  generalData: any;
   profileForm: NgForm;
   userId;
 
@@ -52,7 +52,7 @@ export class AppDetailComponent implements OnInit {
   observable: Observable<any>;
   dynamicForm: FormGroup;
 
-    
+
   locationData = {
     'city': '',
     'province': '',
@@ -106,9 +106,6 @@ export class AppDetailComponent implements OnInit {
       res => {
         data = res;
 
-        if (this.userId!=res.appData.user) {
-          this.router.navigate(['login']);
-        }
       },
       error => console.error('AppDetailComponent getAppData', error),
 
@@ -121,9 +118,9 @@ export class AppDetailComponent implements OnInit {
         this.scholarship = data.scholarship;
 
         this.applicationData = Object.keys(this.application.responses);
-        
+
         this.initializeLocations(this.userProfile.city);
-        
+
         //to create dynamic forms:
         // https://angular.io/guide/dynamic-form
         // https://toddmotto.com/angular-dynamic-components-forms
@@ -141,7 +138,7 @@ export class AppDetailComponent implements OnInit {
     }
 
     this.generalData.locationData = this.locationData;
-    
+
   }
   onSubmit(form: NgForm) {
     this.profileForm = form;

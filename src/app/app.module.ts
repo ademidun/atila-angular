@@ -9,7 +9,7 @@ import { PreviewComponent } from './preview/preview.component';
 import { FooterComponent } from './footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableLayoutModule } from './table-layout/table-layout.module';
-    
+
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { MatDialogModule, MatProgressBarModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -133,14 +133,18 @@ import { UnAuthorizedInterceptor } from './_services/unauthorized.interceptor';
         useClass: TokenInterceptor,
         multi: true
       },
-      UnAuthorizedInterceptor,
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: UnAuthorizedInterceptor,
+        multi: true
+      },
     ],
   bootstrap: [AppComponent],
   entryComponents: [
     AddQuestionModalComponent,
   ]
 })
-export class AppModule { 
+export class AppModule {
   constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer){
     matIconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('../assets/mdi.svg')); // Or whatever path you placed mdi.svg at
 }

@@ -12,16 +12,17 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/timeout';
 import 'rxjs/add/operator/toPromise';
+import {environment} from '../../environments/environment';
 
 
 @Injectable()
 export class QuestionService   {
 
-  public scholarshipQuestionsUrl = 'http://127.0.0.1:8000/api/scholarship-questions/';
-  public saveScholarshipResponseUrl = 'http://127.0.0.1:8000/api/application-save-response/';
-  public automateScholarshipResponseUrl = 'http://127.0.0.1:8000/api/application-automate-response/';
-  
-  
+  public scholarshipQuestionsUrl = environment.apiUrl + 'scholarship-questions/';
+  public saveScholarshipResponseUrl = environment.apiUrl + 'application-save-response/';
+  public automateScholarshipResponseUrl = environment.apiUrl + 'application-automate-response/';
+
+
   constructor(public http: Http) { }
   public params = new URLSearchParams();
   public requestOptions = new RequestOptions();
@@ -78,7 +79,7 @@ export class QuestionService   {
     this.params.set('app-id', appId);
     this.requestOptions.params = this.params;
 
-    
+
 
     return this.observable = this.http.get(this.scholarshipQuestionsUrl, this.requestOptions)
         .map(this.extractData)
@@ -87,17 +88,17 @@ export class QuestionService   {
   }
 
     public extractData(res: Response) {
-    
+
     let body = res.json();
-    
+
     return body || { };
   }
   automateResponse(appId: number | any, data:any): Observable<any>{
-    
+
 
     data['appId'] = appId;
 
-    
+
 
     return this.http.post(this.automateScholarshipResponseUrl,data)
     .map(this.extractData)
@@ -107,11 +108,11 @@ export class QuestionService   {
   }
 
   saveResponse(appId: number | any, data:any): Observable<any>{
-    
+
 
     data['appId'] = appId;
 
-    
+
 
     return this.http.post(this.saveScholarshipResponseUrl,data)
     .map(this.extractData)

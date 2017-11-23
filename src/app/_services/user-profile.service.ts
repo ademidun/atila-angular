@@ -9,27 +9,28 @@ import { UserProfile } from '../_models/user-profile';
 import { AuthService } from "./auth.service";
 
 import { MatSnackBar } from '@angular/material';
+import {environment} from '../../environments/environment';
 @Injectable()
 export class UserProfileService {
 
   constructor(public http: HttpClient,
                 public authService: AuthService,
                 public snackBar: MatSnackBar,) { }
-  public userEndpoint = 'http://127.0.0.1:8000/api/users/';
-  
-  public userProfileEndpoint = 'http://127.0.0.1:8000/api/user-profiles/';
-  
+  public userEndpoint = environment.apiUrl + 'users/';
+
+  public userProfileEndpoint = environment.apiUrl + 'user-profiles/';
+
 
 
   createUser(user: User) {
-    
+
     return this.http.post(this.userEndpoint, user)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
   createUserAndProfile(data: any) {
-    
+
     return this.http.post(this.userEndpoint, data)
       .map(this.extractData)
       .catch(this.handleError);
@@ -54,15 +55,15 @@ export class UserProfileService {
         var token = localStorage.getItem('token');
         if (token) {
             return true;
-        } 
+        }
         return false;
     }
 
     update(profile: UserProfile) {
-  
+
         return this.http.put(`${this.userProfileEndpoint}${profile['user']}/`, profile)
           .map(this.extractData)
-          .catch(this.handleError);
+          .catch(err => err);
     }
 
     updateHelper(userProfile: UserProfile){
@@ -93,18 +94,18 @@ export class UserProfileService {
 
     public extractData(res: HttpResponse<any>) {
         let body = res.body;
-        
+
         return res || { };
-    
+
     }
 
     public handleError (error: Response | any) {
         // In a real world app, you might use a remote logging infrastructure
         let errMsg: string;
         let err: any;
-        
-        return Observable.throw(error);
-        
+
+        return error;
+
     }
 
 }

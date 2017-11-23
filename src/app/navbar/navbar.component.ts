@@ -6,6 +6,7 @@ import { AuthService } from '../_services/auth.service';
 import { UserProfile } from '../_models/user-profile';
 import { MatSnackBar} from '@angular/material';
 import { Router } from '@angular/router';
+import {environment} from '../../environments/environment';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -24,16 +25,17 @@ export class NavbarComponent implements OnInit {
     public authService: AuthService,
     public snackBar: MatSnackBar,
     public router: Router,
-    
+
   ) { }
 
   ngOnInit() {
+    console.log('environment.apiUrl', environment.apiUrl);
     this.authService.isLoggedIn =false;
     if (this.userProfileService.isLoggedIn()) {
       this.isLoggedIn = true;
       this.authService.isLoggedIn = true;
 
-      
+
     }
 
     if (this.authService.decryptLocalStorage('uid')) {
@@ -44,19 +46,19 @@ export class NavbarComponent implements OnInit {
     if(this.isLoggedIn){
       this.userProfileService.getById(parseInt(this.authService.decryptLocalStorage('uid')))
       .subscribe(
-        
+
         data => {
           this.userProfile = data;
-          
 
-          
+
+
         },
-      ) 
+      )
     }
 
-    
 
-    
+
+
   }
 
   logout() {
@@ -70,7 +72,7 @@ export class NavbarComponent implements OnInit {
 
     snackBarRef.onAction().subscribe(
       () => {
-        
+
         this.router.navigate(['login']);
       },
       err =>  {}

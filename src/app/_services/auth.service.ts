@@ -10,13 +10,14 @@ import * as CryptoJS from "crypto-js";
 //https://stackoverflow.com/questions/39415661/what-does-resolves-to-a-non-module-entity-and-cannot-be-imported-using-this
 
 import { MatSnackBar } from '@angular/material';
+import {environment} from '../../environments/environment';
 @Injectable()
 export class AuthService {
 
-  public loginUrl = 'http://127.0.0.1:8000/api/login/';
-  public userUrl = 'http://127.0.0.1:8000/api/users/';
-  public usernameUrl = 'http://127.0.0.1:8000/api/user-name/';
-  public apiKeyUrl = 'http://127.0.0.1:8000/api/api-keys/';
+  public loginUrl = environment.apiUrl + 'login/';
+  public userUrl = environment.apiUrl + 'users/';
+  public usernameUrl = environment.apiUrl + 'user-name/';
+  public apiKeyUrl = environment.apiUrl + 'api-keys/';
   public  isLoggedIn: boolean = false; //should this be public or protected?
   public secretKey:string;
   token: string;
@@ -27,12 +28,12 @@ export class AuthService {
 
     this.initializeSecretKey();
    }
-   
-  
+
+
   logout() {
     // remove user from local storage to log user out
     localStorage.clear();
-    
+
     // there should always be a secret key available even after you clear local storage
     this.initializeSecretKey(true);
 
@@ -48,8 +49,8 @@ export class AuthService {
    //https://stackoverflow.com/questions/35739791/encrypting-the-client-side-local-storage-data-using-angularjs
    /**
     * Encrypt a certain value berfore placing it in Local storage pseudocode = localstorage.setItem(key, encrypy(secretKey, value))
-    * @param key 
-    * @param value 
+    * @param key
+    * @param value
     */
    public encryptlocalStorage(key:string, value: any){
      //base64 values must be converted to string first, before they can be saved
@@ -57,7 +58,7 @@ export class AuthService {
 
       var encryptedData = CryptoJS.AES.encrypt(value.toString(),this.secretKey).toString();
       localStorage.setItem(key,encryptedData);
-     
+
      this.decryptLocalStorage(key);
 
     }
@@ -71,7 +72,7 @@ export class AuthService {
         decryptedValue = CryptoJS.AES.decrypt(encryptedData, this.secretKey).toString(CryptoJS.enc.Utf8);
         return decryptedValue;
       }
-         
+
         return null;
    }
 
@@ -128,7 +129,7 @@ export class AuthService {
 
     this.secretKey = localStorage.getItem('xkcd');
     this.secretKey = CryptoJS.AES.decrypt(this.secretKey, 'dante').toString(CryptoJS.enc.Utf8);
-    
+
 
   }
 
@@ -142,8 +143,8 @@ export function handleError (error: Response | any) {
 
 export function extractData(res: Response | any) {
   let body = res.json();
-  
-  
+
+
   return body;
 
 }

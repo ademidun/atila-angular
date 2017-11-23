@@ -1,34 +1,34 @@
 import { Injectable } from '@angular/core';
 import { Message } from '../_models/message';
 import { Thread } from '../_models/thread';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import {HttpClient, HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/observable/throw';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class MessagingService {
 
-  public messagesUrl = 'http://127.0.0.1:8000/api/messages/';
-  public threadUrl = 'http://127.0.0.1:8000/api/threads/';
-  public usersThreadsUrl = 'http://127.0.0.1:8000/api/user-threads/';
+  public messagesUrl = environment.apiUrl + 'messages/';
+  public threadUrl = environment.apiUrl + 'threads/';
+  public usersThreadsUrl = environment.apiUrl + 'user-threads/';
 
-  constructor(public http: Http) { }
+  constructor(public http: HttpClient) { }
 
   sendMessage(message: Message) {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers});
 
-    return this.http.post(this.messagesUrl, message, options)
-        .map((response: Response) => response.json())
+    return this.http.post(this.messagesUrl, message)
+        .map(res=>res)
         .catch(this.handleError);
   }
 
   getThreadMessages(id: number) {
 
     return this.http.get(`${this.threadUrl}${id}/messages/`)
-        .map((response: Response) => response.json())
+        .map(res=>res)
         .catch(this.handleError);
   }
 
@@ -37,29 +37,20 @@ export class MessagingService {
      * Threads represent the 'conversations' that a user has.
      */
     return this.http.get(`${this.usersThreadsUrl}${id}/`)
-        .map((response: Response) => response.json())
+        .map(res=>res)
         .catch(this.handleError);
   }
 
   getOrCreateThread(thread: Thread) {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers});
 
-    return this.http.post(this.threadUrl, thread, options)
-        .map((response: Response) => response.json())
+    return this.http.post(this.threadUrl, thread)
+        .map(res=>res)
         .catch(this.handleError);
   }
 
-  public handleError (error: Response | any) {
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
-    }
-    console.error(errMsg);
-    return Observable.throw(errMsg);
+  public handleError (error: HttpErrorResponse | any) {
+
+    console.log(error);
+    return Observable.throw(error);
   }
 }

@@ -14,28 +14,36 @@ import { MatSnackBar } from '@angular/material';
 @Injectable()
 
 export class UnAuthorizedInterceptor implements HttpInterceptor {
-    
+
       constructor(public router: Router,
                   public snackBar: MatSnackBar) {}
-    
+
       intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        
+
         return next.handle(request).do((event: HttpEvent<any>) => {
           if (event instanceof HttpResponse) {
             // do stuff with response if you want
-            
+
             return next.handle(request);
           }
         }, (err: any) => {
           if (err instanceof HttpErrorResponse) {
-            if (err.status === 401) {
-  
-              
+            if (err.status === 401 ||err.status === 403 ) {
+
+
               // redirect to the login route
-              this.snackBar.open('Please log in' + err.message, '', {
-                duration: 3000
+              let snackBarRef = this.snackBar.open("Unauthorized Access", 'Login', {
+                duration: 5000
               });
-              this.router.navigate(['/login']);
+
+              snackBarRef.onAction().subscribe(
+                () => {
+                  this.router.navigate(['/login']);
+                },
+              );
+              setTimeout(() => {
+                this.router.navigate(['/login']);
+              }, 5000);
               // or show a modal
             }
           }

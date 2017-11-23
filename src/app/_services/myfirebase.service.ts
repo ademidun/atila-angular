@@ -5,15 +5,16 @@ import { Observable } from 'rxjs/Observable';
 
 import { UploadFile } from '../_models/upload-file';
 import * as firebase from "firebase";
+import {environment} from '../../environments/environment';
 
 
 @Injectable()
 export class MyFirebaseService {
 
-  
-  public apiKeyUrl = 'http://127.0.0.1:8000/api/api-keys/';
-  public saveFirebaseUrl = 'http://127.0.0.1:8000/api/save-firebase/';
-  constructor(public http: Http) { 
+
+  public apiKeyUrl = environment.apiUrl + 'api-keys/';
+  public saveFirebaseUrl = environment.apiUrl + 'save-firebase/';
+  constructor(public http: Http) {
 
   }
 
@@ -21,31 +22,31 @@ export class MyFirebaseService {
 
   //reference: https://angularfirebase.com/lessons/angular-file-uploads-to-firebase-storage/
   uploadFile(uploadFile: UploadFile, uploadInstructions: any): Observable<any>{
-    
+
 
     //1. Get the API keys used to configure firebase from backend database.
 
     //2. Then, use those key to upload the files to firebase and return the results of the uploads
-    
+
     return this.getAPIKey("FIREBASE_CONFIG_KEYS")
     .map(res => this.uploadFileFirebase(res, uploadFile,uploadInstructions))
     .catch(this.handleError)
-    
+
   }
-  
+
   uploadFileFirebase(res: Response, uploadFile: UploadFile, uploadInstructions: any){
 
-      
+
         let config;
         config = res['api_key'];
-        
+
         if (!firebase.apps.length) {
           firebase.initializeApp(config);
         }
-        
+
         uploadFile.name = config.toString();
         //why does google documentation use var instead of ref
-        
+
         //preparing the firebase storage for upload
         var storage = firebase.storage();
         let storageRef = storage.ref();
@@ -57,7 +58,7 @@ export class MyFirebaseService {
         };
 
         var uploadTask = uploadRef.put(uploadFile.file, metadata);
-        
+
         //https://firebase.google.com/docs/storage/web/upload-files?authuser=0
 
         // Register three observers:
@@ -69,7 +70,7 @@ export class MyFirebaseService {
           // Observe state change events such as progress, pause, and resume
           // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
           var progress = ( snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          
+
         },
          (error)=> {
           this.handleError(error);
@@ -78,17 +79,17 @@ export class MyFirebaseService {
           // Handle successful uploads on complete
           // For instance, get the download URL: https://firebasestorage.googleapis.com/...
           //var downloadURL = uploadTask.snapshot.downloadURL;
-          
-           this.saveUploadResult(uploadTask.snapshot,uploadFile.uploadInstructions);                                                   
+
+           this.saveUploadResult(uploadTask.snapshot,uploadFile.uploadInstructions);
         });
 
 
   }
-  
+
   saveUploadResult(uploadResult, uploadInstructions){
 
-    
-    
+
+
     let postData = {
       "uploadResult": uploadResult,
       "uploadInstructions": uploadInstructions,
@@ -97,12 +98,12 @@ export class MyFirebaseService {
     return this.http.post(this.saveFirebaseUrl,postData)
     .map(this.extractData)
     .catch(this.handleError)
-    
+
     // .map( res => )
-    // .catch(this.handleError).subscribe(res => 
+    // .catch(this.handleError).subscribe(res =>
 
     //
-    
+
   }
 
   getAPIKey(apiKey: any){
@@ -115,8 +116,8 @@ export class MyFirebaseService {
 
   public extractData(res: Response) {
     let body = res.json();
-    
-    
+
+
     return body || { };
 
   }
@@ -133,6 +134,6 @@ export class MyFirebaseService {
     }
     console.error(errMsg);
     return Observable.throw(errMsg);
-  }  
+  }
 
 }

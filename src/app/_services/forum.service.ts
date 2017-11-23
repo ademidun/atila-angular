@@ -5,14 +5,15 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class ForumService {
 
-  public forumsUrl = 'http://127.0.0.1:8000/api/forum/forums/';
-  public forumComments = 'http://127.0.0.1:8000/api/forum/forum-comments/';
+  public forumsUrl = environment.apiUrl + 'forum/forums/';
+  public forumComments = environment.apiUrl + 'forum/forum-comments/';
 
-  public forumsSlugUrl = 'http://127.0.0.1:8000/api/forum/forum-slug/';
+  public forumsSlugUrl = environment.apiUrl + 'forum/forum-slug/';
 
   constructor(public http: Http) { }
 

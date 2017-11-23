@@ -5,15 +5,16 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import {environment} from '../../environments/environment';
 @Injectable()
 export class BlogPostService {
 
 
-  public blogsUrl = 'http://127.0.0.1:8000/api/blog/blog-posts/';
+  public blogsUrl = environment.apiUrl + 'blog/blog-posts/';
 
-  public blogUrl = 'http://127.0.0.1:8000/api/blog/';
+  public blogUrl = environment.apiUrl + 'blog/';
 
-  public blogsSlugUrl = 'http://127.0.0.1:8000/api/blog/blog-slug/';
+  public blogsSlugUrl = environment.apiUrl + 'blog/blog-slug/';
   constructor(public http: Http) { }
 
   list(): Observable<any>{
