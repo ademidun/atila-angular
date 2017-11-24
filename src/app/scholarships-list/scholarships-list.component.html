@@ -7,14 +7,14 @@
         <div class="row center">
           <h2 *ngIf="scholarship_count!=0" class="scholarship-preview-count"> You may qualify for <strong>{{scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and up to <strong>{{total_funding}}</strong> in funding</span>.</h2>
           <h2 *ngIf="scholarship_count==0" class="scholarship-preview-count"> Unfortunately, you currently qualify for <strong>{{scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and <strong>{{total_funding}}</strong> in funding</span>.</h2>
-          
+
           <!-- <img class="logo-img" src="../../assets/img/g-logo+pig.png" alt=""> -->
         </div>
         <div class="row">
             <p class="text-align-center col s-3"><i class="material-icons automate-tag">tag_faces</i> = Automated scholarships.</p>
             <p class="text-align-center col s-3"><mat-icon svgIcon="plus-one"></mat-icon> = One-Click Scholarships.</p>
             <p class="text-align-center col s-3">Are we missing a scholarship you want?<a href="https://docs.google.com/spreadsheets/d/13YshWzg38Au-tPkGyDfY4hJHGJDWl_7vUpXNXkf5afM/edit?usp=sharing"
-            target="_blank">Share the link</a> and we'll add it to our database and automate it for you.</p><!-- <p class="text-align-center col s-3"><i class="material-icons automate-tag">help_outline</i> = Eternal Scholarship Information</p>
+            target="_blank">Tell us the link</a> and we'll add it to our database and automate it for you.</p><!-- <p class="text-align-center col s-3"><i class="material-icons automate-tag">help_outline</i> = Eternal Scholarship Information</p>
             <p class="text-align-center col s-3"><i class="material-icons automate-tag">create</i> = Scholarship Application Form</p> -->
         </div>
         <br>
@@ -33,7 +33,7 @@
                     <mat-card-content>
                         <p class="card-text">
                           {{scholarship.description | truncate:140}}
-                        </p> 
+                        </p>
                     </mat-card-content>
                     <mat-card-actions>
                       <a *ngIf=scholarship.is_automated [routerLink]="['../scholarship-detail', scholarship.slug]" title="Automated Scholarships"><button mat-button><i class="material-icons automate-tag">tag_faces</i></button></a>
@@ -45,12 +45,12 @@
         </div>
 
         <div class="row center">
-            <a *ngIf="scholarship_count!=0"class="waves-effect waves-light btn scholarship-btn" routerLink="/register">Register here to view the rest of the scholarships</a>            
+            <a *ngIf="scholarship_count!=0"class="waves-effect waves-light btn scholarship-btn" routerLink="/register">Register here to view the rest of the scholarships</a>
           <a *ngIf="scholarship_count==0"class="waves-effect waves-light btn scholarship-btn" routerLink="/register">Register here to start qualifying for scholarships</a>
         </div>
 
 
-      
+
     </div>
 
     <!--Registered user content -->
@@ -60,7 +60,7 @@
           Explore <strong>{{ scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and up to <strong>{{total_funding}}</strong> in funding</span>.
         </h4>
         <div class="row">
-          
+
           <!-- <div class="sort-container pull-right">
             <p>Sort by </p>
             <mat-select [(ngModel)]="sortVal" name="sort" id="sort">
@@ -74,7 +74,7 @@
           <p class="text-align-center col s-3"><i class="material-icons automate-tag">tag_faces</i> = Automated scholarships.</p>
           <p class="text-align-center col s-3"><mat-icon svgIcon="plus-one"></mat-icon> = One-Click Scholarships.</p>
           <p class="text-align-center col s-3">Are we missing a scholarship you want? <a href="https://docs.google.com/spreadsheets/d/13YshWzg38Au-tPkGyDfY4hJHGJDWl_7vUpXNXkf5afM/edit?usp=sharing"
-          target="_blank">Share the link</a> and we'll add it to our database and automate it for you.</p>
+          target="_blank">Tell us the link</a> and we'll add it to our database and automate it for you.</p>
           <!-- <p class="text-align-center col s-3"><i class="material-icons automate-tag">help_outline</i> = External Scholarship Information</p>
           <p class="text-align-center col s-3"><i class="material-icons automate-tag">create</i> = Scholarship Application Form</p> -->
         </div>
@@ -93,7 +93,7 @@
                   <mat-card-content>
                       <p class="card-text">
                         {{scholarship.description | truncate:140}}
-                      </p> 
+                      </p>
                   </mat-card-content>
                   <mat-card-actions>
                       <a *ngIf=scholarship.is_automated [routerLink]="['../scholarship-detail', scholarship.slug]" title="Automated Scholarships"><button mat-button><i class="material-icons automate-tag">tag_faces</i></button></a>

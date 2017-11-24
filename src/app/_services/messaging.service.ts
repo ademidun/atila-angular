@@ -50,7 +50,6 @@ export class MessagingService {
 
   public handleError (error: HttpErrorResponse | any) {
 
-    console.log(error);
     return Observable.throw(error);
   }
 }

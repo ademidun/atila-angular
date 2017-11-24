@@ -10,8 +10,8 @@ import { GooglePlaceDirective } from "../_directives/google-place.directive";
 
 //import 'googlemaps';
 export class PreviewResponse {
-  
-  
+
+
   constructor(
   public location = {
   city: '',
@@ -41,24 +41,24 @@ export class PreviewComponent implements OnInit, OnDestroy {
     'Brampton',
     'Other',
    ]
-   
+
    EDUCATION_LEVEL = [
-       'University', 
-       'College', 
+       'University',
+       'College',
        'Workplace or Apprenticeship',
    ]
-   
+
    EDUCATION_FIELD = [
        'Arts (Undergrad)',
        'STEM (Undergrad)',
-       'Trade School', 
-       'Visual + Performing Arts', 
-       'Law School', 
-       'Medical School', 
-       'MBA', 
-       'Arts (Grad School)', 
-       'STEM (Grad School)', 
-       'Other' 
+       'Trade School',
+       'Visual + Performing Arts',
+       'Law School',
+       'Medical School',
+       'MBA',
+       'Arts (Grad School)',
+       'STEM (Grad School)',
+       'Other'
    ]
 
 
@@ -67,25 +67,25 @@ export class PreviewComponent implements OnInit, OnDestroy {
     province: '',
     country: '',
     name: '',
-    },[this.EDUCATION_LEVEL[0]],[this.EDUCATION_FIELD[0]]);
+    },[],[]);
    diagnostic: any;
 
    /**
     * If the Google Places API is not working, only ask for city.
     */
-    public locationPlaceHolder = 'City, State or Country';
+    public locationPlaceHolder = 'City, Province/State or Country';
 
    constructor(
     public scholarshipService: ScholarshipService,
     public router: Router,
-    ) { 
+    ) {
 
     }
 
   ngOnInit() {
 
     document.body.style.backgroundColor = '#194F87';
-    console.log('Welcome to Atila','https://atila.ca');
+    // console.log('Welcome to Atila','https://atila.ca');
   }
 
   ngOnDestroy() {
@@ -100,16 +100,16 @@ export class PreviewComponent implements OnInit, OnDestroy {
    * https://stackoverflow.com/questions/42341930/google-places-autocomplete-angular2
    */
   placeAutoComplete(placeResult:any, locationModel: NgModel){ //Assign types to the parameters place result is a PlaceResult Type, see documentation
-    
+
 
     this.predictLocation(this.model.location, placeResult);
-    
+
   }
 
   /**
    * Translate the PlaceResult object into an Atila location object, containing only the city, province/state and country.
-   * @param location 
-   * @param placeResult 
+   * @param location
+   * @param placeResult
    */
   predictLocation(location, placeResult){
     var addressComponents = placeResult.address_components ;
@@ -132,7 +132,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
       }
     });
 
-    
+
   }
 /**
  * If the Google Place API did not load, then change the placeholder message to only ask for a city (or country?).
@@ -140,15 +140,15 @@ export class PreviewComponent implements OnInit, OnDestroy {
   googlePlaceNoLoad(){
     this.locationPlaceHolder = 'City'
   }
-  
+
   /**
    * If user presses enter on location button, don't allow the form to submit because we still need to pull the location Data from Google Maps.
    */
   keyDownHandler(event: Event) {
-    
+
     if((<KeyboardEvent>event).keyCode == 13) {
 
-      event.preventDefault(); 
+      event.preventDefault();
     }
     //TODO! Change this, allow user to submit with enterButton.
   }
@@ -160,7 +160,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
     this.scholarshipService.setScholarshipPreviewForm(this.model).then(
       res => this.router.navigate(['scholarships-list']))  //use promise to ensure that form is saved to Service before navigating away
-      
+
 
 }
 

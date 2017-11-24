@@ -7,13 +7,13 @@
                     <h4 *ngIf="!editMode">Add Scholarship</h4>
 
                     <h6 *ngIf="editMode && !isOwner">You don't have permission to save edits. If you want to make edits, please suggest them in the comments.</h6>
-                    
+
                     <h4>{{scholarship.name}}</h4>
                     <div *ngIf="pageNo==1">
                         <h5>General Information {{pageNo}}/3</h5>
 
                         <fieldset [disabled]="editMode && !isOwner">
-                        
+
                         <div class="row">
                             <mat-form-field class="col s12">
                                 <input class="browser-default" matInput id="name" type="text" required placeholder="Scholarship Name" [(ngModel)]="scholarship.name" name="name">
@@ -21,7 +21,7 @@
                         </div>
                         <div class="row">
                             <label> Describe the scholarship in a concise tweet (140 characters). You will be able to give more details later.</label><br>
-                              <textarea  class="browser-default" matInput id="description" type="text" 
+                              <textarea  class="browser-default" matInput id="description" type="text"
                               required placeholder="Description" [(ngModel)]="scholarship.description" name="description"></textarea>
                           </div>
                         <div class="row">
@@ -51,19 +51,19 @@
                               <input class="browser-default" matInput id="deadline" type="datetime-local"
                                 [(ngModel)]="scholarship.deadline" name="deadline">
                             </mat-form-field>
-          
-          
+
+
                           <span *ngIf="scholarship.deadline" class="col s6">
                             <!-- TODO: Wrong time zone offset on deadline -->
                               Deadline: {{ scholarship.deadline | date:'fullDate' }} {{ scholarship.deadline | date:'shortTime' }}
                           </span>
-          
+
                           </div>
                           <!-- TODO: Changing Location Creation -->
-                   
-                        
-                        
-                        {{ myJson.stringify(locationList) }}
+
+
+
+                        <!--{{ myJson.stringify(locationList) }}-->
                         <br>
                         <!-- See table-layout.component.html as a guide -->
                         <table class="table">
@@ -74,12 +74,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            
+
                                 <tr *ngFor="let location of locationList; let i = index"><!-- For each row (or entry) of data  -->
 
                                     <td *ngFor="let locationType of ['city','province','country']">{{ location[locationType]}}</td>
                                     <br>
-                            
+
                                     <a class="waves-effect waves-light btn right" (click)="deleteLocationRow(i)">
                                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                                     </a>
@@ -87,39 +87,41 @@
 
                                 </tr>
                             </tbody>
-                            
-                            
-                        </table> 
+
+
+                        </table>
                         <mat-form-field class="browser-default col s12 m4">
-                        
+
                         <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
                         <input matInput type="text" class="form-control" [disabled]="this.editMode && !this.isOwner" [placeholder]="locationPlaceHolder" name="location" id="location" [(ngModel)]="locationInput.city" #LocationCtrl="ngModel"
                         appGooglePlace (setAddress)="placeAutoComplete($event,LocationCtrl)"  (googlePlaceNoLoad)="googlePlaceNoLoad()" (keydown)="keyDownHandler($event)">
-                        </mat-form-field> 
+                        </mat-form-field>
 
 
                         <br>
                         <div class="row">
-                            <div class="input-field">
-                                <mat-select class="col s12" [(ngModel)]="scholarship.funding_type" name="funding_type" required id="funding_type" multiple=true placeholder="Funding Type">
+                            <mat-form-field class="input-field">
+                                <mat-select class="col s12" [(ngModel)]="scholarship.funding_type" name="funding_type" required id="funding_type" multiple=true
+                                            placeholder="Funding Type">
                                     <mat-option *ngFor="let type of FUNDING_TYPES" [value]="type">{{type}} </mat-option>
                                 </mat-select>
-                            </div>
+                            </mat-form-field>
                         </div>
                         <br>
                         <div class="row">
-                            <div class="input-field">
-                                <mat-select class="col s12" [(ngModel)]="scholarship.education_level" name="education_level" id="education_level" required multiple=true placeholder="Education Level">
+                            <mat-form-field class="input-field">
+                                <mat-select class="col s12" [(ngModel)]="scholarship.education_level" name="education_level" id="education_level" required multiple=true placeholder="Education Type">
                                     <mat-option *ngFor="let education_level of EDUCATION_LEVELS" [value]="education_level">{{education_level}} </mat-option>
                                 </mat-select>
-                            </div>
+                            </mat-form-field>
                         </div>
                         <br>
-                        <div class="input-field">
-                                <mat-select class="col s12" [(ngModel)]="scholarship.education_field" name="education_field" id="education_field" multiple=true required placeholder="Education Field">
+                        <mat-form-field class="input-field">
+                                <mat-select class="col s12" [(ngModel)]="scholarship.education_field" name="education_field" id="education_field" multiple=true
+                                            required placeholder="Education Field">
                                     <mat-option *ngFor="let education_field of EDUCATION_FIELDS" [value]="education_field">{{education_field}} </mat-option>
                                 </mat-select>
-                            </div>
+                            </mat-form-field>
                             <br>
                         </fieldset>
 
@@ -170,7 +172,7 @@
                                 <label for="enrollment_proof_required" data-error="Invalid input">Proof of Enrollment required?</label>
                             </div>
                         </div>
-                        
+
                         <div class="row">
                             <mat-form-field class="col s12">
                                 <input class="browser-default" matInput id="reference_letter_required" type="number" [(ngModel)]="scholarship.reference_letter_required" name="reference_letter_required">
@@ -251,12 +253,12 @@
                                     <h6>Form Parent Description</h6>
                                     <tr>
                                       <th>Element Type</th>
-                                      <th>Element Attribute</th> 
+                                      <th>Element Attribute</th>
                                       <th>Attribute Value</th>
                                     </tr>
                                     <tr>
                                       <td><input [(ngModel)]="scholarship.submission_info.web_form_parent.element_type" name="web_form_parent.element_type" class="browser-default" placeholder="ex. div"></td>
-                                      <td><input [(ngModel)]="scholarship.submission_info.web_form_parent.attribute_type" name="web_form_parent.attribute_type" class="browser-default" placeholder="ex. id"></td> 
+                                      <td><input [(ngModel)]="scholarship.submission_info.web_form_parent.attribute_type" name="web_form_parent.attribute_type" class="browser-default" placeholder="ex. id"></td>
                                       <td><input [(ngModel)]="scholarship.submission_info.web_form_parent.attribute_value" name="web_form_parent.attribute_value" class="browser-default" placeholder="ex. myFormId"></td>
                                     </tr>
                                   </table>
@@ -278,19 +280,19 @@
                                                 </div>
                                                 <div class="col s3">
                                                     <button mat-raised-button class="btn white-text" (click)="uploadScholarshipAppForm()">Upload</button>
-                                                
+
                                                     <div  *ngIf="showUploadLoading">
                                                     Uploading File Please Wait...
                                                         <mat-progress-bar aria-label="Automating Engine Running Please Wait..." mode="indeterminate"></mat-progress-bar>
-                                                    </div>     
+                                                    </div>
                                                 <div *ngIf="scholarship.form_url" class="col s4">
                                                     <a target="_blank" href="{{scholarship.form_url}}">View Current Application</a>
-                                                </div> 
+                                                </div>
                                                 </div>
                                                 <a routerLink="/scholarships-list">Skip</a>
                                             </div>
 
-                                
+
                                             <div class="row">
                                                 <label>We recommend uploading an editable pdf, however you may also use the url of an application form that already exists online.</label>
                                                 <mat-form-field class="col s12">
@@ -298,7 +300,7 @@
                                                 </mat-form-field>
                                             </div>
                                     </fieldset>
-                        
+
                                 <a class="waves-effect waves-light btn left" (click)="back()">Back</a>
                                 <a *ngIf="!showFormUpload" class="waves-effect waves-light btn right" (click)="saveScholarship(scholarshipForm)">Create</a>
                                 <a *ngIf="showFormUpload" class="waves-effect waves-light btn right" (click)="saveScholarship(scholarshipForm)">Save</a>

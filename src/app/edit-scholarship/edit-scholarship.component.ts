@@ -30,22 +30,22 @@ export class EditScholarshipComponent implements OnInit {
 
 
   EDUCATION_LEVELS = [
-    'University', 
-    'College', 
+    'University',
+    'College',
     'Workplace or Apprenticeship',
 ]
 
 EDUCATION_FIELDS = [
     'Arts (Undergrad)',
     'STEM (Undergrad)',
-    'Trade School', 
-    'Visual + Performing Arts', 
-    'Law School', 
-    'Medical School', 
-    'MBA', 
-    'Arts (Grad School)', 
-    'STEM (Grad School)', 
-    'Other' 
+    'Trade School',
+    'Visual + Performing Arts',
+    'Law School',
+    'Medical School',
+    'MBA',
+    'Arts (Grad School)',
+    'STEM (Grad School)',
+    'Other'
 ]
 
 stringDict = {
@@ -60,14 +60,14 @@ FUNDING_TYPES = [
   'Scholarship',
   'Loan',
   'Other',
-];;
+];
 
 APPLICATION_FORM_TYPES = [
   'PDF',
   'Web',
   'Other'
 ]
-  
+
   userId: number;
   pageNo: number =1;
   scholarship: Scholarship = new Scholarship();
@@ -77,7 +77,7 @@ APPLICATION_FORM_TYPES = [
   appFormFile: UploadFile;
 
   scholarshipSlug: string = "";
-  
+
   public scholarshipOwner;
 
   uploadResponse: any;
@@ -91,8 +91,8 @@ APPLICATION_FORM_TYPES = [
     people = PERSONNEL;
     projects = PROJECTS;
     webForms = WEBFORMS;
-    //optional settings for the web form rows 
-    projectSettings: ColumnSetting[] = 
+    //optional settings for the web form rows
+    projectSettings: ColumnSetting[] =
     [
         {
             primaryKey: 'name',
@@ -127,8 +127,8 @@ APPLICATION_FORM_TYPES = [
     public titleService: Title,
     public firebaseService: MyFirebaseService,
     public authService: AuthService,
-  ) { 
-    this.scholarshipSlug = route.snapshot.params['slug']; 
+  ) {
+    this.scholarshipSlug = route.snapshot.params['slug'];
     this.userId = parseInt(this.authService.decryptLocalStorage('uid')); // Current user
 
   }
@@ -139,7 +139,7 @@ APPLICATION_FORM_TYPES = [
      // Load scholarship from the id
      //Nested Observable (is this good practice?)
      //First, we get the scholarship data based on the URl slug, then we get the current logged in User
-     
+
      this.scholarshipService.getBySlug(this.scholarshipSlug)
      .subscribe(
        scholarship => {
@@ -156,7 +156,7 @@ APPLICATION_FORM_TYPES = [
           ];
          }
          if(this.scholarship.submission_info.application_form_type=='Web' && !this.scholarship.submission_info.web_form_parent){
-          this.scholarship.submission_info.web_form_parent = {   
+          this.scholarship.submission_info.web_form_parent = {
             element_type: '',
             attribute_type : '',
             attribute_value: '',
@@ -164,7 +164,7 @@ APPLICATION_FORM_TYPES = [
          }
          //The webForms value in the table is populated using the scholarship.submission_info.web_form_entries
          this.webForms = this.scholarship.submission_info.web_form_entries;
-         
+
          // Get the user profile of the scholarship owner
 
          this.titleService.setTitle('Atila - Edit - ' + this.scholarship.name);
@@ -174,12 +174,12 @@ APPLICATION_FORM_TYPES = [
            .subscribe(
              user => {
                this.scholarshipOwner = user;
-               
+
                this.arrayToString();
-               
+
              },
              err => {
-               
+
              }
            )
          }
@@ -187,7 +187,7 @@ APPLICATION_FORM_TYPES = [
          this.initializeLocations();
        },
        err => {
-         
+
        }
      );
 
@@ -195,49 +195,49 @@ APPLICATION_FORM_TYPES = [
   }
 
   stringInputToArray(event: any){
-    
-    
-    
+
+
+
 
     this.scholarship[event.target.name] = {};
     var tempString = event.target.value;
     tempString = tempString.trim();
-    
+
     var stringArray: string[] = tempString.split(",");
     stringArray.forEach(element => {
       element = element.trim();
       this.scholarship[event.target.name][element] = element;
     });
     for( var key in stringArray){
-      
-      
+
+
     }
 
-    
-    
-    
+
+
+
 
    /* for (var i = 0; i < event.srcElement.form.length; i++) {
-      
+
       event.srcElement.form[i].disabled = true;
-      
+
     }
     */
 
 
-    
+
 
   }
 
   saveTableChanges(tableData: any[]){
     this.webForms = tableData;
-    
-    
-    
+
+
+
     this.scholarship.submission_info.web_form_entries= tableData;
-    
+
   }
-  
+
   initializeLocations(){
     // See createLocations() int edit-scholarship or add-scholarship.component.ts
     for (var index = 0; index < this.scholarship.country.length; index++) {
@@ -268,17 +268,17 @@ APPLICATION_FORM_TYPES = [
   createLocation(type:string){
     /*create a locationData object,
     conditional
-    */ 
+    */
         switch (type) {
           case 'countries':
-            { 
+            {
               this.countries.push({
                 'country': ''
               });
             }
             break;
           case 'provinces':
-          { 
+          {
             this.provinces.push({
               'country': this.activeCountry,
               'province':''
@@ -286,81 +286,81 @@ APPLICATION_FORM_TYPES = [
           }
           break;
           case 'provinces':
-          { 
+          {
             this.provinces.push({
               'country': this.activeCountry,
               'province':''
             });
           }
           break;
-          
+
           case 'cities':
-          { 
-            //loop through the provinces objects, looking for the 
+          {
+            //loop through the provinces objects, looking for the
             //matching province and extract its country
             this.cities.push({
               'country': this.activeProvince.country,
               'province':this.activeProvince.province,
               'city': ''
             });
-    
-            
-            
-            
+
+
+
+
           }
           break;
-          
+
           default:
             break;
         }
-    
-        
+
+
   }
-    
+
   removeLocation(index:number,type:string, value:string){
 
-    
-    
-    
-    
+
+
+
+
     this[type].splice(index,1);
-    
+
     /*switch (type) {
       case 'countries':
-        { 
+        {
           this.countries.splice(index,1);
         }
         break;
       case 'provinces':
-      { 
+      {
         this.provinces.splice(index,1);
       }
       break;
       case 'cities':
-      { 
+      {
         this.cities.splice(index,1);
       }
       break;
-      
+
       default:
         break;
     }
     */
-    
+
   }
 
   editLocation(index:number, type: string, event: any){
 
     switch (type) {
       case 'countries':
-        { 
+        {
           this.countries[index] = {
             'country':event.target.value
           };
         }
         break;
       case 'provinces':
-      { 
+      {
         this.provinces[index] = {
           'country': this.activeCountry,
           'province':event.target.value
@@ -370,7 +370,7 @@ APPLICATION_FORM_TYPES = [
 
       case 'cities':
       {
-        //loop through the provinces objects, looking for the 
+        //loop through the provinces objects, looking for the
         //matching province and extract its country
 
         this.cities[index] = {
@@ -380,37 +380,37 @@ APPLICATION_FORM_TYPES = [
         };
       }
       break;
-      
+
       default:
         break;
     }
-    
+
   }
 
   setActiveLocation(event:any, type:string, value: any[]){
     //value will be an array of locations, we are looking for the
     //value where event.value == value[i].type
-    
-    
-    
+
+
+
     switch (type) {
       case 'country':
         {
           this.activeCountry = event.value;
         }
         break;
-        
+
       case 'province':
       {
         this.activeProvince = {
           'country': '',
           'province': event.value
-        } 
+        }
 
         for (var i = 0; i < this.provinces.length; i++) {
           var element = this.provinces[i];
           if(element.province==this.activeProvince.province){
-            
+
             this.activeProvince.country = element.country;
             break;
           }
@@ -422,7 +422,7 @@ APPLICATION_FORM_TYPES = [
       default:
         break;
     }
-    
+
   }
 
   trackByFn(index: any, item: any) {
@@ -434,13 +434,13 @@ APPLICATION_FORM_TYPES = [
     let dialogRef = this.dialog.open(AddQuestionModalComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        
+
         this.scholarship.extra_questions[result.key] = result;
-      } 
-      
+      }
+
       else{
-        
-      }      
+
+      }
     });
   }
 
@@ -451,15 +451,15 @@ APPLICATION_FORM_TYPES = [
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        
+
         this.scholarship.extra_questions[key] = result;
       }
       else{
-        
-      }      
+
+      }
     });
   }
-  
+
   // Edit existing question from question array
   delete(key: string) {
     delete this.scholarship.extra_questions[key];
@@ -473,12 +473,12 @@ APPLICATION_FORM_TYPES = [
   arrayToString(){
     var i =0;
     //convert the various JSOn values to string for displaying in the text input
-    for (var key in this.stringDict){//for each key [ 'city', 'proince',...] 
+    for (var key in this.stringDict){//for each key [ 'city', 'proince',...]
     i =0;
       for(var element in this.scholarship[key]){ //i.e. for each value within the city key, append each city value to a city string
           if(i==0){
-            
-            
+
+
             this.stringDict[key]= element;
           }
           else{
@@ -499,15 +499,15 @@ APPLICATION_FORM_TYPES = [
     return Object.keys(obj).map((key)=>{ return obj[key]});
   }
   saveScholarshipEdit(scholarshipForm: NgForm) {
-    
-      
+
+
       if (scholarshipForm.valid){
         let locationData  = {
           countries: this.countries,
           provinces: this.provinces,
           cities: this.cities
         }
-  
+
         let sendData = {
           'scholarship': this.scholarship,
           'locationData': locationData,
@@ -515,7 +515,7 @@ APPLICATION_FORM_TYPES = [
         this.scholarshipService.updateAny(sendData)
         .subscribe(
           res =>{
-            
+
             this.snackBar.open("Scholarship succesfully Saved", '', {
               duration: 3000
             });
@@ -533,20 +533,20 @@ APPLICATION_FORM_TYPES = [
         });
       }
 
-          
+
   }
 
   /*createScholarship(scholarshipForm) {
 
     if (scholarshipForm.valid) {
-      
+
       let postOperation: Observable<Scholarship>;
       this.scholarship.owner = this.userId;
       postOperation = this.scholarshipService.create(this.scholarship);
 
       postOperation.subscribe(
         data => {
-          
+
           this.snackBar.open("Scholarship succesfully created", '', {
             duration: 3000
           });
@@ -569,9 +569,9 @@ APPLICATION_FORM_TYPES = [
   }*/
 
   scholarshipAppFormChangeEvent(fileInput: any){
-    
-    this.scholarshipFormFile = fileInput.target.files[0]; 
-    
+
+    this.scholarshipFormFile = fileInput.target.files[0];
+
   }
 
   uploadScholarshipAppForm(){
@@ -587,11 +587,11 @@ APPLICATION_FORM_TYPES = [
       id: this.scholarship.id,
       fieldName: 'form_url'
     }
-    
+
     this.appFormFile.path = "scholarships/" + this.scholarship.id + "/scholarship-templates/"
     this.appFormFile.path = this.appFormFile.path + this.appFormFile.name
-    
-    
+
+
     this.fileUpload(this.appFormFile)
     .subscribe(
       res => {}
@@ -607,19 +607,19 @@ APPLICATION_FORM_TYPES = [
   }
 
   uploadFileFirebase(res: Response, uploadFile: UploadFile){
-    
-    
-    
+
+
+
     let config;
     config = res['api_key'];
-    
+
     if (!firebase.apps.length) {
       firebase.initializeApp(config);
     }
-    
+
     uploadFile.name = config.toString();
     //why does google documentation use var instead of ref
-    
+
     //preparing the firebase storage for upload
     var storage = firebase.storage();
     let storageRef = storage.ref();
@@ -629,11 +629,11 @@ APPLICATION_FORM_TYPES = [
       size: uploadFile.file.size,
       name: uploadFile.file.name,
     };
-    
-    
-    
+
+
+
     var uploadTask = uploadRef.put(uploadFile.file, metadata);
-    
+
     //https://firebase.google.com/docs/storage/web/upload-files?authuser=0
 
     // Register three observers:
@@ -646,21 +646,21 @@ APPLICATION_FORM_TYPES = [
       // Observe state change events such as progress, pause, and resume
       // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
       var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      
+
     },
     (error)=> {
-      
+
     },
     () => {
       // Handle successful uploads on complete
       // For instance, get the download URL: https://firebasestorage.googleapis.com/...
       //var downloadURL = uploadTask.snapshot.downloadURL;
-      
+
       this.scholarship.form_url = uploadTask.snapshot.downloadURL;
-                                                        
+
     });
-    
-    
+
+
   }
 
 
