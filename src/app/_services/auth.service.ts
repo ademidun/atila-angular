@@ -76,6 +76,11 @@ export class AuthService {
         return null;
    }
 
+
+   isUserLoggedIn(): boolean {
+
+     return ! isNaN(parseInt(this.decryptLocalStorage('uid')));
+   }
    public extractToken(res: HttpResponse<any>) {
     this.token = res['token'];
     return res || { };
@@ -133,6 +138,17 @@ export class AuthService {
 
   }
 
+  hashFileName(fileName,length=8, appendTimeStamp=true) {
+    var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var result = '';
+    for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+
+    result = appendTimeStamp? result + '-' +Date.now().toString() + '-' +fileName : result + '-' +fileName;
+
+    return result;
+
+  }
+
 }
 
 
@@ -146,5 +162,16 @@ export function extractData(res: Response | any) {
 
 
   return body;
+
+}
+
+export function hashFileName(fileName,length=8, appendTimeStamp=true) {
+  var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  var result = '';
+  for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+
+  result = appendTimeStamp? result + '-' +Date.now().toString() + '-' +fileName : result + '-' +fileName;
+
+  return result;
 
 }

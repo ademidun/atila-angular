@@ -29,11 +29,12 @@ import * as firebase from "firebase";
 export class EditScholarshipComponent implements OnInit {
 
 
-  EDUCATION_LEVELS = [
+  EDUCATION_LEVEL = [
+    'High School',
     'University',
     'College',
     'Workplace or Apprenticeship',
-]
+  ]
 
 EDUCATION_FIELDS = [
     'Arts (Undergrad)',

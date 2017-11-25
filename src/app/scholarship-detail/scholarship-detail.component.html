@@ -9,9 +9,9 @@
 
           <div class="date-created">
             <div *ngIf="scholarshipOwner">
-              Created by: <a routerLink="/profile/{{scholarshipOwner.username}}">{{scholarshipOwner.first_name}} {{scholarshipOwner.last_name}}</a>
-            </div>          
-            Deadline: {{scholarship.deadline | date:'longDate'}}<br> 
+              Added by: <a routerLink="/profile/{{scholarshipOwner.username}}">{{scholarshipOwner.first_name}} {{scholarshipOwner.last_name}}</a>
+            </div>
+            Deadline: {{scholarship.deadline | date:'longDate'}}<br>
             <strong>
             <p *ngIf="scholarship.funding_amount > 0">{{scholarship.funding_amount | currency:'USD':'symbol':'1.0-0'}}</p>
             </strong>
@@ -22,7 +22,7 @@
           </div>
 
 
-        <button mat-raised-button *ngIf=scholarship.is_automated (click)="getOrCreateApp()" 
+        <button mat-raised-button *ngIf=scholarship.is_automated (click)="getOrCreateApp()"
         style="background-color: #1ea0e7; " class="white-text">Apply now</button>
       </div>
       <br>
@@ -40,30 +40,30 @@
       </ul>
       <ul>
         <!-- TODO: THis should actually be done using a pipe https://stackoverflow.com/questions/35534959/access-key-and-value-of-object-using-ngfor -->
-        
-        <li *ngIf="scholarship.city">Located in: 
+
+        <li *ngIf="scholarship.city">Located in:
             {{keyGetter(scholarship.city)}}
          </li>
         <li>Field: {{scholarship.education_field}}</li>
       </ul>
     </div>
   </div>
-  
+
   <div class="row">
-      <div class="col s12 forum-box"> 
-          <h5 > Comments </h5> 
+      <div class="col s12 forum-box">
+          <h5 > Comments </h5>
 
                   <mat-card class="comment-card">
-                      
+
                     <mat-card-content>
                         <input id="forum_title" placeholder="Title" [(ngModel)]="userComment.title">
                         <input id="forum_comment_text" placeholder="What do you think?" (keydown.enter)="postComment()" [(ngModel)]="userComment.text">
                     </mat-card-content>
-            
+
                     <mat-card-actions>
                         <button mat-raised-button style="background-color: #184E87;" class="btn white-text" (click)="postComment()">Post</button>
                     </mat-card-actions>
-                                  
+
                   </mat-card>
 
                   <div  *ngFor="let comment of scholarshipComments; i as index; first as isFirst; trackBy:trackByFn" class="forum-comments">

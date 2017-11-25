@@ -16,8 +16,9 @@ import { NgZone } from '@angular/core';
 import { Title }     from '@angular/platform-browser';
 
 import { AuthService } from "../_services/auth.service";
+import {MatSnackBar} from '@angular/material';
 
-    
+
 @Component({
   selector: 'app-blog-post-detail',
   templateUrl: './blog-post-detail.component.html',
@@ -31,16 +32,17 @@ export class BlogPostDetailComponent implements OnInit {
   userComment:Comment;
   userProfile: UserProfile;
   userId;
-  constructor(    
+  constructor(
     public route: ActivatedRoute,
     public _ngZone: NgZone,
     public userProfileService: UserProfileService,
     public titleService: Title,
     public commentService: CommentService,
     public blogPostService: BlogPostService,
+    public snackBar: MatSnackBar,
 
     public authService: AuthService,
-    ) { 
+    ) {
       this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
     }
 
@@ -50,14 +52,14 @@ export class BlogPostDetailComponent implements OnInit {
       res => {
         this.blogPost = res.blog;
         this.titleService.setTitle(this.blogPost.title);
-        
+
         this.commentService.getComments(this.blogPost.id,'BlogPost').subscribe(
           res => {
-            
+
             this.comments = res.comments;
           }
         )
-        
+
       }
     );
 
@@ -70,33 +72,41 @@ export class BlogPostDetailComponent implements OnInit {
     this.userComment = new Comment(this.userId);
   }
 
-  
+
   postComment(){
-    
+
     //prevent ScholarshipComments from tracking the changes to UserComment;
     // TODO: Consider using deepcopy of comment
+
+    if( !this.authService.isUserLoggedIn()){
+      this.snackBar.open("Please Login In", '', {
+        duration: 3000
+      });
+      return;
+
+    }
     var commentTemp:Comment = new Comment(this.userId);
 
     commentTemp['blog_post'] = this.blogPost.id;
 
     commentTemp.text = this.userComment.text;
     commentTemp.title = this.userComment.title;
-    
-    
+
+
     let postOperation = this.commentService.create(commentTemp);
 
     postOperation.subscribe(
       res => {
-        
+
         this.comments.unshift(res);
       },
 
       err =>{
-        
+
       }
-      
+
     )
-    
+
     this.userComment.text = "";
     this.userComment.title = "";
   }
@@ -105,7 +115,7 @@ export class BlogPostDetailComponent implements OnInit {
 
   }
 
-  
+
 
 
 }

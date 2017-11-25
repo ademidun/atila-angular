@@ -8,14 +8,13 @@
           <h2 *ngIf="scholarship_count!=0" class="scholarship-preview-count"> You may qualify for <strong>{{scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and up to <strong>{{total_funding}}</strong> in funding</span>.</h2>
           <h2 *ngIf="scholarship_count==0" class="scholarship-preview-count"> Unfortunately, you currently qualify for <strong>{{scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and <strong>{{total_funding}}</strong> in funding</span>.</h2>
 
-          <!-- <img class="logo-img" src="../../assets/img/g-logo+pig.png" alt=""> -->
         </div>
         <div class="row">
             <p class="text-align-center col s-3"><i class="material-icons automate-tag">tag_faces</i> = Automated scholarships.</p>
             <p class="text-align-center col s-3"><mat-icon svgIcon="plus-one"></mat-icon> = One-Click Scholarships.</p>
-            <p class="text-align-center col s-3">Are we missing a scholarship you want?<a href="https://docs.google.com/spreadsheets/d/13YshWzg38Au-tPkGyDfY4hJHGJDWl_7vUpXNXkf5afM/edit?usp=sharing"
-            target="_blank">Tell us the link</a> and we'll add it to our database and automate it for you.</p><!-- <p class="text-align-center col s-3"><i class="material-icons automate-tag">help_outline</i> = Eternal Scholarship Information</p>
-            <p class="text-align-center col s-3"><i class="material-icons automate-tag">create</i> = Scholarship Application Form</p> -->
+          <p class="text-align-center col s-3">Are we missing a scholarship you want? You can easily <a routerLink="/add-scholarship" title="Add Scholarship">Add a Scholarship </a> to Atila or
+              <a href="https://docs.google.com/spreadsheets/d/13YshWzg38Au-tPkGyDfY4hJHGJDWl_7vUpXNXkf5afM/edit?usp=sharing"
+            target="_blank" title="Scholarship Spreadsheet">Tell us the link</a> and we'll automate it for you.</p>
         </div>
         <br>
         <div class="row">
@@ -73,10 +72,10 @@
           <div class="row">
           <p class="text-align-center col s-3"><i class="material-icons automate-tag">tag_faces</i> = Automated scholarships.</p>
           <p class="text-align-center col s-3"><mat-icon svgIcon="plus-one"></mat-icon> = One-Click Scholarships.</p>
-          <p class="text-align-center col s-3">Are we missing a scholarship you want? <a href="https://docs.google.com/spreadsheets/d/13YshWzg38Au-tPkGyDfY4hJHGJDWl_7vUpXNXkf5afM/edit?usp=sharing"
-          target="_blank">Tell us the link</a> and we'll add it to our database and automate it for you.</p>
-          <!-- <p class="text-align-center col s-3"><i class="material-icons automate-tag">help_outline</i> = External Scholarship Information</p>
-          <p class="text-align-center col s-3"><i class="material-icons automate-tag">create</i> = Scholarship Application Form</p> -->
+            <p class="text-align-center col s-12" style="font-size: large">Are we missing a scholarship you want? <br>
+              You can easily <a routerLink="/add-scholarship" title="Add Scholarship">Add a Scholarship </a> to Atila or
+              <a href="https://docs.google.com/spreadsheets/d/13YshWzg38Au-tPkGyDfY4hJHGJDWl_7vUpXNXkf5afM/edit?usp=sharing"
+                 target="_blank" title="Scholarship Spreadsheet">Tell us the link</a> and we'll automate it for you.</p>
         </div>
       </div>
         <div class="row">
@@ -116,10 +115,29 @@
 
 </div>
 
-<ng-template #noData>
+
+<!-- Loading progress circle -->
+<div *ngIf="isLoading" class="preloader-background">
+  <div class="preloader-wrapper big active">
+    <div class="spinner-layer spinner-blue-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div>
+      <div class="gap-patch">
+        <div class="circle"></div>
+      </div>
+      <div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noData *ngIf="scholarship_count==0">
   <div class="container">
     <h2 class="scholarship-preview-count my-dark-blue-text">No available scholarships for the specified profile.</h2>
     <!--TODO: Add page for scholarship advice-->
+
     <h4 class="scholarship-preview-count my-dark-blue-text"><a routerLink="/register">Learn how to qualify for more scholarships.</a></h4>
   </div>
 </ng-template>

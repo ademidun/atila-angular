@@ -19,30 +19,31 @@ import { AuthService } from "../_services/auth.service";
 })
 export class RegisterComponent implements OnInit {
 
-  
+
 
   model = new User('','','');
-  
+
   pageNo: number =1;
 
-EDUCATION_LEVEL = [
-  'University', 
-  'College', 
-  'Workplace or Apprenticeship',
-]
+  EDUCATION_LEVEL = [
+    'High School',
+    'University',
+    'College',
+    'Workplace or Apprenticeship',
+  ]
 
 EDUCATION_FIELD = [
   'Arts (Undergrad)',
   'STEM (Undergrad)',
-  'Trade School', 
-  'Visual + Performing Arts', 
-  'Law School', 
-  'Medical School', 
-  'MBA', 
-  'Arts (Grad School)', 
-  'STEM (Grad School)', 
-  'Other' 
-]  
+  'Trade School',
+  'Visual + Performing Arts',
+  'Law School',
+  'Medical School',
+  'MBA',
+  'Arts (Grad School)',
+  'STEM (Grad School)',
+  'Other'
+]
 locationData = {
   'city': '',
   'province': '',
@@ -64,8 +65,8 @@ userProfile = new UserProfile();
       let postOperation: Observable<any>;
       // Create a new User
       Array('country','province','city').forEach(element => {
-        
-        
+
+
         this.locationData[element]= this.userProfile[element];
       });
       var sendData = {
@@ -75,19 +76,19 @@ userProfile = new UserProfile();
       };
       postOperation = this.userProfileService.createUserAndProfile(sendData);
       // Subscribe to Observable
-      postOperation.subscribe( 
+      postOperation.subscribe(
         data => {
           this.model = new User('','','');
           this.showSnackBar('Registration successful', 3000);
           this.authService.isLoggedIn = true;
           // Store userId in loacl storage
-          
+
           if (data.id) {
             // this.cookieService.putObject('userId', data.id);
-            localStorage.setItem('userId', data.id); 
+            localStorage.setItem('userId', data.id);
           }
           if (data.token) {
-            localStorage.setItem('token', data.token); 
+            localStorage.setItem('token', data.token);
           }
           this.router.navigate(['scholarships-list']);
         },

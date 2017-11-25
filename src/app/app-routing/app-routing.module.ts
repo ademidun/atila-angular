@@ -26,7 +26,7 @@ import { AuthGuard } from '../_guards/auth.guard';
 
 const routes: Routes = [
   { path: '' , component: PreviewComponent, data: {title: 'Atila'}},
-  { path: 'applications/:id' , component: AppDetailComponent, data: {title: 'Application Detail'}, canActivate:[AuthGuard]},  
+  { path: 'applications/:id' , component: AppDetailComponent, data: {title: 'Application Detail'}, canActivate:[AuthGuard]},
   { path: 'add-scholarship' , component: AddScholarshipComponent, data: {title: 'Atila - Add Scholarship'}},
   { path: 'blog' , component: BlogsListComponent, data: {title: 'Atila - Blogs List'}},
   { path: 'blog/:username/:slug' , component: BlogPostDetailComponent, data: {title: 'Atila - Blog Post'}},
@@ -45,7 +45,8 @@ const routes: Routes = [
   { path: 'register' , component: RegisterComponent, data: {title: 'Atila - Register'}},
   { path: 'scholarships-list' , component: ScholarshipsListComponent, data: {title: 'Atila - Scholarships List'}},
   //{ path: 'scholarship-detail/:id' , component: ScholarshipDetailComponent, data: {title: 'Atila - Scholarship Detail'}},
-  { path: 'scholarship-detail/:slug' , component: ScholarshipDetailComponent, data: {title: 'Atila - Scholarship Detail'}}
+  { path: 'scholarship-detail/:slug' , component: ScholarshipDetailComponent, data: {title: 'Atila - Scholarship Detail'}},
+  { path: '**', component: PreviewComponent }
 ]
 
 @NgModule({

@@ -25,6 +25,7 @@ export class ScholarshipsListComponent implements OnInit {
   userId: string;
   contentFetched: boolean = false;
   sortVal = 1;
+  isLoading = false;
 
 
   scholarships: Scholarship[]; //TODO: If i use scholarship[] I can't access property members, why?
@@ -40,7 +41,7 @@ export class ScholarshipsListComponent implements OnInit {
 
   ngOnInit() {
     this.userId = this.authService.decryptLocalStorage('uid');
-    
+
     if (this.userId) {
       this.isLoggedIn = true;
       this.userProfileService.getById(parseInt(this.userId))
@@ -71,6 +72,8 @@ export class ScholarshipsListComponent implements OnInit {
 
   getScholarshipPreview(page: number = 1){
     if (typeof this.form_data != 'undefined') {
+
+      this.isLoading = true;
       this.scholarshipService.getPaginatedscholarships(this.form_data, page)
       .subscribe(
         res => {
@@ -78,9 +81,10 @@ export class ScholarshipsListComponent implements OnInit {
           this.contentFetched = true;
         },
         error => {
-          
+
           this.contentFetched = false;
-        }
+        },
+        () => this.isLoading = false,
       );
     }
 
@@ -90,8 +94,8 @@ export class ScholarshipsListComponent implements OnInit {
   }
 
   saveScholarships(res: any){
-    
-    
+
+
     this.scholarships = res['data'];
     this.scholarship_count = res['length'];
     this.total_funding = res['funding'];

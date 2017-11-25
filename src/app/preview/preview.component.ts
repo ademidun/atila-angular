@@ -42,11 +42,12 @@ export class PreviewComponent implements OnInit, OnDestroy {
     'Other',
    ]
 
-   EDUCATION_LEVEL = [
-       'University',
-       'College',
-       'Workplace or Apprenticeship',
-   ]
+  EDUCATION_LEVEL = [
+    'High School',
+    'University',
+    'College',
+    'Workplace or Apprenticeship',
+  ]
 
    EDUCATION_FIELD = [
        'Arts (Undergrad)',
@@ -74,7 +75,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
     * If the Google Places API is not working, only ask for city.
     */
     public locationPlaceHolder = 'City, Province/State or Country';
-
    constructor(
     public scholarshipService: ScholarshipService,
     public router: Router,

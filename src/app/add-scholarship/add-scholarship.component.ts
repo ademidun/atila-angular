@@ -27,7 +27,8 @@ import * as firebase from "firebase";
 export class AddScholarshipComponent implements OnInit, AfterViewInit{
 
 
-  EDUCATION_LEVELS = [
+  EDUCATION_LEVEL = [
+    'High School',
     'University',
     'College',
     'Workplace or Apprenticeship',

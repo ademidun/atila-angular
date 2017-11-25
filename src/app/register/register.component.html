@@ -7,14 +7,14 @@
             <div *ngIf="pageNo==1">
               <div class="row">
                 <mat-form-field class="col s12">
-                  <input matInput class="browser-default" id="username" type="text" 
+                  <input matInput class="browser-default" id="username" type="text"
                     required [(ngModel)]="model.username" name="username" placeholder="Username">
                 </mat-form-field>
               </div>
               <div class="row">
                 <mat-form-field class="col s12">
                   <input matInput class="browser-default" id="email" type="email" required
-                    [(ngModel)]="model.email" name="email" placeholder="Email">
+                    [(ngModel)]="model.email" name="email" placeholder="Email" email>
                 </mat-form-field>
               </div>
               <div class="row">
@@ -60,12 +60,12 @@
 
               <div class="row">
                 <mat-form-field class="col s12">
-                  <mat-select [(ngModel)]="userProfile.education_level"  name="education_level"  id="education_level" multiple=true placeholder="Education Type" required >                
+                  <mat-select [(ngModel)]="userProfile.education_level"  name="education_level"  id="education_level" multiple=true placeholder="Education Type" required >
                     <mat-option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
-              <br> 
+              <br>
               <div class="row">
                 <mat-form-field class="col s12">
                   <!-- TODO: Add a Modal or hover info explaining the diff. between Art and STEM -->

@@ -27,29 +27,30 @@ import * as firebase from "firebase";
 export class EditProfileComponent implements OnInit {
 
   EDUCATION_LEVEL = [
-    'University', 
-    'College', 
+    'High School',
+    'University',
+    'College',
     'Workplace or Apprenticeship',
-]
+  ]
 
 EDUCATION_FIELD = [
     'Arts (Undergrad)',
     'STEM (Undergrad)',
-    'Trade School', 
-    'Visual + Performing Arts', 
-    'Law School', 
-    'Medical School', 
-    'MBA', 
-    'Arts (Grad School)', 
-    'STEM (Grad School)', 
-    'Other' 
+    'Trade School',
+    'Visual + Performing Arts',
+    'Law School',
+    'Medical School',
+    'MBA',
+    'Arts (Grad School)',
+    'STEM (Grad School)',
+    'Other'
 ]
-  
+
   userProfile = new UserProfile();
   profileInfo = true;
   documentScholarshipsPercent =87;
 
-  userDocuments = {}; 
+  userDocuments = {};
 
   userName: string;
 
@@ -69,7 +70,7 @@ EDUCATION_FIELD = [
     public snackBar: MatSnackBar,
     public titleService: Title,
     public authService: AuthService,
-  ) { 
+  ) {
     this.userName = route.snapshot.params['username'];
   }
 
@@ -84,47 +85,47 @@ EDUCATION_FIELD = [
             this.titleService.setTitle('Atila - ' + profileTitle);
             this.initializeLocations(this.userProfile.city);
 
-            
+
           },
           err => {
-            
-            
+
+
           }
         )
-    } 
+    }
   }
 
   switchPage(){
     this.profileInfo = !this.profileInfo;
   }
 // https://stackoverflow.com/questions/44227682/angular2-dynamically-add-inputs-for-an-array-of-items
-  
+
 initializeLocations(cities: Array<any>){
-    
+
     if(cities.length>0){
       this.locationData.city= cities[0].name;
       this.locationData.country=cities[0].country;
       this.locationData.province=cities[0].province;
     }
-    
+
   }
   saveProfile(profileForm) {
     if (profileForm.valid) {
-       
+
       var sendData = {
         userProfile: this.userProfile,
         locationData: this.locationData,
       }
-      
-      
+
+
       this.userProfileService.updateAny(sendData)
       .subscribe(
         data => {
-          
+
           this.showSnackBar("Succesfully Updated Your Profile, Welcome to Atila",'What Next?', 3000);
         },
         err => {
-          
+
           this.showSnackBar('Profile updated unsuccessfully - ' + err.error? err.error: err,'', 3000);
         }
       )
@@ -135,49 +136,13 @@ initializeLocations(cities: Array<any>){
       this.showSnackBar("Profile is not valid",'', 3000);
     }
   }
-  /*onSubmit(profileForm: NgForm){
-        
-        
-    
-        
-    
-        
-    
-        if (profileForm.valid) {
-          let postOperation: Observable<UserProfile>;
-          //postOperation = this.userProfileService.update(this.userProfile);
-    
-          postOperation.subscribe(
-            data => {
-              this.snackBar.open("Succesfully Made Your Profile, Welcome to Atila",'What Next?',{
-                duration: 1000
-              })
-              .afterDismissed().subscribe( //navigate URLS after telling User that account creation is succesfule
-                data => {
-                  this.router.navigate(['scholarships-list']);
-                }
-              )
-            },
-            err => {
-              this.snackBar.open("Error - " + err, '', {
-                duration: 3000
-              });
-            }
-          )
-        } else {
-          this.snackBar.open("Invalid form", '', {
-            duration: 3000
-          });
-        }
-    
-  }
-  */
-      
+
+
   fileChangeEvent(fileInput: any){
 
     //TODO: this seems a bit redundant
     this.formFile = fileInput.target.files[0];
-    this.formFileEvent = fileInput;  
+    this.formFileEvent = fileInput;
   }
 
   uploadUserDocuments(){
@@ -186,11 +151,11 @@ initializeLocations(cities: Array<any>){
     //create Upload file and configure its properties before uploading.
 
     this.uploadFile = new UploadFile(this.formFile);
-    this.uploadFile.name = this.formFile.name;
+    this.uploadFile.name = this.authService.hashFileName(this.formFile.name);
     this.uploadFile.path = "user-profiles/" + this.userProfile.user + "/documents/"
     this.uploadFile.path = this.uploadFile.path + this.uploadFile.name
-    
-    
+
+
     this.fileUpload(this.uploadFile)
     .subscribe(
       res => {}
@@ -206,19 +171,19 @@ fileUpload(uploadFile: UploadFile){
 }
 
 uploadFileFirebase(res: Response, uploadFile: UploadFile){
-  
-  
-  
+
+
+
   let config;
   config = res['api_key'];
-  
+
   if (!firebase.apps.length) {
     firebase.initializeApp(config);
   }
-  
+
   uploadFile.name = config.toString();
   //why does google documentation use var instead of ref
-  
+
   //preparing the firebase storage for upload
   var storage = firebase.storage();
   let storageRef = storage.ref();
@@ -228,10 +193,10 @@ uploadFileFirebase(res: Response, uploadFile: UploadFile){
     size: uploadFile.file.size,
     name: uploadFile.file.name,
   };
-  
-  
+
+
     var uploadTask = uploadRef.put(uploadFile.file, metadata);
-    
+
     //https://firebase.google.com/docs/storage/web/upload-files?authuser=0
 
     // Register three observers:
@@ -244,28 +209,28 @@ uploadFileFirebase(res: Response, uploadFile: UploadFile){
       // Observe state change events such as progress, pause, and resume
       // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
       var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      
+
     },
       (error)=> {
-      
+
     },
       () => {
       // Handle successful uploads on complete
       // For instance, get the download URL: https://firebasestorage.googleapis.com/...
       //var downloadURL = uploadTask.snapshot.downloadURL;
-      
+
       //this.userProfile.form_url = uploadTask.snapshot.downloadURL;
 
       //get the userProfile attribute that needs to be saved.
-      //Will this have a significant impact on speed? As opposed to just saving the event ID as a variable   
+      //Will this have a significant impact on speed? As opposed to just saving the event ID as a variable
       this.userProfile[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
-      
+
     });
-  
-  
+
+
     }
 
-  
+
 // SnackBar notification
 showSnackBar(text: string, action = '', duration: number) {
   this.snackBar.open(text, action, {

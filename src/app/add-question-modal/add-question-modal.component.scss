@@ -1,0 +1,14 @@
+@import '../../styles.scss';
+
+
+:host /deep/ .mat-select-value-text {
+  color: $primary ;
+}
+
+:host/deep/ .mat-pseudo-checkbox-checked{
+  background-color: brown;
+}
+
+:host/deep/ .mat-input-placeholder {
+  color: red;
+}

@@ -15,6 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgZone } from '@angular/core';
 import { Title }     from '@angular/platform-browser';
 import { AuthService } from "../_services/auth.service";
+import {MatSnackBar} from '@angular/material';
 @Component({
   selector: 'app-forum-detail',
   templateUrl: './forum-detail.component.html',
@@ -28,14 +29,15 @@ export class ForumDetailComponent implements OnInit {
   userComment:Comment;
   userProfile: UserProfile;
   userId;
-  constructor(    
+  constructor(
     public route: ActivatedRoute,
     public _ngZone: NgZone,
     public userProfileService: UserProfileService,
     public titleService: Title,
     public commentService: CommentService,
     public forumService: ForumService,
-    public authService: AuthService,) { 
+    public authService: AuthService,
+    public snackBar: MatSnackBar,) {
       this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
     }
 
@@ -48,7 +50,7 @@ export class ForumDetailComponent implements OnInit {
         this.titleService.setTitle('Atila Forum - ' + this.forum.title);
         this.commentService.getComments(this.forum.id,'Forum').subscribe(
           res => {
-            
+
             this.forum.starting_comment = res.starting_comment;
             this.comments = res.forum_comments;
           }
@@ -60,31 +62,38 @@ export class ForumDetailComponent implements OnInit {
   }
 
   postComment(){
-    
+
     //prevent ScholarshipComments from tracking the changes to UserComment;
     // TODO: Consider using deepcopy of comment
+    if( !this.authService.isUserLoggedIn()){
+      this.snackBar.open("Please Login In", '', {
+        duration: 3000
+      });
+      return;
+
+    }
     var commentTemp:Comment = new Comment(this.userId);
 
     commentTemp['forum'] = this.forum.id;
 
     commentTemp.text = this.userComment.text;
     commentTemp.title = this.userComment.title;
-    
-    
+
+
     let postOperation = this.commentService.create(commentTemp);
 
     postOperation.subscribe(
       res => {
-        
+
         this.comments.unshift(res);
       },
 
       err =>{
-        
+
       }
-      
+
     )
-    
+
     this.userComment.text = "";
     this.userComment.title = "";
   }
