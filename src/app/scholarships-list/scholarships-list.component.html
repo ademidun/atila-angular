@@ -1,4 +1,4 @@
-<div *ngIf="contentFetched; else noData">
+<div *ngIf="contentFetched">
     <!--TODO: Why is this line giving me an error. <h5 > You qualify for <strong>{{ scholarships.length}}</strong> Scholarships</h5>-->
     <br/>
     <div *ngIf="form_data">
@@ -133,7 +133,7 @@
   </div>
 </div>
 
-<ng-template #noData *ngIf="scholarship_count==0">
+<ng-template *ngIf="contentFetched && scholarship_count==0">
   <div class="container">
     <h2 class="scholarship-preview-count my-dark-blue-text">No available scholarships for the specified profile.</h2>
     <!--TODO: Add page for scholarship advice-->
