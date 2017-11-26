@@ -50,7 +50,7 @@ export class BlogPostDetailComponent implements OnInit {
 
     this.blogPostService.getBySlug(this.route.snapshot.params['username'],this.route.snapshot.params['slug']).subscribe(
       res => {
-        this.blogPost = res.blog;
+        this.blogPost = (<any>res).blog;
         this.titleService.setTitle(this.blogPost.title);
 
         this.commentService.getComments(this.blogPost.id,'BlogPost').subscribe(

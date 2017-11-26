@@ -59,18 +59,33 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
     public route: ActivatedRoute,) {
 
       this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
-      this.blogPost = new BlogPost(this.userId);
+
     }
 
   ngOnInit() {
     var blogId = this.route.snapshot.params['id'];
 
+    if(isNaN(this.userId)){
 
+      setTimeout( () => {
+        this.snackBar.open('Please Log In','',{duration: 3000});
+      });
+
+      setTimeout((router: Router) => {
+        this.router.navigate(['/login']);
+      }, 5000);
+
+      this.blogPost = new BlogPost(0);
+    }
+    else{
+
+      this.blogPost = new BlogPost(this.userId);
+    }
     if(blogId){
       this.editMode = true;
       this.blogPostService.getById(blogId).subscribe(
         res => {
-          this.blogPost = res;
+          this.blogPost = <any>res;
           if (this.userId!=this.blogPost.user.id) {
             this.router.navigate(['/login']);
           }
@@ -95,12 +110,15 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
     // would prefer going back to my regular writing.</p> <p>&nbsp;</p>`;
     this.blogPost.body = ``;
     }
-    this.userProfileService.getById(this.userId).subscribe(
-      res => {
-        this.userProfile = res;
+    if (!isNaN(this.userId)){
+      this.userProfileService.getById(this.userId).subscribe(
+        res => {
+          this.userProfile = res;
 
-      },
-    )
+        },)
+    }
+
+
 
   }
   ngAfterViewInit() {

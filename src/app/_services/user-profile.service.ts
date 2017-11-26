@@ -39,7 +39,6 @@ export class UserProfileService {
     getById(id: number): Observable<UserProfile> {
         // add authorization header with jwt token
       if (isNaN(id)){
-        console.log('getById', id);
         throw  Observable.throw(new HttpErrorResponse({error: 'No Current User', status: 401}))
       }
         return this.http.get(`${this.userProfileEndpoint}${id}/`)

@@ -45,7 +45,7 @@ export class BlogsListComponent implements OnInit {
     this.blogService.list().subscribe(
       res => {
         this.blogs = res.results;
-        this.isLoading = false;
+        this.isLoading = true;
       },
 
       err =>{
