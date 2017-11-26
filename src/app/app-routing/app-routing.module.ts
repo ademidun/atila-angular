@@ -25,7 +25,7 @@ import { BlogPostDetailComponent } from "../blog-post-detail/blog-post-detail.co
 import { AuthGuard } from '../_guards/auth.guard';
 
 const routes: Routes = [
-  { path: '' , component: PreviewComponent, data: {title: 'Atila'}},
+  { path: '' , component: PreviewComponent, data: {title: 'Atila | Automated Scholarships. The Right Way'}},
   { path: 'applications/:id' , component: AppDetailComponent, data: {title: 'Application Detail'}, canActivate:[AuthGuard]},
   { path: 'add-scholarship' , component: AddScholarshipComponent, data: {title: 'Atila - Add Scholarship'}},
   { path: 'blog' , component: BlogsListComponent, data: {title: 'Atila - Blogs List'}},
@@ -43,10 +43,10 @@ const routes: Routes = [
   { path: 'messages' , component: MessagesComponent, data: {title: 'Atila - My Messages'}},
   { path: 'preview' , component: PreviewComponent, data: {title: 'Atila - Preview'}},
   { path: 'register' , component: RegisterComponent, data: {title: 'Atila - Register'}},
-  { path: 'scholarships-list' , component: ScholarshipsListComponent, data: {title: 'Atila - Scholarships List'}},
+  { path: 'scholarships-list' , component: ScholarshipsListComponent, data: {title: 'Atila | Automated Scholarships. The Right Way'}},
   //{ path: 'scholarship-detail/:id' , component: ScholarshipDetailComponent, data: {title: 'Atila - Scholarship Detail'}},
   { path: 'scholarship-detail/:slug' , component: ScholarshipDetailComponent, data: {title: 'Atila - Scholarship Detail'}},
-  { path: '**', component: PreviewComponent }
+  { path: '**', component: PreviewComponent, data: {title: 'Atila | Automated Scholarships. The Right Way'} }
 ]
 
 @NgModule({

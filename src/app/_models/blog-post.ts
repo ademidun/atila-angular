@@ -1,7 +1,7 @@
 export class BlogPost {
-    
+
     id?: number;
-    title?:any;   
+    title?:any;
     slug?: any;
     date_created?: any;
     header_image_url?: any;
@@ -13,7 +13,7 @@ export class BlogPost {
     down_votes_count?: any;
     up_votes_id?: any[];
     down_votes_id?: any[];
-    constructor(public author,) { 
+    constructor(public user,) {
         //Do we have to manually do this, is there a python-like equivalent of kwargs
         this.title = '';
     }

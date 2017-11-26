@@ -4,9 +4,9 @@
   <div class="row">
     <h4 style="text-align: center;">Forums</h4>
 
-    <div class="col s12 forum-box"> 
+    <div class="col s12 forum-box">
       <mat-card class="forum-card">
-          
+
         <mat-card-content>
             <input *ngIf="newForum" id="forum_title" placeholder="Title" [(ngModel)]="newForum.title">
             <input *ngIf="forumComment"  id="forum_comment_text" placeholder="What's on your mind?" (keydown.enter)="postForum()" [(ngModel)]="forumComment.text">
@@ -15,10 +15,10 @@
         <mat-card-actions>
           <button mat-raised-button style="background-color: #184E87;" class="btn white-text" (click)="postForum()">Post</button>
         </mat-card-actions>
-                      
+
       </mat-card>
     </div>
-    <div *ngFor="let forum of forums; let i = index" class="col s12 m8 offset-m2 forum-box"> 
+    <div *ngFor="let forum of forums; let i = index" class="col s12 m8 offset-m2 forum-box">
 
 
       <mat-card class="scholarship-card">
@@ -34,15 +34,15 @@
         <mat-card-content>
             <p class="card-text">
                 {{forum.starting_comment.text | truncate:140}}
-            </p> 
+            </p>
         </mat-card-content>
 
         <mat-card-actions>
-            
+
               <mat-icon class="md-24" aria-label="Like the comment">thumb_up</mat-icon>{{forum.starting_comment.up_votes_count}}
-  
+
               <mat-icon class="md-24" aria-label="Dislike the comment">thumb_down</mat-icon>{{forum.starting_comment.down_votes_count}}
-  
+
           </mat-card-actions>
 
       </mat-card>
@@ -50,4 +50,21 @@
     </div>
   </div>
 
+
+  <!-- Loading progress circle -->
+  <div *ngIf="isLoading" class="preloader-background">
+    <div class="preloader-wrapper big active">
+      <div class="spinner-layer spinner-blue-only">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div>
+        <div class="gap-patch">
+          <div class="circle"></div>
+        </div>
+        <div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

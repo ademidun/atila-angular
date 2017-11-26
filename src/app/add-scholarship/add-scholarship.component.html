@@ -100,7 +100,7 @@
 
                         <br>
                         <div class="row">
-                            <mat-form-field class="input-field">
+                            <mat-form-field class="input-field col s12 ">
                                 <mat-select class="col s12" [(ngModel)]="scholarship.funding_type" name="funding_type" required id="funding_type" multiple=true
                                             placeholder="Funding Type">
                                     <mat-option *ngFor="let type of FUNDING_TYPES" [value]="type">{{type}} </mat-option>
@@ -108,15 +108,13 @@
                             </mat-form-field>
                         </div>
                         <br>
-                        <div class="row">
-                            <mat-form-field class="input-field">
-                                <mat-select class="col s12" [(ngModel)]="scholarship.education_level" name="education_level" id="education_level" required multiple=true placeholder="Education Type">
-                                    <mat-option *ngFor="let education_level of EDUCATION_LEVELS" [value]="education_level">{{education_level}} </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
+                          <mat-form-field class="input-field col s12 ">
+                            <mat-select [(ngModel)]="scholarship.education_level" name="education_level" id="education_level" multiple=true required placeholder="Select Your Education Type">
+                              <mat-option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </mat-option>
+                            </mat-select>
+                          </mat-form-field>
                         <br>
-                        <mat-form-field class="input-field">
+                        <mat-form-field class="input-field col s12 ">
                                 <mat-select class="col s12" [(ngModel)]="scholarship.education_field" name="education_field" id="education_field" multiple=true
                                             required placeholder="Education Field">
                                     <mat-option *ngFor="let education_field of EDUCATION_FIELDS" [value]="education_field">{{education_field}} </mat-option>

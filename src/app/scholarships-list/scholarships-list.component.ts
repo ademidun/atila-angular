@@ -6,6 +6,7 @@ import { Scholarship } from '../_models/scholarship';
 
 import { Router } from '@angular/router';
 import { AuthService } from "../_services/auth.service";
+import {UserProfile} from '../_models/user-profile';
 @Component({
   selector: 'app-scholarships-list',
   templateUrl: './scholarships-list.component.html',
@@ -26,6 +27,7 @@ export class ScholarshipsListComponent implements OnInit {
   contentFetched: boolean = false;
   sortVal = 1;
   isLoading = false;
+  userProfile: UserProfile;
 
 
   scholarships: Scholarship[]; //TODO: If i use scholarship[] I can't access property members, why?
@@ -42,12 +44,13 @@ export class ScholarshipsListComponent implements OnInit {
   ngOnInit() {
     this.userId = this.authService.decryptLocalStorage('uid');
 
-    if (this.userId) {
+    if (this.userId && !isNaN(parseInt(this.userId))) {
       this.isLoggedIn = true;
       this.userProfileService.getById(parseInt(this.userId))
       .subscribe(
         data => {
           var tempCity = [];
+          this.userProfile = data;
           tempCity.push(data.city);
           this.form_data = {
             'city': data.city,

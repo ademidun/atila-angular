@@ -30,7 +30,7 @@ export class EditScholarshipComponent implements OnInit {
 
 
   EDUCATION_LEVEL = [
-    'High School',
+    'Secondary School',
     'University',
     'College',
     'Workplace or Apprenticeship',

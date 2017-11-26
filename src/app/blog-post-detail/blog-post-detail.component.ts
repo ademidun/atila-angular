@@ -62,14 +62,23 @@ export class BlogPostDetailComponent implements OnInit {
 
       }
     );
+    if (! isNaN(this.userId)){
 
-    this.userProfileService.getById(parseInt(this.userId)).subscribe(
-      res =>{
-        this.userProfile = res;
-      }
-    );
+      this.userProfileService.getById(parseInt(this.userId)).subscribe(
+        res =>{
+          this.userProfile = res;
+        }
+      );
 
-    this.userComment = new Comment(this.userId);
+      this.userComment = new Comment(this.userId);
+    }
+
+    else{
+      this.userComment = new Comment(0);
+    }
+
+
+
   }
 
 

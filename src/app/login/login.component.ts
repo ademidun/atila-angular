@@ -59,6 +59,7 @@ export class LoginComponent implements OnInit {
           this.snackBar.open("Incorrect login credentials", '', {
             duration: 3000
           })
+          this.isLoading = false;
         },
 
         () => this.isLoading = false,

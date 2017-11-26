@@ -56,7 +56,7 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
     public authService: AuthService,
     public router: Router,
     public snackBar: MatSnackBar,
-    public route: ActivatedRoute,) { 
+    public route: ActivatedRoute,) {
 
       this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
       this.blogPost = new BlogPost(this.userId);
@@ -65,19 +65,19 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
   ngOnInit() {
     var blogId = this.route.snapshot.params['id'];
 
-    
+
     if(blogId){
       this.editMode = true;
       this.blogPostService.getById(blogId).subscribe(
         res => {
           this.blogPost = res;
-          if (this.userId!=this.blogPost.author.id) {
+          if (this.userId!=this.blogPost.user.id) {
             this.router.navigate(['/login']);
           }
           if(this.editor){
 
-            
-            
+
+
             //this.editor.setContent(this.blogPost.body);
             //$('#'+this.editorId).html(this.blogPost.body);
             tinymce.get(this.editorId).setContent(this.blogPost.body);
@@ -89,8 +89,8 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
 
     else{
 
-    // this.blogPost.body =`<p>This was potentially my favorite blog post to write.</p> <ol> <li>It was actionable</li> <li>It was on a 
-    // topic which I really enjoyed.</li> <li>I think I may be right.&nbsp;</li> </ol> <blockquote> <p>"An investment in 
+    // this.blogPost.body =`<p>This was potentially my favorite blog post to write.</p> <ol> <li>It was actionable</li> <li>It was on a
+    // topic which I really enjoyed.</li> <li>I think I may be right.&nbsp;</li> </ol> <blockquote> <p>"An investment in
     // education pays the best interest."</p> <p>&nbsp; &nbsp; - Benjamin Franklin</p> </blockquote> <p>This is why I
     // would prefer going back to my regular writing.</p> <p>&nbsp;</p>`;
     this.blogPost.body = ``;
@@ -98,7 +98,7 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
     this.userProfileService.getById(this.userId).subscribe(
       res => {
         this.userProfile = res;
-        
+
       },
     )
 
@@ -118,7 +118,7 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
         });
       },
       init_instance_callback : (editor) => {
-        
+
         if(this.blogPost.body){ //body may not be loaded from server yet
           editor.setContent(this.blogPost.body);
         }
@@ -140,11 +140,11 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
   onEditorContentChange(event:any, content:any, editor: any){
 
     if((<KeyboardEvent>event).keyCode == 13) {
-      
-      
-      
+
+
+
       this.blogPost.body = content;
-      
+
     }
     this.blogPost.body = content;
     if (!this.ref['destroyed']) {
@@ -153,17 +153,17 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   saveBlog(isPublished:boolean){
-    
+
 
     //if the blog has already been published, keep the publication status.
     this.blogPost.published = this.blogPost.published? this.blogPost.published: isPublished;
 
     let postOperation: Observable<any>;
-    
+
     if(this.editMode){
 
       //change author from dict to ID to match API pattern
-      this.blogPost.author = this.blogPost.author.id;
+      this.blogPost.user = this.blogPost.user.id;
       postOperation = this.blogPostService.update(this.blogPost.id,this.blogPost);
     }
     else{
@@ -185,10 +185,10 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
           let snackBarRef = this.snackBar.open("Sucessfully Published Blog", 'View Blog', {
             duration: 3000
           });
-      
+
           snackBarRef.onAction().subscribe(
             () => {
-              
+
               this.router.navigate(['blog',this.userProfile.username,this.blogPost.slug]);
             },
             err =>  {
@@ -202,9 +202,9 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
             duration: 3000
           });
         }
-        
-        
-      
+
+
+
       }
     )
 
@@ -212,31 +212,31 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   titleToSlug(slugInput: HTMLInputElement){
-    
+
 
       this.blogPost.slug = this.convertToSlug(this.blogPost.title);
   }
 
   uploadPicture(uploadPicInput:HTMLInputElement){
 
-    
+
     if(!this.blogPost.id){
       this.snackBar.open("Save Blog Before Uploading Picture", '', {
         duration: 3000
       });
       return;
     }
-    
+
     //let uploadOperation: Observable<any>;
 
     //create Upload file and configure its properties before uploading.
-    
+
 
     var uploadPicFile = uploadPicInput.files[0];
 
-    
 
-    
+
+
     this.pictureFile = new UploadFile(uploadPicFile);
 
     // Instructions on how the file should be saved to the database
@@ -246,24 +246,24 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
       id: this.userProfile.user,
       fieldName: 'profile_pic_url'
     }
-    
+
 
     // the path where the file should be saved on firebase
     this.pictureFile.path = "blogs/" + this.userProfile.user+ "/" + 1 + "/"
     this.pictureFile.path = this.pictureFile.path + this.pictureFile.name
-    
-    
+
+
     this.fileUpload(this.pictureFile)
     .subscribe(
       res => {}
     )
-    
-    
+
+
 
   }
 
   //TODO: Refactor this code into the firebase service
-  //TODO: 
+  //TODO:
   fileUpload(uploadFile: UploadFile){
     /**
      * Upload handler which gets the Firebase API keys before we upload the file.
@@ -276,16 +276,16 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
   //TODO: Refactor this code into the firebase service
   //TODO: How can we get uploadFileFirebase to return an observable with the URL of the uploaded file
   uploadFileFirebase(res: Response, uploadFile: UploadFile){
-    
-    
-    
+
+
+
     let config;
     config = res['api_key'];
-    
+
     if (!firebase.apps.length) {
       firebase.initializeApp(config);
     }
-    
+
     //Initiliazing the firebase client
     //https://angularfirebase.com/lessons/angular-file-uploads-to-firebase-storage/
     //
@@ -299,14 +299,14 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
       size: uploadFile.file.size,
       name: uploadFile.file.name,
     };
-    
+
     var uploadTask = uploadRef.put(uploadFile.file, metadata);
 
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
     (snapshot:any) => {
       var progress = (uploadTask.snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       this.uploadProgress = progress;
-      
+
     },
     (error)=> {
       this.snackBar.open(error.message,'', {
@@ -314,14 +314,14 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
       });
     },
     () => {
-      
+
       this.blogPost.header_image_url = uploadTask.snapshot.downloadURL;
       this.uploadProgress = null;
       this.saveBlog(false);
-      
+
     });
-    
-    
+
+
   }
 
   convertToSlug(text){

@@ -8,7 +8,6 @@ import {environment} from '../../environments/environment';
 @Injectable()
 export class ApplicationService {
 
-  public applicationUrl = environment.apiUrl;
   public applicationDataUrl = environment.apiUrl + 'application-data/';
 
   public applicationsUrl = environment.apiUrl + 'applications/';
@@ -23,7 +22,7 @@ export class ApplicationService {
     data.scholarshipId = parseInt(data.scholarshipId);
 
 
-    return this.http.post(this.applicationUrl, data)
+    return this.http.post(environment.apiUrl+'application-get-create/', data)
     .map(res=>res)
     .catch(err=>Observable.throw(err));
   }

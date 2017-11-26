@@ -19,6 +19,7 @@ export class BlogsListComponent implements OnInit {
   newBlog: BlogPost;
   blogComment:Comment;
   userProfile: UserProfile;
+  isLoading= true;
   constructor(
     public blogService: BlogPostService,
     public userProfileService: UserProfileService,
@@ -27,20 +28,32 @@ export class BlogsListComponent implements OnInit {
 
   ngOnInit() {
     var userId = parseInt(this.authService.decryptLocalStorage('uid'));
-    this.blogComment = new Comment(userId,'','');
-    this.userProfileService.getById(userId).subscribe(
-      res => {
-        this.userProfile = res;
+    if (! isNaN(userId)){
+      this.blogComment = new Comment(userId,'','');
+      this.userProfileService.getById(userId).subscribe(
+        res => {
+          this.userProfile = res;
 
-      }
-    )
+        },
+        err=> {
+          console.log('error', err);
+        }
+
+      );
+    }
+
     this.blogService.list().subscribe(
       res => {
         this.blogs = res.results;
+        this.isLoading = false;
+      },
+
+      err =>{
+        this.isLoading = false;
       }
     );
-   
-    
+
+
 
   }
 

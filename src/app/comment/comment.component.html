@@ -4,7 +4,7 @@
         <mat-card-header>
         <mat-card-title><h5>{{comment.title}}</h5></mat-card-title>
         <mat-card-subtitle class="card-text">
-        <small>{{comment.date_created | date:'medium'}}</small>
+        <small>{{comment.date_created | date:'MMMM d, y, h:mm a'}}</small>
         <span *ngIf="comment.user"><a routerLink="/profile/{{comment.user.username}}">{{comment.user.first_name}} {{comment.user.last_name}}</a> </span>
         </mat-card-subtitle>
       </mat-card-header>
@@ -12,20 +12,20 @@
       <mat-card-content>
           <p class="card-text">
               {{comment.text}}
-          </p> 
+          </p>
       </mat-card-content>
 
       <mat-card-actions>
-          
+
             <button mat-mini-fab style="background-color: transparent" [disabled]="comment.user_already_upvoted" (click)="commentVote('upVote')">
                     <mat-icon class="md-24" aria-label="Like the comment">thumb_up</mat-icon>
                   </button>{{comment.up_votes_count}}
-        
+
                   <button mat-mini-fab style="background-color: transparent" [disabled]="comment.user_already_downvoted" (click)="commentVote('downVote')">
                     <mat-icon class="md-24" aria-label="Dislike the comment">thumb_down</mat-icon>
                   </button>{{comment.down_votes_count}}
 
         </mat-card-actions>
     </span>
-    
+
   </mat-card>

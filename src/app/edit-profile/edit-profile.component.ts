@@ -27,7 +27,7 @@ import * as firebase from "firebase";
 export class EditProfileComponent implements OnInit {
 
   EDUCATION_LEVEL = [
-    'High School',
+    'Secondary School',
     'University',
     'College',
     'Workplace or Apprenticeship',

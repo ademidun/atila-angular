@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
   pageNo: number =1;
 
   EDUCATION_LEVEL = [
-    'High School',
+    'Secondary School',
     'University',
     'College',
     'Workplace or Apprenticeship',
@@ -81,15 +81,9 @@ userProfile = new UserProfile();
           this.model = new User('','','');
           this.showSnackBar('Registration successful', 3000);
           this.authService.isLoggedIn = true;
-          // Store userId in loacl storage
-
-          if (data.id) {
-            // this.cookieService.putObject('userId', data.id);
-            localStorage.setItem('userId', data.id);
-          }
-          if (data.token) {
-            localStorage.setItem('token', data.token);
-          }
+          this.authService.encryptlocalStorage('token', data.token);
+          // this.cookieService.putObject('userId', data.id);
+          this.authService.encryptlocalStorage('uid',data.id);
           this.router.navigate(['scholarships-list']);
         },
         err => {

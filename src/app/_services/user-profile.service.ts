@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpResponse, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import { User } from '../_models/user';
 
 import { Observable } from 'rxjs/Observable';
@@ -38,6 +38,10 @@ export class UserProfileService {
 
     getById(id: number): Observable<UserProfile> {
         // add authorization header with jwt token
+      if (isNaN(id)){
+        console.log('getById', id);
+        throw  Observable.throw(new HttpErrorResponse({error: 'No Current User', status: 401}))
+      }
         return this.http.get(`${this.userProfileEndpoint}${id}/`)
         .map(this.extractData)
         .catch(this.handleError);

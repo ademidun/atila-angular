@@ -1,9 +1,9 @@
 <div class="container">
-    
+
       <div class="row">
         <h4 style="text-align: center;">Blogs</h4>
-    
-        <div class="col s12 m8 offset-m2 blog-box"> 
+
+        <div class="col s12 m8 offset-m2 blog-box">
           <mat-card class="mat-card">
           <mat-card-content>
             <a routerLink="/create-blog-post">
@@ -13,39 +13,55 @@
               </button>
             </a>
           </mat-card-content>
-                          
+
           </mat-card>
         </div>
-        <div *ngFor="let blog of blogs; let i = index" class="col s12 m8 offset-m2 blog-box"> 
-    
-    
+        <div *ngFor="let blog of blogs; let i = index" class="col s12 m8 offset-m2 blog-box">
+
+
           <mat-card class="mat-card">
-    
+
               <mat-card-header>
-              <mat-card-title><a routerLink="/blog/{{blog.author.username}}/{{blog.slug}}"><h5>{{blog.title | truncate:50}}</h5></a></mat-card-title>
+              <mat-card-title><a routerLink="/blog/{{blog.user.username}}/{{blog.slug}}"><h5>{{blog.title | truncate:50}}</h5></a></mat-card-title>
               <mat-card-subtitle class="card-text">
               <small>{{blog.date_created | date:'MMMM d, y, h:mm a'}}</small>
-              <span *ngIf="blog.author"><a routerLink="/profile/{{blog.author.username}}">{{blog.author.first_name}} {{blog.author.last_name}}</a> </span>
+              <span *ngIf="blog.user"><a routerLink="/profile/{{blog.user.username}}">{{blog.user.first_name}} {{blog.user.last_name}}</a> </span>
               </mat-card-subtitle>
             </mat-card-header>
             <img mat-card-image class="my-mat-card-image" src="{{blog.header_image_url}}">
             <mat-card-content>
                 <p class="card-text">
                     {{blog.description | truncate:200}}
-                </p> 
+                </p>
             </mat-card-content>
-    
+
             <mat-card-actions>
-                
+
                   <mat-icon class="md-24" aria-label="Like the comment">thumb_up</mat-icon>{{blog.up_votes_count}}
-      
+
                   <mat-icon class="md-24" aria-label="Dislike the comment">thumb_down</mat-icon>{{blog.down_votes_count}}
-      
+
               </mat-card-actions>
-    
+
           </mat-card>
-    
+
         </div>
       </div>
-    
+
+      <!-- Loading progress circle -->
+      <div *ngIf="isLoading" class="preloader-background">
+        <div class="preloader-wrapper big active">
+          <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+              <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>

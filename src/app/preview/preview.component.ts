@@ -43,7 +43,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
    ]
 
   EDUCATION_LEVEL = [
-    'High School',
+    'Secondary School',
     'University',
     'College',
     'Workplace or Apprenticeship',

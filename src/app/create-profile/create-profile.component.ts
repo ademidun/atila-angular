@@ -20,7 +20,7 @@ import { AuthService } from "../_services/auth.service";
 export class CreateProfileComponent implements OnInit {
 
   EDUCATION_LEVEL = [
-    'High School',
+    'Secondary School',
     'University',
     'College',
     'Workplace or Apprenticeship',

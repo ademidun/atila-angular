@@ -127,6 +127,26 @@
       </mat-menu>
       </span>
 
+      <span *ngIf="!authService.isLoggedIn">
+      <button mat-icon-button [matMenuTriggerFor]="mobileMenu" class= "left hide-on-large-only">
+          <mat-icon>menu</mat-icon>
+       </button>
+       <mat-menu #mobileMenu="matMenu" [overlapTrigger]="false">
+
+          <a routerLink="/forum">
+            <button mat-menu-item>
+                <span>Forums</span>
+            </button>
+          </a>
+
+          <a routerLink="/blog">
+            <button mat-menu-item>
+                <span>Blogs</span>
+            </button>
+          </a>
+      </mat-menu>
+      </span>
+
       <!-- Show on Mobile  -->
       <span *ngIf="authService.isLoggedIn">
         <button mat-icon-button [matMenuTriggerFor]="profileMenu" class= "right hide-on-large-only">

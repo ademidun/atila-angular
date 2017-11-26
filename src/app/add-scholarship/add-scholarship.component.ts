@@ -28,7 +28,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
 
 
   EDUCATION_LEVEL = [
-    'High School',
+    'Secondary School',
     'University',
     'College',
     'Workplace or Apprenticeship',

@@ -19,6 +19,7 @@ export class ForumsListComponent implements OnInit {
   newForum: Forum;
   forumComment:Comment;
   userProfile: UserProfile;
+  isLoading =true;
   constructor(
     public forumService: ForumService,
     public userProfileService: UserProfileService,
@@ -27,21 +28,33 @@ export class ForumsListComponent implements OnInit {
 
   ngOnInit() {
     var userId = parseInt(this.authService.decryptLocalStorage('uid'));
-    this.newForum = new Forum(userId,'');
-    this.forumComment = new Comment(userId,'','');
-    this.userProfileService.getById(userId).subscribe(
-      res => {
-        this.userProfile = res;
+    if (! isNaN(userId)){
+      this.newForum = new Forum(userId,'');
 
-      }
-    )
+      this.forumComment = new Comment(userId,'','');
+      this.userProfileService.getById(userId).subscribe(
+        res => {
+          this.userProfile = res;
+
+        },
+        err=> {
+          console.log('error', err);
+        }
+
+      );
+    }
     this.forumService.list().subscribe(
       res => {
         this.forums = res.results;
+        this.isLoading = false;
+      },
+
+      err =>{
+        this.isLoading = false;
       }
     );
-   
-    
+
+
 
   }
 
@@ -54,7 +67,7 @@ export class ForumsListComponent implements OnInit {
     //TODO remove this when you reformat scholarships to inherit from BaseComment in backend
     delete this.forumComment.parent_model_type;
     delete this.forumComment.parent_model_id;
-    
+
 
     this.forumService.create(sendData).subscribe(
       res => this.forums.unshift(res),
