@@ -5,7 +5,7 @@ import { QuestionBase }     from '../_models/question-base';
 import { TextboxQuestion }  from '../_models/question-textbox';
 import { DateQuestion }  from '../_models/question-date';
 
-import { Http, Response, Headers, RequestOptions, URLSearchParams } from '@angular/http';
+import { HttpClient, HttpResponse, HttpErrorResponse} from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 //import { map, filter, catchError, timeout } from 'rxjs/operators';
 import 'rxjs/add/operator/catch';
@@ -23,9 +23,7 @@ export class QuestionService   {
   public automateScholarshipResponseUrl = environment.apiUrl + 'application-automate-response/';
 
 
-  constructor(public http: Http) { }
-  public params = new URLSearchParams();
-  public requestOptions = new RequestOptions();
+  constructor(public http: HttpClient) { }
   public observable: Observable<any>;
   public timeoutLength: number = 45000; //set timeOut for form Autoamtion at 45 seconds
   // Todo: get from a remote source of question metadata
@@ -74,25 +72,13 @@ export class QuestionService   {
   }
 
   getQuestions2(appId: number | any): Observable<any>{
-    let questions: QuestionBase<any>[];
 
-    this.params.set('app-id', appId);
-    this.requestOptions.params = this.params;
-
-
-
-    return this.observable = this.http.get(this.scholarshipQuestionsUrl, this.requestOptions)
-        .map(this.extractData)
-        .catch(this.handleError);
+    return this.observable = this.http.get(`${this.scholarshipQuestionsUrl}?app-id=${appId}`)
+        .map(res=><any>res)
+        .catch(err=>err);
 
   }
 
-    public extractData(res: Response) {
-
-    let body = res.json();
-
-    return body || { };
-  }
   automateResponse(appId: number | any, data:any): Observable<any>{
 
 
@@ -101,8 +87,8 @@ export class QuestionService   {
 
 
     return this.http.post(this.automateScholarshipResponseUrl,data)
-    .map(this.extractData)
-    .catch(this.handleError)
+    .map(res=><any>res)
+    .catch(err=>err)
     .timeout(this.timeoutLength)
     // TODO: Change the timeout based on what type of form is being automated
   }
@@ -115,23 +101,11 @@ export class QuestionService   {
 
 
     return this.http.post(this.saveScholarshipResponseUrl,data)
-    .map(this.extractData)
-    .catch(this.handleError)
+    .map(res=><any>res)
+    .catch(err=>err)
     .timeout(this.timeoutLength)
   }
 
-   public handleError (error: Response | any) {
-    // In a real world app, you might use a remote logging infrastructure
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
-    }
-    console.error(errMsg);
-    return Observable.throw(errMsg);
-  }
+
 
 }

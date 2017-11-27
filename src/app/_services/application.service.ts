@@ -23,13 +23,13 @@ export class ApplicationService {
 
 
     return this.http.post(environment.apiUrl+'application-get-create/', data)
-    .map(res=>res)
+    .map(res=><any>res)
     .catch(err=>Observable.throw(err));
   }
 
   getAppData(appId: any): Observable<any>{
     return this.http.get(`${this.applicationsUrl}${appId}/application/`)
-    .map(res=>res)
+    .map(res=><any>res)
     .catch(err=>Observable.throw(err));
 
 

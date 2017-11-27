@@ -21,14 +21,14 @@ export class MessagingService {
   sendMessage(message: Message) {
 
     return this.http.post(this.messagesUrl, message)
-        .map(res=>res)
+        .map(res=><any>res)
         .catch(this.handleError);
   }
 
   getThreadMessages(id: number) {
 
     return this.http.get(`${this.threadUrl}${id}/messages/`)
-        .map(res=>res)
+        .map(res=><any>res)
         .catch(this.handleError);
   }
 
@@ -37,14 +37,14 @@ export class MessagingService {
      * Threads represent the 'conversations' that a user has.
      */
     return this.http.get(`${this.usersThreadsUrl}${id}/`)
-        .map(res=>res)
+        .map(res=><any>res)
         .catch(this.handleError);
   }
 
   getOrCreateThread(thread: Thread) {
 
     return this.http.post(this.threadUrl, thread)
-        .map(res=>res)
+        .map(res=><any>res)
         .catch(this.handleError);
   }
 

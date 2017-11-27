@@ -140,9 +140,11 @@
                         </div>
                         <div class="row">
                             <div class="input-field">
+                              <mat-form-field class="col s12">
                                 <mat-select class="col s12" [(ngModel)]="scholarship.submission_info.application_form_type" name="application_form_type" id="application_form_type" placeholder="Application Form Type">
                                     <mat-option *ngFor="let type of APPLICATION_FORM_TYPES" [value]="type">{{type}} </mat-option>
                                 </mat-select>
+                              </mat-form-field>
                             </div>
                             <label for="application_form_type" data-error="Invalid input">What type of form is the application?</label>
                         </div>
@@ -203,7 +205,7 @@
                                   </div>
                                 <div class="col s3">Key: {{question.key}}
                                 </div>
-                                <div class="col s3">
+                                <div class="col s12 m3">
                                     <a class="waves-effect waves-light btn left" (click)="edit(question.key)">
                                         <i class="fa fa-pencil"></i>
                                     </a>

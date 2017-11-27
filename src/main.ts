@@ -3,7 +3,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
-// git add . && git commit -m "switched blog service to httpclient and fixed blog truncate pipe production bug" && git push && ng build --prod && firebase deploy
+// git add . && git commit -m "switched forum, comment, blog service to httpclient added upload and save in application profile" && git push && ng build --prod && firebase deploy
 
 if (environment.production) {
   enableProdMode();

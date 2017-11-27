@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { HttpClient} from '@angular/common/http';
 
 import { Comment } from "../_models/comment";
 import { Observable } from 'rxjs/Observable';
@@ -13,31 +13,31 @@ export class CommentService {
 
   public commentsUrl = environment.apiUrl + 'comments/';
 
-  constructor(public http: Http) { }
+  constructor(public http: HttpClient) { }
 
 
   create(comment: Comment): Observable<Comment>{
 
     var commenturl = this.getUrl(comment);
     return this.http.post(`${commenturl}`, comment)
-    .map(this.extractData)
-    .catch(this.handleError);
+    .map(res=><any>res)
+    .catch(err=>err);
   }
 
   update(comment: Comment): Observable<any>{
 
     var commenturl = this.getUrl(comment);
     return this.http.put(`${commenturl}${comment.id}/`, comment)
-    .map(this.extractData)
-    .catch(this.handleError);
+    .map(res=><any>res)
+    .catch(err=>err);
   }
 
 /*
   getComments(modelType:String, modelID: number){
 
     return this.http.get(`${this.commentsUrl}get-model-comments/?parent-model-type=${modelType}&parent-model-id=${modelID}`)
-    .map(this.extractData)
-    .catch(this.handleError);
+    .map(res=><any>res)
+    .catch(err=>err);
   }
   */
   getComments(id:number, modelType:string){
@@ -45,21 +45,8 @@ export class CommentService {
     var commenturl = this.parentUrl(modelType);
 
     return this.http.get(`${commenturl}${id}/comments/`)
-    .map(this.extractData)
-    .catch(this.handleError);
-  }
-
-  public extractData(res: Response) {
-    let body = res.json();
-
-
-    return body || { };
-
-  }
-
-  public handleError (error: Response | any) {
-
-    return Observable.throw(error);
+    .map(res=><any>res)
+    .catch(err=>err);
   }
 
   public parentUrl(commentType:string){
