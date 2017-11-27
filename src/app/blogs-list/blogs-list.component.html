@@ -22,7 +22,7 @@
           <mat-card class="mat-card">
 
               <mat-card-header>
-              <mat-card-title><a routerLink="/blog/{{blog.user.username}}/{{blog.slug}}"><h5>{{((blog.title.length>50)? (blog.title | slice:0:50)+'..':(blog.title) )}}</h5></a></mat-card-title>
+              <mat-card-title><a routerLink="/blog/{{blog.user.username}}/{{blog.slug}}"><h5 *ngIf="blog.title">{{((blog.title.length>50)? (blog.title | slice:0:50)+'...':(blog.title) )}}</h5></a></mat-card-title>
               <mat-card-subtitle class="card-text">
               <small>{{blog.date_created | date:'MMMM d, y, h:mm a'}}</small>
               <span *ngIf="blog.user"><a routerLink="/profile/{{blog.user.username}}">{{blog.user.first_name}} {{blog.user.last_name}}</a> </span>
@@ -30,8 +30,8 @@
             </mat-card-header>
             <img mat-card-image class="my-mat-card-image" src="{{blog.header_image_url}}">
             <mat-card-content>
-                <p class="card-text">
-                    {{((blog.description.length>140)? (blog.description | slice:0:140)+'..':(blog.description) )}}
+                <p class="card-text" *ngIf="blog.description">
+                    {{((blog.description.length>140)? (blog.description | slice:0:140)+'...':(blog.description) )}}
                 </p>
             </mat-card-content>
 
