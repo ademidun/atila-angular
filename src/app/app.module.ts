@@ -62,6 +62,8 @@ import {HttpClientModule} from '@angular/common/http';
 import { TokenInterceptor } from './_services/token.interceptor';
 
 import { UnAuthorizedInterceptor } from './_services/unauthorized.interceptor';
+import {AngularFireModule } from 'angularfire2';
+import {environment} from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -99,6 +101,7 @@ import { UnAuthorizedInterceptor } from './_services/unauthorized.interceptor';
   imports: [
     NgbModule.forRoot(),
     BrowserModule,
+    AngularFireModule.initializeApp(environment.firebase),
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,

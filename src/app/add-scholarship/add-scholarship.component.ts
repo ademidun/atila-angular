@@ -94,7 +94,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
   activeProvince:any = {};
   scholarshipOwner;
 
-  webForms;
+  webForms : any;
   myJson = JSON;
   constructor(
     public router: Router,
@@ -331,6 +331,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
     this.scholarship.owner = this.userId;
     this.scholarship.extra_questions = {};
     this.scholarship.submission_info = {};
+    this.webForms = [{}];
     // TODO: Are most scholarships pdf forms this.APPLICATION_FORM_TYPES[0] or web forms this.APPLICATION_FORM_TYPES[1]
     this.scholarship.submission_info.application_form_type = [this.APPLICATION_FORM_TYPES[0]];
     this.scholarship.reference_letter_required =0;

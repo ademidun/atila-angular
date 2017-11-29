@@ -99,7 +99,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
       }
 
 
-
+    console.log('this.generalData.documentUploads',this.generalData.documentUploads);
 
     //Next, we will save the application edits to the database.
     this.showAutomationLoading = true;
@@ -154,7 +154,8 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
 
 
 
-    if(!this.generalData.documentUploads || Object.keys(this.generalData.documentUploads).length === 0){ //if the dictionary is empty use the default values.
+    if(!this.generalData.documentUploads || Object.keys(this.generalData.documentUploads).length === 0 && !this.generalData.appData.document_urls){
+      //if the dictionary is empty use the default values.
       this.generalData.documentUploads = this.generalData.appData.document_urls;
     }
     for(var key in this.generalData.documentUploads) {

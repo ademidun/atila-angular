@@ -6,4 +6,13 @@
 export const environment = {
   production: false,
   apiUrl: 'http://127.0.0.1:8000/api/',
+
+  firebase : {
+    apiKey: "AIzaSyDs2UY2qe7SJyGGPqKt32zutqWwB-SfANE",
+    authDomain: "atila-7.firebaseapp.com",
+    databaseURL: "https://atila-7.firebaseio.com",
+    projectId: "atila-7",
+    storageBucket: "atila-7.appspot.com",
+    messagingSenderId: "148649271725"
+  },
 };

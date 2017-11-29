@@ -3,9 +3,11 @@
 <div mat-dialog-content>
   <form #questionForm="ngForm">
     <div class="row">
-      <mat-select [(ngModel)]="question.type" class="col s11 input-wrapper" name="type" id="type" required placeholder="Question Type">
+      <mat-form-field class="col s11 input-wrapper">
+      <mat-select [(ngModel)]="question.type" name="type" id="type" required placeholder="Question Type">
         <mat-option *ngFor="let type of TYPE_CHOICES" [value]="type.value">{{type.name}} </mat-option>
       </mat-select>
+      </mat-form-field>
       <mat-form-field class="col s11 input-wrapper">
         <input class="browser-default" matInput id="label" type="text" required placeholder="Question" [(ngModel)]="question.label" name="label">
       </mat-form-field>

@@ -195,9 +195,9 @@
                         </div>
                     </div>
                     <div *ngIf="pageNo==3">
-                        <h5>PDF Form Questions{{pageNo}}/3</h5>
                         <fieldset [disabled]="editMode && !isOwner">
-                        <ol *ngIf="scholarship.extra_questions && scholarship.submission_info.application_form_type=='PDF'">
+                          <h5>Additional Form Questions {{pageNo}}/3</h5>
+                        <ol >
                             <li *ngFor="let question of generateArray(scholarship.extra_questions);let i = index" class="questions row">
                                 <div class="col s3">Type: {{question.controlType}}
                                   </div>
@@ -282,7 +282,7 @@
 
                                 <a class="waves-effect waves-light btn left" (click)="back()">Back</a>
                                 <a *ngIf="!showFormUpload && !editMode" class="waves-effect waves-light btn right" (click)="saveScholarship(scholarshipForm)">Create</a>
-                                <a *ngIf="!showFormUpload && editMode" class="waves-effect waves-light btn right" (click)="saveScholarship(scholarshipForm)">Create</a>
+                                <a *ngIf="!showFormUpload && editMode" class="waves-effect waves-light btn right" (click)="saveScholarship(scholarshipForm)">Save</a>
                                 <a *ngIf="showFormUpload" class="waves-effect waves-light btn right" (click)="saveScholarship(scholarshipForm)">Save</a>
                             </div>
                         </div>
