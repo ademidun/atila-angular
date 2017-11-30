@@ -331,7 +331,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
     this.scholarship.owner = this.userId;
     this.scholarship.extra_questions = {};
     this.scholarship.submission_info = {};
-    this.webForms = [{}];
+    this.webForms = [{"question_key": "", "attribute_type": "", "attribute_value": ""}];
     // TODO: Are most scholarships pdf forms this.APPLICATION_FORM_TYPES[0] or web forms this.APPLICATION_FORM_TYPES[1]
     this.scholarship.submission_info.application_form_type = [this.APPLICATION_FORM_TYPES[0]];
     this.scholarship.reference_letter_required =0;
@@ -792,6 +792,11 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
     }
     //TODO! Change this, allow user to submit with enterButton.
   }
+
+  // convertHtml(){
+  //   // https://stackoverflow.com/questions/8806673/html-how-to-retain-formatting-in-textarea/22353003#22353003
+  //   jQuery('#htmlTextArea').val( jQuery('#htmlsource').html() );
+  // }
 }
 
 

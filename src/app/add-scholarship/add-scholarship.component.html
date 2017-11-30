@@ -14,7 +14,12 @@
 
                         <fieldset [disabled]="editMode && !isOwner">
 
-                        <div class="row">
+                          <!--HTML copy paste formatting for text divs https://stackoverflow.com/questions/8806673/html-how-to-retain-formatting-in-textarea/22353003#22353003-->
+                          <!--<label>Paste your HTML in the box below</label>-->
+                          <!--<textarea style='display:none' id='htmlTextArea'></textarea>-->
+                          <!--<div id='htmlsource' contenteditable style='border:solid 1px black;padding:1em;width:100%;min-height:2em;' ></div>-->
+
+                          <div class="row">
                             <mat-form-field class="col s12">
                                 <input class="browser-default" matInput id="name" type="text" required placeholder="Scholarship Name" [(ngModel)]="scholarship.name" name="name">
                             </mat-form-field>
