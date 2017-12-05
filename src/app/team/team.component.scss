@@ -1,0 +1,27 @@
+@import '../../styles.scss';
+.header-image {
+  //background-image: url('https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2Fgeneral-data%2Fdefault-profile-pic.png?alt=media&token=455c59f7-3a05-43f1-a79e-89abff1eae57');
+  background-size: cover;
+}
+
+.mat-card-avatar {
+  height: 200px;
+  width: 200px;
+}
+
+.mat-card {
+  margin: 20px 0px;
+}
+/*
+.mat-card-title {
+    font-size: 3em !important;
+}
+
+.mat-card-subtitle {
+    font-size: 1.5em !important;
+}
+*/
+
+:host /deep/ .mat-card-header-text {
+  margin: 0 75px !important;
+}

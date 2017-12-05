@@ -65,6 +65,7 @@ import { UnAuthorizedInterceptor } from './_services/unauthorized.interceptor';
 import {AngularFireModule } from 'angularfire2';
 import {environment} from '../environments/environment';
 import { GoogleAnalyticsEventsService } from './_services/google-analytics-events.service';
+import { TeamComponent } from './team/team.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +98,8 @@ import { GoogleAnalyticsEventsService } from './_services/google-analytics-event
     BlogPostCreateComponent,
     HtmlEditorComponent,
     BlogPostDetailComponent,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    TeamComponent
   ],
   imports: [
     NgbModule.forRoot(),

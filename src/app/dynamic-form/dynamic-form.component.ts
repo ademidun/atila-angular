@@ -135,6 +135,9 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
 
         this.showAutomationLoading = false;
         this.payLoad = JSON.stringify(err.message);
+        this.snackBar.open("Automation error:" + err.message,'',{
+          duration: 3000
+        });
 
       },
       () => {
@@ -214,6 +217,10 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
 
         this.showAutomationLoading = false;
         this.payLoad = JSON.stringify(err.message);
+
+        this.snackBar.open("Automation error",'',{
+          duration: 3000
+        });
 
       },
       () => {
@@ -398,7 +405,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   }
   saveToClipBoard(divId: string){
 
-      var copyText = $(divId);
+      let copyText = $(`#${divId}`);
       //var copyText = document.getElementById("myInput");
       copyText.select();
       document.execCommand("copy");

@@ -23,6 +23,7 @@ import { BlogPostCreateComponent } from '../blog-post-create/blog-post-create.co
 import { BlogPostDetailComponent } from "../blog-post-detail/blog-post-detail.component";
 
 import { AuthGuard } from '../_guards/auth.guard';
+import {TeamComponent} from '../team/team.component';
 
 const routes: Routes = [
   { path: '' , component: PreviewComponent, data: {title: 'Atila | Automated Scholarships. The Right Way'}},
@@ -46,6 +47,7 @@ const routes: Routes = [
   { path: 'scholarships-list' , component: ScholarshipsListComponent, data: {title: 'Atila | Automated Scholarships. The Right Way'}},
   //{ path: 'scholarship-detail/:id' , component: ScholarshipDetailComponent, data: {title: 'Atila - Scholarship Detail'}},
   { path: 'scholarship-detail/:slug' , component: ScholarshipDetailComponent, data: {title: 'Atila - Scholarship Detail'}},
+  { path: 'team' , component: TeamComponent, data: {title: 'Atila - Team'}},
   { path: '**', component: PreviewComponent, data: {title: 'Atila | Automated Scholarships. The Right Way'} }
 ]
 
