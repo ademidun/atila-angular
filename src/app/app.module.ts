@@ -64,6 +64,7 @@ import { TokenInterceptor } from './_services/token.interceptor';
 import { UnAuthorizedInterceptor } from './_services/unauthorized.interceptor';
 import {AngularFireModule } from 'angularfire2';
 import {environment} from '../environments/environment';
+import { GoogleAnalyticsEventsService } from './_services/google-analytics-events.service';
 
 @NgModule({
   declarations: [
@@ -131,6 +132,7 @@ import {environment} from '../environments/environment';
        ForumService,
        BlogPostService,
        AuthGuard,
+      GoogleAnalyticsEventsService,
        {
         provide: HTTP_INTERCEPTORS,
         useClass: TokenInterceptor,
@@ -139,7 +141,7 @@ import {environment} from '../environments/environment';
       {
         provide: HTTP_INTERCEPTORS,
         useClass: UnAuthorizedInterceptor,
-        multi: true
+        multi: true,
       },
     ],
   bootstrap: [AppComponent],

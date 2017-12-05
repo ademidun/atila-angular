@@ -38,16 +38,19 @@
     </mat-form-field>
 
     <span *ngSwitchCase="'file'">
-        {{question.label}}
-        <!-- TODO: Add required attribute later, its giving me problems with file inputs ATM. May have to use a custom directive for required file inputs. -->
-        <!--  this means if the question answer doesn't already exist and the question is required.-->
-        <!--  [required]="!appData[question.key] && question.required ? 'required' : null"  -->
-      <small *ngIf="question.required">*Required</small>
-        <input [formControlName]="question.key"
-      [id]="question.key" [placeholder]="question.label"[type]="question.type" (change)="fileChangeEvent($event)">
+      <div class="dyanamic-form-file-input">
 
-      <div *ngIf="appData[question.key]" class="col s3">
-        <a  class="scholarship-document" [name]="question.key" target="_blank" href="{{appData[question.key]}}"> View Document ({{question.key}}) </a>
+          {{question.label}}
+          <!-- TODO: Add required attribute later, its giving me problems with file inputs ATM. May have to use a custom directive for required file inputs. -->
+          <!--  this means if the question answer doesn't already exist and the question is required.-->
+          <!--  [required]="!appData[question.key] && question.required ? 'required' : null"  -->
+        <small *ngIf="question.required">*Required</small>
+          <input [formControlName]="question.key"
+        [id]="question.key" [placeholder]="question.label"[type]="question.type" (change)="fileChangeEvent($event)">
+
+        <div *ngIf="appData[question.key]" class="col s3">
+          <a  class="scholarship-document" [name]="question.key" target="_blank" href="{{appData[question.key]}}"> View Document ({{question.key}}) </a>
+      </div>
     </div>
     </span>
 

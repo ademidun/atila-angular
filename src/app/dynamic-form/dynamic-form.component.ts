@@ -99,7 +99,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
       }
 
 
-    console.log('this.generalData.documentUploads',this.generalData.documentUploads);
+    //console.log('this.generalData.documentUploads',this.generalData.documentUploads);
 
     //Next, we will save the application edits to the database.
     this.showAutomationLoading = true;

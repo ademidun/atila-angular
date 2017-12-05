@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import {Component, OnInit, ElementRef, ViewChild, AfterViewInit} from '@angular/core';
 import {
   Router,
   ActivatedRoute,
@@ -8,7 +8,9 @@ import {
   NavigationCancel,
   NavigationError
 } from '@angular/router'
-import { Title } from '@angular/platform-browser'
+import { Title } from '@angular/platform-browser';
+
+declare const ga: any;
 
 
 @Component({
@@ -17,11 +19,11 @@ import { Title } from '@angular/platform-browser'
   styleUrls: ['./app.component.scss'],
   providers: []
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
   loading: boolean = true;
 
   constructor(titleService: Title,
-    router: Router,
+    public router: Router,
     activatedRoute: ActivatedRoute,
     ) {
 
@@ -44,6 +46,19 @@ export class AppComponent {
     });
   }
 
+  ngAfterViewInit(): void {
+    // https://stackoverflow.com/questions/45241131/angular-and-google-analytics-integration-ga-is-not-a-function
+
+    this.router.events.subscribe(event => {
+      // I check for isPlatformBrowser here because I'm using Angular Universal, you may not need it
+      //if (event instanceof NavigationEnd && isPlatformBrowser(this.platformId))
+      if (event instanceof NavigationEnd ) {
+        console.log(ga); // Just to make sure it's actually the ga function
+        ga('set', 'page', event.urlAfterRedirects);
+        ga('send', 'pageview');
+      }
+    });
+  }
   // collect that title data properties from all child routes
   // there might be a better way but this worked for me
   getTitle(state, parent) {

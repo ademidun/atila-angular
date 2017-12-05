@@ -36,7 +36,6 @@ export class BlogsListComponent implements OnInit {
 
         },
         err=> {
-          console.log('error', err);
         }
 
       );

@@ -3,7 +3,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
-// git add . && git commit -m "refactored scholarship creation" && git push && ng build --prod && firebase deploy
+// git add . && git commit -m "fixed bugs in google analytics code" && git push && ng build --prod && firebase deploy
 
 if (environment.production) {
   enableProdMode();

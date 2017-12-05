@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import {NgModel} from '@angular/forms';
 import { GooglePlaceDirective } from "../_directives/google-place.directive";
+import {GoogleAnalyticsEventsService} from '../_services/google-analytics-events.service';
 
 //import 'googlemaps';
 export class PreviewResponse {
@@ -78,6 +79,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
    constructor(
     public scholarshipService: ScholarshipService,
     public router: Router,
+    public googleAnalyticsEventService: GoogleAnalyticsEventsService,
     ) {
 
     }
@@ -157,6 +159,8 @@ export class PreviewComponent implements OnInit, OnDestroy {
     this.model.location.name = this.model.location.city; //ensures that our object matches the Atila Location API
 
     this.diagnostic = JSON.stringify(this.model);
+    // TODO What's the proper way of saving form values with Google Analytics
+    this.googleAnalyticsEventService.emitEvent("userCategory", "previewAction", JSON.stringify(this.model.location), 1)
 
     this.scholarshipService.setScholarshipPreviewForm(this.model).then(
       res => this.router.navigate(['scholarships-list']))  //use promise to ensure that form is saved to Service before navigating away

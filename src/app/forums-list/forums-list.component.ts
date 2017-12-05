@@ -38,7 +38,6 @@ export class ForumsListComponent implements OnInit {
 
         },
         err=> {
-          console.log('error', err);
         }
 
       );
