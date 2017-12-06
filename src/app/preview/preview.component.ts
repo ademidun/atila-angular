@@ -87,7 +87,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     document.body.style.backgroundColor = '#194F87';
-    // console.log('Welcome to Atila','https://atila.ca');
+    // console.log('You seem like a good fit for the Atila team!','https://atila.ca/team');
   }
 
   ngOnDestroy() {

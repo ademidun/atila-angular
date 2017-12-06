@@ -48,6 +48,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   emailBody: any;
   appMailToLink: any;
   timeOfDay;
+  uploadProgress: any;
 
   // A base 64 encoded string image of the screenshot of the automated web form before and After Submission.
   preAndPostScreenshots: any[];
@@ -103,10 +104,6 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
       'application': this.generalData.application,
     };
 
-    console.log('modified sendData: this.generalData.application: ', this.generalData.application);
-    console.log('original sendData: sendData: ', sendData);
-
-    console.log('original generalData: sendData: ', this.generalData);
     var appId = this.generalData.application.id;
 
 
@@ -162,7 +159,6 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     }
     */
 
-    console.log('sendData, this.generalData', sendData, this.generalData);
 
     this.observable = this.questionService.automateResponse(appId,sendData);
     this.observable.subscribe(
@@ -216,7 +212,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
       if(documentUrl != "") {
 
         this.generalData.application.document_urls[documentKey] = documentUrl;
-        console.log('results[i].getAttribute("href")',results[i].getAttribute("href"));
+        //console.log('results[i].getAttribute("href")',results[i].getAttribute("href"));
       }
     }
 
@@ -311,7 +307,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
         (snapshot:any) => {
         // Observe state change events such as progress, pause, and resume
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        this.uploadProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 
       },
         (error)=> {
@@ -326,8 +322,9 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
 
         //this.generalData.userProfile[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
         this.generalData.application.document_urls[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
+        this.generalData.application.responses[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
 
-
+        this.uploadProgress = null;
       });
 
 
