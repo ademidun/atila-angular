@@ -12,6 +12,7 @@ import { AuthService } from "../_services/auth.service";
 import {UploadFile} from '../_models/upload-file';
 
 import * as firebase from "firebase";
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-app-detail',
@@ -28,7 +29,6 @@ export class AppDetailComponent implements OnInit {
   userProfile: UserProfile;
   application: any;
   appId: number;
-  applicationData: any[];
   /**
    * Share scholarship, application and UserProfile data with children components. e.g. Dynamic Form component
    */
@@ -38,22 +38,6 @@ export class AppDetailComponent implements OnInit {
   formFile: File;
   formFileEvent: any;
   uploadFile: UploadFile;
-
-  PROVINCE_CHOICES = [
-    { 'value': 'ON', 'name': 'Ontario' },
-    { 'value': 'BC', 'name': 'British Columbia' },
-    { 'value': 'QC', 'name': 'Quebec' },
-    { 'value': 'AB', 'name': 'Alberta' },
-    { 'value': 'NS', 'name': 'Nova Scotia' },
-    { 'value': 'SK', 'name': 'Saskatchewan' },
-    { 'value': 'MB', 'name': 'Manitoba' },
-    { 'value': 'NL', 'name': 'Newfoundland & Labrador' },
-    { 'value': 'NB', 'name': 'New Brunswick' },
-    { 'value': 'PE', 'name': 'Prince Edward Island' },
-    { 'value': 'NT', 'name': 'Northwest Territories' },
-    { 'value': 'YT', 'name': 'Yukon' },
-    { 'value': 'NU', 'name': 'Nunavut' },
-  ];
 
   questions: any[];
   observable: Observable<any>;
@@ -74,6 +58,7 @@ export class AppDetailComponent implements OnInit {
     public userProfileService: UserProfileService,
     public authService: AuthService,
     public router: Router,
+    public snackBar: MatSnackBar,
   ) {
     this.appId = parseInt(route.snapshot.params['id']);
 
@@ -82,6 +67,8 @@ export class AppDetailComponent implements OnInit {
 
   ngOnInit() {
     this.getAppData();
+
+
     this.observable = this.qService.getQuestions2(this.appId);
     this.observable.subscribe(
       res => {
@@ -103,7 +90,6 @@ export class AppDetailComponent implements OnInit {
   }
 
   getAppData() {
-    var data: any;
     let postOperation: Observable<any>;
     this.userId = this.authService.decryptLocalStorage('uid');
     postOperation = this.applicationService.getAppData(this.appId);
@@ -111,20 +97,38 @@ export class AppDetailComponent implements OnInit {
     postOperation
       .subscribe(
       res => {
-        console.log('this.applicationService.getAppData res:', res);
+        console.log('this.applicationService.getAppData  this.userId, res:', this.userId, res);
+        this.userProfile = res.userProfile;
+
+        if(this.userId!=this.userProfile.user) {
+          this.snackBar.open("Unauthorized Access", '', {
+            duration: 2000
+          });
+          setTimeout(() => {
+            this.router.navigate(['']);
+          }, 2100);
+
+          return;
+        }
+
         this.generalData = res;
         this.generalData.documentUploads = res.appData.document_urls? res.appData.document_urls : {};
-        this.application = res.appData;
+        this.generalData.application = res.appData;
 
         this.userProfile = res.userProfile;
         this.scholarship = res.scholarship;
 
-        this.applicationData = Object.keys(this.application.responses);
+
+
 
       },
       error => console.error('AppDetailComponent getAppData', error),
 
       () => {
+
+        if(this.userId!=this.userProfile.user) {
+          return;
+        }
 
         this.initializeLocations(this.userProfile.city);
 
