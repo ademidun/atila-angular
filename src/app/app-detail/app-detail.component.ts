@@ -111,20 +111,20 @@ export class AppDetailComponent implements OnInit {
     postOperation
       .subscribe(
       res => {
-        data = res;
+        console.log('this.applicationService.getAppData res:', res);
+        this.generalData = res;
+        this.generalData.documentUploads = res.appData.document_urls? res.appData.document_urls : {};
+        this.application = res.appData;
+
+        this.userProfile = res.userProfile;
+        this.scholarship = res.scholarship;
+
+        this.applicationData = Object.keys(this.application.responses);
 
       },
       error => console.error('AppDetailComponent getAppData', error),
 
       () => {
-        this.generalData = data;
-        this.generalData.documentUploads = data.appData.document_urls? data.appData.document_urls : {};
-        this.application = data.appData;
-
-        this.userProfile = data.userProfile;
-        this.scholarship = data.scholarship;
-
-        this.applicationData = Object.keys(this.application.responses);
 
         this.initializeLocations(this.userProfile.city);
 

@@ -194,6 +194,8 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     }
     */
 
+    console.log('sendData, this.generalData', sendData, this.generalData);
+
     this.observable = this.questionService.automateResponse(appId,sendData);
     this.observable.subscribe(
       res => {
