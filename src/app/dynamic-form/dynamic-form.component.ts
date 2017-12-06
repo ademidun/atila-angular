@@ -31,7 +31,6 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   @Input() form: FormGroup;
   @Input() profileForm: NgForm;
   @Input() generalData: any;
-  appData: any;
   observable: Observable<any>;
   isFormReady: boolean;
 
@@ -39,7 +38,6 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   myJSON = JSON;
 
   uploadUrl: string;
-  keyGetter = Object.keys;
 
 
 
@@ -47,7 +45,6 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   formFileEvent: any;
   uploadFile: UploadFile;
   showAutomationLoading=false;
-  cusomEmail: any;
   emailBody: any;
   appMailToLink: any;
   timeOfDay;
@@ -73,8 +70,6 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
 
     }
 
-    this.appData = this.generalData.appData.responses;
-
     this.writeEmail();
   }
 
@@ -89,39 +84,30 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   saveApplication(event: Event){
     // First, we will save the URLs of the uploaded documents
       event.preventDefault();
-      var results = document.getElementsByClassName("scholarship-document");
 
 
-      for (var i = 0; i < results.length; i++) {
-        let documentKey = results[i].getAttribute("name");
-        let documentUrl = results[i].getAttribute("href");
-        this.generalData.documentUploads[documentKey] = documentUrl;
-      }
-
-
-    //console.log('this.generalData.documentUploads',this.generalData.documentUploads);
+    this.initializeLinks();
 
     //Next, we will save the application edits to the database.
     this.showAutomationLoading = true;
     this.payLoad = this.form.value;
 
 
-    for(var key in this.generalData.documentUploads) {
-
-      this.payLoad[key]= this.generalData.documentUploads[key];
-
-    }
 
 
     this.payLoad = JSON.stringify(this.payLoad);
+
     var sendData = {
       //'generalData': this.generalData,We only need
       'profileForm': this.profileForm.value,
-      'appForm': this.form.value,
-      'documentUrls':this.generalData.documentUploads,
-    }
-    var appId = this.generalData.appData.id;
+      'application': this.generalData.application,
+    };
 
+    console.log('modified sendData: this.generalData.application: ', this.generalData.application);
+    console.log('original sendData: sendData: ', sendData);
+
+    console.log('original generalData: sendData: ', this.generalData);
+    var appId = this.generalData.application.id;
 
 
 
@@ -151,33 +137,15 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     this.showAutomationLoading = true;
     this.payLoad = this.form.value;
 
-
-
-
-
-
-
-    if(!this.generalData.documentUploads || Object.keys(this.generalData.documentUploads).length === 0 && !this.generalData.appData.document_urls){
-      //if the dictionary is empty use the default values.
-      this.generalData.documentUploads = this.generalData.appData.document_urls;
-    }
-    for(var key in this.generalData.documentUploads) {
-
-      this.payLoad[key]= this.generalData.documentUploads[key];
-      this.form.value[key]= this.generalData.documentUploads[key];
-
-    }
-
-
-
     this.payLoad = JSON.stringify(this.payLoad);
+    this.initializeLinks();
+
     var sendData = {
       //'generalData': this.generalData,We only need
       'profileForm': this.profileForm.value,
-      'appForm': this.form.value,
-      'documentUrls':this.generalData.documentUploads,
+      'application': this.generalData.application,
     }
-    var appId = this.generalData.appData.id;
+    var appId = this.generalData.application.id;
 
     this.writeEmail();
     /*
@@ -233,6 +201,35 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
 
   }
 
+  /**
+   * Get all the urls of the uploaded documents on the page.
+   */
+  initializeLinks() {
+
+
+    var results = document.getElementsByClassName("scholarship-document");
+
+    for (var i = 0; i < results.length; i++) {
+      let documentKey = results[i].getAttribute("name");
+      let documentUrl = results[i].getAttribute("href");
+
+      if(documentUrl != "") {
+
+        this.generalData.application.document_urls[documentKey] = documentUrl;
+        console.log('results[i].getAttribute("href")',results[i].getAttribute("href"));
+      }
+    }
+
+
+    for(let key in this.generalData.application.document_urls) {
+
+      if(this.generalData.application.document_urls.hasOwnProperty(key)) {
+
+        this.generalData.application.responses[key]= this.generalData.application.document_urls[key];
+      }
+
+    }
+  }
   fileChangeEvent(fileInput: any){
 
 
@@ -242,7 +239,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * Upload the user documents to the cloud database and save the url path to the document as this.generalData.documentUploads[documentKey] = documentUrl;
+   * Upload the user documents to the cloud database and save the url path to the document as this.generalData.application.document_urls[documentKey] = documentUrl;
    * @param event
    */
   uploadUserDocuments(event: Event){
@@ -256,7 +253,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
 
     this.uploadFile = new UploadFile(this.formFile);
     this.uploadFile.name = this.authService.hashFileName(this.formFile.name);
-    this.uploadFile.path = "scholarships/" + this.generalData.scholarship.id + "/application-documents/" + this.generalData.appData.id + "/";
+    this.uploadFile.path = "scholarships/" + this.generalData.scholarship.id + "/application-documents/" + this.generalData.application.id + "/";
     this.uploadFile.path = this.uploadFile.path + this.uploadFile.name
 
 
@@ -328,8 +325,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
         //this.userProfile.form_url = uploadTask.snapshot.downloadURL;
 
         //this.generalData.userProfile[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
-        this.generalData.appData.responses[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
-        this.generalData.documentUploads[this.formFileEvent.target.id] =  uploadTask.snapshot.downloadURL;
+        this.generalData.application.document_urls[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
 
 
       });

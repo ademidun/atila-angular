@@ -97,7 +97,7 @@ export class AppDetailComponent implements OnInit {
     postOperation
       .subscribe(
       res => {
-        console.log('this.applicationService.getAppData  this.userId, res:', this.userId, res);
+        console.log('this.applicationService.getAppData  this.userId, res:', this.userId, res, this);
         this.userProfile = res.userProfile;
 
         if(this.userId!=this.userProfile.user) {
@@ -112,8 +112,12 @@ export class AppDetailComponent implements OnInit {
         }
 
         this.generalData = res;
-        this.generalData.documentUploads = res.appData.document_urls? res.appData.document_urls : {};
-        this.generalData.application = res.appData;
+
+
+        this.generalData.application = res.application;
+        this.generalData.documentUploads = res.application.document_urls || {};
+
+        this.generalData.application.document_urls = res.application.document_urls || {};
 
         this.userProfile = res.userProfile;
         this.scholarship = res.scholarship;
@@ -260,6 +264,7 @@ export class AppDetailComponent implements OnInit {
         //get the userProfile attribute that needs to be saved.
         //Will this have a significant impact on speed? As opposed to just saving the event ID as a variable
         this.userProfile[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
+        this.generalData.application.document_urls[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
 
       });
 

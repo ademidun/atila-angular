@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, NgForm }        from '@angular/forms';
- 
+
 import { QuestionBase }     from '../_models/question-base';
 
 @Component({
@@ -17,27 +17,23 @@ export class DynamicFormQuestionComponent implements OnInit {
   @Input()profileForm: NgForm;
   @Input() generalData: any;
   @Output() uploaded:EventEmitter<any> = new EventEmitter();
-  appData: any;
-  
+
   ngOnInit() {
-    this.appData = this.generalData.appData.responses;
-    
+
 
     if(this.form){
       var results = document.getElementsByClassName("scholarship-document");
-      
-      this.generalData.documentUploads = { };
+
       for (var i = 0; i < results.length; i++) {
         let documentKey = results[i].getAttribute("name");
-  
-        let documentUrl = results[i].getAttribute("href"); 
-        this.generalData.documentUploads[documentKey] = documentUrl;
-  
+
+        this.generalData.application.document_urls[documentKey] = results[i].getAttribute("href");
+
     }
     }
   }
 
-  get isValid() { 
+  get isValid() {
     return this.form.controls[this.question.key].valid;
    }
 
@@ -48,6 +44,6 @@ export class DynamicFormQuestionComponent implements OnInit {
     //  [generalData]="generalData" (uploaded)="fileChangeEvent($event)"></app-dynamic-form-question>
 
     this.uploaded.emit(fileInput);
-    
+
   }
 }

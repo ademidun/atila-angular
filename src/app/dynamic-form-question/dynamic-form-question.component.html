@@ -6,7 +6,7 @@
 
     <mat-form-field class="col s12" *ngSwitchCase="'textfield'">
       <input  matInput class="browser-default"   [formControlName]="question.key" [placeholder]="question.label"
-              [id]="question.key" [type]="question.type" [(ngModel)]="appData[question.key]" [required]="question.required ? 'required' : null">
+              [id]="question.key" [type]="question.type" [(ngModel)]="generalData.application.responses[question.key]" [required]="question.required ? 'required' : null">
     </mat-form-field>
 
 
@@ -14,12 +14,12 @@
     May have something to do with the runtime rendering order. -->
       <mat-form-field class="col s12"  *ngSwitchCase="'textarea'">
         <textarea matInput [placeholder]="question.label" [id]="question.key"
-        [formControlName]="question.key" [(ngModel)]="appData[question.key]" [required]="question.required ? 'required' : null"></textarea>
+        [formControlName]="question.key" [(ngModel)]="generalData.application.responses[question.key]" [required]="question.required ? 'required' : null"></textarea>
       </mat-form-field>
 
     <mat-form-field class="" *ngSwitchCase="'date'">
       <label>{{question.label}}</label>
-        <input matInput [formControlName]="question.key" [(ngModel)]="appData[question.key]"
+        <input matInput [formControlName]="question.key" [(ngModel)]="generalData.application.responses[question.key]"
                 [id]="question.key" [type]="question.type" [required]="question.required ? 'required' : null">
     </mat-form-field>
 
@@ -32,7 +32,7 @@
       </select>-->
 
     <mat-form-field *ngSwitchCase="'number'" class="col s12">
-          <input class="browser-default" matInput [(ngModel)]="appData[question.key]" id="phone_number" type="number" [formControlName]="question.key"
+          <input class="browser-default" matInput [(ngModel)]="generalData.application.responses[question.key]" id="phone_number" type="number" [formControlName]="question.key"
           [id]="question.key" [type]="question.type" [placeholder]="question.label"  [required]="question.required ? 'required' : null">
 
     </mat-form-field>
@@ -43,13 +43,13 @@
           {{question.label}}
           <!-- TODO: Add required attribute later, its giving me problems with file inputs ATM. May have to use a custom directive for required file inputs. -->
           <!--  this means if the question answer doesn't already exist and the question is required.-->
-          <!--  [required]="!appData[question.key] && question.required ? 'required' : null"  -->
+          <!--  [required]="!generalData.application.responses[question.key] && question.required ? 'required' : null"  -->
         <small *ngIf="question.required">*Required</small>
           <input [formControlName]="question.key"
         [id]="question.key" [placeholder]="question.label"[type]="question.type" (change)="fileChangeEvent($event)">
 
-        <div *ngIf="appData[question.key]" class="col s3">
-          <a  class="scholarship-document" [name]="question.key" target="_blank" href="{{appData[question.key]}}"> View Document ({{question.key}}) </a>
+        <div *ngIf="generalData.application.responses[question.key]" class="col s3">
+          <a  class="scholarship-document" [name]="question.key" target="_blank" href="{{generalData.application.responses[question.key]}}"> View Document ({{question.key}}) </a>
       </div>
     </div>
     </span>

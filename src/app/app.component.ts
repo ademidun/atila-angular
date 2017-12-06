@@ -53,7 +53,7 @@ export class AppComponent implements AfterViewInit {
       // I check for isPlatformBrowser here because I'm using Angular Universal, you may not need it
       //if (event instanceof NavigationEnd && isPlatformBrowser(this.platformId))
       if (event instanceof NavigationEnd ) {
-        console.log(ga); // Just to make sure it's actually the ga function
+        console.log(this, ga); // Just to make sure it's actually the ga function
         ga('set', 'page', event.urlAfterRedirects);
         ga('send', 'pageview');
       }
