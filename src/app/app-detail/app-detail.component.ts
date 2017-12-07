@@ -169,9 +169,17 @@ export class AppDetailComponent implements OnInit {
 
     saveProfileObservable.subscribe(
       res => {
+
+        this.snackBar.open("Saved Profile", '', {
+          duration: 3000
+        });
       },
       err =>{
         console.error('app-detail saveUserProfile() err', err)
+
+        this.snackBar.open("Error Saving Profile", '', {
+          duration: 3000
+        });
       }
     );
 
