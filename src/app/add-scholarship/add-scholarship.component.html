@@ -63,6 +63,10 @@
                               Deadline: {{ scholarship.deadline | date:'fullDate' }} {{ scholarship.deadline | date:'shortTime' }}
                           </span>
 
+                          <span *ngIf="scholarship.deadline" style="font-size: smaller" class="col s6">
+                           <strong>Note</strong>: Time displayed may be a few hours different due to timezone differences.
+                          </span>
+
                           </div>
                           <!-- TODO: Changing Location Creation -->
 
