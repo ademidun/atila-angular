@@ -46,11 +46,11 @@
           {{emailBody}}
         </div>
 
-        <a target="_blank" href="{{appMailToLink}}">Send Email</a>
+        <a target="_blank" [href]="appMailToLink">Send Email</a>
         <button  mat-raised-button style="background-color: #184E87;margin:1%"class="btn white-text"
          (click)="saveToClipBoard('email-content')" class="btn btn-success white-text">Copy to Clipboard</button>
 
-        <textarea [(ngModel)]="emailBody" id="email-content" style="height: 15em"></textarea>
+        <textarea [(ngModel)]="emailBody" id="email-content" style="height: 15em" (change)="emailChangeEvent($event)"></textarea>
 
 
       </div>

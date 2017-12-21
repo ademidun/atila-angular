@@ -36,56 +36,114 @@ export class ApplicationService {
   }
 
 
-}
+  getTimeOfDay(){
+    var myDate = new Date();
+    var hrs = myDate.getHours();
+
+    var timeString;
+    if (hrs < 12)
+      timeString = 'Morning';
+    else if (hrs >= 12 && hrs <= 17)
+      timeString = 'Afternoon';
+    else if (hrs >= 17 && hrs <= 24)
+      timeString = 'Evening';
+
+    return timeString;
+  }
+
+  /**
+   * TODO: Make this more dynamic/customized TRY to be DRY.
+   */
+  public writeEmail(generalData){
+
+    let sentences = this.generateRandomSentences(generalData);
+
+    let randIndices = {};
+
+    for (const key in sentences) {
+      let index = Math.floor(Math.random() * sentences[key].length);
+      randIndices[key]=index;
+    }
 
 
-export function getTimeOfDay(){
-  var myDate = new Date();
-  var hrs = myDate.getHours();
+    let email_subject = generalData.scholarship.submission_info.email_subject_is_custom ? generalData.scholarship.submission_info.email_subject
+      : `${generalData.userProfile.first_name} ${generalData.userProfile.last_name}'s ${generalData.scholarship.name} Application`;
 
-  var timeString;
-  if (hrs < 12)
-    timeString = 'Morning';
-  else if (hrs >= 12 && hrs <= 17)
-    timeString = 'Afternoon';
-  else if (hrs >= 17 && hrs <= 24)
-    timeString = 'Evening';
+    let emailBody = '';
 
-  return timeString;
-}
+    for (const key in sentences) {
+      emailBody += sentences[key][randIndices[key]]
+    }
 
-/**
- * TODO: Make this more dynamic/customized TRY to be DRY.
- */
-export function writeEmail(){
-
-  let email_subject = this.generalData.scholarship.submission_info.email_subject_is_custom ? this.generalData.scholarship.submission_info.email_subject
-    : `${this.generalData.userProfile.first_name} ${this.generalData.userProfile.last_name}'s ${this.generalData.scholarship.name} Application`;
-
-  this.emailBody = `        
-    To: ${this.generalData.scholarship.submission_info.email_address}
+    let emailMessage = `        
+    To: ${generalData.scholarship.submission_info.email_address}
     
     Subject: ${email_subject} 
     
-    Good ${this.timeOfDay},
-  
-    My name is ${this.generalData.userProfile.first_name} ${this.generalData.userProfile.last_name}.
-    This email contains my application for the ${this.generalData.scholarship.name}, please see attached. Thank you for sponsoring this scholarship.
-  
-    Regards,
-    ${this.generalData.userProfile.first_name}`;
+    `+ emailBody;
 
-  this.appMailToLink = `mailto:${this.generalData.scholarship.submission_info.email_address}
+
+
+    let appMailToLink = `mailto:${generalData.scholarship.submission_info.email_address}
     ?&subject=${email_subject}
-    &body=Good ${this.timeOfDay},
-    
-    My name is ${this.generalData.userProfile.first_name} ${this.generalData.userProfile.last_name}.
-    This email contains my application for the ${this.generalData.scholarship.name}, please see attached. Thank you for sponsoring this scholarship.
+    &body=`+ emailBody;
+
+    appMailToLink = encodeURI(appMailToLink);
+
+    return [emailMessage,appMailToLink];
+  }
+
+
+  generateRandomSentences(generalData) {
+    let timeOfDay = this.getTimeOfDay();
+    let sentences = {};
+
+    let openingSentence = [`Good ${timeOfDay},
+  
+    My name is ${generalData.userProfile.first_name} ${generalData.userProfile.last_name}.`,
+
+      `Hello,
+  
+    I hope your ${timeOfDay} is going well. My name is ${generalData.userProfile.first_name} ${generalData.userProfile.last_name}.`,
+    ];
+
+    let middleSentence = [`I am emailing you regarding the ${generalData.scholarship.name}. This email contains my application, please see attached. `,
+      `I am interested in applying for the ${generalData.scholarship.name} and I have attached my application. `,
+      `This email contains my submission for the ${generalData.scholarship.name}, please see attached. `,
+
+    ];
+
+    let closingSentence = [`Thank you for sponsoring this scholarship.
     
     Regards,
-    ${this.generalData.userProfile.first_name}`;
+    ${generalData.userProfile.first_name}`,
 
-  this.appMailToLink = encodeURI(this.appMailToLink);
+      `Thank you for your taking the time to review my application.
+    
+    Kind Regards,
+    ${generalData.userProfile.first_name}  ${generalData.userProfile.last_name}`,
+
+      `Thank you for reviewing my application.
+    
+    Sincerely,
+    ${generalData.userProfile.first_name}  ${generalData.userProfile.last_name}`,
+
+    `Thank you for reviewing my submission.
+    
+    Regards,
+    ${generalData.userProfile.first_name}  ${generalData.userProfile.last_name}`,
+
+      `Thank you for organizing this scholarship.
+    
+    ${generalData.userProfile.first_name}`,
+    ];
+
+    sentences['openingSentence'] = openingSentence;
+    sentences['middleSentence'] = middleSentence;
+    sentences['closingSentence'] = closingSentence;
+
+    return sentences;
+  }
+
 }
-
 

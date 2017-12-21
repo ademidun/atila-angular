@@ -70,6 +70,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
 
   APPLICATION_SUBMISSION_TYPES = [
     'Email',
+    'Physical Mail',
     'Web',
     'Other'
   ];
@@ -455,7 +456,6 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
 
   }
 
-
   initializeLocations(){
     // See createLocations() int edit-scholarship or add-scholarship.component.ts
     for (var index = 0; index < this.scholarship.country.length; index++) {
@@ -491,29 +491,6 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
   saveTableChanges(tableData: any[]){
     this.webForms = tableData;
     this.scholarship.submission_info.web_form_entries= tableData;
-
-  }
-  saveEditScholarship(scholarshipForm: NgForm) {
-
-
-
-    if (scholarshipForm.valid){
-      this.scholarshipService.update(this.scholarship)
-        .subscribe(
-          res =>{
-            this.scholarship = res,
-
-              this.snackBar.open("Scholarship succesfully Saved", '', {
-                duration: 3000
-              });
-          },
-          err => {
-            this.snackBar.open("Error - " + err, '', {
-              duration: 3000
-            });
-          }
-        )
-    }
 
   }
 
@@ -555,8 +532,6 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
     this.predictLocation(this.locationInput, placeResult);
 
   }
-
-
 
   /**
    * Translate the PlaceResult object into an Atila location object, containing only the city, province/state and country.
