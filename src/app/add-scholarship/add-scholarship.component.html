@@ -157,12 +157,43 @@
                             </div>
                             <label for="application_form_type" data-error="Invalid input">What type of form is the application?</label>
                         </div>
+
                         <div class="row">
+                          <div class="input-field">
                             <mat-form-field class="col s12">
-                                <input class="browser-default" type="text" matInput [(ngModel)]="stringDict.eligible_schools" name="eligible_schools" id="eligible_schools" placeholder="Eligible Schools" (change)="stringInputToArray($event)">
-                                <label>Is the scholarship restricted to students attending certain schools?</label>
+                              <mat-select class="col s12" [(ngModel)]="scholarship.submission_info.submission_type" name="submission_type" id="submission_type" placeholder="Submission Type" (ngModelChange)="configureSubmissionInfo($event)" >
+                                <mat-option *ngFor="let type of APPLICATION_SUBMISSION_TYPES" [value]="type">{{type}} </mat-option>
+                              </mat-select>
                             </mat-form-field>
+                          </div>
+                          <label for="submission_type" data-error="Invalid input">How to submit this application?</label>
                         </div>
+
+
+                        <div class="row" *ngIf="scholarship.submission_info.submission_type=='Other'">
+                            <mat-form-field class="col s12">
+                              <input class="browser-default" type="text" matInput [(ngModel)]="scholarship.submission_info.submission_type_other" name="submission_type_other" id="submission_type_other" placeholder="Submission Type (Other)" >
+                            </mat-form-field>
+                          </div>
+
+                        <div class="row" *ngIf="scholarship.submission_info.submission_type=='Email'">
+                          <mat-form-field class="col s12">
+                            <input class="browser-default" type="text" matInput [(ngModel)]="scholarship.submission_info.email_address" name="submission_info_email_address" id="submission_info_email_address" placeholder="Submission Info Email Address" >
+                            <label>What email will this application be sent to?</label>
+                          </mat-form-field>
+
+                          <div class="col s12">
+                            <input class="browser-default" id="email_subject_is_custom" type="checkbox" [(ngModel)]="scholarship.submission_info.email_subject_is_custom" name="email_subject_is_custom">
+                            <label for="email_subject_is_custom" data-error="Invalid input">Use Custom Subject?</label>
+                          </div>
+
+                          <mat-form-field class="col s12">
+                            <input class="browser-default" type="text" matInput [(ngModel)]="scholarship.submission_info.email_subject" [disabled]="!scholarship.submission_info.email_subject_is_custom" name="submission_info_email_subject" id="submission_info_email_subject" placeholder="Submission Info Email Subject" >
+                            <label>What is the email subject?</label>
+                          </mat-form-field>
+
+                        </div>
+
                         <div class="row">
                             <div class="col s12">
                                 <input class="browser-default" id="resume_required" type="checkbox" [(ngModel)]="scholarship.resume_required" name="resume_required">

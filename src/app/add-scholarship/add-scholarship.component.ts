@@ -65,7 +65,14 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
     'PDF',
     'Web',
     'Other'
-  ]
+  ];
+
+
+  APPLICATION_SUBMISSION_TYPES = [
+    'Email',
+    'Web',
+    'Other'
+  ];
 
   LOCATION_TYPES = ['city','province','country']
 
@@ -113,6 +120,8 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
     // Retrieve the user id
     this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
 
+
+
     if(this.scholarshipSlug){
       this.editMode = true;
       this.loadScholarshipDatabase();
@@ -125,201 +134,6 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
   }
 
   ngAfterViewInit() {
-
-  }
-
-  stringInputToArray(event: any){
-
-
-
-
-    this.scholarship[event.target.name] = {};
-    var tempString = event.target.value;
-    tempString = tempString.trim();
-
-    var stringArray: string[] = tempString.split(",");
-    stringArray.forEach(element => {
-      element = element.trim();
-      this.scholarship[event.target.name][element] = element;
-    });
-    for( var key in stringArray){
-
-
-    }
-
-
-
-
-
-    /* for (var i = 0; i < event.srcElement.form.length; i++) {
-
-       event.srcElement.form[i].disabled = true;
-
-     }
-     */
-
-
-
-
-  }
-
-  createLocation(type:string){
-
-    switch (type) {
-      case 'countries':
-      {
-        this.countries.push({
-          'country': ''
-        });
-      }
-        break;
-      case 'provinces':
-      {
-        this.provinces.push({
-          'country': this.activeCountry,
-          'province':''
-        });
-      }
-        break;
-      case 'provinces':
-      {
-        this.provinces.push({
-          'country': this.activeCountry,
-          'province':''
-        });
-      }
-        break;
-
-      case 'cities':
-      {
-        //loop through the provinces objects, looking for the
-        //matching province and extract its country
-        this.cities.push({
-          'country': this.activeProvince.country,
-          'province':this.activeProvince.province,
-          'city': ''
-        });
-
-
-
-
-      }
-        break;
-
-      default:
-        break;
-    }
-
-
-  }
-
-  removeLocation(index:number,type:string, value:string){
-
-
-
-
-
-    this[type].splice(index,1);
-
-    /*switch (type) {
-      case 'countries':
-        {
-          this.countries.splice(index,1);
-        }
-        break;
-      case 'provinces':
-      {
-        this.provinces.splice(index,1);
-      }
-      break;
-      case 'cities':
-      {
-        this.cities.splice(index,1);
-      }
-      break;
-
-      default:
-        break;
-    }
-    */
-
-  }
-
-  editLocation(index:number, type: string, event: any){
-
-    switch (type) {
-      case 'countries':
-      {
-        this.countries[index] = {
-          'country':event.target.value
-        };
-      }
-        break;
-      case 'provinces':
-      {
-        this.provinces[index] = {
-          'country': this.activeCountry,
-          'province':event.target.value
-        };
-      }
-        break;
-
-      case 'cities':
-      {
-        //loop through the provinces objects, looking for the
-        //matching province and extract its country
-
-        this.cities[index] = {
-          'country': this.activeProvince.country,
-          'province':this.activeProvince.province,
-          'city': event.target.value
-        };
-      }
-        break;
-
-      default:
-        break;
-    }
-
-  }
-
-  setActiveLocation(event:any, type:string, value: any[]){
-    //value will be an array of locations, we are looking for the
-    //value where event.value == value[i].type
-    switch (type) {
-      case 'country':
-      {
-        this.activeCountry = event.value;
-      }
-        break;
-
-      case 'province':
-      {
-        this.activeProvince = {
-          'country': '',
-          'province': event.value
-        }
-
-        for (var i = 0; i < this.provinces.length; i++) {
-          var element = this.provinces[i];
-          if(element.province==this.activeProvince.province){
-
-            this.activeProvince.country = element.country;
-            break;
-          }
-        }
-
-      }
-
-        break;
-      default:
-        break;
-    }
-
-  }
-
-  trackByFn(index: any, item: any) {
-    return index;
 
   }
 
@@ -351,6 +165,21 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
       attribute_type : '',
       attribute_value: '',
     };
+
+    this.userProfileService.getById(this.scholarship.owner)
+      .subscribe(
+        user => {
+          this.scholarshipOwner = user;
+          if (this.userId==this.scholarship.owner) {
+            this.isOwner = true;
+          }
+          this.arrayToString();
+
+        },
+        err => {
+
+        },
+      )
 
   }
 
@@ -777,6 +606,13 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
     this.locationPlaceHolder = 'City'
   }
 
+  configureSubmissionInfo() {
+    if(typeof this.scholarship.submission_info.email_subject_is_custom == 'undefined') {
+      this.scholarship.submission_info.email_subject_is_custom = false;
+      this.scholarship.submission_info.email_subject = `${this.scholarshipOwner.first_name} ${this.scholarshipOwner.last_name}'s ${this.scholarship.name} Application`;
+    }
+  }
+
   /**
    * If user presses enter on location button, don't allow the form to submit because we still need to pull the location Data from Google Maps.
    */
@@ -797,6 +633,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
   //   // https://stackoverflow.com/questions/8806673/html-how-to-retain-formatting-in-textarea/22353003#22353003
   //   jQuery('#htmlTextArea').val( jQuery('#htmlsource').html() );
   // }
+
 }
 
 

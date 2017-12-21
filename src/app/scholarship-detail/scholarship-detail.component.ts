@@ -29,7 +29,7 @@ export class ScholarshipDetailComponent implements OnInit {
   scholarshipSlug: string;
   userId: number;
   appId: number;
-  json = JSON; 
+  json = JSON;
 
   public reviews: any[];
   public reviewsLoaded: boolean = false;
@@ -52,7 +52,7 @@ export class ScholarshipDetailComponent implements OnInit {
     // Get the id that was passed in the route
     this.scholarshipSlug = route.snapshot.params['slug'];
     this.userId = parseInt(this.authService.decryptLocalStorage('uid')); // Current user, TODO: Should we use the request user ID?
-    
+
 
   }
 
@@ -71,19 +71,19 @@ export class ScholarshipDetailComponent implements OnInit {
                 this.scholarshipOwner = user;
               },
               err => {
-                
+
               }
             )
           }
 
-        
+
         },
         err => {
-          
+
         },
 
         () => {
-          this.getScholarshipComments(); 
+          this.getScholarshipComments();
         }
       );
 
@@ -94,43 +94,43 @@ export class ScholarshipDetailComponent implements OnInit {
     //create an empty UserComment object
     this.userComment = new Comment(this.userId);
 
-    
+
     //this.scholarshipComments = new Array<Comment>();
 
     let postOperation = this.commentService.getComments(this.scholarship.id,'Scholarship');
 
     postOperation.subscribe(
       res => {
-        
+
         this.scholarshipComments = res.comments;
       }
     )
-    
+
   }
 
   postComment(){
-    
+
     //prevent ScholarshipComments from tracking the changes to UserComment;
     // TODO: Consider using deepcopy of comment
     var commentTemp:Comment = new Comment(this.userId);
     commentTemp['scholarship'] = this.scholarship.id;
     commentTemp.text = this.userComment.text;
     commentTemp.title = this.userComment.title;
-    
+
     let postOperation = this.commentService.create(commentTemp);
 
     postOperation.subscribe(
       res => {
-        
+
         this.scholarshipComments.unshift(res);
       },
 
       err =>{
-        
+
       }
-      
+
     )
-    
+
     this.userComment.text = "";
     this.userComment.title = "";
   }
@@ -149,34 +149,34 @@ export class ScholarshipDetailComponent implements OnInit {
       }
       let postOperation: Observable<any>;
       postOperation = this.applicationService.getOrCreateApp(data);
-  
+
       postOperation
         .subscribe(
         application => {
           this.appId = application.id;
-          
-          
+
+
         },
         error => {
-          
+
         },
         () => {
-  
-          
+
+
           this.router.navigate(['applications', this.appId])
         }
         )
-  
-    
+
+
     }
     else{
       let snackBarRef = this.snackBar.open("Account Required to Apply", 'Create Account', {
         duration: 3000
       });
-  
+
       snackBarRef.onAction().subscribe(
         () => {
-          
+
           this.router.navigate(['login']);
         },
         err =>  {}
@@ -187,17 +187,17 @@ export class ScholarshipDetailComponent implements OnInit {
    //Make this an exported member function of comment
    upVoteComment(userId: number, comment: Comment): Comment{
 
-     
+
 
     if(comment.up_votes_id.includes(userId)){
 
-        
+
         return comment;
     }
     else{
         this['user_already_upvoted'] = true;
         comment.up_votes_count = comment.up_votes_id.push(userId);
-        
+
         return comment.up_votes_count;
     }
   }

@@ -26,7 +26,7 @@ export class ScholarshipsListComponent implements OnInit {
   userId: string;
   contentFetched: boolean = false;
   sortVal = 1;
-  isLoading = false;
+  isLoading = true;
   userProfile: UserProfile;
 
 
@@ -76,23 +76,24 @@ export class ScholarshipsListComponent implements OnInit {
   getScholarshipPreview(page: number = 1){
     if (typeof this.form_data != 'undefined') {
 
-      this.isLoading = true;
       this.scholarshipService.getPaginatedscholarships(this.form_data, page)
       .subscribe(
         res => {
           this.saveScholarships(res);
           this.contentFetched = true;
+          this.isLoading = false;
         },
         error => {
 
           this.contentFetched = false;
         },
-        () => this.isLoading = false,
+        () => {},
       );
     }
 
     if(!this.scholarships){
       this.contentFetched = false;
+      this.isLoading = false;
     }
   }
 

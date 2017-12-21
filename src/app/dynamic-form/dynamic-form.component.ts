@@ -373,10 +373,13 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
    */
   writeEmail(){
 
-    this.emailBody = `        
+    let email_subject = this.generalData.scholarship.submission_info.email_subject_is_custom ? this.generalData.scholarship.submission_info.email_subject
+      : `${this.generalData.userProfile.first_name} ${this.generalData.userProfile.last_name}'s ${this.generalData.scholarship.name} Application`;
+
+      this.emailBody = `        
     To: ${this.generalData.scholarship.submission_info.email_address}
     
-    Subject: ${this.generalData.userProfile.first_name} ${this.generalData.userProfile.last_name}'s ${this.generalData.scholarship.name} Application
+    Subject: ${email_subject} 
     
     Good ${this.timeOfDay},
   
@@ -387,7 +390,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     ${this.generalData.userProfile.first_name}`;
 
     this.appMailToLink = `mailto:${this.generalData.scholarship.submission_info.email_address}
-    ?&subject=${this.generalData.userProfile.first_name} ${this.generalData.userProfile.last_name}'s ${this.generalData.scholarship.name} Application
+    ?&subject=${email_subject}
     &body=Good ${this.timeOfDay},
     
     My name is ${this.generalData.userProfile.first_name} ${this.generalData.userProfile.last_name}.
