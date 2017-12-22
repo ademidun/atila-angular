@@ -1,6 +1,5 @@
 <div>
     <form (ngSubmit)="onSubmit()" [formGroup]="form">
-      {{myJSON.stringify(questions)}}
    <div *ngIf="questions.length!=0" >
     <h4>Specific Info</h4>
       <div *ngFor="let question of questions" class="form-row">

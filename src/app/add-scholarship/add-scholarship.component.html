@@ -186,10 +186,12 @@
                             <input class="browser-default" id="email_subject_is_custom" type="checkbox" [(ngModel)]="scholarship.submission_info.email_subject_is_custom" name="email_subject_is_custom">
                             <label for="email_subject_is_custom" data-error="Invalid input">Use Custom Subject?</label>
                           </div>
-
+                          <p style="font-size: smaller">
+                            Default subject is currently selected. Using each applicant's name as seen below:
+                          </p>
                           <mat-form-field class="col s12">
-                            <input class="browser-default" type="text" matInput [(ngModel)]="scholarship.submission_info.email_subject" [disabled]="!scholarship.submission_info.email_subject_is_custom" name="submission_info_email_subject" id="submission_info_email_subject" placeholder="Submission Info Email Subject" >
                             <label>What is the email subject?</label>
+                            <input class="browser-default" type="text" matInput [(ngModel)]="scholarship.submission_info.email_subject" [disabled]="!scholarship.submission_info.email_subject_is_custom" name="submission_info_email_subject" id="submission_info_email_subject" placeholder="Submission Info Email Subject" >
                           </mat-form-field>
 
                         </div>
