@@ -14,6 +14,7 @@ export class Scholarship {
     funding_amount?: number;
     funding_type?: string[];
     id?: number;
+    img_url?: any;
     is_automated?: boolean;
     name?: string;
     number_available_scholarships?: number;

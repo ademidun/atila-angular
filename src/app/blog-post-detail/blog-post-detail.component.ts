@@ -13,7 +13,7 @@ import { CommentService } from '../_services/comment.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { NgZone } from '@angular/core';
-import { Title }     from '@angular/platform-browser';
+import {Meta, Title} from '@angular/platform-browser';
 
 import { AuthService } from "../_services/auth.service";
 import {MatSnackBar} from '@angular/material';
@@ -40,7 +40,7 @@ export class BlogPostDetailComponent implements OnInit {
     public commentService: CommentService,
     public blogPostService: BlogPostService,
     public snackBar: MatSnackBar,
-
+    public metaService: Meta,
     public authService: AuthService,
     ) {
       this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
@@ -51,6 +51,8 @@ export class BlogPostDetailComponent implements OnInit {
     this.blogPostService.getBySlug(this.route.snapshot.params['username'],this.route.snapshot.params['slug']).subscribe(
       res => {
         this.blogPost = (<any>res).blog;
+
+        this.updateMeta();
         this.titleService.setTitle(this.blogPost.title);
 
         this.commentService.getComments(this.blogPost.id,'BlogPost').subscribe(
@@ -121,6 +123,88 @@ export class BlogPostDetailComponent implements OnInit {
   }
   trackByFn(index: any, item: any) {
     return index;
+
+  }
+
+  updateMeta(){
+
+    const fullUrl = "https://atila.ca/blog/"+this.route.snapshot.params['username']+"/"+this.route.snapshot.params['slug'];
+
+    this.metaService.updateTag({
+        content: this.blogPost.title
+      },
+      "property='og:title'"
+    );
+
+    this.metaService.updateTag({
+        content: this.blogPost.description
+      },
+      "property='og:description'"
+    );
+    this.metaService.updateTag({
+        content: this.blogPost.description
+      },
+      "name='Description'"
+    );
+
+    this.metaService.updateTag({
+        content: this.blogPost.header_image_url
+      },
+      "property='og:image'"
+    );
+
+    this.metaService.updateTag({
+        content: fullUrl
+      },
+      "property='og:url'"
+    );
+
+    this.metaService.updateTag({
+        content: this.blogPost.title
+      },
+      "name='twitter:title'"
+    );
+
+    this.metaService.updateTag({
+        content: this.blogPost.description
+      },
+      "name='twitter:description'"
+    );
+
+    this.metaService.updateTag({
+        content: this.blogPost.header_image_url
+      },
+      "name='twitter:image'"
+    );
+    this.metaService.updateTag({
+        content: fullUrl
+      },
+      "name='twitter:url'"
+    );
+
+
+    this.metaService.updateTag({
+        content: this.blogPost.title
+      },
+      "itemprop='name'"
+    );
+
+    this.metaService.updateTag({
+        content: this.blogPost.description
+      },
+      "itemprop='description'"
+    );
+
+    this.metaService.updateTag({
+        content: this.blogPost.header_image_url
+      },
+      "itemprop='image'"
+    );
+
+    console.log('fullUrl',fullUrl);
+    console.log('this.route',this.route);
+    console.log('this.route.snapshot',this.route.snapshot);
+    console.log('document.location',document.location);
 
   }
 

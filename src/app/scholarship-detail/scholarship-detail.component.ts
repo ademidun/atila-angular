@@ -13,7 +13,7 @@ import { UserProfileService } from '../_services/user-profile.service';
 
 import { CommentService } from '../_services/comment.service';
 import { AuthService } from "../_services/auth.service";
-import { Title }     from '@angular/platform-browser';
+import {Meta, Title} from '@angular/platform-browser';
 
 
 @Component({
@@ -48,6 +48,7 @@ export class ScholarshipDetailComponent implements OnInit {
     public titleService: Title,
     public commentService: CommentService,
     public authService: AuthService,
+    public metaService: Meta,
   ) {
     // Get the id that was passed in the route
     this.scholarshipSlug = route.snapshot.params['slug'];
@@ -63,6 +64,7 @@ export class ScholarshipDetailComponent implements OnInit {
         scholarship => {
           this.scholarship = scholarship;
           this.titleService.setTitle('Atila - ' + this.scholarship.name);
+          this.updateMeta();
           // Get the user profile of the scholarship owner
           if (this.scholarship.owner){
             this.userProfileService.getById(scholarship.owner)
@@ -202,4 +204,85 @@ export class ScholarshipDetailComponent implements OnInit {
     }
   }
 
+  updateMeta(){
+
+    const fullUrl = "https://atila.ca/scholarship-detail/"+this.scholarshipSlug;
+
+    this.metaService.updateTag({
+        content: this.scholarship.name
+      },
+      "property='og:title'"
+    );
+
+    this.metaService.updateTag({
+        content: this.scholarship.description
+      },
+      "property='og:description'"
+    );
+
+    this.metaService.updateTag({
+        content: this.scholarship.description
+      },
+      "name='Description'"
+    );
+
+    this.metaService.updateTag({
+        content: this.scholarship.scholarship_img_url
+      },
+      "property='og:image'"
+    );
+
+    this.metaService.updateTag({
+        content: fullUrl
+      },
+      "property='og:url'"
+    );
+
+
+    this.metaService.updateTag({
+        content: this.scholarship.name
+      },
+      "name='twitter:title'"
+    );
+
+    this.metaService.updateTag({
+        content: this.scholarship.description
+      },
+      "name='twitter:description'"
+    );
+
+    this.metaService.updateTag({
+        content: this.scholarship.img_url
+      },
+      "name='twitter:image'"
+    );
+    this.metaService.updateTag({
+        content: fullUrl
+      },
+      "name='twitter:url'"
+    );
+
+
+    this.metaService.updateTag({
+        content: this.scholarship.name
+      },
+      "itemprop='name'"
+    );
+
+    this.metaService.updateTag({
+        content: this.scholarship.description
+      },
+      "itemprop='description'"
+    );
+
+    this.metaService.updateTag({
+        content: this.scholarship.scholarship_img_url
+      },
+      "itemprop='image'"
+    );
+
+    console.log('fullUrl',fullUrl);
+    console.log('document.location',document.location);
+
+  }
 }
