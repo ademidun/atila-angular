@@ -128,7 +128,7 @@ export class BlogPostDetailComponent implements OnInit {
 
   updateMeta(){
 
-    const fullUrl = "https://atila.ca/blog/"+this.route.snapshot.params['username']+"/"+this.route.snapshot.params['slug'];
+    const fullUrl = document.location.href;
 
     this.metaService.updateTag({
         content: this.blogPost.title

@@ -206,7 +206,7 @@ export class ScholarshipDetailComponent implements OnInit {
 
   updateMeta(){
 
-    const fullUrl = "https://atila.ca/scholarship-detail/"+this.scholarshipSlug;
+    const fullUrl = document.location.href;
 
     this.metaService.updateTag({
         content: this.scholarship.name
