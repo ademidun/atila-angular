@@ -2,13 +2,21 @@
   <div class="card">
     <div class="row">
       <div class="card-content">
-      
+
       <form #profileForm="ngForm" (ngSubmit)="saveProfile(profileForm)" class="col s12">
         <div [ngClass]='{hidden: !profileInfo}'>
           <h4>Edit <span *ngIf="userProfile.first_name">{{userProfile.first_name}}'s</span> Profile</h4>
           <span>
           <a [routerLink]="['../profile', userProfile.username]" >View Profile</a>
           </span>
+
+          <div *ngIf="!userProfile.is_verified">
+            <p> <br>
+              Your account is unverified. <a class="waves-effect waves-light btn btn-link" (click)="verifyAccount()" style="margin-bottom: 3%">Verify Account</a>
+            </p>
+          </div>
+
+
           <div class="row">
             <mat-form-field class="col s6">
               <input class="browser-default" matInput id="first_name" type="text" required minlength="2" placeholder="First name"
@@ -83,7 +91,7 @@
           </div>
           <div class="row">
             <div class="input-field">
-              <mat-select class="col s12" [(ngModel)]="userProfile.education_level"  name="education_level"  id="education_level" multiple=true placeholder="Education Type" required >                
+              <mat-select class="col s12" [(ngModel)]="userProfile.education_level"  name="education_level"  id="education_level" multiple=true placeholder="Education Type" required >
                 <mat-option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </mat-option>
               </mat-select>
             </div>
@@ -116,7 +124,7 @@
                     <input class="browser-default" id="resume" type="file" placeholder="Resume"
                       name="resume" (change)="fileChangeEvent($event)">
                   </div>
-  
+
                   <div *ngIf="userProfile.resume" class="col s3">
                       <a target="_blank" href="{{userProfile.resume}}"> View Resume </a>
                   </div>
@@ -125,19 +133,19 @@
                      <input class="browser-default" id="transcript" type="file" placeholder="Transcript"
                        name="transcript" (change)="fileChangeEvent($event)">
                    </div>
-  
+
                   <div *ngIf="userProfile.transcript" class="col s3">
                       <a target="_blank" href="{{userProfile.transcript}}"> View Transcript </a>
                   </div>
                 </div>
-  
+
               <div class="row">
                   <div class="col s3">
                      <label>Upload Reference Letter </label>
                     <input class="browser-default" id="reference_letter" type="file" placeholder="Reference Letter"
                       name="reference_letter" (change)="fileChangeEvent($event)">
                   </div>
-  
+
                   <div *ngIf="userProfile.reference_letter" class="col s3">
                       <a target="_blank" href="{{userProfile.reference_letter}}"> View Reference Letter </a>
                   </div>
@@ -146,7 +154,7 @@
                      <input class="browser-default" id="reference_letter_alternate" type="file" placeholder="Alternate Reference Letter"
                        name="reference_letter_alternate" (change)="fileChangeEvent($event)">
                    </div>
-  
+
                   <div *ngIf="userProfile.reference_letter_alternate" class="col s3">
                       <a target="_blank" href="{{userProfile.reference_letter_alternate}}"> View Alternate Reference Letter </a>
                   </div>
@@ -165,7 +173,7 @@
                   <p>You can answer these questions later. But remember, <b>{{documentScholarshipsPercent}}%</b> of scholarships ask at least one of these questions.
                     <br>So the more questions you answer, the more scholarships we can automate for you.</p>
                     <br><a >Need Help Answering these Questions?</a>
-              </div>  
+              </div>
           <div class="row">
             <label> Describe your school related activities and identify your significant contributions both to school and
                 community.(500 Words or less) </label><br>
@@ -182,9 +190,9 @@
           <div class="row">
             <a class="waves-effect waves-light btn left" (click)="switchPage()">Back</a>
             <button type="submit" class="btn btn-success right">Save Profile</button>
-          </div> 
+          </div>
         </div>
-        
+
         </form>
       </div>
     </div>

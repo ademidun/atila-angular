@@ -95,6 +95,14 @@ export class UserProfileService {
         .catch(this.handleError);
     }
 
+    refreshVerificationToken(username: string): Observable<any>{
+
+    return this.http.get(`${this.userProfileEndpoint}refresh-verification-token/?username=${username}`)
+      .map(res=><any>res)
+      .catch(err=>err);
+
+  }
+
     public extractData(res: HttpResponse<any>) {
         let body = res.body;
 

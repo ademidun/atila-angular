@@ -238,6 +238,16 @@ showSnackBar(text: string, action = '', duration: number) {
   });
 }
 
+  verifyAccount(){
+    this.userProfileService.refreshVerificationToken(this.userProfile.username)
+      .subscribe(
+        res =>  {
+          console.log('userProfileService.refreshVerificationToken res:', res);
+        },
+              err => console.error(err),
+      )
+  }
+
 }
 
 
