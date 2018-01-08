@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="card">
+    <div class="row">
+      <div class="card-content">
+          <div >
+            <h1 style="font-size: x-large;"> Verify Your Account </h1>
+            <div class="row">
+              <mat-form-field class="col s12">
+                <input matInput class="browser-default" id="username" type="text"
+                       required [(ngModel)]="model.username" name="username" placeholder="Username">
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field class="col s12">
+                <input matInput class="browser-default" id="token" required
+                       [(ngModel)]="model.token" name="token" placeholder="token" >
+              </mat-form-field>
+            </div>
+
+            <div class="col s10  offset-s2" style="margin-bottom: 3%">
+              <a class="waves-effect waves-light btn" (click)="verifyToken()">Verify Token</a>
+            </div>
+
+            <div *ngIf="verificationResponse" class="col s12 ">
+              <p style="color: green" *ngIf="verificationResponse.isValidToken"> <br>
+                Your account has been successfully verified 😄.
+              </p>
+
+              <p style="color: red" *ngIf="!verificationResponse.isValidToken"> <br>
+                Invalid username/token combination.
+              </p>
+            </div>
+
+          </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>

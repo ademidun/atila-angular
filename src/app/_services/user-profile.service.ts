@@ -101,7 +101,13 @@ export class UserProfileService {
       .map(res=><any>res)
       .catch(err=>err);
 
-  }
+    }
+
+    verifyToken(username, token) {
+      return this.http.get(`${this.userProfileEndpoint}verify-token/?username=${username}&token=${token}`)
+        .map(res=><any>res)
+        .catch(err=><any>err);
+    }
 
     public extractData(res: HttpResponse<any>) {
         let body = res.body;

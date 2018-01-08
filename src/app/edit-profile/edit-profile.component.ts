@@ -57,6 +57,7 @@ EDUCATION_FIELD = [
   formFile: File;
   formFileEvent: any;
   uploadFile: UploadFile;
+  verificationResponse: any;
   locationData = {
     'city': '',
     'province': '',
@@ -243,6 +244,7 @@ showSnackBar(text: string, action = '', duration: number) {
       .subscribe(
         res =>  {
           console.log('userProfileService.refreshVerificationToken res:', res);
+          this.verificationResponse = res.message;
         },
               err => console.error(err),
       )

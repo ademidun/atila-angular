@@ -12,7 +12,15 @@
 
           <div *ngIf="!userProfile.is_verified">
             <p> <br>
-              Your account is unverified. <a class="waves-effect waves-light btn btn-link" (click)="verifyAccount()" style="margin-bottom: 3%">Verify Account</a>
+              Your account is <span style="color: red">unverified</span> 😢. <a class="waves-effect waves-light btn btn-link" (click)="verifyAccount()" style="margin-bottom: 3%">Verify Account</a>
+              <br>
+              {{verificationResponse}}
+            </p>
+          </div>
+
+          <div *ngIf="userProfile.is_verified">
+            <p> <br>
+            Your account is <span style="color: green">verified</span> 😄.
             </p>
           </div>
 

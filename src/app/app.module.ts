@@ -66,6 +66,7 @@ import {AngularFireModule } from 'angularfire2';
 import {environment} from '../environments/environment';
 import { GoogleAnalyticsEventsService } from './_services/google-analytics-events.service';
 import { TeamComponent } from './team/team.component';
+import { VerifyComponent } from './verify/verify.component';
 
 @NgModule({
   declarations: [
@@ -99,7 +100,8 @@ import { TeamComponent } from './team/team.component';
     HtmlEditorComponent,
     BlogPostDetailComponent,
     SafeHtmlPipe,
-    TeamComponent
+    TeamComponent,
+    VerifyComponent
   ],
   imports: [
     NgbModule.forRoot(),
