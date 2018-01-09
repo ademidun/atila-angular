@@ -97,7 +97,6 @@ export class AppDetailComponent implements OnInit {
     postOperation
       .subscribe(
       res => {
-        //console.log('this.applicationService.getAppData  this.userId, res:', this.userId, res, this);
         this.userProfile = res.userProfile;
 
         if(this.userId!=this.userProfile.user) {

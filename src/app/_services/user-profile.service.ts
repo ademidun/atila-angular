@@ -33,7 +33,7 @@ export class UserProfileService {
 
     return this.http.post(this.userEndpoint, data)
       .map(this.extractData)
-      .catch(this.handleError);
+      .catch(err=>Observable.throw(err));
   }
 
     getById(id: number): Observable<UserProfile> {

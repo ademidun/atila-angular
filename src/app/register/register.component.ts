@@ -25,6 +25,8 @@ export class RegisterComponent implements OnInit {
 
   pageNo: number =1;
 
+  registrationResponse: any;
+
   EDUCATION_LEVEL = [
     'Secondary School',
     'University',
@@ -84,10 +86,23 @@ userProfile = new UserProfile();
           this.authService.encryptlocalStorage('token', data.token);
           // this.cookieService.putObject('userId', data.id);
           this.authService.encryptlocalStorage('uid',data.id);
-          this.router.navigate(['scholarships-list']);
+
+          this.registrationResponse = true;
+
+
+          setTimeout(() => {
+            this.router.navigate(['scholarships-list']);
+          }, 5000);
         },
         err => {
-          this.showSnackBar(err, 3000);
+          if(err.error && typeof err.error.error ) {
+
+            this.showSnackBar(err.error.error, 3000);
+          }
+          else {
+            this.showSnackBar(err.error, 3000);
+          }
+
         }
       )
     } else {

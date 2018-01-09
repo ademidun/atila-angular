@@ -27,7 +27,6 @@ export class VerifyComponent implements OnInit {
       this.userProfileService.verifyToken(this.model.username, this.model.token)
         .subscribe(
           res => {
-            console.log('userProfileService.refreshVerificationToken res:', res);
             this.verificationResponse = {};
             this.verificationResponse.isValidToken = res.isValidToken;
 
@@ -36,7 +35,6 @@ export class VerifyComponent implements OnInit {
             this.verificationResponse = {};
 
             this.verificationResponse.isValidToken = false;
-            console.log('err:', err);
           }
         )
     }

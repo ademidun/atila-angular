@@ -26,8 +26,9 @@
                 Your account has been successfully verified 😄.
               </p>
 
-              <p style="color: red" *ngIf="!verificationResponse.isValidToken"> <br>
-                Invalid username/token combination.
+              <p *ngIf="!verificationResponse.isValidToken"> <br>
+                <span style="color: red">Invalid username/token combination.</span> <br>
+                Visit <a [routerLink]="['/edit-profile']">edit profile</a> to get a new token.
               </p>
             </div>
 

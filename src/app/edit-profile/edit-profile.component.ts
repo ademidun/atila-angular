@@ -18,6 +18,7 @@ import { AuthService } from "../_services/auth.service";
 import { MyFirebaseService } from "../_services/myfirebase.service";
 
 import * as firebase from "firebase";
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-edit-profile',
@@ -55,6 +56,7 @@ EDUCATION_FIELD = [
   userName: string;
 
   formFile: File;
+  environment = environment;
   formFileEvent: any;
   uploadFile: UploadFile;
   verificationResponse: any;
@@ -243,7 +245,6 @@ showSnackBar(text: string, action = '', duration: number) {
     this.userProfileService.refreshVerificationToken(this.userProfile.username)
       .subscribe(
         res =>  {
-          console.log('userProfileService.refreshVerificationToken res:', res);
           this.verificationResponse = res.message;
         },
               err => console.error(err),

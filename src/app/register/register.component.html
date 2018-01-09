@@ -74,15 +74,25 @@
                   </mat-select>
                 </mat-form-field>
                 </div>
+              <div class="row">
 
-                <div class="col s12 button-container">
-                    <a class="waves-effect waves-light btn left" (click)="prevPage()">Previous</a>
-                  </div>
-                <div class="col s12 button-container">
-                    <a class="waves-effect waves-light btn right" (click)="registerUser(registerForm)">Register</a>
-                  </div>
+                <p *ngIf="registrationResponse" style="font-size: large; margin-bottom: 1%; color: green">
+                  Registration successful 😄. Your verification email has been sent, please check your inbox (or your spam folder 🙄).
+                  <br>
+                  You will be redirected in 5 seconds, please wait.
+                </p>
 
-            </div>
+                <div class="col s6 button-container">
+                  <a class="waves-effect waves-light btn left" (click)="prevPage()">Previous</a>
+                </div>
+                <div class="col s6 button-container">
+                  <a class="waves-effect waves-light btn right" (click)="registerUser(registerForm)">Register</a>
+                </div>
+              </div>
+
+
+
+                </div>
 
           </form>
 

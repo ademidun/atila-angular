@@ -215,7 +215,6 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
       if(documentUrl != "") {
 
         this.generalData.application.document_urls[documentKey] = documentUrl;
-        //console.log('results[i].getAttribute("href")',results[i].getAttribute("href"));
       }
     }
 

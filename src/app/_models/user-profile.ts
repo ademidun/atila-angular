@@ -1,4 +1,4 @@
-export class UserProfile {    
+export class UserProfile {
         constructor(
             public city?: any,
             public country?: any,
@@ -7,7 +7,8 @@ export class UserProfile {
             public education_level?: string[],
             public education_field?: string[],
             public email?: any,
-            public is_sponsor?:any, 
+            public is_sponsor?:any,
+            public is_verified?:any,
             public last_name?: string,
             public postal_code?: string,
             public province?: any,
@@ -24,7 +25,8 @@ export class UserProfile {
             public academic_career_goals?:any,
             public secondary_school?:any,
             public post_secondary_school?:any,
-            
-            
+            public verification_token?:any,
+
+
         ) { }
     }
