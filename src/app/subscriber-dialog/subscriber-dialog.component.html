@@ -1,3 +1,14 @@
-<p>
-  subscriber-dialog works!
-</p>
+<h1 mat-dialog-title>Hey {{subscriber.email}}</h1>
+<div mat-dialog-content>
+  <p>Thanks for subscribing. What's your name? (optional)</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="subscriber.first_name" placeholder="First Name">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="subscriber.last_name" placeholder="Last Name">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="subscriber" >No Thanks</button>
+  <button mat-button [mat-dialog-close]="subscriber" >Ok</button>
+</div>

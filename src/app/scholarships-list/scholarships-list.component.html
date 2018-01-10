@@ -10,6 +10,26 @@
           <h2 *ngIf="scholarship_count==0" class="scholarship-preview-count"> Unfortunately, you currently qualify for <strong>{{scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and <strong>{{total_funding}}</strong> in funding</span>.</h2>
 
         </div>
+
+        <div class="row center" style="text-align: center;margin-bottom: 0px;">
+          <p style="font-size: medium" class="col s6">Get updates on new scholarships, blog posts and new product features.
+
+            <span *ngIf="subscriber.response" style="color: green">
+                  <br>
+                  {{subscriber.response}}
+                </span>
+          </p>
+
+          <mat-form-field class="browser-default col s3 ">
+            <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
+            <input matInput type="email" class="form-control" style="padding-bottom: 0; margin-bottom: 0"  name="email" id="emailid"
+                   placeholder="Email Address" email [(ngModel)]="subscriber.email" >
+          </mat-form-field>
+          <a class="waves-effect waves-light btn browser-default col s2" style="background-color:#1976d2; " (click)="addSubscriber()">Submit</a>
+
+
+        </div>
+
         <div class="row">
             <p class="text-align-center col s-3"><i class="material-icons automate-tag">tag_faces</i> = Automated scholarships.</p>
             <p class="text-align-center col s-3"><mat-icon svgIcon="plus-one"></mat-icon> = One-Click Scholarships.</p>

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { UploadFile } from '../_models/upload-file';
 import * as firebase from "firebase";
 import {environment} from '../../environments/environment';
-
+import { AngularFireDatabase} from 'angularfire2/database';
 
 @Injectable()
 export class MyFirebaseService {
@@ -14,11 +14,28 @@ export class MyFirebaseService {
 
   public apiKeyUrl = environment.apiUrl + 'api-keys/';
   public saveFirebaseUrl = environment.apiUrl + 'save-firebase/';
-  constructor(public http: Http) {
+  constructor(public http: Http,
+              private db: AngularFireDatabase) {
 
   }
 
+  addSubscriber(subscriber) {
+    if (subscriber) {
+      subscriber.timestamp = new Date().getTime();
 
+    }
+    return this.db.list('email_subscribers').push(subscriber);
+
+  }
+
+  saveUserAnalytics(user, path?) {
+
+    if (user) {
+      user.timestamp = new Date().getTime();
+    }
+    const customPath = path ? 'user_analytics/'+ path  : 'user_analytics/general';
+    return this.db.list(customPath).push(user);
+  }
 
   //reference: https://angularfirebase.com/lessons/angular-file-uploads-to-firebase-storage/
   uploadFile(uploadFile: UploadFile, uploadInstructions: any): Observable<any>{

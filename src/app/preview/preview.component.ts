@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy, HostListener} from '@angular/core';
 import {NgForm} from '@angular/forms';
 
 import { ScholarshipService } from "../_services/scholarship.service";
@@ -8,6 +8,10 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {NgModel} from '@angular/forms';
 import { GooglePlaceDirective } from "../_directives/google-place.directive";
 import {GoogleAnalyticsEventsService} from '../_services/google-analytics-events.service';
+import {MatDialog} from '@angular/material';
+import {SubscriberDialogComponent} from '../subscriber-dialog/subscriber-dialog.component';
+import {UserProfileService} from '../_services/user-profile.service';
+import {MyFirebaseService} from '../_services/myfirebase.service';
 
 //import 'googlemaps';
 export class PreviewResponse {
@@ -76,10 +80,13 @@ export class PreviewComponent implements OnInit, OnDestroy {
     * If the Google Places API is not working, only ask for city.
     */
     public locationPlaceHolder = 'City, Province/State or Country';
+    public subscriber: any = {};
    constructor(
     public scholarshipService: ScholarshipService,
+    public firebaseService: MyFirebaseService,
     public router: Router,
     public googleAnalyticsEventService: GoogleAnalyticsEventsService,
+    public dialog: MatDialog,
     ) {
 
     }
@@ -87,7 +94,14 @@ export class PreviewComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     document.body.style.backgroundColor = '#194F87';
+    // https://stackoverflow.com/questions/391979/how-to-get-clients-ip-address-using-javascript-only
+    $.getJSON('http://freegeoip.net/json/?callback=?',
+        data => {
+          this.subscriber.geo_ip = data;
+    });
+
     // console.log('You seem like a good fit for the Atila team!','https://atila.ca/team');
+
   }
 
   ngOnDestroy() {
@@ -159,8 +173,19 @@ export class PreviewComponent implements OnInit, OnDestroy {
     this.model.location.name = this.model.location.city; //ensures that our object matches the Atila Location API
 
     this.diagnostic = JSON.stringify(this.model);
+
+    this.subscriber.action = 'preview_scholarship';
+    this.subscriber.preview_choices = this.model;
+    this.firebaseService.saveUserAnalytics(this.subscriber,'preview_scholarship')
+      .then(res => {
+        },
+        err => console.log('save UA failed', err));
+
     // TODO What's the proper way of saving form values with Google Analytics
+
+
     this.googleAnalyticsEventService.emitEvent("userCategory", "previewAction", JSON.stringify(this.model.location), 1)
+
 
     this.scholarshipService.setScholarshipPreviewForm(this.model).then(
       res => this.router.navigate(['scholarships-list']))  //use promise to ensure that form is saved to Service before navigating away
@@ -169,7 +194,23 @@ export class PreviewComponent implements OnInit, OnDestroy {
 }
 
   addSubscriber() {
+    this.subscriber.utm_source =       'preview_scholarships';
 
+    let dialogRef = this.dialog.open(SubscriberDialogComponent, {
+      width: '300px',
+      data: this.subscriber,
+    });
+
+    dialogRef.afterClosed().subscribe(
+      result => {
+      this.subscriber = result;
+      this.firebaseService.addSubscriber(this.subscriber)
+          .then(res => {
+              this.subscriber.response ='Successfully subscribed to Atila 😄.';
+            },
+            err => console.log('addSubscriber failed', err));
+    });
   }
+
 
 }

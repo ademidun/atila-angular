@@ -7,19 +7,15 @@ import { Scholarship } from '../_models/scholarship';
 import { Router } from '@angular/router';
 import { AuthService } from "../_services/auth.service";
 import {UserProfile} from '../_models/user-profile';
+import {SubscriberDialogComponent} from '../subscriber-dialog/subscriber-dialog.component';
+import {MatDialog} from '@angular/material';
+import {MyFirebaseService} from '../_services/myfirebase.service';
 @Component({
   selector: 'app-scholarships-list',
   templateUrl: './scholarships-list.component.html',
   styleUrls: ['./scholarships-list.component.scss']
 })
 export class ScholarshipsListComponent implements OnInit {
-
-  constructor(
-    public scholarshipService: ScholarshipService,
-    public userProfileService: UserProfileService,
-    public router: Router,
-    public authService: AuthService,
-  ) { }
 
   form_data: Object;
   isLoggedIn: boolean;
@@ -38,6 +34,16 @@ export class ScholarshipsListComponent implements OnInit {
   pageNo: number = 1;
   paginationLen: number = 12
   pageLen: number;
+  subscriber: any = {};
+  constructor(
+    public scholarshipService: ScholarshipService,
+    public userProfileService: UserProfileService,
+    public router: Router,
+    public authService: AuthService,
+    public dialog: MatDialog,
+    public firebaseService: MyFirebaseService,
+  ) { }
+
 
 
 
@@ -121,5 +127,31 @@ export class ScholarshipsListComponent implements OnInit {
     this.pageNo--;
     this.getScholarshipPreview(this.pageNo);
     window.scrollTo(0, 0);
+  }
+
+
+  addSubscriber() {
+    this.subscriber.utm_source =       'scholarships_list';
+    let dialogRef = this.dialog.open(SubscriberDialogComponent, {
+      width: '300px',
+      data: this.subscriber,
+    });
+
+
+    dialogRef.afterClosed().subscribe(
+      result => {
+        this.subscriber = result;
+        $.getJSON('http://freegeoip.net/json/?callback=?',
+          data => {
+            this.subscriber.geo_ip = data;
+
+            this.firebaseService.addSubscriber(this.subscriber)
+              .then(res => {
+                  this.subscriber.response ='Successfully subscribed to Atila 😄.';
+                },
+                err => console.log('addSubscriber failed', err));
+          });
+
+      });
   }
 }

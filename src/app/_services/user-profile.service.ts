@@ -109,6 +109,13 @@ export class UserProfileService {
         .catch(err=><any>err);
     }
 
+
+    addSubscriber(subscriber: any) {
+      return this.http.post(`${this.userProfileEndpoint}add-subscriber/`, subscriber)
+        .map(res=>res)
+        .catch(err=>Observable.throw(err));
+    }
+
     public extractData(res: HttpResponse<any>) {
         let body = res.body;
 

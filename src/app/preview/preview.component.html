@@ -37,12 +37,18 @@
               </div>
               <br>
               <div class="row center" style="text-align: center;margin-bottom: 0px;">
-                <p style="color: white; font-size: medium" class="col s6">Get updates on new scholarships, blog posts and new product features. </p>
+                <p style="color: white; font-size: medium" class="col s6">Get updates on new scholarships, blog posts and new product features.
+
+                <span *ngIf="subscriber.response" style="color: greenyellow">
+                  <br>
+                  {{subscriber.response}}
+                </span>
+                </p>
 
                 <mat-form-field class="browser-default col s3 ">
                   <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
                   <input matInput type="email" class="form-control" style="padding-bottom: 0; margin-bottom: 0"  name="email" id="emailid"
-                         placeholder="Email Address" email>
+                         placeholder="Email Address" email [(ngModel)]="subscriber.email" >
                 </mat-form-field>
                 <a class="waves-effect waves-light btn browser-default col s2" style="background-color:#1976d2; " (click)="addSubscriber()">Submit</a>
 

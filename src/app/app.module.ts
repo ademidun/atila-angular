@@ -68,6 +68,7 @@ import { GoogleAnalyticsEventsService } from './_services/google-analytics-event
 import { TeamComponent } from './team/team.component';
 import { VerifyComponent } from './verify/verify.component';
 import { SubscriberDialogComponent } from './subscriber-dialog/subscriber-dialog.component';
+import {AngularFireDatabase, AngularFireDatabaseModule} from 'angularfire2/database';
 
 @NgModule({
   declarations: [
@@ -109,6 +110,7 @@ import { SubscriberDialogComponent } from './subscriber-dialog/subscriber-dialog
     NgbModule.forRoot(),
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
@@ -153,6 +155,7 @@ import { SubscriberDialogComponent } from './subscriber-dialog/subscriber-dialog
   bootstrap: [AppComponent],
   entryComponents: [
     AddQuestionModalComponent,
+    SubscriberDialogComponent,
   ]
 })
 export class AppModule {

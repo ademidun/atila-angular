@@ -81,14 +81,6 @@ getBySlug(slug: string) {
     .catch(this.handleError);
 }
 
-  addSubscriber(subscriber: any) {
-    return this.http.post(`${environment.apiUrl}helpers/add-subscriber/`, subscriber)
-      .map(res=>res)
-      .catch(err=>Observable.throw(err));
-  }
-
-
-
   public extractData(res: HttpResponse<any>) {
 
 
