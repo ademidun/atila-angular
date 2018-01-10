@@ -50,7 +50,9 @@ locationData = {
   'city': '',
   'province': '',
   'country': '',
-}
+};
+
+  disableRegistrationButton: any;
   constructor(
     public router: Router,
     public snackBar: MatSnackBar,
@@ -64,6 +66,7 @@ userProfile = new UserProfile();
 
   registerUser(registerForm: NgForm) {
     if (registerForm.valid) {
+      this.disableRegistrationButton = true;
       let postOperation: Observable<any>;
       // Create a new User
       Array('country','province','city').forEach(element => {
@@ -88,6 +91,7 @@ userProfile = new UserProfile();
           this.authService.encryptlocalStorage('uid',data.id);
 
           this.registrationResponse = true;
+          this.disableRegistrationButton = false;
 
 
           setTimeout(() => {
@@ -95,6 +99,8 @@ userProfile = new UserProfile();
           }, 5000);
         },
         err => {
+
+          this.disableRegistrationButton = false;
           if(err.error && typeof err.error.error ) {
 
             this.showSnackBar(err.error.error, 3000);

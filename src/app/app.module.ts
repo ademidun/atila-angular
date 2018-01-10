@@ -67,6 +67,7 @@ import {environment} from '../environments/environment';
 import { GoogleAnalyticsEventsService } from './_services/google-analytics-events.service';
 import { TeamComponent } from './team/team.component';
 import { VerifyComponent } from './verify/verify.component';
+import { SubscriberDialogComponent } from './subscriber-dialog/subscriber-dialog.component';
 
 @NgModule({
   declarations: [
@@ -101,7 +102,8 @@ import { VerifyComponent } from './verify/verify.component';
     BlogPostDetailComponent,
     SafeHtmlPipe,
     TeamComponent,
-    VerifyComponent
+    VerifyComponent,
+    SubscriberDialogComponent
   ],
   imports: [
     NgbModule.forRoot(),

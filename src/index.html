@@ -59,6 +59,8 @@
   <meta itemprop="image" content="https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-image-preview-nov-24-2.png?alt=media&token=f4bb94ac-60f6-451a-a3df-f2300d92818d">
 
   <meta property="og:title" content="Atila | Automated Scholarships. The Right Way." />
+  <meta property="fb:app_id" content="401124503672116" />
+  <meta property="og:type" content="website" />
   <meta property="og:image" content="https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-image-preview-nov-24-2.png?alt=media&token=f4bb94ac-60f6-451a-a3df-f2300d92818d" />
   <meta property="og:description" content="Automatically find and apply to scholarships at the click of a button. Learn and share information about education, career and life." />
   <meta property="og:url" content="https://atila.ca" />
@@ -109,6 +111,7 @@ async defer></script>
 
 
   </app-root>
+
   <script>
     //Google Analytics
     // https://blog.thecodecampus.de/angular-2-include-google-analytics-event-tracking/
@@ -119,6 +122,25 @@ async defer></script>
 
     ga('create', 'UA-110656912-1', 'auto');  // <- add the UA-ID from your tracking code
                                            // <- remove the last line like me
+  </script>
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '401124503672116',
+        xfbml      : true,
+        version    : 'v2.11'
+      });
+      FB.AppEvents.logPageView();
+    };
+
+    (function(d, s, id){
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {return;}
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
   </script>
 
 </body>

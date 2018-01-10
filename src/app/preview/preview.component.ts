@@ -168,4 +168,8 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
 }
 
+  addSubscriber() {
+
+  }
+
 }

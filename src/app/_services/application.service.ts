@@ -100,11 +100,11 @@ export class ApplicationService {
 
     let openingSentence = [`Good ${timeOfDay},
   
-    My name is ${generalData.userProfile.first_name} ${generalData.userProfile.last_name}.`,
+    My name is ${generalData.userProfile.first_name} ${generalData.userProfile.last_name}. `,
 
       `Hello,
   
-    I hope your ${timeOfDay} is going well. My name is ${generalData.userProfile.first_name} ${generalData.userProfile.last_name}.`,
+    I hope your ${timeOfDay} is going well. My name is ${generalData.userProfile.first_name} ${generalData.userProfile.last_name}. `,
     ];
 
     let middleSentence = [`I am emailing you regarding the ${generalData.scholarship.name}. This email contains my application, please see attached. `,
