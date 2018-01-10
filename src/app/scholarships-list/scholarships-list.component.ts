@@ -141,7 +141,7 @@ export class ScholarshipsListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       result => {
         this.subscriber = result;
-        $.getJSON('http://freegeoip.net/json/?callback=?',
+        $.getJSON('//freegeoip.net/json/?callback=?',
           data => {
             this.subscriber.geo_ip = data;
 

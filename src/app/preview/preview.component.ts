@@ -95,7 +95,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
     document.body.style.backgroundColor = '#194F87';
     // https://stackoverflow.com/questions/391979/how-to-get-clients-ip-address-using-javascript-only
-    $.getJSON('http://freegeoip.net/json/?callback=?',
+    $.getJSON('//freegeoip.net/json/?callback=?',
         data => {
           this.subscriber.geo_ip = data;
     });
