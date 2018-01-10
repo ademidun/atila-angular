@@ -25,6 +25,7 @@ import { BlogPostDetailComponent } from "../blog-post-detail/blog-post-detail.co
 import { AuthGuard } from '../_guards/auth.guard';
 import {TeamComponent} from '../team/team.component';
 import {VerifyComponent} from '../verify/verify.component';
+import {TermsConditionsComponent} from '../terms-conditions/terms-conditions.component';
 
 const routes: Routes = [
   { path: '' , component: PreviewComponent, data: {title: 'Atila | Automated Scholarships. The Right Way'}},
@@ -50,6 +51,7 @@ const routes: Routes = [
   { path: 'scholarship-detail/:slug' , component: ScholarshipDetailComponent, data: {title: 'Atila - Scholarship Detail'}},
   { path: 'verify' , component: VerifyComponent, data: {title: 'Atila - Verify'}},
   { path: 'team' , component: TeamComponent, data: {title: 'Atila - Team'}},
+  { path: 'terms-and-conditions' , component: TermsConditionsComponent, data: {title: 'Atila - Terms and Conditions'}},
   { path: '**', component: PreviewComponent, data: {title: 'Atila | Automated Scholarships. The Right Way'} }
 ]
 

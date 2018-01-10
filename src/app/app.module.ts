@@ -69,6 +69,7 @@ import { TeamComponent } from './team/team.component';
 import { VerifyComponent } from './verify/verify.component';
 import { SubscriberDialogComponent } from './subscriber-dialog/subscriber-dialog.component';
 import {AngularFireDatabase, AngularFireDatabaseModule} from 'angularfire2/database';
+import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
 
 @NgModule({
   declarations: [
@@ -104,7 +105,8 @@ import {AngularFireDatabase, AngularFireDatabaseModule} from 'angularfire2/datab
     SafeHtmlPipe,
     TeamComponent,
     VerifyComponent,
-    SubscriberDialogComponent
+    SubscriberDialogComponent,
+    TermsConditionsComponent
   ],
   imports: [
     NgbModule.forRoot(),
