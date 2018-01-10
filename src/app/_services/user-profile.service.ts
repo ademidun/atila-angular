@@ -43,7 +43,7 @@ export class UserProfileService {
       }
         return this.http.get(`${this.userProfileEndpoint}${id}/`)
         .map(this.extractData)
-        .catch(this.handleError);
+        .catch(err=>Observable.throw(err));
     }
 
     getByUsername(username: string): Observable<UserProfile>{

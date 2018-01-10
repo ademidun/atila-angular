@@ -75,11 +75,22 @@
                 </mat-form-field>
                 </div>
               <div class="row">
+                <!--<mat-checkbox class="col s12" [(ngModel)]="isAgreeTerms" name="isAgreeTerms">-->
+                  <!--I agree to the <a  routerLink="/terms-and-conditions">Terms and Conditions</a>.-->
+                <!--</mat-checkbox>-->
+                By clicking register you agree to the <a  routerLink="/terms-and-conditions">Terms and Conditions</a>.
+              </div>
+              <div>
+                {{isAgreeTerms}}
+              </div>
+              <div class="row">
 
                 <p *ngIf="registrationResponse" style="font-size: large; margin-bottom: 1%; color: green">
                   Registration successful 😄. Your verification email has been sent, please check your inbox (or your spam folder 🙄).
                   <br>
-                  You will be redirected in 5 seconds, please wait.
+                  You will be redirected in 7 seconds, please wait.
+                  <br>
+                  Or Start <a routerLink="/scholarships-list">exploring Atila</a> e.
                 </p>
 
                 <div class="col s6 button-container">

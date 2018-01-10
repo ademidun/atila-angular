@@ -27,6 +27,8 @@ export class RegisterComponent implements OnInit {
 
   registrationResponse: any;
 
+  isAgreeTerms: boolean;
+
   EDUCATION_LEVEL = [
     'Secondary School',
     'University',
@@ -96,7 +98,7 @@ userProfile = new UserProfile();
 
           setTimeout(() => {
             this.router.navigate(['scholarships-list']);
-          }, 5000);
+          }, 7000);
         },
         err => {
 
