@@ -70,6 +70,7 @@ import { VerifyComponent } from './verify/verify.component';
 import { SubscriberDialogComponent } from './subscriber-dialog/subscriber-dialog.component';
 import {AngularFireDatabase, AngularFireDatabaseModule} from 'angularfire2/database';
 import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -106,7 +107,8 @@ import { TermsConditionsComponent } from './terms-conditions/terms-conditions.co
     TeamComponent,
     VerifyComponent,
     SubscriberDialogComponent,
-    TermsConditionsComponent
+    TermsConditionsComponent,
+    SearchComponent
   ],
   imports: [
     NgbModule.forRoot(),
