@@ -36,7 +36,7 @@ export class SearchComponent implements OnInit {
 
   search(query) {
 
-    console.log("Search called: ", query);
+    // console.log("Search called: ", query);
 
     this.isSearching = true;
 
@@ -57,14 +57,14 @@ export class SearchComponent implements OnInit {
     this.searchService.search(queryString, queryMetaData)
       .subscribe(
         res => {
-          console.log(res);
+          // console.log(res);
 
           this.searchResults = res;
           this.isSearching = false;
         } ,
 
         err=>{
-          console.log(err);
+          // console.log(err);
           this.isSearching = false;
         },
       )
