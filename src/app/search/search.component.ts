@@ -36,8 +36,6 @@ export class SearchComponent implements OnInit {
 
   search(query) {
 
-    // console.log("Search called: ", query);
-
     this.isSearching = true;
 
     let queryMetaData = {
@@ -57,14 +55,11 @@ export class SearchComponent implements OnInit {
     this.searchService.search(queryString, queryMetaData)
       .subscribe(
         res => {
-          // console.log(res);
-
           this.searchResults = res;
           this.isSearching = false;
         } ,
 
         err=>{
-          // console.log(err);
           this.isSearching = false;
         },
       )
