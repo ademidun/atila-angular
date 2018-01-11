@@ -1,0 +1,27 @@
+@import '../../styles.scss';
+
+
+.btn {
+  background-color: $my-lighten;
+  color: white;
+}
+
+.card {
+  padding: 1%;
+}
+
+.card.small{
+  height: auto;
+}
+
+.card-content{
+  padding: 1%;
+}
+
+.card-image {
+  width: 50%;
+}
+
+
+
+

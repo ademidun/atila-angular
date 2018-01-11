@@ -71,6 +71,7 @@ import { SubscriberDialogComponent } from './subscriber-dialog/subscriber-dialog
 import {AngularFireDatabase, AngularFireDatabaseModule} from 'angularfire2/database';
 import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
 import { SearchComponent } from './search/search.component';
+import { SearchService } from './_services/search.service';
 
 @NgModule({
   declarations: [
@@ -145,6 +146,7 @@ import { SearchComponent } from './search/search.component';
        BlogPostService,
        AuthGuard,
       GoogleAnalyticsEventsService,
+      SearchService,
        {
         provide: HTTP_INTERCEPTORS,
         useClass: TokenInterceptor,

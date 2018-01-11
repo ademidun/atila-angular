@@ -9,6 +9,15 @@
         <span  *ngIf="!authService.isLoggedIn">
 
           <li>
+            <a routerLink="/search" title="Search" >
+              <button mat-icon-button >
+                <mat-icon  class="atila-blue" aria-hidden="true" aria-label="See Blogs" md-colors="{color:'my-lighten'}">search</mat-icon>
+              </button>
+            </a>
+          </li>
+
+
+          <li>
             <a routerLink="/blog" title="Blogs" >
               <button mat-icon-button >
                 <mat-icon  class="atila-blue" aria-hidden="true" aria-label="See Blogs" md-colors="{color:'primary'}">chrome_reader_mode</mat-icon>
@@ -27,6 +36,7 @@
           <li><a class="atila-blue" routerLink="/login">Log In</a></li>
 
         </span>
+
         <span *ngIf="authService.isLoggedIn">
             <button mat-icon-button [matMenuTriggerFor]="menu">
                 <mat-icon aria-hidden="true" md-colors="{color:'primary'}">perm_identity</mat-icon>
@@ -55,6 +65,14 @@
                 </a>
               </mat-menu>
 
+
+            <li>
+              <a routerLink="/search" title="Search" >
+                <button mat-icon-button >
+                  <mat-icon  class="atila-blue" aria-hidden="true" aria-label="See Blogs" md-colors="{color:'my-lighten'}">search</mat-icon>
+                </button>
+              </a>
+            </li>
               <li>
                   <a routerLink="/blog" title="Blogs" >
                     <button mat-icon-button >
@@ -90,6 +108,7 @@
 
 
         </span>
+
       </ul>
 
       <!-- Show on Mobile  -->

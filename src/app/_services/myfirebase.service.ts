@@ -37,6 +37,23 @@ export class MyFirebaseService {
     return this.db.list(customPath).push(user);
   }
 
+  saveSearchAnalytics(queryData) {
+
+    queryData.timestamp = new Date().getTime();
+
+    return $.getJSON('//freegeoip.net/json/?callback=?',
+      data => {
+        queryData.geo_ip = data;
+        console.log('data:', data);
+        this.db.list('search_analytics').push(queryData);
+      },
+      done => {
+      console.log('finished query done:', done);
+
+      });
+
+  }
+
   //reference: https://angularfirebase.com/lessons/angular-file-uploads-to-firebase-storage/
   uploadFile(uploadFile: UploadFile, uploadInstructions: any): Observable<any>{
 

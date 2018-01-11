@@ -26,6 +26,7 @@ import { AuthGuard } from '../_guards/auth.guard';
 import {TeamComponent} from '../team/team.component';
 import {VerifyComponent} from '../verify/verify.component';
 import {TermsConditionsComponent} from '../terms-conditions/terms-conditions.component';
+import {SearchComponent} from '../search/search.component';
 
 const routes: Routes = [
   { path: '' , component: PreviewComponent, data: {title: 'Atila | Automated Scholarships. The Right Way'}},
@@ -46,6 +47,7 @@ const routes: Routes = [
   { path: 'messages' , component: MessagesComponent, data: {title: 'Atila - My Messages'}},
   { path: 'preview' , component: PreviewComponent, data: {title: 'Atila - Preview'}},
   { path: 'register' , component: RegisterComponent, data: {title: 'Atila - Register'}},
+  { path: 'search' , component: SearchComponent, data: {title: 'Atila - Search'}},
   { path: 'scholarships-list' , component: ScholarshipsListComponent, data: {title: 'Atila | Automated Scholarships. The Right Way'}},
   //{ path: 'scholarship-detail/:id' , component: ScholarshipDetailComponent, data: {title: 'Atila - Scholarship Detail'}},
   { path: 'scholarship-detail/:slug' , component: ScholarshipDetailComponent, data: {title: 'Atila - Scholarship Detail'}},

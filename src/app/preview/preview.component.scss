@@ -2,16 +2,16 @@
 
 .background-image {
     background: url('../../assets/img/bg-preview-1x.jpg') center / cover;
-    background-image: -webkit-image-set(  
-      url('../../assets/img/bg-preview-1x.jpg') 1x center / cover,  
-      url('../../assets/img/bg-preview-2x.jpg') 2x  center / cover 
-    );  
-    background-image: image-set(  
-      url('../../assets/img/bg-preview-1x.jpg') 1x center / cover,  
-      url('../../assets/img/bg-preview-2x.jpg') 2x center / cover 
+    background-image: -webkit-image-set(
+      url('../../assets/img/bg-preview-1x.jpg') 1x center / cover,
+      url('../../assets/img/bg-preview-2x.jpg') 2x  center / cover
+    );
+    background-image: image-set(
+      url('../../assets/img/bg-preview-1x.jpg') 1x center / cover,
+      url('../../assets/img/bg-preview-2x.jpg') 2x center / cover
     );
     height: 450px;
-    width: 100%; 
+    width: 100%;
 }
 
 mat-select {
@@ -24,7 +24,7 @@ mat-select {
 
 .scholarship-btn{
   margin: 1%;
-  background-color: #1976d2;
+  background-color: #4080ff;
 }
 
 :host/deep/ .mat-pseudo-checkbox-checked{
@@ -74,7 +74,7 @@ mat-form-field.location-div .mat-input-wrapper{
   margin-bottom: 0%;
 }
 .preview-form {
-  background: transparent; 
+  background: transparent;
   padding: 1px 0 0px 0;
   margin-top: -11%;
 }
