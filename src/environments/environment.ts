@@ -10,7 +10,7 @@ export const environment = {
   firebase : {
     apiKey: "AIzaSyDs2UY2qe7SJyGGPqKt32zutqWwB-SfANE",
     authDomain: "atila-7.firebaseapp.com",
-    databaseURL: "https://atila-7.firebaseio.com",
+    databaseURL: "https://atila-7-dev.firebaseio.com",
     projectId: "atila-7",
     storageBucket: "atila-7-dev",
     messagingSenderId: "148649271725"

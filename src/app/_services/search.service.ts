@@ -6,6 +6,8 @@ import { Router } from '@angular/router'
 import { Observable } from 'rxjs/Observable';
 import {environment} from '../../environments/environment';
 import {MyFirebaseService} from './myfirebase.service';
+
+
 @Injectable()
 export class SearchService {
 

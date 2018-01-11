@@ -3,6 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {SearchService} from '../_services/search.service';
 import {AuthService} from '../_services/auth.service';
 
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -13,8 +14,11 @@ export class SearchComponent implements OnInit {
   query: any;
   userId: any;
   isRegistered: boolean = false;
+  isSearching: boolean;
 
   searchResults: any = {};
+
+
   constructor(
     public route: ActivatedRoute,
     public searchService: SearchService,
@@ -31,11 +35,13 @@ export class SearchComponent implements OnInit {
   }
 
   search(query) {
+
     console.log("Search called: ", query);
 
+    this.isSearching = true;
 
     let queryMetaData = {
-      query: query,
+      query: this.route.snapshot.queryParams,
       user_id: null,
     };
 
@@ -54,10 +60,12 @@ export class SearchComponent implements OnInit {
           console.log(res);
 
           this.searchResults = res;
+          this.isSearching = false;
         } ,
 
         err=>{
           console.log(err);
+          this.isSearching = false;
         },
       )
   }

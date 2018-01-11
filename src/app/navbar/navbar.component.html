@@ -8,6 +8,15 @@
 
         <span  *ngIf="!authService.isLoggedIn">
 
+
+
+          <li>
+              <mat-form-field class="">
+              <input matInput class="browser-default"  type="text"
+                      [(ngModel)]="query" name="search" placeholder="Enter to search" (keyup.enter)="search(query)">
+              </mat-form-field>
+            </li>
+
           <li>
             <a routerLink="/search" title="Search" >
               <button mat-icon-button >
@@ -65,6 +74,12 @@
                 </a>
               </mat-menu>
 
+            <li>
+              <mat-form-field >
+              <input matInput class="browser-default"  type="text"
+                      [(ngModel)]="query" name="search" placeholder="Enter to search" (keyup.enter)="search(query)">
+              </mat-form-field>
+            </li>
 
             <li>
               <a routerLink="/search" title="Search" >
@@ -111,43 +126,15 @@
 
       </ul>
 
+
+
       <!-- Show on Mobile  -->
 
-      <span *ngIf="authService.isLoggedIn">
-      <button mat-icon-button [matMenuTriggerFor]="mobileMenu" class= "left hide-on-large-only">
-          <mat-icon>menu</mat-icon>
-       </button>
-       <mat-menu #mobileMenu="matMenu" [overlapTrigger]="false">
+      <span  class= "hide-on-large-only">
 
-
-          <a routerLink="/messages">
-            <button mat-menu-item>
-                <span>Messages</span>
-            </button>
-          </a>
-
-          <a routerLink="/forum">
-            <button mat-menu-item>
-                <span>Forums</span>
-            </button>
-          </a>
-
-          <a routerLink="/blog">
-            <button mat-menu-item>
-                <span>Blogs</span>
-            </button>
-          </a>
-
-          <a (click)="logout()">
-            <button mat-menu-item>
-              <span>Logout</span>
-            </button>
-          </a>
-      </mat-menu>
-      </span>
-
+      <!--Not Logged In -->
       <span *ngIf="!authService.isLoggedIn">
-      <button mat-icon-button [matMenuTriggerFor]="mobileMenu" class= "left hide-on-large-only">
+      <button mat-icon-button [matMenuTriggerFor]="mobileMenu" class= "left">
           <mat-icon>menu</mat-icon>
        </button>
        <mat-menu #mobileMenu="matMenu" [overlapTrigger]="false">
@@ -164,44 +151,110 @@
             </button>
           </a>
       </mat-menu>
-      </span>
 
-      <!-- Show on Mobile  -->
-      <span *ngIf="authService.isLoggedIn">
-        <button mat-icon-button [matMenuTriggerFor]="profileMenu" class= "right hide-on-large-only">
-            <mat-icon>perm_identity</mat-icon>
-        </button>
-        <mat-menu #profileMenu="matMenu" [overlapTrigger]="false">
-              <a routerLink="/add-scholarship">
-                <button mat-menu-item>
-                    <span>Add Scholarship</span>
-                </button>
-              </a>
-              <a *ngIf="userProfile" [routerLink]="['/profile', userProfile.username]">
-                <button button mat-menu-item >
-                  <span>My profile</span>
 
-                </button>
-              </a>
-              <a routerLink="/edit-profile">
-                <button mat-menu-item>
-                  <span>Edit profile</span>
-                </button>
-              </a>
 
-            <a (click)="logout()">
-              <button mat-menu-item>
-                <span>Logout</span>
-              </button>
-            </a>
-          </mat-menu>
-      </span>
-      <a *ngIf="authService.isLoggedIn" routerLink="/messages" class="right hide-on-large-only">
-        <button button mat-icon-button >
-            <mat-icon  class="atila-blue" aria-hidden="true" md-colors="{color:'primary'}">email</mat-icon>
+
+
+      <!-- Horizontally the top most div is the right most div.-->
+      <a routerLink="/login" class="atila-blue right">Login</a>
+      <a routerLink="/search" title="Search"  class= "right" >
+        <button mat-icon-button >
+          <mat-icon  class="atila-blue" aria-hidden="true" aria-label="See Blogs" md-colors="{color:'$my-lighten'}">search</mat-icon>
         </button>
       </a>
-      <a *ngIf="!authService.isLoggedIn" routerLink="/login" class="atila-blue right hide-on-large-only">Login</a>
+      <mat-form-field style="width: 27%" >
+          <input matInput class="browser-default"  type="text"
+                      [(ngModel)]="query" name="search" placeholder="Search" (keyup.enter)="search(query)">
+      </mat-form-field>
+
+      </span>
+
+        <!-- Logged In -->
+      <span  *ngIf="authService.isLoggedIn">
+
+          <button mat-icon-button [matMenuTriggerFor]="mobileMenu" class= "left">
+              <mat-icon>menu</mat-icon>
+           </button>
+          <mat-menu #mobileMenu="matMenu" [overlapTrigger]="false">
+
+
+              <a routerLink="/messages">
+                <button mat-menu-item>
+                    <span>Messages</span>
+                </button>
+              </a>
+
+              <a routerLink="/forum">
+                <button mat-menu-item>
+                    <span>Forums</span>
+                </button>
+              </a>
+
+              <a routerLink="/blog">
+                <button mat-menu-item>
+                    <span>Blogs</span>
+                </button>
+              </a>
+
+              <a (click)="logout()">
+                <button mat-menu-item>
+                  <span>Logout</span>
+                </button>
+              </a>
+          </mat-menu>
+
+
+          <button mat-icon-button [matMenuTriggerFor]="profileMenu" class= "right">
+              <mat-icon>perm_identity</mat-icon>
+          </button>
+          <mat-menu #profileMenu="matMenu" [overlapTrigger]="false">
+                <a routerLink="/add-scholarship">
+                  <button mat-menu-item>
+                      <span>Add Scholarship</span>
+                  </button>
+                </a>
+                <a *ngIf="userProfile" [routerLink]="['/profile', userProfile.username]">
+                  <button button mat-menu-item >
+                    <span>My profile</span>
+
+                  </button>
+                </a>
+                <a routerLink="/edit-profile">
+                  <button mat-menu-item>
+                    <span>Edit profile</span>
+                  </button>
+                </a>
+
+              <a (click)="logout()">
+                <button mat-menu-item>
+                  <span>Logout</span>
+                </button>
+              </a>
+            </mat-menu>
+
+          <a routerLink="/search" title="Search" class="right" >
+          <button mat-icon-button >
+            <mat-icon  class="atila-blue" aria-hidden="true" aria-label="See Blogs" md-colors="{color:'my-lighten'}">search</mat-icon>
+          </button>
+          </a>
+
+          <mat-form-field style="width: 27%" >
+              <input matInput class="browser-default"  type="text"
+                      [(ngModel)]="query" name="search" placeholder="Search" (keyup.enter)="search(query)">
+          </mat-form-field>
+
+
+        <!--<a routerLink="/messages" class="right">-->
+        <!--<button button mat-icon-button >-->
+        <!--<mat-icon  class="atila-blue" aria-hidden="true" md-colors="{color:'primary'}">email</mat-icon>-->
+        <!--</button>-->
+        <!--</a>-->
+
+      </span>
+
+      </span>
+
 
 
 

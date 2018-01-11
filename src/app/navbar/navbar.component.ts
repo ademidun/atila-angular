@@ -19,7 +19,9 @@ export class NavbarComponent implements OnInit {
   public user = {
     username: '',
     email: '',
-  }
+  };
+
+  public query: any;
   constructor(
     public userProfileService: UserProfileService,
     public authService: AuthService,
@@ -79,6 +81,12 @@ export class NavbarComponent implements OnInit {
 
     this.router.navigate([''])
     localStorage.clear();
+  }
+
+  search(query) {
+    this.query = null;
+    this.router.navigateByUrl(`search?q=${query}&q_source=navbar`);
+
   }
 
 

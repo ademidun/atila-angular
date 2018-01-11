@@ -46,6 +46,7 @@ export class MyFirebaseService {
         queryData.geo_ip = data;
         console.log('data:', data);
         this.db.list('search_analytics').push(queryData);
+
       },
       done => {
       console.log('finished query done:', done);
