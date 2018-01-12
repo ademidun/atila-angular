@@ -50,7 +50,9 @@ export class AppDetailComponent implements OnInit {
     'city': '',
     'province': '',
     'country': '',
-  }
+  };
+
+  locationQuestions: any;
 
   constructor(
     public applicationService: ApplicationService,
@@ -129,8 +131,20 @@ export class AppDetailComponent implements OnInit {
         this.scholarship = res.scholarship;
 
         this.userProfileDynamicQuestions = this.userProfileService.getDynamicProfileQuestions();
+        this.locationQuestions = this.userProfileService.getLocationQuestions();
+
         console.log('this.userProfileDynamicQuestions', this.userProfileDynamicQuestions);
+
+        let locationFormControls = this.qcs.toFormControls(this.locationQuestions);
+        console.log('this.locationQuestions', this.locationQuestions);
+
         this.profileForm = this.qcs.toFormGroup(this.userProfileDynamicQuestions);
+
+        let locations = ['city', 'province', 'country'];
+        locationFormControls.forEach( (control,index, arr) => {
+          this.profileForm.addControl(locations[0], control);
+          locations.splice(0,1);
+        })
 
       },
       error => console.error('AppDetailComponent getAppData', error),

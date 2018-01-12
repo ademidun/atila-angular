@@ -28,4 +28,19 @@ export class QuestionControlService {
     });
     return new FormGroup(group);
   }
+
+
+  toFormControls(questions: QuestionBase<any>[] ): FormControl[] {
+    let controls:FormControl[] = [];
+
+    questions.forEach(question => {
+      let control = question.required ? new FormControl(question.value || '', Validators.required)
+        : new FormControl(question.value || '');
+
+      controls.push(control);
+
+    });
+    return controls;
+  }
+
 }

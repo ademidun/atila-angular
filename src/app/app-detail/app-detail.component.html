@@ -6,7 +6,6 @@
             <h4>{{userProfile.first_name}}'s Application for: <br> {{scholarship.name}}</h4>
             <h6> Application ID #{{appId}} </h6>
             <br>
-          <ng-container *ngIf="true">
             <form   [formGroup]="profileForm"  class="col s12">
               <h4>General Info</h4>
 
@@ -14,9 +13,12 @@
                 <div *ngFor="let question of userProfileDynamicQuestions" >
                   <app-dynamic-question-general [form]="profileForm" [question]="question" [responses]="userProfile"></app-dynamic-question-general>
                 </div>
+                <div *ngFor="let question of locationQuestions" >
+                  <app-dynamic-question-general [form]="profileForm" [question]="question" [responses]="locationData"></app-dynamic-question-general>
+                </div>
               </div>
 
-            <div class="row">
+            <div class="row"  *ngIf="scholarship.resume_required || scholarship.transcript_required">
               <span  *ngIf="scholarship.resume_required" >
               <div class="col s12">
                   <label>Change Resume</label>
@@ -42,7 +44,7 @@
               </div>
               </span>
             </div>
-            <div class="row">
+            <div class="row"  *ngIf="scholarship.reference_letter_required>0">
               <span  *ngIf="scholarship.reference_letter_required>0" >
                 <div class="col s12">
                    <label>Upload Reference Letter </label>
@@ -66,15 +68,12 @@
                 </div>
               </span>
               </div>
-              <div class="row">
-                  <button mat-raised-button class="btn white-text left s12" (click)="uploadUserDocuments()" style="margin-left:1%">Upload Document</button>
-                  <button (click)="saveUserProfile(profileForm)"class="btn btn-success right s12">Save Profile</button>
-              </div>
 
-
-
+            <div class="row">
+                <button mat-raised-button class="btn white-text left s12" (click)="uploadUserDocuments()" style="margin-left:1%">Upload Document</button>
+                <button (click)="saveUserProfile(profileForm)"class="btn btn-success right s12">Save Profile</button>
+            </div>
             </form>
-          </ng-container>
             <span *ngIf="dynamicForm">
 
                 <app-dynamic-form [generalData]="generalData" [questions]="questions" [profileForm]="profileForm" [form]="dynamicForm"></app-dynamic-form>

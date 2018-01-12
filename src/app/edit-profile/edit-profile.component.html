@@ -98,19 +98,21 @@
             </mat-form-field>
           </div>
           <div class="row">
-            <div class="input-field">
+
+            <mat-form-field class="col s12">
               <mat-select class="col s12" [(ngModel)]="userProfile.education_level"  name="education_level"  id="education_level" multiple=true placeholder="Education Type" required >
                 <mat-option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </mat-option>
               </mat-select>
-            </div>
+            </mat-form-field>
           </div>
           <br> <div class="row">
-            <div class="input-field">
+
+          <mat-form-field class="col s12">
               <!-- TODO: Add a Modal or hover info explaining the diff. between Art and STEM -->
               <mat-select class="col s12" [(ngModel)]="userProfile.education_field"  name="education_field"  id="education_field" multiple=true required placeholder="Education Field">
                 <mat-option *ngFor="let field of EDUCATION_FIELD" [value]="field">{{field}} </mat-option>
               </mat-select>
-            </div>
+          </mat-form-field>
           </div>
           <br>
           <!-- TODO: Do we need to explain this? Perhaps do some A/B Testing? -->

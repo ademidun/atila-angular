@@ -158,29 +158,22 @@ export class UserProfileService {
           class_data: '',
           order: 5,
         },
-        {
-          key: 'city.name',
-          type: '',
-          label: '',
-          class_data: '',
-          order: 6,
-        },
       ];
 
 
       let questions: QuestionBase<any>[] = [
 
-        // new DropdownQuestion({
-        //   key: 'brave',
-        //   label: 'Bravery Rating',
-        //   options: [
-        //     {key: 'solid',  value: 'Solid'},
-        //     {key: 'great',  value: 'Great'},
-        //     {key: 'good',   value: 'Good'},
-        //     {key: 'unproven', value: 'Unproven'}
-        //   ],
-        //   order: 3
-        // }),
+        new DropdownQuestion({
+          key: 'brave',
+          label: 'Bravery Rating',
+          options: [
+            {key: 'solid',  value: 'Solid'},
+            {key: 'great',  value: 'Great'},
+            {key: 'good',   value: 'Good'},
+            {key: 'unproven', value: 'Unproven'}
+          ],
+          order: 3
+        }),
 
         new TextboxQuestion({
           key: 'extracurricular_description',
@@ -248,6 +241,30 @@ export class UserProfileService {
     });
 
       return questions.sort((a, b) => a.order - b.order);
+    }
+
+
+    getLocationQuestions () {
+      let questions: QuestionBase<any>[] = [
+
+        new TextboxQuestion({
+          key: 'city',
+          label: 'City',
+          order: 4.1,
+        }),
+        new TextboxQuestion({
+          key: 'province',
+          label: 'Province',
+          order: 4.2,
+        }),
+        new TextboxQuestion({
+          key: 'country',
+          label: 'Country',
+          order: 4.3,
+        }),
+        ];
+
+      return questions;
     }
 
 

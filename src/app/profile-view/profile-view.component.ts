@@ -40,7 +40,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
     public authService: AuthService,
     public router: Router,
     public messagingService: MessagingService
-  ) { 
+  ) {
     this.userNameSlug = route.snapshot.params['username'];
   }
 
@@ -48,25 +48,25 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
     this.userProfileService.getByUsername(this.userNameSlug).subscribe(
       res => {
         this.userProfile = res;
-        this.titleService.setTitle('Atila - ' + this.userProfile.first_name + " " +this.userProfile.last_name +"'s profile");
+        this.titleService.setTitle('Atila - ' + this.userProfile.first_name + " " +this.userProfile.last_name +"'s Profile");
 
         this.currentUser = parseInt(this.authService.decryptLocalStorage('uid')); // Current user
         this.profileOwner = (this.currentUser == this.userProfile.user);
-      } 
+      }
     )
 
     //hide the .mat-card-header text div
 
-    
+
   }
 
   ngAfterContentInit() {
     // https://stackoverflow.com/questions/43934727/how-to-use-jquery-plugin-with-angular-4
-    
-    
+
+
     $('.mat-card-header-text').css('display','none');
-    
-    
+
+
   }
 
 //TODO: Nov 5 implement profile pic upload
@@ -74,13 +74,13 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
     //let uploadOperation: Observable<any>;
 
     //create Upload file and configure its properties before uploading.
-    
+
 
     var uploadPicFile = uploadPicInput.files[0];
 
-    
 
-    
+
+
     this.profilePicFile = new UploadFile(uploadPicFile);
 
     // Instructions on how the file should be saved to the database
@@ -90,24 +90,24 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
       id: this.userProfile.user,
       fieldName: 'profile_pic_url'
     }
-    
+
 
     // the path where the file should be saved on firebase
     this.profilePicFile.path = "user-profiles/" + this.userProfile.user+ "/profile-pictures/"
     this.profilePicFile.path = this.profilePicFile.path + this.profilePicFile.name
-    
-    
+
+
     this.fileUpload(this.profilePicFile)
     .subscribe(
       res => {}
     )
-    
-    
+
+
 
   }
 
   //TODO: Refactor this code into the firebase service
-  //TODO: 
+  //TODO:
   fileUpload(uploadFile: UploadFile){
     /**
      * Upload handler which gets the Firebase API keys before we upload the file.
@@ -120,16 +120,16 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
   //TODO: Refactor this code into the firebase service
   //TODO: How can we get uploadFileFirebase to return an observable with the URL of the uploaded file
   uploadFileFirebase(res: Response, uploadFile: UploadFile){
-    
-    
-    
+
+
+
     let config;
     config = res['api_key'];
-    
+
     if (!firebase.apps.length) {
       firebase.initializeApp(config);
     }
-    
+
     //Initiliazing the firebase client
     //https://angularfirebase.com/lessons/angular-file-uploads-to-firebase-storage/
     //
@@ -143,29 +143,29 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
       size: uploadFile.file.size,
       name: uploadFile.file.name,
     };
-    
+
     var uploadTask = uploadRef.put(uploadFile.file, metadata);
 
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
     (snapshot:any) => {
       var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       this.uploadProgress = progress;
-      
+
     },
     (error)=> {
-      
+
     },
     () => {
-      
+
       this.userProfile.profile_pic_url = uploadTask.snapshot.downloadURL;
       this.uploadProgress = null;
       this.saveProfile();
-                                                        
+
     });
-    
-    
+
+
   }
-  
+
 
   saveProfile(){
     this.userProfileService.updateHelper(this.userProfile)
@@ -192,13 +192,13 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
     this.messagingService.getOrCreateThread(thread)
       .subscribe(
         res => {
-          
+
           //todo assosciate a username with a thread
           // this.router.navigate(['messages', this.currentUser]);
           this.router.navigate(['messages']);
-        }, 
+        },
         err => {
-          
+
         }
       )
   }
