@@ -39,7 +39,7 @@
         <a class="waves-effect waves-light btn scholarship-btn" routerLink="/register">Register</a>
       </div>
 
-      <div class="row center"  *ngIf="isRegistered">
+      <div class="row center"  *ngIf="isRegistered && searchResults.metadata && searchResults.metadata.scholarships && searchResults.metadata.scholarships.omit_results">
         <p>There are more results, try a more specific search.</p>
       </div>
     </div>

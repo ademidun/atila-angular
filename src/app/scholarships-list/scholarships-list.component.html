@@ -32,7 +32,7 @@
 
         <div class="row">
             <p class="text-align-center col s-3"><i class="material-icons automate-tag">tag_faces</i> = Automated scholarships.</p>
-            <p class="text-align-center col s-3"><mat-icon svgIcon="plus-one"></mat-icon> = One-Click Scholarships.</p>
+            <!--<p class="text-align-center col s-3"><mat-icon svgIcon="plus-one"></mat-icon> = One-Click Scholarships.</p>-->
           <p class="text-align-center col s-3">Are we missing a scholarship you want? You can easily <a routerLink="/add-scholarship" title="Add Scholarship">Add a Scholarship </a> to Atila or
               <a href="https://docs.google.com/spreadsheets/d/13YshWzg38Au-tPkGyDfY4hJHGJDWl_7vUpXNXkf5afM/edit?usp=sharing"
             target="_blank" title="Scholarship Spreadsheet">Tell us the link</a> and we'll automate it for you.</p>
@@ -41,6 +41,7 @@
         <div class="row">
             <div *ngFor="let scholarship of scholarships;  let i=index" class="col s12 m6 l4">
                 <ng-template [ngIf]="i<3">
+                  <a [routerLink]="['../scholarship-detail', scholarship.slug]">
                   <mat-card class="scholarship-card">
                     <mat-card-header>
                       <div mat-card-avatar [ngStyle]="{ 'background-image': 'url( '+ scholarship.img_url +' )' }" class="header-image"></div>
@@ -57,9 +58,10 @@
                     </mat-card-content>
                     <mat-card-actions>
                       <a *ngIf=scholarship.is_automated [routerLink]="['../scholarship-detail', scholarship.slug]" title="Automated Scholarships"><button mat-button><i class="material-icons automate-tag">tag_faces</i></button></a>
-                      <a [routerLink]="['../scholarship-detail', scholarship.slug]" ><button mat-button><mat-icon svgIcon="plus-one"></mat-icon></button></a>
+                      <!--<a [routerLink]="['../scholarship-detail', scholarship.slug]" ><button mat-button><mat-icon svgIcon="plus-one"></mat-icon></button></a>-->
                       </mat-card-actions>
                   </mat-card>
+                  </a>
                 </ng-template>
             </div>
         </div>
@@ -93,7 +95,7 @@
 
           <div class="row">
           <p class="text-align-center col s-3"><i class="material-icons automate-tag">tag_faces</i> = Automated scholarships.</p>
-          <p class="text-align-center col s-3"><mat-icon svgIcon="plus-one"></mat-icon> = One-Click Scholarships.</p>
+          <!--<p class="text-align-center col s-3"><mat-icon svgIcon="plus-one"></mat-icon> = One-Click Scholarships.</p>-->
             <p class="text-align-center col s-12" style="font-size: large">Are we missing a scholarship you want? <br>
               You can easily <a routerLink="/add-scholarship" title="Add Scholarship">Add a Scholarship </a> to Atila or
               <a href="https://docs.google.com/spreadsheets/d/13YshWzg38Au-tPkGyDfY4hJHGJDWl_7vUpXNXkf5afM/edit?usp=sharing"
@@ -102,6 +104,8 @@
       </div>
         <div class="row">
           <div *ngFor="let scholarship of scholarships;  let i=index" class="col s12 m6 l4">
+
+            <a [routerLink]="['../scholarship-detail', scholarship.slug]">
               <mat-card class="scholarship-card">
                   <mat-card-header>
                     <div mat-card-avatar [ngStyle]="{ 'background-image': 'url( '+ scholarship.img_url +' )' }" class="header-image"></div>
@@ -118,9 +122,10 @@
                   </mat-card-content>
                   <mat-card-actions>
                       <a *ngIf=scholarship.is_automated [routerLink]="['../scholarship-detail', scholarship.slug]" title="Automated Scholarships"><button mat-button><i class="material-icons automate-tag">tag_faces</i></button></a>
-                      <a [routerLink]="['../scholarship-detail', scholarship.slug]" ><button mat-button><mat-icon svgIcon="plus-one"></mat-icon></button></a>
+                      <!--<a [routerLink]="['../scholarship-detail', scholarship.slug]" ><button mat-button><mat-icon svgIcon="plus-one"></mat-icon></button></a>-->
                     </mat-card-actions>
                 </mat-card>
+            </a>
           </div>
         </div>
         <div class="row nav-buttons">
