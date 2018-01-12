@@ -56,7 +56,6 @@ export class SearchComponent implements OnInit {
       .subscribe(
         res => {
           this.searchResults = res;
-          console.log(res)
           this.isSearching = false;
         } ,
 

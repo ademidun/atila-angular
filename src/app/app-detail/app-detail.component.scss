@@ -3,3 +3,7 @@
 button {
     margin-top: 5%;
 }
+
+:host/deep/ .mat-pseudo-checkbox-checked{
+  background-color: $primary;
+}

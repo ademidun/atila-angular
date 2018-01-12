@@ -10,6 +10,9 @@ import { AuthService } from "./auth.service";
 
 import { MatSnackBar } from '@angular/material';
 import {environment} from '../../environments/environment';
+import {QuestionBase} from '../_models/question-base';
+import {DropdownQuestion} from '../_models/question-dropdown';
+import {TextboxQuestion} from '../_models/question-textbox';
 @Injectable()
 export class UserProfileService {
 
@@ -115,6 +118,81 @@ export class UserProfileService {
         .map(res=>res)
         .catch(err=>Observable.throw(err));
     }
+
+  //  todo get this object from an external source?
+  getDynamicProfileQuestions () {
+      let questions: QuestionBase<any>[] = [
+
+        // new DropdownQuestion({
+        //   key: 'brave',
+        //   label: 'Bravery Rating',
+        //   options: [
+        //     {key: 'solid',  value: 'Solid'},
+        //     {key: 'great',  value: 'Great'},
+        //     {key: 'good',   value: 'Good'},
+        //     {key: 'unproven', value: 'Unproven'}
+        //   ],
+        //   order: 3
+        // }),
+
+        new TextboxQuestion({
+          key: 'extracurricular_description',
+          label: 'Describe your extracurricular activities',
+          value: 'Bombasto',
+          required: true,
+          type: 'textarea'
+        }),
+
+        new TextboxQuestion({
+          key: 'academic_career_goals',
+          label: 'Describe your academic and career Goals',
+          value: 'Bombasto',
+          required: true,
+          type: 'textarea'
+        }),
+
+        new TextboxQuestion({
+          key: 'academic_career_goals',
+          label: 'Enter your secondary School',
+          value: 'Bombasto',
+          required: true,
+        }),
+
+        new TextboxQuestion({
+          key: 'academic_career_goals',
+          label: 'Enter your post secondary school',
+          value: 'Bombasto',
+          required: true,
+        }),
+
+        new TextboxQuestion({
+          key: 'birth_date',
+          label: 'Date',
+          type: 'date',
+          value: 'Bombasto',
+          required: true,
+        }),
+
+        new TextboxQuestion({
+          key: 'academic_average',
+          label: 'Academic Average',
+          type: 'number',
+          required: true,
+
+        }),
+
+        new TextboxQuestion({
+          key: 'enrollment_proof',
+          label: 'Attach Proof of your enrollment in school.',
+          type: 'file',
+          required: true,
+
+        })
+      ];
+
+      return questions.sort((a, b) => a.order - b.order);
+    }
+
 
     public extractData(res: HttpResponse<any>) {
         let body = res.body;

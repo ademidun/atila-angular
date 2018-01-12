@@ -43,6 +43,8 @@ export class AppDetailComponent implements OnInit {
   observable: Observable<any>;
   dynamicForm: FormGroup;
 
+  userProfileDynamicQuestions: any;
+
 
   locationData = {
     'city': '',
@@ -67,6 +69,7 @@ export class AppDetailComponent implements OnInit {
 
   ngOnInit() {
     this.getAppData();
+
 
 
     this.observable = this.qService.getQuestions2(this.appId);
@@ -110,6 +113,9 @@ export class AppDetailComponent implements OnInit {
           return;
         }
 
+
+
+        console.log('this.userProfileDynamicQuestions', this.userProfileDynamicQuestions);
         this.generalData = res;
 
 
@@ -119,9 +125,12 @@ export class AppDetailComponent implements OnInit {
         this.generalData.application.document_urls = res.application.document_urls || {};
 
         this.userProfile = res.userProfile;
+
+
+        this.userProfileDynamicQuestions = this.userProfileService.getDynamicProfileQuestions();
+
+
         this.scholarship = res.scholarship;
-
-
 
 
       },
@@ -161,7 +170,9 @@ export class AppDetailComponent implements OnInit {
     var sendData = {
       userProfile: this.userProfile,
       locationData: this.locationData,
-    }
+    };
+
+    console.log('userProfile:', this.userProfile, 'form: ', form);
 
 
     let saveProfileObservable = this.userProfileService.updateAny(sendData);

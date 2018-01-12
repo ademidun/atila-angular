@@ -145,7 +145,9 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
       //'generalData': this.generalData,We only need
       'profileForm': this.profileForm.value,
       'application': this.generalData.application,
-    }
+    };
+
+    console.log('sendData: ', sendData);
     var appId = this.generalData.application.id;
 
     this.writeEmail();

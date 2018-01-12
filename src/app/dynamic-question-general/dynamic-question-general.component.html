@@ -1,0 +1,53 @@
+  <div [ngSwitch]="question.controlType">
+
+    <mat-form-field class="col s12" *ngSwitchCase="'textfield'">
+      <input  matInput class="browser-default"   [placeholder]="question.label"
+              [id]="question.key" [type]="question.type" [(ngModel)]="responses[question.key]" [required]="question.required ? 'required' : null">
+    </mat-form-field>
+
+
+    <!-- TODO: Figure out why it displays as an input element and not as a textarea element.
+    May have something to do with the runtime rendering order. -->
+    <mat-form-field class="col s12"  *ngSwitchCase="'textarea'">
+        <textarea matInput [placeholder]="question.label" [id]="question.key"
+                  [(ngModel)]="responses[question.key]" [required]="question.required ? 'required' : null"></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="col s12"  *ngSwitchCase="'dropdown'">
+    <mat-select matInput [id]="question.key"  [required]="question.required ? 'required' : null"  multiple=true [placeholder]="question.label">
+      <mat-option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</mat-option>
+
+    </mat-select>
+    </mat-form-field>
+    <!-- <select [id]="question.key" *ngSwitchCase="'dropdown'" [formControlName]="question.key">
+      <option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</option>
+      </select>-->
+
+    <span *ngSwitchCase="'file'">
+      <div class="dyanamic-form-file-input">
+
+          {{question.label}}
+        <!-- TODO: Add required attribute later, its giving me problems with file inputs ATM. May have to use a custom directive for required file inputs. -->
+        <!--  this means if the question answer doesn't already exist and the question is required.-->
+        <!--  [required]="!responses[question.key] && question.required ? 'required' : null"  -->
+        <small *ngIf="question.required">*Required</small>
+          <input
+                 [id]="question.key" [placeholder]="question.label"[type]="question.type" (change)="fileChangeEvent($event)">
+
+        <div *ngIf="responses[question.key]" class="col s3">
+          <a  class="scholarship-document" [name]="question.key" target="_blank" href="{{responses[question.key]}}"> View Document ({{question.key}}) </a>
+      </div>
+    </div>
+    </span>
+
+
+
+    <!--TODO the next 3 elements are almost identical, handle them in a default switchcase-->
+    <mat-form-field *ngSwitchDefault class="col s12">
+      <input class="browser-default" matInput [(ngModel)]="responses[question.key]"
+             [id]="question.key" [type]="question.type" [placeholder]="question.label"  [required]="question.required ? 'required' : null">
+
+    </mat-form-field>
+
+    <!-- <div class="errorMessage" *ngIf="!isValid">{{question.label}} is required</div> -->
+  </div>
