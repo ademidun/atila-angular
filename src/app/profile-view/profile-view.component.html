@@ -3,7 +3,7 @@
       <mat-card-header class="row">
         <!-- NOTE Mat card header text is hidden in css -->
         <div class="col-sm-4" mat-card-avatar [ngStyle]="{ 'background-image': 'url( '+ userProfile.profile_pic_url +' )' }" class="header-image"></div>
-        
+
         <div class="col-sm-8" style="margin-left:5%">
           <mat-card-title><h4>{{userProfile.first_name}} {{userProfile.last_name}}</h4></mat-card-title>
           <mat-card-subtitle class="title"><h5>{{userProfile.title}}</h5></mat-card-subtitle>
@@ -11,7 +11,8 @@
           <mat-card-subtitle *ngIf="!userProfile.secondary_school" class="title"><h5>{{userProfile.secondary_school}}</h5></mat-card-subtitle>
           <div class="header-buttons">
             <button mat-raised-button class="btn white-text" (click)="message()">Message</button>
-            <a *ngIf="profileOwner" (click)="showPreview = !showPreview"  href="javascript:undefined">Preview Profile</a>
+            <a *ngIf="profileOwner" (click)="showPreview = !showPreview" style="cursor: pointer">Preview Profile</a>
+            <a *ngIf="profileOwner" [routerLink]="['/edit-profile']">Edit profile</a>
             <!-- <span  *ngIf="profileOwner" >
                 <a *ngIf="!showPreview" (click)="showPreview = !showPreview"  href="javascript:undefined">Preview Profile</a>
                 <a *ngIf="showPreview" (click)="showPreview = !showPreview"  href="javascript:undefined">Edit Profile</a>
@@ -29,7 +30,7 @@
               <input class="browser-default" id="profile_pic_url" type="file" placeholder="Upload your Profile Picture"
                  #uploadPicInput name="profile_pic_url">
             </div>
-            
+
             <mat-progress-bar style="margin-bottom: 1%;" *ngIf="uploadProgress" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
 
             <div class="col s6">
@@ -68,6 +69,6 @@
         </p>
       </mat-card-content>
     </mat-card>
-    
+
   </div>
 

@@ -7,76 +7,13 @@
             <h6> Application ID #{{appId}} </h6>
             <br>
           <ng-container *ngIf="true">
-            <form  #profileForm="ngForm"  class="col s12">
+            <form   [formGroup]="profileForm"  class="col s12">
               <h4>General Info</h4>
-              <div class="row">
-                <mat-form-field class="col s6">
-                  <input class="browser-default" matInput id="first_name" type="text" required minlength="2" placeholder="First name"
-                    [(ngModel)]="userProfile.first_name" name="first_name">
-                </mat-form-field>
-                <mat-form-field class="col s6">
-                  <input class="browser-default" matInput id="last_name" type="text" required minlength="2" placeholder="Last Name"
-                    [(ngModel)]="userProfile.last_name" name="last_name">
-                </mat-form-field>
-              </div>
-              <div class="row">
-                <mat-form-field class="col s12">
-                  <input class="browser-default" matInput id="street_address" type="text" required placeholder="Street Address"
-                    [(ngModel)]="userProfile.street_address" name="street_address">
-                </mat-form-field>
-              </div>
-              <div class="row">
-                <mat-form-field class="col s12">
-                  <input class="browser-default" matInput id="postal_code" type="text" required placeholder="Postal Code"
-                    [(ngModel)]="userProfile.postal_code" name="postal_code">
-                </mat-form-field>
-              </div>
-
-                <div class="row">
-                  <mat-form-field class="col s12">
-                      <input class="browser-default" matInput id="secondary_school" type="text" placeholder="Secondary School"
-                        [(ngModel)]="userProfile.secondary_school" name="secondary_school">
-                    </mat-form-field>
-              </div>
-              <div class="row">
-                  <mat-form-field class="col s12">
-                      <input class="browser-default" matInput id="post_secondary_school" type="text" placeholder="Post Secondary School"
-                        [(ngModel)]="userProfile.post_secondary_school" name="post_secondary_school">
-                    </mat-form-field>
-              </div>
-              <div class="row">
-                <mat-form-field class="col s12">
-                  <input class="browser-default" matInput id="city" type="text" required placeholder="City"
-                    [(ngModel)]="locationData.city" name="city">
-                </mat-form-field>
-              </div>
-              <div class="row">
-                  <mat-form-field class="col s12">
-                      <input class="browser-default" matInput id="province" type="text" required placeholder="Province/State"
-                        [(ngModel)]="locationData.province" name="province">
-                    </mat-form-field>
-              </div>
-              <div class="row">
-                  <mat-form-field class="col s12">
-                      <input class="browser-default" matInput id="country" type="text" required placeholder="Country"
-                        [(ngModel)]="locationData.country" name="country">
-                    </mat-form-field>
-              </div>
-              <div class="row">
-                  <mat-form-field class="col s12">
-                      <input class="browser-default" matInput id="email" type="text" placeholder="Email"
-                        [(ngModel)]="userProfile.email" name="email">
-                    </mat-form-field>
-              </div>
 
               <div class="row">
-                 <mat-form-field class="col s12">
-                      <input class="browser-default" matInput id="phone_number" type="number" placeholder="Phone Number"
-                        [(ngModel)]="userProfile.phone_number" name="phone_number">
-                    </mat-form-field>
-              </div>
-              <div *ngFor="let question of userProfileDynamicQuestions" class="row">
-                <app-dynamic-question-general [question]="question" [responses]="userProfile"></app-dynamic-question-general>
+                <div *ngFor="let question of userProfileDynamicQuestions" >
+                  <app-dynamic-question-general [form]="profileForm" [question]="question" [responses]="userProfile"></app-dynamic-question-general>
+                </div>
               </div>
 
             <div class="row">

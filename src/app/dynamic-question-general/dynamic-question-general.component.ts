@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {QuestionBase} from '../_models/question-base';
+import {FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-dynamic-question-general',
@@ -10,11 +11,10 @@ export class DynamicQuestionGeneralComponent implements OnInit {
 
   @Input() question: QuestionBase<any>;
   @Input() responses: any;
+  @Input() form: FormGroup;
   constructor() { }
 
   ngOnInit() {
-
-    console.log('question:', this.question, 'responses: ', this.responses );
   }
 
 }

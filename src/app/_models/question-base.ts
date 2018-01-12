@@ -1,11 +1,12 @@
 export class QuestionBase<T>{
     //TODO how is controlType different from type? Is having both redundant?
-    value: T;
+    value?: T;
     key: string;
     label: string;
     required: boolean;
     order: number;
     controlType: string;
+    class_data: string;
 
     constructor(options: {
         value?: T,
@@ -13,13 +14,15 @@ export class QuestionBase<T>{
         label?: string,
         required?: boolean,
         order?: number,
-        controlType?: string
+        controlType?: string,
+        class_data?: string,
       } = {}) {
       this.value = options.value;
       this.key = options.key || '';
       this.label = options.label || '';
       this.required = !!options.required;
-      this.order = options.order === undefined ? 1 : options.order;
+      this.order = options.order || 100 ;
       this.controlType = options.controlType || '';
+      this.class_data = options.class_data || '';
     }
   }

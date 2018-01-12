@@ -33,7 +33,7 @@ export class AppDetailComponent implements OnInit {
    * Share scholarship, application and UserProfile data with children components. e.g. Dynamic Form component
    */
   generalData: any;
-  profileForm: NgForm;
+  profileForm: FormGroup;
   userId;
   formFile: File;
   formFileEvent: any;
@@ -115,7 +115,8 @@ export class AppDetailComponent implements OnInit {
 
 
 
-        console.log('this.userProfileDynamicQuestions', this.userProfileDynamicQuestions);
+
+
         this.generalData = res;
 
 
@@ -125,13 +126,11 @@ export class AppDetailComponent implements OnInit {
         this.generalData.application.document_urls = res.application.document_urls || {};
 
         this.userProfile = res.userProfile;
-
-
-        this.userProfileDynamicQuestions = this.userProfileService.getDynamicProfileQuestions();
-
-
         this.scholarship = res.scholarship;
 
+        this.userProfileDynamicQuestions = this.userProfileService.getDynamicProfileQuestions();
+        console.log('this.userProfileDynamicQuestions', this.userProfileDynamicQuestions);
+        this.profileForm = this.qcs.toFormGroup(this.userProfileDynamicQuestions);
 
       },
       error => console.error('AppDetailComponent getAppData', error),
@@ -159,9 +158,6 @@ export class AppDetailComponent implements OnInit {
 
     this.generalData.locationData = this.locationData;
 
-  }
-  onSubmit(form: NgForm) {
-    this.profileForm = form;
   }
 
   saveUserProfile(form: NgForm){

@@ -12,6 +12,18 @@ export class QuestionControlService {
     let group: any = {};
 
     questions.forEach(question => {
+      group[question.key] = question.required ? new FormControl(question.value || '', Validators.required)
+        : new FormControl(question.value || '');
+    });
+    return new FormGroup(group);
+  }
+
+
+  // If you use the validator, some forms will always show invalid, see dynamic form component and dynamic form component
+  toFormGroupNoValidator(questions: QuestionBase<any>[] ) {
+    let group: any = {};
+
+    questions.forEach(question => {
       group[question.key] = new FormControl(question.value || '');
     });
     return new FormGroup(group);

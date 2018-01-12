@@ -121,6 +121,53 @@ export class UserProfileService {
 
   //  todo get this object from an external source?
   getDynamicProfileQuestions () {
+
+      let generalQuestions = [
+        {
+          key: 'first_name',
+          type: '',
+          label: '',
+          class_data: 'special col s6',
+          order:1,
+        },
+        {
+          key: 'last_name',
+          type: '',
+          label: '',
+          class_data: 'col s6',
+          order: 2,
+        },
+        {
+          key: 'street_address',
+          type: '',
+          label: '',
+          class_data: '',
+          order: 3,
+        },
+        {
+          key: 'postal_code',
+          type: '',
+          label: '',
+          class_data: '',
+          order: 4,
+        },
+        {
+          key: 'email',
+          type: 'email',
+          label: '',
+          class_data: '',
+          order: 5,
+        },
+        {
+          key: 'city.name',
+          type: '',
+          label: '',
+          class_data: '',
+          order: 6,
+        },
+      ];
+
+
       let questions: QuestionBase<any>[] = [
 
         // new DropdownQuestion({
@@ -141,6 +188,12 @@ export class UserProfileService {
           value: 'Bombasto',
           required: true,
           type: 'textarea'
+        }),
+        new TextboxQuestion({
+          key: 'postal_code',
+          label: 'Postal Code',
+          value: 'Postal Code Test',
+          required: true,
         }),
 
         new TextboxQuestion({
@@ -189,6 +242,10 @@ export class UserProfileService {
 
         })
       ];
+
+      generalQuestions.forEach(question=> {
+        questions.unshift( new TextboxQuestion(question))
+    });
 
       return questions.sort((a, b) => a.order - b.order);
     }

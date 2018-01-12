@@ -71,7 +71,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     if(this.questions){
     this.timeOfDay = this.getTimeOfDay();
-      this.form = this.qcs.toFormGroup(this.questions);
+      this.form = this.qcs.toFormGroupNoValidator(this.questions);
 
     }
 
