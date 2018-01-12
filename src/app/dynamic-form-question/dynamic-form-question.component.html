@@ -32,7 +32,7 @@
       </select>-->
 
     <mat-form-field *ngSwitchCase="'number'" class="col s12">
-          <input class="browser-default" matInput [(ngModel)]="generalData.application.responses[question.key]" id="phone_number" type="number" [formControlName]="question.key"
+          <input class="browser-default" matInput [(ngModel)]="generalData.application.responses[question.key]" type="number" [formControlName]="question.key"
           [id]="question.key" [type]="question.type" [placeholder]="question.label"  [required]="question.required ? 'required' : null">
 
     </mat-form-field>

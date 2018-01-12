@@ -72,6 +72,7 @@ import {AngularFireDatabase, AngularFireDatabaseModule} from 'angularfire2/datab
 import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
 import { SearchComponent } from './search/search.component';
 import { SearchService } from './_services/search.service';
+import { DynamicQuestionGeneralComponent } from './dynamic-question-general/dynamic-question-general.component';
 
 @NgModule({
   declarations: [
@@ -109,7 +110,8 @@ import { SearchService } from './_services/search.service';
     VerifyComponent,
     SubscriberDialogComponent,
     TermsConditionsComponent,
-    SearchComponent
+    SearchComponent,
+    DynamicQuestionGeneralComponent
   ],
   imports: [
     NgbModule.forRoot(),
