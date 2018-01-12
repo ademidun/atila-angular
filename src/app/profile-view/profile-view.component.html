@@ -8,7 +8,7 @@
           <mat-card-title><h4>{{userProfile.first_name}} {{userProfile.last_name}}</h4></mat-card-title>
           <mat-card-subtitle class="title"><h5>{{userProfile.title}}</h5></mat-card-subtitle>
           <mat-card-subtitle *ngIf="userProfile.post_secondary_school" class="title"><h5>{{userProfile.post_secondary_school}}</h5></mat-card-subtitle>
-          <mat-card-subtitle *ngIf="!userProfile.secondary_school" class="title"><h5>{{userProfile.secondary_school}}</h5></mat-card-subtitle>
+          <mat-card-subtitle *ngIf="!userProfile.post_secondary_school && userProfile.secondary_school" class="title"><h5>{{userProfile.secondary_school}}</h5></mat-card-subtitle>
           <div class="header-buttons">
             <button mat-raised-button class="btn white-text" (click)="message()">Message</button>
             <a *ngIf="profileOwner" (click)="showPreview = !showPreview" style="cursor: pointer">Preview Profile</a> |

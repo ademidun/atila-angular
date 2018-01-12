@@ -121,6 +121,7 @@ export class UserProfileService {
 
   //  todo get this object from an external source?
   getDynamicProfileQuestions () {
+      // Watch for ExpressionChangedAfterItHasBeenCheckedError if you make a value required and dont provide a default value
 
       let generalQuestions = [
         {
@@ -163,17 +164,17 @@ export class UserProfileService {
 
       let questions: QuestionBase<any>[] = [
 
-        new DropdownQuestion({
-          key: 'brave',
-          label: 'Bravery Rating',
-          options: [
-            {key: 'solid',  value: 'Solid'},
-            {key: 'great',  value: 'Great'},
-            {key: 'good',   value: 'Good'},
-            {key: 'unproven', value: 'Unproven'}
-          ],
-          order: 3
-        }),
+        // new DropdownQuestion({
+        //   key: 'brave',
+        //   label: 'Bravery Rating',
+        //   options: [
+        //     {key: 'solid',  value: 'Solid'},
+        //     {key: 'great',  value: 'Great'},
+        //     {key: 'good',   value: 'Good'},
+        //     {key: 'unproven', value: 'Unproven'}
+        //   ],
+        //   order: 3
+        // }),
 
         new TextboxQuestion({
           key: 'extracurricular_description',
@@ -198,15 +199,8 @@ export class UserProfileService {
         }),
 
         new TextboxQuestion({
-          key: 'academic_career_goals',
+          key: 'secondary_school',
           label: 'Enter your secondary School',
-          value: 'Bombasto',
-          required: true,
-        }),
-
-        new TextboxQuestion({
-          key: 'academic_career_goals',
-          label: 'Enter your post secondary school',
           value: 'Bombasto',
           required: true,
         }),
@@ -215,6 +209,14 @@ export class UserProfileService {
           key: 'birth_date',
           label: 'Date',
           type: 'date',
+          value: 'Bombasto',
+          required: true,
+        }),
+
+        new TextboxQuestion({
+          key: 'phone_number',
+          label: 'Phone Number',
+          type: 'number',
           value: 'Bombasto',
           required: true,
         }),

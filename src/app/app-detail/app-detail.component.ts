@@ -51,6 +51,8 @@ export class AppDetailComponent implements OnInit {
     'province': '',
     'country': '',
   };
+  // Questions included in every application
+  basicQuestions = ['first_name', 'last_name', 'street_address','postal_code','email'];
 
   locationQuestions: any;
 
@@ -115,13 +117,7 @@ export class AppDetailComponent implements OnInit {
           return;
         }
 
-
-
-
-
         this.generalData = res;
-
-
         this.generalData.application = res.application;
         this.generalData.documentUploads = res.application.document_urls || {};
 
@@ -133,8 +129,9 @@ export class AppDetailComponent implements OnInit {
         this.userProfileDynamicQuestions = this.userProfileService.getDynamicProfileQuestions();
         this.locationQuestions = this.userProfileService.getLocationQuestions();
 
-        console.log('this.userProfileDynamicQuestions', this.userProfileDynamicQuestions);
+        console.log('before FILTER this.userProfileDynamicQuestions', this.userProfileDynamicQuestions);
 
+        this.filterQuestions();
         let locationFormControls = this.qcs.toFormControls(this.locationQuestions);
         console.log('this.locationQuestions', this.locationQuestions);
 
@@ -144,7 +141,9 @@ export class AppDetailComponent implements OnInit {
         locationFormControls.forEach( (control,index, arr) => {
           this.profileForm.addControl(locations[0], control);
           locations.splice(0,1);
-        })
+        });
+
+
 
       },
       error => console.error('AppDetailComponent getAppData', error),
@@ -297,6 +296,43 @@ export class AppDetailComponent implements OnInit {
       });
 
 
+  }
+
+  filterQuestions(){
+
+    let scholarshipQuestions = Object.keys(this.scholarship.extra_questions);
+
+
+    try {
+      this.scholarship.submission_info.web_form_entries.forEach( entry => {
+        scholarshipQuestions.push(entry.question_key);
+      })
+    }
+    catch(err) {
+      console.log('filterQuestions() err', err);
+    }
+
+    try {
+      this.scholarship.submission_info.pdf_questions.forEach( entry => {
+        scholarshipQuestions.push(entry);
+      })
+    }
+    catch(err) {
+      console.log('filterQuestions() pdf_questions err', err);
+    }
+
+    scholarshipQuestions = scholarshipQuestions.concat(this.basicQuestions);
+    // remove duplicate questions
+    scholarshipQuestions = scholarshipQuestions.filter((val, i, arr) => arr.indexOf(val) == i);
+
+
+    console.log('scholarshipQuestions',scholarshipQuestions);
+
+    this.userProfileDynamicQuestions = this.userProfileDynamicQuestions.filter(function(item){
+      return scholarshipQuestions.indexOf(item.key) != -1;
+    });
+
+    console.log('filtered ',this.userProfileDynamicQuestions);
   }
 
 }

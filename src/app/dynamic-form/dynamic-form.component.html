@@ -1,7 +1,7 @@
 <div>
     <form (ngSubmit)="onSubmit()" [formGroup]="form">
+      <h4>Specific Info</h4>
    <div *ngIf="questions.length!=0" >
-    <h4>Specific Info</h4>
       <div *ngFor="let question of questions" class="form-row">
         <app-dynamic-form-question  [question]="question" [form]="form" [profileForm]="profileForm"
          [generalData]="generalData" (uploaded)="fileChangeEvent($event)"></app-dynamic-form-question>
