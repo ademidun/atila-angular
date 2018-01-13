@@ -17,6 +17,10 @@ export class SubscriberDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  onClick() {
+    this.dialogRef.close(this.subscriber);
+  }
+
   ngOnInit() {
   }
 

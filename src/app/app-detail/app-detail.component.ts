@@ -129,11 +129,9 @@ export class AppDetailComponent implements OnInit {
         this.userProfileDynamicQuestions = this.userProfileService.getDynamicProfileQuestions();
         this.locationQuestions = this.userProfileService.getLocationQuestions();
 
-        console.log('before FILTER this.userProfileDynamicQuestions', this.userProfileDynamicQuestions);
 
         this.filterQuestions();
         let locationFormControls = this.qcs.toFormControls(this.locationQuestions);
-        console.log('this.locationQuestions', this.locationQuestions);
 
         this.profileForm = this.qcs.toFormGroup(this.userProfileDynamicQuestions);
 
@@ -181,7 +179,6 @@ export class AppDetailComponent implements OnInit {
       locationData: this.locationData,
     };
 
-    console.log('userProfile:', this.userProfile, 'form: ', form);
 
 
     let saveProfileObservable = this.userProfileService.updateAny(sendData);
@@ -194,7 +191,6 @@ export class AppDetailComponent implements OnInit {
         });
       },
       err =>{
-        console.error('app-detail saveUserProfile() err', err)
 
         this.snackBar.open("Error Saving Profile", '', {
           duration: 3000
@@ -309,7 +305,6 @@ export class AppDetailComponent implements OnInit {
       })
     }
     catch(err) {
-      console.log('filterQuestions() err', err);
     }
 
     try {
@@ -318,7 +313,6 @@ export class AppDetailComponent implements OnInit {
       })
     }
     catch(err) {
-      console.log('filterQuestions() pdf_questions err', err);
     }
 
     scholarshipQuestions = scholarshipQuestions.concat(this.basicQuestions);
@@ -326,13 +320,11 @@ export class AppDetailComponent implements OnInit {
     scholarshipQuestions = scholarshipQuestions.filter((val, i, arr) => arr.indexOf(val) == i);
 
 
-    console.log('scholarshipQuestions',scholarshipQuestions);
 
     this.userProfileDynamicQuestions = this.userProfileDynamicQuestions.filter(function(item){
       return scholarshipQuestions.indexOf(item.key) != -1;
     });
 
-    console.log('filtered ',this.userProfileDynamicQuestions);
   }
 
 }

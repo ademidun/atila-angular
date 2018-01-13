@@ -94,7 +94,6 @@ getBySlug(slug: string) {
   public handleError (error: HttpResponse<any> | any) {
     // In a real world app, you might use a remote logging infrastructure
 
-    console.error(error);
     if(this.firebaseService){
       this.firebaseService.saveAny('error_logs/scholarships',error);
     }

@@ -19,7 +19,6 @@ export class SearchService {
 
 
   search(queryString, metaData?) {
-    console.log('this.firebaseService',this.firebaseService);
     this.firebaseService.saveSearchAnalytics(metaData);
 
     return this.http.get(this.searchUrl+queryString)

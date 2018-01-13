@@ -324,12 +324,16 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
             res =>{
 
               this.loadScholarshipDatabase();
+
               this.snackBar.open("Scholarship succesfully Saved", '', {
                 duration: 3000
               });
+
             },
             err => {
               this.scholarshipErrors = JSON.stringify(err.error);
+
+              this.firebaseService.saveAny('error_logs/scholarships',err);
               this.snackBar.open("Error - " + this.scholarshipErrors, '', {
                 duration: 3000
               });
@@ -354,6 +358,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
           },
           err => {
             this.scholarshipErrors = JSON.stringify(err.error);
+            this.firebaseService.saveAny('error_logs/scholarships',err);
             this.snackBar.open("Error - " + this.scholarshipErrors, '', {
               duration: 3000
             });

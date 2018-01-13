@@ -5,10 +5,10 @@
     <input matInput [(ngModel)]="subscriber.first_name" placeholder="First Name">
   </mat-form-field>
   <mat-form-field>
-    <input matInput [(ngModel)]="subscriber.last_name" placeholder="Last Name">
+    <input matInput [(ngModel)]="subscriber.last_name" placeholder="Last Name" (keyup.enter)="onClick()">
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="subscriber" >No Thanks</button>
+  <button mat-button (click)="onNoClick()" >No Thanks</button>
   <button mat-button [mat-dialog-close]="subscriber" >Ok</button>
 </div>

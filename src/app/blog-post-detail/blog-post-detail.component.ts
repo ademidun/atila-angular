@@ -201,10 +201,6 @@ export class BlogPostDetailComponent implements OnInit {
       "itemprop='image'"
     );
 
-    // console.log('fullUrl',fullUrl);
-    // console.log('this.route',this.route);
-    // console.log('this.route.snapshot',this.route.snapshot);
-    // console.log('document.location',document.location);
 
   }
 

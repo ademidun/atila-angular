@@ -149,7 +149,7 @@ export class ScholarshipsListComponent implements OnInit {
               .then(res => {
                   this.subscriber.response ='Successfully subscribed to Atila 😄.';
                 },
-                err => console.log('addSubscriber failed', err));
+                err => this.subscriber.response ='Subscription error.');
           });
 
       });

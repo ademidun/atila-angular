@@ -280,8 +280,6 @@ export class ScholarshipDetailComponent implements OnInit {
       },
       "itemprop='image'"
     );
-    // console.log('fullUrl',fullUrl);
-    // console.log('document.location',document.location);
 
   }
 }

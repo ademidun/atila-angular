@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { UploadFile } from '../_models/upload-file';
@@ -14,32 +14,31 @@ export class MyFirebaseService {
 
   public apiKeyUrl = environment.apiUrl + 'api-keys/';
   public saveFirebaseUrl = environment.apiUrl + 'save-firebase/';
-  constructor(public http: Http,
+  constructor(public http: HttpClient,
               private db: AngularFireDatabase) {
 
   }
 
   addSubscriber(subscriber) {
-    if (subscriber) {
-      subscriber.timestamp = new Date().getTime();
 
+    if (subscriber) {
+      subscriber = this.addMetadata(subscriber);
+      return this.db.list('email_subscribers').push(subscriber);
     }
-    return this.db.list('email_subscribers').push(subscriber);
+
 
   }
 
   saveUserAnalytics(user, path?) {
 
-    if (user) {
-      user.timestamp = new Date().getTime();
-    }
+    user = this.addMetadata(user);
     const customPath = path ? 'user_analytics/'+ path  : 'user_analytics/general';
     return this.db.list(customPath).push(user);
   }
 
   saveSearchAnalytics(queryData) {
 
-    queryData.timestamp = new Date().getTime();
+    queryData = this.addMetadata(queryData);
 
     return $.getJSON('//freegeoip.net/json/?callback=?',
       data => {
@@ -54,13 +53,15 @@ export class MyFirebaseService {
   }
 
   saveAny(path, data) {
-    if(path) {
+    data = JSON.stringify(data);
+    data = JSON.parse(data);
 
+    if(path) {
+      data = this.addMetadata(data);
       data.timestamp = new Date().getTime();
       return $.getJSON('//freegeoip.net/json/?callback=?',
-        data => {
-          data.geo_ip = data;
-          this.db.list(path).push(data);
+        res => {
+          data.geo_ip = res;
 
         },
         done => {
@@ -162,27 +163,22 @@ export class MyFirebaseService {
     .catch(this.handleError);
   }
 
+  addMetadata(data) {
+    data.timestamp = new Date().getTime();
+    data.vendor = navigator.vendor;
+    data.user_agent = navigator.userAgent;
 
-  public extractData(res: Response) {
-    let body = res.json();
+    return data;
+  }
 
 
-    return body || { };
+  public extractData(res: HttpResponse<any>) {
+    return res;
 
   }
 
   public handleError (error: Response | any) {
-    // In a real world app, you might use a remote logging infrastructure
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
-    }
-    console.error(errMsg);
-    return Observable.throw(errMsg);
+    return Observable.throw(error);
   }
 
 }
