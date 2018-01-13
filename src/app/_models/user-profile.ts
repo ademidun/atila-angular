@@ -1,8 +1,10 @@
 export class UserProfile {
         constructor(
+            public academic_average?: any,
             public city?: any,
             public country?: any,
             public birth_date?: Date,
+            public degree?: Date,
             public first_name?: string,
             public education_level?: string[],
             public education_field?: string[],
@@ -10,11 +12,13 @@ export class UserProfile {
             public is_sponsor?:any,
             public is_verified?:any,
             public last_name?: string,
+            public major?: string,
             public postal_code?: string,
             public province?: any,
             public street_address?: string,
             public user?: number,
             public username?:any,
+            public preferences?:any,
             public profile_pic_url?: string,
             public phone_number?:any,
             public resume?:any,
@@ -24,6 +28,7 @@ export class UserProfile {
             public extracurricular_description?:any,
             public academic_career_goals?:any,
             public secondary_school?:any,
+            public signature?:any,
             public post_secondary_school?:any,
             public verification_token?:any,
 

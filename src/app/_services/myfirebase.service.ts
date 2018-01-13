@@ -53,6 +53,22 @@ export class MyFirebaseService {
 
   }
 
+  saveAny(path, data) {
+    if(path) {
+
+      data.timestamp = new Date().getTime();
+      return $.getJSON('//freegeoip.net/json/?callback=?',
+        data => {
+          data.geo_ip = data;
+          this.db.list(path).push(data);
+
+        },
+        done => {
+
+        });
+    }
+  }
+
   //reference: https://angularfirebase.com/lessons/angular-file-uploads-to-firebase-storage/
   uploadFile(uploadFile: UploadFile, uploadInstructions: any): Observable<any>{
 

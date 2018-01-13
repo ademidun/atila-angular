@@ -40,10 +40,19 @@
                             </mat-form-field>
                         </div>
                         <div class="row">
-                            <mat-form-field class="col s12">
-                                <input class="browser-default" min="0" matInput id="funding_amount" type="number" placeholder="Funding Amount" [(ngModel)]="scholarship.funding_amount" name="funding_amount">
-                            </mat-form-field>
+
+                          <mat-form-field class="col s12"  *ngIf="scholarship.extra_questions && scholarship.extra_questions.funding_amount_varies">
+                              <input class="browser-default" min="0" matInput id="funding_amount" type="number" placeholder="Funding Amount" [(ngModel)]="scholarship.funding_amount" name="funding_amount">
+                          </mat-form-field>
+
+                          <div class="col s12" *ngIf="scholarship.extra_questions">
+                            <input class="browser-default" id="funding_amount_varies" type="checkbox" [(ngModel)]="scholarship.extra_questions.funding_amount_varies"
+                                   name="is_automated">
+                            <label for="funding_amount_varies" data-error="Invalid input">Funding Amount Varies?</label>
+                          </div>
+
                         </div>
+
                         <div class="row">
                             <mat-form-field class="col s12">
                                 <input class="browser-default" matInput id="number_available_scholarships" type="number" placeholder="Number of Available Scholarships" [(ngModel)]="scholarship.number_available_scholarships" name="number_available_scholarships" value="1">
@@ -317,7 +326,7 @@
                                             <div class="row">
                                                 <label>We recommend uploading an editable pdf, however you may also use the url of an application form that already exists online.</label>
                                                 <mat-form-field class="col s12">
-                                                    <input class="browser-default" matInput id="form_url" type=url placeholder="Form URL" [(ngModel)]="scholarship.form_url" name="form_url">
+                                                    <input class="browser-default" matInput id="form_url" type=url placeholder="Form URL" [(ngModel)]="scholarship.form_url" name="form_url" (change)="formNeedsParsing()">
                                                 </mat-form-field>
                                             </div>
                                     </fieldset>

@@ -164,6 +164,7 @@ export class UserProfileService {
 
       let questions: QuestionBase<any>[] = [
 
+        // todo Helper to autofill labels as pretiffied keys
         // new DropdownQuestion({
         //   key: 'brave',
         //   label: 'Bravery Rating',
@@ -225,6 +226,20 @@ export class UserProfileService {
           key: 'academic_average',
           label: 'Academic Average',
           type: 'number',
+          required: true,
+
+        }),
+
+        new TextboxQuestion({
+          key: 'major',
+          label: 'Major',
+          required: true,
+
+        }),
+
+        new TextboxQuestion({
+          key: 'degree',
+          label: 'Degree',
           required: true,
 
         }),

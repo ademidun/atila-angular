@@ -113,6 +113,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
     public route: ActivatedRoute,
     public userProfileService: UserProfileService,
     public titleService: Title,
+    public firebaseService: MyFirebaseService,
   ) {
     this.scholarshipSlug = route.snapshot.params['slug'];
   }
@@ -148,7 +149,8 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
     this.scholarship.submission_info = {};
     this.webForms = [{"question_key": "", "attribute_type": "", "attribute_value": ""}];
     // TODO: Are most scholarships pdf forms this.APPLICATION_FORM_TYPES[0] or web forms this.APPLICATION_FORM_TYPES[1]
-    this.scholarship.submission_info.application_form_type = [this.APPLICATION_FORM_TYPES[0]];
+    this.scholarship.submission_info.application_form_type = this.APPLICATION_FORM_TYPES[0];
+    this.scholarship.funding_type = [this.FUNDING_TYPES[0]];
     this.scholarship.reference_letter_required =0;
     this.scholarship.number_available_scholarships =1;
     this.stringDict.eligible_schools = '';
@@ -318,12 +320,13 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
           .subscribe(
             res =>{
 
+              this.loadScholarshipDatabase();
               this.snackBar.open("Scholarship succesfully Saved", '', {
                 duration: 3000
               });
             },
             err => {
-              this.snackBar.open("Error - " + err, '', {
+              this.snackBar.open("Error - " + err.error, '', {
                 duration: 3000
               });
             }
@@ -346,7 +349,8 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
             //this.router.navigate(['scholarships-list']);
           },
           err => {
-            this.snackBar.open("Error - " + err, '', {
+            console.log('error log',err);
+            this.snackBar.open("Error - " + err.error, '', {
               duration: 3000
             });
           }
@@ -383,11 +387,17 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
     this.appFormFile.path = this.appFormFile.path + this.appFormFile.name
 
 
+    delete this.scholarship.submission_info['pdf_already_parsed'];
     this.fileUpload(this.appFormFile)
       .subscribe(
-        res => {}
+        res => {
+        }
       )
 
+  }
+
+  formNeedsParsing() {
+    delete this.scholarship.submission_info['pdf_already_parsed'];
   }
 
   //TODO: Refactor this code into the firebase service

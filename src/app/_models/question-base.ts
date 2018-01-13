@@ -1,4 +1,5 @@
 export class QuestionBase<T>{
+  // todo Helper to  autofill labels as pretiffied keys
     //TODO how is controlType different from type? Is having both redundant?
     value?: T;
     key: string;

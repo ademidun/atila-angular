@@ -8,13 +8,15 @@ import 'rxjs/add/operator/map';
 
 import 'rxjs/add/operator/toPromise';
 import {environment} from '../../environments/environment';
+import {MyFirebaseService} from './myfirebase.service';
 @Injectable()
 export class ScholarshipService {
 
   public scholarshipsUrl = environment.apiUrl + 'scholarships/';
   public scholarshipsPreviewUrl = environment.apiUrl + 'scholarship-preview/';
   public scholarshipSlugUrl = environment.apiUrl + 'scholarship-slug/';
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient,
+              public firebaseService: MyFirebaseService) { }
   form_data: any;
 
   create(scholarship: Scholarship): Observable<Scholarship>{
@@ -93,6 +95,10 @@ getBySlug(slug: string) {
     // In a real world app, you might use a remote logging infrastructure
 
     console.error(error);
+    console.log('this.firebaseService,',this.firebaseService);
+    if(this.firebaseService){
+      this.firebaseService.saveAny('error_logs/scholarships',error);
+    }
     return Observable.throw(error);
   }
 
