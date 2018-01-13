@@ -95,7 +95,6 @@ getBySlug(slug: string) {
     // In a real world app, you might use a remote logging infrastructure
 
     console.error(error);
-    console.log('this.firebaseService,',this.firebaseService);
     if(this.firebaseService){
       this.firebaseService.saveAny('error_logs/scholarships',error);
     }

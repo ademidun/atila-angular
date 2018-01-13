@@ -41,7 +41,7 @@
                         </div>
                         <div class="row">
 
-                          <mat-form-field class="col s12"  *ngIf="scholarship.extra_questions && scholarship.extra_questions.funding_amount_varies">
+                          <mat-form-field class="col s12"  *ngIf="scholarship.extra_questions && !scholarship.extra_questions.funding_amount_varies">
                               <input class="browser-default" min="0" matInput id="funding_amount" type="number" placeholder="Funding Amount" [(ngModel)]="scholarship.funding_amount" name="funding_amount">
                           </mat-form-field>
 
@@ -338,6 +338,9 @@
                             </div>
                         </div>
                     </div>
+                  <p>
+                    {{scholarshipErrors}}
+                  </p>
                 </form>
             </div>
         </div>

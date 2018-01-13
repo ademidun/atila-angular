@@ -46,7 +46,11 @@
                     <mat-card-header>
                       <div mat-card-avatar [ngStyle]="{ 'background-image': 'url( '+ scholarship.img_url +' )' }" class="header-image"></div>
                       <mat-card-title><a [routerLink]="['../scholarship-detail', scholarship.slug]" class="card-title">{{scholarship.name | truncate:45}}</a></mat-card-title>
-                      <mat-card-subtitle class="card-text">{{scholarship.funding_amount | currency:'USD':'symbol':'1.0-0'}}</mat-card-subtitle>
+
+                      <mat-card-subtitle class="card-text"  *ngIf="scholarship.extra_questions && !scholarship.extra_questions.funding_amount_varies; else funding_varies">
+                        {{scholarship.funding_amount | currency:'USD':'symbol':'1.0-0'}}</mat-card-subtitle>
+                      <ng-template #funding_varies><mat-card-subtitle class="card-text">Varies</mat-card-subtitle></ng-template>
+
                     </mat-card-header>
                     <a [routerLink]="['../scholarship-detail', scholarship.slug]">
                     <img mat-card-image class="my-mat-card-image" src="{{scholarship.img_url}}">
@@ -110,7 +114,9 @@
                   <mat-card-header>
                     <div mat-card-avatar [ngStyle]="{ 'background-image': 'url( '+ scholarship.img_url +' )' }" class="header-image"></div>
                     <mat-card-title><a [routerLink]="['../scholarship-detail', scholarship.slug]" class="card-title">{{scholarship.name | truncate:45}}</a></mat-card-title>
-                    <mat-card-subtitle class="card-text">{{scholarship.funding_amount | currency:'USD':'symbol':'1.0-0'}}</mat-card-subtitle>
+                    <mat-card-subtitle class="card-text"  *ngIf="scholarship.extra_questions && !scholarship.extra_questions.funding_amount_varies; else funding_varies">
+                      {{scholarship.funding_amount | currency:'USD':'symbol':'1.0-0'}}</mat-card-subtitle>
+                    <ng-template #funding_varies><mat-card-subtitle class="card-text">Varies</mat-card-subtitle></ng-template>
                   </mat-card-header>
                   <a [routerLink]="['../scholarship-detail', scholarship.slug]">
                   <img mat-card-image class="my-mat-card-image" src="{{scholarship.img_url}}">

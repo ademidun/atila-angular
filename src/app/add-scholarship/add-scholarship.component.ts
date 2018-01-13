@@ -102,6 +102,8 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
   activeProvince:any = {};
   scholarshipOwner;
 
+  scholarshipErrors: any;
+
   webForms : any;
   myJson = JSON;
   constructor(
@@ -287,8 +289,9 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
     return Object.keys(obj).map((key)=>{ return obj[key]});
   }
 
-  saveScholarship(scholarshipForm) {
+  saveScholarship(scholarshipForm: NgForm) {
 
+    this.scholarshipErrors = null;
     if(this.editMode && !this.isOwner){
       this.snackBar.open("You are not authorized to make Changes", '', {
         duration: 3000
@@ -326,7 +329,8 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
               });
             },
             err => {
-              this.snackBar.open("Error - " + err.error, '', {
+              this.scholarshipErrors = JSON.stringify(err.error);
+              this.snackBar.open("Error - " + this.scholarshipErrors, '', {
                 duration: 3000
               });
             }
@@ -349,15 +353,17 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
             //this.router.navigate(['scholarships-list']);
           },
           err => {
-            console.log('error log',err);
-            this.snackBar.open("Error - " + err.error, '', {
+            this.scholarshipErrors = JSON.stringify(err.error);
+            this.snackBar.open("Error - " + this.scholarshipErrors, '', {
               duration: 3000
             });
+
           }
         )
       }
     }
     else {
+
       this.snackBar.open("Invalid form", '', {
         duration: 3000
       });

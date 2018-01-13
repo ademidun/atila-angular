@@ -170,6 +170,8 @@ export class PreviewComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(form: NgForm){
+
+    console.log('this.subscriber',this.subscriber);
     this.model.location.name = this.model.location.city; //ensures that our object matches the Atila Location API
 
     this.diagnostic = JSON.stringify(this.model);
@@ -195,7 +197,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
   addSubscriber() {
     this.subscriber.utm_source =       'preview_scholarships';
-
+    console.log('this.subscriber',this.subscriber);
     let dialogRef = this.dialog.open(SubscriberDialogComponent, {
       width: '300px',
       data: this.subscriber,
@@ -206,7 +208,13 @@ export class PreviewComponent implements OnInit, OnDestroy {
       this.subscriber = result;
       this.firebaseService.addSubscriber(this.subscriber)
           .then(res => {
+            if(!this.subscriber) {
+              this.subscriber = {};
+              this.subscriber.response ='Subscription error 😬. We\'re working to fix it.';
+            }
+            else{
               this.subscriber.response ='Successfully subscribed to Atila 😄.';
+            }
             },
             err => console.log('addSubscriber failed', err));
     });
