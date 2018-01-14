@@ -22,18 +22,37 @@ export class MyFirebaseService {
   addSubscriber(subscriber) {
 
     if (subscriber) {
-      subscriber = this.addMetadata(subscriber);
-      return this.db.list('email_subscribers').push(subscriber);
-    }
 
+      subscriber = this.addMetadata(subscriber);
+      return $.getJSON('//freegeoip.net/json/?callback=?',
+        data => {
+          subscriber = this.addMetadata(subscriber);
+          subscriber.geo_ip = data;
+          return this.db.list('email_subscribers').push(subscriber);
+        },
+        done => {
+
+        });
+
+    }
 
   }
 
   saveUserAnalytics(user, path?) {
 
-    user = this.addMetadata(user);
-    const customPath = path ? 'user_analytics/'+ path  : 'user_analytics/general';
-    return this.db.list(customPath).push(user);
+    return $.getJSON('//freegeoip.net/json/?callback=?',
+      data => {
+        user = this.addMetadata(user);
+        user.geo_ip = data;
+        const customPath = path ? 'user_analytics/'+ path  : 'user_analytics/general';
+        return this.db.list('search_analytics').push(user);
+
+      },
+      done => {
+
+      });
+
+
   }
 
   saveSearchAnalytics(queryData) {
@@ -43,7 +62,7 @@ export class MyFirebaseService {
     return $.getJSON('//freegeoip.net/json/?callback=?',
       data => {
         queryData.geo_ip = data;
-        this.db.list('search_analytics').push(queryData);
+        return this.db.list('search_analytics').push(queryData);
 
       },
       done => {

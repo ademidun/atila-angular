@@ -36,25 +36,25 @@
                   <button class=" col s8 offset-s2 waves-effect waves-light btn scholarship-btn" type="submit">Get My Scholarships</button>
               </div>
               <br>
-              <div class="row center" style="text-align: center;margin-bottom: 0px;">
-                <p style="color: white; font-size: medium" class="col s6">Get updates on new scholarships, blog posts and new product features.
+            </form>
+            <div class="row center" style="text-align: center;margin-bottom: 0px;">
+              <p style="color: white; font-size: medium" class="col s6">Get updates on new scholarships, blog posts and new product features.
 
                 <span *ngIf="subscriber.response" style="color: greenyellow">
                   <br>
                   {{subscriber.response}}
                 </span>
-                </p>
+              </p>
 
-                <mat-form-field class="browser-default col s3 ">
-                  <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
-                  <input matInput type="email" class="form-control" style="padding-bottom: 0; margin-bottom: 0"  name="email" id="emailid"
-                         placeholder="Email Address" email [(ngModel)]="subscriber.email" (keyup.enter)="addSubscriber()">
-                </mat-form-field>
-                <a class="waves-effect waves-light btn browser-default col s2" style="background-color:#4080ff; " (click)="addSubscriber()">Submit</a>
+              <mat-form-field class="browser-default col s3 ">
+                <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
+                <input matInput type="email" class="form-control" style="padding-bottom: 0; margin-bottom: 0"  name="email" id="emailid"
+                       placeholder="Email Address" email [(ngModel)]="subscriber.email" (keyup.enter)="addSubscriber($event)">
+              </mat-form-field>
+              <a class="waves-effect waves-light btn browser-default col s2" style="background-color:#4080ff; " (click)="addSubscriber()">Submit</a>
 
 
-              </div>
-            </form>
+            </div>
             <p *ngIf="diagnostic"> {{diagnostic}} </p>
           </div>
 </div>

@@ -23,7 +23,7 @@
           <mat-form-field class="browser-default col s3 ">
             <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
             <input matInput type="email" class="form-control" style="padding-bottom: 0; margin-bottom: 0"  name="email" id="emailid"
-                   placeholder="Email Address" email [(ngModel)]="subscriber.email" (keyup.enter)="addSubscriber()">
+                   placeholder="Email Address" email [(ngModel)]="subscriber.email" (keyup.enter)="addSubscriber($event)">
           </mat-form-field>
           <a class="waves-effect waves-light btn browser-default col s2" style="background-color:#4080ff; " (click)="addSubscriber()">Submit</a>
 

@@ -95,10 +95,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
     document.body.style.backgroundColor = '#194F87';
     // https://stackoverflow.com/questions/391979/how-to-get-clients-ip-address-using-javascript-only
-    $.getJSON('//freegeoip.net/json/?callback=?',
-        data => {
-          this.subscriber.geo_ip = data;
-    });
 
 
   }
@@ -179,7 +175,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
     this.firebaseService.saveUserAnalytics(this.subscriber,'preview_scholarship')
       .then(res => {
         },
-        err => this.fire);
+        err => {});
 
     // TODO What's the proper way of saving form values with Google Analytics
 
@@ -193,7 +189,16 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
 }
 
-  addSubscriber() {
+  addSubscriber(event?: KeyboardEvent) {
+    console.log('event: ',event);
+    if(event){
+      event.preventDefault();
+      this.subscriber.dialog_open_event = event.key;
+    }
+    else {
+      this.subscriber.dialog_open_event = 'ButtonClick';
+    }
+
     this.subscriber.utm_source =       'preview_scholarships';
     let dialogRef = this.dialog.open(SubscriberDialogComponent, {
       width: '300px',
@@ -202,7 +207,10 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe(
       result => {
+
+              console.log('closing dialog result', result);
               this.subscriber = result;
+              this.subscriber.dialog_submit_event = result.dialog_event || 'ButtonClick';
 
               if (this.subscriber) {
                 this.firebaseService.addSubscriber(this.subscriber)

@@ -17,7 +17,14 @@ export class SubscriberDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  onClick() {
+  onEnter(event? : KeyboardEvent) {
+    if(event) {
+      this.subscriber.dialog_submit_event = event.key;
+    }
+    else {
+      this.subscriber.dialog_submit_event = 'ButtonClick';
+    }
+
     this.dialogRef.close(this.subscriber);
   }
 

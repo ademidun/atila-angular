@@ -130,7 +130,16 @@ export class ScholarshipsListComponent implements OnInit {
   }
 
 
-  addSubscriber() {
+  addSubscriber(event?: KeyboardEvent) {
+
+    // In case we want to see if people are more likely to submit by typing Enter or clicking.
+    if (event) {
+      this.subscriber.dialog_open_event = event.key;
+    }
+    else {
+      this.subscriber.dialog_open_event = 'ButtonClick';
+    }
+
     this.subscriber.utm_source =       'scholarships_list';
     let dialogRef = this.dialog.open(SubscriberDialogComponent, {
       width: '300px',
@@ -140,7 +149,11 @@ export class ScholarshipsListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(
       result => {
+        console.log('closing dialog result', result);
+
         this.subscriber = result;
+        this.subscriber.dialog_submit_event = result.dialog_event || 'ButtonClick';
+
         $.getJSON('//freegeoip.net/json/?callback=?',
           data => {
             this.subscriber.geo_ip = data;
