@@ -12,7 +12,7 @@
         </div>
 
         <div class="row center" style="text-align: center;margin-bottom: 0px;">
-          <p style="font-size: medium" class="col s6">Get updates on new scholarships, blog posts and new product features.
+          <p style="font-size: medium" class="col s6">Subscribe to get updates on new scholarships, blog posts and new product features.
 
             <span *ngIf="subscriber.response" style="color: green">
                   <br>
@@ -25,7 +25,7 @@
             <input matInput type="email" class="form-control" style="padding-bottom: 0; margin-bottom: 0"  name="email" id="emailid"
                    placeholder="Email Address" email [(ngModel)]="subscriber.email" (keyup.enter)="addSubscriber($event)">
           </mat-form-field>
-          <a class="waves-effect waves-light btn browser-default col s2" style="background-color:#4080ff; " (click)="addSubscriber()">Submit</a>
+          <a class="waves-effect waves-light btn browser-default col s2" style="background-color:#4080ff; " (click)="addSubscriber()">Subscribe</a>
 
 
         </div>
