@@ -13,7 +13,7 @@
           <br> -->
           <!-- Each time a value is changed, update the parent component Is calling the Event emitter on each change too frequent? -->
           <td  *ngFor="let map of columnMaps" [appStyleCell]="record[map.access(record)]">
-          <input (change)="sendEdits(p)" [ngModel]="record[map.access(record)] | formatCell:map.format" (ngModelChange)="record[map.access(record)]=$event">
+          <input (change)="sendEdits()" [ngModel]="record[map.access(record)] | formatCell:map.format" (ngModelChange)="record[map.access(record)]=$event">
           </td>
           <!--  TODO Figure out how to use javascript, pipes etc. within attribute directives-->
           <!-- <input [value]="record[map.access(record)] | formatCell:map.format ">  -->
@@ -29,4 +29,4 @@
   <button class="waves-effect waves-light btn center" (click)="addRow()">
     <i class="fa fa-plus" aria-hidden="true"></i>
 </button>
-</table> 
+</table>

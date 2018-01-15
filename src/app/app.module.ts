@@ -73,6 +73,7 @@ import { TermsConditionsComponent } from './terms-conditions/terms-conditions.co
 import { SearchComponent } from './search/search.component';
 import { SearchService } from './_services/search.service';
 import { DynamicQuestionGeneralComponent } from './dynamic-question-general/dynamic-question-general.component';
+import {CommonModule} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -137,6 +138,7 @@ import { DynamicQuestionGeneralComponent } from './dynamic-question-general/dyna
     MatCardModule,
     TableLayoutModule,
     HttpClientModule,
+    CommonModule
   ],
   providers: [ScholarshipService, UserProfileService,
      AuthService, ApplicationService,
