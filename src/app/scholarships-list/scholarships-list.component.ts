@@ -149,21 +149,26 @@ export class ScholarshipsListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(
       result => {
-        console.log('closing dialog result', result);
-
         this.subscriber = result;
-        this.subscriber.dialog_submit_event = result.dialog_event || 'ButtonClick';
+        if(this.subscriber) {
+          this.subscriber.dialog_submit_event = result.dialog_event || 'ButtonClick';
 
-        $.getJSON('//freegeoip.net/json/?callback=?',
-          data => {
-            this.subscriber.geo_ip = data;
+          $.getJSON('//freegeoip.net/json/?callback=?',
+            data => {
+              this.subscriber.geo_ip = data;
 
-            this.firebaseService.addSubscriber(this.subscriber)
-              .then(res => {
-                  this.subscriber.response ='Successfully subscribed to Atila 😄.';
-                },
-                err => this.subscriber.response ='Subscription error.');
-          });
+              this.firebaseService.addSubscriber(this.subscriber)
+                .then(res => {
+                    this.subscriber.response ='Successfully subscribed to Atila 😄.';
+                  },
+                  err => this.subscriber.response ='Subscription error.');
+            });
+        }
+        else {
+         this.subscriber = {};
+          this.subscriber.response ='Please enter subscription information 😄.';
+        }
+
 
       });
   }

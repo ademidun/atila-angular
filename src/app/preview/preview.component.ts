@@ -207,12 +207,11 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe(
       result => {
-
-              console.log('closing dialog result', result);
               this.subscriber = result;
-              this.subscriber.dialog_submit_event = result.dialog_event || 'ButtonClick';
 
               if (this.subscriber) {
+              this.subscriber.dialog_submit_event = result.dialog_event || 'ButtonClick';
+
                 this.firebaseService.addSubscriber(this.subscriber)
                   .then(res => {
                       this.subscriber.response ='Successfully subscribed to Atila 😄.';
