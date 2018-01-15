@@ -176,19 +176,13 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
   onSubmit(form: NgForm){
 
-    console.log('form',form);
     this.diagnostic = JSON.stringify(this.model);
 
     this.subscriber.action = 'preview_scholarship';
     this.subscriber.preview_choices = this.model;
 
 
-    console.log('this.model',this.model);
-    console.log('form',form);
-    console.log('form.value',form.value);
-
     if (form.value['education_field'].length==0 && form.value['education_level'].length==0 && form.value['location'] == '') {
-      console.log('Please enter at least one field');
       this.model.errors = 'Please enter at least one field.';
 
       return;
@@ -210,8 +204,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
     this.scholarshipService.setScholarshipPreviewForm(this.model).then(
       res => this.router.navigate(['scholarships-list']))  //use promise to ensure that form is saved to Service before navigating away
-
-
 
 
 }

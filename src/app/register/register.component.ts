@@ -68,18 +68,17 @@ userProfile = new UserProfile();
 
   registerUser(registerForm: NgForm) {
 
+    Array('country','province','city').forEach(element => {
+      this.locationData[element]= this.userProfile[element];
+
+    });
     if (registerForm.valid) {
       this.disableRegistrationButton = true;
       let postOperation: Observable<any>;
       // Create a new User
-      Array('country','province','city').forEach(element => {
 
-        this.userProfile[element] = this.toTitleCase(this.userProfile[element]);
-        this.locationData[element]= this.userProfile[element];
 
-      });
 
-      /*
       var sendData = {
         user: this.model,
         userProfile: this.userProfile,
@@ -118,7 +117,7 @@ userProfile = new UserProfile();
         }
       )
 
-      */
+
     } else {
       this.showSnackBar("Invalid form", 3000);
     }
@@ -170,5 +169,10 @@ userProfile = new UserProfile();
     }
 
     return str;
+  }
+
+  userProfileTitleCase(key) {
+
+    this.userProfile[key] = this.toTitleCase(this.userProfile[key]);
   }
 }
