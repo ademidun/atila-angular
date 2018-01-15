@@ -14,7 +14,7 @@
                 <!-- https://stackoverflow.com/questions/42341930/google-places-autocomplete-angular2 -->
                 <mat-form-field class="browser-default col s12 m4 location-div">
                     <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
-                    <input matInput type="text" class="form-control" style="padding-bottom: 0%" inputStyle="" required [placeholder]="locationPlaceHolder" name="location" id="location" [(ngModel)]="model.location.city" #LocationCtrl="ngModel"
+                    <input matInput type="text" class="form-control" style="padding-bottom: 0%" inputStyle="" required [placeholder]="locationPlaceHolder" name="location" id="location" [(ngModel)]="model.location.name" #LocationCtrl="ngModel"
                     appGooglePlace (setAddress)="placeAutoComplete($event,LocationCtrl)"  (googlePlaceNoLoad)="googlePlaceNoLoad()" (keydown)="keyDownHandler($event)" >
                   </mat-form-field>
 
@@ -32,10 +32,16 @@
 
               </div>
               <br>
+              <p *ngIf="model.errors" style="color: white">
+                {{model.errors}}
+              </p>
               <div class="row center" style="text-align: center;margin-bottom: 0px;">
                   <button class=" col s8 offset-s2 waves-effect waves-light btn scholarship-btn" type="submit">Get My Scholarships</button>
               </div>
               <br>
+
+              {{model | json}}
+
             </form>
             <div class="row center" style="text-align: center;margin-bottom: 0px;">
               <p style="color: white; font-size: medium" class="col s6">Subscribe to get updates on new scholarships, blog posts and new product features.

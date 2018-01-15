@@ -12,6 +12,7 @@ import {MatDialog} from '@angular/material';
 import {SubscriberDialogComponent} from '../subscriber-dialog/subscriber-dialog.component';
 import {UserProfileService} from '../_services/user-profile.service';
 import {MyFirebaseService} from '../_services/myfirebase.service';
+//import {GeocoderAddressComponent} from '@types/googlemaps'
 
 //import 'googlemaps';
 export class PreviewResponse {
@@ -26,6 +27,7 @@ export class PreviewResponse {
   },
   public education_level :string[],
   public education_field :string[],
+  public errors :string,
     ) { }
 }
 
@@ -73,7 +75,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
     province: '',
     country: '',
     name: '',
-    },[],[]);
+    },[],[],'');
    diagnostic: any;
 
    /**
@@ -128,10 +130,16 @@ export class PreviewComponent implements OnInit, OnDestroy {
     var keys = ['city', 'province', 'country'];
 
     //TODO: Find a more elegant solution for this.
-    addressComponents.forEach(element => {
-      if(element.types[0]=='locality' || element.types[0]=='administrative_area_level_3'){
+
+    console.log('addressComponents',addressComponents);
+
+    addressComponents.forEach((element, i, arr) => {
+      if (i == 0) {
+        this.model.location.name = element.long_name;
+        console.log('this.model.location.name',this.model.location.name);
+      }
+      if(element.types[0]=='locality' || element.types[0]=='administrative_area_level_3' ||  element.types[0]=='postal_town'||  element.types[0]=='sublocality_level_1'){
         this.model.location.city = element.long_name;
-        this.model.location.name = this.model.location.city;
       }
 
       if(element.types[0]=='administrative_area_level_1'){
@@ -142,6 +150,8 @@ export class PreviewComponent implements OnInit, OnDestroy {
         this.model.location[element.types[0]] = element.long_name;
       }
     });
+
+    console.log('this.model.location.city',this.model.location.city);
 
 
   }
@@ -166,12 +176,28 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
   onSubmit(form: NgForm){
 
-    this.model.location.name = this.model.location.city; //ensures that our object matches the Atila Location API
-
+    console.log('form',form);
     this.diagnostic = JSON.stringify(this.model);
 
     this.subscriber.action = 'preview_scholarship';
     this.subscriber.preview_choices = this.model;
+
+
+    console.log('this.model',this.model);
+    console.log('form',form);
+    console.log('form.value',form.value);
+
+    if (form.value['education_field'].length==0 && form.value['education_level'].length==0 && form.value['location'] == '') {
+      console.log('Please enter at least one field');
+      this.model.errors = 'Please enter at least one field.';
+
+      return;
+    }
+
+    else {
+      delete this.model.errors;
+    }
+
     this.firebaseService.saveUserAnalytics(this.subscriber,'preview_scholarship')
       .then(res => {
         },
@@ -179,12 +205,13 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
     // TODO What's the proper way of saving form values with Google Analytics
 
-
     this.googleAnalyticsEventService.emitEvent("userCategory", "previewAction", JSON.stringify(this.model.location), 1)
 
 
     this.scholarshipService.setScholarshipPreviewForm(this.model).then(
       res => this.router.navigate(['scholarships-list']))  //use promise to ensure that form is saved to Service before navigating away
+
+
 
 
 }
