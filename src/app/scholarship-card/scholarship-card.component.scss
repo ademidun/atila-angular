@@ -1,0 +1,88 @@
+@import '../../styles.scss';
+
+mat-card{
+  margin-bottom: 7%;
+}
+
+mat-card-content{
+  height: 100px;
+  overflow: hidden;
+}
+.my-mat-card-image{
+  height: 200px;
+}
+
+.mat-card-header{
+  height: 90px;
+  margin-bottom: 3%
+}
+.mat-card-actions{
+  padding: 0px;
+  height: 40px;
+}
+.scholarship-preview-count{
+  opacity:0.75;
+  //font-family:FuturaStd-Book;
+  font-size:20px;
+  color:#000000;
+  text-align:center;
+  display: inline-block;
+}
+
+.registered-title{
+  text-align: center;
+}
+.mat-button{
+  min-width: 65px;
+}
+
+.btn {
+  margin: 10px;
+}
+
+
+.logo-img {
+  height: 60px;
+}
+
+
+.scholarship-card {
+  margin: 5%;
+}
+
+
+.my-mat-card-image{
+  display: block;
+  margin-top: -5px !important;
+  max-height: 200px;
+}
+
+mat-card:hover {
+  color: black;
+  background-color: #DDD;
+  left: .1em;
+}
+
+.mat-card>.mat-card-actions:last-child {
+  margin-bottom: 0px;
+  padding-bottom: 0;
+}
+
+
+.header-image {
+  background-image: url('http://images.gawker.com/kagwpr0gnwckquouutb4/original.jpg');
+  background-size: cover;
+}
+
+button:focus, button:hover{
+  background-color: #C1BCBC;
+}
+
+
+button.mat-fab.mat-accent {
+  background-color: white;
+}
+
+.mat-simple-snackbar-action {
+  color: $my-lighten;
+}

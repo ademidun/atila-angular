@@ -17,7 +17,7 @@
             <span *ngIf="subscriber.response" style="color: green">
                   <br>
                   {{subscriber.response}}
-                </span>
+            </span>
           </p>
 
           <mat-form-field class="browser-default col s3 ">
@@ -41,31 +41,7 @@
         <div class="row">
             <div *ngFor="let scholarship of scholarships;  let i=index" class="col s12 m6 l4">
                 <ng-template [ngIf]="i<3">
-                  <a [routerLink]="['../scholarship-detail', scholarship.slug]">
-                  <mat-card class="scholarship-card">
-                    <mat-card-header>
-                      <div mat-card-avatar [ngStyle]="{ 'background-image': 'url( '+ scholarship.img_url +' )' }" class="header-image"></div>
-                      <mat-card-title><a [routerLink]="['../scholarship-detail', scholarship.slug]" class="card-title">{{scholarship.name | truncate:45}}</a></mat-card-title>
-
-                      <mat-card-subtitle class="card-text"  *ngIf="scholarship.extra_questions && !scholarship.extra_questions.funding_amount_varies; else funding_varies">
-                        {{scholarship.funding_amount | currency:'USD':'symbol':'1.0-0'}}</mat-card-subtitle>
-                      <ng-template #funding_varies><mat-card-subtitle class="card-text">Varies</mat-card-subtitle></ng-template>
-
-                    </mat-card-header>
-                    <a [routerLink]="['../scholarship-detail', scholarship.slug]">
-                    <img mat-card-image class="my-mat-card-image" src="{{scholarship.img_url}}">
-                    </a>
-                    <mat-card-content>
-                        <p class="card-text">
-                          {{scholarship.description | truncate:140}}
-                        </p>
-                    </mat-card-content>
-                    <mat-card-actions>
-                      <a *ngIf=scholarship.is_automated [routerLink]="['../scholarship-detail', scholarship.slug]" title="Automated Scholarships"><button mat-button><i class="material-icons automate-tag">tag_faces</i></button></a>
-                      <!--<a [routerLink]="['../scholarship-detail', scholarship.slug]" ><button mat-button><mat-icon svgIcon="plus-one"></mat-icon></button></a>-->
-                      </mat-card-actions>
-                  </mat-card>
-                  </a>
+                  <app-scholarship-card [scholarship]="scholarship" [userProfile]="userProfile"></app-scholarship-card>
                 </ng-template>
             </div>
         </div>
@@ -88,15 +64,6 @@
         </h4>
         <div class="row">
 
-          <!-- <div class="sort-container pull-right">
-            <p>Sort by </p>
-            <mat-select [(ngModel)]="sortVal" name="sort" id="sort">
-              <mat-option [value]=1>Relevance</mat-option>
-              <mat-option [value]=2>Funding</mat-option>
-              <mat-option [value]=3>Rating</mat-option>
-            </mat-select>
-          </div> -->
-
           <div class="row">
           <p class="text-align-center col s-3"><i class="material-icons automate-tag">tag_faces</i> = Automated scholarships.</p>
           <!--<p class="text-align-center col s-3"><mat-icon svgIcon="plus-one"></mat-icon> = One-Click Scholarships.</p>-->
@@ -107,32 +74,11 @@
         </div>
       </div>
         <div class="row">
-          <div *ngFor="let scholarship of scholarships;  let i=index" class="col s12 m6 l4">
 
-            <a [routerLink]="['../scholarship-detail', scholarship.slug]">
-              <mat-card class="scholarship-card">
-                  <mat-card-header>
-                    <div mat-card-avatar [ngStyle]="{ 'background-image': 'url( '+ scholarship.img_url +' )' }" class="header-image"></div>
-                    <mat-card-title><a [routerLink]="['../scholarship-detail', scholarship.slug]" class="card-title">{{scholarship.name | truncate:45}}</a></mat-card-title>
-                    <mat-card-subtitle class="card-text"  *ngIf="scholarship.extra_questions && !scholarship.extra_questions.funding_amount_varies; else funding_varies">
-                      {{scholarship.funding_amount | currency:'USD':'symbol':'1.0-0'}}</mat-card-subtitle>
-                    <ng-template #funding_varies><mat-card-subtitle class="card-text">Varies</mat-card-subtitle></ng-template>
-                  </mat-card-header>
-                  <a [routerLink]="['../scholarship-detail', scholarship.slug]">
-                  <img mat-card-image class="my-mat-card-image" src="{{scholarship.img_url}}">
-                  </a>
-                  <mat-card-content>
-                      <p class="card-text">
-                        {{scholarship.description | truncate:140}}
-                      </p>
-                  </mat-card-content>
-                  <mat-card-actions>
-                      <a *ngIf=scholarship.is_automated [routerLink]="['../scholarship-detail', scholarship.slug]" title="Automated Scholarships"><button mat-button><i class="material-icons automate-tag">tag_faces</i></button></a>
-                      <!--<a [routerLink]="['../scholarship-detail', scholarship.slug]" ><button mat-button><mat-icon svgIcon="plus-one"></mat-icon></button></a>-->
-                    </mat-card-actions>
-                </mat-card>
-            </a>
+          <div *ngFor="let scholarship of scholarships;  let i=index" class="col s12 m6 l4">
+              <app-scholarship-card [scholarship]="scholarship" [userProfile]="userProfile"></app-scholarship-card>
           </div>
+
         </div>
         <div class="row nav-buttons">
           <div class="col s12 center">

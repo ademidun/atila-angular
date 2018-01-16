@@ -45,6 +45,7 @@ const routes: Routes = [
   { path: 'forum/:slug' , component: ForumDetailComponent, data: {title: 'Atila - Forums'}},
   { path: 'login' , component: LoginComponent, data: {title: 'Atila - Login'}},
   { path: 'messages' , component: MessagesComponent, data: {title: 'Atila - My Messages'}},
+  { path: 'my-scholarships' , component: ProfileViewComponent, data: {title: 'Atila - My Scholarships'}},
   { path: 'preview' , component: PreviewComponent, data: {title: 'Atila - Preview'}},
   { path: 'register' , component: RegisterComponent, data: {title: 'Atila - Register'}},
   { path: 'search' , component: SearchComponent, data: {title: 'Atila - Search'}},

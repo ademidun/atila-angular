@@ -76,7 +76,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
     country: '',
     name: '',
     },[],[],'');
-   diagnostic: any;
 
    /**
     * If the Google Places API is not working, only ask for city.
@@ -175,8 +174,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(form: NgForm){
-
-    this.diagnostic = JSON.stringify(this.model);
 
     this.subscriber.action = 'preview_scholarship';
     this.subscriber.preview_choices = this.model;

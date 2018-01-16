@@ -25,7 +25,6 @@ export class ScholarshipsListComponent implements OnInit {
   isLoading = true;
   userProfile: UserProfile;
 
-
   scholarships: Scholarship[]; //TODO: If i use scholarship[] I can't access property members, why?
   scholarship_count: number = 0;
   total_funding: any = 0;
@@ -172,4 +171,9 @@ export class ScholarshipsListComponent implements OnInit {
 
       });
   }
+
+  shareItem(item) {
+    console.log('shareItem(item):', item);
+  }
+
 }
