@@ -18,7 +18,7 @@
   <mat-card-actions>
       <a *ngIf=scholarship.is_automated [routerLink]="['../scholarship-detail', scholarship.slug]" title="Automated Scholarships"><button mat-button><i class="material-icons automate-tag">tag_faces</i></button></a>
 
-      <button mat-fab  (click)="shareItem(scholarship)">
+      <button mat-fab  (click)="addToMyScholarship(scholarship)">
         <mat-icon  class="atila-blue" aria-hidden="true" aria-label="Save">bookmark</mat-icon>
       </button>
 
@@ -29,22 +29,22 @@
       <mat-menu #shareMenu="matMenu" [overlapTrigger]="false">
 
         <a target="_blank" [href]="'mailto:?body=Have you seen this scholarship from Atila\\?%0A%0Ahttps://atila.ca/scholarship-detail/'+scholarship.slug+'.&subject=Scholarship From Atila - '+ scholarship.name" >
-          <button mat-menu-item>
+          <button mat-menu-item (click)="logShareType('email')">
             <mat-icon svgIcon="email"></mat-icon>
           </button>
         </a>
         <a target="_blank" [href]="'http://www.facebook.com/dialog/send?app_id=401124503672116&link=https://atila.ca/scholarship-detail/'+scholarship.slug+'&redirect_uri=https://atila.ca/'">
-          <button mat-menu-item>
+          <button mat-menu-item (click)="logShareType('facebook-messenger')">
             <mat-icon svgIcon="facebook-messenger"></mat-icon>
           </button>
         </a>
         <a target="_blank" [href]="'https://www.facebook.com/sharer.php?display=popup&quote=Have you seen this scholarship from Atila? : '+scholarship.name+'+&href=https://atila.ca/scholarship-detail/'+scholarship.slug+'&app_id=401124503672116'" rel="noopener">
-          <button mat-menu-item>
+          <button mat-menu-item (click)="logShareType('facebook')">
             <mat-icon svgIcon="facebook"></mat-icon>
           </button>
         </a>
 
-        <a  target="_blank"[href]="'https://web.whatsapp.com/send?text=https://atila.ca/scholarship-detail/'+scholarship.slug">
+        <a  (click)="logShareType('whatsapp')" target="_blank"[href]="'https://web.whatsapp.com/send?text=https://atila.ca/scholarship-detail/'+scholarship.slug">
           <button mat-menu-item>
             <mat-icon svgIcon="whatsapp"></mat-icon>
           </button>

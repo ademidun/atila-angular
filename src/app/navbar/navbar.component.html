@@ -42,7 +42,7 @@
             </a>
           </li>
 
-          <li><a class="atila-blue" routerLink="/login">Log In</a></li>
+          <li><a class="atila-blue" routerLink="/login"><button mat-fab class= "left far-left">Log In</button></a></li>
 
         </span>
 
@@ -158,7 +158,7 @@
 
 
       <!-- Horizontally the top most div is the right most div.-->
-      <a routerLink="/login" class="atila-blue right">Login</a>
+        <a routerLink="/login" class="atila-blue right"><button mat-fab [matMenuTriggerFor]="mobileMenu" class= "left far-left">Login</button></a>
       <a routerLink="/search" title="Search"  class= "right" >
         <button mat-fab >
           <mat-icon  class="atila-blue" aria-hidden="true" aria-label="See Blogs" md-colors="{color:'$my-lighten'}">search</mat-icon>
