@@ -1,11 +1,11 @@
 <div class="container">
     <div class=" card row">
-      <mat-form-field class="col s9">
+      <mat-form-field class="col s8">
       <input matInput class="browser-default" id="search" type="text"
              required [(ngModel)]="query" name="search" placeholder="Enter to search" (keyup.enter)="search(query)">
       </mat-form-field>
 
-      <a  class="waves-effect waves-light btn col s1" (click)="search(query)">
+      <a  class="waves-effect waves-light btn col s3" (click)="search(query)">
         <i class="material-icons automate-tag">search</i>
       </a>
 

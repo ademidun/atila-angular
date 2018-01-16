@@ -13,3 +13,25 @@ nav .brand-logo {
 button:focus{
   background-color: #C1BCBC;
 }
+
+button.mat-fab.mat-accent {
+  background-color: white;
+}
+
+.far-left{
+  margin-left: -3%;
+}
+
+.far-right{
+  margin-right: -3%;
+}
+
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width : 3450px) {
+
+  nav {
+    padding-bottom: 18%;
+  }
+}
+
