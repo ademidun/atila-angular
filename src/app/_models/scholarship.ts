@@ -16,6 +16,7 @@ export class Scholarship {
     id?: number;
     img_url?: any;
     is_automated?: boolean;
+    metadata: any;
     name?: string;
     number_available_scholarships?: number;
     owner?: any;

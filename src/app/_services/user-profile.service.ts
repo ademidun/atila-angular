@@ -301,4 +301,10 @@ export class UserProfileService {
 
     }
 
+    getApplications(userId: number) {
+      return this.http.get(`${this.userProfileEndpoint}${userId}/applications/`)
+        .map(res=>res)
+        .catch(err=>Observable.throw(err))
+    }
+
 }

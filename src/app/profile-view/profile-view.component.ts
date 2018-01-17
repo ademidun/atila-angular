@@ -17,6 +17,7 @@ import { Thread } from '../_models/thread';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from "firebase";
 import * as $ from 'jquery';
+
 @Component({
   selector: 'app-profile-view',
   templateUrl: './profile-view.component.html',
@@ -30,6 +31,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
   profilePicFile: UploadFile;
   uploadProgress: number;
   showPreview:boolean = false;
+  userApplications: any;
 
   currentUser:number;
   constructor(
@@ -45,6 +47,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
   }
 
   ngOnInit() {
+
     this.userProfileService.getByUsername(this.userNameSlug).subscribe(
       res => {
         this.userProfile = res;
@@ -52,6 +55,8 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
 
         this.currentUser = parseInt(this.authService.decryptLocalStorage('uid')); // Current user
         this.profileOwner = (this.currentUser == this.userProfile.user);
+
+        console.log('this.userProfile', this.userProfile);
       }
     )
 
@@ -187,6 +192,23 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
     });
   }
 
+  getApplications() {
+
+    if(!this.userApplications){
+      this.userProfileService.getApplications(this.userProfile.user)
+        .subscribe(
+          res => {
+            this.userApplications = res.applications;
+            console.log('res', res);
+
+            console.log('this.userApplications', this.userApplications);
+          },
+          err => console.log('getApplications err', err),
+        )
+    }
+
+  }
+
   message() {
     let thread = new Thread([this.currentUser, this.userProfile.user]);
     this.messagingService.getOrCreateThread(thread)
@@ -202,5 +224,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
         }
       )
   }
+
+
 
 }

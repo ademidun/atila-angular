@@ -13,6 +13,7 @@ export class UserProfile {
             public is_verified?:any,
             public last_name?: string,
             public major?: string,
+            public metadata?: any,
             public postal_code?: string,
             public province?: any,
             public street_address?: string,

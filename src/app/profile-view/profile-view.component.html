@@ -22,44 +22,98 @@
       </mat-card-header>
     </mat-card>
 
-    <form *ngIf="profileOwner && !showPreview" #profileForm="ngForm">
-          <h4>Edit <span *ngIf="userProfile.first_name">{{userProfile.first_name}}'s</span> Profile</h4>
-        <div class="row">
-            <div class="col s6">
-                <label>Upload your Profile Picture</label>
-              <input class="browser-default" id="profile_pic_url" type="file" placeholder="Upload your Profile Picture"
-                 #uploadPicInput name="profile_pic_url">
-            </div>
 
-            <mat-progress-bar style="margin-bottom: 1%;" *ngIf="uploadProgress" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
+      <div *ngIf="!showPreview">
 
-            <div class="col s6">
-              <button mat-raised-button class="btn white-text" (click)="uploadProfilePic(uploadPicInput)">Upload</button>
-            </div>
-
+        <nav class="nav-extended">
+          <div class="nav-content">
+            <ul class="tabs tabs-transparent">
+              <li class="tab"><a href="#test1">Edit Profile</a></li>
+              <li class="tab"><a class="active" href="#test2">My Scholarships</a></li>
+              <li (click)="getApplications()" class="tab"><a href="#test3">My Applications</a></li>
+            </ul>
           </div>
+        </nav>
 
-        <div class="row">
-          <mat-form-field class="col s12">
-            <label>Profile Headline</label>
-            <input class="browser-default" matInput id="title" type="text" placeholder="e.g. Computer Engineering Student"
-              [(ngModel)]="userProfile.title" name="title">
-          </mat-form-field>
+        <div id="test1" class="col s12">
+          <form *ngIf="profileOwner" #profileForm="ngForm">
+            <h4>Edit <span *ngIf="userProfile.first_name">{{userProfile.first_name}}'s</span> Profile</h4>
+            <div class="row">
+              <div class="col s6">
+                <label>Upload your Profile Picture</label>
+                <input class="browser-default" id="profile_pic_url" type="file" placeholder="Upload your Profile Picture"
+                       #uploadPicInput name="profile_pic_url">
+              </div>
+
+              <mat-progress-bar style="margin-bottom: 1%;" *ngIf="uploadProgress" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
+
+              <div class="col s6">
+                <button mat-raised-button class="btn white-text" (click)="uploadProfilePic(uploadPicInput)">Upload</button>
+              </div>
+
+            </div>
+
+            <div class="row">
+              <mat-form-field class="col s12">
+                <label>Profile Headline</label>
+                <input class="browser-default" matInput id="title" type="text" placeholder="e.g. Computer Engineering Student"
+                       [(ngModel)]="userProfile.title" name="title">
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field class="col s12">
+                <input class="browser-default" matInput id="post_secondary_school" type="text" placeholder="University/College Name or Apprenticesip Program"
+                       [(ngModel)]="userProfile.post_secondary_school" name="post_secondary_school">
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field class="col s12">
+                <input class="browser-default" matInput id="secondary_school" type="text" placeholder="Secondary School"
+                       [(ngModel)]="userProfile.secondary_school" name="secondary_school">
+              </mat-form-field>
+            </div>
+            <button mat-raised-button class="btn white-text" (click)="saveProfile()">Save</button>
+          </form>
         </div>
-        <div class="row">
-          <mat-form-field class="col s12">
-            <input class="browser-default" matInput id="post_secondary_school" type="text" placeholder="University/College Name or Apprenticesip Program"
-              [(ngModel)]="userProfile.post_secondary_school" name="post_secondary_school">
-          </mat-form-field>
+
+
+        <div id="test2" class="col s12">
+          <table style="width:100%">
+            <tr>
+              <th>Name</th>
+              <th>Deadline</th>
+              <th>My Notes</th>
+            </tr>
+
+            <tr *ngFor="let scholarship of userProfile.metadata['saved_scholarships']">
+              <td><a [routerLink]="['/scholarship-detail', scholarship.slug]">{{scholarship.name}}</a></td>
+              <td>{{scholarship.deadline | date:'EEEE, MMMM d, y, h:mm a'}}</td>
+              <td>{{scholarship['user_notes']}}</td>
+            </tr>
+          </table>
         </div>
-        <div class="row">
-          <mat-form-field class="col s12">
-            <input class="browser-default" matInput id="secondary_school" type="text" placeholder="Secondary School"
-              [(ngModel)]="userProfile.secondary_school" name="secondary_school">
-          </mat-form-field>
+        <div id="test3" class="col s12">
+          <table style="width:100%">
+            <tr style="border-bottom-style: inset">
+              <th class="col s6 l3">Name</th>
+              <th class="col s6 l3">Deadline</th>
+              <th class="col s12 l6">My Notes</th>
+            </tr>
+
+            <tr *ngFor="let application of userApplications">
+              <td><a [routerLink]="['/applications', application.id]">{{application.scholarship.name}}</a></td>
+              <td>{{application.scholarship.deadline | date:'EEEE, MMMM d, y, h:mm a'}}</td>
+              <td><input [(ngModel)]="application.metadata['user_notes']"></td>
+            </tr>
+
+            <hr>
+
+          </table>
         </div>
-        <button mat-raised-button class="btn white-text" (click)="saveProfile()">Save</button>
-    </form>
+
+      </div>
+
+
 
     <mat-card class="background-card">
       <h3></h3>
