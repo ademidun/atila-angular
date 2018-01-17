@@ -172,8 +172,5 @@ export class ScholarshipsListComponent implements OnInit {
       });
   }
 
-  shareItem(item) {
-    console.log('shareItem(item):', item);
-  }
 
 }

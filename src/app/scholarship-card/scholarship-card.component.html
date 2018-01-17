@@ -28,7 +28,7 @@
       <!-- Dropdown Share Menu -->
       <mat-menu #shareMenu="matMenu" [overlapTrigger]="false">
 
-        <a target="_blank" [href]="'mailto:?body=Have you seen this scholarship from Atila\\?%0A%0Ahttps://atila.ca/scholarship-detail/'+scholarship.slug+'.&subject=Scholarship From Atila - '+ scholarship.name" >
+        <a target="_blank" [href]="'mailto:?body=Have you seen this scholarship from Atila\?%0A%0Ahttps://atila.ca/scholarship-detail/'+scholarship.slug+'&subject=Scholarship From Atila - '+ scholarship.name" >
           <button mat-menu-item (click)="logShareType('email')">
             <mat-icon svgIcon="email"></mat-icon>
           </button>
@@ -38,7 +38,7 @@
             <mat-icon svgIcon="facebook-messenger"></mat-icon>
           </button>
         </a>
-        <a target="_blank" [href]="'https://www.facebook.com/sharer.php?display=popup&quote=Have you seen this scholarship from Atila? : '+scholarship.name+'+&href=https://atila.ca/scholarship-detail/'+scholarship.slug+'&app_id=401124503672116'" rel="noopener">
+        <a target="_blank" [href]="'https://www.facebook.com/sharer.php?display=popup&quote=Have you seen this scholarship from Atila? : '+scholarship.name+'+&u=https://atila.ca/scholarship-detail/'+scholarship.slug+'&app_id=401124503672116'" rel="noopener">
           <button mat-menu-item (click)="logShareType('facebook')">
             <mat-icon svgIcon="facebook"></mat-icon>
           </button>

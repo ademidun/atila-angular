@@ -27,7 +27,6 @@ export class ScholarshipCardComponent implements OnInit {
 
 
   addToMyScholarship(item) {
-    console.log('shareItem(): scholarship, userProfile', this.scholarship, this.userProfile);
 
     this.logShareType('save_my_scholarships');
     if (this.userProfile) {
@@ -37,7 +36,7 @@ export class ScholarshipCardComponent implements OnInit {
 
       snackBarRef.onAction().subscribe(
         () => {
-          this.router.navigate(['my-scholarships']);
+          this.router.navigate(['profile',this.userProfile.username]);
         },
       )
     }
@@ -59,7 +58,6 @@ export class ScholarshipCardComponent implements OnInit {
     }
 
   logShareType(sharingType) {
-    console.log('logShareType',sharingType);
     this.userAnalytics.share_type = sharingType;
     this.userAnalytics.schoarship_id = this.scholarship.id;
 

@@ -39,14 +39,12 @@ export class MyFirebaseService {
   }
 
   saveUserAnalytics(user, path?) {
-    console.log('saveUserAnalytics(user, path?)',user, path);
     return $.getJSON('//freegeoip.net/json/?callback=?',
       data => {
         user = this.addMetadata(user);
         user.geo_ip = data;
         const customPath = path ? 'user_analytics/'+ path  : 'user_analytics/general';
 
-        console.log('saveUserAnalytics(user, path?) afterwards',user, path);
         return this.db.list(customPath).push(user);
 
       },

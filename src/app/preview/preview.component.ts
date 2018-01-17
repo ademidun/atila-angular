@@ -130,12 +130,10 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
     //TODO: Find a more elegant solution for this.
 
-    console.log('addressComponents',addressComponents);
 
     addressComponents.forEach((element, i, arr) => {
       if (i == 0) {
         this.model.location.name = element.long_name;
-        console.log('this.model.location.name',this.model.location.name);
       }
       if(element.types[0]=='locality' || element.types[0]=='administrative_area_level_3' ||  element.types[0]=='postal_town'||  element.types[0]=='sublocality_level_1'){
         this.model.location.city = element.long_name;
@@ -150,7 +148,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
       }
     });
 
-    console.log('this.model.location.city',this.model.location.city);
 
 
   }
@@ -206,7 +203,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
 }
 
   addSubscriber(event?: KeyboardEvent) {
-    console.log('event: ',event);
     if(event){
       event.preventDefault();
       this.subscriber.dialog_open_event = event.key;
