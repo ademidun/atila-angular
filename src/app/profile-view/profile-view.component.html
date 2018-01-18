@@ -23,13 +23,13 @@
     </mat-card>
 
 
-      <div *ngIf="!showPreview">
+      <div *ngIf="profileOwner && !showPreview">
 
         <nav class="nav-extended">
           <div class="nav-content">
-            <ul class="tabs tabs-transparent">
-              <li class="tab"><a href="#test1">Edit Profile</a></li>
-              <li class="tab"><a class="active" href="#test2">My Scholarships</a></li>
+            <ul materialize="tabs" class="tabs tabs-transparent">
+              <li class="tab"><a class="active" href="#test1">Edit Profile</a></li>
+              <li class="tab"><a href="#test2">My Scholarships</a></li>
               <li (click)="getApplications()" class="tab"><a href="#test3">My Applications</a></li>
             </ul>
           </div>
@@ -95,18 +95,32 @@
         <div id="test3" class="col s12">
           <table style="width:100%">
             <tr style="border-bottom-style: inset">
-              <th class="col s6 l3">Name</th>
-              <th class="col s6 l3">Deadline</th>
-              <th class="col s12 l6">My Notes</th>
+              <th>Name</th>
+              <th>Deadline</th>
+              <th>My Notes</th>
+              <th class="hide-on-small-and-down">Save</th>
             </tr>
-
-            <tr *ngFor="let application of userApplications">
+            <p style="font-size: smaller">Note: Some times may be slightly off due to time zone differences.</p>
+              <tr style="border-bottom-style: inset" *ngFor="let application of userApplications; let i = index">
               <td><a [routerLink]="['/applications', application.id]">{{application.scholarship.name}}</a></td>
               <td>{{application.scholarship.deadline | date:'EEEE, MMMM d, y, h:mm a'}}</td>
-              <td><input [(ngModel)]="application.metadata['user_notes']"></td>
-            </tr>
+              <td><textarea style="height: 5rem"  [(ngModel)]="application.metadata['user_notes']"
+                            placeholder="e.g. Upload transcript. Share scholarship with Alice."></textarea></td>
+                <td class="hide-on-small-and-down" (click)="saveMyAtila('application',application, i)">
+                  <i class="material-icons " style="color: #039be5">save</i>
+                </td>
+                <span class="hide-on-med-and-up">
 
-            <hr>
+                  <br>
+                  <a (click)="saveMyAtila('application',application, i)" class="col s12">
+                    <i class="material-icons ">save</i>
+                  </a>
+
+                </span>
+              </tr>
+
+
+
 
           </table>
         </div>
@@ -115,14 +129,14 @@
 
 
 
-    <mat-card class="background-card">
-      <h3></h3>
-      <mat-card-content>
-        <p>
-          {{userProfile.profile_description}}
-        </p>
-      </mat-card-content>
-    </mat-card>
+    <!--<mat-card class="background-card">-->
+      <!--<h3></h3>-->
+      <!--<mat-card-content>-->
+        <!--<p>-->
+          <!--{{userProfile.profile_description}}-->
+        <!--</p>-->
+      <!--</mat-card-content>-->
+    <!--</mat-card>-->
 
   </div>
 

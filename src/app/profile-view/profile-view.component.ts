@@ -17,6 +17,7 @@ import { Thread } from '../_models/thread';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from "firebase";
 import * as $ from 'jquery';
+import {ApplicationService} from '../_services/application.service';
 
 @Component({
   selector: 'app-profile-view',
@@ -41,7 +42,8 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
     public snackBar: MatSnackBar,
     public authService: AuthService,
     public router: Router,
-    public messagingService: MessagingService
+    public messagingService: MessagingService,
+    public applicationService: ApplicationService,
   ) {
     this.userNameSlug = route.snapshot.params['username'];
   }
@@ -207,6 +209,22 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
         )
     }
 
+  }
+
+  saveMyAtila(objectType, atilaObject, index?) {
+    console.log('objectType, object, index',objectType, atilaObject,index);
+
+    if (objectType=='application') {
+      let tempApplication = Object.assign({}, atilaObject);
+      delete tempApplication.scholarship;
+      this.applicationService.update(tempApplication)
+        .subscribe(
+          res => {
+            console.log('saveMyAtila res', res);
+          },
+          err => console.log('saveMyAtila err', err)
+        )
+    }
   }
 
   message() {

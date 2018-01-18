@@ -74,6 +74,8 @@ import { SearchComponent } from './search/search.component';
 import { SearchService } from './_services/search.service';
 import { DynamicQuestionGeneralComponent } from './dynamic-question-general/dynamic-question-general.component';
 import {CommonModule} from '@angular/common';
+import { MaterializeModule } from 'angular2-materialize';
+import "materialize-css";
 
 @NgModule({
   declarations: [
@@ -138,7 +140,8 @@ import {CommonModule} from '@angular/common';
     MatCardModule,
     TableLayoutModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    MaterializeModule,
   ],
   providers: [ScholarshipService, UserProfileService,
      AuthService, ApplicationService,

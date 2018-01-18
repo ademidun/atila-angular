@@ -4,6 +4,7 @@ import { HttpClient, HttpResponse, HttpHeaders, HttpParams} from '@angular/commo
 
 import { Observable } from 'rxjs/Observable';
 import {environment} from '../../environments/environment';
+import {Application} from '../_models/application';
 
 @Injectable()
 export class ApplicationService {
@@ -35,6 +36,11 @@ export class ApplicationService {
 
   }
 
+   update(application: Application) {
+     return this.http.patch(this.applicationsUrl+application.id+'/',application)
+      .map(res=>res)
+      .catch(err=>Observable.throw(err))
+  }
 
   getTimeOfDay(){
     var myDate = new Date();
