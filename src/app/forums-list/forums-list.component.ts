@@ -8,6 +8,7 @@ import { UserProfile } from '../_models/user-profile';
 
 import { UserProfileService } from '../_services/user-profile.service';
 import { AuthService } from "../_services/auth.service";
+import {MatSnackBar} from '@angular/material';
 @Component({
   selector: 'app-forums-list',
   templateUrl: './forums-list.component.html',
@@ -24,6 +25,7 @@ export class ForumsListComponent implements OnInit {
     public forumService: ForumService,
     public userProfileService: UserProfileService,
     public authService: AuthService,
+    public snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -36,22 +38,44 @@ export class ForumsListComponent implements OnInit {
         res => {
           this.userProfile = res;
 
+          this.forumService.list().subscribe(
+            res => {
+              this.forums = res.results;
+
+              this.forums.forEach(forum => {
+                if (forum.starting_comment.up_votes_id.includes(this.userProfile.user)) {
+                  forum['alreadyLiked'] = true;
+                }
+              });
+              this.isLoading = false;
+            },
+
+            err =>{
+              this.isLoading = false;
+            }
+          );
+
+
         },
         err=> {
         }
 
       );
     }
-    this.forumService.list().subscribe(
-      res => {
-        this.forums = res.results;
-        this.isLoading = false;
-      },
 
-      err =>{
-        this.isLoading = false;
-      }
-    );
+    else {
+      this.forumService.list().subscribe(
+        res => {
+          this.forums = res.results;
+          this.isLoading = false;
+        },
+
+        err =>{
+          this.isLoading = false;
+        }
+      );
+    }
+
 
 
 
@@ -79,6 +103,56 @@ export class ForumsListComponent implements OnInit {
         this.newForum.title = "";
       }
     )
+
+  }
+
+
+  likeContent(content: Forum, index?) {
+
+    console.log('likeContent(content, index?)', content, index);
+
+    if (!this.userProfile) {
+      this.snackBar.open("Please log in to like.", '', {
+        duration: 3000
+      });
+
+      return;
+    }
+
+    if(content.starting_comment.up_votes_id ) {
+
+      if (!content.starting_comment.up_votes_id.includes(this.userProfile.user)) {
+        content.starting_comment.up_votes_id.push(this.userProfile.user);
+        content.starting_comment.up_votes_count += 1;
+        content['alreadyLiked'] = true;
+
+        let sendData = {
+          id: content.starting_comment.id,
+          up_votes_id: content.starting_comment.up_votes_id,
+          up_votes_count: content.starting_comment.up_votes_count,
+        }
+        this.forumService.partialUpdateComments(sendData)
+          .subscribe(res=>console.log('likeContent() res', res),
+            err =>console.log('likeContent() err', err))
+      }
+
+      else  {
+        let index = content.starting_comment.up_votes_id.indexOf(this.userProfile.user);
+        content.starting_comment.up_votes_id.splice(index, 1);
+        content.starting_comment.up_votes_count -= 1;
+        content['alreadyLiked'] = false;
+
+        let sendData = {
+          id: content.starting_comment.id,
+          up_votes_id: content.starting_comment.up_votes_id,
+          up_votes_count: content.starting_comment.up_votes_count,
+        };
+
+        this.forumService.partialUpdateComments(sendData)
+          .subscribe(res=>console.log('likeContent() res', res),
+            err =>console.log('likeContent() err', err))
+      }
+    }
 
   }
 

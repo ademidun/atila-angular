@@ -4,12 +4,13 @@
   <div class="row">
     <h4 style="text-align: center;">Forums</h4>
 
-    <div class="col s12 forum-box">
+    <div class="col s12 m8 offset-m2 forum-box">
 
       <div class="card forum-card">
         <div class="card-content ">
           <input *ngIf="newForum" id="forum_title" placeholder="Title" [(ngModel)]="newForum.title">
-          <input *ngIf="forumComment"  id="forum_comment_text" placeholder="What's on your mind?" (keydown.enter)="postForum()" [(ngModel)]="forumComment.text">
+          <textarea *ngIf="forumComment" style="height: 3rem"  id="forum_comment_text" placeholder="What's on your mind?" (keydown.enter)="postForum()" [(ngModel)]="forumComment.text">
+          </textarea>
         </div>
         <div class="card-action">
           <button mat-raised-button style="background-color: #4080ff;" class="btn white-text" (click)="postForum()">Post</button>
@@ -25,7 +26,7 @@
           <span class="card-title"><a routerLink="/forum/{{forum.slug}}">{{forum.title | truncate:140}}</a></span>
           <span *ngIf="forum.user"><a routerLink="/profile/{{forum.user.username}}">
           <div class="chip">
-            <img src="https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-scholarship-default-image.jpeg?alt=media&token=cd789758-3400-43d5-9ea7-d2facf709ea2"
+            <img [src]="forum.user.profile_pic_url"
                  alt="Authorr">
             <a routerLink="/profile/{{forum.user.username}}">
             {{forum.user.first_name}} {{forum.user.last_name}}
@@ -37,14 +38,18 @@
           <p>{{forum.starting_comment.text | truncate:280}}</p>
         </div>
         <div class="card-action">
-          <a class="btn-floating halfway-fab waves-effect waves-light left" style="left: 15px; bottom: 10px">
-            <i class="material-icons md-36">thumb_up</i></a>
-          <a class="btn-floating halfway-fab waves-effect waves-light left" style="left: 70px; bottom: 10px">
-          <p class="btn-text">5</p>
+          <a (click)="likeContent(forum, i)" [ngStyle]="{'background-color': forum.alreadyLiked ? '#4080FF' : 'transparent'}"
+             class="btn-floating halfway-fab waves-effect waves-light left interactive-btn" style="left: 15px; bottom: 10px">
+            <mat-icon class="material-icons interactive-icon md-36"  [ngStyle]="{'color': forum.alreadyLiked ? 'white' : '#4080FF'}"
+                      svgIcon="thumb-up-outline"></mat-icon></a>
+          <a routerLink="/forum/{{forum.slug}}" class="btn-floating halfway-fab waves-effect waves-light left"
+             style="left: 70px; bottom: 10px">
+          <p class="btn-text">{{forum.starting_comment.up_votes_count}}</p>
           </a>
-          <a class="btn-floating halfway-fab waves-effect waves-light left" style="left: 125px; bottom: 10px">
+          <a  routerLink="/forum/{{forum.slug}}" class="btn-floating halfway-fab waves-effect waves-light left" style="left: 125px; bottom: 10px">
             <i class="material-icons md-36">comment</i></a>
-          <a class="btn-floating halfway-fab waves-effect waves-light left" style="left: 180px; bottom: 10px">
+          <a routerLink="/forum/{{forum.slug}}" class="btn-floating halfway-fab waves-effect waves-light left"
+             style="left: 180px; bottom: 10px">
           <p class="btn-text">5</p>
           </a>
 

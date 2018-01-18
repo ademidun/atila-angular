@@ -18,34 +18,43 @@
         </div>
         <div *ngFor="let blog of blogs; let i = index" class="col s12 m8 offset-m2 blog-box">
 
+          <div class="card mat-card">
+            <div class="card-content ">
+              <span class="card-title"><a routerLink="/blog/{{blog.slug}}">{{blog.title | truncate:140}}</a></span>
+              <span *ngIf="blog.user">
+                <a routerLink="/profile/{{blog.user.username}}">
+                  <div class="chip">
+                    <img [src]="blog.user.profile_pic_url"
+                         alt="Authorr">
+                    <a routerLink="/profile/{{blog.user.username}}">
+                    {{blog.user.first_name}} {{blog.user.last_name}}
+                    </a>
+                  </div>
+                </a>
+              </span>
+              <div class="card-image">
+                <img [src]="blog.header_image_url">
+              </div>
 
-          <mat-card class="mat-card">
+              <p>{{blog.description| truncate:280}}</p>
+            </div>
+            <div class="card-action">
+              <a (click)="likeBlog(blog,i)" class="btn-floating halfway-fab waves-effect waves-light left" style="left: 15px; bottom: 10px">
+                <i class="material-icons md-36">thumb_up</i></a>
+              <a class="btn-floating halfway-fab waves-effect waves-light left" style="left: 70px; bottom: 10px">
+                <p class="btn-text">5</p>
+              </a>
+              <a routerLink="/blog/{{blog.slug}}" class="btn-floating halfway-fab waves-effect waves-light left" style="left: 125px; bottom: 10px">
+                <i class="material-icons md-36">comment</i></a>
+              <a class="btn-floating halfway-fab waves-effect waves-light left" style="left: 180px; bottom: 10px">
+                <p class="btn-text">5</p>
+              </a>
 
-              <mat-card-header>
-              <mat-card-title><a routerLink="/blog/{{blog.user.username}}/{{blog.slug}}"><h5 *ngIf="blog.title">{{((blog.title.length>50)? (blog.title | slice:0:50)+'...':(blog.title) )}}</h5></a></mat-card-title>
-              <mat-card-subtitle class="card-text">
-              <small>{{blog.date_created | date:'MMMM d, y, h:mm a'}}</small>
-              <span *ngIf="blog.user"><a routerLink="/profile/{{blog.user.username}}">{{blog.user.first_name}} {{blog.user.last_name}}</a> </span>
-              </mat-card-subtitle>
-            </mat-card-header>
-            <img mat-card-image class="my-mat-card-image" src="{{blog.header_image_url}}">
-            <mat-card-content>
-                <p class="card-text" *ngIf="blog.description">
-                    {{((blog.description.length>140)? (blog.description | slice:0:140)+'...':(blog.description) )}}
-                </p>
-            </mat-card-content>
-
-            <mat-card-actions>
-
-                  <mat-icon class="md-24" aria-label="Like the comment">thumb_up</mat-icon>{{blog.up_votes_count}}
-
-                  <mat-icon class="md-24" aria-label="Dislike the comment">thumb_down</mat-icon>{{blog.down_votes_count}}
-
-              </mat-card-actions>
-
-          </mat-card>
+            </div>
+            </div>
 
         </div>
+
       </div>
 
       <!-- Loading progress circle -->

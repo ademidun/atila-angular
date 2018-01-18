@@ -1,31 +1,60 @@
-<mat-card class="comment-card">
 
-    <span id="{{comment.id}}">
-        <mat-card-header>
-        <mat-card-title><h5>{{comment.title}}</h5></mat-card-title>
-        <mat-card-subtitle class="card-text">
-        <small>{{comment.date_created | date:'MMMM d, y, h:mm a'}}</small>
-        <span *ngIf="comment.user"><a routerLink="/profile/{{comment.user.username}}">{{comment.user.first_name}} {{comment.user.last_name}}</a> </span>
-        </mat-card-subtitle>
-      </mat-card-header>
+<div class="card ">
+  <div class="card-content ">
+    <span class="card-title">{{comment.title | truncate:140}}</span>
+    <span *ngIf="comment.user"><a routerLink="/profile/{{comment.user.username}}">
+          <div class="chip">
+            <img [src]="comment.user.profile_pic_url"
+                 alt="Author">
+            <a routerLink="/profile/{{comment.user.username}}">
+            {{comment.user.first_name}} {{comment.user.last_name}}
+            </a>
+          </div>
+          </a>
 
-      <mat-card-content>
-          <p class="card-text">
-              {{comment.text}}
-          </p>
-      </mat-card-content>
+          </span>
+    <p>{{comment.text}}</p>
+  </div>
 
-      <mat-card-actions>
+  <div class="card-action">
+    <a (click)="likeComment()"  class="btn-floating halfway-fab waves-effect waves-light left" style="left: 15px; bottom: 10px">
+      <i class="material-icons md-36">thumb_up</i></a>
+    <a class="btn-floating halfway-fab waves-effect waves-light left" style="left: 70px; bottom: 10px">
+      <p class="btn-text">{{comment.up_votes_count}}</p>
+    </a>
 
-            <button mat-mini-fab style="background-color: transparent" [disabled]="comment.user_already_upvoted" (click)="commentVote('upVote')">
-                    <mat-icon class="md-24" aria-label="Like the comment">thumb_up</mat-icon>
-                  </button>{{comment.up_votes_count}}
+  </div>
+</div>
 
-                  <button mat-mini-fab style="background-color: transparent" [disabled]="comment.user_already_downvoted" (click)="commentVote('downVote')">
-                    <mat-icon class="md-24" aria-label="Dislike the comment">thumb_down</mat-icon>
-                  </button>{{comment.down_votes_count}}
 
-        </mat-card-actions>
-    </span>
+<!--<mat-card class="comment-card">-->
 
-  </mat-card>
+    <!--<span id="{{comment.id}}">-->
+        <!--<mat-card-header>-->
+        <!--<mat-card-title><h5>{{comment.title}}</h5></mat-card-title>-->
+        <!--<mat-card-subtitle class="card-text">-->
+        <!--<small>{{comment.date_created | date:'MMMM d, y, h:mm a'}}</small>-->
+        <!--<span *ngIf="comment.user"><a routerLink="/profile/{{comment.user.username}}">{{comment.user.first_name}} {{comment.user.last_name}}</a> </span>-->
+        <!--</mat-card-subtitle>-->
+      <!--</mat-card-header>-->
+
+      <!--<mat-card-content>-->
+          <!--<p class="card-text">-->
+              <!--{{comment.text}}-->
+          <!--</p>-->
+      <!--</mat-card-content>-->
+
+      <!--<mat-card-actions>-->
+
+            <!--<button mat-mini-fab style="background-color: transparent" [disabled]="comment.user_already_upvoted" (click)="commentVote('upVote')">-->
+                    <!--<mat-icon class="md-24" aria-label="Like the comment">thumb_up</mat-icon>-->
+                  <!--</button>{{comment.up_votes_count}}-->
+
+                  <!--<button mat-mini-fab style="background-color: transparent" [disabled]="comment.user_already_downvoted" (click)="commentVote('downVote')">-->
+                    <!--<mat-icon class="md-24" aria-label="Dislike the comment">thumb_down</mat-icon>-->
+                  <!--</button>{{comment.down_votes_count}}-->
+
+        <!--</mat-card-actions>-->
+    <!--</span>-->
+
+  <!--</mat-card>-->

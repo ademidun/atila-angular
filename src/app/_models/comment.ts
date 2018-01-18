@@ -1,5 +1,5 @@
 export class Comment {
-    id?: any;    
+    id?: any;
     user?: any;
     text?: string;
     title?: string;
@@ -27,17 +27,16 @@ export class Comment {
 
 export function upVoteComment(userId: number, comment: Comment): Comment{
 
-    
+
 
     if(comment.up_votes_id.includes(userId)){
 
-        
         return comment;
     }
     else{
         comment['user_already_upvoted'] = true;
         comment.up_votes_count = comment.up_votes_id.push(userId);
-        
+
         return comment;
     }
 }

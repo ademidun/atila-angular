@@ -35,6 +35,13 @@ export class ForumService {
       .catch(err=>err);
   }
 
+  partialUpdateComments(data): Observable<any> {
+    return this.http.patch(`${this.forumComments}${data.id}/`, data)
+      .map(res=><any>res)
+      .catch(err=>Observable.throw(err));
+  }
+
+
   create(data): Observable<any> {
     return this.http.post(`${this.forumsUrl}`, data)
       .map(res=><any>res)
