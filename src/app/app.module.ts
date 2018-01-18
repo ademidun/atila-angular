@@ -76,6 +76,7 @@ import { DynamicQuestionGeneralComponent } from './dynamic-question-general/dyna
 import {CommonModule} from '@angular/common';
 import { MaterializeModule } from 'angular2-materialize';
 import "materialize-css";
+import { CardGenericComponent } from './card-generic/card-generic.component';
 
 @NgModule({
   declarations: [
@@ -114,7 +115,8 @@ import "materialize-css";
     SubscriberDialogComponent,
     TermsConditionsComponent,
     SearchComponent,
-    DynamicQuestionGeneralComponent
+    DynamicQuestionGeneralComponent,
+    CardGenericComponent
   ],
   imports: [
     NgbModule.forRoot(),

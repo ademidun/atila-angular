@@ -5,47 +5,51 @@
     <h4 style="text-align: center;">Forums</h4>
 
     <div class="col s12 forum-box">
-      <mat-card class="forum-card">
 
-        <mat-card-content>
-            <input *ngIf="newForum" id="forum_title" placeholder="Title" [(ngModel)]="newForum.title">
-            <input *ngIf="forumComment"  id="forum_comment_text" placeholder="What's on your mind?" (keydown.enter)="postForum()" [(ngModel)]="forumComment.text">
-        </mat-card-content>
+      <div class="card forum-card">
+        <div class="card-content ">
+          <input *ngIf="newForum" id="forum_title" placeholder="Title" [(ngModel)]="newForum.title">
+          <input *ngIf="forumComment"  id="forum_comment_text" placeholder="What's on your mind?" (keydown.enter)="postForum()" [(ngModel)]="forumComment.text">
+        </div>
+        <div class="card-action">
+          <button mat-raised-button style="background-color: #4080ff;" class="btn white-text" (click)="postForum()">Post</button>
+        </div>
+      </div>
 
-        <mat-card-actions>
-          <button mat-raised-button style="background-color: #184E87;" class="btn white-text" (click)="postForum()">Post</button>
-        </mat-card-actions>
 
-      </mat-card>
     </div>
     <div *ngFor="let forum of forums; let i = index" class="col s12 m8 offset-m2 forum-box">
 
+      <div class="card ">
+        <div class="card-content ">
+          <span class="card-title"><a routerLink="/forum/{{forum.slug}}">{{forum.title | truncate:140}}</a></span>
+          <span *ngIf="forum.user"><a routerLink="/profile/{{forum.user.username}}">
+          <div class="chip">
+            <img src="https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-scholarship-default-image.jpeg?alt=media&token=cd789758-3400-43d5-9ea7-d2facf709ea2"
+                 alt="Authorr">
+            <a routerLink="/profile/{{forum.user.username}}">
+            {{forum.user.first_name}} {{forum.user.last_name}}
+            </a>
+          </div>
+          </a>
 
-      <mat-card class="scholarship-card">
+          </span>
+          <p>{{forum.starting_comment.text | truncate:280}}</p>
+        </div>
+        <div class="card-action">
+          <a class="btn-floating halfway-fab waves-effect waves-light left" style="left: 15px; bottom: 10px">
+            <i class="material-icons md-36">thumb_up</i></a>
+          <a class="btn-floating halfway-fab waves-effect waves-light left" style="left: 70px; bottom: 10px">
+          <p class="btn-text">5</p>
+          </a>
+          <a class="btn-floating halfway-fab waves-effect waves-light left" style="left: 125px; bottom: 10px">
+            <i class="material-icons md-36">comment</i></a>
+          <a class="btn-floating halfway-fab waves-effect waves-light left" style="left: 180px; bottom: 10px">
+          <p class="btn-text">5</p>
+          </a>
 
-          <mat-card-header>
-          <mat-card-title><a routerLink="/forum/{{forum.slug}}"><h5>{{forum.title | truncate:50}}</h5></a></mat-card-title>
-          <mat-card-subtitle class="card-text">
-          <small>{{forum.date_created | date:'medium'}}</small>
-          <span *ngIf="forum.user"><a routerLink="/profile/{{forum.user.username}}">{{forum.user.first_name}} {{forum.user.last_name}}</a> </span>
-          </mat-card-subtitle>
-        </mat-card-header>
-
-        <mat-card-content>
-            <p class="card-text">
-                {{forum.starting_comment.text | truncate:140}}
-            </p>
-        </mat-card-content>
-
-        <mat-card-actions>
-
-              <mat-icon class="md-24" aria-label="Like the comment">thumb_up</mat-icon>{{forum.starting_comment.up_votes_count}}
-
-              <mat-icon class="md-24" aria-label="Dislike the comment">thumb_down</mat-icon>{{forum.starting_comment.down_votes_count}}
-
-          </mat-card-actions>
-
-      </mat-card>
+        </div>
+      </div>
 
     </div>
   </div>
