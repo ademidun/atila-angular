@@ -24,7 +24,7 @@ export class ScholarshipCardComponent implements OnInit {
 
   ngOnInit() {
 
-    if(this.userProfile) {
+    if(this.userProfile && this.userProfile.metadata.saved_scholarships) {
 
       for (let i =0; i<this.userProfile.metadata.saved_scholarships.length; i++) {
         if (this.userProfile.metadata.saved_scholarships[i].id == this.scholarship.id) {
