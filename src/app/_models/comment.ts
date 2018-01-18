@@ -59,3 +59,19 @@ export function countVotes(comment: Comment){
 
     return comment;
 }
+
+// Check comment-service getCommentUrl for similiar functionality
+export function getCommentType (comment: Comment) {
+
+
+  if ( comment.hasOwnProperty('forum') ) {
+    return 'forum';
+  }
+  else if( comment.hasOwnProperty('blog_post') ) {
+    return 'blog';
+  }
+  else if( comment.hasOwnProperty('scholarship') ) {
+    return 'scholarship';
+  }
+
+}

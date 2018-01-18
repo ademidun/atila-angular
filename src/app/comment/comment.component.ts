@@ -1,8 +1,9 @@
 import { Component, OnInit , Input} from '@angular/core';
-import { Comment, upVoteComment, downVoteComment, countVotes } from "../_models/comment";
+import { Comment, upVoteComment, getCommentType, countVotes } from "../_models/comment";
 
 import { AuthService } from "../_services/auth.service";
 import { CommentService } from '../_services/comment.service';
+import {MyFirebaseService} from '../_services/myfirebase.service';
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
@@ -18,6 +19,7 @@ export class CommentComponent implements OnInit {
   constructor(
     public commentService: CommentService,
     public authService: AuthService,
+    public firebaseservice: MyFirebaseService,
   ) {
 
     this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
@@ -38,6 +40,17 @@ export class CommentComponent implements OnInit {
 
   likeComment() {
     this.comment= upVoteComment(this.userId,this.comment);
+
+
+    let userAgent = {
+      'user_id': this.comment.user.id,
+      'content_type': getCommentType(this.comment),
+      'content_id': this.comment.id,
+      'action_type': 'like',
+      'is_comment': true,
+    };
+
+    this.firebaseservice.saveUserAnalytics(userAgent, 'content_likes/'+userAgent.content_type);
 
     //convert the owner attribute to only keep the id, as per the API format.
     var sendData = Object.assign({}, this.comment);

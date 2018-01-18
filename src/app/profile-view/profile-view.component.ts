@@ -221,8 +221,10 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
       this.applicationService.update(tempObject)
         .subscribe(
           res => {
+            this.showSnackBar("Succesfully Updated Your Profile",'', 3000);
           },
-          err => {}
+          err => {
+            this.showSnackBar("Error saving profile.",'', 3000);}
         )
     }
 

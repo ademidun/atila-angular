@@ -9,6 +9,7 @@ import { UserProfile } from '../_models/user-profile';
 import { UserProfileService } from '../_services/user-profile.service';
 import { AuthService } from "../_services/auth.service";
 import {MatSnackBar} from '@angular/material';
+import {MyFirebaseService} from '../_services/myfirebase.service';
 @Component({
   selector: 'app-blogs-list',
   templateUrl: './blogs-list.component.html',
@@ -26,6 +27,7 @@ export class BlogsListComponent implements OnInit {
     public userProfileService: UserProfileService,
     public authService: AuthService,
     public snackBar: MatSnackBar,
+    public firebaseservice: MyFirebaseService,
   ) { }
 
   ngOnInit() {
@@ -95,6 +97,15 @@ export class BlogsListComponent implements OnInit {
         content.up_votes_id.push(this.userProfile.user);
         content.up_votes_count += 1;
         content['alreadyLiked'] = true;
+
+        let userAgent = {
+          'user_id': this.userProfile.user,
+          'content_type': 'blog',
+          'content_id': content.id,
+          'action_type': 'like',
+        };
+
+        this.firebaseservice.saveUserAnalytics(userAgent, 'content_likes/'+userAgent.content_type);
 
         let sendData = {
           id: content.id,

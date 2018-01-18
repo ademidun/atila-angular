@@ -9,6 +9,7 @@ import { UserProfile } from '../_models/user-profile';
 import { UserProfileService } from '../_services/user-profile.service';
 import { AuthService } from "../_services/auth.service";
 import {MatSnackBar} from '@angular/material';
+import {MyFirebaseService} from '../_services/myfirebase.service';
 @Component({
   selector: 'app-forums-list',
   templateUrl: './forums-list.component.html',
@@ -25,7 +26,8 @@ export class ForumsListComponent implements OnInit {
     public forumService: ForumService,
     public userProfileService: UserProfileService,
     public authService: AuthService,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    public firebaseservice: MyFirebaseService,
   ) { }
 
   ngOnInit() {
@@ -128,7 +130,16 @@ export class ForumsListComponent implements OnInit {
           id: content.starting_comment.id,
           up_votes_id: content.starting_comment.up_votes_id,
           up_votes_count: content.starting_comment.up_votes_count,
-        }
+        };
+
+        let userAgent = {
+          'user_id': this.userProfile.user,
+          'content_type': 'forum',
+          'content_id': content.starting_comment.id,
+          'action_type': 'like',
+        };
+
+        this.firebaseservice.saveUserAnalytics(userAgent, 'content_likes/'+userAgent.content_type);
         this.forumService.partialUpdateComments(sendData)
           .subscribe(res=>{},
             err =>{})
