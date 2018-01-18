@@ -1,12 +1,21 @@
 <div class="container" *ngIf="userProfile">
 
 
-    <mat-card class="profile-header">
+
+
+      <mat-card class="profile-header">
+
       <mat-card-header class="row">
         <!-- NOTE Mat card header text is hidden in css -->
-        <div class="col-sm-4" mat-card-avatar [ngStyle]="{ 'background-image': 'url( '+ userProfile.profile_pic_url +' )' }" class="header-image"></div>
+        <div class="col offset-l2 offset-m4 offset-s2 header-image" mat-card-avatar
+             [ngStyle]="{ 'background-image': 'url( '+ userProfile.profile_pic_url +' )' }">
 
-        <div class="col-sm-8" style="margin-left:5%">
+        </div>
+
+      <div >
+        <!--Show the profile info, IN the header on regular devices.-->
+        <span class="hide-on-med-and-down">
+        <div class="col offset-l3-5 offset-m4 " style="margin-left:5%">
           <mat-card-title><h4>{{userProfile.first_name}} {{userProfile.last_name}}</h4></mat-card-title>
           <mat-card-subtitle class="title"><h5>{{userProfile.title}}</h5></mat-card-subtitle>
           <mat-card-subtitle *ngIf="userProfile.post_secondary_school" class="title"><h5>{{userProfile.post_secondary_school}}</h5></mat-card-subtitle>
@@ -21,7 +30,32 @@
             </span> -->
           </div>
         </div>
+
+        </span>
+      </div>
       </mat-card-header>
+
+        <!--Show the profile info, after photo on mobile devices.-->
+        <span class="hide-on-large-only">
+          <div class="row">
+        <div class="col offset-l3-5 offset-m4 " style="margin-left:20%">
+          <mat-card-title><h4>{{userProfile.first_name}} {{userProfile.last_name}}</h4></mat-card-title>
+          <mat-card-subtitle class="title"><h5>{{userProfile.title}}</h5></mat-card-subtitle>
+          <mat-card-subtitle *ngIf="userProfile.post_secondary_school" class="title"><h5>{{userProfile.post_secondary_school}}</h5></mat-card-subtitle>
+          <mat-card-subtitle *ngIf="!userProfile.post_secondary_school && userProfile.secondary_school" class="title"><h5>{{userProfile.secondary_school}}</h5></mat-card-subtitle>
+          <div class="header-buttons">
+            <!--<button mat-raised-button class="btn white-text" (click)="message()">Message</button>-->
+            <a *ngIf="profileOwner" (click)="showPreview = !showPreview" style="cursor: pointer">Preview Profile</a> |
+            <a *ngIf="profileOwner" [routerLink]="['/edit-profile']">Edit profile</a>
+            <!-- <span  *ngIf="profileOwner" >
+                <a *ngIf="!showPreview" (click)="showPreview = !showPreview"  href="javascript:undefined">Preview Profile</a>
+                <a *ngIf="showPreview" (click)="showPreview = !showPreview"  href="javascript:undefined">Edit Profile</a>
+            </span> -->
+          </div>
+        </div>
+      </div>
+        </span>
+
     </mat-card>
 
 
