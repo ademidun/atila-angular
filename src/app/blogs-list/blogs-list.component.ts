@@ -56,9 +56,5 @@ export class BlogsListComponent implements OnInit {
 
   }
 
-  likeBlog(blog, index?) {
-
-    console.log('likeBlog(blog, index?)', blog, index);
-  }
 
 }

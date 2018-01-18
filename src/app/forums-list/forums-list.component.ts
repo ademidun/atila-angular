@@ -109,8 +109,6 @@ export class ForumsListComponent implements OnInit {
 
   likeContent(content: Forum, index?) {
 
-    console.log('likeContent(content, index?)', content, index);
-
     if (!this.userProfile) {
       this.snackBar.open("Please log in to like.", '', {
         duration: 3000
@@ -132,8 +130,8 @@ export class ForumsListComponent implements OnInit {
           up_votes_count: content.starting_comment.up_votes_count,
         }
         this.forumService.partialUpdateComments(sendData)
-          .subscribe(res=>console.log('likeContent() res', res),
-            err =>console.log('likeContent() err', err))
+          .subscribe(res=>{},
+            err =>{})
       }
 
       else  {
@@ -149,8 +147,8 @@ export class ForumsListComponent implements OnInit {
         };
 
         this.forumService.partialUpdateComments(sendData)
-          .subscribe(res=>console.log('likeContent() res', res),
-            err =>console.log('likeContent() err', err))
+          .subscribe(res=>{},
+            err =>{})
       }
     }
 
