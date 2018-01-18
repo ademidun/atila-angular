@@ -28,8 +28,9 @@
         <nav class="nav-extended">
           <div class="nav-content">
             <ul materialize="tabs" class="tabs tabs-transparent">
-              <li class="tab"><a class="active" href="#test1">Edit Profile</a></li>
-              <li class="tab"><a href="#test2">My Scholarships</a></li>
+              <li class="tab"><a  href="#test1" [ngClass]="myAtilaMode ? '' : 'active'">
+                Edit Profile</a></li>
+              <li class="tab"><a href="#test2" [ngClass]="myAtilaMode ? 'active' : ''">My Scholarships</a></li>
               <li (click)="getApplications()" class="tab"><a href="#test3">My Applications</a></li>
             </ul>
           </div>
@@ -72,23 +73,36 @@
                        [(ngModel)]="userProfile.secondary_school" name="secondary_school">
               </mat-form-field>
             </div>
-            <button mat-raised-button class="btn white-text" (click)="saveProfile()">Save</button>
+            <button mat-raised-button class="btn white-text" (click)="saveProfile()" style="margin-bottom: 3%">Save</button>
           </form>
         </div>
 
 
         <div id="test2" class="col s12">
           <table style="width:100%">
-            <tr>
+            <tr style="border-bottom-style: inset">
               <th>Name</th>
               <th>Deadline</th>
               <th>My Notes</th>
+              <th class="hide-on-small-and-down">Save</th>
             </tr>
 
             <tr *ngFor="let scholarship of userProfile.metadata['saved_scholarships']">
               <td><a [routerLink]="['/scholarship-detail', scholarship.slug]">{{scholarship.name}}</a></td>
               <td>{{scholarship.deadline | date:'EEEE, MMMM d, y, h:mm a'}}</td>
-              <td>{{scholarship['user_notes']}}</td>
+              <td><textarea style="height: 6.7rem"  [(ngModel)]="scholarship['user_notes']"
+                            placeholder="e.g. Upload transcript. Share scholarship with Alice."></textarea></td>
+              <td class="hide-on-small-and-down" (click)="saveMyAtila('scholarship',scholarship, i)">
+                <i class="material-icons " style="color: #039be5">save</i>
+              </td>
+              <span class="hide-on-med-and-up">
+
+                  <br>
+                  <a (click)="saveMyAtila('scholarship',scholarship, i)" class="col s12">
+                    <i class="material-icons ">save</i>
+                  </a>
+
+                </span>
             </tr>
           </table>
         </div>
@@ -104,7 +118,7 @@
               <tr style="border-bottom-style: inset" *ngFor="let application of userApplications; let i = index">
               <td><a [routerLink]="['/applications', application.id]">{{application.scholarship.name}}</a></td>
               <td>{{application.scholarship.deadline | date:'EEEE, MMMM d, y, h:mm a'}}</td>
-              <td><textarea style="height: 5rem"  [(ngModel)]="application.metadata['user_notes']"
+              <td><textarea style="height: 6.7rem"  [(ngModel)]="application.metadata['user_notes']"
                             placeholder="e.g. Upload transcript. Share scholarship with Alice."></textarea></td>
                 <td class="hide-on-small-and-down" (click)="saveMyAtila('application',application, i)">
                   <i class="material-icons " style="color: #039be5">save</i>

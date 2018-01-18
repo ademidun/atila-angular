@@ -38,6 +38,7 @@ const routes: Routes = [
   { path: 'edit-blog-post/:id' , component: BlogPostCreateComponent, data: {title: 'Atila - Edit Blog Post'}},
   { path: 'create-profile' , component: CreateProfileComponent, data: {title: 'Atila - Create Profile'}},
   { path: 'profile/:username' , component: ProfileViewComponent, data: {title: 'Atila - Profile'}},
+  { path: 'profile/:username/my-atila' , component: ProfileViewComponent, data: {title: 'Atila - Profile'}},
   { path: 'edit-profile' , component: EditProfileComponent, data: {title: 'Atila - Edit Profile'}},
   //{ path: 'edit-scholarship/:slug' , component: EditScholarshipComponent, data: {title: 'Atila - Edit Scholarship'}},
   { path: 'edit-scholarship/:slug' , component: AddScholarshipComponent, data: {title: 'Atila - Edit Scholarship'}},

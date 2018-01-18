@@ -19,7 +19,7 @@
       <a *ngIf=scholarship.is_automated [routerLink]="['../scholarship-detail', scholarship.slug]" title="Automated Scholarships"><button mat-button><i class="material-icons automate-tag">tag_faces</i></button></a>
 
       <button mat-fab  (click)="addToMyScholarship(scholarship)">
-        <mat-icon  class="atila-blue" aria-hidden="true" aria-label="Save">bookmark</mat-icon>
+        <mat-icon [ngStyle]="{'color': alreadySaved ? '#4080ff' : ''}"  class="atila-blue" aria-hidden="true" aria-label="Save">bookmark</mat-icon>
       </button>
 
       <button mat-fab [matMenuTriggerFor]="shareMenu">

@@ -112,31 +112,52 @@ initializeLocations(cities: Array<any>){
     }
 
   }
-  saveProfile(profileForm) {
-    if (profileForm.valid) {
+  saveProfile(profileForm?) {
 
-      var sendData = {
+    if(!profileForm) {
+      let sendData = {
         userProfile: this.userProfile,
         locationData: this.locationData,
-      }
+      };
 
 
       this.userProfileService.updateAny(sendData)
-      .subscribe(
-        data => {
+        .subscribe(
+          data => {
 
-          this.showSnackBar("Succesfully Updated Your Profile, Welcome to Atila",'What Next?', 3000);
-        },
-        err => {
+            this.showSnackBar("Successfully Updated Your Profile.",'', 3000);
+          },
+          err => {
 
-          this.showSnackBar('Profile updated unsuccessfully - ' + err.error? err.error: err,'', 3000);
-        }
-      )
+            this.showSnackBar('Profile updated unsuccessfully - ' + err.error? err.error: err,'', 3000);
+          }
+        );
+      return;
+    }
+    if (profileForm.valid) {
+
+      let sendData = {
+        userProfile: this.userProfile,
+        locationData: this.locationData,
+      };
+
+
+      this.userProfileService.updateAny(sendData)
+        .subscribe(
+          data => {
+
+            this.showSnackBar("Successfully Updated Your Profile.a",'', 3000);
+          },
+          err => {
+
+            this.showSnackBar('Profile updated unsuccessfully - ' + err.error? err.error: err,'', 3000);
+          }
+        )
 
 
 
     } else {
-      this.showSnackBar("Profile is not valid",'', 3000);
+      this.showSnackBar("Form is not valid",'', 3000);
     }
   }
 

@@ -3,6 +3,7 @@ import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
 import {UserProfile} from '../_models/user-profile';
 import {MyFirebaseService} from '../_services/myfirebase.service';
+import {UserProfileService} from '../_services/user-profile.service';
 @Component({
   selector: 'app-scholarship-card',
   templateUrl: './scholarship-card.component.html',
@@ -13,30 +14,70 @@ export class ScholarshipCardComponent implements OnInit {
   //todo change to only handle one scholarship
   @Input() scholarship: any;
   @Input() userProfile: UserProfile;
+  alreadySaved: boolean;
   userAnalytics: any = {};
   constructor(
     public snackBar: MatSnackBar,
     public router: Router,
-    public firebaseSerce: MyFirebaseService) { }
+    public firebaseService: MyFirebaseService,
+    public userProfileService: UserProfileService) { }
 
   ngOnInit() {
 
+    if(this.userProfile) {
+
+      for (let i =0; i<this.userProfile.metadata.saved_scholarships.length; i++) {
+        if (this.userProfile.metadata.saved_scholarships[i].id == this.scholarship.id) {
+          this.alreadySaved = true;
+          break;
+        }
+      }
+
+    }
 
 
   }
 
 
+
   addToMyScholarship(item) {
 
+    if (this.alreadySaved) {
+      this.snackBar.open("Already Saved", '', {
+        duration: 5000
+      });
+      return;
+    }
     this.logShareType('save_my_scholarships');
     if (this.userProfile) {
+
+      if(!this.userProfile.metadata.saved_scholarships) {
+        this.userProfile.metadata.saved_scholarships = [];
+      }
+      let savedScholarship = {
+        id: this.scholarship.id,
+        name: this.scholarship.name,
+        slug: this.scholarship.slug,
+        description: this.scholarship.description,
+        img_url: this.scholarship.import,
+        deadline: this.scholarship.deadline,
+      };
+      this.userProfile.metadata.saved_scholarships.push(savedScholarship);
+      this.alreadySaved = true;
+
+
+      this.userProfileService.updateHelper(this.userProfile)
+        .subscribe(
+          res => {},
+          err=> {},
+        )
       let snackBarRef = this.snackBar.open("Saved to My Scholarships", 'My Scholarships', {
         duration: 5000
       });
 
       snackBarRef.onAction().subscribe(
         () => {
-          this.router.navigate(['profile',this.userProfile.username]);
+          this.router.navigate(['profile',this.userProfile.username,'my-atila']);
         },
       )
     }
@@ -66,7 +107,7 @@ export class ScholarshipCardComponent implements OnInit {
       this.userAnalytics.user_id = this.userProfile.user;
 
     }
-    this.firebaseSerce.saveUserAnalytics(this.userAnalytics,'scholarship_sharing');
+    this.firebaseService.saveUserAnalytics(this.userAnalytics,'scholarship_sharing');
   }
 
   }

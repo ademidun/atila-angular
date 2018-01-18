@@ -68,8 +68,8 @@ export class UserProfileService {
     update(profile: UserProfile) {
 
         return this.http.put(`${this.userProfileEndpoint}${profile['user']}/`, profile)
-          .map(this.extractData)
-          .catch(err => err);
+          .map(res=>res)
+          .catch(err => Observable.throw(err));
     }
 
     updateHelper(userProfile: UserProfile){

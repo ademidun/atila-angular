@@ -35,6 +35,8 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
   userApplications: any;
 
   currentUser:number;
+
+  myAtilaMode: boolean;
   constructor(
     route: ActivatedRoute,
     public userProfileService: UserProfileService,
@@ -58,7 +60,10 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
         this.currentUser = parseInt(this.authService.decryptLocalStorage('uid')); // Current user
         this.profileOwner = (this.currentUser == this.userProfile.user);
 
-        console.log('this.userProfile', this.userProfile);
+
+        if (this.router.url.indexOf('my-atil') !== -1) {
+          this.myAtilaMode = true;
+        }
       }
     )
 
@@ -175,6 +180,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
 
 
   saveProfile(){
+
     this.userProfileService.updateHelper(this.userProfile)
     .subscribe(
       data => {
@@ -201,29 +207,27 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
         .subscribe(
           res => {
             this.userApplications = res.applications;
-            console.log('res', res);
-
-            console.log('this.userApplications', this.userApplications);
           },
-          err => console.log('getApplications err', err),
         )
     }
 
   }
 
   saveMyAtila(objectType, atilaObject, index?) {
-    console.log('objectType, object, index',objectType, atilaObject,index);
 
     if (objectType=='application') {
-      let tempApplication = Object.assign({}, atilaObject);
-      delete tempApplication.scholarship;
-      this.applicationService.update(tempApplication)
+      let tempObject = Object.assign({}, atilaObject);
+      delete tempObject.scholarship;
+      this.applicationService.update(tempObject)
         .subscribe(
           res => {
-            console.log('saveMyAtila res', res);
           },
-          err => console.log('saveMyAtila err', err)
+          err => {}
         )
+    }
+
+    if (objectType=='scholarship') {
+      this.saveProfile();
     }
   }
 
