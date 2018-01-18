@@ -8,6 +8,7 @@ import { UserProfile } from '../_models/user-profile';
 
 import { UserProfileService } from '../_services/user-profile.service';
 import { AuthService } from "../_services/auth.service";
+import {MatSnackBar} from '@angular/material';
 @Component({
   selector: 'app-blogs-list',
   templateUrl: './blogs-list.component.html',
@@ -24,6 +25,7 @@ export class BlogsListComponent implements OnInit {
     public blogService: BlogPostService,
     public userProfileService: UserProfileService,
     public authService: AuthService,
+    public snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {
@@ -34,6 +36,22 @@ export class BlogsListComponent implements OnInit {
         res => {
           this.userProfile = res;
 
+          this.blogService.list().subscribe(
+            res => {
+              this.blogs = res.results;
+
+              this.blogs.forEach(blog => {
+                if (blog.up_votes_id.includes(this.userProfile.user)) {
+                  blog['alreadyLiked'] = true;
+                }
+              });
+              this.isLoading = true;
+            },
+
+            err =>{
+              this.isLoading = false;
+            }
+          );
         },
         err=> {
         }
@@ -41,20 +59,69 @@ export class BlogsListComponent implements OnInit {
       );
     }
 
-    this.blogService.list().subscribe(
-      res => {
-        this.blogs = res.results;
-        this.isLoading = true;
-      },
+    else {
+      this.blogService.list().subscribe(
+        res => {
+          this.blogs = res.results;
+          this.isLoading = true;
+        },
 
-      err =>{
-        this.isLoading = false;
-      }
-    );
+        err =>{
+          this.isLoading = false;
+        }
+      );
+    }
+
 
 
 
   }
 
+
+
+  likeContent(content: BlogPost, index?) {
+
+    if (!this.userProfile) {
+      this.snackBar.open("Please log in to like.", '', {
+        duration: 3000
+      });
+
+      return;
+    }
+
+    if(content.up_votes_id ) {
+
+      if (!content.up_votes_id.includes(this.userProfile.user)) {
+        content.up_votes_id.push(this.userProfile.user);
+        content.up_votes_count += 1;
+        content['alreadyLiked'] = true;
+
+        let sendData = {
+          id: content.id,
+          up_votes_id: content.up_votes_id,
+          up_votes_count: content.up_votes_count,
+        };
+        this.blogService.patch(sendData)
+          .subscribe(res=>{},)
+      }
+
+      else  {
+        let index = content.up_votes_id.indexOf(this.userProfile.user);
+        content.up_votes_id.splice(index, 1);
+        content.up_votes_count -= 1;
+        content['alreadyLiked'] = false;
+
+        let sendData = {
+          id: content.id,
+          up_votes_id: content.up_votes_id,
+          up_votes_count: content.up_votes_count,
+        };
+
+        this.blogService.patch(sendData)
+          .subscribe(res=>{},)
+      }
+    }
+
+  }
 
 }

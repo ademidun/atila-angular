@@ -3,7 +3,7 @@
     <div class="row" *ngIf="forum" >
         <a routerLink="/forum/{{forum.slug}}"><h4 style="text-align: center;">{{forum.title}}</h4></a>
 
-        <div class="col s12 forum-box">
+        <div class="col s12 forum-box" style="font-size: large; line-height: unset">
             <app-comment *ngIf="forum.starting_comment" [comment]="forum.starting_comment" commentType="Forum"> </app-comment>
         </div>
 

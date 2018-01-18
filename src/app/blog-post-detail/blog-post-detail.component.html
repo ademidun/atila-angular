@@ -26,12 +26,12 @@
                 <mat-card class="comment-card">
 
                 <mat-card-content>
-                    <input id="blog_post_title" placeholder="Title" [(ngModel)]="userComment.title">
+                    <input id="blog_post_title" placeholder="Title (optional)" [(ngModel)]="userComment.title">
                     <input id="blog_post_comment_text" placeholder="What do you think?" (keydown.enter)="postComment()" [(ngModel)]="userComment.text">
                 </mat-card-content>
 
                 <mat-card-actions>
-                    <button mat-raised-button style="background-color: #184E87;" class="btn white-text" (click)="postComment()">Post</button>
+                    <button mat-raised-button style="background-color: #4080ff;" class="btn white-text" (click)="postComment()">Post</button>
                 </mat-card-actions>
 
                 </mat-card>

@@ -13,6 +13,7 @@ export class CommentComponent implements OnInit {
   @Input() commentType: string;
 
   userId: number;
+  isOwner: boolean;
 
   constructor(
     public commentService: CommentService,
@@ -21,39 +22,17 @@ export class CommentComponent implements OnInit {
 
     this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
 
+
+
    }
 
   ngOnInit() {
 
     this.getCommentMetadata();
-  }
 
-  commentVote(voteType: string){
-
-
-
-
-          if(voteType=='upVote'){
-            this.comment= upVoteComment(this.userId,this.comment);
-          }
-          else{
-            this.comment= downVoteComment(this.userId,this.comment);
-          }
-
-          //convert the owner attribute to only keep the id, as per the API format.
-          var sendData = this.comment;
-          sendData.user = sendData.user.id;
-
-          //update the database with the new upvote score and update the UI based on the database response
-          //why is commentType sometimes defined and sometimes undefined?
-
-          let postOperation = this.commentService.update(sendData);
-          postOperation.subscribe(
-            res => {
-
-              //this.comment = res; TODO: Do we need the updated result from the database?
-            }
-          )
+    if (!isNaN(this.userId) && this.comment && this.userId == this.comment.user.id){
+      this.isOwner = true;
+    }
 
   }
 
@@ -76,19 +55,19 @@ export class CommentComponent implements OnInit {
     )
   }
 
+  deleteComment() {
+    this.comment['isDeleted'] = true;
+
+    this.commentService.delete(this.comment)
+      .subscribe(res=> console.log('deleteComment res', res),
+        err=>console.log('deleteComment res', err))
+  }
+
   getCommentMetadata(){
 
 
     if(this.comment.up_votes_id.includes(this.userId)){//if the current user (ID) already liked the video, disable the up_vote_button
-      this.comment['user_already_upvoted'] = true;
-    }else{
-      this.comment['user_already_upvoted'] = false;
-    }
-
-    if(this.comment.down_votes_id.includes(this.userId)){
-       this.comment['user_already_downvoted'] = true;
-    }else{
-      this.comment['user_already_downvoted'] = false;
+      this.comment['alreadyLiked'] = true;
     }
 
 

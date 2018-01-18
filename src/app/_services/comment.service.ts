@@ -21,7 +21,7 @@ export class CommentService {
     var commenturl = this.getUrl(comment);
     return this.http.post(`${commenturl}`, comment)
     .map(res=><any>res)
-    .catch(err=>err);
+    .catch(err=> Observable.throw(err));
   }
 
   update(comment: Comment): Observable<any>{
@@ -29,7 +29,14 @@ export class CommentService {
     var commenturl = this.getUrl(comment);
     return this.http.put(`${commenturl}${comment.id}/`, comment)
     .map(res=><any>res)
-    .catch(err=>err);
+    .catch(err=> Observable.throw(err));
+  }
+
+  delete(comment: Comment) {
+    var commenturl = this.getUrl(comment);
+    return this.http.delete(`${commenturl}${comment.id}/`,)
+      .map(res=><any>res)
+      .catch(err=> Observable.throw(err));
   }
 
 /*
@@ -37,7 +44,7 @@ export class CommentService {
 
     return this.http.get(`${this.commentsUrl}get-model-comments/?parent-model-type=${modelType}&parent-model-id=${modelID}`)
     .map(res=><any>res)
-    .catch(err=>err);
+    .catch(err=> Observable.throw(err));
   }
   */
   getComments(id:number, modelType:string){
@@ -46,7 +53,7 @@ export class CommentService {
 
     return this.http.get(`${commenturl}${id}/comments/`)
     .map(res=><any>res)
-    .catch(err=>err);
+    .catch(err=> Observable.throw(err));
   }
 
   public parentUrl(commentType:string){

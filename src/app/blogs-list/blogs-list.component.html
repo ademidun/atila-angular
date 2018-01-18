@@ -18,7 +18,7 @@
         </div>
         <div *ngFor="let blog of blogs; let i = index" class="col s12 m8 offset-m2 blog-box">
 
-          <div class="card mat-card">
+          <div class="card">
             <div class="card-content ">
               <span class="card-title"><a routerLink="/blog/{{blog.user.username}}/{{blog.slug}}">{{blog.title | truncate:140}}</a></span>
               <span *ngIf="blog.user">
@@ -32,57 +32,34 @@
                   </div>
                 </a>
               </span>
-              <div class="card-image">
-                <img [src]="blog.header_image_url">
-              </div>
+            </div>
+
+            <div class="card-image">
+              <img [src]="blog.header_image_url">
+            </div>
+            <div class="card-content ">
 
               <p>{{blog.description| truncate:280}}</p>
             </div>
+
             <div class="card-action">
-              <a (click)="likeBlog(blog,i)" class="btn-floating halfway-fab waves-effect waves-light left" style="left: 15px; bottom: 10px">
-                <i class="material-icons md-36">thumb_up</i></a>
-              <a class="btn-floating halfway-fab waves-effect waves-light left" style="left: 70px; bottom: 10px">
-                <p class="btn-text">5</p>
+              <a (click)="likeContent(blog, i)" [ngStyle]="{'background-color': blog.alreadyLiked ? '#4080FF' : 'transparent'}"
+                 class="btn-floating halfway-fab waves-effect waves-light left interactive-btn" style="left: 15px; bottom: 10px">
+                <mat-icon class="material-icons interactive-icon md-36"  [ngStyle]="{'color': blog.alreadyLiked ? 'white' : '#4080FF'}"
+                          svgIcon="thumb-up-outline"></mat-icon></a>
+              <a routerLink="/blog/{{blog.slug}}" class="btn-floating halfway-fab waves-effect waves-light left"
+                 style="left: 70px; bottom: 10px">
+                <p class="btn-text">{{blog.up_votes_count}}</p>
               </a>
-              <a routerLink="/blog/{{blog.slug}}" class="btn-floating halfway-fab waves-effect waves-light left" style="left: 125px; bottom: 10px">
+              <a  routerLink="/blog/{{blog.slug}}" class="btn-floating halfway-fab waves-effect waves-light left" style="left: 125px; bottom: 10px">
                 <i class="material-icons md-36">comment</i></a>
-              <a class="btn-floating halfway-fab waves-effect waves-light left" style="left: 180px; bottom: 10px">
+              <a routerLink="/blog/{{blog.slug}}" class="btn-floating halfway-fab waves-effect waves-light left"
+                 style="left: 180px; bottom: 10px">
                 <p class="btn-text">5</p>
               </a>
 
             </div>
             </div>
-
-          <mat-card class="mat-card">
-
-            <mat-card-header>
-              <mat-card-title><a routerLink="/blog/{{blog.user.username}}/{{blog.slug}}"><h5 *ngIf="blog.title">{{((blog.title.length>50)? (blog.title | slice:0:50)+'...':(blog.title) )}}</h5></a></mat-card-title>
-              <mat-card-subtitle class="card-text">
-                <div *ngIf="blog.user" class="chip">
-                  <img [src]="blog.user.profile_pic_url"
-                       alt="Authorr">
-                  <a routerLink="/profile/{{blog.user.username}}">
-                    {{blog.user.first_name}} {{blog.user.last_name}}
-                  </a>
-                </div>
-              </mat-card-subtitle>
-            </mat-card-header>
-            <img mat-card-image class="my-mat-card-image" src="{{blog.header_image_url}}">
-            <mat-card-content>
-              <p class="card-text" *ngIf="blog.description">
-                {{((blog.description.length>140)? (blog.description | slice:0:140)+'...':(blog.description) )}}
-              </p>
-            </mat-card-content>
-
-            <mat-card-actions>
-
-              <mat-icon class="md-24" aria-label="Like the comment">thumb_up</mat-icon>{{blog.up_votes_count}}
-
-              <mat-icon class="md-24" aria-label="Dislike the comment">thumb_down</mat-icon>{{blog.down_votes_count}}
-
-            </mat-card-actions>
-
-          </mat-card>
 
         </div>
 

@@ -34,7 +34,7 @@ export function upVoteComment(userId: number, comment: Comment): Comment{
         return comment;
     }
     else{
-        comment['user_already_upvoted'] = true;
+        comment['alreadyLiked'] = true;
         comment.up_votes_count = comment.up_votes_id.push(userId);
 
         return comment;

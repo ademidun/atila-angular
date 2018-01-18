@@ -19,36 +19,42 @@ export class BlogPostService {
   list(): Observable<any>{
     return this.http.get(`${this.blogsUrl}`)
     .map(res => res)
-    .catch(err => err);
+    .catch(err => Observable.throw(err));
   }
 
   getBySlug(username:string, slug: string) {
     return this.http.get(`${this.blogUrl}blog/${username}/${slug}/`)
       .map(res => res)
-      .catch(err => err);
+      .catch(err => Observable.throw(err));
   }
 
   getById(id:number){
     return this.http.get(`${this.blogsUrl}${id}/`)
     .map(res => res)
-    .catch(err => err);
+    .catch(err => Observable.throw(err));
   }
 
   getComments(id:number){
     return this.http.get(`${this.blogsUrl}${id}/comments/`)
     .map(res => res)
-    .catch(err => err);
+    .catch(err => Observable.throw(err));
   }
 
   create(data): Observable<any>{
     return this.http.post(`${this.blogsUrl}`,data)
     .map(res => res)
-    .catch(err => err);
+    .catch(err => Observable.throw(err));
   }
 
   update(id:number, data): Observable<any>{
     return this.http.put(`${this.blogsUrl}${id}/`,data)
     .map(res => res)
-    .catch(err => err);
+    .catch(err => Observable.throw(err));
+  }
+
+  patch(data) {
+    return this.http.patch(`${this.blogsUrl}${data.id}/`,data)
+      .map(res => res)
+      .catch(err => Observable.throw(err));
   }
 }
