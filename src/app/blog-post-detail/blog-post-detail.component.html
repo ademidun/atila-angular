@@ -7,8 +7,10 @@
                 <a *ngIf="userProfile && userProfile.user==blogPost.user.id" [routerLink]="[ '/edit-blog-post', blogPost.id ]">Edit Blog</a>
                 <img src="{{blogPost.header_image_url}}" style="max-height: 100%;max-width: 100%;"/>
 
-                <button mat-mini-fab style="background-color: transparent" [disabled]="userAlreadyUpvoted" (click)="blogVote('upVote')">
-                    <mat-icon class="md-24" aria-label="Like the comment">thumb_up</mat-icon>
+
+                <button mat-mini-fab style="background-color: transparent" [disabled]="blogPost['alreadyLiked']" (click)="likeContent(blogPost)" >
+                  <mat-icon class="material-icons interactive-icon md-36"  [ngStyle]="{'color': blogPost.alreadyLiked ? '#4080FF' : 'gray'}"
+                            svgIcon="thumb-up-outline" aria-label="Like Blog"></mat-icon>
                 </button>{{blogPost.up_votes_count}}
 
                 <div [innerHTML]="blogPost.body | safeHtml"></div>

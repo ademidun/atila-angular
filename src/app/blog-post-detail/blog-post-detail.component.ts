@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogPostService } from "../_services/blog-post.service";
 
-import { BlogPost} from "../_models/blog-post";
+import { BlogPost, likeContent} from "../_models/blog-post";
 import { Comment } from "../_models/comment";
 
 import { UserProfile } from '../_models/user-profile';
@@ -17,6 +17,7 @@ import {Meta, Title} from '@angular/platform-browser';
 
 import { AuthService } from "../_services/auth.service";
 import {MatSnackBar} from '@angular/material';
+import {MyFirebaseService} from '../_services/myfirebase.service';
 
 
 @Component({
@@ -42,6 +43,7 @@ export class BlogPostDetailComponent implements OnInit {
     public snackBar: MatSnackBar,
     public metaService: Meta,
     public authService: AuthService,
+    public firebaseService: MyFirebaseService,
     ) {
       this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
     }
@@ -54,7 +56,24 @@ export class BlogPostDetailComponent implements OnInit {
 
         this.updateMeta();
         this.titleService.setTitle(this.blogPost.title);
+        if (! isNaN(this.userId)){
 
+          this.userProfileService.getById(parseInt(this.userId)).subscribe(
+            res =>{
+              this.userProfile = res;
+
+              if(this.blogPost.up_votes_id.includes(this.userId)){//if the current user (ID) already liked the video, disable the up_vote_button
+                this.blogPost['alreadyLiked'] = true;
+              }
+            }
+          );
+
+          this.userComment = new Comment(this.userId);
+        }
+
+        else{
+          this.userComment = new Comment(0);
+        }
         this.commentService.getComments(this.blogPost.id,'BlogPost').subscribe(
           res => {
 
@@ -64,20 +83,7 @@ export class BlogPostDetailComponent implements OnInit {
 
       }
     );
-    if (! isNaN(this.userId)){
 
-      this.userProfileService.getById(parseInt(this.userId)).subscribe(
-        res =>{
-          this.userProfile = res;
-        }
-      );
-
-      this.userComment = new Comment(this.userId);
-    }
-
-    else{
-      this.userComment = new Comment(0);
-    }
 
 
 
@@ -201,6 +207,12 @@ export class BlogPostDetailComponent implements OnInit {
       "itemprop='image'"
     );
 
+
+  }
+
+  likeContent(content: BlogPost) {
+
+    this.blogPost =  likeContent(content, this.userProfile, this.blogPostService, this.firebaseService, this.snackBar)
 
   }
 

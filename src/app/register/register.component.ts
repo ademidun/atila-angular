@@ -69,20 +69,16 @@ userProfile = new UserProfile();
   registerUser(registerForm: NgForm) {
 
 
-    if (registerForm) {
+    if (registerForm.valid) {
       this.disableRegistrationButton = true;
       let postOperation: Observable<any>;
       // Create a new User
 
-      var sendData = {
+      let sendData = {
         user: this.model,
         userProfile: this.userProfile,
         locationData: this.locationData,
       };
-      console.log('sendData', sendData);
-      if(sendData) {
-        return;
-      }
       postOperation = this.userProfileService.createUserAndProfile(sendData);
       // Subscribe to Observable
       postOperation.subscribe(
@@ -133,9 +129,6 @@ userProfile = new UserProfile();
     });
   }
 
-  toTitleCase(str) {
-    return toTitleCase(str);
-  }
 
   nextPage() {
     this.pageNo = Math.min(3,this.pageNo+1);
@@ -145,9 +138,9 @@ userProfile = new UserProfile();
     this.pageNo = Math.max(1,this.pageNo-1);
   }
 
-  userProfileTitleCase(key) {
 
-    this.userProfile[key] = this.toTitleCase(this.userProfile[key]);
+  toTitleCase(str) {
+    return toTitleCase(str);
   }
 
   /**

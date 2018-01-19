@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogPostService } from "../_services/blog-post.service";
 
-import { BlogPost } from "../_models/blog-post";
+import { BlogPost, likeContent } from "../_models/blog-post";
 import { Comment } from "../_models/comment";
 
 import { UserProfile } from '../_models/user-profile';
@@ -9,7 +9,7 @@ import { UserProfile } from '../_models/user-profile';
 import { UserProfileService } from '../_services/user-profile.service';
 import { AuthService } from "../_services/auth.service";
 import {MatSnackBar} from '@angular/material';
-import {MyFirebaseService} from '../_services/myfirebase.service';
+import {MyfirebaseService, MyFirebaseService} from '../_services/myfirebase.service';
 @Component({
   selector: 'app-blogs-list',
   templateUrl: './blogs-list.component.html',
@@ -27,7 +27,7 @@ export class BlogsListComponent implements OnInit {
     public userProfileService: UserProfileService,
     public authService: AuthService,
     public snackBar: MatSnackBar,
-    public firebaseservice: MyFirebaseService,
+    public firebaseService: MyFirebaseService,
   ) { }
 
   ngOnInit() {
@@ -81,57 +81,9 @@ export class BlogsListComponent implements OnInit {
 
 
 
-  likeContent(content: BlogPost, index?) {
+  likeContent(content: BlogPost) {
 
-    if (!this.userProfile) {
-      this.snackBar.open("Please log in to like.", '', {
-        duration: 3000
-      });
-
-      return;
-    }
-
-    if(content.up_votes_id ) {
-
-      if (!content.up_votes_id.includes(this.userProfile.user)) {
-        content.up_votes_id.push(this.userProfile.user);
-        content.up_votes_count += 1;
-        content['alreadyLiked'] = true;
-
-        let userAgent = {
-          'user_id': this.userProfile.user,
-          'content_type': 'blog',
-          'content_id': content.id,
-          'action_type': 'like',
-        };
-
-        this.firebaseservice.saveUserAnalytics(userAgent, 'content_likes/'+userAgent.content_type);
-
-        let sendData = {
-          id: content.id,
-          up_votes_id: content.up_votes_id,
-          up_votes_count: content.up_votes_count,
-        };
-        this.blogService.patch(sendData)
-          .subscribe(res=>{},)
-      }
-
-      else  {
-        let index = content.up_votes_id.indexOf(this.userProfile.user);
-        content.up_votes_id.splice(index, 1);
-        content.up_votes_count -= 1;
-        content['alreadyLiked'] = false;
-
-        let sendData = {
-          id: content.id,
-          up_votes_id: content.up_votes_id,
-          up_votes_count: content.up_votes_count,
-        };
-
-        this.blogService.patch(sendData)
-          .subscribe(res=>{},)
-      }
-    }
+    return likeContent(content, this.userProfile,this.blogService, this.firebaseService, this.snackBar)
 
   }
 

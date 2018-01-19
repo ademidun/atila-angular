@@ -1,8 +1,8 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { UserProfile } from '../_models/user-profile'
+import { Component, OnInit } from '@angular/core';
+import { UserProfile, toTitleCase } from '../_models/user-profile'
 import { UserProfileService } from "../_services/user-profile.service";
 
-import {NgForm} from '@angular/forms';
+import {NgForm, NgModel} from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -32,7 +32,7 @@ export class EditProfileComponent implements OnInit {
     'University',
     'College',
     'Workplace or Apprenticeship',
-  ]
+  ];
 
 EDUCATION_FIELD = [
     'Arts (Undergrad)',
@@ -45,7 +45,7 @@ EDUCATION_FIELD = [
     'Arts (Grad School)',
     'STEM (Grad School)',
     'Other'
-]
+];
 
   userProfile = new UserProfile();
   profileInfo = true;
@@ -146,7 +146,7 @@ initializeLocations(cities: Array<any>){
         .subscribe(
           data => {
 
-            this.showSnackBar("Successfully Updated Your Profile.a",'', 3000);
+            this.showSnackBar("Successfully Updated Your Profile.",'', 3000);
           },
           err => {
 
@@ -271,6 +271,71 @@ showSnackBar(text: string, action = '', duration: number) {
               err => console.error(err),
       )
   }
+
+
+  toTitleCase(str) {
+    return toTitleCase(str);
+  }
+
+  /**
+   * Adding Google Places API Autocomplete for User Location:
+   * @param {google.maps.places.PlaceResult} placeResult
+   * https://developers.google.com/maps/documentation/javascript/reference#PlaceResult
+   * https://developers.google.com/maps/documentation/javascript/places-autocomplete#address_forms
+   * https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform
+   * https://stackoverflow.com/questions/42341930/google-places-autocomplete-angular2
+   */
+  placeAutoComplete(placeResult:any, locationModel: NgModel){ //Assign types to the parameters place result is a PlaceResult Type, see documentation
+
+
+    this.predictLocation(this.locationData, placeResult);
+
+  }
+
+  /**
+   * Translate the PlaceResult object into an Atila location object, containing only the city, province/state and country.
+   * @param location
+   * @param placeResult
+   */
+  predictLocation(location, placeResult){
+
+    var addressComponents = placeResult.address_components ;
+
+    var keys = ['city', 'province', 'country'];
+
+    //TODO: Find a more elegant solution for this.
+
+
+    addressComponents.forEach((element, i, arr) => {
+      if(element.types[0]=='locality' || element.types[0]=='administrative_area_level_3' ||  element.types[0]=='postal_town'||  element.types[0]=='sublocality_level_1'){
+        this.locationData.city = element.long_name;
+      }
+
+      if(element.types[0]=='administrative_area_level_1'){
+        this.locationData.province = element.long_name;
+      }
+
+      if(element.types[0]=='country'){
+        this.locationData[element.types[0]] = element.long_name;
+      }
+    });
+
+  }
+
+
+  /**
+   * If user presses enter on location button, don't allow the form to submit because we still need to pull the location Data from Google Maps.
+   */
+  keyDownHandler(event: Event) {
+
+    if((<KeyboardEvent>event).keyCode == 13) {
+
+      event.preventDefault();
+    }
+    //TODO! Change this, allow user to submit with enterButton.
+  }
+
+
 
 }
 

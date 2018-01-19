@@ -77,6 +77,7 @@ import {CommonModule} from '@angular/common';
 import { MaterializeModule } from 'angular2-materialize';
 import "materialize-css";
 import { CardGenericComponent } from './card-generic/card-generic.component';
+import { TitleCasePipe } from './_pipes/title-case.pipe';
 
 @NgModule({
   declarations: [
@@ -116,7 +117,8 @@ import { CardGenericComponent } from './card-generic/card-generic.component';
     TermsConditionsComponent,
     SearchComponent,
     DynamicQuestionGeneralComponent,
-    CardGenericComponent
+    CardGenericComponent,
+    TitleCasePipe
   ],
   imports: [
     NgbModule.forRoot(),

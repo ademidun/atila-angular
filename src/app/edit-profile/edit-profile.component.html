@@ -47,27 +47,44 @@
                 [(ngModel)]="userProfile.postal_code" name="postal_code">
             </mat-form-field>
           </div>
+
+          <!-- fake fields to prevent chrome from autofilling location since we have Google Autocomplete -->
+          <input autocomplete="false" style="display:none" type="text" name="city" />
+          <input autocomplete="false" style="display:none" type="text" name="province"/>
+          <input autocomplete="false" style="display:none" type="text" name="country"/>
+
+          <div class="row">
+
+            <!-- Try using Google Maps Places Autocomplete API: https://developers.google.com/maps/documentation/javascript/places-autocomplete#address_forms -->
+            <!-- https://stackoverflow.com/questions/42341930/google-places-autocomplete-angular2 -->
+            <mat-form-field class="col s12 location-div">
+              <!--Prevent Chrome Autofill-->
+              <label>Ci<span style="display: none">w.com/questions/4234</span>ty</label>
+              <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
+              <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
+              <input matInput type="text" class="browser-default " style="padding-bottom: 0" required name="ignore-this-autofill-please"
+                     autocomplete="disabled"  tabindex="1"
+                     [(ngModel)]="locationData.city" #LocationCtrl="ngModel"
+                     appGooglePlace (setAddress)="placeAutoComplete($event,LocationCtrl)"  (googlePlaceNoLoad)="googlePlaceNoLoad()"
+                     (keydown)="keyDownHandler($event)"  >
+            </mat-form-field>
+
+          </div>
           <div class="row">
             <mat-form-field class="col s12">
-              <input class="browser-default" matInput id="city" type="text" required placeholder="City"
-                [(ngModel)]="locationData.city" name="city">
+              <input class="browser-default" matInput id="province" type="text" required placeholder="Province/State"
+                     [(ngModel)]="locationData.province" name="province" (change)="locationData.province=toTitleCase(locationData.province)" autocomplete="false">
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field class="col s12">
+              <input class="browser-default" matInput id="country" type="text" required placeholder="Country"
+                     [(ngModel)]="locationData.country" name="country" (change)="locationData.country=toTitleCase(locationData.country)" autocomplete="false">
             </mat-form-field>
           </div>
           <div class="row">
               <mat-form-field class="col s12">
-                  <input class="browser-default" matInput id="province" type="text" required placeholder="Province/State"
-                    [(ngModel)]="locationData.province" name="province">
-                </mat-form-field>
-          </div>
-          <div class="row">
-              <mat-form-field class="col s12">
-                  <input class="browser-default" matInput id="country" type="text" required placeholder="Country"
-                    [(ngModel)]="locationData.country" name="country">
-                </mat-form-field>
-          </div>
-          <div class="row">
-              <mat-form-field class="col s12">
-                    <input class="browser-default" matInput id="phone_number" type="number" placeholder="Phone Number"
+                    <input tabindex="2" class="browser-default" matInput id="phone_number" type="number" placeholder="Phone Number"
                       [(ngModel)]="userProfile.phone_number" name="phone_number">
                   </mat-form-field>
             </div>
