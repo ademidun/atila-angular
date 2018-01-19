@@ -53,9 +53,10 @@
                 <!--Prevent Chrome Autofill-->
                 <label>Ci<span style="display: none">w.com/questions/4234</span>ty</label>
                 <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
+                <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
                 <input matInput type="text" class="browser-default " style="padding-bottom: 0" required name="ignore-this-autofill-please"
-                       autocomplete="disabled"
-                        [(ngModel)]="locationData.city" #LocationCtrl="ngModel"
+                       autocomplete="disabled"  tabindex="1"
+                       [(ngModel)]="locationData.city" #LocationCtrl="ngModel"
                        appGooglePlace (setAddress)="placeAutoComplete($event,LocationCtrl)"  (googlePlaceNoLoad)="googlePlaceNoLoad()"
                        (keydown)="keyDownHandler($event)"  >
               </mat-form-field>
@@ -76,7 +77,8 @@
 
             <div class="row">
               <mat-form-field class="col s12">
-                <mat-select [(ngModel)]="userProfile.education_level"  name="education_level"  id="education_level" multiple=true placeholder="Education Type" required >
+                <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
+                <mat-select [(ngModel)]="userProfile.education_level" tabIndex="2"  name="education_level"  id="education_level" multiple=true placeholder="Education Type" required >
                   <mat-option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </mat-option>
                 </mat-select>
               </mat-form-field>

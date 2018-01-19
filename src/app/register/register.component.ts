@@ -3,7 +3,7 @@ import {NgForm, NgModel} from "@angular/forms";
 import { Router, RouterModule } from "@angular/router";
 
 import { MatSnackBar } from '@angular/material';
-import { UserProfile } from '../_models/user-profile';
+import { UserProfile, toTitleCase } from '../_models/user-profile';
 import { User } from '../_models/user';
 import { Observable } from 'rxjs/Observable';
 
@@ -69,18 +69,20 @@ userProfile = new UserProfile();
   registerUser(registerForm: NgForm) {
 
 
-    if (registerForm.valid) {
+    if (registerForm) {
       this.disableRegistrationButton = true;
       let postOperation: Observable<any>;
       // Create a new User
-
-
 
       var sendData = {
         user: this.model,
         userProfile: this.userProfile,
         locationData: this.locationData,
       };
+      console.log('sendData', sendData);
+      if(sendData) {
+        return;
+      }
       postOperation = this.userProfileService.createUserAndProfile(sendData);
       // Subscribe to Observable
       postOperation.subscribe(
@@ -131,6 +133,9 @@ userProfile = new UserProfile();
     });
   }
 
+  toTitleCase(str) {
+    return toTitleCase(str);
+  }
 
   nextPage() {
     this.pageNo = Math.min(3,this.pageNo+1);
@@ -138,34 +143,6 @@ userProfile = new UserProfile();
 
   prevPage() {
     this.pageNo = Math.max(1,this.pageNo-1);
-  }
-
-  toTitleCase(str) {
-    var i, j, lowers, uppers;
-    str = str.replace(/([^\W_]+[^\s-]*) */g, function(txt) {
-      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-    });
-
-    // Certain minor words should be left lowercase unless
-    // they are the first or last words in the string
-    lowers = ['A', 'An', 'The', 'And', 'But', 'Or', 'For', 'Nor', 'As', 'At',
-      'By', 'For', 'From', 'In', 'Into', 'Near', 'Of', 'On', 'Onto', 'To', 'With'];
-    for (i = 0, j = lowers.length; i < j; i++) {
-      str = str.replace(new RegExp('\\s' + lowers[i] + '\\s', 'g'),
-        function(txt) {
-          return txt.toLowerCase();
-        });
-    }
-
-
-    // Certain words such as initialisms or acronyms should be left uppercase
-    uppers = ['Id', 'Tv'];
-    for (i = 0, j = uppers.length; i < j; i++) {
-      str = str.replace(new RegExp('\\b' + uppers[i] + '\\b', 'g'),
-        uppers[i].toUpperCase());
-    }
-
-    return str;
   }
 
   userProfileTitleCase(key) {
@@ -195,7 +172,6 @@ userProfile = new UserProfile();
    */
   predictLocation(location, placeResult){
 
-    console.log('predictLocation(location, placeResult)', location, placeResult);
     var addressComponents = placeResult.address_components ;
 
     var keys = ['city', 'province', 'country'];
@@ -216,10 +192,6 @@ userProfile = new UserProfile();
         this.locationData[element.types[0]] = element.long_name;
       }
     });
-
-    console.log('locationData', this.locationData);
-
-
 
   }
 
