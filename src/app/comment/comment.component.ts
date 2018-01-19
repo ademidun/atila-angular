@@ -72,8 +72,8 @@ export class CommentComponent implements OnInit {
     this.comment['isDeleted'] = true;
 
     this.commentService.delete(this.comment)
-      .subscribe(res=> console.log('deleteComment res', res),
-        err=>console.log('deleteComment res', err))
+      .subscribe(res=> {},
+        err=>{})
   }
 
   getCommentMetadata(){
