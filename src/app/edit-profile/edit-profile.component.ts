@@ -268,7 +268,7 @@ showSnackBar(text: string, action = '', duration: number) {
         res =>  {
           this.verificationResponse = res.message;
         },
-              err => console.error(err),
+              err => {},
       )
   }
 

@@ -209,9 +209,7 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
 
               this.router.navigate(['blog',this.userProfile.username,this.blogPost.slug]);
             },
-            err =>  {
-              console.error('snackbar error')
-            }
+            err =>  {}
           )
         }
 
