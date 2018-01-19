@@ -9,7 +9,7 @@ import { UserProfile } from '../_models/user-profile';
 import { UserProfileService } from '../_services/user-profile.service';
 import { AuthService } from "../_services/auth.service";
 import {MatSnackBar} from '@angular/material';
-import {MyfirebaseService, MyFirebaseService} from '../_services/myfirebase.service';
+import { MyFirebaseService} from '../_services/myfirebase.service';
 @Component({
   selector: 'app-blogs-list',
   templateUrl: './blogs-list.component.html',
