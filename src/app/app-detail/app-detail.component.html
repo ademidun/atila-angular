@@ -13,6 +13,8 @@
                 <div *ngFor="let question of userProfileDynamicQuestions" >
                   <app-dynamic-question-general [form]="profileForm" [question]="question" [responses]="userProfile"></app-dynamic-question-general>
                 </div>
+
+                <!--<p>Location responses can only be saved to profile from edit profile.</p>-->
                 <div *ngFor="let question of locationQuestions" >
                   <app-dynamic-question-general [form]="profileForm" [question]="question" [responses]="locationData"></app-dynamic-question-general>
                 </div>
