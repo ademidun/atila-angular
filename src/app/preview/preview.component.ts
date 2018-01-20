@@ -211,6 +211,8 @@ export class PreviewComponent implements OnInit, OnDestroy {
       this.subscriber.dialog_open_event = 'ButtonClick';
     }
 
+
+
     this.subscriber.utm_source =       'preview_scholarships';
     let dialogRef = this.dialog.open(SubscriberDialogComponent, {
       width: '300px',

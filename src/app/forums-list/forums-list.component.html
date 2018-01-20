@@ -19,7 +19,7 @@
 
 
     </div>
-    <div *ngFor="let forum of forums; let i = index" class="col s12 m8 offset-m2 forum-box">
+    <div *ngFor="let forum of forums; let i = index" class="col s12 m8 offset-m2 forum-box" style="font-size: larger">
 
       <div class="card ">
         <div class="card-content ">
@@ -35,7 +35,7 @@
           </a>
 
           </span>
-          <p>{{forum.starting_comment.text | truncate:280}}</p>
+          <p style="white-space: pre-line">{{forum.starting_comment.text | truncate:280}}</p>
         </div>
         <div class="card-action">
           <a (click)="likeContent(forum, i)" [ngStyle]="{'background-color': forum.alreadyLiked ? '#4080FF' : 'transparent'}"

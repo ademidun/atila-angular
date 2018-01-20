@@ -94,12 +94,9 @@ export class CommentComponent implements OnInit {
     sendData.user = this.comment.user.id;
     this.commentService.patch(sendData)
       .subscribe(res=> {
-        console.log('commentService.patch res:', res);
         this.comment['editMode'] = false;
         },
         err=>{
-
-          console.log('commentService.patch err:', err);
         })
   }
 

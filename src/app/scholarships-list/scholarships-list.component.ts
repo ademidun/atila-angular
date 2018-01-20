@@ -131,6 +131,11 @@ export class ScholarshipsListComponent implements OnInit {
 
   addSubscriber(event?: KeyboardEvent) {
 
+
+    if(!this.subscriber.email) {
+      this.subscriber.response ='Please enter email.';
+      return;
+    }
     // In case we want to see if people are more likely to submit by typing Enter or clicking.
     if (event) {
       this.subscriber.dialog_open_event = event.key;
@@ -140,6 +145,7 @@ export class ScholarshipsListComponent implements OnInit {
     }
 
     this.subscriber.utm_source =       'scholarships_list';
+
     let dialogRef = this.dialog.open(SubscriberDialogComponent, {
       width: '300px',
       data: this.subscriber,
@@ -150,6 +156,7 @@ export class ScholarshipsListComponent implements OnInit {
       result => {
         this.subscriber = result;
         if(this.subscriber) {
+
           this.subscriber.dialog_submit_event = result.dialog_event || 'ButtonClick';
 
           $.getJSON('//freegeoip.net/json/?callback=?',
