@@ -7,3 +7,7 @@
 .popover-body{
     font-size: 10px;
 }
+
+.btn-submit:focus {
+  border: $my-lighten solid 3.5px;
+}
