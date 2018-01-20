@@ -42,7 +42,7 @@ export class AuthService {
 
   login(credentials: any) {
     return this.http.post(this.loginUrl, credentials)
-       .map(this.extractToken)
+       .map(res=>res)
        .catch(this.handleError);
    }
 
@@ -81,10 +81,6 @@ export class AuthService {
 
      return ! isNaN(parseInt(this.decryptLocalStorage('uid')));
    }
-   public extractToken(res: HttpResponse<any>) {
-    this.token = res['token'];
-    return res || { };
-    }
 
     public getToken(): string {
       return localStorage.getItem('token');

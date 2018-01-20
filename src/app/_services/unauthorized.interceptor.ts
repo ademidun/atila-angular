@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, Injector} from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
@@ -10,13 +10,16 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
 import { Router } from '@angular/router'
 import { MatSnackBar } from '@angular/material';
+import {AuthService} from './auth.service';
 // https://ryanchenkie.com/angular-authentication-using-the-http-client-and-http-interceptors
 @Injectable()
 
 export class UnAuthorizedInterceptor implements HttpInterceptor {
 
       constructor(public router: Router,
-                  public snackBar: MatSnackBar) {}
+                  public snackBar: MatSnackBar,
+                  public injector: Injector
+                   ) { }
 
       intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -30,6 +33,10 @@ export class UnAuthorizedInterceptor implements HttpInterceptor {
           if (err instanceof HttpErrorResponse) {
             if (err.status === 401 ||err.status === 403 ) {
 
+              // Clear local storage so new keys like xkcd can be generated
+              //https://github.com/angular/angular/issues/18224#issuecomment-316957213
+              let authService = this.injector.get(AuthService);
+              authService.logout();
 
               // redirect to the login route
               let snackBarRef = this.snackBar.open("Unauthorized Access", 'Login', {
