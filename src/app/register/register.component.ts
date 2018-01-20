@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
 
 
 
-  model = new User('','','');
+  model = new User('','','','');
 
   pageNo: number =1;
 
@@ -55,6 +55,7 @@ locationData = {
 };
 
   disableRegistrationButton: any;
+  differentPassword: boolean;
   constructor(
     public router: Router,
     public snackBar: MatSnackBar,
@@ -83,7 +84,7 @@ userProfile = new UserProfile();
       // Subscribe to Observable
       postOperation.subscribe(
         data => {
-          this.model = new User('','','');
+          this.model = new User('','','','');
           this.showSnackBar('Registration successful', 3000);
           this.authService.isLoggedIn = true;
           this.authService.encryptlocalStorage('token', data.token);
@@ -121,7 +122,11 @@ userProfile = new UserProfile();
 
   }
 
+  checkPassword() {
 
+    this.differentPassword = this.model.password != this.model.confirmPassword;
+
+  }
   // SnackBar notification
   showSnackBar(text: string, duration: number) {
     this.snackBar.open(text, '', {

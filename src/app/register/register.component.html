@@ -6,36 +6,46 @@
           <div *ngIf="pageNo==1">
             <div class="row">
               <mat-form-field class="col s12">
-                <input matInput class="browser-default" id="username" type="text"
+                <input tabindex="1" matInput class="browser-default" id="username" type="text"
                        required [(ngModel)]="model.username" name="username" placeholder="Username" autocomplete="username">
               </mat-form-field>
             </div>
             <div class="row">
               <mat-form-field class="col s12">
-                <input matInput class="browser-default" id="email" type="email" required
+                <input tabindex="2" matInput class="browser-default" id="email" type="email" required
                        [(ngModel)]="model.email" name="email" placeholder="Email" email autocomplete="username email">
               </mat-form-field>
             </div>
             <div class="row">
               <mat-form-field class="col s12">
-                <input matInput class="browser-default" id="password" type="password" required
-                       [(ngModel)]="model.password" name="password" placeholder="Password" autocomplete="new-password">
+                <input tabindex="3" matInput class="browser-default" id="password" type="password" required
+                       [(ngModel)]="model.password" name="password" placeholder="Password" autocomplete="new-password" (change)="checkPassword()">
               </mat-form-field>
+            </div>
+
+            <div class="row">
+              <mat-form-field class="col s12">
+                <input tabindex="3" matInput class="browser-default" id="confirm-password" type="password" required (change)="checkPassword()"
+                       [(ngModel)]="model.confirmPassword" name="confirm-password" placeholder="Confirm Password" autocomplete="new-password">
+              </mat-form-field>
+              <p *ngIf="differentPassword">Your passwords do not match</p>
             </div>
 
             <div class="col s12 button-container">
               <a class="waves-effect waves-light btn lef" routerLink="/login">Log In</a>
-              <a class="waves-effect waves-light btn right" (click)="nextPage()">Next</a>
+              <button tabindex="4" class="waves-effect waves-light btn right" (click)="nextPage()">Next</button>
             </div>
           </div>
 
           <div *ngIf="pageNo==2">
+
+            <p *ngIf="differentPassword">Your passwords do not match</p>
             <mat-form-field class="col s6">
-              <input class="browser-default" matInput id="first_name" type="text" required minlength="2" placeholder="First name"
+              <input tabindex="5" class="browser-default" matInput id="first_name" type="text" required minlength="2" placeholder="First name"
                      [(ngModel)]="userProfile.first_name" name="first_name">
             </mat-form-field>
             <mat-form-field class="col s6">
-              <input class="browser-default" matInput id="last_name" type="text" required minlength="2" placeholder="Last Name"
+              <input tabindex="6" class="browser-default" matInput id="last_name" type="text" required minlength="2" placeholder="Last Name"
                      [(ngModel)]="userProfile.last_name" name="last_name">
             </mat-form-field>
 
@@ -53,8 +63,8 @@
                 <label>Ci<span style="display: none">w.com/questions/4234</span>ty</label>
                 <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
                 <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
-                <input matInput type="text" class="browser-default " style="padding-bottom: 0" required name="ignore-this-autofill-please"
-                       autocomplete="disabled"  tabindex="1"
+                <input tabindex="7" matInput type="text" class="browser-default " style="padding-bottom: 0" required name="ignore-this-autofill-please"
+                       autocomplete="disabled"
                        [(ngModel)]="locationData.city" #LocationCtrl="ngModel"
                        appGooglePlace (setAddress)="placeAutoComplete($event,LocationCtrl)"  (googlePlaceNoLoad)="googlePlaceNoLoad()"
                        (keydown)="keyDownHandler($event)"  >
@@ -77,7 +87,7 @@
             <div class="row">
               <mat-form-field class="col s12">
                 <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
-                <mat-select [(ngModel)]="userProfile.education_level" tabIndex="2"  name="education_level"  id="education_level" multiple=true placeholder="Education Type" required >
+                <mat-select tabindex="8" [(ngModel)]="userProfile.education_level"   name="education_level"  id="education_level" multiple=true placeholder="Education Type" required >
                   <mat-option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -86,7 +96,7 @@
             <div class="row">
               <mat-form-field class="col s12">
                 <!-- TODO: Add a Modal or hover info explaining the diff. between Art and STEM -->
-                <mat-select [(ngModel)]="userProfile.education_field"  name="education_field"  id="education_field" multiple=true required placeholder="Education Field">
+                <mat-select tabindex="9" [(ngModel)]="userProfile.education_field"  name="education_field"  id="education_field" multiple=true required placeholder="Education Field">
                   <mat-option *ngFor="let field of EDUCATION_FIELD" [value]="field">{{field}} </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -115,7 +125,7 @@
                 <a class="waves-effect waves-light btn left" (click)="prevPage()">Previous</a>
               </div>
               <div class="col s6 button-container">
-                <button class="waves-effect waves-light btn right" (click)="registerUser(registerForm)" [disabled]="disableRegistrationButton">Register</button>
+                <button tabindex="10" class="waves-effect waves-light btn right btn-submit" (click)="registerUser(registerForm)" [disabled]="disableRegistrationButton">Register</button>
               </div>
             </div>
 

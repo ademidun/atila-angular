@@ -203,6 +203,12 @@ export class PreviewComponent implements OnInit, OnDestroy {
 }
 
   addSubscriber(event?: KeyboardEvent) {
+
+    if(!this.subscriber.email) {
+      this.subscriber.response ='Please enter email.';
+      return;
+    }
+
     if(event){
       event.preventDefault();
       this.subscriber.dialog_open_event = event.key;
