@@ -9,7 +9,7 @@
       <div class="card forum-card">
         <div class="card-content ">
           <input *ngIf="newForum" id="forum_title" placeholder="Title" [(ngModel)]="newForum.title">
-          <textarea *ngIf="forumComment" style="height: 3rem"  id="forum_comment_text" placeholder="What's on your mind?" (keydown.enter)="postForum()" [(ngModel)]="forumComment.text">
+          <textarea *ngIf="forumComment" style="height: 5rem"  id="forum_comment_text" placeholder="What's on your mind?" [(ngModel)]="forumComment.text">
           </textarea>
         </div>
         <div class="card-action">

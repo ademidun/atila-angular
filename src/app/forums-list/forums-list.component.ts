@@ -48,6 +48,7 @@ export class ForumsListComponent implements OnInit {
                 if (forum.starting_comment.up_votes_id.includes(this.userProfile.user)) {
                   forum['alreadyLiked'] = true;
                 }
+
               });
               this.isLoading = false;
             },
@@ -95,7 +96,9 @@ export class ForumsListComponent implements OnInit {
 
 
     this.forumService.create(sendData).subscribe(
-      res => this.forums.unshift(res),
+      res => {
+        this.forums.unshift(res);
+      },
 
       err => {
 

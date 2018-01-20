@@ -12,6 +12,7 @@ import {MyFirebaseService} from '../_services/myfirebase.service';
 export class CommentComponent implements OnInit {
   @Input() comment: Comment;
   @Input() commentType: string;
+  @Input() metaData: any = {};
 
   userId: number;
   isOwner: boolean;
@@ -32,9 +33,6 @@ export class CommentComponent implements OnInit {
 
     this.getCommentMetadata();
 
-    if (!isNaN(this.userId) && this.comment && this.userId == this.comment.user.id){
-      this.isOwner = true;
-    }
 
   }
 
@@ -76,8 +74,12 @@ export class CommentComponent implements OnInit {
         err=>{})
   }
 
+
   getCommentMetadata(){
 
+    if (!isNaN(this.userId) && this.comment && this.userId == this.comment.user.id){
+      this.isOwner = true;
+    }
 
     if(this.comment.up_votes_id.includes(this.userId)){//if the current user (ID) already liked the video, disable the up_vote_button
       this.comment['alreadyLiked'] = true;
@@ -86,5 +88,21 @@ export class CommentComponent implements OnInit {
 
     this.comment = countVotes(this.comment);
   }
+
+  saveComment() {
+    let sendData = Object.assign({}, this.comment);
+    sendData.user = this.comment.user.id;
+    this.commentService.patch(sendData)
+      .subscribe(res=> {
+        console.log('commentService.patch res:', res);
+        this.comment['editMode'] = false;
+        },
+        err=>{
+
+          console.log('commentService.patch err:', err);
+        })
+  }
+
+
 
 }

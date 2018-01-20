@@ -32,9 +32,18 @@ export class CommentService {
     .catch(err=> Observable.throw(err));
   }
 
+
   delete(comment: Comment) {
     var commenturl = this.getUrl(comment);
     return this.http.delete(`${commenturl}${comment.id}/`,)
+      .map(res=><any>res)
+      .catch(err=> Observable.throw(err));
+  }
+
+  patch(comment: Comment): Observable<any>{
+
+    let commenturl = this.getUrl(comment);
+    return this.http.patch(`${commenturl}${comment.id}/`, comment)
       .map(res=><any>res)
       .catch(err=> Observable.throw(err));
   }

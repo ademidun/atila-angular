@@ -29,6 +29,7 @@ export class ForumDetailComponent implements OnInit {
   userComment:Comment;
   userProfile: UserProfile;
   userId;
+  forumMetaData: any = {};
   constructor(
     public route: ActivatedRoute,
     public _ngZone: NgZone,
@@ -53,10 +54,12 @@ export class ForumDetailComponent implements OnInit {
 
             this.forum.starting_comment = res.starting_comment;
             this.comments = res.forum_comments;
+            this.forumMetaData['hideTitle'] = true;
+            this.forumMetaData['titleComment'] = true;
           }
         )
       }
-    )
+    );
 
     this.userComment = new Comment(this.userId);
   }
