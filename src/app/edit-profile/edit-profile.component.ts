@@ -269,7 +269,7 @@ showSnackBar(text: string, action = '', duration: number) {
         res =>  {
           this.verificationResponse = res.message;
         },
-              err => console.error(err),
+              err => {},
       )
   }
 
@@ -323,6 +323,10 @@ showSnackBar(text: string, action = '', duration: number) {
 
   }
 
+  googlePlaceNoLoad(){
+    // TODO: Figure out if we need to include this function googlePlaceNoLoad() for the googlePlaceDirective to work.
+    return;
+  }
 
   /**
    * If user presses enter on location button, don't allow the form to submit because we still need to pull the location Data from Google Maps.

@@ -5,6 +5,7 @@ deploy () {
  git push ;
  ng build --prod ;
 firebase deploy;
+# ng build --prod ; firebase deploy;
  # firebase deploy —-only hosting ;
 
    return 0

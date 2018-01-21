@@ -29,7 +29,7 @@ export class UserProfileService {
 
     return this.http.post(this.userEndpoint, user)
       .map(this.extractData)
-      .catch(this.handleError);
+      .catch(err=>Observable.throw(err));
   }
 
   createUserAndProfile(data: any) {
@@ -39,85 +39,85 @@ export class UserProfileService {
       .catch(err=>Observable.throw(err));
   }
 
-    getById(id: number): Observable<UserProfile> {
-        // add authorization header with jwt token
-      if (isNaN(id)){
-        throw  Observable.throw(new HttpErrorResponse({error: 'No Current User', status: 401}))
+  getById(id: number): Observable<UserProfile> {
+      // add authorization header with jwt token
+    if (isNaN(id)){
+      throw  Observable.throw(new HttpErrorResponse({error: 'No Current User', status: 401}))
+    }
+      return this.http.get(`${this.userProfileEndpoint}${id}/`)
+      .map(this.extractData)
+      .catch(err=>Observable.throw(err));
+  }
+
+  getByUsername(username: string): Observable<UserProfile>{
+      // note urls missing the apropriate '/' will be redirected and be blocked by CORS policy.
+      return this.http.get(`${this.userProfileEndpoint}user-name/?username=${username}/`)
+      .map(this.extractData)
+      .catch(err=>Observable.throw(err));
+  }
+
+  isLoggedIn(): boolean {
+      // Determines if user is logged in from the token
+      var token = localStorage.getItem('token');
+      if (token) {
+          return true;
       }
-        return this.http.get(`${this.userProfileEndpoint}${id}/`)
-        .map(this.extractData)
-        .catch(err=>Observable.throw(err));
-    }
+      return false;
+  }
 
-    getByUsername(username: string): Observable<UserProfile>{
-        // note urls missing the apropriate '/' will be redirected and be blocked by CORS policy.
-        return this.http.get(`${this.userProfileEndpoint}user-name/?username=${username}/`)
-        .map(this.extractData)
-        .catch(this.handleError);
-    }
+  update(profile: UserProfile) {
 
-    isLoggedIn(): boolean {
-        // Determines if user is logged in from the token
-        var token = localStorage.getItem('token');
-        if (token) {
-            return true;
-        }
-        return false;
-    }
-
-    update(profile: UserProfile) {
-
-        return this.http.put(`${this.userProfileEndpoint}${profile['user']}/`, profile)
-          .map(res=>res)
-          .catch(err => Observable.throw(err));
-    }
-
-    updateHelper(userProfile: UserProfile){
-        /**
-         * Put method, with added feature of automatically extracting the location data to match the API backend format.
-         */
-        var locationData:any = {}
-        if(userProfile.city.length>0){
-            locationData.city= userProfile.city[0].name;
-            locationData.country=userProfile.city[0].country;
-            locationData.province=userProfile.city[0].province;
-          }
-
-          var sendData = {
-            userProfile: userProfile,
-            locationData: locationData,
-          }
-          return this.http.put(`${this.userProfileEndpoint}${userProfile['user']}/`, sendData)
-          .map(this.extractData)
-          .catch(this.handleError);
-    }
-
-    updateAny(data:any){
-        return this.http.put(`${this.userProfileEndpoint}${data.userProfile['user']}/`, data)
-        .map(this.extractData)
-        .catch(this.handleError);
-    }
-
-    refreshVerificationToken(username: string): Observable<any>{
-
-    return this.http.get(`${this.userProfileEndpoint}refresh-verification-token/?username=${username}`)
-      .map(res=><any>res)
-      .catch(err=>err);
-
-    }
-
-    verifyToken(username, token) {
-      return this.http.get(`${this.userProfileEndpoint}verify-token/?username=${username}&token=${token}`)
-        .map(res=><any>res)
-        .catch(err=><any>err);
-    }
-
-
-    addSubscriber(subscriber: any) {
-      return this.http.post(`${this.userProfileEndpoint}add-subscriber/`, subscriber)
+      return this.http.put(`${this.userProfileEndpoint}${profile['user']}/`, profile)
         .map(res=>res)
+        .catch(err => Observable.throw(err));
+  }
+
+  updateHelper(userProfile: UserProfile){
+      /**
+       * Put method, with added feature of automatically extracting the location data to match the API backend format.
+       */
+      var locationData:any = {}
+      if(userProfile.city.length>0){
+          locationData.city= userProfile.city[0].name;
+          locationData.country=userProfile.city[0].country;
+          locationData.province=userProfile.city[0].province;
+        }
+
+        var sendData = {
+          userProfile: userProfile,
+          locationData: locationData,
+        }
+        return this.http.put(`${this.userProfileEndpoint}${userProfile['user']}/`, sendData)
+        .map(this.extractData)
         .catch(err=>Observable.throw(err));
-    }
+  }
+
+  updateAny(data:any){
+      return this.http.put(`${this.userProfileEndpoint}${data.userProfile['user']}/`, data)
+      .map(this.extractData)
+      .catch(err=>Observable.throw(err));
+  }
+
+  refreshVerificationToken(username: string): Observable<any>{
+
+  return this.http.get(`${this.userProfileEndpoint}refresh-verification-token/?username=${username}`)
+    .map(res=><any>res)
+    .catch(err=>err);
+
+  }
+
+  verifyToken(username, token) {
+    return this.http.get(`${this.userProfileEndpoint}verify-token/?username=${username}&token=${token}`)
+      .map(res=><any>res)
+      .catch(err=><any>err);
+  }
+
+
+  addSubscriber(subscriber: any) {
+    return this.http.post(`${this.userProfileEndpoint}add-subscriber/`, subscriber)
+      .map(res=>res)
+      .catch(err=>Observable.throw(err));
+  }
 
   //  todo get this object from an external source?
   getDynamicProfileQuestions () {
@@ -292,14 +292,6 @@ export class UserProfileService {
 
     }
 
-    public handleError (error: Response | any) {
-        // In a real world app, you might use a remote logging infrastructure
-        let errMsg: string;
-        let err: any;
-
-        return error;
-
-    }
 
     getApplications(userId: number) {
       return this.http.get(`${this.userProfileEndpoint}${userId}/applications/`)

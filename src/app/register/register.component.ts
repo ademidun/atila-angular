@@ -81,12 +81,14 @@ userProfile = new UserProfile();
         userProfile: this.userProfile,
         locationData: this.locationData,
       };
+
       postOperation = this.userProfileService.createUserAndProfile(sendData);
       // Subscribe to Observable
       postOperation.subscribe(
         data => {
           this.model = new User('','','','');
           this.showSnackBar('Registration successful', 3000);
+
           this.authService.isLoggedIn = true;
           this.authService.encryptlocalStorage('token', data.token);
           // this.cookieService.putObject('userId', data.id);

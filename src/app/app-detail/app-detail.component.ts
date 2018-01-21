@@ -83,7 +83,7 @@ export class AppDetailComponent implements OnInit {
           this.questions = Object.keys(res).map(function (k) { return res[k] }); //similiar to python or LISP's lambda
 
       },
-      err => console.error('error! in AppDetailComponent QuestionService', this.profileForm),
+      err => {},
       () => {
 
 
@@ -144,7 +144,7 @@ export class AppDetailComponent implements OnInit {
 
 
       },
-      error => console.error('AppDetailComponent getAppData', error),
+      error => {},
 
       () => {
 
