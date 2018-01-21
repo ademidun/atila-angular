@@ -4,8 +4,8 @@ deploy () {
  git commit -m "$1" ;
  git push ;
  ng build --prod ;
- # firebase deploy —-only hosting ;
 firebase deploy;
+ # firebase deploy —-only hosting ;
 
    return 0
 }

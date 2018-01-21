@@ -56,6 +56,7 @@ locationData = {
 
   disableRegistrationButton: any;
   differentPassword: boolean;
+  locationPlaceHolder: any;
   constructor(
     public router: Router,
     public snackBar: MatSnackBar,
@@ -193,6 +194,13 @@ userProfile = new UserProfile();
 
   }
 
+
+  /**
+   * If the Google Place API did not load, then change the placeholder message to only ask for a city (or country?).
+   */
+  googlePlaceNoLoad(){
+    this.locationPlaceHolder = 'City'
+  }
 
   /**
    * If user presses enter on location button, don't allow the form to submit because we still need to pull the location Data from Google Maps.

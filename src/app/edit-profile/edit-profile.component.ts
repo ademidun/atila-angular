@@ -60,6 +60,7 @@ EDUCATION_FIELD = [
   formFileEvent: any;
   uploadFile: UploadFile;
   verificationResponse: any;
+  locationPlaceHolder: any;
   locationData = {
     'city': '',
     'province': '',
@@ -335,7 +336,12 @@ showSnackBar(text: string, action = '', duration: number) {
     //TODO! Change this, allow user to submit with enterButton.
   }
 
-
+  /**
+   * If the Google Place API did not load, then change the placeholder message to only ask for a city (or country?).
+   */
+  googlePlaceNoLoad(){
+    this.locationPlaceHolder = 'City'
+  }
 
 }
 
