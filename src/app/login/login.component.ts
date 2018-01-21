@@ -5,6 +5,7 @@ import {Router, RouterModule} from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { MatSnackBar } from '@angular/material';
 import { NavbarComponent } from '../navbar/navbar.component';
+import {UserProfileService} from '../_services/user-profile.service';
 
 export class Credentials {
   username: string;
@@ -28,10 +29,13 @@ export class LoginComponent implements OnInit {
    };
 
   isLoading =false;
+  forgotPassword = false;
+  resetResponse = ' '; //true, but don't show up as text
   constructor(
     public authService: AuthService,
     public router: Router,
-    public snackBar: MatSnackBar) { }
+    public snackBar: MatSnackBar,
+    public userProfileService: UserProfileService) { }
 
   ngOnInit() {
   }
@@ -66,4 +70,32 @@ export class LoginComponent implements OnInit {
       );
   }
 
+  resetPassword(resetEmailUsername: HTMLInputElement) {
+
+    this.resetResponse = null;
+    console.log('resetPassword() resetEmailUsername:',resetEmailUsername);
+
+    let userInput = {
+      username: resetEmailUsername.value
+    };
+
+
+    this.userProfileService.resetPassword(userInput)
+      .subscribe(
+        res =>  {
+          this.resetResponse = res.message;
+        },
+        err => {
+          console.log('error',err);
+          if(err.error){
+            this.resetResponse = err.error.message || err.error.error;
+          }
+          else {
+            this.resetResponse = err.error || 'Rest failed. Please email admin info@atila.ca'
+          }
+
+        },
+      )
+
+  }
 }

@@ -32,6 +32,41 @@
               </p>
             </div>
 
+            <form *ngIf="verificationType == 'reset_password' && verificationResponse && verificationResponse.isValidToken">
+              <div class="row">
+                <mat-form-field class="col s12">
+                  <input tabindex="3" matInput class="browser-default" id="password" type="password" required
+                         [(ngModel)]="model.password" name="password" placeholder="Enter new Password" autocomplete="new-password" (change)="checkPassword()">
+                </mat-form-field>
+              </div>
+
+              <div class="row">
+                <mat-form-field class="col s12">
+                  <input tabindex="3" matInput class="browser-default" id="confirm-password" type="password" required (change)="checkPassword()"
+                         [(ngModel)]="model.confirmPassword" name="confirm-password" placeholder="Confirm Password" autocomplete="new-password">
+                </mat-form-field>
+                <p *ngIf="differentPassword">Your passwords do not match</p>
+              </div>
+
+
+              <div class="row">
+                <button class="waves-effect waves-light btn right" (click)="changePassword()">Change Password</button>
+              </div>
+
+            </form>
+
+            <div *ngIf="passwordVerificationResponse" class="col s12 ">
+              <p style="color: green" *ngIf="passwordVerificationResponse.isValidToken"> <br>
+                Your password has been reset 😄. Log in again.
+              </p>
+
+              <p *ngIf="!passwordVerificationResponse.isValidToken"> <br>
+                <span style="color: red">Invalid token.</span> <br>
+                Email <a href="mailto:info@atila.ca">info@atila.ca</a> if issue continues.
+              </p>
+            </div>
+
+
           </div>
 
 

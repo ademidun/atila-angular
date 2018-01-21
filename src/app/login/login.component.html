@@ -15,10 +15,34 @@
                 <input matInput class="browser-default" id="password" type="password" required ngControl="password"
                   [(ngModel)]="credentials.password" name="password" placeholder="Password" autocomplete="current-password">
               </mat-form-field>
-              <div class="col s12 button-container">
-                  <button type="submit" class="waves-effect waves-light btn left" (click)="login()">Login</button>
-                  <a class="waves-effect waves-light btn right" routerLink="/register">Register</a>
+
+                <button type="submit" class="waves-effect waves-light btn left" (click)="login()">Login</button>
+                <a class="waves-effect waves-light btn right" routerLink="/register">Register</a>
+
+            </div>
+            <div class="row">
+
+              <a class="" style="cursor: pointer" (click)="forgotPassword =!forgotPassword">Forgot Password?</a>
+
+                <div *ngIf="forgotPassword" class="col s12 button-container">
+                  <p>An email will be sent to the provided email or username with a verification token.<br>
+                    Click the link in email or go to <a routerLink="/verify" [queryParams]="{verification_type: 'reset_password'}">
+                      Reset Password</a>.</p>
+                  <mat-form-field class="col s12">
+                  <input matInput class="browser-default" id="resetPasswordEmail" type="text" ngControl="resetPasswordEmail"
+                         required #resetEmailUsername name="username" placeholder="Email or username" autocomplete="username">
+                  </mat-form-field>
+                  <a class="waves-effect waves-light btn right" (click)="resetPassword(resetEmailUsername)">Send Email</a>
+
+                  <div  *ngIf="!resetResponse" class="col s10">
+                    <p style="font-size: large">Sending Email...</p>
+                    <mat-progress-bar aria-label="Sending..." mode="indeterminate"></mat-progress-bar>
+                  </div>
+                  <p>{{resetResponse}}</p>
+
               </div>
+
+
             </div>
 
 

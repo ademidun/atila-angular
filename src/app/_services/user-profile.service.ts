@@ -112,6 +112,17 @@ export class UserProfileService {
       .catch(err=><any>err);
   }
 
+  resetPassword(userNameEmail) {
+    return this.http.post(`${this.userProfileEndpoint}reset-password/`,userNameEmail)
+      .map(this.extractData)
+      .catch(err=>Observable.throw(err));
+  }
+
+  verifyResetPassword(data) {
+    return this.http.post(`${this.userProfileEndpoint}verify-reset-password/`,data)
+      .map(res=>res)
+      .catch(err=>Observable.throw(err));
+  }
 
   addSubscriber(subscriber: any) {
     return this.http.post(`${this.userProfileEndpoint}add-subscriber/`, subscriber)

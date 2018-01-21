@@ -61,7 +61,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
         this.profileOwner = (this.currentUser == this.userProfile.user);
 
 
-        if (this.router.url.indexOf('my-atil') !== -1) {
+        if (this.router.url.indexOf('my-atila') !== -1) {
           this.myAtilaMode = true;
         }
       }

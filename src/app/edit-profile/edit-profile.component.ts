@@ -323,11 +323,6 @@ showSnackBar(text: string, action = '', duration: number) {
 
   }
 
-  googlePlaceNoLoad(){
-    // TODO: Figure out if we need to include this function googlePlaceNoLoad() for the googlePlaceDirective to work.
-    return;
-  }
-
   /**
    * If user presses enter on location button, don't allow the form to submit because we still need to pull the location Data from Google Maps.
    */
@@ -344,6 +339,7 @@ showSnackBar(text: string, action = '', duration: number) {
    * If the Google Place API did not load, then change the placeholder message to only ask for a city (or country?).
    */
   googlePlaceNoLoad(){
+    // TODO: Figure out if we need to include this function googlePlaceNoLoad() for the googlePlaceDirective to work.
     this.locationPlaceHolder = 'City'
   }
 
