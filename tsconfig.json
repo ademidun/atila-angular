@@ -19,6 +19,10 @@
   },
 
   "exclude": [
-    "functions"
+    "functions",
+    "testing/**/*",
+    "test.ts",
+    "test-specs.ts",
+    "**/*.spec.ts"
   ]
 }
