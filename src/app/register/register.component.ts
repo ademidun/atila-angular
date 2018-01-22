@@ -76,6 +76,9 @@ userProfile = new UserProfile();
       let postOperation: Observable<any>;
       // Create a new User
 
+      for (let key in ['city', 'province', 'country'] ) {
+        this.locationData[key] = this.locationData[key] ? this.toTitleCase(this.locationData[key]) : this.locationData[key];
+      }
       let sendData = {
         user: this.model,
         userProfile: this.userProfile,
@@ -97,10 +100,6 @@ userProfile = new UserProfile();
           this.registrationResponse = true;
           this.disableRegistrationButton = false;
 
-
-          setTimeout(() => {
-            this.router.navigate(['scholarships-list']);
-          }, 10000);
         },
         err => {
 
@@ -148,6 +147,9 @@ userProfile = new UserProfile();
 
 
   toTitleCase(str) {
+    console.log('str',str);
+    console.log('toTitleCase(str)',toTitleCase(str));
+
     return toTitleCase(str);
   }
 
@@ -159,10 +161,10 @@ userProfile = new UserProfile();
    * https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform
    * https://stackoverflow.com/questions/42341930/google-places-autocomplete-angular2
    */
-  placeAutoComplete(placeResult:any, locationModel: NgModel){ //Assign types to the parameters place result is a PlaceResult Type, see documentation
+  placeAutoComplete(placeResult:any, autoCompleteOptions?: any){ //Assign types to the parameters place result is a PlaceResult Type, see documentation
 
-
-    this.predictLocation(this.locationData, placeResult);
+    console.log('autoCompleteOptions:',autoCompleteOptions);
+    this.predictLocation(this.locationData, placeResult, autoCompleteOptions);
 
   }
 
@@ -171,7 +173,7 @@ userProfile = new UserProfile();
    * @param location
    * @param placeResult
    */
-  predictLocation(location, placeResult){
+  predictLocation(location, placeResult, autoCompleteOptions?: any){
 
     var addressComponents = placeResult.address_components ;
 
@@ -179,8 +181,9 @@ userProfile = new UserProfile();
 
     //TODO: Find a more elegant solution for this.
 
-
+    console.log('this.locationData',this.locationData);
     addressComponents.forEach((element, i, arr) => {
+
       if(element.types[0]=='locality' || element.types[0]=='administrative_area_level_3' ||  element.types[0]=='postal_town'||  element.types[0]=='sublocality_level_1'){
         this.locationData.city = element.long_name;
       }
@@ -190,10 +193,11 @@ userProfile = new UserProfile();
       }
 
       if(element.types[0]=='country'){
-        this.locationData[element.types[0]] = element.long_name;
+        this.locationData['country'] = element.long_name;
       }
     });
-
+    console.log('this.locationData',this.locationData);
+    console.log('predictLocation() addressComponents, autoCompleteOptions:',addressComponents, autoCompleteOptions);
   }
 
 

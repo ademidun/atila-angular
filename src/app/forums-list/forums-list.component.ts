@@ -89,7 +89,7 @@ export class ForumsListComponent implements OnInit {
   postForum(){
 
     if (!this.authService.isLoggedIn) {
-      let snackBarRef = this.snackBar.open("Please log in to like.", 'Log In', {
+      let snackBarRef = this.snackBar.open("Please log in to post.", 'Log In', {
         duration: 3000
       });
 

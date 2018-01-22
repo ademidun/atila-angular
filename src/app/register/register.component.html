@@ -65,22 +65,23 @@
                 <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
                 <input tabindex="7" matInput type="text" class="browser-default " style="padding-bottom: 0" required name="ignore-this-autofill-please"
                        autocomplete="disabled"
-                       [(ngModel)]="locationData.city" #LocationCtrl="ngModel"
-                       appGooglePlace (setAddress)="placeAutoComplete($event,LocationCtrl)"  (googlePlaceNoLoad)="googlePlaceNoLoad()"
-                       (keydown)="keyDownHandler($event)"  >
+                       [(ngModel)]="locationData.city" #LocationCtrl="ngModel" appGooglePlace (setAddress)="placeAutoComplete($event,LocationCtrl)"
+                       (keydown)="keyDownHandler($event)">
               </mat-form-field>
 
             </div>
             <div class="row">
               <mat-form-field class="col s12">
                 <input class="browser-default" matInput id="province" type="text" required placeholder="Province/State"
-                       [(ngModel)]="locationData.province" name="province" (change)="locationData.province=toTitleCase(locationData.province)" autocomplete="false">
+                       [(ngModel)]="locationData.province" name="province"  appGooglePlace (setAddress)="placeAutoComplete($event,{'name': 'province'})"
+                       (keydown)="keyDownHandler($event)" autocomplete="false">
               </mat-form-field>
             </div>
             <div class="row">
               <mat-form-field class="col s12">
                 <input class="browser-default" matInput id="country" type="text" required placeholder="Country"
-                       [(ngModel)]="locationData.country" name="country" (change)="locationData.country=toTitleCase(locationData.country)" autocomplete="false">
+                       [(ngModel)]="locationData.country" name="country"  appGooglePlace (setAddress)="placeAutoComplete($event,{'name': 'country'})"
+                       (keydown)="keyDownHandler($event)" autocomplete="false">
               </mat-form-field>
             </div>
 
@@ -122,13 +123,16 @@
             </div>
             <div class="row">
 
-              <p *ngIf="registrationResponse" style="font-size: large; margin-bottom: 1%; color: green">
+              <!--<p *ngIf="registrationResponse" style="font-size: large; margin-bottom: 1%; color: green">-->
+              <p style="font-size: large; margin-bottom: 1%; color: green">
                 <!--emoji (putting this here so I can command f to find the emoji.-->
-                Registration successful 😄. Your verification email has been sent, please check your inbox (or your spam folder 🙄).
+                Registration successful 😄.
                 <br>
-                You will be redirected in 10 seconds, please wait.
+                Visit<a routerLink="/forum" [queryParams]="{'utm_campaign':'register_1','utm_source':'atila', 'utm_medium':'registration_form', 'utm_content':'forum'}"> Forums</a>
                 <br>
-                Or Start <a routerLink="/scholarships-list">exploring Atila</a>
+                Visit<a routerLink="/scholarships-list" [queryParams]="{'utm_campaign':'register_1','utm_source':'atila', 'utm_medium':'registration_form', 'utm_content':'scholarships_list'}"> My Scholarships</a>
+                <br>
+                Your verification email has been sent, please check your inbox (or your spam folder 🙄).
               </p>
 
               <div class="col s6 button-container">
