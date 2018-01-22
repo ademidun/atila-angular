@@ -14,6 +14,7 @@ import { UserProfileService } from '../_services/user-profile.service';
 import { CommentService } from '../_services/comment.service';
 import { AuthService } from "../_services/auth.service";
 import {Meta, Title} from '@angular/platform-browser';
+import {MyFirebaseService} from '../_services/myfirebase.service';
 
 
 @Component({
@@ -49,6 +50,7 @@ export class ScholarshipDetailComponent implements OnInit {
     public commentService: CommentService,
     public authService: AuthService,
     public metaService: Meta,
+    public firebaseService: MyFirebaseService,
   ) {
     // Get the id that was passed in the route
     this.scholarshipSlug = route.snapshot.params['slug'];
@@ -144,6 +146,23 @@ export class ScholarshipDetailComponent implements OnInit {
   }
 
   getOrCreateApp() {
+
+    if(!this.userId || isNaN(this.userId)) {
+      let snackBarRef = this.snackBar.open("Account Required to Apply", 'Create Account', {
+        duration: 3000
+      });
+
+      snackBarRef.onAction().subscribe(
+        () => {
+
+          this.router.navigate(['register']);
+        },
+        err =>  {}
+      )
+
+      return;
+    }
+
     if(this.userId){
       var data = {
         scholarshipId: this.scholarship.id,
@@ -171,20 +190,68 @@ export class ScholarshipDetailComponent implements OnInit {
 
 
     }
-    else{
-      let snackBarRef = this.snackBar.open("Account Required to Apply", 'Create Account', {
-        duration: 3000
+   }
+
+  requestAutomation() {
+
+    if(!this.userId || isNaN(this.userId)) {
+
+      let snackBarRef = this.snackBar.open("Register to request Automation", 'Register', {
+        duration: 4000
       });
 
       snackBarRef.onAction().subscribe(
         () => {
-
           this.router.navigate(['register']);
         },
-        err =>  {}
-      )
+      );
+
+      return;
     }
-   }
+
+
+    if(!this.scholarship.metadata['automation_requests']) {
+      this.scholarship.metadata['automation_requests'] = [];
+    }
+
+    else {
+      this.scholarship.metadata['automation_requests'].push(this.userId);
+    }
+
+
+    let sendData = {
+      metadata: this.scholarship.metadata,
+      id: this.scholarship.id,
+    };
+
+    let userAnalytics: any = {
+      user_id: this.userId,
+      scholarship_id: this.scholarship.id,
+    };
+
+
+    this.scholarshipService.patch(sendData)
+      .subscribe(
+        res => {
+          this.firebaseService.saveUserAnalytics(userAnalytics, 'automation_requests')
+            .then(
+              res => {
+                this.snackBar.open("Request Saved", '', {
+                  duration: 3000
+                });
+
+              },
+              err => {
+                this.snackBar.open("Error in request Automation", '', {
+                  duration: 3000
+                });},
+            )
+
+        }
+      )
+
+
+  }
 
    //Make this an exported member function of comment
    upVoteComment(userId: number, comment: Comment): Comment{

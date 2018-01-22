@@ -100,7 +100,7 @@ userProfile = new UserProfile();
 
           setTimeout(() => {
             this.router.navigate(['scholarships-list']);
-          }, 7000);
+          }, 10000);
         },
         err => {
 

@@ -2,8 +2,9 @@
     <!--TODO: Why is this line giving me an error. <h5 > You qualify for <strong>{{ scholarships.length}}</strong> Scholarships</h5>-->
     <br/>
     <div *ngIf="form_data">
+
+      <!--Unregistered user content -->
       <div class="container" *ngIf="!isLoggedIn; else registeredContent">
-        <!--Unregistered user content -->
         <div class="row center">
           <h2 *ngIf="scholarship_count!=0" class="scholarship-preview-count"> You can get <strong>{{scholarship_count}}</strong> scholarships
             <span *ngIf="show_scholarship_funding"> and up to <strong>{{total_funding}}</strong> in funding</span>.</h2>
@@ -47,8 +48,8 @@
         </div>
 
         <div class="row center">
-            <a *ngIf="scholarship_count!=0"class="waves-effect waves-light btn scholarship-btn" routerLink="/register">Register here to view the rest of the scholarships</a>
-          <a *ngIf="scholarship_count==0"class="waves-effect waves-light btn scholarship-btn" routerLink="/register">Register here to start qualifying for scholarships</a>
+            <a *ngIf="scholarship_count!=0" style="background-color: #4080ff; color: white" class="waves-effect waves-light btn scholarship-btn" routerLink="/register">Register here to view the rest of the scholarships</a>
+          <a *ngIf="scholarship_count==0" style="background-color: #4080ff; color: white" class="waves-effect waves-light btn scholarship-btn" routerLink="/register">Register here to start qualifying for scholarships</a>
         </div>
 
 
