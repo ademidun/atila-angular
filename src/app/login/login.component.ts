@@ -73,8 +73,6 @@ export class LoginComponent implements OnInit {
   resetPassword(resetEmailUsername: HTMLInputElement) {
 
     this.resetResponse = null;
-    console.log('resetPassword() resetEmailUsername:',resetEmailUsername);
-
     let userInput = {
       username: resetEmailUsername.value
     };
@@ -86,7 +84,6 @@ export class LoginComponent implements OnInit {
           this.resetResponse = res.message;
         },
         err => {
-          console.log('error',err);
           if(err.error){
             this.resetResponse = err.error.message || err.error.error;
           }

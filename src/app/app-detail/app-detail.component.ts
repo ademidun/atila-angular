@@ -13,6 +13,7 @@ import {UploadFile} from '../_models/upload-file';
 
 import * as firebase from "firebase";
 import {MatSnackBar} from '@angular/material';
+import {prettifyKeys, toTitleCase} from '../_models/utils';
 
 @Component({
   selector: 'app-app-detail',
@@ -44,6 +45,8 @@ export class AppDetailComponent implements OnInit {
   dynamicForm: FormGroup;
 
   userProfileDynamicQuestions: any;
+
+  savedProfile: any;
 
 
   locationData = {
@@ -174,12 +177,29 @@ export class AppDetailComponent implements OnInit {
   saveUserProfile(form: NgForm){
 
 
-    var sendData = {
+    // Don't allow saving of locationData to userProfile for now. Due to user entering incorrect format.
+    // But lets save the data on what changes the user wishes to make. May help in future.
+
+    if (!this.userProfile.metadata['location_data']) {
+      this.userProfile.metadata['location_data'] = []
+    }
+
+    if(this.locationData.city != this.userProfile.city[0].name) {
+
+      let locationMetaData: any = {};
+      locationMetaData = Object.assign(locationMetaData, this.locationData);
+      locationMetaData.scholarship_id = this.scholarship.id;
+      locationMetaData.timestamp = Date.now();
+
+
+      this.userProfile.metadata['location_data'].push(locationMetaData);
+    }
+
+
+    let sendData = {
       userProfile: this.userProfile,
-      locationData: this.locationData,
+      // locationData: this.locationData,
     };
-
-
 
     let saveProfileObservable = this.userProfileService.updateAny(sendData);
 
@@ -189,6 +209,8 @@ export class AppDetailComponent implements OnInit {
         this.snackBar.open("Saved Profile", '', {
           duration: 3000
         });
+
+        this.savedProfile=  true;
       },
       err =>{
 
@@ -215,8 +237,8 @@ export class AppDetailComponent implements OnInit {
 
     this.uploadFile = new UploadFile(this.formFile);
     this.uploadFile.name = this.authService.hashFileName(this.formFile.name);
-    this.uploadFile.path = "user-profiles/" + this.userProfile.user + "/documents/"
-    this.uploadFile.path = this.uploadFile.path + this.uploadFile.name
+    this.uploadFile.path = "user-profiles/" + this.userProfile.user + "/documents/";
+    this.uploadFile.path = this.uploadFile.path + this.uploadFile.name;
 
 
     this.fileUpload(this.uploadFile)
@@ -321,9 +343,15 @@ export class AppDetailComponent implements OnInit {
 
 
 
+
+    // Only keep the userProfile questions that are also in the scholarship Questions
     this.userProfileDynamicQuestions = this.userProfileDynamicQuestions.filter(function(item){
       return scholarshipQuestions.indexOf(item.key) != -1;
     });
+
+    this.userProfileDynamicQuestions.forEach(question=> {
+      question.label = toTitleCase(prettifyKeys(question.key)) ;
+    })
 
   }
 

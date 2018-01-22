@@ -147,8 +147,6 @@ userProfile = new UserProfile();
 
 
   toTitleCase(str) {
-    console.log('str',str);
-    console.log('toTitleCase(str)',toTitleCase(str));
 
     return toTitleCase(str);
   }
@@ -163,7 +161,6 @@ userProfile = new UserProfile();
    */
   placeAutoComplete(placeResult:any, autoCompleteOptions?: any){ //Assign types to the parameters place result is a PlaceResult Type, see documentation
 
-    console.log('autoCompleteOptions:',autoCompleteOptions);
     this.predictLocation(this.locationData, placeResult, autoCompleteOptions);
 
   }
@@ -181,7 +178,6 @@ userProfile = new UserProfile();
 
     //TODO: Find a more elegant solution for this.
 
-    console.log('this.locationData',this.locationData);
     addressComponents.forEach((element, i, arr) => {
 
       if(element.types[0]=='locality' || element.types[0]=='administrative_area_level_3' ||  element.types[0]=='postal_town'||  element.types[0]=='sublocality_level_1'){
@@ -196,8 +192,6 @@ userProfile = new UserProfile();
         this.locationData['country'] = element.long_name;
       }
     });
-    console.log('this.locationData',this.locationData);
-    console.log('predictLocation() addressComponents, autoCompleteOptions:',addressComponents, autoCompleteOptions);
   }
 
 

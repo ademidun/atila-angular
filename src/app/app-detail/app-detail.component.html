@@ -8,7 +8,8 @@
             <br>
             <form   [formGroup]="profileForm"  class="col s12">
               <h4>General Info</h4>
-
+              {{userProfile.first_name}}
+              {{userProfile.secondary_school}}
               <div class="row">
                 <div *ngFor="let question of userProfileDynamicQuestions" >
                   <app-dynamic-question-general [form]="profileForm" [question]="question" [responses]="userProfile"></app-dynamic-question-general>
@@ -74,6 +75,7 @@
             <div class="row">
                 <button mat-raised-button class="btn white-text left s12" (click)="uploadUserDocuments()" style="margin-left:1%">Upload Document</button>
                 <button (click)="saveUserProfile(profileForm)"class="btn btn-success right s12">Save Profile</button>
+              <p> Location changes can be saved in <a routerLink="/edit-profile">edit profile</a>.</p>
             </div>
             </form>
             <span *ngIf="dynamicForm">
