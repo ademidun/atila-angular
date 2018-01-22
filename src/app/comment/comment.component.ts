@@ -4,6 +4,8 @@ import { Comment, upVoteComment, getCommentType, countVotes } from "../_models/c
 import { AuthService } from "../_services/auth.service";
 import { CommentService } from '../_services/comment.service';
 import {MyFirebaseService} from '../_services/myfirebase.service';
+import {MatSnackBar} from '@angular/material';
+import {Router} from '@angular/router';
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
@@ -21,6 +23,8 @@ export class CommentComponent implements OnInit {
     public commentService: CommentService,
     public authService: AuthService,
     public firebaseservice: MyFirebaseService,
+    public router: Router,
+    public snackBar: MatSnackBar,
   ) {
 
     this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
@@ -37,6 +41,23 @@ export class CommentComponent implements OnInit {
   }
 
   likeComment() {
+
+    if (!this.userId || isNaN(this.userId)) {
+      let snackBarRef = this.snackBar.open("Please log in to like.", '', {
+        duration: 3000
+      });
+
+      snackBarRef.onAction().subscribe(
+        () => {
+
+          this.router.navigate(['login']);
+        },
+        err =>  {}
+      );
+
+      return;
+    }
+
     this.comment= upVoteComment(this.userId,this.comment);
 
 

@@ -10,6 +10,7 @@ import { UserProfileService } from '../_services/user-profile.service';
 import { AuthService } from "../_services/auth.service";
 import {MatSnackBar} from '@angular/material';
 import {MyFirebaseService} from '../_services/myfirebase.service';
+import {Router} from '@angular/router';
 @Component({
   selector: 'app-forums-list',
   templateUrl: './forums-list.component.html',
@@ -27,7 +28,8 @@ export class ForumsListComponent implements OnInit {
     public userProfileService: UserProfileService,
     public authService: AuthService,
     public snackBar: MatSnackBar,
-    public firebaseservice: MyFirebaseService,
+    public firebaseService: MyFirebaseService,
+    public router: Router,
   ) { }
 
   ngOnInit() {
@@ -85,6 +87,21 @@ export class ForumsListComponent implements OnInit {
   }
 
   postForum(){
+
+    if (!this.authService.isLoggedIn) {
+      let snackBarRef = this.snackBar.open("Please log in to like.", 'Log In', {
+        duration: 3000
+      });
+
+      snackBarRef.onAction().subscribe(
+        () => {
+
+          this.router.navigate(['login']);
+        },
+        err =>  {}
+      )
+      return;
+    }
     this.forumComment.title = this.newForum.title;
     var sendData = {
       'forum': this.newForum,
@@ -115,9 +132,17 @@ export class ForumsListComponent implements OnInit {
   likeContent(content: Forum, index?) {
 
     if (!this.userProfile) {
-      this.snackBar.open("Please log in to like.", '', {
+      let snackBarRef = this.snackBar.open("Please log in to like.", '', {
         duration: 3000
       });
+
+      snackBarRef.onAction().subscribe(
+        () => {
+
+          this.router.navigate(['login']);
+        },
+        err =>  {}
+      );
 
       return;
     }
@@ -142,7 +167,7 @@ export class ForumsListComponent implements OnInit {
           'action_type': 'like',
         };
 
-        this.firebaseservice.saveUserAnalytics(userAgent, 'content_likes/'+userAgent.content_type);
+        this.firebaseService.saveUserAnalytics(userAgent, 'content_likes/'+userAgent.content_type);
         this.forumService.partialUpdateComments(sendData)
           .subscribe(res=>{},
             err =>{})

@@ -179,7 +179,7 @@ export class ScholarshipDetailComponent implements OnInit {
       snackBarRef.onAction().subscribe(
         () => {
 
-          this.router.navigate(['login']);
+          this.router.navigate(['register']);
         },
         err =>  {}
       )
