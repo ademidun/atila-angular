@@ -25,6 +25,7 @@ mat-select {
 .scholarship-btn{
   margin: 1%;
   background-color: #4080ff;
+  min-height: 75px !important;
 }
 
 :host/deep/ .mat-pseudo-checkbox-checked{
@@ -58,6 +59,11 @@ mat-form-field{
     font-size: 1.3em;
 }
 
+
+:host /deep/  .mat-form-field-label {
+  font-size: 100%;
+}
+
 .subheader {
   font-size: 3.2em;
   color:#FFFFFF;
@@ -76,17 +82,32 @@ mat-form-field.location-div .mat-input-wrapper{
 .preview-form {
   background: transparent;
   padding: 1px 0 0px 0;
-  margin-top: -11%;
+  margin-top: -37%;
 }
 
 .form-header {
   text-align: center;
-  font-size:28px;
+  font-size:55px;
   color:white;
 }
 .mat-input-placeholder{
   color: white;
 }
+
+.semi-dark-background {
+  background-color: rgba(25, 79, 135, .18);
+
+  -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 2s; /* Firefox < 16 */
+  -ms-animation: fadein 2s; /* Internet Explorer */
+  -o-animation: fadein 2s; /* Opera < 12.1 */
+  animation: fadein 2s;
+}
+
+.scholarship-btn-div {
+  margin-top: 5.7%;
+}
+
 @media (max-width:320px), (max-width:481px)   {
     /* smartphones, iPhone, portrait 480x320 phones */
     /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
@@ -97,10 +118,10 @@ mat-form-field.location-div .mat-input-wrapper{
     height: 30em;
   }
   .preview-form{
-    margin-top: -69%;
+    margin-top: -117%;
   }
   .form-header{
-    font-size: 1.9em;
+    font-size: 3em;
   }
   .subheader{
     padding-top: 50%;
@@ -109,5 +130,16 @@ mat-form-field.location-div .mat-input-wrapper{
   input[type = text]{
     margin-bottom: 0;
   }
+
+  .scholarship-btn{
+    margin: 1%;
+    background-color: #4080ff;
+    min-height: 100px !important;
+  }
+
+  .scholarship-btn-div {
+    margin-top: 0;
+  }
+
 
 }

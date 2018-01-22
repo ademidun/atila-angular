@@ -80,7 +80,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
    /**
     * If the Google Places API is not working, only ask for city.
     */
-    public locationPlaceHolder = 'City, Province/State or Country';
+    public locationPlaceHolder = 'City, Province or Country';
     public subscriber: any = {};
    constructor(
     public scholarshipService: ScholarshipService,
@@ -172,9 +172,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
   onSubmit(form: NgForm){
 
-    this.subscriber.action = 'preview_scholarship';
-    this.subscriber.preview_choices = this.model;
-
 
     if (form.value['education_field'].length==0 && form.value['education_level'].length==0 && form.value['location'] == '') {
       this.model.errors = 'Please enter at least one field.';
@@ -185,6 +182,10 @@ export class PreviewComponent implements OnInit, OnDestroy {
     else {
       delete this.model.errors;
     }
+
+    this.subscriber.action = 'preview_scholarship';
+    this.subscriber.preview_choices = this.model;
+
 
     this.firebaseService.saveUserAnalytics(this.subscriber,'preview_scholarship')
       .then(res => {
