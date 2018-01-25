@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { AuthService } from "../_services/auth.service";
 import {UserProfile} from '../_models/user-profile';
 import {SubscriberDialogComponent} from '../subscriber-dialog/subscriber-dialog.component';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import {MyFirebaseService} from '../_services/myfirebase.service';
 @Component({
   selector: 'app-scholarships-list',
@@ -34,6 +34,7 @@ export class ScholarshipsListComponent implements OnInit {
   paginationLen: number = 12
   pageLen: number;
   subscriber: any = {};
+  showOnlyAutomated = false;
   constructor(
     public scholarshipService: ScholarshipService,
     public userProfileService: UserProfileService,
@@ -41,6 +42,7 @@ export class ScholarshipsListComponent implements OnInit {
     public authService: AuthService,
     public dialog: MatDialog,
     public firebaseService: MyFirebaseService,
+    public snackBar: MatSnackBar,
   ) { }
 
 
@@ -79,7 +81,24 @@ export class ScholarshipsListComponent implements OnInit {
 
 
   getScholarshipPreview(page: number = 1){
-    if (typeof this.form_data != 'undefined') {
+
+    if (this.form_data ) {
+
+      this.form_data['only_automated'] = this.showOnlyAutomated;
+
+      if (!this.isLoggedIn) {
+
+        this.form_data['only_automated'] = false;
+
+        let snackBarRef = this.snackBar.open("Register to Filter by Automation", 'Register', {
+          duration: 5000
+        });
+        snackBarRef.onAction().subscribe(
+          () => {
+            this.router.navigate(['/register']);
+          },
+        );
+      }
 
       this.scholarshipService.getPaginatedscholarships(this.form_data, page)
       .subscribe(

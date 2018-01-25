@@ -25,10 +25,14 @@
                             </mat-form-field>
                         </div>
                         <div class="row">
-                            <label> Describe the scholarship in a concise tweet (140 characters). You will be able to give more details later.</label><br>
+                            <label> Give a short description of the scholarship. You will be able to give more details later.</label><br>
                               <textarea  class="browser-default" matInput id="description" type="text"
-                              required placeholder="Description" [(ngModel)]="scholarship.description" name="description"></textarea>
-                          </div>
+                              required placeholder="Description"  [(ngModel)]="scholarship.description" name="description"></textarea>
+                            <span *ngIf="scholarship.description">
+                              {{scholarship.description.length}}/500
+                            </span>
+
+                        </div>
                         <div class="row">
                             <mat-form-field class="col s12">
                                 <input class="browser-default" matInput id="scholarship_url" type=url placeholder="Schlarship URL" [(ngModel)]="scholarship.scholarship_url" name="scholarship_url">

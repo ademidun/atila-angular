@@ -32,7 +32,10 @@
         </div>
 
         <div class="row">
-            <p class="text-align-center col s-3"><i class="material-icons automate-tag">tag_faces</i> = Automated scholarships.</p>
+          <a style="cursor: pointer; font-size: x-large" (click)="showOnlyAutomated = !showOnlyAutomated; getScholarshipPreview(pageNo)">
+            <i class="material-icons automate-tag">tag_faces</i>
+            = Filter by Automated Scholarships.</a>
+
             <!--<p class="text-align-center col s-3"><mat-icon svgIcon="plus-one"></mat-icon> = One-Click Scholarships.</p>-->
           <p class="text-align-center col s-3">Are we missing a scholarship you want? You can easily <a routerLink="/add-scholarship" title="Add Scholarship">Add a Scholarship </a> to Atila or
               <a href="https://docs.google.com/spreadsheets/d/13YshWzg38Au-tPkGyDfY4hJHGJDWl_7vUpXNXkf5afM/edit?usp=sharing"
@@ -66,8 +69,13 @@
         <div class="row">
 
           <div class="row">
-          <p class="text-align-center col s-3"><i class="material-icons automate-tag">tag_faces</i> = Automated scholarships.</p>
-          <!--<p class="text-align-center col s-3"><mat-icon svgIcon="plus-one"></mat-icon> = One-Click Scholarships.</p>-->
+            <a style="cursor: pointer; font-size: x-large" (click)="showOnlyAutomated = !showOnlyAutomated; getScholarshipPreview(pageNo)">
+              <i class="material-icons automate-tag">tag_faces</i>
+              = Filter by Automated Scholarships.</a>
+            <!--<a class="btn waves-effect waves-light" style="background-color:#4080ff; height: auto " (click)="showOnlyAutomated = !showOnlyAutomated; getScholarshipPreview(pageNo)">-->
+            <!--<i class="material-icons automate-tag">tag_faces</i>-->
+            <!--= Filter by Automated Scholarships.</a>-->
+            <!--<p class="text-align-center col s-3"><mat-icon svgIcon="plus-one"></mat-icon> = One-Click Scholarships.</p>-->
             <p class="text-align-center col s-12" style="font-size: large">Are we missing a scholarship you want? <br>
               You can easily <a routerLink="/add-scholarship" title="Add Scholarship">Add a Scholarship </a> to Atila or
               <a href="https://docs.google.com/spreadsheets/d/13YshWzg38Au-tPkGyDfY4hJHGJDWl_7vUpXNXkf5afM/edit?usp=sharing"
