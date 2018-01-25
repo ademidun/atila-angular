@@ -46,6 +46,8 @@ export class ForumsListComponent implements OnInit {
             res => {
               this.forums = res.results;
 
+              console.log('this.forums', this.forums);
+
               this.forums.forEach(forum => {
                 if (forum.starting_comment.up_votes_id.includes(this.userProfile.user)) {
                   forum['alreadyLiked'] = true;

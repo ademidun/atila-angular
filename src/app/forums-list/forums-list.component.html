@@ -50,7 +50,7 @@
             <i class="material-icons md-36">comment</i></a>
           <a routerLink="/forum/{{forum.slug}}" class="btn-floating halfway-fab waves-effect waves-light left"
              style="left: 180px; bottom: 10px">
-          <p class="btn-text">5</p>
+          <p class="btn-text">{{forum['metadata']['comments_count']}}</p>
           </a>
 
         </div>

@@ -30,6 +30,7 @@ export class ForumDetailComponent implements OnInit {
   userProfile: UserProfile;
   userId;
   forumMetaData: any = {};
+  showPostHelper;
   constructor(
     public route: ActivatedRoute,
     public _ngZone: NgZone,

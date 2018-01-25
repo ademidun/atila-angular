@@ -13,12 +13,13 @@
                     <mat-card class="forum-card">
 
                     <mat-card-content>
-                        <input id="forum_title" placeholder="Title" [(ngModel)]="userComment.title">
-                        <textarea id="forum_comment_text" style="height: 5rem"  placeholder="What do you think?" (keydown.enter)="postComment()" [(ngModel)]="userComment.text">
+                        <input id="forum_title" placeholder="Title" [(ngModel)]="userComment.title" (click)="showPostHelper=true">
+                        <textarea (click)="showPostHelper=true" id="forum_comment_text" style="height: 5rem"  placeholder="What do you think?" (keydown.enter)="postComment()" [(ngModel)]="userComment.text">
                         </textarea>
                     </mat-card-content>
 
                     <mat-card-actions>
+                      <p *ngIf="showPostHelper" style="font-size: smaller">Press Enter+Shift to type on multiple lines. Enter to send.</p>
                         <button mat-raised-button style="background-color: #4080FF;" class="btn white-text" (click)="postComment()">Post</button>
                     </mat-card-actions>
 

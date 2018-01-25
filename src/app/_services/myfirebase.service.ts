@@ -7,6 +7,7 @@ import { UploadFile } from '../_models/upload-file';
 import * as firebase from "firebase";
 import {environment} from '../../environments/environment';
 import { AngularFireDatabase} from 'angularfire2/database';
+import {AuthService} from './auth.service';
 
 @Injectable()
 export class MyFirebaseService {
@@ -15,7 +16,8 @@ export class MyFirebaseService {
   public apiKeyUrl = environment.apiUrl + 'api-keys/';
   public saveFirebaseUrl = environment.apiUrl + 'save-firebase/';
   constructor(public http: HttpClient,
-              private db: AngularFireDatabase) {
+              private db: AngularFireDatabase,
+              public authService: AuthService) {
 
   }
 
@@ -62,7 +64,7 @@ export class MyFirebaseService {
     return $.getJSON('//freegeoip.net/json/?callback=?',
       data => {
         queryData.geo_ip = data;
-        return this.db.list('search_analytics').push(queryData);
+        return this.db.list('search_analytics/queries').push(queryData);
 
       },
       done => {
@@ -82,6 +84,7 @@ export class MyFirebaseService {
         res => {
           data.geo_ip = res;
 
+          return this.db.list(path).push(data);
         },
         done => {
 
@@ -162,7 +165,7 @@ export class MyFirebaseService {
     let postData = {
       "uploadResult": uploadResult,
       "uploadInstructions": uploadInstructions,
-    }
+    };
 
     return this.http.post(this.saveFirebaseUrl,postData)
     .map(this.extractData)
@@ -186,6 +189,11 @@ export class MyFirebaseService {
     data.timestamp = new Date().getTime();
     data.vendor = navigator.vendor;
     data.user_agent = navigator.userAgent;
+    data.user_id = parseInt(this.authService.decryptLocalStorage('uid'));
+
+    if (isNaN(data.user_id)) {
+      delete data.user_id;
+    }
 
     return data;
   }

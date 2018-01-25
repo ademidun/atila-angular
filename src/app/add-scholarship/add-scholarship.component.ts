@@ -18,7 +18,6 @@ import { MyFirebaseService } from "../_services/myfirebase.service";
 
 import { GooglePlaceDirective } from "../_directives/google-place.directive";
 import * as firebase from "firebase";
-import moment = require('../../../functions/node_modules/moment/moment');
 
 @Component({
   selector: 'app-add-scholarship',

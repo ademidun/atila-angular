@@ -15,6 +15,7 @@ export class BlogPost {
     published?: boolean;
     up_votes_count?: any;
     down_votes_count?: any;
+    metadata?: any;
     up_votes_id?: any[];
     down_votes_id?: any[];
     constructor(public user,) {

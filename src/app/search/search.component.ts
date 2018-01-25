@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {SearchService} from '../_services/search.service';
 import {AuthService} from '../_services/auth.service';
+import {MyFirebaseService} from '../_services/myfirebase.service';
 
 
 @Component({
@@ -23,27 +24,33 @@ export class SearchComponent implements OnInit {
     public route: ActivatedRoute,
     public searchService: SearchService,
     public authService: AuthService,
+    public firebaseService: MyFirebaseService,
   ) { }
 
   ngOnInit() {
 
     this.query = this.route.snapshot.queryParams['q'];
 
+
+    this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
+    let queryOptions = this.route.snapshot.queryParams;
+
     if (this.query) {
-      this.search(this.query)
+      this.search(this.query, queryOptions)
     }
+
   }
 
-  search(query) {
+  search(query, queryOptions?) {
 
     this.isSearching = true;
 
+
     let queryMetaData = {
-      query: this.route.snapshot.queryParams,
+      query: queryOptions,
       user_id: null,
     };
 
-    this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
 
     if (!isNaN(this.userId)) {
       this.isRegistered = true;
@@ -63,6 +70,21 @@ export class SearchComponent implements OnInit {
           this.isSearching = false;
         },
       )
+  }
+
+  saveQueryClick(clickObject,objectType) {
+    console.log('saveQueryClick: ',clickObject,objectType);
+    let clickData:any = {
+      title: clickObject.title || clickObject.name,
+      object_id: clickObject.id,
+      object_type: objectType,
+      query: this.query,
+      user_id: this.userId,
+    };
+
+
+    this.firebaseService.saveAny('search_analytics/clicks', clickData);
+
   }
 
 }
