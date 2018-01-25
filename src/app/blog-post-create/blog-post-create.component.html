@@ -5,12 +5,12 @@
       <h3> {{blogPost.title}} </h3>
 
       <mat-card class="forum-card">
-          
+
       <mat-card-content>
           <input id="forum_title" placeholder="Title" [(ngModel)]="blogPost.title" (change)="titleToSlug(blogSlugInput)">
 
-        <a (click)="extraBlogOptions = !extraBlogOptions"  href="javascript:undefined">More Settings</a>
-        
+        <a (click)="extraBlogOptions = !extraBlogOptions" style="cursor: pointer">More Settings</a>
+
         <div [hidden]="!extraBlogOptions">
 
         <div class="row">
@@ -25,7 +25,7 @@
               <input class="browser-default" id="header_image_url_file" type="file" placeholder="Upload your Header Image"
                  #uploadPicInput name="header_image_url_file">
             </div>
-            
+
             <mat-progress-bar style="margin-bottom: 1%;" *ngIf="uploadProgress" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
 
             <div class="col s6 l2">
@@ -42,13 +42,13 @@
             <input class="prefix_input" #blogSlugInput type="text" [(ngModel)]="blogPost.slug" placeholder="Blog URL">
           </div>
         </div>
-          
+
       </mat-card-content>
 
       <mat-card-actions>
           <button mat-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveBlog(false)">Save</button>
       </mat-card-actions>
-                      
+
       </mat-card>
 
     <textarea id="{{editorId}}"></textarea>
@@ -63,6 +63,6 @@
       <img [src]="blogPost.header_image_url" style="max-height: 100%;max-width: 100%;"/>
     </div>
     <div [innerHTML]="blogPost.body | safeHtml" class="col m8 offset-m2 l8 offset-l2 s11"></div>
-    
+
   </div>
 </div>

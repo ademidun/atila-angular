@@ -107,6 +107,22 @@ mat-form-field.location-div .mat-input-wrapper{
 .scholarship-btn-div {
   margin-top: 5.7%;
 }
+.videowrapper {
+  float: none;
+  clear: both;
+  width: 100%;
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 25px;
+  height: 0;
+}
+.videowrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
 
 @media (max-width:320px), (max-width:481px)   {
     /* smartphones, iPhone, portrait 480x320 phones */

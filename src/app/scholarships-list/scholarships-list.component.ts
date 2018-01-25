@@ -180,4 +180,5 @@ export class ScholarshipsListComponent implements OnInit {
   }
 
 
+
 }

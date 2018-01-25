@@ -110,6 +110,23 @@ export class ScholarshipCardComponent implements OnInit {
     this.firebaseService.saveUserAnalytics(this.userAnalytics,'scholarship_sharing');
   }
 
+  webShare() {
+    if(this.userProfile && (this.userProfile.user == 4 || this.userProfile.user == 1)) {
+      console.log('webShare() navigator, navigator.share',(<any>navigator), (<any>navigator).share);
+
+      if ((<any>navigator).share) {
+        (<any>navigator).share({
+          title: this.scholarship.name,
+          text: this.scholarship.description,
+          url: 'https://atila.ca/scholarship-detail/'+this.scholarship.slug,
+        })
+          .then(() => console.log('Successful share'))
+          .catch((error) => console.log('Error sharing', error));
+      }
+    }
+
+  }
+
   }
 
 

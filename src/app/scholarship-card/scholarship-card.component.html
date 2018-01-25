@@ -22,7 +22,7 @@
         <mat-icon [ngStyle]="{'color': alreadySaved ? '#4080ff' : ''}"  class="atila-blue" aria-hidden="true" aria-label="Save">bookmark</mat-icon>
       </button>
 
-      <button mat-fab [matMenuTriggerFor]="shareMenu">
+      <button mat-fab [matMenuTriggerFor]="shareMenu" (click)="webShare()">
         <mat-icon  class="atila-blue" aria-hidden="true" aria-label="Share">share</mat-icon>
       </button>
       <!-- Dropdown Share Menu -->

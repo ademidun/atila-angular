@@ -55,6 +55,7 @@ export class BlogPostDetailComponent implements OnInit {
         this.blogPost = (<any>res).blog;
 
         this.updateMeta();
+
         this.titleService.setTitle(this.blogPost.title);
         if (! isNaN(this.userId)){
 
@@ -81,7 +82,7 @@ export class BlogPostDetailComponent implements OnInit {
           }
         )
 
-      }
+      },
     );
 
 
@@ -131,6 +132,7 @@ export class BlogPostDetailComponent implements OnInit {
     return index;
 
   }
+
 
   updateMeta(){
 
