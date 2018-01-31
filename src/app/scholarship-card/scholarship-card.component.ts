@@ -111,8 +111,8 @@ export class ScholarshipCardComponent implements OnInit {
   }
 
   webShare() {
-    if(this.userProfile && (this.userProfile.user == 4 || this.userProfile.user == 1)) {
-      console.log('webShare() navigator, navigator.share',(<any>navigator), (<any>navigator).share);
+    // if(this.userProfile && (this.userProfile.user == 4 || this.userProfile.user == 1)) {
+    if(this.userProfile) {
 
       if ((<any>navigator).share) {
         (<any>navigator).share({
@@ -120,8 +120,8 @@ export class ScholarshipCardComponent implements OnInit {
           text: 'Have you seen this scholarship from Atila: https://atila.ca/scholarship-detail/'+this.scholarship.slug,
           url: 'https://atila.ca/scholarship-detail/'+this.scholarship.slug,
         })
-          .then(() => console.log('Successful share'))
-          .catch((error) => console.log('Error sharing', error));
+          .then(() => {})
+          .catch((error) => {});
       }
     }
 

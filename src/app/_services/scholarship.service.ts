@@ -106,5 +106,20 @@ getBySlug(slug: string) {
     return Observable.throw(error);
   }
 
+  searchSchools (query: any) {
+
+    return $.getJSON(`http://universities.hipolabs.com/search?name=${query}`,
+      res => {
+        return res
+      },
+      err => {
+        Observable.throw(err);
+      });
+    // return this.http.get(`http://universities.hipolabs.com/search?name=${query}`)
+    //   .map(res=>res)
+    //   .catch(err=>Observable.throw(err));
+
+  }
+
 
 }

@@ -9,3 +9,19 @@ textarea {
 .hidden{
     display: none;
 }
+
+
+div.mat-autocomplete-panel {
+  min-width: 275px;
+  display: block;
+}
+
+/*
+.mat-autocomplete-panel{
+  min-width: 250px;
+}
+
+.mat-select-trigger{
+  min-width: 300px;
+}
+*/

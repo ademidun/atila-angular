@@ -8,6 +8,8 @@ export class UserProfile {
             public first_name?: string,
             public education_level?: string[],
             public education_field?: string[],
+            public eligible_programs?: string[],
+            public eligible_schools?: string[],
             public email?: any,
             public is_sponsor?:any,
             public is_verified?:any,

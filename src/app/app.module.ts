@@ -11,7 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableLayoutModule } from './table-layout/table-layout.module';
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
-import { MatDialogModule, MatProgressBarModule } from '@angular/material';
+import { MatDialogModule, MatProgressBarModule, MatAutocompleteModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ScholarshipsListComponent } from './scholarships-list/scholarships-list.component';
 import { ScholarshipCardComponent } from './scholarship-card/scholarship-card.component';
@@ -141,6 +141,7 @@ import { TitleCasePipe } from './_pipes/title-case.pipe';
     MatSnackBarModule,
     MatSelectModule,
     MatCheckboxModule,
+    MatAutocompleteModule,
     MatCardModule,
     TableLayoutModule,
     HttpClientModule,

@@ -73,7 +73,6 @@ export class SearchComponent implements OnInit {
   }
 
   saveQueryClick(clickObject,objectType) {
-    console.log('saveQueryClick: ',clickObject,objectType);
     let clickData:any = {
       title: clickObject.title || clickObject.name,
       object_id: clickObject.id,

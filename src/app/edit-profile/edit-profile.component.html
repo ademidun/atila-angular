@@ -122,7 +122,11 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <br> <div class="row">
+
+
+          <br>
+
+          <div class="row">
 
           <mat-form-field class="col s12">
               <!-- TODO: Add a Modal or hover info explaining the diff. between Art and STEM -->
@@ -130,6 +134,66 @@
                 <mat-option *ngFor="let field of EDUCATION_FIELD" [value]="field">{{field}} </mat-option>
               </mat-select>
           </mat-form-field>
+          </div>
+          <br>
+
+          <div class="row">
+            <div class="col s12">
+              <h4> Potential Schools </h4>
+              <p> What schools are you interested in?</p>
+              <table>
+                <tr  *ngFor="let school of userProfile.eligible_schools; let i = index">
+                <td> {{school}} </td>
+                <td>
+                  <a class="waves-effect waves-light btn right" (click)="deleteArrayitem(userProfile.eligible_schools, i)">
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                  </a>
+                </td>
+              </tr>
+              </table>
+
+            </div>
+
+            <mat-form-field class="example-full-width">
+              <input #eligibleSchoolInput type="text" placeholder="Enter Schools" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="schools_auto"
+                     (keyup)="autoCompleteSelected($event)">
+
+
+              <mat-autocomplete style="min-width: 300px !important;" #schools_auto="matAutocomplete" class="autocomplete-custom-template"
+                                (optionSelected)="autoCompleteSelected($event,'eligible_schools')" >
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                  {{ option }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+          <br>
+
+          <div class="row">
+            <div class="col s12">
+              <h4> Potential Programs </h4>
+              <p> What programs are you interested in?</p>
+              <table>
+                <tr  *ngFor="let school of userProfile.eligible_programs; let i = index">
+                  <td> {{school}} </td>
+                  <td>
+                    <a class="waves-effect waves-light btn right" (click)="deleteArrayitem(userProfile.eligible_programs, i)">
+                      <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+            </div>
+
+            <mat-form-field class="example-full-width">
+              <input #eligibleProgramInput  class="browser-default" matInput id="eligible_programs" name="eligible_programs"
+                      placeholder="E.g. Health Science, Engineering, Business, Law School etc." (keyup)="0">
+              <button class="waves-effect waves-light btn center" (click)="autoCompleteSelected($event, 'eligible_programs',eligibleProgramInput.value)">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </button>
+            </mat-form-field>
+
           </div>
           <br>
           <!-- TODO: Do we need to explain this? Perhaps do some A/B Testing? -->
@@ -140,9 +204,9 @@
                   <!-- TODO: Get real % of scholarships asking for alternate rerefence letters. -->
                   <h5> Additional Documents </h5>
                   <p>Click upload once for each time you choose a file.</p>
-                  <a placement="bottom" [ngbTooltip]="tipContent">Why do I need this?</a>
-                  <ng-template #tipContent><b>{{documentScholarshipsPercent}}%</b> of scholarships require either a resume, transcript or reference_letter.
-                  These documents allow us to automate the application process.</ng-template>
+                  <!--<a placement="bottom" [ngbTooltip]="tipContent">Why do I need this?</a>-->
+                  <!--<ng-template #tipContent><b>{{documentScholarshipsPercent}}%</b> of scholarships require either a resume, transcript or reference_letter.-->
+                  <!--These documents allow us to automate the application process.</ng-template>-->
                 </div>
               </div>
               <div class="row">

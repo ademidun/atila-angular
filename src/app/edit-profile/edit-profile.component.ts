@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { UserProfile, toTitleCase } from '../_models/user-profile'
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import { UserProfile, toTitleCase } from '../_models/user-profile';
 import { UserProfileService } from "../_services/user-profile.service";
 
 import {NgForm, NgModel} from '@angular/forms';
@@ -7,7 +7,7 @@ import {NgForm, NgModel} from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 
 import { Router, ActivatedRoute } from '@angular/router'
-import { MatSnackBar } from '@angular/material';
+import {MatAutocompleteSelectedEvent, MatSnackBar} from '@angular/material';
 
 import { Title }     from '@angular/platform-browser';
 
@@ -20,10 +20,17 @@ import { MyFirebaseService } from "../_services/myfirebase.service";
 import * as firebase from "firebase";
 import {environment} from '../../environments/environment';
 
+import {FormControl} from '@angular/forms';
+import {startWith} from 'rxjs/operators/startWith';
+import {map} from 'rxjs/operators/map';
+import {debounceTime} from 'rxjs/operators/debounceTime';
+import { SCHOOLS_LIST } from '../_models/schools-list';
+import {ScholarshipService} from '../_services/scholarship.service';
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
-  styleUrls: ['./edit-profile.component.scss']
+  styleUrls: ['./edit-profile.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class EditProfileComponent implements OnInit {
 
@@ -67,6 +74,12 @@ EDUCATION_FIELD = [
     'country': '',
   }
 
+  myControl: FormControl = new FormControl();
+
+  schoolNames: any;
+
+  filteredOptions: Observable<string[]>;
+
   constructor(
     public userProfileService: UserProfileService,
     public router: Router,
@@ -74,8 +87,11 @@ EDUCATION_FIELD = [
     public snackBar: MatSnackBar,
     public titleService: Title,
     public authService: AuthService,
+    public scholarshipService: ScholarshipService,
   ) {
     this.userName = route.snapshot.params['username'];
+
+    this.schoolNames = SCHOOLS_LIST.map(school => school.name);
   }
 
   ngOnInit() {
@@ -89,6 +105,7 @@ EDUCATION_FIELD = [
             this.titleService.setTitle('Atila - ' + profileTitle);
             this.initializeLocations(this.userProfile.city);
 
+            this.initializeForm();
 
           },
           err => {
@@ -98,6 +115,44 @@ EDUCATION_FIELD = [
         )
     }
   }
+
+
+  initializeForm() {
+    /*
+    //https://stackoverflow.com/questions/43575515/md-autocomplete-angular2-getting-data-from-server-with-a-service
+    this.myControl.valueChanges
+      //.debounceTime(500)
+      .subscribe(query => {
+        this.scholarshipService.searchSchools(query)
+          .then(res => {
+            console.log('res',res);
+            return this.filteredOptions = res.map(element => element['name']);
+          },
+            err => {
+              console.log('err',err);
+          });
+      });
+      */
+
+    this.filteredOptions = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(val => this.filter(val))
+      );
+
+  }
+
+  filter(val: string): string[] {
+
+    //Allow user input to be used if no other choices available;
+
+    let customOptions = this.schoolNames.filter(option =>
+      option.toLowerCase().indexOf(val.toLowerCase()) !== -1);
+
+    customOptions.push(val);
+    return customOptions;
+  }
+
 
   switchPage(){
     this.profileInfo = !this.profileInfo;
@@ -185,6 +240,42 @@ initializeLocations(cities: Array<any>){
     .subscribe(
       res => {}
     )
+
+  }
+
+  deleteArrayitem(arr: any[], index) {
+    arr.splice(index,1)
+  }
+
+  autoCompleteSelected(event?: Event | MatAutocompleteSelectedEvent | any, selectionType?: any, selectionValue?: any) {
+
+    if (selectionType) {
+
+      if (selectionType == 'eligible_schools') {
+        if (selectionValue) {
+          this.userProfile.eligible_schools.push(selectionValue);
+          selectionValue = "";
+        }
+        else {
+          this.userProfile.eligible_schools.push(event.option.value);
+          event.option.value ="";
+        }
+
+      }
+
+      else if (selectionType == 'eligible_programs') {
+        this.userProfile.eligible_programs.push(selectionValue);
+        selectionValue = "";
+        event.preventDefault();
+      }
+
+    }
+
+    // if( typeof(event) == 'Event' && (<KeyboardEvent>event).keyCode == 13) {
+    if( (<KeyboardEvent>event).keyCode == 13) {
+
+      event.preventDefault();
+    }
 
   }
 
