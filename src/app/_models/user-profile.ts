@@ -1,3 +1,5 @@
+import {MatSnackBar} from '@angular/material';
+
 export class UserProfile {
         constructor(
             public academic_average?: any,
@@ -65,4 +67,32 @@ export class UserProfile {
        }
 
        return str;
+     }
+
+     export function addToMyScholarshipHelper(userProfile, item) {
+
+
+         for (let i =0; i<userProfile.metadata.saved_scholarships.length; i++) {
+           if (userProfile.metadata.saved_scholarships[i].id == item.id) {
+
+             return [userProfile, false];
+           }
+         }
+
+
+         if(!userProfile.metadata.saved_scholarships) {
+           userProfile.metadata.saved_scholarships = [];
+         }
+         let savedScholarship = {
+           id: item.id,
+           name: item.name,
+           slug: item.slug,
+           description: item.description,
+           img_url: item.import,
+           deadline: item.deadline,
+         };
+         userProfile.metadata.saved_scholarships.push(savedScholarship);
+
+         return [userProfile, true];
+
      }

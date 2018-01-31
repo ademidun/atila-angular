@@ -22,6 +22,11 @@
           </div>
 
 
+        <p class="col offset-m5">Save for Later</p>
+        <button mat-fab  (click)="addToMyScholarships(scholarship)" style="margin-left: -7%">
+          <mat-icon [ngStyle]="{'color': alreadySaved ? '#4080ff' : ''}"  class="atila-blue" aria-hidden="true" aria-label="Save">bookmark</mat-icon>
+        </button>
+
         <button mat-raised-button *ngIf=scholarship.is_automated (click)="getOrCreateApp()"
         style="background-color: #4080ff; " class="white-text">Apply now</button>
 

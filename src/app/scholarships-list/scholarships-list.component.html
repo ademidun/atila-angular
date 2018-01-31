@@ -36,8 +36,11 @@
             <i class="material-icons automate-tag">tag_faces</i>
             = Filter by Automated Scholarships.</a>
 
-          <a routerLink="/search" [queryParams]="{q: 'international student', q_source:'scholarships_preview'}">
-            International Student? Find Scholarships for International Students studying in Canada</a>
+          <p>
+            <a (click)="saveUserAnalytics('link_analytics',{link:'/search/international student', source:'scholarships_list', intent:'international_student_cta'})"
+               routerLink="/search" [queryParams]="{q: 'international student', q_source:'international_student_cta'}">
+              International Student? See Your Scholarships</a>
+          </p>
 
             <!--<p class="text-align-center col s-3"><mat-icon svgIcon="plus-one"></mat-icon> = One-Click Scholarships.</p>-->
           <p class="text-align-center col s-3">Are we missing a scholarship you want? You can easily <a routerLink="/add-scholarship" title="Add Scholarship">Add a Scholarship </a> to Atila or
@@ -76,8 +79,12 @@
               <i class="material-icons automate-tag">tag_faces</i>
               = Filter by Automated Scholarships.</a>
 
-            <a routerLink="/search" [queryParams]="{q: 'international student', q_source:'scholarships_preview'}">
-              International Student? Find Scholarships for International Students studying in Canada</a>
+            <p>
+              <a (click)="saveUserAnalytics('link_analytics',{link:'/search/international student', source:'scholarships_list', intent:'international_student_cta'})"
+                 routerLink="/search" [queryParams]="{q: 'international student', q_source:'international_student_cta'}">
+                International Student? See Your Scholarships</a>
+            </p>
+
             <!--<a class="btn waves-effect waves-light" style="background-color:#4080ff; height: auto " (click)="showOnlyAutomated = !showOnlyAutomated; getScholarshipPreview(pageNo)">-->
             <!--<i class="material-icons automate-tag">tag_faces</i>-->
             <!--= Filter by Automated Scholarships.</a>-->

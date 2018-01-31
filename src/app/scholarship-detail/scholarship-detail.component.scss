@@ -5,6 +5,16 @@
     display: block;
     margin: auto;
 }
+
+button:focus, button:hover{
+  background-color: #C1BCBC;
+}
+
+
+button.mat-fab.mat-accent {
+  background-color: white;
+}
+
 .comment-card{
     margin-bottom: 5%;
 }
@@ -37,7 +47,7 @@
 
 .review-user {
     font-size: 0.9em;
-    
+
 }
 
 .review-rating {
@@ -70,7 +80,7 @@
 }
 
 .vote-arrow {
-    display: block;    
+    display: block;
     text-align: center
 }
 

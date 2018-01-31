@@ -198,6 +198,8 @@ export class ScholarshipsListComponent implements OnInit {
       });
   }
 
-
+  saveUserAnalytics(path, userData) {
+    this.firebaseService.saveUserAnalytics(userData,path);
+  }
 
 }

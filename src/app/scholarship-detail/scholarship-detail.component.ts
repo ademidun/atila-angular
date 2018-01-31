@@ -15,6 +15,7 @@ import { CommentService } from '../_services/comment.service';
 import { AuthService } from "../_services/auth.service";
 import {Meta, Title} from '@angular/platform-browser';
 import {MyFirebaseService} from '../_services/myfirebase.service';
+import {UserProfile, addToMyScholarshipHelper} from '../_models/user-profile';
 
 
 @Component({
@@ -31,12 +32,13 @@ export class ScholarshipDetailComponent implements OnInit {
   userId: number;
   appId: number;
   json = JSON;
+  userProfile: UserProfile;
 
   public reviews: any[];
   public reviewsLoaded: boolean = false;
   public scholarshipOwner;
   public keyGetter = Object.keys;
-
+  public alreadySaved: boolean;
   constructor(
     route: ActivatedRoute,
     public router: Router,
@@ -73,6 +75,7 @@ export class ScholarshipDetailComponent implements OnInit {
             .subscribe(
               user => {
                 this.scholarshipOwner = user;
+
               },
               err => {
 
@@ -80,6 +83,24 @@ export class ScholarshipDetailComponent implements OnInit {
             )
           }
 
+          if (!isNaN(this.userId)) {
+            this.userProfileService.getById(this.userId)
+              .subscribe(
+                res => {
+                  this.userProfile = res;
+                  if(this.userProfile && this.userProfile.metadata.saved_scholarships) {
+
+                    for (let i =0; i<this.userProfile.metadata.saved_scholarships.length; i++) {
+                      if (this.userProfile.metadata.saved_scholarships[i].id == this.scholarship.id) {
+                        this.alreadySaved = true;
+                        break;
+                      }
+                    }
+
+                  }
+                },
+              )
+          }
 
         },
         err => {
@@ -250,6 +271,72 @@ export class ScholarshipDetailComponent implements OnInit {
         }
       )
 
+
+  }
+
+  addToMyScholarships() {
+
+    let userAnalytics:any = {};
+
+    userAnalytics.share_type = 'save_scholarship';
+    userAnalytics.share_source = 'scholarship_detail';
+    userAnalytics.schoarship_id = this.scholarship.id;
+
+
+    if(this.userProfile) {
+      userAnalytics.user_id = this.userProfile.user;
+    }
+    this.firebaseService.saveUserAnalytics(userAnalytics,'scholarship_sharing');
+
+
+    if (!this.userProfile) {
+      let snackBarRef = this.snackBar.open("Register to Save", 'Register', {
+        duration: 5000
+      });
+
+      snackBarRef.onAction().subscribe(
+        () => {
+          this.router.navigate(['register']);
+        },
+      )
+
+      return;
+    }
+
+    if (this.alreadySaved) {
+      this.snackBar.open("Already Saved", '', {
+        duration: 5000
+      });
+      return;
+    }
+
+    let saveResult = addToMyScholarshipHelper(this.userProfile,this.scholarship);
+
+    if(!saveResult[1]) {
+      this.snackBar.open("Already Saved", '', {
+        duration: 5000
+      });
+      return;
+    }
+    else {
+      this.userProfile = saveResult[0];
+
+      this.userProfileService.updateHelper(this.userProfile)
+        .subscribe(
+          res => {
+            let snackBarRef = this.snackBar.open("Saved to My Scholarships", 'My Scholarships', {
+              duration: 5000
+            });
+
+            snackBarRef.onAction().subscribe(
+              () => {
+                this.router.navigate(['profile',this.userProfile.username,'my-atila']);
+              },
+            )},
+          err=> {},
+        )
+
+    }
 
   }
 

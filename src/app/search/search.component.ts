@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {SearchService} from '../_services/search.service';
 import {AuthService} from '../_services/auth.service';
 import {MyFirebaseService} from '../_services/myfirebase.service';
+import {UserProfileService} from '../_services/user-profile.service';
+import {MatSnackBar} from '@angular/material';
+import {UserProfile, addToMyScholarshipHelper} from '../_models/user-profile';
 
 
 @Component({
@@ -18,13 +21,17 @@ export class SearchComponent implements OnInit {
   isSearching: boolean;
 
   searchResults: any = {};
+  userProfile: UserProfile;
 
 
   constructor(
     public route: ActivatedRoute,
+    public router: Router,
     public searchService: SearchService,
+    public snackBar: MatSnackBar,
     public authService: AuthService,
     public firebaseService: MyFirebaseService,
+    public userProfileService: UserProfileService,
   ) { }
 
   ngOnInit() {
@@ -33,11 +40,13 @@ export class SearchComponent implements OnInit {
 
 
     this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
+
     let queryOptions = this.route.snapshot.queryParams;
 
     if (this.query) {
       this.search(this.query, queryOptions)
     }
+
 
   }
 
@@ -64,6 +73,23 @@ export class SearchComponent implements OnInit {
         res => {
           this.searchResults = res;
           this.isSearching = false;
+
+
+          //Call customizeResults() twice, since search results and user data may return at different times.
+          console.log('this.userProfile, this.userId',this.userProfile, this.userId );
+
+          if (!this.userProfile && !isNaN(this.userId)) {
+            this.userProfileService.getById(this.userId)
+              .subscribe(
+                res => {
+                  this.userProfile = res;
+                  this.customizeResults();
+                },
+              );
+          }
+          if(this.userProfile) {
+            this.customizeResults();
+          }
         } ,
 
         err=>{
@@ -72,6 +98,31 @@ export class SearchComponent implements OnInit {
       )
   }
 
+  customizeResults() {
+
+    console.log('customizeResults(), this.userProfile.metadata',this.userProfile.metadata);
+
+    if(this.userProfile.metadata.saved_scholarships) {
+      let userScholarshipsId = this.userProfile.metadata.saved_scholarships.map(scholarship => scholarship.id);
+
+
+      this.searchResults.scholarships =  this.searchResults.scholarships.map(
+        scholarship => {
+          if (userScholarshipsId.includes(scholarship.id) ) {
+            scholarship.alreadySaved = true;
+          }
+
+          return scholarship;
+        }
+      );
+
+      console.log('customizeResults(), userScholarshipsId',userScholarshipsId);
+      console.log('customizeResults(), this.searchResults.scholarships',this.searchResults.scholarships);
+    }
+
+
+
+  }
   saveQueryClick(clickObject,objectType) {
     let clickData:any = {
       title: clickObject.title || clickObject.name,
@@ -86,4 +137,62 @@ export class SearchComponent implements OnInit {
 
   }
 
+  addToMyScholarships(scholarship) {
+
+    let userAnalytics:any = {};
+
+    userAnalytics.share_type = 'save_scholarship';
+    userAnalytics.share_source = 'search';
+    userAnalytics.query = this.query;
+    userAnalytics.schoarship_id = scholarship.id;
+
+
+    this.firebaseService.saveUserAnalytics(userAnalytics,'scholarship_sharing');
+    if(this.userProfile) {
+      userAnalytics.user_id = this.userProfile.user;
+    }
+
+    if (!this.userProfile) {
+      let snackBarRef = this.snackBar.open("Register to Save", 'Register', {
+        duration: 5000
+      });
+
+      snackBarRef.onAction().subscribe(
+        () => {
+          this.router.navigate(['register']);
+        },
+      );
+
+      return;
+    }
+
+    let saveResult = addToMyScholarshipHelper(this.userProfile,scholarship);
+
+    if(!saveResult[1]) {
+      this.snackBar.open("Already Saved", '', {
+        duration: 5000
+      });
+      return;
+    }
+    else {
+      this.userProfile = saveResult[0];
+
+      this.userProfileService.updateHelper(this.userProfile)
+        .subscribe(
+          res => {
+            let snackBarRef = this.snackBar.open("Saved to My Scholarships", 'My Scholarships', {
+              duration: 5000
+            });
+
+            snackBarRef.onAction().subscribe(
+              () => {
+                this.router.navigate(['profile',this.userProfile.username,'my-atila']);
+              },
+            )},
+          err=> {},
+        )
+
+    }
+
+  }
 }

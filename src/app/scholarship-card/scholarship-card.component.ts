@@ -59,7 +59,7 @@ export class ScholarshipCardComponent implements OnInit {
         name: this.scholarship.name,
         slug: this.scholarship.slug,
         description: this.scholarship.description,
-        img_url: this.scholarship.import,
+        img_url: this.scholarship.img_url,
         deadline: this.scholarship.deadline,
       };
       this.userProfile.metadata.saved_scholarships.push(savedScholarship);
