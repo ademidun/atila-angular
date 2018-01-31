@@ -7,3 +7,12 @@
     max-width: 100%;  // or width instead of max-width
     max-height: 300px; // or height instead of max-height
   }
+
+
+.custom-snackbar-styles {
+  color: $my-lighten;
+}
+
+button.mat-simple-snackbar-action {
+  color: $my-lighten !important;
+}

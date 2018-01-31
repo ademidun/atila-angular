@@ -9,6 +9,7 @@
                     <h6 *ngIf="editMode && !isOwner">You don't have permission to save edits. If you want to make edits, please suggest them in the comments.</h6>
 
                     <h4>{{scholarship.name}}</h4>
+                    <a *ngIf="scholarship && scholarship.slug" routerLink="/scholarship-detail/{{scholarship.slug}}">View Scholarship</a>
                     <div *ngIf="pageNo==1">
                         <h5>General Information {{pageNo}}/3</h5>
 

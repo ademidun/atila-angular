@@ -11,7 +11,7 @@ import { ApplicationService }    from '../_services/application.service';
 import { Observable } from 'rxjs/Observable';
 
 import { UploadFile } from '../_models/upload-file';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 
 import { AuthService } from "../_services/auth.service";
 
@@ -20,6 +20,7 @@ import {MatProgressBar} from '@angular/material';
 import * as firebase from "firebase";
 
 import { TruncatePipe } from '../_pipes/truncate.pipe';
+import {Router} from '@angular/router';
 
 
 
@@ -63,6 +64,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     public authService: AuthService,
     public cdr: ChangeDetectorRef,
     public snackBar: MatSnackBar,
+    public router: Router,
     // public webFormService: WebFormsService
   ) {
 
@@ -117,6 +119,16 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
       res => {
 
         this.payLoad = JSON.stringify(res.message);
+        let config = new MatSnackBarConfig();
+        config.panelClass = ['custom-snackbar-styles'];
+        config.duration = 20000;
+        let snackBarRef = this.snackBar.open("Saved Application", 'See My Applications',config);
+
+        snackBarRef.onAction().subscribe(
+          () => {
+            this.router.navigate(['profile',this.generalData.userProfile.username,'my-atila']);
+          },
+        )
       },
       err =>{
 
