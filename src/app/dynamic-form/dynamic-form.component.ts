@@ -27,6 +27,7 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'app-dynamic-form',
   templateUrl: './dynamic-form.component.html',
+  styleUrls: ['./dynamic-form.component.scss'],
   providers: [ QuestionControlService ]
 })
 export class DynamicFormComponent implements OnInit, AfterViewInit {
@@ -203,6 +204,8 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
           this.preAndPostScreenshots[i] = "data:image/png;base64," + this.preAndPostScreenshots[i];
 
         }
+        // Show the full screen screnshot first.
+        this.preAndPostScreenshots.reverse();
 
 
         }

@@ -2,7 +2,7 @@
     <form (ngSubmit)="onSubmit()" [formGroup]="form">
       <h4>Specific Info</h4>
    <div *ngIf="questions.length!=0" >
-      <div *ngFor="let question of questions" class="form-row">
+      <div *ngFor="let question of questions" class="row">
         <app-dynamic-form-question  [question]="question" [form]="form" [profileForm]="profileForm"
          [generalData]="generalData" (uploaded)="fileChangeEvent($event)"></app-dynamic-form-question>
 
@@ -10,10 +10,14 @@
      <mat-progress-bar style="margin-bottom: 1%;" *ngIf="uploadProgress" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
    </div>
 
-      <div class="form-row" style=" margin-top: 1%;">
-          <button mat-raised-button style="background-color: #184E87;margin-left:1%"class="btn white-text" (click)="uploadUserDocuments($event)" >Upload Document</button>
-          <button mat-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveApplication($event)">Save Application</button>
-          <button mat-raised-button style="background-color: #184E87;" class="btn white-text" type="submit" [disabled]="!form.valid">Automate!</button>
+      <div class="row">
+          <a  class="btn col s12 m5 left btn-atila" (click)="uploadUserDocuments($event)" >Upload Document</a>
+          <a  class="btn col s12 m5 right btn-atila" (click)="saveApplication($event)">Save Application</a>
+          <button mat-raised-button class="btn col s12 m5 left btn-atila" type="submit" style="background-color: #37b5ff" [disabled]="!form.valid || showAutomationLoading">Automate!</button>
+
+        <span *ngIf="generalData.demoMode">
+              <a style="font-size: larger" routerLink="/register"> Register</a>
+        </span>
 
         <div  *ngIf="showAutomationLoading">
             Automating Engine Running Please Wait...

@@ -6,6 +6,8 @@
       <!--Unregistered user content -->
       <div class="container" *ngIf="!isLoggedIn; else registeredContent">
         <div class="row center">
+
+
           <h2 *ngIf="scholarship_count!=0" class="scholarship-preview-count"> You can get <strong>{{scholarship_count}}</strong> scholarships
             <span *ngIf="show_scholarship_funding"> and up to <strong>{{total_funding}}</strong> in funding</span>.</h2>
           <h2 *ngIf="scholarship_count==0" class="scholarship-preview-count"> Unfortunately, you currently qualify for <strong>{{scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and <strong>{{total_funding}}</strong> in funding</span>.</h2>
@@ -20,6 +22,7 @@
                   {{subscriber.response}}
             </span>
           </p>
+
 
           <mat-form-field class="browser-default col s3 ">
             <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
@@ -42,10 +45,10 @@
               International Student? See Your Scholarships</a>
           </p>
 
+
+          <a class=" col s8 offset-s2 waves-effect waves-light btn " routerLink="/applications/demo">Try The Live Demo</a>
+
             <!--<p class="text-align-center col s-3"><mat-icon svgIcon="plus-one"></mat-icon> = One-Click Scholarships.</p>-->
-          <p class="text-align-center col s-3">Are we missing a scholarship you want? You can easily <a routerLink="/add-scholarship" title="Add Scholarship">Add a Scholarship </a> to Atila or
-              <a href="https://docs.google.com/spreadsheets/d/13YshWzg38Au-tPkGyDfY4hJHGJDWl_7vUpXNXkf5afM/edit?usp=sharing"
-            target="_blank" title="Scholarship Spreadsheet">Tell us the link</a> and we'll automate it for you.</p>
         </div>
         <br>
         <div class="row">
@@ -57,8 +60,14 @@
         </div>
 
         <div class="row center">
-            <a *ngIf="scholarship_count!=0" style="background-color: #4080ff; color: white" class="waves-effect waves-light btn scholarship-btn" routerLink="/register">Register here to view the rest of the scholarships</a>
-          <a *ngIf="scholarship_count==0" style="background-color: #4080ff; color: white" class="waves-effect waves-light btn scholarship-btn" routerLink="/register">Register here to start qualifying for scholarships</a>
+
+          <a *ngIf="scholarship_count!=0" class="waves-effect waves-light btn" routerLink="/register">Register here to view the rest of the scholarships</a>
+          <a *ngIf="scholarship_count==0" class="waves-effect waves-light btn" routerLink="/register">Register here to start qualifying for scholarships</a>
+
+
+          <p class="text-align-center col s-3">Are we missing a scholarship you want? You can easily <a routerLink="/add-scholarship" title="Add Scholarship">Add a Scholarship </a> to Atila or
+            <a href="https://docs.google.com/spreadsheets/d/13YshWzg38Au-tPkGyDfY4hJHGJDWl_7vUpXNXkf5afM/edit?usp=sharing"
+               target="_blank" title="Scholarship Spreadsheet">Tell us the link</a> and we'll automate it for you.</p>
         </div>
 
 
@@ -89,10 +98,8 @@
             <!--<i class="material-icons automate-tag">tag_faces</i>-->
             <!--= Filter by Automated Scholarships.</a>-->
             <!--<p class="text-align-center col s-3"><mat-icon svgIcon="plus-one"></mat-icon> = One-Click Scholarships.</p>-->
-            <p class="text-align-center col s-12" style="font-size: large">Are we missing a scholarship you want? <br>
-              You can easily <a routerLink="/add-scholarship" title="Add Scholarship">Add a Scholarship </a> to Atila or
-              <a href="https://docs.google.com/spreadsheets/d/13YshWzg38Au-tPkGyDfY4hJHGJDWl_7vUpXNXkf5afM/edit?usp=sharing"
-                 target="_blank" title="Scholarship Spreadsheet">Tell us the link</a> and we'll automate it for you.</p>
+
+            <a class=" col s8 offset-s2 waves-effect waves-light btn scholarship-btn" routerLink="/applications/demo">Try The Live Demo!</a>
         </div>
       </div>
         <div class="row">
@@ -103,6 +110,10 @@
 
         </div>
         <div class="row nav-buttons">
+          <p class="text-align-center col s12">Are we missing a scholarship you want? You can easily <a routerLink="/add-scholarship" title="Add Scholarship">Add a Scholarship </a> to Atila or
+            <a href="https://docs.google.com/spreadsheets/d/13YshWzg38Au-tPkGyDfY4hJHGJDWl_7vUpXNXkf5afM/edit?usp=sharing"
+               target="_blank" title="Scholarship Spreadsheet">Tell us the link</a> and we'll automate it for you.</p>
+
           <div class="col s12 center">
             <a class="waves-effect waves-light btn scholarship-btn" (click)="previousPage()" [ngClass]="{'hidden': pageNo == '1'}"><i class="fa fa-caret-left" aria-hidden="true"></i>  Previous</a>
             <button mat-button (click)="nextPage()" disabled="true">{{pageNo}}</button>

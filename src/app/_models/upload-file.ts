@@ -37,7 +37,7 @@ export class UploadFile {
     }
 
     let fileSize = fileInput.size / 1024 / 1024; // in MB
-    if (fileSize > 2) {
+    if (fileSize > 4) {
       let snackBarRef = snackBar.open("File Must Be Less than 2 MB in Demo Mode.", 'Register', {
         duration: 3000
       });

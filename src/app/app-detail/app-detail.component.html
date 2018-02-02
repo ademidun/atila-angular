@@ -9,6 +9,21 @@
               </a>
               </h4>
             <h6> Application ID #{{appId}} </h6>
+
+            <div *ngIf="demoMode">
+              <h3>How to Use the Automation Live Demo</h3>
+              <ol style="font-size: larger">
+                <li>Edit the information with anything you want.&nbsp;
+                  <ol>
+                    <li>You can also upload PDF or Word Files.<br /><br /></li>
+                  </ol>
+                </li>
+                <li>Click Automate<br /><br /></li>
+                <li>That's it! A screenshot of your automated form will appear after a few seconds.&nbsp;
+                </li>
+              </ol>
+
+            </div>
             <br>
             <form   [formGroup]="profileForm"  class="col s12">
               <h4>General Info</h4>
@@ -104,9 +119,10 @@
               </div>
 
             <div class="row">
-                <button mat-raised-button class="btn white-text left s12" (click)="uploadUserDocuments()" style="margin-left:1%">Upload Document</button>
-                <button (click)="saveUserProfile(profileForm)"class="btn btn-success right s12">Save Profile</button>
-              <p> Location changes can be saved in <a routerLink="/edit-profile">edit profile</a>.</p>
+                <a mat-raised-button class="col btn white-text left s12 m5" (click)="uploadUserDocuments()" style="margin-left:1%">Upload Document</a>
+                <a (click)="saveUserProfile(profileForm)" class=" col btn btn-success right s12 m5">Save Profile</a>
+              <p class=" col"> Location changes can be saved in <a routerLink="/edit-profile">edit profile</a>.</p>
+
               <mat-progress-bar style="margin-bottom: 1%;" *ngIf="uploadProgress" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
             </div>
             </form>
