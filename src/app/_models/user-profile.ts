@@ -13,6 +13,7 @@ export class UserProfile {
             public education_field?: string[],
             public eligible_programs?: string[],
             public eligible_schools?: string[],
+            public enrollment_proof?: any,
             public email?: any,
             public is_sponsor?:any,
             public is_verified?:any,
