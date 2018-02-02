@@ -5,6 +5,7 @@ export class UserProfile {
             public academic_average?: any,
             public city?: any,
             public country?: any,
+            public cover_letter?: any,
             public birth_date?: Date,
             public degree?: Date,
             public first_name?: string,

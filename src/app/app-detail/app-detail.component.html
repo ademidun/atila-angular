@@ -46,6 +46,37 @@
                   <a  class="scholarship-document"  name="transcript" [attr.data-question-type]="scholarshipDocument" [attr.data-questionkey]="transcript" data-questionkey="transcript" attr.data-questionkey="transcript" target="_blank" href="{{userProfile.transcript}}"> View Transcript </a>
               </div>
               </span>
+              <span  *ngIf="scholarship.cover_letter_required" >
+              <div class="col s12">
+                  <label>Upload Cover Letter</label>
+                  <input class="browser-default" id="cover_letter" type="file" placeholder="Cover Letter"
+                    name="cover_letter" (change)="fileChangeEvent($event)">
+                </div>
+
+              <div *ngIf="userProfile.cover_letter" class="col s12">
+                  <!-- Why does this element have so many attributes? TODO: Can we remove them? -->
+                  <a  class="scholarship-document"  name="cover_letter" [attr.data-question-type]="scholarshipDocument" [attr.data-questionkey]="cover_letter"
+                      data-questionkey="cover_letter" attr.data-questionkey="cover_letter" target="_blank" href="{{userProfile.cover_letter}}"> View Transcript </a>
+              </div>
+              </span>
+
+
+              <span  *ngIf="scholarship.enrollment_proof_required" >
+              <div class="col s12">
+                  <label>Upload Enrollment Proof</label>
+                  <input class="browser-default" id="enrollment_proof" type="file" placeholder="Enrollment Proof"
+                    name="enrollment_proof" (change)="fileChangeEvent($event)">
+                </div>
+
+              <div *ngIf="userProfile.enrollment_proof" class="col s12">
+                  <!-- Why does this element have so many attributes? TODO: Can we remove them? -->
+                  <a  class="scholarship-document"  name="enrollment_proof" [attr.data-question-type]="scholarshipDocument"
+                      [attr.data-questionkey]="enrollment_proof"
+                      data-questionkey="enrollment_proof" attr.data-questionkey="enrollment_proof" target="_blank" href="{{userProfile.enrollment_proof}}"> View Transcript </a>
+              </div>
+              </span>
+
+
             </div>
             <div class="row"  *ngIf="scholarship.reference_letter_required>0">
               <span  *ngIf="scholarship.reference_letter_required>0" >

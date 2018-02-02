@@ -211,15 +211,6 @@
               </div>
               <div class="row">
                   <div class="col s3">
-                     <label>Upload Resume</label>
-                    <input class="browser-default" id="resume" type="file" placeholder="Resume"
-                      name="resume" (change)="fileChangeEvent($event)">
-                  </div>
-
-                  <div *ngIf="userProfile.resume" class="col s3">
-                      <a target="_blank" href="{{userProfile.resume}}"> View Resume </a>
-                  </div>
-                  <div class="col s3">
                       <label>Upload Transcript</label>
                      <input class="browser-default" id="transcript" type="file" placeholder="Transcript"
                        name="transcript" (change)="fileChangeEvent($event)">
@@ -228,7 +219,39 @@
                   <div *ngIf="userProfile.transcript" class="col s3">
                       <a target="_blank" href="{{userProfile.transcript}}"> View Transcript </a>
                   </div>
+
+                  <div class="col s3">
+                    <label>Upload Resume</label>
+                    <input class="browser-default" id="resume" type="file" placeholder="Resume"
+                           name="resume" (change)="fileChangeEvent($event)">
+                  </div>
+
+                  <div *ngIf="userProfile.resume" class="col s3">
+                    <a target="_blank" href="{{userProfile.resume}}"> View Resume </a>
+                  </div>
+
+                <div class="col s3">
+                  <label>Upload Cover Letter</label>
+                  <input class="browser-default" id="cover_letter" type="file" placeholder="Cover Letter"
+                         name="cover_letter" (change)="fileChangeEvent($event)">
                 </div>
+
+                <div *ngIf="userProfile.cover_letter" class="col s3">
+                  <a target="_blank" href="{{userProfile.cover_letter}}"> View Cover Letter </a>
+                </div>
+
+                <div class="col s3">
+                  <label>Upload Enrollment Proof</label>
+                  <input class="browser-default" id="enrollment_proof" type="file" placeholder="Enrollment Proof"
+                         name="enrollment_proof" (change)="fileChangeEvent($event)">
+                </div>
+
+                <div *ngIf="userProfile.enrollment_proof" class="col s3">
+                  <a target="_blank" href="{{userProfile.enrollment_proof}}"> View Enrollment Proof </a>
+                </div>
+
+
+                  </div>
 
               <div class="row">
                   <div class="col s3">
