@@ -29,8 +29,8 @@ export class DynamicFormQuestionComponent implements OnInit {
         let documentKey = results[i].getAttribute("name");
 
         this.generalData.application.document_urls[documentKey] = results[i].getAttribute("href");
-
     }
+
     }
   }
 
@@ -38,6 +38,11 @@ export class DynamicFormQuestionComponent implements OnInit {
     return this.form.controls[this.question.key].valid;
    }
 
+
+   debugForm() {
+    console.log('debug form(), this.question, this.form, this.generalData.application.responses',
+      this.question, this.form, this.generalData.application.responses);
+   }
    fileChangeEvent(fileInput: any) {
      //When a file is changed, call the function which uploaded is bound to from the parent component
      //i.e. call fileChangeEvent()in the dynamic-form.componenent.ts

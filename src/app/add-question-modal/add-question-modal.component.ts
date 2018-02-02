@@ -16,7 +16,8 @@ export class AddQuestionModalComponent implements OnInit {
     { 'value': 'textarea', 'name': 'Text Area' },
     { 'value': 'number', 'name': 'Number' },
     { 'value': 'date', 'name': 'Date' },
-    { 'value': 'file', 'name': 'File' }  
+    { 'value': 'file', 'name': 'File' },
+    { 'value': 'checkbox', 'name': 'Checkbox' },
   ]
 
   question = {
@@ -26,15 +27,16 @@ export class AddQuestionModalComponent implements OnInit {
     "required": true,
     "order": null,
     "controlType": "",
-    "type": ""
+    "type": "",
+    "link": "",
   };
-  
+
   edit = false; // Default case is that we are adding a question
 
   constructor(
     public dialogRef: MatDialogRef<AddQuestionModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data
-  ) { 
+  ) {
     if (data) {
       this.question = data;
       this.edit = true;
@@ -46,9 +48,9 @@ export class AddQuestionModalComponent implements OnInit {
     )
   }
 
-  ngOnInit() {    
+  ngOnInit() {
   }
 
-  
-  
+
+
 }

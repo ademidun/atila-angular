@@ -75,9 +75,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
   ngAfterContentInit() {
     // https://stackoverflow.com/questions/43934727/how-to-use-jquery-plugin-with-angular-4
 
-
     $('.mat-card-header-text').css('display','none');
-
 
   }
 
@@ -87,11 +85,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
 
     //create Upload file and configure its properties before uploading.
 
-
     var uploadPicFile = uploadPicInput.files[0];
-
-
-
 
     this.profilePicFile = new UploadFile(uploadPicFile);
 
@@ -101,7 +95,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
       model: "UserProfile",
       id: this.userProfile.user,
       fieldName: 'profile_pic_url'
-    }
+    };
 
 
     // the path where the file should be saved on firebase

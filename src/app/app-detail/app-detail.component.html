@@ -8,8 +8,6 @@
             <br>
             <form   [formGroup]="profileForm"  class="col s12">
               <h4>General Info</h4>
-              {{userProfile.first_name}}
-              {{userProfile.secondary_school}}
               <div class="row">
                 <div *ngFor="let question of userProfileDynamicQuestions" >
                   <app-dynamic-question-general [form]="profileForm" [question]="question" [responses]="userProfile"></app-dynamic-question-general>
@@ -21,7 +19,7 @@
                 </div>
               </div>
 
-            <div class="row"  *ngIf="scholarship.resume_required || scholarship.transcript_required">
+            <div class="row">
               <span  *ngIf="scholarship.resume_required" >
               <div class="col s12">
                   <label>Change Resume</label>
@@ -56,11 +54,9 @@
               <div *ngIf="userProfile.cover_letter" class="col s12">
                   <!-- Why does this element have so many attributes? TODO: Can we remove them? -->
                   <a  class="scholarship-document"  name="cover_letter" [attr.data-question-type]="scholarshipDocument" [attr.data-questionkey]="cover_letter"
-                      data-questionkey="cover_letter" attr.data-questionkey="cover_letter" target="_blank" href="{{userProfile.cover_letter}}"> View Transcript </a>
+                      data-questionkey="cover_letter" attr.data-questionkey="cover_letter" target="_blank" href="{{userProfile.cover_letter}}"> View Cover Letter </a>
               </div>
               </span>
-
-
               <span  *ngIf="scholarship.enrollment_proof_required" >
               <div class="col s12">
                   <label>Upload Enrollment Proof</label>
@@ -72,7 +68,7 @@
                   <!-- Why does this element have so many attributes? TODO: Can we remove them? -->
                   <a  class="scholarship-document"  name="enrollment_proof" [attr.data-question-type]="scholarshipDocument"
                       [attr.data-questionkey]="enrollment_proof"
-                      data-questionkey="enrollment_proof" attr.data-questionkey="enrollment_proof" target="_blank" href="{{userProfile.enrollment_proof}}"> View Transcript </a>
+                      data-questionkey="enrollment_proof" attr.data-questionkey="enrollment_proof" target="_blank" href="{{userProfile.enrollment_proof}}"> View Enrollment Proof </a>
               </div>
               </span>
 

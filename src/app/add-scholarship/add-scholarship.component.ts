@@ -291,7 +291,11 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
   saveScholarship(scholarshipForm: NgForm) {
 
     this.scholarshipErrors = null;
-    this.scholarship.deadline = new Date(this.scholarship.deadline).toISOString();
+
+    if (this.scholarship.deadline != '') {
+      this.scholarship.deadline = new Date(this.scholarship.deadline).toISOString();
+    }
+
 
     if(this.editMode && !this.isOwner){
       this.snackBar.open("You are not authorized to make Changes", '', {

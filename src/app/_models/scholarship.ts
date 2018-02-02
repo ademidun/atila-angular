@@ -2,6 +2,7 @@ export class Scholarship {
     applicants?: any[];
     city?: any;
     country?: any;
+    cover_letter_required?: any;
     criteria_info?: string;
     date_created?: string;
     deadline?: string;
@@ -10,6 +11,7 @@ export class Scholarship {
     education_level?: any;
     eligible_programs?: string[];
     eligible_schools?: any;
+    enrollment_proof_required?: any;
     extra_questions?: any;
     form_url?: string;
     funding_amount?: number;

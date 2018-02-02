@@ -110,6 +110,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
       'application': this.generalData.application,
     };
 
+    console.log('saveApplication() sendData:',sendData);
     var appId = this.generalData.application.id;
 
 
@@ -153,13 +154,15 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     this.payLoad = JSON.stringify(this.payLoad);
     this.initializeLinks();
 
-    var sendData = {
+    let sendData = {
       //'generalData': this.generalData,We only need
       'profileForm': this.profileForm.value,
       'application': this.generalData.application,
     };
 
-    var appId = this.generalData.application.id;
+    console.log('onSubmit() sendData:',sendData);
+
+    let appId = this.generalData.application.id;
 
     this.writeEmail();
     /*

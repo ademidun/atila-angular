@@ -4,6 +4,7 @@ export class QuestionBase<T>{
     value?: T;
     key: string;
     label: string;
+    link?: string;
     required: boolean;
     order: number;
     controlType: string;
@@ -17,10 +18,12 @@ export class QuestionBase<T>{
         order?: number,
         controlType?: string,
         class_data?: string,
+        link?: string,
       } = {}) {
       this.value = options.value;
       this.key = options.key || '';
       this.label = options.label || '';
+      this.link = options.link || '';
       this.required = !!options.required;
       this.order = options.order || 100 ;
       this.controlType = options.controlType || '';

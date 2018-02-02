@@ -210,66 +210,67 @@
                 </div>
               </div>
               <div class="row">
-                  <div class="col s3">
+                  <div class="row col s12 m6">
                       <label>Upload Transcript</label>
                      <input class="browser-default" id="transcript" type="file" placeholder="Transcript"
                        name="transcript" (change)="fileChangeEvent($event)">
                    </div>
 
-                  <div *ngIf="userProfile.transcript" class="col s3">
+                  <div *ngIf="userProfile.transcript" class="row col s12 m6">
                       <a target="_blank" href="{{userProfile.transcript}}"> View Transcript </a>
                   </div>
 
-                  <div class="col s3">
+                  <div class="row col s12 m6">
                     <label>Upload Resume</label>
                     <input class="browser-default" id="resume" type="file" placeholder="Resume"
                            name="resume" (change)="fileChangeEvent($event)">
                   </div>
 
-                  <div *ngIf="userProfile.resume" class="col s3">
+                  <div *ngIf="userProfile.resume" class="row col s12 m6">
                     <a target="_blank" href="{{userProfile.resume}}"> View Resume </a>
                   </div>
 
-                <div class="col s3">
+                <div class="row col s12 m6">
                   <label>Upload Cover Letter</label>
                   <input class="browser-default" id="cover_letter" type="file" placeholder="Cover Letter"
                          name="cover_letter" (change)="fileChangeEvent($event)">
                 </div>
 
-                <div *ngIf="userProfile.cover_letter" class="col s3">
+                <div *ngIf="userProfile.cover_letter" class="row col s12 m6">
                   <a target="_blank" href="{{userProfile.cover_letter}}"> View Cover Letter </a>
                 </div>
 
-                <div class="col s3">
+                <div class="row col s12 m6">
                   <label>Upload Enrollment Proof</label>
                   <input class="browser-default" id="enrollment_proof" type="file" placeholder="Enrollment Proof"
                          name="enrollment_proof" (change)="fileChangeEvent($event)">
                 </div>
 
-                <div *ngIf="userProfile.enrollment_proof" class="col s3">
+                <div *ngIf="userProfile.enrollment_proof" class="row col s12 m6">
                   <a target="_blank" href="{{userProfile.enrollment_proof}}"> View Enrollment Proof </a>
                 </div>
 
 
                   </div>
 
+              <!-- Probably not best practice but I added a row class to all the col classes to get more space in-between input elements.-->
               <div class="row">
-                  <div class="col s3">
+                  <div class="row col s12 m6">
                      <label>Upload Reference Letter </label>
                     <input class="browser-default" id="reference_letter" type="file" placeholder="Reference Letter"
                       name="reference_letter" (change)="fileChangeEvent($event)">
                   </div>
 
-                  <div *ngIf="userProfile.reference_letter" class="col s3">
+                  <div *ngIf="userProfile.reference_letter" class="row col s12 m6">
                       <a target="_blank" href="{{userProfile.reference_letter}}"> View Reference Letter </a>
                   </div>
-                  <div class="col s3">
+                  <div class="row col s12 m6">
                       <label>Upload Alternate Reference Letter</label>
                      <input class="browser-default" id="reference_letter_alternate" type="file" placeholder="Alternate Reference Letter"
                        name="reference_letter_alternate" (change)="fileChangeEvent($event)">
                    </div>
 
-                  <div *ngIf="userProfile.reference_letter_alternate" class="col s3">
+                  <div *ngIf="userProfile.reference_letter_alternate" class="row col s12 m6">
                       <a target="_blank" href="{{userProfile.reference_letter_alternate}}"> View Alternate Reference Letter </a>
                   </div>
                 </div>

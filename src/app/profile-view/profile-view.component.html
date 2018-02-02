@@ -125,7 +125,7 @@
 
             <tr *ngFor="let scholarship of userProfile.metadata['saved_scholarships']">
               <td><a [routerLink]="['/scholarship-detail', scholarship.slug]">{{scholarship.name}}</a></td>
-              <td>{{scholarship.deadline | date:'EEEE, MMMM d, y, h:mm a'}}</td>
+              <td>{{scholarship.deadline | date:'EEEE, MMMM d, y'}}</td>
               <td><textarea style="height: 6.7rem"  [(ngModel)]="scholarship['user_notes']"
                             placeholder="e.g. Upload transcript. Share scholarship with Alice."></textarea></td>
               <td class="hide-on-small-and-down" (click)="saveMyAtila('scholarship',scholarship, i)">
@@ -150,10 +150,11 @@
               <th>My Notes</th>
               <th class="hide-on-small-and-down">Save</th>
             </tr>
-            <p style="font-size: smaller">Note: Some times may be slightly off due to time zone differences.</p>
+            <!--<p style="font-size: smaller">Note: Some times may be slightly off due to time zone differences.</p>-->
               <tr style="border-bottom-style: inset" *ngFor="let application of userApplications; let i = index">
               <td><a [routerLink]="['/applications', application.id]">{{application.scholarship.name}}</a></td>
-              <td>{{application.scholarship.deadline | date:'EEEE, MMMM d, y, h:mm a'}}</td>
+              <!--<td>{{application.scholarship.deadline | date:'EEEE, MMMM d, y, h:mm a'}}</td>-->
+              <td>{{application.scholarship.deadline | date:'EEEE, MMMM d, y'}}</td>
               <td><textarea style="height: 6.7rem"  [(ngModel)]="application.metadata['user_notes']"
                             placeholder="e.g. Upload transcript. Share scholarship with Alice."></textarea></td>
                 <td class="hide-on-small-and-down" (click)="saveMyAtila('application',application, i)">

@@ -6,7 +6,8 @@
 
     <mat-form-field class="col s12" *ngSwitchCase="'textfield'">
       <input  matInput class="browser-default"   [formControlName]="question.key" [placeholder]="question.label"
-              [id]="question.key" [type]="question.type" [(ngModel)]="generalData.application.responses[question.key]" [required]="question.required ? 'required' : null">
+              [id]="question.key" [type]="question.type" [(ngModel)]="generalData.application.responses[question.key]"
+              [required]="question.required ? 'required' : null">
     </mat-form-field>
 
 
@@ -17,11 +18,19 @@
         [formControlName]="question.key" [(ngModel)]="generalData.application.responses[question.key]" [required]="question.required ? 'required' : null"></textarea>
       </mat-form-field>
 
-    <mat-form-field class="" *ngSwitchCase="'date'">
+    <mat-form-field class="col s12" *ngSwitchCase="'date'">
       <label>{{question.label}}</label>
         <input matInput [formControlName]="question.key" [(ngModel)]="generalData.application.responses[question.key]"
                 [id]="question.key" [type]="question.type" [required]="question.required ? 'required' : null">
     </mat-form-field>
+
+    <div class="col s12" *ngSwitchCase="'checkbox'">
+      <mat-checkbox (click)="debugForm()" [formControlName]="question.key" [(ngModel)]="generalData.application.responses[question.key]"
+                    [id]="question.key" [required]="question.required ? 'required' : null" color="primary">
+        {{question.label}}</mat-checkbox>
+        <a *ngIf="question.link" [name]="question.key+'_link'" target="_blank"
+           [href]="question.link"> More Info </a>
+    </div>
 
     <mat-select matInput [id]="question.key" *ngSwitchCase="'dropdown'" [required]="question.required ? 'required' : null"  [formControlName]="question.key" multiple=true [placeholder]="question.label">
       <mat-option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</mat-option>
@@ -37,7 +46,7 @@
 
     </mat-form-field>
 
-    <span *ngSwitchCase="'file'">
+    <div class="col s12" *ngSwitchCase="'file'">
       <div class="dyanamic-form-file-input">
 
           {{question.label}}
@@ -52,9 +61,11 @@
           <a  class="scholarship-document" [name]="question.key" target="_blank" href="{{generalData.application.responses[question.key]}}"> View Document ({{question.key}}) </a>
       </div>
     </div>
-    </span>
-
+    </div>
     <!-- <div class="errorMessage" *ngIf="!isValid">{{question.label}} is required</div> -->
+
+
+
     </div>
 
   </div>
