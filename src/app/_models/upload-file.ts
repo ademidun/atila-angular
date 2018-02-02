@@ -17,5 +17,36 @@ export class UploadFile {
       this.file = file;
       this.name = file.name;
     }
-    
+
+  }
+
+  export function isValidDemoFile(fileInput: File, snackBar, router) {
+    console.log('fileChangeEvent() fileInput',fileInput);
+
+    let fileTypes: string[] = ["application/pdf", ".doc",".docx",".xml","application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
+    if (! fileTypes.includes(fileInput.type)) {
+      let snackBarRef = snackBar.open("Invalid file for Demo (Try PDF or Word).", 'Register', {
+        duration: 3000
+      });
+      snackBarRef.onAction().subscribe(
+        () => {
+          router.navigate(['/register']);
+        });
+      return false;
+    }
+
+    let fileSize = fileInput.size / 1024 / 1024; // in MB
+    if (fileSize > 2) {
+      let snackBarRef = snackBar.open("File Must Be Less than 2 MB in Demo Mode.", 'Register', {
+        duration: 3000
+      });
+      snackBarRef.onAction().subscribe(
+        () => {
+          router.navigate(['/register']);
+        });
+      return false;
+    }
+
+    return true;
   }

@@ -195,12 +195,12 @@ export class UserProfileService {
           required: true,
           type: 'textarea'
         }),
-        new TextboxQuestion({
-          key: 'postal_code',
-          label: 'Postal Code',
-          value: 'Postal Code Test',
-          required: true,
-        }),
+        // new TextboxQuestion({
+        //   key: 'postal_code',
+        //   label: 'Postal Code',
+        //   value: 'Postal Code Test',
+        //   required: true,
+        // }),
 
         new TextboxQuestion({
           key: 'academic_career_goals',

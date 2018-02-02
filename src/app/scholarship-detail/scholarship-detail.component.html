@@ -68,8 +68,9 @@
                   <mat-card class="comment-card">
 
                     <mat-card-content>
-                        <input id="forum_title" placeholder="Title" [(ngModel)]="userComment.title">
-                        <input id="forum_comment_text" placeholder="What do you think?" (keydown.enter)="postComment()" [(ngModel)]="userComment.text">
+                        <input id="comment_title" placeholder="Title" [(ngModel)]="userComment.title">
+                        <textarea style="height: 5rem" id="comment_title" placeholder="What do you think?" [(ngModel)]="userComment.text">
+                        </textarea>
                     </mat-card-content>
 
                     <mat-card-actions>

@@ -19,7 +19,7 @@
 
   <div class="card-content " *ngIf="comment['editMode']">
     <input id="forum_title" placeholder="Title" [(ngModel)]="comment.title">
-    <textarea *ngIf="!metaData['titleComment']" id="forum_comment_text"  style="height: 5rem" placeholder="What do you think?" (keydown.enter)="saveComment()" [(ngModel)]="comment.text">
+    <textarea *ngIf="!metaData['titleComment']" id="forum_comment_text"  style="height: 5rem" placeholder="What do you think?" [(ngModel)]="comment.text">
     </textarea>
     <textarea *ngIf="metaData['titleComment']" id="forum_comment_text"  style="height: 5rem" placeholder="What do you think?" [(ngModel)]="comment.text">
     </textarea>

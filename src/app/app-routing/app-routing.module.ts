@@ -30,6 +30,7 @@ import {SearchComponent} from '../search/search.component';
 
 const routes: Routes = [
   { path: '' , component: PreviewComponent, data: {title: 'Atila | Automated Scholarships. The Right Way'}},
+  { path: 'applications/demo' , component: AppDetailComponent, data: {title: 'Automation Demo'}},
   { path: 'applications/:id' , component: AppDetailComponent, data: {title: 'Application Detail'}, canActivate:[AuthGuard]},
   { path: 'add-scholarship' , component: AddScholarshipComponent, data: {title: 'Atila - Add Scholarship'}},
   { path: 'blog' , component: BlogsListComponent, data: {title: 'Atila - Blogs List'}},

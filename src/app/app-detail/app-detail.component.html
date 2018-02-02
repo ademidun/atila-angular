@@ -3,7 +3,11 @@
       <div class="row">
         <div class="card-content" *ngIf="userProfile && scholarship">
 
-            <h4>{{userProfile.first_name}}'s Application for: <br> {{scholarship.name}}</h4>
+            <h4>{{userProfile.first_name}}'s Application for: <br>
+              <a [routerLink]="['/scholarship-detail', scholarship.slug]">
+                {{scholarship.name}}
+              </a>
+              </h4>
             <h6> Application ID #{{appId}} </h6>
             <br>
             <form   [formGroup]="profileForm"  class="col s12">
@@ -103,6 +107,7 @@
                 <button mat-raised-button class="btn white-text left s12" (click)="uploadUserDocuments()" style="margin-left:1%">Upload Document</button>
                 <button (click)="saveUserProfile(profileForm)"class="btn btn-success right s12">Save Profile</button>
               <p> Location changes can be saved in <a routerLink="/edit-profile">edit profile</a>.</p>
+              <mat-progress-bar style="margin-bottom: 1%;" *ngIf="uploadProgress" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
             </div>
             </form>
             <span *ngIf="dynamicForm">

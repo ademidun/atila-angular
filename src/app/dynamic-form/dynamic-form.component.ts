@@ -10,7 +10,7 @@ import { ApplicationService }    from '../_services/application.service';
 // import { WebFormsService } from "../_services/web-forms.service";
 import { Observable } from 'rxjs/Observable';
 
-import { UploadFile } from '../_models/upload-file';
+import { UploadFile,isValidDemoFile } from '../_models/upload-file';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 
 import { AuthService } from "../_services/auth.service";
@@ -92,6 +92,17 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     // First, we will save the URLs of the uploaded documents
       event.preventDefault();
 
+    if (this.generalData.demoMode) {
+      let snackBarRef = this.snackBar.open("Changes Not Saved in Demo Mode.", 'Register', {
+        duration: 3000
+      });
+      snackBarRef.onAction().subscribe(
+        () => {
+          this.router.navigate(['/register']);
+        });
+
+      return;
+    }
 
     this.initializeLinks();
 
@@ -247,6 +258,10 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   }
   fileChangeEvent(fileInput: any){
 
+    console.log('fileChangeEvent() this.generalData',this.generalData);
+    if (this.generalData.demoMode && !isValidDemoFile(fileInput.target.files[0], this.snackBar, this.router)) {
+      return;
+    }
 
     //TODO: this seems a bit redundant
     this.formFile = fileInput.target.files[0];

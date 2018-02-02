@@ -9,11 +9,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Scholarship } from '../_models/scholarship';
 import { AuthService } from "../_services/auth.service";
-import {UploadFile} from '../_models/upload-file';
+import {UploadFile, isValidDemoFile} from '../_models/upload-file';
 
 import * as firebase from "firebase";
 import {MatSnackBar} from '@angular/material';
 import {prettifyKeys, toTitleCase} from '../_models/utils';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-app-detail',
@@ -40,6 +41,8 @@ export class AppDetailComponent implements OnInit {
   formFileEvent: any;
   uploadFile: UploadFile;
 
+  demoMode: boolean;
+
   questions: any[];
   observable: Observable<any>;
   dynamicForm: FormGroup;
@@ -47,6 +50,7 @@ export class AppDetailComponent implements OnInit {
   userProfileDynamicQuestions: any;
 
   savedProfile: any;
+  uploadProgress: any;
 
 
   locationData = {
@@ -69,12 +73,27 @@ export class AppDetailComponent implements OnInit {
     public router: Router,
     public snackBar: MatSnackBar,
   ) {
+
     this.appId = parseInt(route.snapshot.params['id']);
+
+    console.log("this.router.url, this.router.url.endsWith('demo')",
+      this.router.url, this.router.url.endsWith('demo'));
+
+    if (this.router.url.endsWith('demo')) {
+      this.demoMode = true;
+      this.appId = environment.testAppId;
+    }
 
   }
 
 
   ngOnInit() {
+
+    console.log('this.router.url',this.router.url);
+    if (this.router.url.endsWith('demo')) {
+      this.demoMode = true;
+    }
+
     this.getAppData();
 
 
@@ -102,6 +121,11 @@ export class AppDetailComponent implements OnInit {
   getAppData() {
     let postOperation: Observable<any>;
     this.userId = this.authService.decryptLocalStorage('uid');
+
+    // TODO this should not depend on environment as different users will have different test IDs
+    if(this.demoMode) {
+      this.userId = environment.testUserId;
+    }
     postOperation = this.applicationService.getAppData(this.appId);
 
     postOperation
@@ -125,11 +149,13 @@ export class AppDetailComponent implements OnInit {
         this.generalData.documentUploads = res.application.document_urls || {};
 
         this.generalData.application.document_urls = res.application.document_urls || {};
+        this.generalData.demoMode = this.demoMode;
 
         this.userProfile = res.userProfile;
         this.scholarship = res.scholarship;
 
         this.userProfileDynamicQuestions = this.userProfileService.getDynamicProfileQuestions();
+
         this.locationQuestions = this.userProfileService.getLocationQuestions();
 
 
@@ -176,7 +202,17 @@ export class AppDetailComponent implements OnInit {
 
   saveUserProfile(form: NgForm){
 
+    if (this.demoMode) {
+      let snackBarRef = this.snackBar.open("Changes Not Saved in Demo Mode.", 'Register', {
+        duration: 3000
+      });
+      snackBarRef.onAction().subscribe(
+        () => {
+          this.router.navigate(['/register']);
+        });
 
+      return;
+    }
     // Don't allow saving of locationData to userProfile for now. Due to user entering incorrect format.
     // But lets save the data on what changes the user wishes to make. May help in future.
 
@@ -224,6 +260,10 @@ export class AppDetailComponent implements OnInit {
 
 
   fileChangeEvent(fileInput: any){
+
+    if (this.demoMode && !isValidDemoFile(fileInput.target.files[0], this.snackBar, this.router)) {
+      return;
+    }
 
     //TODO: this seems a bit redundant
     this.formFile = fileInput.target.files[0];
@@ -293,7 +333,7 @@ export class AppDetailComponent implements OnInit {
       (snapshot:any) => {
         // Observe state change events such as progress, pause, and resume
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        this.uploadProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 
       },
       (error)=> {
@@ -310,6 +350,7 @@ export class AppDetailComponent implements OnInit {
         //Will this have a significant impact on speed? As opposed to just saving the event ID as a variable
         this.userProfile[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
         this.generalData.application.document_urls[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
+        this.uploadProgress = null;
 
       });
 

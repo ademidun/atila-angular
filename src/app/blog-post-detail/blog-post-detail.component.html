@@ -25,7 +25,8 @@
 
                 <mat-card-content>
                     <input id="blog_post_title" placeholder="Title (optional)" [(ngModel)]="userComment.title">
-                    <input id="blog_post_comment_text" placeholder="What do you think?" (keydown.enter)="postComment()" [(ngModel)]="userComment.text">
+                  <textarea style="height: 5rem" id="blog_post_comment_text" placeholder="What do you think?" [(ngModel)]="userComment.text">
+                        </textarea>
                 </mat-card-content>
 
                 <mat-card-actions>
