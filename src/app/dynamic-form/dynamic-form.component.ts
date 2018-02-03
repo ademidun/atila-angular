@@ -165,11 +165,12 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
       'application': this.generalData.application,
     };
 
-    this.firebaseService.saveUserAnalytics(sendData, 'live_demo');
+    if (this.generalData.demoMode) {
+      this.firebaseService.saveUserAnalytics(sendData, 'live_demo');
+    }
+
 
     let appId = this.generalData.application.id;
-
-
 
     this.writeEmail();
     /*
@@ -185,7 +186,6 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
        )
     }
     */
-
 
     this.observable = this.questionService.automateResponse(appId,sendData);
     this.observable.subscribe(
