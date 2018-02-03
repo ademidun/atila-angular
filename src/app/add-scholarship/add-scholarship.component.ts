@@ -399,8 +399,8 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
       fieldName: 'form_url'
     }
 
-    this.appFormFile.path = "scholarships/" + this.scholarship.id + "/scholarship-templates/"
-    this.appFormFile.path = this.appFormFile.path + this.appFormFile.name
+    this.appFormFile.path = "scholarships/" + this.scholarship.id + "/scholarship-templates/";
+    this.appFormFile.path = this.appFormFile.path + this.appFormFile.name;
 
 
     delete this.scholarship.submission_info['pdf_already_parsed'];

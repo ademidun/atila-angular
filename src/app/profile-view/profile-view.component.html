@@ -7,10 +7,12 @@
 
       <mat-card-header class="row">
         <!-- NOTE Mat card header text is hidden in css -->
-        <div class="col offset-l2 offset-m4 offset-s2 header-image" mat-card-avatar
-             [ngStyle]="{ 'background-image': 'url( '+ userProfile.profile_pic_url +' )' }">
+        <!--<div class="col offset-l2 offset-m4 offset-s2 header-image" mat-card-avatar-->
+             <!--[ngStyle]="{ 'background-image': 'url( '+ userProfile.profile_pic_url +' )' }">-->
+             <!--&lt;!&ndash;*ngIf="profile_pic_url" [style.background]="profile_pic_url">&ndash;&gt;-->
 
-        </div>
+        <!--</div>-->
+        <img class="col offset-l2 offset-m4 offset-s2 header-image" mat-card-avatar [src]="userProfile.profile_pic_url">
 
       <div >
         <!--Show the profile info, IN the header on regular devices.-->

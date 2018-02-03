@@ -3,7 +3,7 @@
       <div class="row">
         <div class="card-content" *ngIf="userProfile && scholarship">
 
-            <h4>{{userProfile.first_name}}'s Application for: <br>
+          <h4><a routerLink="/profile/{{userProfile.username}}">{{userProfile.first_name}}</a>'s Application for: <br>
               <a [routerLink]="['/scholarship-detail', scholarship.slug]">
                 {{scholarship.name}}
               </a>

@@ -5,7 +5,7 @@ import { UploadFile } from '../_models/upload-file';
 import { UserProfileService } from '../_services/user-profile.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Title }     from '@angular/platform-browser';
+import { Title,DomSanitizer }     from '@angular/platform-browser';
 import { AuthService } from "../_services/auth.service";
 import { MatSnackBar } from '@angular/material';
 
@@ -33,6 +33,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
   uploadProgress: number;
   showPreview:boolean = false;
   userApplications: any;
+  profile_pic_url;
 
   currentUser:number;
 
@@ -46,6 +47,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
     public router: Router,
     public messagingService: MessagingService,
     public applicationService: ApplicationService,
+    public sanitization: DomSanitizer,
   ) {
     this.userNameSlug = route.snapshot.params['username'];
   }
@@ -59,6 +61,8 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
 
         this.currentUser = parseInt(this.authService.decryptLocalStorage('uid')); // Current user
         this.profileOwner = (this.currentUser == this.userProfile.user);
+
+        this.profile_pic_url = this.sanitization.bypassSecurityTrustStyle(`url(${this.userProfile.profile_pic_url})`);
 
 
         if (this.router.url.indexOf('my-atila') !== -1) {
@@ -99,8 +103,8 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
 
 
     // the path where the file should be saved on firebase
-    this.profilePicFile.path = "user-profiles/" + this.userProfile.user+ "/profile-pictures/"
-    this.profilePicFile.path = this.profilePicFile.path + this.profilePicFile.name
+    this.profilePicFile.path = "user-profiles/" + this.userProfile.user+ "/profile-pictures/";
+    this.profilePicFile.path = this.profilePicFile.path + this.profilePicFile.name;
 
 
     this.fileUpload(this.profilePicFile)
@@ -141,21 +145,20 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
     //
 
     uploadFile.name = config.toString();
-    var storage = firebase.storage();
+    let storage = firebase.storage();
     let storageRef = storage.ref();
     let uploadRef = storageRef.child(uploadFile.path);
-    var metadata = {
+    let metadata = {
       contentType: uploadFile.file.type,
       size: uploadFile.file.size,
       name: uploadFile.file.name,
     };
 
-    var uploadTask = uploadRef.put(uploadFile.file, metadata);
+    let uploadTask = uploadRef.put(uploadFile.file, metadata);
 
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
     (snapshot:any) => {
-      var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      this.uploadProgress = progress;
+      this.uploadProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 
     },
     (error)=> {
@@ -166,6 +169,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
       this.userProfile.profile_pic_url = uploadTask.snapshot.downloadURL;
       this.uploadProgress = null;
       this.saveProfile();
+      console.log('finished upload this.userProfile:',this.userProfile);
 
     });
 
@@ -180,6 +184,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
       data => {
         this.showSnackBar("Succesfully Updated Your Profile",'', 3000);
         this.userProfile = data;
+        console.log('finished upload this.userProfile:',this.userProfile);
       },
       err => {
         this.showSnackBar('Profile updated unsuccessfully - ' + err.error,'', 3000);
