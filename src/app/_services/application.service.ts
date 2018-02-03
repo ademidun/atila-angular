@@ -32,8 +32,12 @@ export class ApplicationService {
     return this.http.get(`${this.applicationsUrl}${appId}/application/`)
     .map(res=><any>res)
     .catch(err=>Observable.throw(err));
+  }
 
-
+  getApplicationOwner(appId: any): Observable<any>{
+    return this.http.get(`${environment.apiUrl}application-owner/?app-id=${appId}/`)
+      .map(res=>res)
+      .catch(err=>Observable.throw(err));
   }
 
    update(application: Application) {

@@ -123,7 +123,10 @@ export class AppDetailComponent implements OnInit {
     if(this.demoMode) {
       this.userId = environment.testUserId;
     }
-    postOperation = this.applicationService.getAppData(this.appId);
+
+
+    postOperation = this.applicationService.getApplicationOwner(this.appId);
+
 
     postOperation
       .subscribe(
@@ -136,54 +139,52 @@ export class AppDetailComponent implements OnInit {
           });
           setTimeout(() => {
             this.router.navigate(['']);
-          }, 2100);
+          }, 100);
 
           return;
         }
 
-        this.generalData = res;
-        this.generalData.application = res.application;
-        this.generalData.documentUploads = res.application.document_urls || {};
+        else {
+          let postOperationAuthorized = this.applicationService.getAppData(this.appId);
 
-        this.generalData.application.document_urls = res.application.document_urls || {};
-        this.generalData.demoMode = this.demoMode;
-
-        this.userProfile = res.userProfile;
-        this.scholarship = res.scholarship;
-
-        this.userProfileDynamicQuestions = this.userProfileService.getDynamicProfileQuestions();
-
-        this.locationQuestions = this.userProfileService.getLocationQuestions();
-
-
-        this.filterQuestions();
-        let locationFormControls = this.qcs.toFormControls(this.locationQuestions);
-
-        this.profileForm = this.qcs.toFormGroup(this.userProfileDynamicQuestions);
-
-        let locations = ['city', 'province', 'country'];
-        locationFormControls.forEach( (control,index, arr) => {
-          this.profileForm.addControl(locations[0], control);
-          locations.splice(0,1);
-        });
-
-
+          postOperationAuthorized.subscribe(
+            res => this.initializeApplication(res),
+            err => {},
+            () => this.initializeLocations(this.userProfile.city),
+          );
+        }
 
       },
-      error => {},
-
-      () => {
-
-        if(this.userId!=this.userProfile.user) {
-          return;
-        }
-
-        this.initializeLocations(this.userProfile.city);
-
-
-      }
       )
 
+  }
+
+  initializeApplication(res) {
+    this.generalData = res;
+    this.generalData.application = res.application;
+    this.generalData.documentUploads = res.application.document_urls || {};
+
+    this.generalData.application.document_urls = res.application.document_urls || {};
+    this.generalData.demoMode = this.demoMode;
+
+    this.userProfile = res.userProfile;
+    this.scholarship = res.scholarship;
+
+    this.userProfileDynamicQuestions = this.userProfileService.getDynamicProfileQuestions();
+
+    this.locationQuestions = this.userProfileService.getLocationQuestions();
+
+
+    this.filterQuestions();
+    let locationFormControls = this.qcs.toFormControls(this.locationQuestions);
+
+    this.profileForm = this.qcs.toFormGroup(this.userProfileDynamicQuestions);
+
+    let locations = ['city', 'province', 'country'];
+    locationFormControls.forEach( (control,index, arr) => {
+      this.profileForm.addControl(locations[0], control);
+      locations.splice(0,1);
+    });
   }
 
   initializeLocations(cities: Array<any>){

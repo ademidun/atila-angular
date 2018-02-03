@@ -169,7 +169,6 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
       this.userProfile.profile_pic_url = uploadTask.snapshot.downloadURL;
       this.uploadProgress = null;
       this.saveProfile();
-      console.log('finished upload this.userProfile:',this.userProfile);
 
     });
 
@@ -184,7 +183,6 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
       data => {
         this.showSnackBar("Succesfully Updated Your Profile",'', 3000);
         this.userProfile = data;
-        console.log('finished upload this.userProfile:',this.userProfile);
       },
       err => {
         this.showSnackBar('Profile updated unsuccessfully - ' + err.error,'', 3000);
