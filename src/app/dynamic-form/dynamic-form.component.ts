@@ -66,6 +66,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     public cdr: ChangeDetectorRef,
     public snackBar: MatSnackBar,
     public router: Router,
+    public firebaseService: MyFirebaseService,
     // public webFormService: WebFormsService
   ) {
 
@@ -109,12 +110,6 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
 
     //Next, we will save the application edits to the database.
     this.showAutomationLoading = true;
-    this.payLoad = this.form.value;
-
-
-
-
-    this.payLoad = JSON.stringify(this.payLoad);
 
     var sendData = {
       //'generalData': this.generalData,We only need
@@ -122,7 +117,6 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
       'application': this.generalData.application,
     };
 
-    console.log('saveApplication() sendData:',sendData);
     var appId = this.generalData.application.id;
 
 
@@ -160,10 +154,9 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit() {
-    this.showAutomationLoading = true;
-    this.payLoad = this.form.value;
 
-    this.payLoad = JSON.stringify(this.payLoad);
+
+    this.showAutomationLoading = true;
     this.initializeLinks();
 
     let sendData = {
@@ -172,9 +165,11 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
       'application': this.generalData.application,
     };
 
-    console.log('onSubmit() sendData:',sendData);
+    this.firebaseService.saveUserAnalytics(sendData, 'live_demo');
 
     let appId = this.generalData.application.id;
+
+
 
     this.writeEmail();
     /*
@@ -261,7 +256,6 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   }
   fileChangeEvent(fileInput: any){
 
-    console.log('fileChangeEvent() this.generalData',this.generalData);
     if (this.generalData.demoMode && !isValidDemoFile(fileInput.target.files[0], this.snackBar, this.router)) {
       return;
     }

@@ -21,7 +21,6 @@ export class UploadFile {
   }
 
   export function isValidDemoFile(fileInput: File, snackBar, router) {
-    console.log('fileChangeEvent() fileInput',fileInput);
 
     let fileTypes: string[] = ["application/pdf", ".doc",".docx",".xml","application/msword",
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];

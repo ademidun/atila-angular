@@ -11,10 +11,12 @@ textarea {
 }
 
 
-div.mat-autocomplete-panel {
-  min-width: 275px;
+
+:host /deep/ div.mat-autocomplete-panel {
+  min-width: 250px;
   display: block;
 }
+
 
 /*
 .mat-autocomplete-panel{

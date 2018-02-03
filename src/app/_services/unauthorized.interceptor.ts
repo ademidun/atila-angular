@@ -48,9 +48,11 @@ export class UnAuthorizedInterceptor implements HttpInterceptor {
                   this.router.navigate(['/login']);
                 },
               );
-              setTimeout(() => {
-                this.router.navigate(['/login']);
-              }, 5000);
+
+
+              // setTimeout(() => {
+              //   this.router.navigate(['/login']);
+              // }, 5000);
               // or show a modal
             }
           }

@@ -26,11 +26,11 @@
 
         <a target="_blank" *ngIf="uploadUrl" href="{{uploadUrl}}">View Filled Application</a>
 
-        <div *ngIf="preAndPostScreenshots">
+        <div *ngIf="preAndPostScreenshots" class="row">
            <h6> A confirmation screenshot of the automated web form: </h6>
 
 
-          <div *ngFor="let screenshotConfirmationImage of preAndPostScreenshots" id="screenshotConfirmationFrame" style=" border: solid;overflow: auto; max-width: 100%; max-height: 300px;">
+          <div class="col s12" *ngFor="let screenshotConfirmationImage of preAndPostScreenshots" id="screenshotConfirmationFrame" style=" border: solid;overflow: auto; max-width: 100%; max-height: 300px;">
               <!-- Display the image as a base64 string and ensure that it is sanitized. -->
                 <!-- https://stackoverflow.com/questions/43141534/angular2-base64-sanitizing-unsafe-url-value -->
                   <a target="_blank" *ngIf="screenshotConfirmationImage" [href]="screenshotConfirmationImage | safeResource">View Confirmation Screenshot</a>
@@ -38,6 +38,10 @@
 
           </div>
 
+        </div>
+
+        <div *ngIf="payLoad" class="row">
+          <strong>Result: </strong><br>{{payLoad}}
         </div>
 
       </div>
@@ -55,11 +59,6 @@
 
         <textarea [(ngModel)]="emailBody" id="email-content" style="height: 15em" (change)="emailChangeEvent($event)"></textarea>
 
-
       </div>
 
-    <div *ngIf="payLoad" class="form-row">
-
-      <strong>Saved the following values: </strong><br>{{payLoad}}
-    </div>
   </div>

@@ -12,13 +12,16 @@
 
             <div *ngIf="demoMode">
               <h3>How to Use the Automation Live Demo</h3>
+              <p>Automatically fill <a [title]="scholarship.name + 'Form'" href="{{scholarship.form_url}}" target="_blank">
+                this form</a> in just one click.</p>
+
               <ol style="font-size: larger">
                 <li>Edit the information with anything you want.&nbsp;
                   <ol>
                     <li>You can also upload PDF or Word Files.<br /><br /></li>
                   </ol>
                 </li>
-                <li>Click Automate<br /><br /></li>
+                <li>Click Automate.<br /><br /></li>
                 <li>That's it! A screenshot of your automated form will appear after a few seconds.&nbsp;
                 </li>
               </ol>

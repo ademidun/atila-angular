@@ -25,8 +25,8 @@
     </mat-form-field>
 
     <div class="col s12" *ngSwitchCase="'checkbox'">
-      <mat-checkbox (click)="debugForm()" [formControlName]="question.key" [(ngModel)]="generalData.application.responses[question.key]"
-                    [id]="question.key" [required]="question.required ? 'required' : null" color="primary">
+      <mat-checkbox [formControlName]="question.key" [(ngModel)]="generalData.application.responses[question.key]"
+                    [id]="question.key" [required]="question.required ? 'required' : null" color="primary" class="dynamic-question">
         {{question.label}}</mat-checkbox>
         <a *ngIf="question.link" [name]="question.key+'_link'" target="_blank"
            [href]="question.link"> More Info </a>

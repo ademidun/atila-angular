@@ -76,7 +76,6 @@ export class SearchComponent implements OnInit {
 
 
           //Call customizeResults() twice, since search results and user data may return at different times.
-          console.log('this.userProfile, this.userId',this.userProfile, this.userId );
 
           if (!this.userProfile && !isNaN(this.userId)) {
             this.userProfileService.getById(this.userId)
@@ -100,7 +99,6 @@ export class SearchComponent implements OnInit {
 
   customizeResults() {
 
-    console.log('customizeResults(), this.userProfile.metadata',this.userProfile.metadata);
 
     if(this.userProfile.metadata.saved_scholarships) {
       let userScholarshipsId = this.userProfile.metadata.saved_scholarships.map(scholarship => scholarship.id);
@@ -116,8 +114,6 @@ export class SearchComponent implements OnInit {
         }
       );
 
-      console.log('customizeResults(), userScholarshipsId',userScholarshipsId);
-      console.log('customizeResults(), this.searchResults.scholarships',this.searchResults.scholarships);
     }
 
 

@@ -76,8 +76,6 @@ export class AppDetailComponent implements OnInit {
 
     this.appId = parseInt(route.snapshot.params['id']);
 
-    console.log("this.router.url, this.router.url.endsWith('demo')",
-      this.router.url, this.router.url.endsWith('demo'));
 
     if (this.router.url.endsWith('demo')) {
       this.demoMode = true;
@@ -89,7 +87,6 @@ export class AppDetailComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log('this.router.url',this.router.url);
     if (this.router.url.endsWith('demo')) {
       this.demoMode = true;
     }
