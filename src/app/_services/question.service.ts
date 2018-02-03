@@ -25,13 +25,13 @@ export class QuestionService   {
 
   constructor(public http: HttpClient) { }
   public observable: Observable<any>;
-  public timeoutLength: number = 45000; //set timeOut for form Autoamtion at 45 seconds
+  public timeoutLength: number = 90000; //set timeOut for form Automation at 75 seconds
 
   getQuestions2(appId: number | any): Observable<any>{
 
     return this.observable = this.http.get(`${this.scholarshipQuestionsUrl}?app-id=${appId}`)
         .map(res=><any>res)
-        .catch(err=>err);
+        .catch(err=>Observable.throw(err));
 
   }
 
@@ -44,21 +44,18 @@ export class QuestionService   {
 
     return this.http.post(this.automateScholarshipResponseUrl,data)
     .map(res=><any>res)
-    .catch(err=>err)
+    .catch(err=>Observable.throw(err))
     .timeout(this.timeoutLength)
     // TODO: Change the timeout based on what type of form is being automated
   }
 
   saveResponse(appId: number | any, data:any): Observable<any>{
 
-
     data['appId'] = appId;
-
-
 
     return this.http.post(this.saveScholarshipResponseUrl,data)
     .map(res=><any>res)
-    .catch(err=>err)
+    .catch(err=>Observable.throw(err))
     .timeout(this.timeoutLength)
   }
 

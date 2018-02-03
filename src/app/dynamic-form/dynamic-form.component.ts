@@ -166,7 +166,24 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     };
 
     if (this.generalData.demoMode) {
-      this.firebaseService.saveUserAnalytics(sendData, 'live_demo');
+
+      let parseData = Object.assign({}, sendData);
+      parseData.application = sendData.application.responses;
+
+      try{
+        try {
+          this.firebaseService.saveUserAnalytics(parseData, 'live_demo');
+        }
+        catch (err)
+        {
+          console.error('live demo analytics err', err);
+          this.firebaseService.saveAny(err.toString(),'error_logs/live_demo');
+        }
+      }
+      catch (err) {
+        console.error('Error while handling error log save', err);
+      }
+
     }
 
 
@@ -213,7 +230,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
         this.showAutomationLoading = false;
         this.payLoad = JSON.stringify(err.message);
 
-        this.snackBar.open("Automation error",'',{
+        this.snackBar.open("Automation error: "+this.payLoad,'',{
           duration: 3000
         });
 

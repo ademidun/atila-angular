@@ -15,16 +15,16 @@
           <a  class="btn col s12 m5 right btn-atila" (click)="saveApplication($event)">Save Application</a>
           <button mat-raised-button class="btn col s12 m5 left btn-atila" type="submit" style="background-color: #37b5ff" [disabled]="!form.valid || showAutomationLoading">Automate!</button>
 
-        <span *ngIf="generalData.demoMode">
+        <span class="col s6" *ngIf="generalData.demoMode">
               <a style="font-size: larger" routerLink="/register"> Register</a>
         </span>
 
-        <div  *ngIf="showAutomationLoading">
-            Automating Engine Running Please Wait...
+        <div class="col s12"  *ngIf="showAutomationLoading">
+            Automation Engine Running Please Wait...
             <mat-progress-bar aria-label="Automating Engine Running Please Wait..." mode="indeterminate"></mat-progress-bar>
         </div>
 
-        <a target="_blank" *ngIf="uploadUrl" href="{{uploadUrl}}">View Filled Application</a>
+        <a class="col s12" target="_blank" *ngIf="uploadUrl" href="{{uploadUrl}}">View Filled Application</a>
 
         <div *ngIf="preAndPostScreenshots" class="row">
            <h6> A confirmation screenshot of the automated web form: </h6>
@@ -40,7 +40,7 @@
 
         </div>
 
-        <div *ngIf="payLoad" class="row">
+        <div *ngIf="payLoad" class="col s12">
           <strong>Result: </strong><br>{{payLoad}}
         </div>
 

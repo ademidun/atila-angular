@@ -3,6 +3,7 @@ deploy () {
  git add . ;
  git commit -m "$1" ;
  git push ;
+ # https://github.com/angular/angular-cli/issues/5618#issuecomment-348225508
  npm run ng-high-mem -- build --prod;
  firebase deploy;
  # ng build --prod ;
