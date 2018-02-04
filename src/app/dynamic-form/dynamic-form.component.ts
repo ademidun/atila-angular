@@ -23,7 +23,7 @@ import { TruncatePipe } from '../_pipes/truncate.pipe';
 import {Router} from '@angular/router';
 import {environment} from '../../environments/environment';
 
-
+// const ReconnectingWebSocket = require('reconnecting-websocket');
 
 @Component({
   selector: 'app-dynamic-form',
@@ -46,7 +46,6 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   uploadUrl: string;
 
 
-
   formFile: File;
   formFileEvent: any;
   uploadFile: UploadFile;
@@ -55,6 +54,9 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   appMailToLink: any;
   timeOfDay;
   uploadProgress: any;
+  automationProgress: any;
+  socket: WebSocket;
+
 
   // A base 64 encoded string image of the screenshot of the automated web form before and After Submission.
   preAndPostScreenshots: any[];
@@ -157,7 +159,6 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   onSubmit() {
 
 
-    this.showAutomationLoading = true;
     this.initializeLinks();
 
     let sendData = {
@@ -193,8 +194,15 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
         return;
       }
 
+      this.socketAutomation();
+
+      return;
+
 
     }
+
+
+    this.showAutomationLoading = true;
 
 
     let appId = this.generalData.application.id;
@@ -253,6 +261,69 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
 
   }
 
+
+  socketAutomation() {
+
+    let ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+    let environmentIndex = environment.apiUrl.indexOf('://');
+    let environmentHost = environment.apiUrl.slice(environmentIndex+3);
+
+    let demoId = Date.now().toString() + Math.random().toString(36).substring(5);
+
+    this.socket = new WebSocket(ws_scheme + ':/' + environmentHost + "application-automation/");
+
+      this.socket.onopen = (event) => {
+        console.log('WebSockets connection created.', event);
+        console.log('WebSockets connection created. this.socket', this.socket);
+
+        let sendData = {
+          //'generalData': this.generalData,We only need
+          'profileForm': this.profileForm.value,
+          'application': this.generalData.application,
+          'demoId':   demoId
+        };
+        this.socket.send(JSON.stringify(sendData));
+
+        this.socket.onmessage = (res) => {
+          console.log("from socket res:" + res);
+
+          let data = res.data;
+
+          data = JSON.parse(data);
+
+          console.log("data from socket :",data);
+          switch (data.msg_type) {
+            case 'in_progress':
+              // Message
+              this.automationProgress = data.progress_value;
+              break;
+            case 'screenshot':
+              // Warning/Advice messages
+              this.preAndPostScreenshots = data.screenshot_images;
+              break;
+
+            default:
+              console.log("Unsupported message type! res", res);
+              return;
+          }
+        };
+
+        this.socket.onclose = (event) => {
+          console.log('closing connection,',event);
+          this.socket.close(1000,JSON.stringify(event));
+        };
+
+        this.socket.onerror = (err) => {
+          this.socket.close(1000,JSON.stringify(err));
+        }
+
+      };
+
+
+
+
+
+  }
   /**
    * Get all the urls of the uploaded documents on the page.
    */

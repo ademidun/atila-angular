@@ -19,9 +19,12 @@
               <a style="font-size: larger" routerLink="/register"> Register</a>
         </span>
 
-        <div class="col s12"  *ngIf="showAutomationLoading">
+        <div class="col s12"  *ngIf="automationProgress">
+          {{automationProgress}}
             Automation Engine Running Please Wait...
-            <mat-progress-bar aria-label="Automating Engine Running Please Wait..." mode="indeterminate"></mat-progress-bar>
+
+          <mat-progress-bar style="margin-bottom: 1%;" *ngIf="automationProgress" mode="determinate" [value]="automationProgress"></mat-progress-bar>
+            <!--<mat-progress-bar aria-label="Automating Engine Running Please Wait..." mode="indeterminate"></mat-progress-bar>-->
         </div>
 
         <a class="col s12" target="_blank" *ngIf="uploadUrl" href="{{uploadUrl}}">View Filled Application</a>
