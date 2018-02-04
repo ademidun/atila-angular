@@ -37,10 +37,7 @@ export class QuestionService   {
 
   automateResponse(appId: number | any, data:any): Observable<any>{
 
-
     data['appId'] = appId;
-
-
 
     return this.http.post(this.automateScholarshipResponseUrl,data)
     .map(res=><any>res)

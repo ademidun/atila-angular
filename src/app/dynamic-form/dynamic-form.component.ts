@@ -21,6 +21,7 @@ import * as firebase from "firebase";
 
 import { TruncatePipe } from '../_pipes/truncate.pipe';
 import {Router} from '@angular/router';
+import {environment} from '../../environments/environment';
 
 
 
@@ -183,6 +184,15 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
       catch (err) {
         console.error('Error while handling error log save', err);
       }
+
+      if (environment.production) {
+        this.snackBar.open("Demo Currently Unavailable, try again later",'',{
+          duration: 3000
+        });
+
+        return;
+      }
+
 
     }
 
