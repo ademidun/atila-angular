@@ -161,6 +161,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
 
 
     this.initializeLinks();
+    this.showAutomationLoading = true;
 
     let sendData = {
       //'generalData': this.generalData,We only need
@@ -187,14 +188,6 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
         console.error('Error while handling error log save', err);
       }
 
-      if (environment.production) {
-        this.snackBar.open("Demo Currently Unavailable, try again later",'',{
-          duration: 3000
-        });
-
-        return;
-      }
-
       this.socketAutomation();
 
       return;
@@ -203,9 +196,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     }
 
     else {
-      this.showAutomationLoading = true;
 
-      this.writeEmail();
       this.socketAutomation();
 
       return;
@@ -337,6 +328,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
         this.socket.onclose = (event) => {
           console.log('closing connection,',event);
           this.showAutomationLoading = null;
+          this.automationProgress = null;
           this.socket.close(1000,JSON.stringify(event));
         };
 

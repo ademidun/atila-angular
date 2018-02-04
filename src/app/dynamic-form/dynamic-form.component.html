@@ -27,10 +27,10 @@
             <!--<mat-progress-bar aria-label="Automating Engine Running Please Wait..." mode="indeterminate"></mat-progress-bar>-->
         </div>
 
-        <a class="col s12" target="_blank" *ngIf="uploadUrl" href="{{uploadUrl}}">View Filled Application</a>
+        <a style="font-size: larger" class="col s6" target="_blank" *ngIf="uploadUrl" href="{{uploadUrl}}">View Filled Application</a>
 
         <div *ngIf="preAndPostScreenshots" class="row">
-           <h6> A confirmation screenshot of the automated web form: </h6>
+           <h6 class="col s12"> A confirmation screenshot of the automated web form: </h6>
 
 
           <div class="col s12" *ngFor="let screenshotConfirmationImage of preAndPostScreenshots" id="screenshotConfirmationFrame" style=" border: solid;overflow: auto; max-width: 100%; max-height: 300px;">
