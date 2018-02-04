@@ -154,6 +154,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
       }
     )
 
+
   }
 
   onSubmit() {
@@ -201,13 +202,15 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
 
     }
 
+    else {
+      this.showAutomationLoading = true;
 
-    this.showAutomationLoading = true;
+      this.writeEmail();
+      this.socketAutomation();
 
+      return;
+    }
 
-    let appId = this.generalData.application.id;
-
-    this.writeEmail();
     /*
     TODO: Add client-side selenium hosting
     if(this.generalData.scholarship.submission_info.application_form_type=='Web' && this.generalData.scholarship.is_automated){
@@ -221,43 +224,44 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
        )
     }
     */
+    /*
+        this.observable = this.questionService.automateResponse(appId,sendData);
+        this.observable.subscribe(
+          res => {
 
-    this.observable = this.questionService.automateResponse(appId,sendData);
-    this.observable.subscribe(
-      res => {
+            this.uploadUrl = res.upload_url;
+            if(this.generalData.scholarship.submission_info.application_form_type=='Web'){
 
-        this.uploadUrl = res.upload_url;
-        if(this.generalData.scholarship.submission_info.application_form_type=='Web'){
+            this.preAndPostScreenshots = res.screenshot_confirmation_images;
+            for (var i = 0; i < this.preAndPostScreenshots.length; i++) {
+              this.preAndPostScreenshots[i] = "data:image/png;base64," + this.preAndPostScreenshots[i];
 
-        this.preAndPostScreenshots = res.screenshot_confirmation_images;
-        for (var i = 0; i < this.preAndPostScreenshots.length; i++) {
-          this.preAndPostScreenshots[i] = "data:image/png;base64," + this.preAndPostScreenshots[i];
-
-        }
-        // Show the full screen screnshot first.
-        this.preAndPostScreenshots.reverse();
-
-
-        }
+            }
+            // Show the full screen screnshot first.
+            this.preAndPostScreenshots.reverse();
 
 
-        this.payLoad = JSON.stringify(res.message);
-      },
-      err =>{
+            }
 
-        this.showAutomationLoading = false;
-        this.payLoad = JSON.stringify(err.message);
 
-        this.snackBar.open("Automation error: "+this.payLoad,'',{
-          duration: 3000
-        });
+            this.payLoad = JSON.stringify(res.message);
+          },
+          err =>{
 
-      },
-      () => {
-        this.showAutomationLoading = false;
+            this.showAutomationLoading = false;
+            this.payLoad = JSON.stringify(err.message);
 
-      }
-    )
+            this.snackBar.open("Automation error: "+this.payLoad,'',{
+              duration: 3000
+            });
+
+          },
+          () => {
+            this.showAutomationLoading = false;
+
+          }
+        )
+        */
 
   }
 
@@ -268,7 +272,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     let environmentIndex = environment.apiUrl.indexOf('://');
     let environmentHost = environment.apiUrl.slice(environmentIndex+3);
 
-    let demoId = Date.now().toString() + Math.random().toString(36).substring(5);
+    let socketId = Date.now().toString() + Math.random().toString(36).substring(5);
 
     this.socket = new WebSocket(ws_scheme + ':/' + environmentHost + "application-automation/");
 
@@ -280,36 +284,59 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
           //'generalData': this.generalData,We only need
           'profileForm': this.profileForm.value,
           'application': this.generalData.application,
-          'demoId':   demoId
+          'socketId':   socketId,
+          'appId': this.generalData.application.id,
         };
+
         this.socket.send(JSON.stringify(sendData));
 
         this.socket.onmessage = (res) => {
-          console.log("from socket res:" + res);
 
           let data = res.data;
 
           data = JSON.parse(data);
 
-          console.log("data from socket :",data);
-          switch (data.msg_type) {
+          console.log('WebSockets data', data);
+          switch (data.msg_status) {
             case 'in_progress':
               // Message
-              this.automationProgress = data.progress_value;
+              this.automationProgress = Math.ceil(data.progress_value);
               break;
-            case 'screenshot':
-              // Warning/Advice messages
-              this.preAndPostScreenshots = data.screenshot_images;
+
+            case 'finished':
+              this.uploadUrl = data.upload_url;
+              if(this.generalData.scholarship.submission_info.application_form_type=='Web'){
+
+                this.preAndPostScreenshots = data.screenshot_confirmation_images;
+                for (let i = 0; i < this.preAndPostScreenshots.length; i++) {
+                  this.preAndPostScreenshots[i] = "data:image/png;base64," + this.preAndPostScreenshots[i];
+
+                }
+                // Show the full screen screnshot first.
+                this.preAndPostScreenshots.reverse();
+
+              }
+              this.payLoad = JSON.stringify(data.message);
+              break;
+
+            case 'error':
+              this.showAutomationLoading = false;
+              this.payLoad = JSON.stringify(data.message);
+
+              this.snackBar.open("Automation error: "+this.payLoad,'',{
+                duration: 3000
+              });
               break;
 
             default:
-              console.log("Unsupported message type! res", res);
+              console.log("Unsupported message type! data", data);
               return;
           }
         };
 
         this.socket.onclose = (event) => {
           console.log('closing connection,',event);
+          this.showAutomationLoading = null;
           this.socket.close(1000,JSON.stringify(event));
         };
 
@@ -318,8 +345,6 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
         }
 
       };
-
-
 
 
 

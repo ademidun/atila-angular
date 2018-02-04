@@ -20,7 +20,7 @@
         </span>
 
         <div class="col s12"  *ngIf="automationProgress">
-          {{automationProgress}}
+          Progress: <p style="font-weight: bold">{{automationProgress}}%</p>
             Automation Engine Running Please Wait...
 
           <mat-progress-bar style="margin-bottom: 1%;" *ngIf="automationProgress" mode="determinate" [value]="automationProgress"></mat-progress-bar>
