@@ -175,6 +175,9 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
       parseData.application = sendData.application.responses;
 
       try{
+        if (environment.production) {
+          parseData.application = JSON.stringify(parseData.application)
+        }
         try {
           this.firebaseService.saveUserAnalytics(parseData, 'live_demo');
         }
@@ -268,8 +271,6 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     this.socket = new WebSocket(ws_scheme + ':/' + environmentHost + "application-automation/");
 
       this.socket.onopen = (event) => {
-        console.log('WebSockets connection created.', event);
-        console.log('WebSockets connection created. this.socket', this.socket);
 
         let sendData = {
           //'generalData': this.generalData,We only need
@@ -287,7 +288,6 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
 
           data = JSON.parse(data);
 
-          console.log('WebSockets data', data);
           switch (data.msg_status) {
             case 'in_progress':
               // Message
@@ -320,13 +320,11 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
               break;
 
             default:
-              console.log("Unsupported message type! data", data);
               return;
           }
         };
 
         this.socket.onclose = (event) => {
-          console.log('closing connection,',event);
           this.showAutomationLoading = null;
           this.automationProgress = null;
           this.socket.close(1000,JSON.stringify(event));
