@@ -22,6 +22,9 @@
           <mat-card-subtitle class="title"><h5>{{userProfile.title}}</h5></mat-card-subtitle>
           <mat-card-subtitle *ngIf="userProfile.post_secondary_school" class="title"><h5>{{userProfile.post_secondary_school}}</h5></mat-card-subtitle>
           <mat-card-subtitle *ngIf="!userProfile.post_secondary_school && userProfile.secondary_school" class="title"><h5>{{userProfile.secondary_school}}</h5></mat-card-subtitle>
+          <mat-card-subtitle *ngIf="userProfile['metadata']['profile_link_name']" >
+            <a  class="btn btn-link" [href]="userProfile['metadata']['profile_link_url']" target="_blank">{{userProfile['metadata']['profile_link_name']}}</a>
+          </mat-card-subtitle>
           <div class="header-buttons">
             <!--<button mat-raised-button class="btn white-text" (click)="message()">Message</button>-->
             <a *ngIf="profileOwner" (click)="showPreview = !showPreview" style="cursor: pointer">Preview Profile</a> |
@@ -45,6 +48,9 @@
           <mat-card-subtitle class="title"><h5>{{userProfile.title}}</h5></mat-card-subtitle>
           <mat-card-subtitle *ngIf="userProfile.post_secondary_school" class="title"><h5>{{userProfile.post_secondary_school}}</h5></mat-card-subtitle>
           <mat-card-subtitle *ngIf="!userProfile.post_secondary_school && userProfile.secondary_school" class="title"><h5>{{userProfile.secondary_school}}</h5></mat-card-subtitle>
+          <mat-card-subtitle *ngIf="userProfile['metadata']['profile_link_name']" >
+            <a  class="btn btn-link" [href]="userProfile['metadata']['profile_link_url']" target="_blank">{{userProfile['metadata']['profile_link_name']}}</a>
+          </mat-card-subtitle>
           <div class="header-buttons">
             <!--<button mat-raised-button class="btn white-text" (click)="message()">Message</button>-->
             <a *ngIf="profileOwner" (click)="showPreview = !showPreview" style="cursor: pointer">Preview Profile</a> |
@@ -111,6 +117,22 @@
                        [(ngModel)]="userProfile.secondary_school" name="secondary_school">
               </mat-form-field>
             </div>
+
+
+            <div class="row">
+              <p>You can add a custom link to your account</p>
+              <mat-form-field class="col s12">
+                <input class="browser-default" matInput id="profile_link_name" type="text" placeholder="E.g. My Resume, My LinkedIn, My Website"
+                       [(ngModel)]="userProfile['metadata']['profile_link_name']" name="profile_link_name">
+              </mat-form-field>
+              <mat-form-field class="col s12">
+                <input class="browser-default" matInput id="profile_link_url" type="text" placeholder=" e.g. https://mywebsite.com"
+                       [(ngModel)]="userProfile['metadata']['profile_link_url']" name="profile_link_url">
+              </mat-form-field>
+            </div>
+
+
+
             <button mat-raised-button class="btn white-text" (click)="saveProfile()" style="margin-bottom: 3%">Save</button>
           </form>
         </div>
