@@ -154,7 +154,7 @@
 
             </div>
 
-            <mat-form-field class="example-full-width">
+            <mat-form-field class="example-full-width col s12">
               <input #eligibleSchoolInput type="text" placeholder="Enter Schools" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="schools_auto"
                      (keyup)="autoCompleteSelected($event)">
 
@@ -186,7 +186,7 @@
 
             </div>
 
-            <mat-form-field class="example-full-width">
+            <mat-form-field class="example-full-width col s12">
               <input #eligibleProgramInput  class="browser-default" matInput id="eligible_programs" name="eligible_programs"
                       placeholder="E.g. Health Science, Engineering, Business, Law School etc." (keyup)="0">
               <button class="waves-effect waves-light btn center" (click)="autoCompleteSelected($event, 'eligible_programs',eligibleProgramInput.value)">

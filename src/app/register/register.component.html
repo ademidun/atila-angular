@@ -1,7 +1,7 @@
 <div class="container" xmlns="http://www.w3.org/1999/html">
     <div class="card">
       <div class="card-content">
-        <form #registerForm="ngForm" class="col s12">
+        <form #registerForm="ngForm" class="col s12"  (keydown.enter)="$event.preventDefault()">
           <h4>Register</h4>
           <div *ngIf="pageNo==1">
             <div class="row">
@@ -50,12 +50,17 @@
             </mat-form-field>
 
             <div class="row">
-              <mat-form-field class="col s12">
+              <mat-form-field class="col s6">
                 <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
                 <mat-select tabindex="6" [(ngModel)]="userProfile.gender"  id="gender" name="gender" placeholder="Gender" required >
-                  <mat-option *ngFor="let gender of ['male','female','other']" [value]="gender">{{toTitleCase(gender)}} </mat-option>
+                  <mat-option *ngFor="let gender of ['Male','Female','Other']" [value]="gender">{{gender}} </mat-option>
                 </mat-select>
               </mat-form-field>
+
+              <div class="col s12">
+                <input class="browser-default" id="is_international_student" type="checkbox" [(ngModel)]="userProfile.is_international_student" name="is_international_student">
+                <label for="is_international_student" data-error="Invalid input">International Student?</label>
+              </div>
 
             </div>
 
@@ -117,15 +122,23 @@
             <div class="row">
 
               <mat-form-field class="col s12">
-                <input tabindex="9" class="browser-default" matInput id="major" type="text" required minlength="2" placeholder="Major e.g. Engineering, Biology, Business, Political Science"
-                       [(ngModel)]="userProfile.major" name="major">
+
+                  <input tabindex="9" type="text" placeholder="Major e.g. Engineering, Biology, Business, Political Science" aria-label="Number" matInput [formControl]="topMajorControl" [matAutocomplete]="topMajor">
+                  <mat-autocomplete #topMajor="matAutocomplete">
+                    <mat-option *ngFor="let option of topFilteredMajors | async" [value]="option">
+                      {{ option }}
+                    </mat-option>
+                  </mat-autocomplete>
+
+                <!--<input tabindex="9" class="browser-default" matInput id="major" type="text" required minlength="2" placeholder="Major e.g. Engineering, Biology, Business, Political Science"-->
+                       <!--[(ngModel)]="userProfile.major" name="major">-->
               </mat-form-field>
 
                 <div class="col s12">
                   <p> What schools are you interested in?</p>
                   <table>
                     <tr  *ngFor="let school of userProfile.eligible_schools; let i = index">
-                      <td> {{school}} </td>
+                      <td>{{school}} </td>
                       <td>
                         <a class="waves-effect waves-light btn right" (click)="deleteArrayitem(userProfile.eligible_schools, i)">
                           <i class="fa fa-trash-o" aria-hidden="true"></i>
@@ -134,7 +147,7 @@
                     </tr>
                   </table>
 
-                  <mat-form-field class="example-full-width">
+                  <mat-form-field class="example-full-width col s12">
                     <input tabindex="9" #eligibleSchoolInput type="text" placeholder="Enter Schools" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="schools_auto"
                            (keyup)="autoCompleteSelected($event)">
 
@@ -151,11 +164,11 @@
 
 
                 <div class="col s12">
-                  <p> What programs are you interested in?</p>
+                  <p> What Other programs are you interested in?</p>
 
 
                   <table>
-                    <tr  *ngFor="let school of userProfile.eligible_programs; let i = index">
+                    <tr  *ngFor="let program of userProfile.eligible_programs; let i = index">
                       <td> {{program}} </td>
                       <td>
                         <a class="waves-effect waves-light btn right" (click)="deleteArrayitem(userProfile.eligible_programs, i)">
@@ -165,19 +178,19 @@
                     </tr>
                   </table>
 
-                  <mat-form-field class="example-full-width">
-                    <input tabindex="9" #eligibleMajorInput type="text" placeholder="Enter Major" aria-label="Number" matInput [formControl]="majorControl" [matAutocomplete]="majors_auto"
+                  <mat-form-field class="example-full-width col s12">
+                    <input tabindex="9" #eligibleMajorInput type="text" placeholder="Major e.g. Engineering, Biology, Business, Political Science" aria-label="Number" matInput [formControl]="majorControl" [matAutocomplete]="majors_auto"
                            (keyup)="autoCompleteSelected($event)">
 
 
-                    <mat-autocomplete tabindex="9" style="min-width: 300px !important;" #majos_auto="matAutocomplete" class="autocomplete-custom-template"
+                    <mat-autocomplete tabindex="9" style="min-width: 300px !important;" #majors_auto="matAutocomplete" class="autocomplete-custom-template"
                                       (optionSelected)="autoCompleteSelected($event,'eligible_programs')" >
                       <mat-option *ngFor="let option of filteredMajors | async" [value]="option">
                         {{ option }}
                       </mat-option>
                     </mat-autocomplete>
                   </mat-form-field>
-
+                <!--
                   <table>
                     <tr  *ngFor="let school of userProfile.eligible_programs; let i = index">
                       <td> {{program}} </td>
@@ -196,6 +209,8 @@
                       <i class="fa fa-plus" aria-hidden="true"></i>
                     </button>
                   </mat-form-field>
+
+                  -->
 
                 </div>
 

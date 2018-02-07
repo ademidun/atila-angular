@@ -1,3 +1,439 @@
+
+export const MAJORS_LIST = [
+  {
+    "name": "Accounting"
+  },
+  {
+    "name": "African Studies"
+  },
+  {
+    "name": "Agriculture"
+  },
+  {
+    "name": "Agro-Environmental Sciences"
+  },
+  {
+    "name": "Anatomy"
+  },
+  {
+    "name": "Animal Biology"
+  },
+  {
+    "name": "Animal Health"
+  },
+  {
+    "name": "Animal Production"
+  },
+  {
+    "name": "Anthropology"
+  },
+  {
+    "name": "Applied Ecology"
+  },
+  {
+    "name": "Applied Mathematics"
+  },
+  {
+    "name": "Arabic Language"
+  },
+  {
+    "name": "Architecture"
+  },
+  {
+    "name": "Art History"
+  },
+  {
+    "name": "Behavioural Science"
+  },
+  {
+    "name": "Biochemistry"
+  },
+  {
+    "name": "Biodiversity"
+  },
+  {
+    "name": "Bioengineering"
+  },
+  {
+    "name": "Biology"
+  },
+  {
+    "name": "Biomedical Engineering"
+  },
+  {
+    "name": "Bioresource Engineering"
+  },
+  {
+    "name": "Biotechnology"
+  },
+  {
+    "name": "Business"
+  },
+  {
+    "name": "Canadian Ethnic"
+  },
+  {
+    "name": "Canadian Studies"
+  },
+  {
+    "name": "Catholic Studies"
+  },
+  {
+    "name": "Chemical Engineering"
+  },
+  {
+    "name": "Chemistry"
+  },
+  {
+    "name": "Civil Engineering"
+  },
+  {
+    "name": "Classics"
+  },
+  {
+    "name": "Cognitive Science"
+  },
+  {
+    "name": "Communication Studies"
+  },
+  {
+    "name": "Composition"
+  },
+  {
+    "name": "Computer Engineering"
+  },
+  {
+    "name": "Computer Science"
+  },
+  {
+    "name": "Construction Engineering"
+  },
+  {
+    "name": "Dentistry"
+  },
+  {
+    "name": "Dietetics"
+  },
+  {
+    "name": "Earth"
+  },
+  {
+    "name": "Earth Sciences"
+  },
+  {
+    "name": "Earth System Science"
+  },
+  {
+    "name": "East Asian Cultural Studies"
+  },
+  {
+    "name": "East Asian Language"
+  },
+  {
+    "name": "East Asian Studies"
+  },
+  {
+    "name": "Ecology"
+  },
+  {
+    "name": "Economics"
+  },
+  {
+    "name": "Education"
+  },
+  {
+    "name": "Educational Psychology"
+  },
+  {
+    "name": "Electrical Engineering"
+  },
+  {
+    "name": "English"
+  },
+  {
+    "name": "Entrepreneurship"
+  },
+  {
+    "name": "Environment"
+  },
+  {
+    "name": "European Literature"
+  },
+  {
+    "name": "Farm Management"
+  },
+  {
+    "name": "Field Studies"
+  },
+  {
+    "name": "Finance"
+  },
+  {
+    "name": "Food Production"
+  },
+  {
+    "name": "Food Science"
+  },
+  {
+    "name": "Food Science & Nutritional Science"
+  },
+  {
+    "name": "Gender, Sexuality, Feminist, and Social Justice Studies"
+  },
+  {
+    "name": "General Science"
+  },
+  {
+    "name": "Geochemistry"
+  },
+  {
+    "name": "Geographic Information Systems"
+  },
+  {
+    "name": "Geography"
+  },
+  {
+    "name": "Geography: Urban Systems"
+  },
+  {
+    "name": "Geology"
+  },
+  {
+    "name": "German Language"
+  },
+  {
+    "name": "German Studies"
+  },
+  {
+    "name": "German Studies: Literature"
+  },
+  {
+    "name": "Global Food Security"
+  },
+  {
+    "name": "Health Geography"
+  },
+  {
+    "name": "Hispanic Studies"
+  },
+  {
+    "name": "Hispanic Studies: Languages"
+  },
+  {
+    "name": "Hispanic Studies: Literature"
+  },
+  {
+    "name": "History"
+  },
+  {
+    "name": "History and Philosophy of Science"
+  },
+  {
+    "name": "Human Nutrition"
+  },
+  {
+    "name": "Immunology"
+  },
+  {
+    "name": "Indigenous Studies"
+  },
+  {
+    "name": "Industrial Relations"
+  },
+  {
+    "name": "Information Systems"
+  },
+  {
+    "name": "Interdisciplinary Life Sciences"
+  },
+  {
+    "name": "International Development Studies"
+  },
+  {
+    "name": "International Management"
+  },
+  {
+    "name": "Investment Management"
+  },
+  {
+    "name": "Italian Studies"
+  },
+  {
+    "name": "Jewish Studies"
+  },
+  {
+    "name": "Kinesiology"
+  },
+  {
+    "name": "Kinesiology for Science Students"
+  },
+  {
+    "name": "Labour-Management Relations and Human Resources"
+  },
+  {
+    "name": "Law"
+  },
+  {
+    "name": "Liberal Arts"
+  },
+  {
+    "name": "Life Sciences"
+  },
+  {
+    "name": "Linguistics"
+  },
+  {
+    "name": "Management"
+  },
+  {
+    "name": "Managing for Sustainability"
+  },
+  {
+    "name": "Marketing"
+  },
+  {
+    "name": "Materials Engineering"
+  },
+  {
+    "name": "Mathematics"
+  },
+  {
+    "name": "Mathematics, Applied"
+  },
+  {
+    "name": "Mechanical Engineering"
+  },
+  {
+    "name": "Medicine"
+  },
+  {
+    "name": "Medieval Studies"
+  },
+  {
+    "name": "Meteorology"
+  },
+  {
+    "name": "Microbiology"
+  },
+  {
+    "name": "Mining Engineering"
+  },
+  {
+    "name": "Music"
+  },
+  {
+    "name": "Nanotechnology"
+  },
+  {
+    "name": "Natural History"
+  },
+  {
+    "name": "Neuroscience"
+  },
+  {
+    "name": "North American Studies"
+  },
+  {
+    "name": "Nursing"
+  },
+  {
+    "name": "Nutrition"
+  },
+  {
+    "name": "Occupational Therapy"
+  },
+  {
+    "name": "Operations Management"
+  },
+  {
+    "name": "Organizational Behaviour"
+  },
+  {
+    "name": "Persian Language"
+  },
+  {
+    "name": "Pharmacology"
+  },
+  {
+    "name": "Philosophy"
+  },
+  {
+    "name": "Physical Therapy"
+  },
+  {
+    "name": "Physics"
+  },
+  {
+    "name": "Physiology"
+  },
+  {
+    "name": "Planetary Sciences"
+  },
+  {
+    "name": "Plant Biology"
+  },
+  {
+    "name": "Plant Production"
+  },
+  {
+    "name": "Political Science"
+  },
+  {
+    "name": "Professional Agrology"
+  },
+  {
+    "name": "Psychology"
+  },
+  {
+    "name": "Quebec Studies"
+  },
+  {
+    "name": "Religion"
+  },
+  {
+    "name": "Religious Studies"
+  },
+  {
+    "name": "Russian"
+  },
+  {
+    "name": "Social Studies of Medicine"
+  },
+  {
+    "name": "Social Work"
+  },
+  {
+    "name": "Sociology"
+  },
+  {
+    "name": "Software Engineering"
+  },
+  {
+    "name": "Statistics"
+  },
+  {
+    "name": "Teaching English as a Second Language"
+  },
+  {
+    "name": "Technological Entrepreneurship"
+  },
+  {
+    "name": "Turkish Language"
+  },
+  {
+    "name": "Urdu Language"
+  },
+  {
+    "name": "Wildlife Biology"
+  },
+  {
+    "name": "World Islamic & Middle East Studies"
+  },
+  {
+    "name": "World Religions"
+  }
+];
+
 export const SCHOOLS_LIST = [
   {
     "name": "Acadia University"
@@ -434,619 +870,5 @@ export const SCHOOLS_LIST = [
   {
     "name": "Yukon College"
   }
-]
+];
 
-export const MAJORS_LIST = [
-  {
-    "name": "Accounting"
-  },
-  {
-    "name": "African Studies"
-  },
-  {
-    "name": "Agribusiness"
-  },
-  {
-    "name": "Agribusiness Entrepreneurship"
-  },
-  {
-    "name": "Agricultural Economics"
-  },
-  {
-    "name": "Agricultural Production"
-  },
-  {
-    "name": "Agro-Environmental Sciences"
-  },
-  {
-    "name": "Anatomy and Cell Biology"
-  },
-  {
-    "name": "Animal Biology"
-  },
-  {
-    "name": "Animal Health and Disease"
-  },
-  {
-    "name": "Animal Production"
-  },
-  {
-    "name": "Anthropology"
-  },
-  {
-    "name": "Applied Ecology"
-  },
-  {
-    "name": "Applied Mathematics"
-  },
-  {
-    "name": "Arabic Language"
-  },
-  {
-    "name": "Architecture"
-  },
-  {
-    "name": "Art History"
-  },
-  {
-    "name": "Arts Minor"
-  },
-  {
-    "name": "Atmospheric Environment and Air Quality"
-  },
-  {
-    "name": "Atmospheric Science and Physics"
-  },
-  {
-    "name": "Atmospheric Sciences"
-  },
-  {
-    "name": "Behavioural Science"
-  },
-  {
-    "name": "Biochemistry"
-  },
-  {
-    "name": "Biodiversity and Conservation"
-  },
-  {
-    "name": "Bioengineering"
-  },
-  {
-    "name": "Biology"
-  },
-  {
-    "name": "Biology and Mathematics"
-  },
-  {
-    "name": "Biomedical Engineering"
-  },
-  {
-    "name": "Bioresource Engineering"
-  },
-  {
-    "name": "Biotechnology"
-  },
-  {
-    "name": "Business Analytics"
-  },
-  {
-    "name": "Canadian Ethnic and Racial Studies"
-  },
-  {
-    "name": "Canadian Studies"
-  },
-  {
-    "name": "Catholic Studies"
-  },
-  {
-    "name": "Chemical Engineering"
-  },
-  {
-    "name": "Chemistry"
-  },
-  {
-    "name": "Civil Engineering"
-  },
-  {
-    "name": "Classics"
-  },
-  {
-    "name": "Cognitive Science"
-  },
-  {
-    "name": "Communication Studies"
-  },
-  {
-    "name": "Composition"
-  },
-  {
-    "name": "Computer Engineering"
-  },
-  {
-    "name": "Computer Science"
-  },
-  {
-    "name": "Computer Science and Biology"
-  },
-  {
-    "name": "Construction Engineering and Management"
-  },
-  {
-    "name": "Dentistry"
-  },
-  {
-    "name": "Dietetics"
-  },
-  {
-    "name": "Earth and Planetary Sciences"
-  },
-  {
-    "name": "Earth Sciences"
-  },
-  {
-    "name": "Earth Sciences and Economics"
-  },
-  {
-    "name": "Earth System Science"
-  },
-  {
-    "name": "East Asian Cultural Studies"
-  },
-  {
-    "name": "East Asian Language"
-  },
-  {
-    "name": "East Asian Language and Literature"
-  },
-  {
-    "name": "East Asian Studies"
-  },
-  {
-    "name": "Ecological Agriculture"
-  },
-  {
-    "name": "Ecological Determinants of Health"
-  },
-  {
-    "name": "Ecological Determinants of Health in Society"
-  },
-  {
-    "name": "Economics"
-  },
-  {
-    "name": "Economics and Accounting"
-  },
-  {
-    "name": "Economics and Finance"
-  },
-  {
-    "name": "Economics and the Earth\u2019s Environment"
-  },
-  {
-    "name": "Education"
-  },
-  {
-    "name": "Educational Psychology"
-  },
-  {
-    "name": "Electrical Engineering"
-  },
-  {
-    "name": "English: Cultural Studies"
-  },
-  {
-    "name": "English: Drama and Theatre"
-  },
-  {
-    "name": "English: Literature"
-  },
-  {
-    "name": "Entrepreneurship"
-  },
-  {
-    "name": "Entrepreneurship for Science Students"
-  },
-  {
-    "name": "Environment"
-  },
-  {
-    "name": "Environment and Development"
-  },
-  {
-    "name": "Environmental Biology"
-  },
-  {
-    "name": "Environmental Economics"
-  },
-  {
-    "name": "Environmental Engineering"
-  },
-  {
-    "name": "Environmetrics"
-  },
-  {
-    "name": "European Literature and Culture"
-  },
-  {
-    "name": "Farm Management and Technology"
-  },
-  {
-    "name": "Field Studies"
-  },
-  {
-    "name": "Finance"
-  },
-  {
-    "name": "Food Production and Environment"
-  },
-  {
-    "name": "Food Science"
-  },
-  {
-    "name": "Food Science & Nutritional Science"
-  },
-  {
-    "name": "Gender, Sexuality, Feminist, and Social Justice Studies"
-  },
-  {
-    "name": "General Science"
-  },
-  {
-    "name": "Geochemistry"
-  },
-  {
-    "name": "Geographic Information Systems"
-  },
-  {
-    "name": "Geographic Information Systems and Remote Sensing"
-  },
-  {
-    "name": "Geography"
-  },
-  {
-    "name": "Geography: Urban Systems"
-  },
-  {
-    "name": "Geology"
-  },
-  {
-    "name": "German Language"
-  },
-  {
-    "name": "German Studies"
-  },
-  {
-    "name": "German Studies: Literature and Culture"
-  },
-  {
-    "name": "Global Food Security"
-  },
-  {
-    "name": "Health Geography"
-  },
-  {
-    "name": "Hispanic Studies"
-  },
-  {
-    "name": "Hispanic Studies: Languages"
-  },
-  {
-    "name": "Hispanic Studies: Literature and Culture"
-  },
-  {
-    "name": "History"
-  },
-  {
-    "name": "History and Philosophy of Science"
-  },
-  {
-    "name": "Human Nutrition"
-  },
-  {
-    "name": "Immunology"
-  },
-  {
-    "name": "Indigenous Studies"
-  },
-  {
-    "name": "Industrial Relations"
-  },
-  {
-    "name": "Information Systems"
-  },
-  {
-    "name": "Information Systems - Digital Innovation"
-  },
-  {
-    "name": "Information Systems - IT for Business"
-  },
-  {
-    "name": "Interdisciplinary Life Sciences"
-  },
-  {
-    "name": "International Agriculture"
-  },
-  {
-    "name": "International Business"
-  },
-  {
-    "name": "International Development Studies"
-  },
-  {
-    "name": "International Management"
-  },
-  {
-    "name": "Investment Management"
-  },
-  {
-    "name": "Italian Studies"
-  },
-  {
-    "name": "Jewish Studies"
-  },
-  {
-    "name": "Kinesiology"
-  },
-  {
-    "name": "Kinesiology for Science Students"
-  },
-  {
-    "name": "Labour-Management Relations and Human Resources"
-  },
-  {
-    "name": "Land Surface Processes and Environmental Change"
-  },
-  {
-    "name": "Langue et Litt\u00e9rature Francaises"
-  },
-  {
-    "name": "Langue et litt\u00e9rature fran\u00e7aises"
-  },
-  {
-    "name": "Langue et Litt\u00e9rature Fran\u00e7aises"
-  },
-  {
-    "name": "Latin-American and Caribbean Studies"
-  },
-  {
-    "name": "Law"
-  },
-  {
-    "name": "Liberal Arts"
-  },
-  {
-    "name": "Life Sciences"
-  },
-  {
-    "name": "Linguistics"
-  },
-  {
-    "name": "Management"
-  },
-  {
-    "name": "Managing for Sustainability"
-  },
-  {
-    "name": "Marketing"
-  },
-  {
-    "name": "Materials Engineering"
-  },
-  {
-    "name": "Mathematics"
-  },
-  {
-    "name": "Mathematics and Computer Science"
-  },
-  {
-    "name": "Mathematics and Physics"
-  },
-  {
-    "name": "Mathematics, Applied"
-  },
-  {
-    "name": "Mechanical Engineering"
-  },
-  {
-    "name": "Medicine"
-  },
-  {
-    "name": "Medieval Studies"
-  },
-  {
-    "name": "Meteorology"
-  },
-  {
-    "name": "Microbiology and Immunology"
-  },
-  {
-    "name": "Microbiology and Molecular Biotechnology"
-  },
-  {
-    "name": "Mining Engineering"
-  },
-  {
-    "name": "Music"
-  },
-  {
-    "name": "Music Education"
-  },
-  {
-    "name": "Music Entrepreneurship"
-  },
-  {
-    "name": "Music Faculty Program"
-  },
-  {
-    "name": "Music History"
-  },
-  {
-    "name": "Music Performance"
-  },
-  {
-    "name": "Music Theory"
-  },
-  {
-    "name": "Musical Applications of Technology"
-  },
-  {
-    "name": "Musical Science and Technology"
-  },
-  {
-    "name": "Nanotechnology"
-  },
-  {
-    "name": "Natural History"
-  },
-  {
-    "name": "Neo-Hellenic Studies"
-  },
-  {
-    "name": "Neuroscience"
-  },
-  {
-    "name": "North American Studies"
-  },
-  {
-    "name": "Nursing"
-  },
-  {
-    "name": "Nutrition"
-  },
-  {
-    "name": "Occupational Therapy"
-  },
-  {
-    "name": "Operations Management"
-  },
-  {
-    "name": "Organizational Behaviour"
-  },
-  {
-    "name": "Persian Language"
-  },
-  {
-    "name": "Pharmacology"
-  },
-  {
-    "name": "Philosophy"
-  },
-  {
-    "name": "Physical Therapy"
-  },
-  {
-    "name": "Physics"
-  },
-  {
-    "name": "Physics and Chemistry"
-  },
-  {
-    "name": "Physics and Computer Science"
-  },
-  {
-    "name": "Physics and Geophysics"
-  },
-  {
-    "name": "Physiology"
-  },
-  {
-    "name": "Physiology and Mathematics"
-  },
-  {
-    "name": "Physiology and Physics"
-  },
-  {
-    "name": "Planetary Sciences"
-  },
-  {
-    "name": "Plant Biology"
-  },
-  {
-    "name": "Plant Production"
-  },
-  {
-    "name": "Political Science"
-  },
-  {
-    "name": "Professional Agrology"
-  },
-  {
-    "name": "Psychology"
-  },
-  {
-    "name": "Quebec Studies"
-  },
-  {
-    "name": "Religion and Globalization"
-  },
-  {
-    "name": "Religious Studies"
-  },
-  {
-    "name": "Renewable Resource Management"
-  },
-  {
-    "name": "Russian"
-  },
-  {
-    "name": "Russian Culture"
-  },
-  {
-    "name": "Science for Arts Students"
-  },
-  {
-    "name": "Social Entrepreneurship"
-  },
-  {
-    "name": "Social Studies of Medicine"
-  },
-  {
-    "name": "Social Work"
-  },
-  {
-    "name": "Sociology"
-  },
-  {
-    "name": "Software Engineering"
-  },
-  {
-    "name": "Statistics"
-  },
-  {
-    "name": "Statistics and Computer Science"
-  },
-  {
-    "name": "Strategic Management"
-  },
-  {
-    "name": "Sustainability, Science and Society"
-  },
-  {
-    "name": "Teaching English as a Second Language"
-  },
-  {
-    "name": "Technological Entrepreneurship"
-  },
-  {
-    "name": "Turkish Language"
-  },
-  {
-    "name": "Urdu Language"
-  },
-  {
-    "name": "Water Environments and Ecosystems"
-  },
-  {
-    "name": "Wildlife Biology"
-  },
-  {
-    "name": "World Cinemas"
-  },
-  {
-    "name": "World Islamic & Middle East Studies"
-  },
-  {
-    "name": "World Religions"
-  }
-]

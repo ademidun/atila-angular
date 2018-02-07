@@ -61,6 +61,7 @@ locationData = {
   locationPlaceHolder: any;
   filteredOptions: Observable<string[]>;
   filteredMajors: Observable<string[]>;
+  topFilteredMajors: Observable<string[]>;
 
   schoolNames: any;
   majorNames: any;
@@ -68,39 +69,43 @@ locationData = {
 
   myControl: FormControl = new FormControl();
   majorControl: FormControl = new FormControl();
+  topMajorControl: FormControl = new FormControl();
   userProfile: UserProfile;
   constructor(
     public router: Router,
     public snackBar: MatSnackBar,
     public userProfileService: UserProfileService,
     public authService: AuthService) {
-    this.schoolNames = SCHOOLS_LIST.map(school => school.name);
-    console.log('MAJORS_LIST.map(major => major.name)',MAJORS_LIST);
-    if(MAJORS_LIST) {
-      this.majorNames = MAJORS_LIST.map(major => major.name);
-    }
   }
 
 
 
   ngOnInit() {
     this.userProfile = new UserProfile();
+
+
+    this.schoolNames = SCHOOLS_LIST.map(school => school.name);
+
+    if(MAJORS_LIST) {
+      this.majorNames = MAJORS_LIST.map(major => major.name);
+    }
     this.initializeForm();
   }
 
   registerUser(registerForm: NgForm) {
 
-    if(registerForm) {
-      console.log('this.userProfile', this.userProfile);
-      return;
-
-    }
+    // if(registerForm) {
+    //
+    //   this.userProfile.major = this.topMajorControl.value;
+    //   return;
+    //
+    // }
 
     if (registerForm.valid) {
       this.disableRegistrationButton = true;
       let postOperation: Observable<any>;
       // Create a new User
-
+      this.userProfile.major = this.topMajorControl.value;
       for (let key in ['city', 'province', 'country'] ) {
         this.locationData[key] = this.locationData[key] ? this.toTitleCase(this.locationData[key]) : this.locationData[key];
       }
@@ -171,17 +176,22 @@ locationData = {
         }
         else {
           this.userProfile.eligible_schools.push(event.option.value);
-          event.option.value ="";
+          event.option.value = "";
         }
 
       }
 
       else if (selectionType == 'eligible_programs') {
-        this.userProfile.eligible_programs.push(selectionValue);
-        selectionValue = "";
-        event.preventDefault();
-      }
+        if (selectionValue) {
+          this.userProfile.eligible_programs.push(selectionValue);
+          selectionValue = "";
+        }
+        else {
+          this.userProfile.eligible_programs.push(event.option.value);
+          event.option.value = "";
+        }
 
+      }
     }
 
     // if( typeof(event) == 'Event' && (<KeyboardEvent>event).keyCode == 13) {
@@ -218,7 +228,13 @@ locationData = {
     this.filteredMajors = this.majorControl.valueChanges
       .pipe(
         startWith(''),
-        map(val => this.filterUserInput(val,'school'))
+        map(val => this.filterUserInput(val,'major'))
+      );
+
+    this.topFilteredMajors = this.topMajorControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(val => this.filterUserInput(val,'major'))
       );
 
   }
