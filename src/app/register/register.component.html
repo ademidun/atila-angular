@@ -49,6 +49,16 @@
                      [(ngModel)]="userProfile.last_name" name="last_name">
             </mat-form-field>
 
+            <div class="row">
+              <mat-form-field class="col s12">
+                <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
+                <mat-select tabindex="6" [(ngModel)]="userProfile.gender"  id="gender" name="gender" placeholder="Gender" required >
+                  <mat-option *ngFor="let gender of ['male','female','other']" [value]="gender">{{toTitleCase(gender)}} </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            </div>
+
             <!-- fake fields to prevent chrome from autofilling location since we have Google Autocomplete -->
             <input autocomplete="false" style="display:none" type="text" name="city" />
             <input autocomplete="false" style="display:none" type="text" name="province"/>
@@ -110,6 +120,87 @@
                 <input tabindex="9" class="browser-default" matInput id="major" type="text" required minlength="2" placeholder="Major e.g. Engineering, Biology, Business, Political Science"
                        [(ngModel)]="userProfile.major" name="major">
               </mat-form-field>
+
+                <div class="col s12">
+                  <p> What schools are you interested in?</p>
+                  <table>
+                    <tr  *ngFor="let school of userProfile.eligible_schools; let i = index">
+                      <td> {{school}} </td>
+                      <td>
+                        <a class="waves-effect waves-light btn right" (click)="deleteArrayitem(userProfile.eligible_schools, i)">
+                          <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
+
+                  <mat-form-field class="example-full-width">
+                    <input tabindex="9" #eligibleSchoolInput type="text" placeholder="Enter Schools" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="schools_auto"
+                           (keyup)="autoCompleteSelected($event)">
+
+
+                    <mat-autocomplete tabindex="9" style="min-width: 300px !important;" #schools_auto="matAutocomplete" class="autocomplete-custom-template"
+                                      (optionSelected)="autoCompleteSelected($event,'eligible_schools')" >
+                      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                        {{ option }}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+
+                </div>
+
+
+                <div class="col s12">
+                  <p> What programs are you interested in?</p>
+
+
+                  <table>
+                    <tr  *ngFor="let school of userProfile.eligible_programs; let i = index">
+                      <td> {{program}} </td>
+                      <td>
+                        <a class="waves-effect waves-light btn right" (click)="deleteArrayitem(userProfile.eligible_programs, i)">
+                          <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
+
+                  <mat-form-field class="example-full-width">
+                    <input tabindex="9" #eligibleMajorInput type="text" placeholder="Enter Major" aria-label="Number" matInput [formControl]="majorControl" [matAutocomplete]="majors_auto"
+                           (keyup)="autoCompleteSelected($event)">
+
+
+                    <mat-autocomplete tabindex="9" style="min-width: 300px !important;" #majos_auto="matAutocomplete" class="autocomplete-custom-template"
+                                      (optionSelected)="autoCompleteSelected($event,'eligible_programs')" >
+                      <mat-option *ngFor="let option of filteredMajors | async" [value]="option">
+                        {{ option }}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+
+                  <table>
+                    <tr  *ngFor="let school of userProfile.eligible_programs; let i = index">
+                      <td> {{program}} </td>
+                      <td>
+                        <a class="waves-effect waves-light btn right" (click)="deleteArrayitem(userProfile.eligible_programs, i)">
+                          <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
+
+                  <mat-form-field class="example-full-width">
+                    <input #eligibleProgramInput  class="browser-default" matInput id="eligible_programs" name="eligible_programs"
+                           placeholder="E.g. Health Science, Engineering, Business, Law School etc." (keyup)="0">
+                    <button class="waves-effect waves-light btn center" (click)="autoCompleteSelected($event, 'eligible_programs',eligibleProgramInput.value)">
+                      <i class="fa fa-plus" aria-hidden="true"></i>
+                    </button>
+                  </mat-form-field>
+
+                </div>
+
+
+
             </div>
 
             <div class="row">

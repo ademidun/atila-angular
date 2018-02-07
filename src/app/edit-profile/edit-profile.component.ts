@@ -24,7 +24,7 @@ import {FormControl} from '@angular/forms';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
 import {debounceTime} from 'rxjs/operators/debounceTime';
-import { SCHOOLS_LIST } from '../_models/schools-list';
+import { SCHOOLS_LIST } from '../_models/constants';
 import {ScholarshipService} from '../_services/scholarship.service';
 @Component({
   selector: 'app-edit-profile',
@@ -72,7 +72,7 @@ EDUCATION_FIELD = [
     'city': '',
     'province': '',
     'country': '',
-  }
+  };
 
   myControl: FormControl = new FormControl();
 
@@ -137,12 +137,12 @@ EDUCATION_FIELD = [
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith(''),
-        map(val => this.filter(val))
+        map(val => this.filterUserInput(val))
       );
 
   }
 
-  filter(val: string): string[] {
+  filterUserInput(val: string): string[] {
 
     //Allow user input to be used if no other choices available;
 

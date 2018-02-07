@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {NgForm, NgModel} from "@angular/forms";
+import {FormControl, NgForm, NgModel} from "@angular/forms";
 import { Router, RouterModule } from "@angular/router";
 
-import { MatSnackBar } from '@angular/material';
+import {MatAutocompleteSelectedEvent, MatSnackBar} from '@angular/material';
 import { UserProfile, toTitleCase } from '../_models/user-profile';
 import { User } from '../_models/user';
 import { Observable } from 'rxjs/Observable';
@@ -10,7 +10,9 @@ import { Observable } from 'rxjs/Observable';
 import { UserProfileService } from '../_services/user-profile.service';
 
 import { AuthService } from "../_services/auth.service";
-
+import {SCHOOLS_LIST, MAJORS_LIST} from '../_models/constants';
+import {startWith} from 'rxjs/operators/startWith';
+import {map} from 'rxjs/operators/map';
 
 @Component({
   selector: 'app-register',
@@ -57,19 +59,42 @@ locationData = {
   disableRegistrationButton: any;
   differentPassword: boolean;
   locationPlaceHolder: any;
+  filteredOptions: Observable<string[]>;
+  filteredMajors: Observable<string[]>;
+
+  schoolNames: any;
+  majorNames: any;
+
+
+  myControl: FormControl = new FormControl();
+  majorControl: FormControl = new FormControl();
+  userProfile: UserProfile;
   constructor(
     public router: Router,
     public snackBar: MatSnackBar,
     public userProfileService: UserProfileService,
-    public authService: AuthService) { }
+    public authService: AuthService) {
+    this.schoolNames = SCHOOLS_LIST.map(school => school.name);
+    console.log('MAJORS_LIST.map(major => major.name)',MAJORS_LIST);
+    if(MAJORS_LIST) {
+      this.majorNames = MAJORS_LIST.map(major => major.name);
+    }
+  }
 
 
-userProfile = new UserProfile();
+
   ngOnInit() {
+    this.userProfile = new UserProfile();
+    this.initializeForm();
   }
 
   registerUser(registerForm: NgForm) {
 
+    if(registerForm) {
+      console.log('this.userProfile', this.userProfile);
+      return;
+
+    }
 
     if (registerForm.valid) {
       this.disableRegistrationButton = true;
@@ -129,6 +154,97 @@ userProfile = new UserProfile();
     this.differentPassword = this.model.password != this.model.confirmPassword;
 
   }
+
+
+  deleteArrayitem(arr: any[], index) {
+    arr.splice(index,1)
+  }
+
+  autoCompleteSelected(event?: Event | MatAutocompleteSelectedEvent | any, selectionType?: any, selectionValue?: any) {
+
+    if (selectionType) {
+
+      if (selectionType == 'eligible_schools') {
+        if (selectionValue) {
+          this.userProfile.eligible_schools.push(selectionValue);
+          selectionValue = "";
+        }
+        else {
+          this.userProfile.eligible_schools.push(event.option.value);
+          event.option.value ="";
+        }
+
+      }
+
+      else if (selectionType == 'eligible_programs') {
+        this.userProfile.eligible_programs.push(selectionValue);
+        selectionValue = "";
+        event.preventDefault();
+      }
+
+    }
+
+    // if( typeof(event) == 'Event' && (<KeyboardEvent>event).keyCode == 13) {
+    if( (<KeyboardEvent>event).keyCode == 13) {
+
+      event.preventDefault();
+    }
+
+  }
+
+  initializeForm() {
+    /*
+    //https://stackoverflow.com/questions/43575515/md-autocomplete-angular2-getting-data-from-server-with-a-service
+    this.myControl.valueChanges
+      //.debounceTime(500)
+      .subscribe(query => {
+        this.scholarshipService.searchSchools(query)
+          .then(res => {
+            console.log('res',res);
+            return this.filteredOptions = res.map(element => element['name']);
+          },
+            err => {
+              console.log('err',err);
+          });
+      });
+      */
+
+    this.filteredOptions = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(val => this.filterUserInput(val,'school'))
+      );
+
+    this.filteredMajors = this.majorControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(val => this.filterUserInput(val,'school'))
+      );
+
+  }
+
+  filterUserInput(val: string, type: string): string[] {
+
+    //Allow user input to be used if no other choices available;
+
+    if(type =='school') {
+      let customOptions = this.schoolNames.filter(option =>
+        option.toLowerCase().indexOf(val.toLowerCase()) !== -1);
+
+      customOptions.push(val);
+      return customOptions;
+    }
+    if (type == 'major') {
+
+      let customOptions = this.majorNames.filter(option =>
+        option.toLowerCase().indexOf(val.toLowerCase()) !== -1);
+
+      customOptions.push(val);
+      return customOptions;
+    }
+
+  }
+
   // SnackBar notification
   showSnackBar(text: string, duration: number) {
     this.snackBar.open(text, '', {

@@ -15,8 +15,10 @@ export class UserProfile {
             public eligible_schools?: string[],
             public enrollment_proof?: any,
             public email?: any,
+            public gender?: any,
             public is_sponsor?:any,
             public is_verified?:any,
+            public is_international_student?:any,
             public last_name?: string,
             public major?: string,
             public metadata?: any,
@@ -40,7 +42,11 @@ export class UserProfile {
             public verification_token?:any,
 
 
-        ) { }
+        ) {
+
+          this.eligible_schools = [];
+          this.eligible_programs = [];
+        }
     }
 
      export function toTitleCase(str) {
