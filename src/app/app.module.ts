@@ -78,7 +78,7 @@ import { MaterializeModule } from 'angular2-materialize';
 import "materialize-css";
 import { CardGenericComponent } from './card-generic/card-generic.component';
 import { TitleCasePipe } from './_pipes/title-case.pipe';
-
+import { MarkdownModule } from 'ngx-markdown';
 @NgModule({
   declarations: [
     AppComponent,
@@ -147,6 +147,7 @@ import { TitleCasePipe } from './_pipes/title-case.pipe';
     HttpClientModule,
     CommonModule,
     MaterializeModule,
+    MarkdownModule.forRoot(),
   ],
   providers: [ScholarshipService, UserProfileService,
      AuthService, ApplicationService,

@@ -1,6 +1,6 @@
 @import '../../styles.scss';
 // TODO: Import styles fromc reate profile
-textarea {
+textarea.mat-input-element {
     border: 1px solid $primary;
     height: 15rem;
     line-height: 30px;
@@ -9,7 +9,6 @@ textarea {
 .hidden{
     display: none;
 }
-
 
 
 :host /deep/ div.mat-autocomplete-panel {
