@@ -186,8 +186,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
     this.subscriber.action = 'preview_scholarship';
     this.subscriber.preview_choices = this.model;
 
-
-    console.log()
     this.firebaseService.saveUserAnalytics(this.subscriber,'preview_scholarship')
       .then(res => {
         },

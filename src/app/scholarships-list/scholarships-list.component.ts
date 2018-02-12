@@ -92,7 +92,6 @@ export class ScholarshipsListComponent implements OnInit {
 
   getScholarshipPreview(page: number = 1){
 
-    console.log('this.form_data',this.form_data);
     if (this.form_data ) {
 
       if (!this.form_data['sort_by']) {

@@ -17,10 +17,10 @@
             <p *ngIf="scholarship.funding_amount > 0">{{scholarship.funding_amount | currency:'USD':'symbol':'1.0-0'}}</p>
             </strong>
             <a *ngIf="scholarship.owner==userId" [routerLink]="['/edit-scholarship', scholarship.slug]"> Edit Scholarship </a><br>
-            <a *ngIf="scholarship.owner!=userId" [routerLink]="['/edit-scholarship', scholarship.slug]"> Suggest/View Edits </a><br>
+            <!--<a *ngIf="scholarship.owner!=userId" [routerLink]="['/edit-scholarship', scholarship.slug]"> Suggest/View Edits </a><br>-->
             <a target="_blank" *ngIf="scholarship.form_url" href="{{scholarship.form_url}}"> View Application Form </a><br>
             <a target="_blank" *ngIf="scholarship.scholarship_url" href="{{scholarship.scholarship_url}}"> Visit Scholarship Website </a> <br>
-            <a target="_blank" *ngIf="scholarship.local_form_location.indexOf('scholartree') !== -1;" href="https://scholartree.ca">Source</a> <br>
+            <!--<a target="_blank" *ngIf="scholarship.local_form_location.indexOf('scholartree') !== -1;" href="https://scholartree.ca">Source</a> <br>-->
           </div>
 
 
@@ -58,10 +58,10 @@
       <ul>
         <!-- TODO: THis should actually be done using a pipe https://stackoverflow.com/questions/35534959/access-key-and-value-of-object-using-ngfor -->
 
-        <li *ngIf="scholarship.city">Located in:
-            {{keyGetter(scholarship.city)}}
-         </li>
-        <li>Field: {{scholarship.education_field}}</li>
+        <!--<li *ngIf="scholarship.city">Located in:-->
+            <!--{{keyGetter(scholarship.city)}}-->
+         <!--</li>-->
+        <!--<li>Field: {{scholarship.education_field}}</li>-->
       </ul>
     </div>
 

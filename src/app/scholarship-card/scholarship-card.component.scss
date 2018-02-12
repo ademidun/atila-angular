@@ -8,9 +8,6 @@ mat-card-content{
   height: 100px;
   overflow: hidden;
 }
-.my-mat-card-image{
-  height: 200px;
-}
 
 mat-card-title{
   max-height: 3em;
@@ -18,10 +15,7 @@ mat-card-title{
 }
 
 mat-card-header{
-  height: 100px;
-  margin-bottom: 3%;
-  margin-left: -7%;
-  margin-right: -7%;
+  //height: 100px;
 }
 
 mat-card-actions{
@@ -63,8 +57,10 @@ mat-card-actions{
 
 .my-mat-card-image{
   display: block;
-  margin-top: -5px !important;
-  max-height: 200px;
+  max-width:150px;
+  max-height:150px;
+  width: auto;
+  height: auto;
 }
 
 mat-card:hover {

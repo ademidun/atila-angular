@@ -1,5 +1,5 @@
 <mat-card class="scholarship-card">
-    <mat-card-header>
+    <mat-card-header class="mat-card-header">
       <div mat-card-avatar [ngStyle]="{ 'background-image': 'url( '+ scholarship.img_url +' )' }" class="header-image"></div>
       <mat-card-title ><a [routerLink]="['../scholarship-detail', scholarship.slug]" class="card-title">{{scholarship.name | truncate:40}}</a></mat-card-title>
       <mat-card-subtitle class="card-text"  *ngIf="scholarship.extra_questions && !scholarship.extra_questions.funding_amount_varies; else funding_varies">
@@ -8,13 +8,22 @@
       <mat-card-subtitle *ngIf="scholarship.deadline && !this.scholarship['metadata']['deadline_tbd']">Deadline: {{ scholarship.deadline | date:'mediumDate' }}</mat-card-subtitle>
       <mat-card-subtitle *ngIf="scholarship.deadline && this.scholarship['metadata']['deadline_tbd']">Deadline: {{scholarship.metadata.deadline_tbd}}</mat-card-subtitle>
     </mat-card-header>
-    <a [routerLink]="['../scholarship-detail', scholarship.slug]">
-      <img mat-card-image class="my-mat-card-image" src="{{scholarship.img_url}}">
-    </a>
+
     <mat-card-content>
-      <p class="card-text">
-        {{scholarship.description | truncate:140}}
-      </p>
+      <table>
+        <tr>
+          <td>
+            <a [routerLink]="['../scholarship-detail', scholarship.slug]">
+              <img mat-card-image class="my-mat-card-image" src="{{scholarship.img_url}}">
+            </a>
+          </td>
+          <td class="col s12" style="padding-left: 10%">
+            <p class="card-text">
+              {{scholarship.description | truncate:250}}
+            </p>
+          </td>
+        </tr>
+      </table>
     </mat-card-content>
 
   <mat-card-actions>
