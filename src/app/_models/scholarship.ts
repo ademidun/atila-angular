@@ -19,6 +19,7 @@ export class Scholarship {
     id?: number;
     img_url?: any;
     is_automated?: boolean;
+    local_form_location?: any;
     metadata: any;
     name?: string;
     number_available_scholarships?: number;

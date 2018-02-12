@@ -20,6 +20,7 @@
             <a *ngIf="scholarship.owner!=userId" [routerLink]="['/edit-scholarship', scholarship.slug]"> Suggest/View Edits </a><br>
             <a target="_blank" *ngIf="scholarship.form_url" href="{{scholarship.form_url}}"> View Application Form </a><br>
             <a target="_blank" *ngIf="scholarship.scholarship_url" href="{{scholarship.scholarship_url}}"> Visit Scholarship Website </a> <br>
+            <a target="_blank" *ngIf="scholarship.local_form_location.indexOf('scholartree') !== -1;" href="https://scholartree.ca">Source</a> <br>
           </div>
 
 
@@ -63,6 +64,7 @@
         <li>Field: {{scholarship.education_field}}</li>
       </ul>
     </div>
+
   </div>
 
   <div class="row">
