@@ -23,7 +23,6 @@ export class ScholarshipCardComponent implements OnInit {
     public userProfileService: UserProfileService) { }
 
   ngOnInit() {
-
     if(this.userProfile && this.userProfile.metadata.saved_scholarships) {
 
       for (let i =0; i<this.userProfile.metadata.saved_scholarships.length; i++) {
@@ -32,10 +31,13 @@ export class ScholarshipCardComponent implements OnInit {
           break;
         }
       }
-
     }
 
+    console.log('this.scholarship, this.scholarhsip.deadline',this.scholarship, this.scholarship.deadline);
 
+    if ('2019-01-01T00:00:00Z' == this.scholarship.deadline) {
+      this.scholarship['metadata']['deadline_tbd'] = 'TBD';
+    }
   }
 
 

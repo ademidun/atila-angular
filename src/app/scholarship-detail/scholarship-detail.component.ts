@@ -67,6 +67,11 @@ export class ScholarshipDetailComponent implements OnInit {
       .subscribe(
         scholarship => {
           this.scholarship = scholarship;
+
+          if ('2019-01-01T00:00:00Z' == this.scholarship.deadline) {
+            this.scholarship['metadata']['deadline_tbd'] = 'TBD';
+          }
+
           this.titleService.setTitle('Atila - ' + this.scholarship.name);
           this.updateMeta();
           // Get the user profile of the scholarship owner

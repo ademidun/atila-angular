@@ -3,14 +3,18 @@
     <br/>
     <div *ngIf="form_data">
 
-      <!--Unregistered user content -->
-      <div class="container" *ngIf="!isLoggedIn; else registeredContent">
+      <div class="container">
         <div class="row center">
 
+          <h4 class="registered-title">
+            <span *ngIf="userProfile">{{userProfile.first_name}}, </span>You can get
+            <strong>{{ scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and up to <strong>{{total_funding}}</strong> in funding</span>.
+          </h4>
 
-          <h2 *ngIf="scholarship_count!=0" class="scholarship-preview-count"> You can get <strong>{{scholarship_count}}</strong> scholarships
+          <h2 *ngIf="scholarship_count!=0 && !isLoggedIn" class="scholarship-preview-count"> You can get <strong>{{scholarship_count}}</strong> scholarships
             <span *ngIf="show_scholarship_funding"> and up to <strong>{{total_funding}}</strong> in funding</span>.</h2>
-          <h2 *ngIf="scholarship_count==0" class="scholarship-preview-count"> Unfortunately, you currently qualify for <strong>{{scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and <strong>{{total_funding}}</strong> in funding</span>.</h2>
+          <h2 *ngIf="scholarship_count==0" class="scholarship-preview-count"> Unfortunately, you currently qualify for <strong>{{scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and <strong>{{total_funding}}</strong> in funding</span>.
+          Try another search.</h2>
 
         </div>
 
@@ -35,95 +39,73 @@
         </div>
 
         <div class="row">
-          <a style="cursor: pointer; font-size: x-large" (click)="showOnlyAutomated = !showOnlyAutomated; getScholarshipPreview(pageNo)">
-            <i class="material-icons automate-tag">tag_faces</i>
-            = Filter by Automated Scholarships.</a>
-
-          <p>
-            <a (click)="saveUserAnalytics('link_analytics',{link:'/search/international student', source:'scholarships_list', intent:'international_student_cta'})"
-               routerLink="/search" [queryParams]="{q: 'international student', q_source:'international_student_cta'}">
-              International Student? See Your Scholarships</a>
-          </p>
-
 
           <a class=" col s8 offset-s2 waves-effect waves-light btn " routerLink="/applications/demo">Try The Live Demo</a>
 
-            <!--<p class="text-align-center col s-3"><mat-icon svgIcon="plus-one"></mat-icon> = One-Click Scholarships.</p>-->
+          <mat-form-field class="col s6 m4 right">
+            <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
+            <mat-select  [(ngModel)]="form_data.sort_by"  id="sort_by" name="sort_by" placeholder="Sort By:" (change)="getScholarshipPreview()">
+              <mat-option *ngFor="let sortType of ['relevance','deadline','surprise_me','only_automated']" [value]="sortType">{{prettifyKeys(sortType)}} </mat-option>
+            </mat-select>
+          </mat-form-field>
+
         </div>
         <br>
-        <div class="row">
+
+        <!--Unregistered user content -->
+        <div *ngIf="!isLoggedIn; else registeredContent">
+
+          <div class="row">
             <div *ngFor="let scholarship of scholarships;  let i=index" class="col s12 m6 l4">
-                <ng-template [ngIf]="i<3">
-                  <app-scholarship-card [scholarship]="scholarship" [userProfile]="userProfile"></app-scholarship-card>
-                </ng-template>
+              <ng-template [ngIf]="i<3">
+                <app-scholarship-card [scholarship]="scholarship" [userProfile]="userProfile"></app-scholarship-card>
+              </ng-template>
             </div>
+          </div>
+
+          <div class="row center">
+
+            <a *ngIf="scholarship_count!=0" class="waves-effect waves-light btn" routerLink="/register">Register here to view the rest of the scholarships</a>
+            <a *ngIf="scholarship_count==0" class="waves-effect waves-light btn" routerLink="/register">Register here to start qualifying for scholarships</a>
+
+          </div>
+
+          <div class="row center">
+            <p class="text-align-center col s-3">Are we missing a scholarship you want? You can easily <a routerLink="/add-scholarship" title="Add Scholarship">Add a Scholarship </a> to Atila or
+              <a href="https://docs.google.com/spreadsheets/d/13YshWzg38Au-tPkGyDfY4hJHGJDWl_7vUpXNXkf5afM/edit?usp=sharing"
+                 target="_blank" title="Scholarship Spreadsheet">Tell us the link</a> and we'll automate it for you.</p>
+          </div>
         </div>
 
-        <div class="row center">
 
-          <a *ngIf="scholarship_count!=0" class="waves-effect waves-light btn" routerLink="/register">Register here to view the rest of the scholarships</a>
-          <a *ngIf="scholarship_count==0" class="waves-effect waves-light btn" routerLink="/register">Register here to start qualifying for scholarships</a>
+        <!--Registered user content -->
+        <ng-template #registeredContent>
+          <div class="container">
+            <div class="row">
 
+              <div *ngFor="let scholarship of scholarships;  let i=index" class="col s12 m6 l4">
+                <app-scholarship-card [scholarship]="scholarship" [userProfile]="userProfile"></app-scholarship-card>
+              </div>
 
-          <p class="text-align-center col s-3">Are we missing a scholarship you want? You can easily <a routerLink="/add-scholarship" title="Add Scholarship">Add a Scholarship </a> to Atila or
-            <a href="https://docs.google.com/spreadsheets/d/13YshWzg38Au-tPkGyDfY4hJHGJDWl_7vUpXNXkf5afM/edit?usp=sharing"
-               target="_blank" title="Scholarship Spreadsheet">Tell us the link</a> and we'll automate it for you.</p>
-        </div>
+            </div>
+            <div class="row nav-buttons">
+              <p class="text-align-center col s12">Are we missing a scholarship you want? You can easily <a routerLink="/add-scholarship" title="Add Scholarship">Add a Scholarship </a> to Atila or
+                <a href="https://docs.google.com/spreadsheets/d/13YshWzg38Au-tPkGyDfY4hJHGJDWl_7vUpXNXkf5afM/edit?usp=sharing"
+                   target="_blank" title="Scholarship Spreadsheet">Tell us the link</a> and we'll automate it for you.</p>
 
-
+              <div class="col s12 center">
+                <a class="waves-effect waves-light btn scholarship-btn" (click)="previousPage()" [ngClass]="{'hidden': pageNo == '1'}"><i class="fa fa-caret-left" aria-hidden="true"></i>  Previous</a>
+                <button mat-button (click)="nextPage()" disabled="true">{{pageNo}}</button>
+                <a class="waves-effect waves-light btn scholarship-btn" (click)="nextPage()" [ngClass]="{'hidden': pageNo == pageLen}">Next  <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+              </div>
+            </div>
+          </div>
+        </ng-template>
 
     </div>
 
-    <!--Registered user content -->
-    <ng-template #registeredContent>
-      <div class="container">
-        <h4 class="registered-title">
-          <span *ngIf="userProfile">{{userProfile.first_name}}, </span>You can get
-          <strong>{{ scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and up to <strong>{{total_funding}}</strong> in funding</span>.
-        </h4>
-        <div class="row">
 
-          <div class="row">
-            <a style="cursor: pointer; font-size: x-large" (click)="showOnlyAutomated = !showOnlyAutomated; getScholarshipPreview(pageNo)">
-              <i class="material-icons automate-tag">tag_faces</i>
-              = Filter by Automated Scholarships.</a>
-
-            <p>
-              <a (click)="saveUserAnalytics('link_analytics',{link:'/search/international student', source:'scholarships_list', intent:'international_student_cta'})"
-                 routerLink="/search" [queryParams]="{q: 'international student', q_source:'international_student_cta'}">
-                International Student? See Your Scholarships</a>
-            </p>
-
-            <!--<a class="btn waves-effect waves-light" style="background-color:#4080ff; height: auto " (click)="showOnlyAutomated = !showOnlyAutomated; getScholarshipPreview(pageNo)">-->
-            <!--<i class="material-icons automate-tag">tag_faces</i>-->
-            <!--= Filter by Automated Scholarships.</a>-->
-            <!--<p class="text-align-center col s-3"><mat-icon svgIcon="plus-one"></mat-icon> = One-Click Scholarships.</p>-->
-
-            <a class=" col s8 offset-s2 waves-effect waves-light btn scholarship-btn" routerLink="/applications/demo">Try The Live Demo!</a>
-        </div>
-      </div>
-        <div class="row">
-
-          <div *ngFor="let scholarship of scholarships;  let i=index" class="col s12 m6 l4">
-              <app-scholarship-card [scholarship]="scholarship" [userProfile]="userProfile"></app-scholarship-card>
-          </div>
-
-        </div>
-        <div class="row nav-buttons">
-          <p class="text-align-center col s12">Are we missing a scholarship you want? You can easily <a routerLink="/add-scholarship" title="Add Scholarship">Add a Scholarship </a> to Atila or
-            <a href="https://docs.google.com/spreadsheets/d/13YshWzg38Au-tPkGyDfY4hJHGJDWl_7vUpXNXkf5afM/edit?usp=sharing"
-               target="_blank" title="Scholarship Spreadsheet">Tell us the link</a> and we'll automate it for you.</p>
-
-          <div class="col s12 center">
-            <a class="waves-effect waves-light btn scholarship-btn" (click)="previousPage()" [ngClass]="{'hidden': pageNo == '1'}"><i class="fa fa-caret-left" aria-hidden="true"></i>  Previous</a>
-            <button mat-button (click)="nextPage()" disabled="true">{{pageNo}}</button>
-            <a class="waves-effect waves-light btn scholarship-btn" (click)="nextPage()" [ngClass]="{'hidden': pageNo == pageLen}">Next  <i class="fa fa-caret-right" aria-hidden="true"></i></a>
-          </div>
-        </div>
-      </div>
-    </ng-template>
-
-</div>
+    </div>
 
 </div>
 

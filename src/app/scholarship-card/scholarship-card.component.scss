@@ -12,14 +12,23 @@ mat-card-content{
   height: 200px;
 }
 
-.mat-card-header{
-  height: 90px;
-  margin-bottom: 3%
+mat-card-title{
+  max-height: 3em;
+  overflow: hidden;
 }
-.mat-card-actions{
-  padding: 0px;
+
+mat-card-header{
+  height: 100px;
+  margin-bottom: 3%;
+  margin-left: -7%;
+  margin-right: -7%;
+}
+
+mat-card-actions{
+  padding: 0;
   height: 40px;
 }
+
 .scholarship-preview-count{
   opacity:0.75;
   //font-family:FuturaStd-Book;
@@ -31,6 +40,7 @@ mat-card-content{
 
 .registered-title{
   text-align: center;
+  max-height: 2.8em;
 }
 .mat-button{
   min-width: 65px;

@@ -39,7 +39,7 @@ export class PreviewResponse {
 })
 export class PreviewComponent implements OnInit, OnDestroy {
 
-  CITY_CHOICES = [
+    CITY_CHOICES = [
     'Milton',
     'Oakville',
     'Burlington',
@@ -47,16 +47,16 @@ export class PreviewComponent implements OnInit, OnDestroy {
     'Mississauga',
     'Brampton',
     'Other',
-   ]
+   ];
 
-  EDUCATION_LEVEL = [
+    EDUCATION_LEVEL = [
     'Secondary School',
     'University',
     'College',
     'Workplace or Apprenticeship',
-  ]
+  ];
 
-   EDUCATION_FIELD = [
+    EDUCATION_FIELD = [
        'Arts (Undergrad)',
        'STEM (Undergrad)',
        'Trade School',
@@ -67,22 +67,22 @@ export class PreviewComponent implements OnInit, OnDestroy {
        'Arts (Grad School)',
        'STEM (Grad School)',
        'Other'
-   ]
+   ];
 
 
-   model = new PreviewResponse({
+    model = new PreviewResponse({
     city: '',
     province: '',
     country: '',
     name: '',
     },[],[],'');
 
-   /**
+    /**
     * If the Google Places API is not working, only ask for city.
     */
     public locationPlaceHolder = 'City, Province or Country';
     public subscriber: any = {};
-   constructor(
+    constructor(
     public scholarshipService: ScholarshipService,
     public firebaseService: MyFirebaseService,
     public router: Router,
@@ -187,6 +187,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
     this.subscriber.preview_choices = this.model;
 
 
+    console.log()
     this.firebaseService.saveUserAnalytics(this.subscriber,'preview_scholarship')
       .then(res => {
         },
@@ -197,9 +198,9 @@ export class PreviewComponent implements OnInit, OnDestroy {
     this.googleAnalyticsEventService.emitEvent("userCategory", "previewAction", JSON.stringify(this.model.location), 1)
 
 
-    this.scholarshipService.setScholarshipPreviewForm(this.model).then(
+    this.scholarshipService.setScholarshipPreviewForm(this.model)
+      .then(
       res => this.router.navigate(['scholarships-list']))  //use promise to ensure that form is saved to Service before navigating away
-
 
 }
 

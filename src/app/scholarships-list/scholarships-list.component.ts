@@ -10,6 +10,7 @@ import {UserProfile} from '../_models/user-profile';
 import {SubscriberDialogComponent} from '../subscriber-dialog/subscriber-dialog.component';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {MyFirebaseService} from '../_services/myfirebase.service';
+import {prettifyKeys, toTitleCase} from '../_models/utils';
 @Component({
   selector: 'app-scholarships-list',
   templateUrl: './scholarships-list.component.html',
@@ -25,16 +26,19 @@ export class ScholarshipsListComponent implements OnInit {
   isLoading = true;
   userProfile: UserProfile;
 
+  sortTypes = [
+    {key:'relevance'}
+  ]
+
   scholarships: Scholarship[]; //TODO: If i use scholarship[] I can't access property members, why?
   scholarship_count: number = 0;
   total_funding: any = 0;
   show_scholarship_funding: boolean = false;
 
   pageNo: number = 1;
-  paginationLen: number = 12
+  paginationLen: number = 12;
   pageLen: number;
   subscriber: any = {};
-  showOnlyAutomated = false;
   constructor(
     public scholarshipService: ScholarshipService,
     public userProfileService: UserProfileService,
@@ -62,42 +66,37 @@ export class ScholarshipsListComponent implements OnInit {
           this.form_data = {
             'city': data.city,
             'education_level': data.education_level,
-            'education_field': data.education_field
-          }
+            'education_field': data.education_field,
+            'sort_by': 'relevance',
+          };
 
           this.getScholarshipPreview(this.pageNo);
         }
-      )} else {
+      )}
+
+    else {
       this.isLoggedIn = false;
       this.scholarshipService.getScholarshipPreviewForm()
       .then(
-        res => this.form_data = res,
+        res => {
+          this.form_data = res;
+        },
       )
       .then(
         res => this.getScholarshipPreview(),
       )
     }
+
   }
 
 
   getScholarshipPreview(page: number = 1){
 
+    console.log('this.form_data',this.form_data);
     if (this.form_data ) {
 
-      this.form_data['only_automated'] = this.showOnlyAutomated;
-
-      if (!this.isLoggedIn) {
-
-        this.form_data['only_automated'] = false;
-
-        let snackBarRef = this.snackBar.open("Register to Filter by Automation", 'Register', {
-          duration: 5000
-        });
-        snackBarRef.onAction().subscribe(
-          () => {
-            this.router.navigate(['/register']);
-          },
-        );
+      if (!this.form_data['sort_by']) {
+        this.form_data['sort_by'] = 'relevance';
       }
 
       this.scholarshipService.getPaginatedscholarships(this.form_data, page)
@@ -135,6 +134,9 @@ export class ScholarshipsListComponent implements OnInit {
     this.pageLen = Math.ceil(this.scholarship_count / this.paginationLen);
   }
 
+  prettifyKeys(str) {
+    return prettifyKeys(str);
+  }
   nextPage() {
     this.pageNo++;
     this.getScholarshipPreview(this.pageNo);
