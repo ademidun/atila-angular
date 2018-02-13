@@ -13,6 +13,7 @@ export class Scholarship {
     eligible_schools?: any;
     enrollment_proof_required?: any;
     extra_questions?: any;
+    extra_criteria?: any;
     form_url?: string;
     funding_amount?: number;
     funding_type?: string[];

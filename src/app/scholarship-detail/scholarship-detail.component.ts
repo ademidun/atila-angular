@@ -33,7 +33,7 @@ export class ScholarshipDetailComponent implements OnInit {
   appId: number;
   json = JSON;
   userProfile: UserProfile;
-
+  Object = Object;
   public reviews: any[];
   public reviewsLoaded: boolean = false;
   public scholarshipOwner;
