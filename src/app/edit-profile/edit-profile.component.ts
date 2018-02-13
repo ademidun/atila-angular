@@ -364,7 +364,6 @@ showSnackBar(text: string, action = '', duration: number) {
       )
   }
 
-
   toTitleCase(str) {
     return toTitleCase(str);
   }

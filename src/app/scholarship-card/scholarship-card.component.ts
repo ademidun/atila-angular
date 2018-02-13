@@ -33,8 +33,6 @@ export class ScholarshipCardComponent implements OnInit {
       }
     }
 
-    console.log('this.scholarship, this.scholarhsip.deadline',this.scholarship, this.scholarship.deadline);
-
     if ('2019-01-01T00:00:00Z' == this.scholarship.deadline) {
       this.scholarship['metadata']['deadline_tbd'] = 'TBD';
     }

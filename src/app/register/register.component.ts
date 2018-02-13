@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit {
     'Workplace or Apprenticeship',
   ]
 
-EDUCATION_FIELD = [
+  EDUCATION_FIELD = [
   'Arts (Undergrad)',
   'STEM (Undergrad)',
   'Trade School',
@@ -50,7 +50,7 @@ EDUCATION_FIELD = [
   'STEM (Grad School)',
   'Other'
 ]
-locationData = {
+  locationData = {
   'city': '',
   'province': '',
   'country': '',
@@ -104,6 +104,8 @@ locationData = {
     if (registerForm.valid) {
       this.disableRegistrationButton = true;
       let postOperation: Observable<any>;
+
+
       // Create a new User
       this.userProfile.major = this.topMajorControl.value;
       for (let key in ['city', 'province', 'country'] ) {
@@ -114,6 +116,7 @@ locationData = {
         userProfile: this.userProfile,
         locationData: this.locationData,
       };
+
 
       postOperation = this.userProfileService.createUserAndProfile(sendData);
       // Subscribe to Observable
@@ -279,7 +282,6 @@ locationData = {
 
 
   toTitleCase(str) {
-
     return toTitleCase(str);
   }
 
