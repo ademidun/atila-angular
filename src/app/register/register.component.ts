@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, NgForm, NgModel} from "@angular/forms";
+import {FormControl, FormGroup, NgForm, NgModel} from "@angular/forms";
 import { Router, RouterModule } from "@angular/router";
 
 import {MatAutocompleteSelectedEvent, MatSnackBar} from '@angular/material';
@@ -10,9 +10,10 @@ import { Observable } from 'rxjs/Observable';
 import { UserProfileService } from '../_services/user-profile.service';
 
 import { AuthService } from "../_services/auth.service";
-import {SCHOOLS_LIST, MAJORS_LIST} from '../_models/constants';
+import {SCHOOLS_DICT, MAJORS_DICT} from '../_models/constants';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
+import {AutoCompleteForm, initializeAutoCompleteOptions} from '../_shared/scholarship-form';
 
 @Component({
   selector: 'app-register',
@@ -70,6 +71,9 @@ export class RegisterComponent implements OnInit {
   myControl: FormControl = new FormControl();
   majorControl: FormControl = new FormControl();
   topMajorControl: FormControl = new FormControl();
+
+  autCompleteFormGroup: FormGroup;
+  autCompleteOptions: any;
   userProfile: UserProfile;
   constructor(
     public router: Router,
@@ -84,12 +88,20 @@ export class RegisterComponent implements OnInit {
     this.userProfile = new UserProfile();
 
 
-    this.schoolNames = SCHOOLS_LIST.map(school => school.name);
+    this.schoolNames = SCHOOLS_DICT.map(school => school.name);
 
-    if(MAJORS_LIST) {
-      this.majorNames = MAJORS_LIST.map(major => major.name);
+    if(MAJORS_DICT) {
+      this.majorNames = MAJORS_DICT.map(major => major.name);
     }
     this.initializeForm();
+
+    this.autCompleteFormGroup = AutoCompleteForm();
+
+
+    this.autCompleteOptions = initializeAutoCompleteOptions(this.autCompleteFormGroup);
+
+    console.log('this.autCompleteFormGroup',this.autCompleteFormGroup);
+    console.log('this.autCompleteOptions',this.autCompleteOptions);
   }
 
   registerUser(registerForm: NgForm) {
@@ -100,6 +112,13 @@ export class RegisterComponent implements OnInit {
     //   return;
     //
     // }
+
+    if (registerForm) {
+      console.log('this.userProfile', this.userProfile);
+
+      this.disableRegistrationButton = false;
+      return
+    }
 
     if (registerForm.valid) {
       this.disableRegistrationButton = true;
@@ -116,6 +135,7 @@ export class RegisterComponent implements OnInit {
         userProfile: this.userProfile,
         locationData: this.locationData,
       };
+
 
 
       postOperation = this.userProfileService.createUserAndProfile(sendData);
@@ -170,12 +190,17 @@ export class RegisterComponent implements OnInit {
 
   autoCompleteSelected(event?: Event | MatAutocompleteSelectedEvent | any, selectionType?: any, selectionValue?: any) {
 
+    if (event.childComponent) { //Check if this event was triggered by the inerited autocomponent
+
+      selectionType = event.selectionType;
+      event = event.event;
+    }
+
     if (selectionType) {
 
       if (selectionType == 'eligible_schools') {
         if (selectionValue) {
           this.userProfile.eligible_schools.push(selectionValue);
-          selectionValue = "";
         }
         else {
           this.userProfile.eligible_schools.push(event.option.value);
@@ -221,6 +246,8 @@ export class RegisterComponent implements OnInit {
           });
       });
       */
+
+    let formControl =  new FormControl();
 
     this.filteredOptions = this.myControl.valueChanges
       .pipe(

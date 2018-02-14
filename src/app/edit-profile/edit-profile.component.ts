@@ -24,7 +24,7 @@ import {FormControl} from '@angular/forms';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
 import {debounceTime} from 'rxjs/operators/debounceTime';
-import { SCHOOLS_LIST } from '../_models/constants';
+import { SCHOOLS_DICT } from '../_models/constants';
 import {ScholarshipService} from '../_services/scholarship.service';
 @Component({
   selector: 'app-edit-profile',
@@ -91,7 +91,7 @@ EDUCATION_FIELD = [
   ) {
     this.userName = route.snapshot.params['username'];
 
-    this.schoolNames = SCHOOLS_LIST.map(school => school.name);
+    this.schoolNames = SCHOOLS_DICT.map(school => school.name);
   }
 
   ngOnInit() {

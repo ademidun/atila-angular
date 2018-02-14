@@ -79,6 +79,7 @@ import "materialize-css";
 import { CardGenericComponent } from './card-generic/card-generic.component';
 import { TitleCasePipe } from './_pipes/title-case.pipe';
 import { MarkdownModule } from 'ngx-markdown';
+import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -118,7 +119,8 @@ import { MarkdownModule } from 'ngx-markdown';
     SearchComponent,
     DynamicQuestionGeneralComponent,
     CardGenericComponent,
-    TitleCasePipe
+    TitleCasePipe,
+    AutocompleteComponent
   ],
   imports: [
     NgbModule.forRoot(),

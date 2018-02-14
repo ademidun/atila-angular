@@ -123,7 +123,9 @@
 
               <mat-form-field class="col s12">
 
-                  <input tabindex="9" type="text" placeholder="Major e.g. Engineering, Biology, Business, Political Science" aria-label="Number" matInput [formControl]="topMajorControl" [matAutocomplete]="topMajor">
+                <p> What is your major?</p>
+                  <input tabindex="9" type="text" placeholder="Major e.g. Engineering, Biology, Business, Political Science"
+                         aria-label="Number" matInput [formControl]="topMajorControl" [matAutocomplete]="topMajor" [(ngModel)]="userProfile.major">
                   <mat-autocomplete #topMajor="matAutocomplete">
                     <mat-option *ngFor="let option of topFilteredMajors | async" [value]="option">
                       {{ option }}
@@ -134,6 +136,26 @@
                        <!--[(ngModel)]="userProfile.major" name="major">-->
               </mat-form-field>
 
+              <div class="col s12">
+                <p> What Other programs are you interested in?</p>
+                <table>
+                  <tr  *ngFor="let program of userProfile.eligible_programs; let i = index">
+                    <td> {{program}} </td>
+                    <td>
+                      <a class="waves-effect waves-light btn right" (click)="deleteArrayitem(userProfile.eligible_programs, i)">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+
+                <div class="col s12">
+                  <app-autocomplete [filteredOptions]="autCompleteOptions.eligible_programs" [formControl]="autCompleteFormGroup.controls.eligible_programs" (autoCompleteSelectedEmitter)="autoCompleteSelected($event)"
+                                    [metadata]="{'placeholder':'Major e.g. Engineering, Biology, Business, Political Science', 'key':'eligible_programs'}">
+                  </app-autocomplete>
+                </div>
+
+              </div>
                 <div class="col s12">
                   <p> What schools are you interested in?</p>
                   <table>
@@ -147,81 +169,16 @@
                     </tr>
                   </table>
 
-                  <mat-form-field class="example-full-width col s12">
-                    <input tabindex="9" #eligibleSchoolInput type="text" placeholder="Enter Schools" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="schools_auto"
-                           (keyup)="autoCompleteSelected($event)">
 
-
-                    <mat-autocomplete tabindex="9" style="min-width: 300px !important;" #schools_auto="matAutocomplete" class="autocomplete-custom-template"
-                                      (optionSelected)="autoCompleteSelected($event,'eligible_schools')" >
-                      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                        {{ option }}
-                      </mat-option>
-                    </mat-autocomplete>
-                  </mat-form-field>
-
+                  <div class="col s12">
+                    <app-autocomplete [filteredOptions]="autCompleteOptions.eligible_schools" [formControl]="autCompleteFormGroup.controls.eligible_schools" (autoCompleteSelectedEmitter)="autoCompleteSelected($event)"
+                                      [metadata]="{'placeholder':'Enter Schools', 'key':'eligible_schools'}">
+                    </app-autocomplete>
+                  </div>
                 </div>
-
-
-                <div class="col s12">
-                  <p> What Other programs are you interested in?</p>
-
-
-                  <table>
-                    <tr  *ngFor="let program of userProfile.eligible_programs; let i = index">
-                      <td> {{program}} </td>
-                      <td>
-                        <a class="waves-effect waves-light btn right" (click)="deleteArrayitem(userProfile.eligible_programs, i)">
-                          <i class="fa fa-trash-o" aria-hidden="true"></i>
-                        </a>
-                      </td>
-                    </tr>
-                  </table>
-
-                  <mat-form-field class="example-full-width col s12">
-                    <input tabindex="9" #eligibleMajorInput type="text" placeholder="Major e.g. Engineering, Biology, Business, Political Science" aria-label="Number" matInput [formControl]="majorControl" [matAutocomplete]="majors_auto"
-                           (keyup)="autoCompleteSelected($event)">
-
-
-                    <mat-autocomplete tabindex="9" style="min-width: 300px !important;" #majors_auto="matAutocomplete" class="autocomplete-custom-template"
-                                      (optionSelected)="autoCompleteSelected($event,'eligible_programs')" >
-                      <mat-option *ngFor="let option of filteredMajors | async" [value]="option">
-                        {{ option }}
-                      </mat-option>
-                    </mat-autocomplete>
-                  </mat-form-field>
-                <!--
-                  <table>
-                    <tr  *ngFor="let school of userProfile.eligible_programs; let i = index">
-                      <td> {{program}} </td>
-                      <td>
-                        <a class="waves-effect waves-light btn right" (click)="deleteArrayitem(userProfile.eligible_programs, i)">
-                          <i class="fa fa-trash-o" aria-hidden="true"></i>
-                        </a>
-                      </td>
-                    </tr>
-                  </table>
-
-                  <mat-form-field class="example-full-width">
-                    <input #eligibleProgramInput  class="browser-default" matInput id="eligible_programs" name="eligible_programs"
-                           placeholder="E.g. Health Science, Engineering, Business, Law School etc." (keyup)="0">
-                    <button class="waves-effect waves-light btn center" (click)="autoCompleteSelected($event, 'eligible_programs',eligibleProgramInput.value)">
-                      <i class="fa fa-plus" aria-hidden="true"></i>
-                    </button>
-                  </mat-form-field>
-
-                  -->
-
-                </div>
-
-
-
             </div>
 
             <div class="row">
-              <!--<mat-checkbox class="col s12" [(ngModel)]="isAgreeTerms" name="isAgreeTerms">-->
-              <!--I agree to the <a  routerLink="/terms-and-conditions">Terms and Conditions</a>.-->
-              <!--</mat-checkbox>-->
               By clicking register you agree to the <a routerLink="/terms-and-conditions">Terms and Conditions</a>.
             </div>
             <div>
