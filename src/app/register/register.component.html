@@ -125,9 +125,9 @@
 
                 <p> What is your major?</p>
                   <input tabindex="9" type="text" placeholder="Major e.g. Engineering, Biology, Business, Political Science"
-                         aria-label="Number" matInput [formControl]="topMajorControl" [matAutocomplete]="topMajor" [(ngModel)]="userProfile.major">
+                         aria-label="Number" matInput [formControl]="autCompleteFormGroup.controls.major" [matAutocomplete]="topMajor" [(ngModel)]="userProfile.major">
                   <mat-autocomplete #topMajor="matAutocomplete">
-                    <mat-option *ngFor="let option of topFilteredMajors | async" [value]="option">
+                    <mat-option *ngFor="let option of autCompleteOptions.major | async" [value]="option">
                       {{ option }}
                     </mat-option>
                   </mat-autocomplete>

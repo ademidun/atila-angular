@@ -26,8 +26,6 @@ export  function AutoCompleteForm() {
     ethnicity: new FormControl(),
   });
 
-  console.log('formGroup',formGroup);
-
   return formGroup;
 
 }

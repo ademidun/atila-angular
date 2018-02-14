@@ -99,9 +99,6 @@ export class RegisterComponent implements OnInit {
 
 
     this.autCompleteOptions = initializeAutoCompleteOptions(this.autCompleteFormGroup);
-
-    console.log('this.autCompleteFormGroup',this.autCompleteFormGroup);
-    console.log('this.autCompleteOptions',this.autCompleteOptions);
   }
 
   registerUser(registerForm: NgForm) {
@@ -112,13 +109,6 @@ export class RegisterComponent implements OnInit {
     //   return;
     //
     // }
-
-    if (registerForm) {
-      console.log('this.userProfile', this.userProfile);
-
-      this.disableRegistrationButton = false;
-      return
-    }
 
     if (registerForm.valid) {
       this.disableRegistrationButton = true;
@@ -248,12 +238,6 @@ export class RegisterComponent implements OnInit {
       */
 
     let formControl =  new FormControl();
-
-    this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(val => this.filterUserInput(val,'school'))
-      );
 
     this.filteredMajors = this.majorControl.valueChanges
       .pipe(
