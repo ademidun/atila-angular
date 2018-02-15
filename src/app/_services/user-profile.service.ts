@@ -139,14 +139,14 @@ export class UserProfileService {
           key: 'first_name',
           type: '',
           label: '',
-          class_data: 'special col s6',
+          class_data: 'special col-sm-6',
           order:1,
         },
         {
           key: 'last_name',
           type: '',
           label: '',
-          class_data: 'col s6',
+          class_data: 'col-sm-6',
           order: 2,
         },
         {

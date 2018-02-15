@@ -28,7 +28,7 @@
 
             </div>
             <br>
-            <form   [formGroup]="profileForm"  class="col s12">
+            <form   [formGroup]="profileForm"  class="col-sm-12">
               <h4>General Info</h4>
               <div class="row">
                 <div *ngFor="let question of userProfileDynamicQuestions" >
@@ -43,50 +43,50 @@
 
             <div class="row">
               <span  *ngIf="scholarship.resume_required" >
-              <div class="col s12">
+              <div class="col-sm-12">
                   <label>Change Resume</label>
                 <input class="browser-default" id="resume" type="file" placeholder="Resume"
                   name="resume" (change)="fileChangeEvent($event)">
               </div>
 
-              <div *ngIf="userProfile.resume" class="col s12">
+              <div *ngIf="userProfile.resume" class="col-sm-12">
                   <a class="scholarship-document" name="resume" target="_blank" href="{{userProfile.resume}}"> View Resume </a>
               </div>
 
               </span>
               <span  *ngIf="scholarship.transcript_required" >
-              <div class="col s12">
+              <div class="col-sm-12">
                   <label>Upload Transcript</label>
                   <input class="browser-default" id="transcript" type="file" placeholder="Transcript"
                     name="transcript" (change)="fileChangeEvent($event)">
                 </div>
 
-              <div *ngIf="userProfile.transcript" class="col s12">
+              <div *ngIf="userProfile.transcript" class="col-sm-12">
                   <!-- Why does this element have so many attributes? TODO: Can we remove them? -->
                   <a  class="scholarship-document"  name="transcript" [attr.data-question-type]="scholarshipDocument" [attr.data-questionkey]="transcript" data-questionkey="transcript" attr.data-questionkey="transcript" target="_blank" href="{{userProfile.transcript}}"> View Transcript </a>
               </div>
               </span>
               <span  *ngIf="scholarship.cover_letter_required" >
-              <div class="col s12">
+              <div class="col-sm-12">
                   <label>Upload Cover Letter</label>
                   <input class="browser-default" id="cover_letter" type="file" placeholder="Cover Letter"
                     name="cover_letter" (change)="fileChangeEvent($event)">
                 </div>
 
-              <div *ngIf="userProfile.cover_letter" class="col s12">
+              <div *ngIf="userProfile.cover_letter" class="col-sm-12">
                   <!-- Why does this element have so many attributes? TODO: Can we remove them? -->
                   <a  class="scholarship-document"  name="cover_letter" [attr.data-question-type]="scholarshipDocument" [attr.data-questionkey]="cover_letter"
                       data-questionkey="cover_letter" attr.data-questionkey="cover_letter" target="_blank" href="{{userProfile.cover_letter}}"> View Cover Letter </a>
               </div>
               </span>
               <span  *ngIf="scholarship.enrollment_proof_required" >
-              <div class="col s12">
+              <div class="col-sm-12">
                   <label>Upload Enrollment Proof</label>
                   <input class="browser-default" id="enrollment_proof" type="file" placeholder="Enrollment Proof"
                     name="enrollment_proof" (change)="fileChangeEvent($event)">
                 </div>
 
-              <div *ngIf="userProfile.enrollment_proof" class="col s12">
+              <div *ngIf="userProfile.enrollment_proof" class="col-sm-12">
                   <!-- Why does this element have so many attributes? TODO: Can we remove them? -->
                   <a  class="scholarship-document"  name="enrollment_proof" [attr.data-question-type]="scholarshipDocument"
                       [attr.data-questionkey]="enrollment_proof"
@@ -98,24 +98,24 @@
             </div>
             <div class="row"  *ngIf="scholarship.reference_letter_required>0">
               <span  *ngIf="scholarship.reference_letter_required>0" >
-                <div class="col s12">
+                <div class="col-sm-12">
                    <label>Upload Reference Letter </label>
                   <input class="browser-default" id="reference_letter" type="file" placeholder="Reference Letter"
                     name="reference_letter" (change)="fileChangeEvent($event)">
                 </div>
 
-                <div *ngIf="userProfile.reference_letter" class="col s12">
+                <div *ngIf="userProfile.reference_letter" class="col-sm-12">
                     <a  class="scholarship-document" name="reference_letter" [attr.data-question-type]="scholarshipDocument" [attr.data-question-key]="reference_letter" data-question-key="reference_letter"  target="_blank" href="{{userProfile.reference_letter}}"> View Reference Letter </a>
                 </div>
               </span>
               <span *ngIf="scholarship.reference_letter_required>1" >
-                <div class="col s12">
+                <div class="col-sm-12">
                     <label>Upload Alternate Reference Letter</label>
                    <input class="browser-default" id="reference_letter_alternate" type="file" placeholder="Alternate Reference Letter"
                      name="reference_letter_alternate" (change)="fileChangeEvent($event)">
                  </div>
 
-                <div *ngIf="userProfile.reference_letter_alternate" class="col s12">
+                <div *ngIf="userProfile.reference_letter_alternate" class="col-sm-12">
                     <a  class="scholarship-document" name="reference_letter_alternate" [attr.data-question-type]="scholarshipDocument" [attr.data-question-key]="reference_letter_alternate" data-question-key="reference_letter_alternate"  target="_blank" href="{{userProfile.reference_letter_alternate}}"> View Alternate Reference Letter </a>
                 </div>
               </span>

@@ -3,22 +3,22 @@
 <div mat-dialog-content>
   <form #questionForm="ngForm">
     <div class="row">
-      <mat-form-field class="col s11 input-wrapper">
+      <mat-form-field class="col-sm-11 input-wrapper">
       <mat-select [(ngModel)]="question.type" name="type" id="type" required placeholder="Question Type">
         <mat-option *ngFor="let type of TYPE_CHOICES" [value]="type.value">{{type.name}} </mat-option>
       </mat-select>
       </mat-form-field>
-      <mat-form-field class="col s11 input-wrapper">
+      <mat-form-field class="col-sm-11 input-wrapper">
         <input class="browser-default" matInput id="label" type="text" required placeholder="Question" [(ngModel)]="question.label" name="label">
       </mat-form-field>
-      <mat-form-field class="col s11 input-wrapper">
+      <mat-form-field class="col-sm-11 input-wrapper">
         <input class="browser-default" matInput id="key" type="text" required placeholder="Key" [(ngModel)]="question.key" name="key">
       </mat-form-field>
-      <mat-form-field class="col s11 input-wrapper">
+      <mat-form-field class="col-sm-11 input-wrapper">
         <input class="browser-default" matInput id="link" type="text" placeholder="Link (optional)" [(ngModel)]="question.link" name="link">
       </mat-form-field>
         <!--<mat-checkbox [(ngModel)]="question.required" name="required">Is this question mandatory?</mat-checkbox>-->
-      <div class="col s11 input-wrapper">
+      <div class="col-sm-11 input-wrapper">
         <input [(ngModel)]="question.required" name="required" id="required" type="checkbox">
         <label for="required">Is this question mandatory?</label>
       </div>

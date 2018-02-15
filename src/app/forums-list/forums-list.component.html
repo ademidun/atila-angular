@@ -1,11 +1,11 @@
 
-<div class="container">
+<div class="container row">
 
   <div class="row">
-    <h4 style="text-align: center;">Forums</h4>
 
-    <div class="col s12 m8 offset-m2 forum-box">
+    <div class="col-sm-12 col-md-8 offset-md-2 forum-box">
 
+      <h4 style="text-align: center;">Forums</h4>
       <div class="card forum-card">
         <div class="card-content ">
           <input *ngIf="newForum" id="forum_title" placeholder="Title" [(ngModel)]="newForum.title">
@@ -19,7 +19,7 @@
 
 
     </div>
-    <div *ngFor="let forum of forums; let i = index" class="col s12 m8 offset-m2 forum-box" style="font-size: larger">
+    <div *ngFor="let forum of forums; let i = index" class="col-sm-12 col-md-8 offset-md-2 forum-box" style="font-size: larger">
 
       <div class="card ">
         <div class="card-content ">

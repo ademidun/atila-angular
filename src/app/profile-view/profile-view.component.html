@@ -7,17 +7,17 @@
 
       <mat-card-header class="row">
         <!-- NOTE Mat card header text is hidden in css -->
-        <!--<div class="col offset-l2 offset-m4 offset-s2 header-image" mat-card-avatar-->
+        <!--<div class="col offset-l2 offset-md-4 offset-s2 header-image" mat-card-avatar-->
              <!--[ngStyle]="{ 'background-image': 'url( '+ userProfile.profile_pic_url +' )' }">-->
              <!--&lt;!&ndash;*ngIf="profile_pic_url" [style.background]="profile_pic_url">&ndash;&gt;-->
 
         <!--</div>-->
-        <img class="col offset-l2 offset-m4 offset-s2 header-image" mat-card-avatar [src]="userProfile.profile_pic_url">
+        <img class="col offset-l2 offset-md-4 offset-s2 header-image" mat-card-avatar [src]="userProfile.profile_pic_url">
 
       <div >
         <!--Show the profile info, IN the header on regular devices.-->
         <span class="hide-on-med-and-down">
-        <div class="col offset-l3-5 offset-m4 " style="margin-left:5%">
+        <div class="col offset-l3-5 offset-md-4 " style="margin-left:5%">
           <mat-card-title><h4>{{userProfile.first_name}} {{userProfile.last_name}}</h4></mat-card-title>
           <mat-card-subtitle class="title"><h5>{{userProfile.title}}</h5></mat-card-subtitle>
           <mat-card-subtitle *ngIf="userProfile.post_secondary_school" class="title"><h5>{{userProfile.post_secondary_school}}</h5></mat-card-subtitle>
@@ -43,7 +43,7 @@
         <!--Show the profile info, after photo on mobile devices.-->
         <span class="hide-on-large-only">
           <div class="row">
-        <div class="col offset-l3-5 offset-m4 " style="margin-left:10%">
+        <div class="col offset-l3-5 offset-md-4 " style="margin-left:10%">
           <mat-card-title><h4>{{userProfile.first_name}} {{userProfile.last_name}}</h4></mat-card-title>
           <mat-card-subtitle class="title"><h5>{{userProfile.title}}</h5></mat-card-subtitle>
           <mat-card-subtitle *ngIf="userProfile.post_secondary_school" class="title"><h5>{{userProfile.post_secondary_school}}</h5></mat-card-subtitle>
@@ -80,11 +80,11 @@
           </div>
         </nav>
 
-        <div id="test1" class="col s12">
+        <div id="test1" class="col-sm-12">
           <form *ngIf="profileOwner" #profileForm="ngForm">
             <h4>Edit <span *ngIf="userProfile.first_name">{{userProfile.first_name}}'s</span> Profile</h4>
             <div class="row">
-              <div class="col s6">
+              <div class="col-sm-6">
                 <label>Upload your Profile Picture</label>
                 <input class="browser-default" id="profile_pic_url" type="file" placeholder="Upload your Profile Picture"
                        #uploadPicInput name="profile_pic_url">
@@ -92,27 +92,27 @@
 
               <mat-progress-bar style="margin-bottom: 1%;" *ngIf="uploadProgress" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
 
-              <div class="col s6">
+              <div class="col-sm-6">
                 <button mat-raised-button class="btn white-text" (click)="uploadProfilePic(uploadPicInput)">Upload</button>
               </div>
 
             </div>
 
             <div class="row">
-              <mat-form-field class="col s12">
+              <mat-form-field class="col-sm-12">
                 <label>Profile Headline</label>
                 <input class="browser-default" matInput id="title" type="text" placeholder="e.g. Computer Engineering Student"
                        [(ngModel)]="userProfile.title" name="title">
               </mat-form-field>
             </div>
             <div class="row">
-              <mat-form-field class="col s12">
+              <mat-form-field class="col-sm-12">
                 <input class="browser-default" matInput id="post_secondary_school" type="text" placeholder="University/College Name or Apprenticesip Program"
                        [(ngModel)]="userProfile.post_secondary_school" name="post_secondary_school">
               </mat-form-field>
             </div>
             <div class="row">
-              <mat-form-field class="col s12">
+              <mat-form-field class="col-sm-12">
                 <input class="browser-default" matInput id="secondary_school" type="text" placeholder="Secondary School"
                        [(ngModel)]="userProfile.secondary_school" name="secondary_school">
               </mat-form-field>
@@ -121,11 +121,11 @@
 
             <div class="row">
               <p>You can add a custom link to your account</p>
-              <mat-form-field class="col s12">
+              <mat-form-field class="col-sm-12">
                 <input class="browser-default" matInput id="profile_link_name" type="text" placeholder="E.g. My Resume, My LinkedIn, My Website"
                        [(ngModel)]="userProfile['metadata']['profile_link_name']" name="profile_link_name">
               </mat-form-field>
-              <mat-form-field class="col s12">
+              <mat-form-field class="col-sm-12">
                 <input class="browser-default" matInput id="profile_link_url" type="text" placeholder=" e.g. https://mywebsite.com"
                        [(ngModel)]="userProfile['metadata']['profile_link_url']" name="profile_link_url">
               </mat-form-field>
@@ -138,7 +138,7 @@
         </div>
 
 
-        <div id="test2" class="col s12">
+        <div id="test2" class="col-sm-12">
           <table style="width:100%">
             <tr style="border-bottom-style: inset">
               <th>Name</th>
@@ -158,7 +158,7 @@
               <span class="hide-on-med-and-up">
 
                   <br>
-                  <a (click)="saveMyAtila('scholarship',scholarship, i)" class="col s12">
+                  <a (click)="saveMyAtila('scholarship',scholarship, i)" class="col-sm-12">
                     <i class="material-icons ">save</i>
                   </a>
 
@@ -166,7 +166,7 @@
             </tr>
           </table>
         </div>
-        <div id="test3" class="col s12">
+        <div id="test3" class="col-sm-12">
           <table style="width:100%">
             <tr style="border-bottom-style: inset">
               <th>Name</th>
@@ -187,7 +187,7 @@
                 <span class="hide-on-med-and-up">
 
                   <br>
-                  <a (click)="saveMyAtila('application',application, i)" class="col s12">
+                  <a (click)="saveMyAtila('application',application, i)" class="col-sm-12">
                     <i class="material-icons ">save</i>
                   </a>
 

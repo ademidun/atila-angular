@@ -1,13 +1,15 @@
 <div class="container">
-    <div *ngIf="blogPost"  class="row">
+    <div *ngIf="blogPost">
 
-            <h3 style="text-align: center; "> {{blogPost.title}} </h3>
+            <span class="col-sm-12">
+              <h3 style="text-align: center; "> {{blogPost.title}} </h3>
+            </span>
 
-            <div class="col m8  offset-m2  l8 offset-l2 s11">
+            <div class="col-sm-12 col-md-8  offset-md-2">
                 <a *ngIf="userProfile && userProfile.user==blogPost.user.id" [routerLink]="[ '/edit-blog-post', blogPost.id ]">Edit Blog</a>
-                <img src="{{blogPost.header_image_url}}" style="max-height: 100%;max-width: 100%;"/>
+                <img src="{{blogPost.header_image_url}}" style="max-height: 100%;max-width: 100%; margin-left: 20%"/>
 
-
+              <hr>
                 <button mat-mini-fab style="background-color: transparent" [disabled]="blogPost['alreadyLiked']" (click)="likeContent(blogPost)" >
                   <mat-icon class="material-icons interactive-icon md-36"  [ngStyle]="{'color': blogPost.alreadyLiked ? '#4080FF' : 'gray'}"
                             svgIcon="thumb-up-outline" aria-label="Like Blog"></mat-icon>
@@ -17,8 +19,7 @@
 
             </div>
 
-
-    <div class="col s11 comment-box">
+    <div class="col-sm-11 comment-box">
         <h5 > Comments </h5>
 
                 <mat-card class="comment-card">

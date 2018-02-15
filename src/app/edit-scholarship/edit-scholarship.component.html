@@ -2,13 +2,13 @@
     <div class="card">
         <div class="row">
             <div class="card-content">
-                <form *ngIf="scholarship" #scholarshipForm="ngForm" class="col s12">
+                <form *ngIf="scholarship" #scholarshipForm="ngForm" class="col-sm-12">
                     <h4>Edit Scholarship</h4>
                     <h4>{{scholarship.name}}</h4>
                     <div *ngIf="pageNo==1">
                         <h5>General Information {{pageNo}}/3</h5>
                         <div class="row">
-                            <mat-form-field class="col s12">
+                            <mat-form-field class="col-sm-12">
                                 <input class="browser-default" matInput id="name" type="text" required placeholder="Scholarship Name" [(ngModel)]="scholarship.name" name="name" disabled>
                             </mat-form-field>
                         </div>
@@ -19,32 +19,32 @@
                             required placeholder="Description" [(ngModel)]="scholarship.description" name="description"></textarea>
                         </div>
                         <div class="row">
-                            <mat-form-field class="col s12">
+                            <mat-form-field class="col-sm-12">
                                 <input class="browser-default" matInput id="scholarship_url" type=url placeholder="Schlarship URL" [(ngModel)]="scholarship.scholarship_url" name="scholarship_url">
                             </mat-form-field>
                         </div>
                         <div class="row">
-                            <mat-form-field class="col s12">
+                            <mat-form-field class="col-sm-12">
                                 <input class="browser-default" matInput id="form_url" type=url placeholder="Form URL" [(ngModel)]="scholarship.form_url" name="form_url">
                             </mat-form-field>
                         </div>
                         <div class="row">
-                            <mat-form-field class="col s12">
+                            <mat-form-field class="col-sm-12">
                                 <input class="browser-default" matInput id="img_url" type=url placeholder="Scholarship Image URL" [(ngModel)]="scholarship.img_url" name="img_url">
                             </mat-form-field>
                         </div>
                         <div class="row">
-                            <mat-form-field class="col s12">
+                            <mat-form-field class="col-sm-12">
                                 <input class="browser-default" matInput id="funding_amount" type="number" placeholder="Funding Amount" [(ngModel)]="scholarship.funding_amount" name="funding_amount">
                             </mat-form-field>
                         </div>
                         <div class="row">
-                            <mat-form-field class="col s12">
+                            <mat-form-field class="col-sm-12">
                                 <input class="browser-default" matInput id="number_available_scholarships" type="number" placeholder="Number of Available Scholarships" [(ngModel)]="scholarship.number_available_scholarships" name="number_available_scholarships" value="1">
                             </mat-form-field>
                         </div>
                         <div class="row">
-                            <mat-form-field class="col s6">
+                            <mat-form-field class="col-sm-6">
                               <label>Deadline</label>
                               <br/>
                               <input class="browser-default" matInput id="deadline" type="datetime-local" required
@@ -52,7 +52,7 @@
                             </mat-form-field>
 
 
-                          <span *ngIf="scholarship.deadline" class="col s6">
+                          <span *ngIf="scholarship.deadline" class="col-sm-6">
                             <!-- TODO: Wrong time zone offset on deadline -->
                               Deadline: {{ scholarship.deadline | date:'fullDate' }} {{ scholarship.deadline | date:'shortTime' }}
                               <br>
@@ -67,7 +67,7 @@
                         {{ myJson.stringify(cities) }}
                         <br>
                         <div class="row">
-                            <div class="col s12 location-input-row">
+                            <div class="col-sm-12 location-input-row">
 
                             <label> Add a country </label>
                                 <div *ngFor="let country of countries; let i=index; trackBy:trackByFn">
@@ -80,17 +80,17 @@
                             </div>
 
 
-                            <div class="col s12 location-input-row">
+                            <div class="col-sm-12 location-input-row">
 
                             <label> Select a Country, THEN click add a Province/State </label>
                                 <!-- https://stackoverflow.com/questions/33700266/how-can-i-get-new-selection-in-select-in-angular-2 -->
                                 <div *ngFor="let province of provinces; let i=index; trackBy:trackByFn">
                                     <div class="input-field">
-                                            <mat-select class="col s6" (change)="setActiveLocation($event, 'country')"  name="country-dropdown" id="country-dropdown" multiple=false placeholder="Country">
+                                            <mat-select class="col-sm-6" (change)="setActiveLocation($event, 'country')"  name="country-dropdown" id="country-dropdown" multiple=false placeholder="Country">
                                                 <mat-option *ngFor="let country of countries" [value]="country.country">{{country.country}} </mat-option>
                                             </mat-select>
                                     </div>
-                                        <div class="col s6">
+                                        <div class="col-sm-6">
                                             <input [value]="province.province" type="text" (change)='editLocation(i, "provinces", $event)'/><br/>
                                             <button class="btn location-btn" (click)="removeLocation(i,'provinces',province)">Remove Province<i class="material-icons md-light">add_circle_outline</i></button>
                                             </div>
@@ -101,17 +101,17 @@
 
                             </div>
 
-                            <div class="col s12 location-input-row">
+                            <div class="col-sm-12 location-input-row">
                             <label> Select a Province/State, THEN click Add City</label>
                                 <!-- https://stackoverflow.com/questions/33700266/how-can-i-get-new-selection-in-select-in-angular-2 -->
 
-                                <div *ngFor="let city of cities; let i=index; trackBy:trackByFn" class="col s12">
+                                <div *ngFor="let city of cities; let i=index; trackBy:trackByFn" class="col-sm-12">
                                     <div class="input-field">
-                                            <mat-select class="col s6" (change)="setActiveLocation($event, 'province')"  name="province-dropdown" id="province-dropdown" multiple=false placeholder="province">
+                                            <mat-select class="col-sm-6" (change)="setActiveLocation($event, 'province')"  name="province-dropdown" id="province-dropdown" multiple=false placeholder="province">
                                                 <mat-option *ngFor="let province of provinces" [value]="province.province">{{province.province}} </mat-option>
                                             </mat-select>
                                     </div>
-                                        <div class="col s6">
+                                        <div class="col-sm-6">
                                             <input [value]="city.city" type="text" (change)='editLocation(i, "cities", $event)'/><br/>
                                             <button class="btn location-btn" (click)="removeLocation(i,'cities',city)">Remove city<i class="material-icons md-light">add_circle_outline</i></button>
                                         </div>
@@ -123,17 +123,17 @@
                             </div>
 
                             <!-- <div class="row">
-                                        <mat-form-field class="col s12">
+                                        <mat-form-field class="col-sm-12">
                                             <input class="browser-default" type="text" matInput [(ngModel)]="this.stringDict['city']" name="city" id="city" placeholder="City" value="Any" (change)="stringInputToArray($event)">
                                         </mat-form-field>
                                     </div>
                                     <div class="row">
-                                        <mat-form-field class="col s12">
+                                        <mat-form-field class="col-sm-12">
                                             <input class="browser-default" type="text" matInput [(ngModel)]="this.stringDict.province" name="province" id="province" placeholder="Province or State" (change)="stringInputToArray($event)">
                                         </mat-form-field>
                                     </div>
                                     <div class="row">
-                                        <mat-form-field class="col s12">
+                                        <mat-form-field class="col-sm-12">
                                             <input class="browser-default" type="text" matInput [(ngModel)]="this.stringDict['elgible_schools']" name="country" id="country" placeholder="Country" (change)="stringInputToArray($event)">
                                         </mat-form-field>
                                     </div>
@@ -144,7 +144,7 @@
                         <br>
                         <div class="row">
                             <div class="input-field">
-                                <mat-select class="col s12" [(ngModel)]="scholarship.funding_type" name="funding_type" id="funding_type" multiple=true placeholder="Funding Type">
+                                <mat-select class="col-sm-12" [(ngModel)]="scholarship.funding_type" name="funding_type" id="funding_type" multiple=true placeholder="Funding Type">
                                     <mat-option *ngFor="let type of FUNDING_TYPES" [value]="type">{{type}} </mat-option>
                                 </mat-select>
                             </div>
@@ -152,7 +152,7 @@
                         <br>
                         <div class="row">
                             <div class="input-field">
-                                <mat-select class="col s12" [(ngModel)]="scholarship.education_level" name="education_level" id="education_level" multiple=true placeholder="Education Level">
+                                <mat-select class="col-sm-12" [(ngModel)]="scholarship.education_level" name="education_level" id="education_level" multiple=true placeholder="Education Level">
                                     <mat-option *ngFor="let education_level of EDUCATION_LEVELS" [value]="education_level">{{education_level}} </mat-option>
                                 </mat-select>
                             </div>
@@ -160,7 +160,7 @@
                         <br>
                         <div class="row">
                             <div class="input-field">
-                                <mat-select class="col s12" [(ngModel)]="scholarship.education_field" name="education_field" id="education_field" multiple=true required placeholder="Education Field">
+                                <mat-select class="col-sm-12" [(ngModel)]="scholarship.education_field" name="education_field" id="education_field" multiple=true required placeholder="Education Field">
                                     <mat-option *ngFor="let education_field of EDUCATION_FIELDS" [value]="education_field">{{education_field}} </mat-option>
                                 </mat-select>
                             </div>
@@ -175,14 +175,14 @@
                         <h5>General Information {{pageNo}}/3</h5>
 
                         <div class="row">
-                                <div class="col s12">
+                                <div class="col-sm-12">
                                     <input class="browser-default" id="is_automated" type="checkbox" [(ngModel)]="scholarship.is_automated" name="is_automated">
                                     <label for="is_automated" data-error="Invalid input">Can this form be automated by Atila?<a> What is an automatable form?</a></label>
                                 </div>
                         </div>
                         <div class="row">
                             <div class="input-field">
-                                <mat-select class="col s12" [(ngModel)]="scholarship.submission_info.application_form_type" name="application_form_type" id="application_form_type" placeholder="Application Form Type">
+                                <mat-select class="col-sm-12" [(ngModel)]="scholarship.submission_info.application_form_type" name="application_form_type" id="application_form_type" placeholder="Application Form Type">
                                     <mat-option *ngFor="let type of APPLICATION_FORM_TYPES" [value]="type">{{type}} </mat-option>
                                 </mat-select>
                             </div>
@@ -190,31 +190,31 @@
                         </div>
 
                         <div class="row">
-                            <mat-form-field class="col s12">
+                            <mat-form-field class="col-sm-12">
                                 <label>Is the scholarship restricted to students attending certain schools?</label>
                                 <input class="browser-default" type="text" matInput [(ngModel)]="this.stringDict.eligible_schools" name="eligible_schools" id="eligible_schools" placeholder="Eligible Schools" (change)="stringInputToArray($event)">
                             </mat-form-field>
                         </div>
                         <div class="row">
-                            <div class="col s12">
+                            <div class="col-sm-12">
                                 <input class="browser-default" id="resume_required" type="checkbox" [(ngModel)]="scholarship.resume_required" name="resume_required">
                                 <label for="resume_required" data-error="Invalid input">Resume required?</label>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col s12">
+                            <div class="col-sm-12">
                                 <input class="browser-default" id="transcript_required" type="checkbox" [(ngModel)]="scholarship.transcript_required" name="transcript_required">
                                 <label for="transcript_required" data-error="Invalid input">Transcript required?</label>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col s12">
+                            <div class="col-sm-12">
                                 <input class="browser-default" id="enrollment_proof_required" type="checkbox" [(ngModel)]="scholarship.enrollment_proof_required" name="enrollment_proof_required">
                                 <label for="enrollment_proof_required" data-error="Invalid input">Proof of Enrollment required?</label>
                             </div>
                         </div>
                         <div class="row">
-                            <mat-form-field class="col s12">
+                            <mat-form-field class="col-sm-12">
                                 <input class="browser-default" matInput id="reference_letter_required" type="number" [(ngModel)]="scholarship.reference_letter_required" name="reference_letter_required">
                                 <label for="reference_letter_required" data-error="Invalid input">Number of reference letters required? (Leave as 0 if reference letter is not required.)</label>
                             </mat-form-field>
@@ -224,7 +224,7 @@
                               <textarea  class="browser-default" matInput id="criteria_info" type="text" placeholder="Criteria Description" [(ngModel)]="scholarship.criteria_info" name="criteria_info"></textarea>
                         </div>
                         <div *ngIf="showFormUpload"class="row">
-                                <div class="col s3">
+                                <div class="col-sm-3">
                                     <span *ngIf="scholarship.form_url">
                                             <label>Change application form</label>
                                     </span>
@@ -233,25 +233,25 @@
                                     </span>
                                     <input class="browser-default" id="user_img_file" type="file" placeholder="Profile Picture" [(ngModel)]="scholarship.user_img_file" name="user_img_file" (change)="scholarshipAppFormChangeEvent($event)">
                                 </div>
-                                <div class="col s3">
+                                <div class="col-sm-3">
                                     <button mat-raised-button class="btn white-text" (click)="uploadScholarshipAppForm()">Upload</button>
                                 </div>
 
-                                <!-- <div class="col s6">
+                                <!-- <div class="col-sm-6">
                                         <input class="browser-default" matInput id="form_url" type="text" minlength="2" placeholder="Scholarship Form Url"
                                           [(ngModel)]="scholarship.form_url" name="form_url">
                                 </div> -->
-                                <!-- <div *ngIf="uploadFile" class="col s6">
+                                <!-- <div *ngIf="uploadFile" class="col-sm-6">
                                 {{uploadFile.name}} {{uploadResponse}} {{scholarship.form_url}}
                                 </div>  -->
 
-                                <div *ngIf="scholarship.form_url" class="col s4">
+                                <div *ngIf="scholarship.form_url" class="col-sm-4">
                                         <a target="_blank" href="{{scholarship.form_url}}">View Current Application</a>
                                 </div>
                                 <a routerLink="/scholarships-list">Skip</a>
                             </div>
                         <div class="row">
-                            <div class="col s12">
+                            <div class="col-sm-12">
                                 <a class="waves-effect waves-light btn left" (click)="back()">Back</a>
                                 <a class="waves-effect waves-light btn left"  style="margin-left: 5%;"(click)="saveScholarshipEdit(scholarshipForm)">Save</a>
                                 <a class="waves-effect waves-light btn right" (click)="next()">Next</a>
@@ -263,13 +263,13 @@
                         <h5>Application Questions{{pageNo}}/3</h5>
                         <ol *ngIf="scholarship.extra_questions">
                             <li *ngFor="let question of generateArray(scholarship.extra_questions);let i = index" class="questions row">
-                                <div class="col s3">Type: {{question.controlType}}
+                                <div class="col-sm-3">Type: {{question.controlType}}
                                   </div>
-                                <div class="col s3">Question: {{question.label}}
+                                <div class="col-sm-3">Question: {{question.label}}
                                   </div>
-                                <div class="col s3">Key: {{question.key}}
+                                <div class="col-sm-3">Key: {{question.key}}
                                 </div>
-                                <div class="col s3">
+                                <div class="col-sm-3">
                                     <a class="waves-effect waves-light btn left" (click)="edit(question.key)">
                                         <i class="fa fa-pencil"></i>
                                     </a>
@@ -280,7 +280,7 @@
                             </li>
                         </ol>
                         <div class="row">
-                            <div class="col s12">
+                            <div class="col-sm-12">
                                 <button class="waves-effect waves-light btn center" (click)="openModal()">
                                     <i class="fa fa-plus" aria-hidden="true"></i>
                                 </button>
@@ -319,14 +319,14 @@
                             </my-table> -->
                         </div>  <!--  ENDWeb form details -->
                         <div class="row">
-                            <div class="col s12">
+                            <div class="col-sm-12">
                                 <div *ngIf="showFormUpload">
                                     <div class="row">
-                                        <div class="col s3">
+                                        <div class="col-sm-3">
                                             <label>Upload an application form</label>
                                             <input class="browser-default" id="user_img_file" type="file" placeholder="Profile Picture" [(ngModel)]="scholarship.user_img_file" name="user_img_file" (change)="scholarshipAppFormChangeEvent($event)">
                                         </div>
-                                        <div class="col s3">
+                                        <div class="col-sm-3">
                                             <button mat-raised-button class="btn white-text" (click)="uploadScholarshipAppForm()">Upload</button>
                                             {{uploadResponse}}
                                         </div>

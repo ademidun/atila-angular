@@ -1,13 +1,13 @@
 <div class="container">
 
-    <div class="row" *ngIf="forum" >
+    <span *ngIf="forum" >
         <a routerLink="/forum/{{forum.slug}}"><h4 style="text-align: center;" *ngIf="forum.starting_comment">{{forum.starting_comment.title}}</h4></a>
 
-        <div class="col s12 m7 offset-m3 forum-box" style="font-size: large; line-height: unset">
+        <div class="col-sm-12 col-md-7 offset-md-3 forum-box" style="font-size: large; line-height: unset">
             <app-comment *ngIf="forum.starting_comment" [comment]="forum.starting_comment" commentType="Forum" [metaData]="forumMetaData" > </app-comment>
         </div>
 
-        <div class="col s12 m7 offset-m3 comment-box">
+        <div class="col-sm-12 col-md-7 offset-md-3 comment-box">
             <h5 > Comments </h5>
 
                     <mat-card class="forum-card">
@@ -30,7 +30,7 @@
             </div>
 
         </div>
-    </div>
+    </span>
 
 
 

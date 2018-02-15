@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
 
-    <div class="col s11">
+    <div class="col-sm-11">
       <h3> {{blogPost.title}} </h3>
 
       <mat-card class="forum-card">
@@ -15,12 +15,12 @@
 
         <div class="row">
 
-            <div class="col s12 l5">
+            <div class="col-sm-12 col-lg-2">
                 <label>Paste an image url for blog Post Header Image</label>
               <input [(ngModel)]="blogPost.header_image_url" class="browser-default" id="header_image_url" type="text" placeholder="Paste header image url"
                  #uploadPicInput name="header_image_url">
             </div>
-            <div class="col s12 l5">
+            <div class="col-sm-12 col-lg-2">
                 <label>Or upload a blog Post Header Image</label>
               <input class="browser-default" id="header_image_url_file" type="file" placeholder="Upload your Header Image"
                  #uploadPicInput name="header_image_url_file">
@@ -28,7 +28,7 @@
 
             <mat-progress-bar style="margin-bottom: 1%;" *ngIf="uploadProgress" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
 
-            <div class="col s6 l2">
+            <div class="col-sm-6 col-lg-2">
               <button mat-raised-button class="btn white-text" (click)="uploadPicture(uploadPicInput)">Upload</button>
             </div>
 
@@ -57,12 +57,12 @@
     </div>
 
     <br>
-    <div style="margin-top:3%" class="col m8 offset-m2 l8 offset-l2 s11">
+    <div style="margin-top:3%" class="col col-md-8 offset-md-2 offset-lg-8 offset-lg-2 col-sm-11">
       <h5>Preview</h5>
       <h3> {{blogPost.title}} </h3>
       <img [src]="blogPost.header_image_url" style="max-height: 100%;max-width: 100%;"/>
     </div>
-    <div [innerHTML]="blogPost.body | safeHtml" class="col m8 offset-m2 l8 offset-l2 s11"></div>
+    <div [innerHTML]="blogPost.body | safeHtml" class="col col-md-8 offset-md-d-2 offset-lg-8 offset-lg-2 col-sm-11"></div>
 
   </div>
 </div>

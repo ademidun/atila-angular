@@ -1,215 +1,218 @@
 <div class="container" xmlns="http://www.w3.org/1999/html">
-    <div class="card">
-      <div class="card-content">
-        <form *ngIf="userProfile" #registerForm="ngForm" class="col-sm-12"  (keydown.enter)="$event.preventDefault()">
-          <h4>Register</h4>
-          <div *ngIf="pageNo==1">
-            <div class="row">
-              <mat-form-field class="col-sm-12">
-                <input tabindex="1" matInput class="browser-default" id="username" type="text"
-                       required [(ngModel)]="model.username" name="username" placeholder="Username" autocomplete="username">
-              </mat-form-field>
-            </div>
-            <div class="row">
-              <mat-form-field class="col-sm-12">
-                <input tabindex="2" matInput class="browser-default" id="email" type="email" required
-                       [(ngModel)]="model.email" name="email" placeholder="Email" email autocomplete="username email">
-              </mat-form-field>
-            </div>
-            <div class="row">
-              <mat-form-field class="col-sm-12">
-                <input tabindex="3" matInput class="browser-default" id="password" type="password" required
-                       [(ngModel)]="model.password" name="password" placeholder="Password" autocomplete="new-password" (change)="checkPassword()">
-              </mat-form-field>
-            </div>
-
-            <div class="row">
-              <mat-form-field class="col-sm-12">
-                <input tabindex="3" matInput class="browser-default" id="confirm-password" type="password" required (change)="checkPassword()"
-                       [(ngModel)]="model.confirmPassword" name="confirm-password" placeholder="Confirm Password" autocomplete="new-password">
-              </mat-form-field>
-              <p *ngIf="differentPassword">Your passwords do not match</p>
-            </div>
-
-            <div class="col-sm-12 button-container">
-              <a class="waves-effect waves-light btn left" routerLink="/login">Log In</a>
-              <a tabindex="4" class="waves-effect waves-light btn right" (click)="nextPage()">Next</a>
-            </div>
+  <div class="card">
+    <div class="card-content">
+      <form *ngIf="userProfile" #registerForm="ngForm" class="col-sm-12"  (keydown.enter)="$event.preventDefault()">
+        <h4>Register</h4>
+        <div *ngIf="pageNo==1">
+          <div class="row">
+            <mat-form-field class="col-sm-12">
+              <input tabindex="1" matInput class="browser-default" id="username" type="text"
+                     required [(ngModel)]="model.username" name="username" placeholder="Username" autocomplete="username">
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field class="col-sm-12">
+              <input tabindex="2" matInput class="browser-default" id="email" type="email" required
+                     [(ngModel)]="model.email" name="email" placeholder="Email" email autocomplete="username email">
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field class="col-sm-12">
+              <input tabindex="3" matInput class="browser-default" id="password" type="password" required
+                     [(ngModel)]="model.password" name="password" placeholder="Password" autocomplete="new-password" (change)="checkPassword()">
+            </mat-form-field>
           </div>
 
-          <div *ngIf="pageNo==2">
-
+          <div class="row">
+            <mat-form-field class="col-sm-12">
+              <input tabindex="3" matInput class="browser-default" id="confirm-password" type="password" required (change)="checkPassword()"
+                     [(ngModel)]="model.confirmPassword" name="confirm-password" placeholder="Confirm Password" autocomplete="new-password">
+            </mat-form-field>
             <p *ngIf="differentPassword">Your passwords do not match</p>
+          </div>
 
-            <div class="row">
+          <div class="col-sm-12 button-container">
+            <a class="waves-effect waves-light btn left" routerLink="/login">Log In</a>
+            <a tabindex="4" class="waves-effect waves-light btn right" (click)="nextPage()">Next</a>
+          </div>
+        </div>
 
-              <mat-form-field class="col-sm-12">
-                <input tabindex="5" class="browser-default" matInput id="first_name" type="text" required minlength="2" placeholder="First name"
-                       [(ngModel)]="userProfile.first_name" name="first_name">
-              </mat-form-field>
-              <mat-form-field class="col-sm-12">
-                <input tabindex="6" class="browser-default" matInput id="last_name" type="text" required minlength="2" placeholder="Last Name"
-                       [(ngModel)]="userProfile.last_name" name="last_name">
-              </mat-form-field>
-              <mat-form-field class="col-sm-12">
-                <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
-                <mat-select tabindex="6" [(ngModel)]="userProfile.gender"  id="gender" name="gender" placeholder="Gender" required >
-                  <mat-option *ngFor="let gender of ['Male','Female','Other']" [value]="gender">{{gender}} </mat-option>
-                </mat-select>
-              </mat-form-field>
+        <div *ngIf="pageNo==2">
 
-              <!--<div class="col-sm-12">-->
-                <!--<input class="browser-default" id="is_international_student" type="checkbox" [(ngModel)]="userProfile.is_international_student" name="is_international_student">-->
-                <!--<label for="is_international_student" data-error="Invalid input">International Student?</label>-->
-              <!--</div>-->
+          <p *ngIf="differentPassword">Your passwords do not match</p>
 
-            </div>
+          <div class="row">
 
-            <!-- fake fields to prevent chrome from autofilling location since we have Google Autocomplete -->
-            <input autocomplete="false" style="display:none" type="text" name="city" />
-            <input autocomplete="false" style="display:none" type="text" name="province"/>
-            <input autocomplete="false" style="display:none" type="text" name="country"/>
+            <mat-form-field class="col-sm-12">
+              <input tabindex="5" class="browser-default" matInput id="first_name" type="text" required minlength="2" placeholder="First name"
+                     [(ngModel)]="userProfile.first_name" name="first_name">
+            </mat-form-field>
+            <mat-form-field class="col-sm-12">
+              <input tabindex="6" class="browser-default" matInput id="last_name" type="text" required minlength="2" placeholder="Last Name"
+                     [(ngModel)]="userProfile.last_name" name="last_name">
+            </mat-form-field>
+            <mat-form-field class="col-sm-12">
+              <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
+              <mat-select tabindex="6" [(ngModel)]="userProfile.gender"  id="gender" name="gender" placeholder="Gender" required >
+                <mat-option *ngFor="let gender of ['Male','Female','Other']" [value]="gender">{{gender}} </mat-option>
+              </mat-select>
+            </mat-form-field>
 
-            <div class="row">
+            <!--<div class="col-sm-12">-->
+            <!--<input class="browser-default" id="is_international_student" type="checkbox" [(ngModel)]="userProfile.is_international_student" name="is_international_student">-->
+            <!--<label for="is_international_student" data-error="Invalid input">International Student?</label>-->
+            <!--</div>-->
 
-              <!-- Try using Google Maps Places Autocomplete API: https://developers.google.com/maps/documentation/javascript/places-autocomplete#address_forms -->
-              <!-- https://stackoverflow.com/questions/42341930/google-places-autocomplete-angular2 -->
-              <mat-form-field class="col-sm-12 location-div">
-                <!--Prevent Chrome Autofill-->
-                <label>Ci<span style="display: none">w.com/questions/4234</span>ty*</label>
-                <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
-                <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
-                <input tabindex="7" matInput type="text" class="browser-default " style="padding-bottom: 0" required name="ignore-this-autofill-please"
-                       autocomplete="disabled"
-                       [(ngModel)]="locationData.city" #LocationCtrl="ngModel" appGooglePlace (setAddress)="placeAutoComplete($event,LocationCtrl)"
-                       (keydown)="keyDownHandler($event)">
-              </mat-form-field>
+          </div>
 
-            </div>
-            <div class="row">
-              <mat-form-field class="col-sm-12">
-                <input class="browser-default" matInput id="province" type="text" required placeholder="Province/State"
-                       [(ngModel)]="locationData.province" name="province"  appGooglePlace (setAddress)="placeAutoComplete($event,{'name': 'province'})"
-                       (keydown)="keyDownHandler($event)" autocomplete="false">
-              </mat-form-field>
-            </div>
-            <div class="row">
-              <mat-form-field class="col-sm-12">
-                <input class="browser-default" matInput id="country" type="text" required placeholder="Country"
-                       [(ngModel)]="locationData.country" name="country"  appGooglePlace (setAddress)="placeAutoComplete($event,{'name': 'country'})"
-                       (keydown)="keyDownHandler($event)" autocomplete="false">
-              </mat-form-field>
-            </div>
+          <!-- fake fields to prevent chrome from autofilling location since we have Google Autocomplete -->
+          <input autocomplete="false" style="display:none" type="text" name="city" />
+          <input autocomplete="false" style="display:none" type="text" name="province"/>
+          <input autocomplete="false" style="display:none" type="text" name="country"/>
 
-            <div class="row">
-              <mat-form-field class="col-sm-12">
-                <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
-                <mat-select tabindex="8" [(ngModel)]="userProfile.education_level"   name="education_level"  id="education_level" multiple=true placeholder="Education Type" required >
-                  <mat-option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <br>
-            <div class="row">
-              <mat-form-field class="col-sm-12">
-                <!-- TODO: Add a Modal or hover info explaining the diff. between Art and STEM -->
-                <mat-select tabindex="9" [(ngModel)]="userProfile.education_field"  name="education_field"  id="education_field" multiple=true required placeholder="Education Field">
-                  <mat-option *ngFor="let field of EDUCATION_FIELD" [value]="field" ngDefaultControl>{{field}} </mat-option>
-                </mat-select>
-              </mat-form-field>
+          <div class="row">
 
-            </div>
-            <form [formGroup]="autoCompleteFormGroup" novalidate (ngSubmit)="0">
+            <!-- Try using Google Maps Places Autocomplete API: https://developers.google.com/maps/documentation/javascript/places-autocomplete#address_forms -->
+            <!-- https://stackoverflow.com/questions/42341930/google-places-autocomplete-angular2 -->
+            <mat-form-field class="col-sm-12 location-div">
+              <!--Prevent Chrome Autofill-->
+              <label>Ci<span style="display: none">w.com/questions/4234</span>ty*</label>
+              <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
+              <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
+              <input tabindex="7" matInput type="text" class="browser-default " style="padding-bottom: 0" required name="ignore-this-autofill-please"
+                     autocomplete="disabled"
+                     [(ngModel)]="locationData.city" #LocationCtrl="ngModel" appGooglePlace (setAddress)="placeAutoComplete($event,LocationCtrl)"
+                     (keydown)="keyDownHandler($event)">
+            </mat-form-field>
+
+          </div>
+          <div class="row">
+            <mat-form-field class="col-sm-12">
+              <input class="browser-default" matInput id="province" type="text" required placeholder="Province/State"
+                     [(ngModel)]="locationData.province" name="province"  appGooglePlace (setAddress)="placeAutoComplete($event,{'name': 'province'})"
+                     (keydown)="keyDownHandler($event)" autocomplete="false">
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field class="col-sm-12">
+              <input class="browser-default" matInput id="country" type="text" required placeholder="Country"
+                     [(ngModel)]="locationData.country" name="country"  appGooglePlace (setAddress)="placeAutoComplete($event,{'name': 'country'})"
+                     (keydown)="keyDownHandler($event)" autocomplete="false">
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-form-field class="col-sm-12">
+              <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
+              <mat-select tabindex="8" [(ngModel)]="userProfile.education_level"   name="education_level"  id="education_level" multiple=true placeholder="Education Type" required >
+                <mat-option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <br>
+          <div class="row">
+
+            <mat-form-field class="col-sm-12">
+              <!-- TODO: Add a Modal or hover info explaining the diff. between Art and STEM -->
+              <mat-select tabindex="9" [(ngModel)]="userProfile.education_field"  name="education_field"  id="education_field" multiple=true required placeholder="Education Field">
+                <mat-option *ngFor="let field of EDUCATION_FIELD" [value]="field" ngDefaultControl>{{field}} </mat-option>
+              </mat-select>
+            </mat-form-field>
               <div class="row">
-
-              <div class="col-sm-12">
-
-                <p> What is your major?
-                <br>
-
-                <strong>{{userProfile.major}}</strong>
-                </p>
-
-                <app-typeahead [model]="userProfile.major" [dataset]="MAJORS_LIST"
-                               (typeaheadSelectedEvent)="typeaheadEvent($event)"
-                                  [metadata]="{'placeholder':'Major e.g. Engineering, Biology, Business, Political Science', 'key':'major','tabindex':'9'}">
-                </app-typeahead>
-              </div>
-
-              <div class="col-sm-12">
-                <p> What Other programs are you interested in?</p>
-                <table>
-                  <tr  *ngFor="let program of userProfile.eligible_programs; let i = index">
-                    <td> {{program}} </td>
-                    <td>
-                      <a class="waves-effect waves-light btn right" (click)="deleteArrayitem(userProfile.eligible_programs, i)">
-                        <i class="fa fa-trash-o" aria-hidden="true"></i>
-                      </a>
-                    </td>
-                  </tr>
-                </table>
-
                 <div class="col-sm-12">
-                  <app-typeahead [model]="userProfile.eligible_programs" [dataset]="MAJORS_LIST"
-                                 [metadata]="{'placeholder':'Major e.g. Engineering, Biology, Business, Political Science', 'key':'major','tabindex':'9'}">
+
+                  <p> What is your major?
+                    <br>
+
+                    <strong>{{userProfile.major}}</strong>
+                  </p>
+                </div>
+                <div class="col-sm-12">
+                  <app-typeahead [model]="userProfile.major" [dataset]="MAJORS_LIST"
+                                 (typeaheadSelectedEvent)="typeaheadEvent($event)"
+                                 [metadata]="{'placeholder':'Major e.g. Engineering, Biology, Business, Political Science',
+                                  'key':'major','tabindex':'9'}">
                   </app-typeahead>
                 </div>
-
               </div>
+
+              <div class="row">
                 <div class="col-sm-12">
-                  <p> What schools are you interested in?</p>
+                  <p> What Other programs are you interested in?</p>
                   <table>
-                    <tr  *ngFor="let school of userProfile.eligible_schools; let i = index" ngDefaultControl>
-                      <td>{{school}} </td>
+                    <tr  *ngFor="let program of userProfile.eligible_programs; let i = index">
+                      <td> {{program}} </td>
                       <td>
-                        <a class="waves-effect waves-light btn right" (click)="deleteArrayitem(userProfile.eligible_schools, i)">
+                        <a class="waves-effect waves-light btn right" (click)="deleteArrayitem(userProfile.eligible_programs, i)">
                           <i class="fa fa-trash-o" aria-hidden="true"></i>
                         </a>
                       </td>
                     </tr>
                   </table>
-
-
-                  <div class="col-sm-12">
-                    <app-typeahead [model]="userProfile.eligible_schools" [dataset]="SCHOOLS_LIST"
-                                   [metadata]="{'placeholder':'Major e.g. Engineering, Biology, Business, Political Science', 'key':'major','tabindex':'9'}">
-                    </app-typeahead>
-                  </div>
                 </div>
-            </div>
 
-            </form>
+                <div class="col-sm-12">
+                  <app-typeahead [model]="userProfile.eligible_programs" [dataset]="MAJORS_LIST"
+                                 [metadata]="{'placeholder':'What Other programs are you interested in?', 'key':'major','tabindex':'9'}">
+                  </app-typeahead>
+                </div>
 
-            <div class="row">
-              By clicking register you agree to the <a routerLink="/terms-and-conditions">Terms and Conditions</a>.
-            </div>
-            <div>
-              {{isAgreeTerms}}
-            </div>
-            <div class="row">
-
-              <p *ngIf="registrationResponse" style="font-size: large; margin-bottom: 1%; color: green">
-                <!--emoji (putting this here so I can command f to find the emoji.-->
-                Registration successful 😄.
-                <br>
-                Visit<a routerLink="/forum" [queryParams]="{'utm_campaign':'register_1','utm_source':'atila', 'utm_medium':'registration_form', 'utm_content':'forum'}"> Forums</a>
-                <br>
-                Visit<a routerLink="/scholarships-list" [queryParams]="{'utm_campaign':'register_1','utm_source':'atila', 'utm_medium':'registration_form', 'utm_content':'scholarships_list'}"> My Scholarships</a>
-                <br>
-                Your verification email has been sent, please check your inbox (or your spam folder 🙄).
-              </p>
-
-              <div class="col-sm-6 button-container">
-                <a class="waves-effect waves-light btn left" (click)="prevPage()">Previous</a>
               </div>
-              <div class="col-sm-6 button-container">
-                <button tabindex="10" class="waves-effect waves-light btn right btn-submit" (click)="registerUser(registerForm)" [disabled]="disableRegistrationButton">Register</button>
+
+              <div class="row">
+                <div class="col-sm-12">
+                    <p> What schools are you interested in?</p>
+                    <table>
+                      <tr  *ngFor="let school of userProfile.eligible_schools; let i = index" ngDefaultControl>
+                        <td>{{school}} </td>
+                        <td>
+                          <a class="waves-effect waves-light btn right" (click)="deleteArrayitem(userProfile.eligible_schools, i)">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                <div class="col-sm-12">
+                  <app-typeahead [model]="userProfile.eligible_schools" [dataset]="SCHOOLS_LIST"
+                                 [metadata]="{'placeholder':'Schools e.g. Mcmaster University, Sheridan College', 'key':'major','tabindex':'9'}">
+                  </app-typeahead>
+                </div>
               </div>
+
+
             </div>
 
+          <div class="row">
+            By clicking register you agree to the <a routerLink="/terms-and-conditions"> Terms and Conditions</a>.
+          </div>
+          <div>
+            {{isAgreeTerms}}
+          </div>
+          <div class="row">
+
+            <p *ngIf="registrationResponse" style="font-size: large; margin-bottom: 1%; color: green">
+              <!--emoji (putting this here so I can command f to find the emoji.-->
+              Registration successful 😄.
+              <br>
+              Visit<a routerLink="/forum" [queryParams]="{'utm_campaign':'register_1','utm_source':'atila', 'utm_medium':'registration_form', 'utm_content':'forum'}"> Forums</a>
+              <br>
+              Visit<a routerLink="/scholarships-list" [queryParams]="{'utm_campaign':'register_1','utm_source':'atila', 'utm_medium':'registration_form', 'utm_content':'scholarships_list'}"> My Scholarships</a>
+              <br>
+              Your verification email has been sent, please check your inbox (or your spam folder 🙄).
+            </p>
+
+            <div class="col-sm-6 button-container">
+              <a class="waves-effect waves-light btn left" (click)="prevPage()">Previous</a>
+            </div>
+            <div class="col-sm-6 button-container">
+              <button tabindex="10" class="waves-effect waves-light btn right btn-submit" (click)="registerUser(registerForm)" [disabled]="disableRegistrationButton">Register</button>
+            </div>
           </div>
 
-        </form>
-      </div>
+        </div>
+
+      </form>
     </div>
   </div>
+</div>

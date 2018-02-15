@@ -5,23 +5,23 @@
           <div >
             <h1 style="font-size: x-large;"> Verify Your Account </h1>
             <div class="row">
-              <mat-form-field class="col s12">
+              <mat-form-field class="col-sm-12">
                 <input matInput class="browser-default" id="username" type="text"
                        required [(ngModel)]="model.username" name="username" placeholder="Username">
               </mat-form-field>
             </div>
             <div class="row">
-              <mat-form-field class="col s12">
+              <mat-form-field class="col-sm-12">
                 <input matInput class="browser-default" id="token" required
                        [(ngModel)]="model.token" name="token" placeholder="token" >
               </mat-form-field>
             </div>
 
-            <div class="col s10  offset-s2" style="margin-bottom: 3%">
+            <div class="col-sm-10  offset-s2" style="margin-bottom: 3%">
               <a class="waves-effect waves-light btn" (click)="verifyToken()">Verify Token</a>
             </div>
 
-            <div *ngIf="verificationResponse" class="col s12 ">
+            <div *ngIf="verificationResponse" class="col-sm-12 ">
               <p style="color: green" *ngIf="verificationResponse.isValidToken"> <br>
                 Your account has been successfully verified 😄.
               </p>
@@ -34,14 +34,14 @@
 
             <form *ngIf="verificationType == 'reset_password' && verificationResponse && verificationResponse.isValidToken">
               <div class="row">
-                <mat-form-field class="col s12">
+                <mat-form-field class="col-sm-12">
                   <input tabindex="3" matInput class="browser-default" id="password" type="password" required
                          [(ngModel)]="model.password" name="password" placeholder="Enter new Password" autocomplete="new-password" (change)="checkPassword()">
                 </mat-form-field>
               </div>
 
               <div class="row">
-                <mat-form-field class="col s12">
+                <mat-form-field class="col-sm-12">
                   <input tabindex="3" matInput class="browser-default" id="confirm-password" type="password" required (change)="checkPassword()"
                          [(ngModel)]="model.confirmPassword" name="confirm-password" placeholder="Confirm Password" autocomplete="new-password">
                 </mat-form-field>
@@ -55,7 +55,7 @@
 
             </form>
 
-            <div *ngIf="passwordVerificationResponse" class="col s12 ">
+            <div *ngIf="passwordVerificationResponse" class="col-sm-12 ">
               <p style="color: green" *ngIf="passwordVerificationResponse.isValidToken"> <br>
                 Your password has been reset 😄. Log in again.
               </p>

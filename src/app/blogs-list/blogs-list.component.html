@@ -1,9 +1,8 @@
-<div class="container">
+<div class="container row">
 
-      <div class="row">
-        <h4 style="text-align: center;">Blogs</h4>
+        <div class="col-sm-12 col-md-8 offset-md-2 blog-box">
+          <h4 style="text-align: center;">Blogs</h4>
 
-        <div class="col s12 m8 offset-m2 blog-box">
           <mat-card class="mat-card">
           <mat-card-content>
             <a routerLink="/create-blog-post">
@@ -16,7 +15,7 @@
 
           </mat-card>
         </div>
-        <div *ngFor="let blog of blogs; let i = index" class="col s12 m8 offset-m2 blog-box">
+        <div *ngFor="let blog of blogs; let i = index" class="col-sm-12 col-md-8 offset-md-2 blog-box">
 
           <div class="card">
             <div class="card-content ">
@@ -62,8 +61,6 @@
             </div>
 
         </div>
-
-      </div>
 
       <!-- Loading progress circle -->
       <div *ngIf="!blogs " class="preloader-background">

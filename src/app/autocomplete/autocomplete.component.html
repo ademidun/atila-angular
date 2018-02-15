@@ -1,7 +1,7 @@
 <!-- todo https://stackoverflow.com/questions/46422007/error-error-no-value-accessor-for-form-control-with-unspecified-name-attribute-->
 <!-- todo Use custom form controls: https://alligator.io/angular/custom-form-control/-->
 <div *ngIf="formGroup" [formGroup]="formGroup">
-  <mat-form-field class="col s12">
+  <mat-form-field class="col-sm-12">
     <input *ngIf="model" [(ngModel)]="model" #autoCompleteInput type="text" [formControlName]="formControl" [placeholder]="metadata['placeholder']" [matAutocomplete]="autcomplete_input"
            (keyup)="autoCompleteSelected($event)" [name]="metadata['key']" ngDefaultControl>
 

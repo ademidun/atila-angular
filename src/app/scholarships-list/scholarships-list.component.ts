@@ -108,14 +108,10 @@ export class ScholarshipsListComponent implements OnInit {
         error => {
 
           this.contentFetched = false;
+          this.isLoading = false;
         },
         () => {},
       );
-    }
-
-    if(!this.scholarships){
-      this.contentFetched = false;
-      this.isLoading = false;
     }
   }
 

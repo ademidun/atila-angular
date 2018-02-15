@@ -3,7 +3,7 @@
     <div class="row">
       <div class="card-content">
 
-      <form #profileForm="ngForm" (ngSubmit)="saveProfile(profileForm)" class="col s12">
+      <form #profileForm="ngForm" (ngSubmit)="saveProfile(profileForm)" class="col-sm-12">
         <div [ngClass]='{hidden: !profileInfo}'>
           <h4>Edit <span *ngIf="userProfile.first_name">{{userProfile.first_name}}'s</span> Profile</h4>
           <span>
@@ -26,23 +26,23 @@
 
 
           <div class="row">
-            <mat-form-field class="col s6">
+            <mat-form-field class="col-sm-6">
               <input class="browser-default" matInput id="first_name" type="text" required minlength="2" placeholder="First name"
                 [(ngModel)]="userProfile.first_name" name="first_name">
             </mat-form-field>
-            <mat-form-field class="col s6">
+            <mat-form-field class="col-sm-6">
               <input class="browser-default" matInput id="last_name" type="text" required minlength="2" placeholder="Last Name"
                 [(ngModel)]="userProfile.last_name" name="last_name">
             </mat-form-field>
           </div>
           <div class="row">
-            <mat-form-field class="col s12">
+            <mat-form-field class="col-sm-12">
               <input class="browser-default" matInput id="street_address" type="text" placeholder="Street Address"
                 [(ngModel)]="userProfile.street_address" name="street_address">
             </mat-form-field>
           </div>
           <div class="row">
-            <mat-form-field class="col s12">
+            <mat-form-field class="col-sm-12">
               <input class="browser-default" matInput id="postal_code" type="text" placeholder="Postal Code"
                 [(ngModel)]="userProfile.postal_code" name="postal_code">
             </mat-form-field>
@@ -57,7 +57,7 @@
 
             <!-- Try using Google Maps Places Autocomplete API: https://developers.google.com/maps/documentation/javascript/places-autocomplete#address_forms -->
             <!-- https://stackoverflow.com/questions/42341930/google-places-autocomplete-angular2 -->
-            <mat-form-field class="col s12 location-div">
+            <mat-form-field class="col-sm-12 location-div">
               <!--Prevent Chrome Autofill-->
               <label>Ci<span style="display: none">w.com/questions/4234</span>ty</label>
               <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
@@ -71,43 +71,43 @@
 
           </div>
           <div class="row">
-            <mat-form-field class="col s12">
+            <mat-form-field class="col-sm-12">
               <input class="browser-default" matInput id="province" type="text" required placeholder="Province/State"
                      [(ngModel)]="locationData.province" name="province" (change)="locationData.province=toTitleCase(locationData.province)" autocomplete="false">
             </mat-form-field>
           </div>
           <div class="row">
-            <mat-form-field class="col s12">
+            <mat-form-field class="col-sm-12">
               <input class="browser-default" matInput id="country" type="text" required placeholder="Country"
                      [(ngModel)]="locationData.country" name="country" (change)="locationData.country=toTitleCase(locationData.country)" autocomplete="false">
             </mat-form-field>
           </div>
           <div class="row">
-              <mat-form-field class="col s12">
+              <mat-form-field class="col-sm-12">
                     <input tabindex="2" class="browser-default" matInput id="phone_number" type="number" placeholder="Phone Number"
                       [(ngModel)]="userProfile.phone_number" name="phone_number">
                   </mat-form-field>
             </div>
           <div class="row">
-              <mat-form-field class="col s12">
+              <mat-form-field class="col-sm-12">
                   <input class="browser-default" matInput id="email" type="text" placeholder="Email"
                     [(ngModel)]="userProfile.email" name="email">
                 </mat-form-field>
           </div>
           <div class="row">
-              <mat-form-field class="col s12">
+              <mat-form-field class="col-sm-12">
                   <input class="browser-default" matInput id="secondary_school" type="text" placeholder="Secondary School"
                     [(ngModel)]="userProfile.secondary_school" name="secondary_school">
                 </mat-form-field>
           </div>
           <div class="row">
-              <mat-form-field class="col s12">
+              <mat-form-field class="col-sm-12">
                   <input class="browser-default" matInput id="post_secondary_school" type="text" placeholder="Post Secondary School"
                     [(ngModel)]="userProfile.post_secondary_school" name="post_secondary_school">
                 </mat-form-field>
           </div>
           <div class="row">
-            <mat-form-field class="col s12">
+            <mat-form-field class="col-sm-12">
               <label>Birth Date</label>
               <br/>
               <input class="browser-default" matInput id="birth_date" type="date"
@@ -116,8 +116,8 @@
           </div>
           <div class="row">
 
-            <mat-form-field class="col s12">
-              <mat-select class="col s12" [(ngModel)]="userProfile.education_level"  name="education_level"  id="education_level" multiple=true placeholder="Education Type" required >
+            <mat-form-field class="col-sm-12">
+              <mat-select class="col-sm-12" [(ngModel)]="userProfile.education_level"  name="education_level"  id="education_level" multiple=true placeholder="Education Type" required >
                 <mat-option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </mat-option>
               </mat-select>
             </mat-form-field>
@@ -128,9 +128,9 @@
 
           <div class="row">
 
-          <mat-form-field class="col s12">
+          <mat-form-field class="col-sm-12">
               <!-- TODO: Add a Modal or hover info explaining the diff. between Art and STEM -->
-              <mat-select class="col s12" [(ngModel)]="userProfile.education_field"  name="education_field"  id="education_field" multiple=true required placeholder="Education Field">
+              <mat-select class="col-sm-12" [(ngModel)]="userProfile.education_field"  name="education_field"  id="education_field" multiple=true required placeholder="Education Field">
                 <mat-option *ngFor="let field of EDUCATION_FIELD" [value]="field">{{field}} </mat-option>
               </mat-select>
           </mat-form-field>
@@ -138,7 +138,7 @@
           <br>
 
           <div class="row">
-            <div class="col s12">
+            <div class="col-sm-12">
               <h4> Potential Schools </h4>
               <p> What schools are you interested in?</p>
               <table>
@@ -154,7 +154,7 @@
 
             </div>
 
-            <mat-form-field class="example-full-width col s12">
+            <mat-form-field class="example-full-width col-sm-12">
               <input #eligibleSchoolInput type="text" placeholder="Enter Schools" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="schools_auto"
                      (keyup)="autoCompleteSelected($event)">
 
@@ -171,7 +171,7 @@
 
 
 
-          <div class="col s12">
+          <div class="col-sm-12">
             <p> What Other programs are you interested in?</p>
 
 
@@ -186,7 +186,7 @@
               </tr>
             </table>
 
-            <mat-form-field class="example-full-width col s12">
+            <mat-form-field class="example-full-width col-sm-12">
               <input tabindex="9" #eligibleMajorInput type="text" placeholder="Major e.g. Engineering, Biology, Business, Political Science" aria-label="Number" matInput [formControl]="majorControl" [matAutocomplete]="majors_auto"
                      (keyup)="autoCompleteSelected($event)">
 
@@ -226,7 +226,7 @@
 
             <!-- TODO: Do we need to explain this? Perhaps do some A/B Testing? -->
             <div class="row">
-                <div class="col s6">
+                <div class="col-sm-6">
                   <!-- TODO: Get real % of scholarships asking for alternate rerefence letters. -->
                   <h5> Additional Documents </h5>
                   <p>Click upload once for each time you choose a file.</p>
@@ -236,43 +236,43 @@
                 </div>
               </div>
               <div class="row">
-                  <div class="row col s12 m6">
+                  <div class="row col-sm-12 m6">
                       <label>Upload Transcript</label>
                      <input class="browser-default" id="transcript" type="file" placeholder="Transcript"
                        name="transcript" (change)="fileChangeEvent($event)">
                    </div>
 
-                  <div *ngIf="userProfile.transcript" class="row col s12 m6">
+                  <div *ngIf="userProfile.transcript" class="row col-sm-12 m6">
                       <a target="_blank" href="{{userProfile.transcript}}"> View Transcript </a>
                   </div>
 
-                  <div class="row col s12 m6">
+                  <div class="row col-sm-12 m6">
                     <label>Upload Resume</label>
                     <input class="browser-default" id="resume" type="file" placeholder="Resume"
                            name="resume" (change)="fileChangeEvent($event)">
                   </div>
 
-                  <div *ngIf="userProfile.resume" class="row col s12 m6">
+                  <div *ngIf="userProfile.resume" class="row col-sm-12 m6">
                     <a target="_blank" href="{{userProfile.resume}}"> View Resume </a>
                   </div>
 
-                <div class="row col s12 m6">
+                <div class="row col-sm-12 m6">
                   <label>Upload Cover Letter</label>
                   <input class="browser-default" id="cover_letter" type="file" placeholder="Cover Letter"
                          name="cover_letter" (change)="fileChangeEvent($event)">
                 </div>
 
-                <div *ngIf="userProfile.cover_letter" class="row col s12 m6">
+                <div *ngIf="userProfile.cover_letter" class="row col-sm-12 m6">
                   <a target="_blank" href="{{userProfile.cover_letter}}"> View Cover Letter </a>
                 </div>
 
-                <div class="row col s12 m6">
+                <div class="row col-sm-12 m6">
                   <label>Upload Enrollment Proof</label>
                   <input class="browser-default" id="enrollment_proof" type="file" placeholder="Enrollment Proof"
                          name="enrollment_proof" (change)="fileChangeEvent($event)">
                 </div>
 
-                <div *ngIf="userProfile.enrollment_proof" class="row col s12 m6">
+                <div *ngIf="userProfile.enrollment_proof" class="row col-sm-12 m6">
                   <a target="_blank" href="{{userProfile.enrollment_proof}}"> View Enrollment Proof </a>
                 </div>
 
@@ -281,22 +281,22 @@
 
               <!-- Probably not best practice but I added a row class to all the col classes to get more space in-between input elements.-->
               <div class="row">
-                  <div class="row col s12 m6">
+                  <div class="row col-sm-12 m6">
                      <label>Upload Reference Letter </label>
                     <input class="browser-default" id="reference_letter" type="file" placeholder="Reference Letter"
                       name="reference_letter" (change)="fileChangeEvent($event)">
                   </div>
 
-                  <div *ngIf="userProfile.reference_letter" class="row col s12 m6">
+                  <div *ngIf="userProfile.reference_letter" class="row col-sm-12 m6">
                       <a target="_blank" href="{{userProfile.reference_letter}}"> View Reference Letter </a>
                   </div>
-                  <div class="row col s12 m6">
+                  <div class="row col-sm-12 m6">
                       <label>Upload Alternate Reference Letter</label>
                      <input class="browser-default" id="reference_letter_alternate" type="file" placeholder="Alternate Reference Letter"
                        name="reference_letter_alternate" (change)="fileChangeEvent($event)">
                    </div>
 
-                  <div *ngIf="userProfile.reference_letter_alternate" class="row col s12 m6">
+                  <div *ngIf="userProfile.reference_letter_alternate" class="row col-sm-12 m6">
                       <a target="_blank" href="{{userProfile.reference_letter_alternate}}"> View Alternate Reference Letter </a>
                   </div>
                 </div>

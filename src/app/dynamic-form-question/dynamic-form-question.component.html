@@ -4,7 +4,7 @@
     <div [ngSwitch]="question.controlType">
 
 
-    <mat-form-field class="col s12" *ngSwitchCase="'textfield'">
+    <mat-form-field class="col-sm-12" *ngSwitchCase="'textfield'">
       <input  matInput class="browser-default"   [formControlName]="question.key" [placeholder]="question.label"
               [id]="question.key" [type]="question.type" [(ngModel)]="generalData.application.responses[question.key]"
               [required]="question.required ? 'required' : null">
@@ -13,18 +13,18 @@
 
     <!-- TODO: Figure out why it displays as an input element and not as a textarea element.
     May have something to do with the runtime rendering order. -->
-      <mat-form-field class="col s12"  *ngSwitchCase="'textarea'">
+      <mat-form-field class="col-sm-12"  *ngSwitchCase="'textarea'">
         <textarea matInput [placeholder]="question.label" [id]="question.key"
         [formControlName]="question.key" [(ngModel)]="generalData.application.responses[question.key]" [required]="question.required ? 'required' : null"></textarea>
       </mat-form-field>
 
-    <mat-form-field class="col s12" *ngSwitchCase="'date'">
+    <mat-form-field class="col-sm-12" *ngSwitchCase="'date'">
       <label>{{question.label}}</label>
         <input matInput [formControlName]="question.key" [(ngModel)]="generalData.application.responses[question.key]"
                 [id]="question.key" [type]="question.type" [required]="question.required ? 'required' : null">
     </mat-form-field>
 
-    <div class="col s12" *ngSwitchCase="'checkbox'">
+    <div class="col-sm-12" *ngSwitchCase="'checkbox'">
       <mat-checkbox [formControlName]="question.key" [(ngModel)]="generalData.application.responses[question.key]"
                     [id]="question.key" [required]="question.required ? 'required' : null" color="primary" class="dynamic-question">
         {{question.label}}</mat-checkbox>
@@ -40,13 +40,13 @@
       <option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</option>
       </select>-->
 
-    <mat-form-field *ngSwitchCase="'number'" class="col s12">
+    <mat-form-field *ngSwitchCase="'number'" class="col-sm-12">
           <input class="browser-default" matInput [(ngModel)]="generalData.application.responses[question.key]" type="number" [formControlName]="question.key"
           [id]="question.key" [type]="question.type" [placeholder]="question.label"  [required]="question.required ? 'required' : null">
 
     </mat-form-field>
 
-    <div class="col s12" *ngSwitchCase="'file'">
+    <div class="col-sm-12" *ngSwitchCase="'file'">
       <div class="dyanamic-form-file-input">
 
           {{question.label}}
@@ -57,7 +57,7 @@
           <input [formControlName]="question.key"
         [id]="question.key" [placeholder]="question.label"[type]="question.type" (change)="fileChangeEvent($event)">
 
-        <div *ngIf="generalData.application.responses[question.key]" class="col s3">
+        <div *ngIf="generalData.application.responses[question.key]" class="col-sm-3">
           <a  class="scholarship-document" [name]="question.key" target="_blank" href="{{generalData.application.responses[question.key]}}"> View Document ({{question.key}}) </a>
       </div>
     </div>

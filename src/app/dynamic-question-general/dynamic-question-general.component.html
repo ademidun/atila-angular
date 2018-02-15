@@ -3,7 +3,7 @@
   <span  [class]="question.class_data">
 
 
-    <mat-form-field class="col s12" *ngSwitchCase="'textfield'">
+    <mat-form-field class="col-sm-12" *ngSwitchCase="'textfield'">
       <input  matInput class="browser-default"   [placeholder]="question.label"  [formControlName]="question.key"
               [id]="question.key" [type]="text" [(ngModel)]="responses[question.key]" [required]="question.required ? 'required' : null">
     </mat-form-field>
@@ -11,12 +11,12 @@
 
     <!-- TODO: Figure out why it displays as an input element and not as a textarea element.
     May have something to do with the runtime rendering order.-->
-    <mat-form-field class="col s12"  *ngSwitchCase="'textarea'">
+    <mat-form-field class="col-sm-12"  *ngSwitchCase="'textarea'">
         <textarea matInput [placeholder]="question.label"  [formControlName]="question.key" [id]="question.key"
                   [(ngModel)]="responses[question.key]" [required]="question.required ? 'required' : null"></textarea>
     </mat-form-field>
 
-    <mat-form-field class="col s12"  *ngSwitchCase="'dropdown'">
+    <mat-form-field class="col-sm-12"  *ngSwitchCase="'dropdown'">
     <mat-select matInput [id]="question.key"  [required]="question.required ? 'required' : null"  multiple=true [placeholder]="question.label"  [formControlName]="question.key">
       <mat-option *ngFor="let opt of question.options" [value]="opt.key">{{opt.value}}</mat-option>
 
@@ -37,7 +37,7 @@
           <input
                  [id]="question.key" [placeholder]="question.label"  [formControlName]="question.key"[type]="question.type" (change)="fileChangeEvent($event)">
 
-        <div *ngIf="responses[question.key]" class="col s3">
+        <div *ngIf="responses[question.key]" class="col-sm-3">
           <a  class="scholarship-document" [name]="question.key" target="_blank" href="{{responses[question.key]}}"> View Document ({{question.key}}) </a>
       </div>
     </div>
@@ -46,7 +46,7 @@
 
 
     <!--TODO the next 3 elements are almost identical, handle them in a default switchcase-->
-    <mat-form-field *ngSwitchDefault class="col s12">
+    <mat-form-field *ngSwitchDefault class="col-sm-12">
       <input class="browser-default" matInput [(ngModel)]="responses[question.key]"
              [id]="question.key" [type]="question.type" [placeholder]="question.label"  [formControlName]="question.key"  [required]="question.required ? 'required' : null">
 

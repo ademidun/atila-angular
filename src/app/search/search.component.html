@@ -1,15 +1,15 @@
 <div class="container">
     <div class=" card row">
-      <mat-form-field class="col s8">
+      <mat-form-field class="col-sm-8">
       <input matInput class="browser-default" id="search" type="text"
              required [(ngModel)]="query" name="search" placeholder="Enter to search" (keyup.enter)="search(query, {q:query,q_source:'keyup_enter'})">
       </mat-form-field>
 
-      <a  class="waves-effect waves-light btn col s3" (click)="search(query, {q:query,q_source:'button_click'})">
+      <a  class="waves-effect waves-light btn col-sm-3" (click)="search(query, {q:query,q_source:'button_click'})">
         <i class="material-icons automate-tag">search</i>
       </a>
 
-      <div  *ngIf="isSearching" class="col s10">
+      <div  *ngIf="isSearching" class="col-sm-10">
         <p style="font-size: large">Searching...</p>
         <mat-progress-bar aria-label="Searching..." mode="indeterminate"></mat-progress-bar>
       </div>
@@ -21,7 +21,7 @@
       <h4>Scholarships</h4>
 
       <div class="row">
-        <div *ngFor=" let scholarship of searchResults.scholarships" class="col s12 m7">
+        <div *ngFor=" let scholarship of searchResults.scholarships" class="col-sm-12 col-md-7">
           <div class="card small">
             <div class="card-title">
               <a (click)="saveQueryClick(scholarship,'scholarship')" [routerLink]="['../scholarship-detail', scholarship.slug]">
@@ -54,7 +54,7 @@
     <h4>Forums</h4>
 
     <div class="row">
-      <div class="col s12 m7" *ngFor="let forum of this.searchResults.forums; let i = index">
+      <div class="col-sm-12 col-md-7" *ngFor="let forum of this.searchResults.forums; let i = index">
         <div class="card ">
           <div class="card-content ">
             <span class="card-title"><a (click)="saveQueryClick(forum,'forum')" routerLink="/forum/{{forum.slug}}">{{forum.title | truncate:50}}</a></span>
@@ -83,7 +83,7 @@
       <h4>Blogs</h4>
 
       <div class="row">
-        <div *ngFor=" let blogPost of searchResults.blogPosts" class="col s12 m7">
+        <div *ngFor=" let blogPost of searchResults.blogPosts" class="col-sm-12 col-md-7">
           <div class="card small">
             <div class="card-title">
               <a (click)="saveQueryClick(blogPost,'blog')" routerLink="/blog/{{blogPost.user.username}}/{{blogPost.slug}}"> {{blogPost.title}}</a>

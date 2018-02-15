@@ -15,19 +15,19 @@
 
                   <!-- Try using Google Maps Places Autocomplete API: https://developers.google.com/maps/documentation/javascript/places-autocomplete#address_forms -->
                   <!-- https://stackoverflow.com/questions/42341930/google-places-autocomplete-angular2 -->
-                  <mat-form-field class="browser-default col s12 m4 location-div">
+                  <mat-form-field class="browser-default col-sm-12 m4 location-div">
                       <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
                       <input matInput type="text" class="form-control" style="padding-bottom: 0%" inputStyle="" required [placeholder]="locationPlaceHolder" name="location" id="location" [(ngModel)]="model.location.name" #LocationCtrl="ngModel"
                              appGooglePlace (setAddress)="placeAutoComplete($event,LocationCtrl)"  (googlePlaceNoLoad)="googlePlaceNoLoad()" (keydown)="keyDownHandler($event)" >
                     </mat-form-field>
 
-                  <mat-form-field class="form-group input-field col s12 m4">
+                  <mat-form-field class="form-group input-field col-sm-12 m4">
                     <mat-select [(ngModel)]="model.education_level" name="education_level" id="education_level" multiple=true required placeholder="Select Education Type">
                       <mat-option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </mat-option>
                     </mat-select>
                   </mat-form-field>
 
-                  <mat-form-field class="form-group input-field col s12 m4">
+                  <mat-form-field class="form-group input-field col-sm-12 m4">
                     <mat-select [(ngModel)]="model.education_field" name="education_field" id="education_field" multiple=true required placeholder="Select Education Field">
                       <mat-option *ngFor="let field of EDUCATION_FIELD" [value]="field">{{field}} </mat-option>
                     </mat-select>
@@ -35,20 +35,20 @@
 
 
 
-                  <!--<div class=" input-field col s12 m4 location-div">-->
+                  <!--<div class=" input-field col-sm-12 m4 location-div">-->
                   <!--<input type="text" class="form-control" style="padding-bottom: 0" required name="location" id="location" [(ngModel)]="model.location.name" #LocationCtrl="ngModel"-->
                   <!--appGooglePlace (setAddress)="placeAutoComplete($event,LocationCtrl)" (googlePlaceNoLoad)="googlePlaceNoLoad()" (keydown)="keyDownHandler($event)" >-->
                   <!--<label for="location">City, Province/State or Country</label>-->
                   <!--</div>-->
 
-                  <!--<div class="form-group input-field col s12 m4">-->
+                  <!--<div class="form-group input-field col-sm-12 m4">-->
                   <!--<select multiple  [(ngModel)]="model.education_level" name="education_level" id="education_level"required>-->
                   <!--<option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </option>-->
                   <!--</select>-->
                   <!--<label for="education_level">Select Your Education Type</label>-->
                   <!--</div>-->
 
-                  <!--<div class="form-group input-field col s12 m4">-->
+                  <!--<div class="form-group input-field col-sm-12 m4">-->
                   <!--<select multiple  [(ngModel)]="model.education_field" name="education_field" id="education_field" required>-->
                   <!--<option *ngFor="let field of EDUCATION_FIELD" [value]="field">{{field}} </option>-->
                   <!--</select>-->
@@ -62,8 +62,8 @@
                   {{model.errors}}
                 </p>
                 <div class="row center scholarship-btn-div" style="text-align: center;">
-                    <button class=" col s8 offset-s2 waves-effect waves-light btn scholarship-btn" type="submit">See My Scholarships</button>
-                  <a style="padding-top: 1.8%" class=" col s8 offset-s2 waves-effect waves-light btn scholarship-btn" routerLink="/applications/demo">Try The Live Demo</a>
+                    <button class=" col-sm-8 offset-s2 waves-effect waves-light btn scholarship-btn" type="submit">See My Scholarships</button>
+                  <a style="padding-top: 1.8%" class=" col-sm-8 offset-s2 waves-effect waves-light btn scholarship-btn" routerLink="/applications/demo">Try The Live Demo</a>
                 </div>
                 <br>
 
@@ -82,7 +82,7 @@
             </div>
 
             <div class="row center" style="text-align: center;margin-bottom: 0px;">
-              <p style="color: white; font-size: medium" class="col s6">Subscribe to get updates on new scholarships, blog posts and new product features.
+              <p style="color: white; font-size: medium" class="col-sm-6">Subscribe to get updates on new scholarships, blog posts and new product features.
 
                 <span *ngIf="subscriber.response" style="color: greenyellow">
                   <br>
@@ -90,12 +90,12 @@
                 </span>
               </p>
 
-              <mat-form-field class="browser-default col s3 ">
+              <mat-form-field class="browser-default col-sm-3 ">
                 <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
                 <input matInput type="email" class="form-control" style="padding-bottom: 0; margin-bottom: 0"  name="email" id="emailid"
                        placeholder="Email Address" email [(ngModel)]="subscriber.email" (keyup.enter)="addSubscriber($event)">
               </mat-form-field>
-              <a class="waves-effect waves-light btn browser-default col s2" style="background-color:#4080ff; margin-top: 3.7% " (click)="addSubscriber()">Subscribe</a>
+              <a class="waves-effect waves-light btn browser-default col-sm-2" style="background-color:#4080ff; margin-top: 3.7% " (click)="addSubscriber()">Subscribe</a>
 
 
             </div>

@@ -2,58 +2,58 @@
     <div class="card">
       <div class="row">
         <div class="card-content">
-        
-        <form #profileForm="ngForm" (ngSubmit)="onSubmit(profileForm)" class="col s12">
+
+        <form #profileForm="ngForm" (ngSubmit)="onSubmit(profileForm)" class="col-sm-12">
           <div [ngClass]='{hidden: !profileInfo}'>
             <h4>Create <span *ngIf="userProfile.first_name">{{userProfile.first_name}}'s</span> Profile</h4>
             <div class="row">
-              <mat-form-field class="col s6">
+              <mat-form-field class="col-sm-6">
                 <input class="browser-default" matInput id="first_name" type="text" required minlength="2" placeholder="First name"
                   [(ngModel)]="userProfile.first_name" name="first_name">
               </mat-form-field>
-              <mat-form-field class="col s6">
+              <mat-form-field class="col-sm-6">
                 <input class="browser-default" matInput id="last_name" type="text" required minlength="2" placeholder="Last Name"
                   [(ngModel)]="userProfile.last_name" name="last_name">
               </mat-form-field>
             </div>
             <div class="row">
-              <mat-form-field class="col s12">
+              <mat-form-field class="col-sm-12">
                 <input class="browser-default" matInput id="street_address" type="text" required placeholder="Street Address"
                   [(ngModel)]="userProfile.street_address" name="street_address">
               </mat-form-field>
             </div>
             <div class="row">
-              <mat-form-field class="col s12">
+              <mat-form-field class="col-sm-12">
                 <input class="browser-default" matInput id="postal_code" type="text" required placeholder="Postal Code"
                   [(ngModel)]="userProfile.postal_code" name="postal_code">
               </mat-form-field>
             </div>
             <div class="row">
-              <mat-form-field class="col s12">
+              <mat-form-field class="col-sm-12">
                 <input class="browser-default" matInput id="city" type="text" required placeholder="City"
                   [(ngModel)]="userProfile.city" name="city">
               </mat-form-field>
             </div>
             <div class="row">
-                <mat-form-field class="col s12">
+                <mat-form-field class="col-sm-12">
                     <input class="browser-default" matInput id="province" type="text" required placeholder="Province/State"
                       [(ngModel)]="userProfile.province" name="province">
                   </mat-form-field>
             </div>
             <div class="row">
-                <mat-form-field class="col s12">
+                <mat-form-field class="col-sm-12">
                     <input class="browser-default" matInput id="country" type="text" required placeholder="Country"
                       [(ngModel)]="userProfile.country" name="country">
                   </mat-form-field>
             </div>
             <!-- <div class="row">
-              <mat-form-field class="col s12">
+              <mat-form-field class="col-sm-12">
                 <input class="browser-default" matInput id="bus_name" type="text" required placeholder="Business Name"
                   [(ngModel)]="userProfile.bus_name" name="bus_name">
               </mat-form-field>
             </div> -->
             <div class="row">
-              <mat-form-field class="col s12">
+              <mat-form-field class="col-sm-12">
                 <label>Birth Date</label>
                 <br/>
                 <input class="browser-default" matInput id="birth_date" type="date" required
@@ -62,7 +62,7 @@
             </div>
             <div class="row">
               <div class="input-field">
-                <mat-select class="col s12" [(ngModel)]="userProfile.education_level"  name="education_level"  id="education_level" multiple=true placeholder="Education Type" required >                
+                <mat-select class="col-sm-12" [(ngModel)]="userProfile.education_level"  name="education_level"  id="education_level" multiple=true placeholder="Education Type" required >
                   <mat-option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </mat-option>
                 </mat-select>
               </div>
@@ -70,7 +70,7 @@
             <br> <div class="row">
               <div class="input-field">
                 <!-- TODO: Add a Modal or hover info explaining the diff. between Art and STEM -->
-                <mat-select class="col s12" [(ngModel)]="userProfile.education_field"  name="education_field"  id="education_field" multiple=true required placeholder="Education Field">
+                <mat-select class="col-sm-12" [(ngModel)]="userProfile.education_field"  name="education_field"  id="education_field" multiple=true required placeholder="Education Field">
                   <mat-option *ngFor="let field of EDUCATION_FIELD" [value]="field">{{field}} </mat-option>
                 </mat-select>
               </div>
@@ -78,7 +78,7 @@
             <br>
             <!-- TODO: Do we need to explain this? Perhaps do some A/B Testing? -->
             <div class="row">
-              <div class="col s6">
+              <div class="col-sm-6">
                 <!-- TODO: Get real % of scholarships asking for alternate rerefence letters. -->
                 <h5> Additional Documents </h5>
                 <p>Click upload once for each time you choose a file.</p>
@@ -88,50 +88,50 @@
               </div>
             </div>
             <div class="row">
-                <div class="col s3">
+                <div class="col-sm-3">
                    <label>Upload Resume</label>
                   <input class="browser-default" id="resume" type="file" placeholder="Resume"
                     name="resume" (change)="fileChangeEvent($event)">
                 </div>
 
-                <div *ngIf="userProfile.resume" class="col s3">
+                <div *ngIf="userProfile.resume" class="col-sm-3">
                     <a target="_blank" href="{{userProfile.resume}}"> View Resume </a>
                 </div>
-                <div class="col s3">
+                <div class="col-sm-3">
                     <label>Upload Transcript</label>
                    <input class="browser-default" id="transcript" type="file" placeholder="Transcript"
                      name="transcript" (change)="fileChangeEvent($event)">
                  </div>
 
-                <div *ngIf="userProfile.transcript" class="col s3">
+                <div *ngIf="userProfile.transcript" class="col-sm-3">
                     <a target="_blank" href="{{userProfile.transcript}}"> View Transcript </a>
                 </div>
               </div>
 
             <div class="row">
-                <div class="col s3">
+                <div class="col-sm-3">
                    <label>Upload Reference Letter </label>
                   <input class="browser-default" id="reference_letter" type="file" placeholder="Reference Letter"
                     name="reference_letter" (change)="fileChangeEvent($event)">
                 </div>
 
-                <div *ngIf="userProfile.reference_letter" class="col s3">
+                <div *ngIf="userProfile.reference_letter" class="col-sm-3">
                     <a target="_blank" href="{{userProfile.reference_letter}}"> View Reference Letter </a>
                 </div>
-                <div class="col s3">
+                <div class="col-sm-3">
                     <label>Upload Alternate Reference Letter</label>
                    <input class="browser-default" id="reference_letter_alternate" type="file" placeholder="Alternate Reference Letter"
                      name="reference_letter_alternate" (change)="fileChangeEvent($event)">
                  </div>
 
-                <div *ngIf="userProfile.reference_letter_alternate" class="col s3">
+                <div *ngIf="userProfile.reference_letter_alternate" class="col-sm-3">
                     <a target="_blank" href="{{userProfile.reference_letter_alternate}}"> View Alternate Reference Letter </a>
                 </div>
               </div>
 
                   <button mat-raised-button class="btn white-text" (click)="uploadUserDocument()">Upload Document</button>
               <a class="waves-effect waves-light btn right" (click)="switchPage()">Next</a>
-          
+
             </div>
           <div [ngClass]='{hidden: profileInfo}'>
               <div class="row">
@@ -140,7 +140,7 @@
                     <p>You can answer these questions later. But remember, <b>{{documentScholarshipsPercent}}%</b> of scholarships ask at least one of these questions.
                       <br>So the more questions you answer, the more scholarships we can automate for you.</p>
                       <br><a >Need Help Answering these Questions?</a>
-                </div>  
+                </div>
             <div class="row">
               <label> Describe your school related activities and identify your significant contributions both to school and
                   community.(500 Words or less) </label><br>
@@ -157,9 +157,9 @@
             <div class="row">
               <a class="waves-effect waves-light btn left" (click)="switchPage()">Back</a>
               <button type="submit" class="btn btn-success right">Save Profile</button>
-            </div> 
+            </div>
           </div>
-          
+
           </form>
         </div>
       </div>
