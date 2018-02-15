@@ -1,10 +1,6 @@
-<p>This typeahead shows a hint when the input matches because the default values have been customized.</p>
-
-<label for="typeahead-config">Search for a state:</label>
-<input id="typeahead-config" type="text" class="form-control" (click)="optionSelected($event)" [(ngModel)]="model" [ngbTypeahead]="search" />
-
-{{model}}
-{{model | json }}
-
-{{results}}
-{{results | json }}
+<label for="typeahead-config">{{metadata['label']}}</label>
+<input [tabindex]="metadata['tabindex']" id="typeahead-config" type="text" class="form-control"
+       (selectItem)="optionSelected($event, item);"
+       (focus)="focus$.next($event.target.value)"
+       (click)="click$.next($event.target.value)"
+       #instance="ngbTypeahead" #item [ngbTypeahead]="search" />

@@ -10,9 +10,7 @@ import { Observable } from 'rxjs/Observable';
 import { UserProfileService } from '../_services/user-profile.service';
 
 import { AuthService } from "../_services/auth.service";
-import {SCHOOLS_DICT, MAJORS_DICT} from '../_models/constants';
-import {startWith} from 'rxjs/operators/startWith';
-import {map} from 'rxjs/operators/map';
+import {SCHOOLS_LIST, MAJORS_LIST} from '../_models/constants';
 import {AutoCompleteForm, initializeAutoCompleteOptions} from '../_shared/scholarship-form';
 
 @Component({
@@ -51,6 +49,8 @@ export class RegisterComponent implements OnInit {
   'STEM (Grad School)',
   'Other'
 ]
+  SCHOOLS_LIST = SCHOOLS_LIST;
+  MAJORS_LIST = MAJORS_LIST;
   locationData = {
   'city': '',
   'province': '',
@@ -99,9 +99,6 @@ export class RegisterComponent implements OnInit {
         userProfile: this.userProfile,
         locationData: this.locationData,
       };
-
-      console.log('sendData',sendData);
-
       postOperation = this.userProfileService.createUserAndProfile(sendData);
       // Subscribe to Observable
       postOperation.subscribe(
@@ -152,60 +149,12 @@ export class RegisterComponent implements OnInit {
     arr.splice(index,1)
   }
 
-  autoCompleteSelected(event?: Event | MatAutocompleteSelectedEvent | any, selectionType?: any, selectionValue?: any) {
 
-    if (event.childComponent) { //Check if this event was triggered by the inerited autocomponent
-
-      selectionType = event.selectionType;
-      event = event.event;
+  typeaheadEvent(event) {
+    if (event.type == 'major') {
+      this.userProfile.major = event.event.item;
     }
-
-    if (selectionType) {
-
-      if (selectionType == 'eligible_schools') {
-        if (selectionValue) {
-          this.userProfile.eligible_schools.push(selectionValue);
-        }
-        else {
-          this.userProfile.eligible_schools.push(event.option.value);
-          event.option.value = "";
-        }
-
-      }
-
-      else if (selectionType == 'eligible_programs') {
-        if (selectionValue) {
-          this.userProfile.eligible_programs.push(selectionValue);
-          selectionValue = "";
-        }
-        else {
-          this.userProfile.eligible_programs.push(event.option.value);
-          event.option.value = "";
-        }
-
-      }
-
-      else if (selectionType == 'major') {
-        if (selectionValue) {
-          this.userProfile.major = selectionValue;
-          selectionValue = "";
-        }
-        else {
-          this.userProfile.major = event.option.value;
-          event.option.value = "";
-        }
-
-      }
-    }
-
-    // if( typeof(event) == 'Event' && (<KeyboardEvent>event).keyCode == 13) {
-    if( (<KeyboardEvent>event).keyCode == 13) {
-
-      event.preventDefault();
-    }
-
   }
-
   // SnackBar notification
   showSnackBar(text: string, duration: number) {
     this.snackBar.open(text, '', {
