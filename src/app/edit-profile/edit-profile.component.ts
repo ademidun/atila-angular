@@ -26,6 +26,7 @@ import {map} from 'rxjs/operators/map';
 import {debounceTime} from 'rxjs/operators/debounceTime';
 import { SCHOOLS_DICT } from '../_models/constants';
 import {ScholarshipService} from '../_services/scholarship.service';
+import {SCHOOLS_LIST, MAJORS_LIST} from '../_models/constants';
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
@@ -68,6 +69,8 @@ EDUCATION_FIELD = [
   uploadFile: UploadFile;
   verificationResponse: any;
   locationPlaceHolder: any;
+  SCHOOLS_LIST = SCHOOLS_LIST;
+  MAJORS_LIST = MAJORS_LIST;
   locationData = {
     'city': '',
     'province': '',
@@ -431,6 +434,10 @@ showSnackBar(text: string, action = '', duration: number) {
   googlePlaceNoLoad(){
     // TODO: Figure out if we need to include this function googlePlaceNoLoad() for the googlePlaceDirective to work.
     this.locationPlaceHolder = 'City'
+  }
+
+  typeaheadEvent(event) {
+      this.userProfile[event.type] = event.event.item;
   }
 
 }

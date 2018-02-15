@@ -101,10 +101,14 @@
                 </mat-form-field>
           </div>
           <div class="row">
-              <mat-form-field class="col-sm-12">
-                  <input class="browser-default" matInput id="post_secondary_school" type="text" placeholder="Post Secondary School"
-                    [(ngModel)]="userProfile.post_secondary_school" name="post_secondary_school">
-                </mat-form-field>
+            <strong>{{userProfile.post_secondary_school}}</strong>
+              <div class="col-sm-12">
+                <app-typeahead [model]="userProfile.post_secondary_school" [dataset]="SCHOOLS_LIST"
+                               (typeaheadSelectedEvent)="typeaheadEvent($event)"
+                               [metadata]="{'placeholder':'Change Post Secondary School',
+                                  'key':'post_secondary_school'}">
+                </app-typeahead>
+                </div>
           </div>
           <div class="row">
             <mat-form-field class="col-sm-12">
@@ -136,91 +140,72 @@
           </mat-form-field>
           </div>
           <br>
+            <div class="autocomplete-form">
 
-          <div class="row">
-            <div class="col-sm-12">
-              <h4> Potential Schools </h4>
-              <p> What schools are you interested in?</p>
-              <table>
-                <tr  *ngFor="let school of userProfile.eligible_schools; let i = index">
-                <td> {{school}} </td>
-                <td>
-                  <a class="waves-effect waves-light btn right" (click)="deleteArrayitem(userProfile.eligible_schools, i)">
-                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                  </a>
-                </td>
-              </tr>
-              </table>
+              <div class="row">
+                <div class="col-sm-12">
+
+                  <p> What is your major?
+                    <br>
+
+                    <strong>{{userProfile.major}}</strong>
+                  </p>
+                </div>
+                <div class="col-sm-12">
+                  <app-typeahead [model]="userProfile.major" [dataset]="MAJORS_LIST"
+                                 (typeaheadSelectedEvent)="typeaheadEvent($event)"
+                                 [metadata]="{'placeholder':'Major e.g. Engineering, Biology, Business, Political Science',
+                                  'key':'major','tabindex':'9'}">
+                  </app-typeahead>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12">
+                  <p> What Other programs are you interested in?</p>
+                  <table>
+                    <tr  *ngFor="let program of userProfile.eligible_programs; let i = index">
+                      <td> {{program}} </td>
+                      <td>
+                        <a class="waves-effect waves-light btn right" (click)="deleteArrayitem(userProfile.eligible_programs, i)">
+                          <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+
+                <div class="col-sm-12">
+                  <app-typeahead [model]="userProfile.eligible_programs" [dataset]="MAJORS_LIST"
+                                 [metadata]="{'placeholder':'What Other programs are you interested in?', 'key':'major','tabindex':'9'}">
+                  </app-typeahead>
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12">
+                  <p> What schools are you interested in?</p>
+                  <table>
+                    <tr  *ngFor="let school of userProfile.eligible_schools; let i = index" ngDefaultControl>
+                      <td>{{school}} </td>
+                      <td>
+                        <a class="waves-effect waves-light btn right" (click)="deleteArrayitem(userProfile.eligible_schools, i)">
+                          <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="col-sm-12">
+                  <app-typeahead [model]="userProfile.eligible_schools" [dataset]="SCHOOLS_LIST"
+                                 [metadata]="{'placeholder':'Schools e.g. Mcmaster University, Sheridan College', 'key':'major','tabindex':'9'}">
+                  </app-typeahead>
+                </div>
+              </div>
 
             </div>
 
-            <mat-form-field class="example-full-width col-sm-12">
-              <input #eligibleSchoolInput type="text" placeholder="Enter Schools" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="schools_auto"
-                     (keyup)="autoCompleteSelected($event)">
-
-
-              <mat-autocomplete style="min-width: 300px !important;" #schools_auto="matAutocomplete" class="autocomplete-custom-template"
-                                (optionSelected)="autoCompleteSelected($event,'eligible_schools')" >
-                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                  {{ option }}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-          </div>
-          <br>
-
-
-
-          <div class="col-sm-12">
-            <p> What Other programs are you interested in?</p>
-
-
-            <table>
-              <tr  *ngFor="let program of userProfile.eligible_programs; let i = index">
-                <td> {{program}} </td>
-                <td>
-                  <a class="waves-effect waves-light btn right" (click)="deleteArrayitem(userProfile.eligible_programs, i)">
-                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                  </a>
-                </td>
-              </tr>
-            </table>
-
-            <mat-form-field class="example-full-width col-sm-12">
-              <input tabindex="9" #eligibleMajorInput type="text" placeholder="Major e.g. Engineering, Biology, Business, Political Science" aria-label="Number" matInput [formControl]="majorControl" [matAutocomplete]="majors_auto"
-                     (keyup)="autoCompleteSelected($event)">
-
-
-              <mat-autocomplete tabindex="9" style="min-width: 300px !important;" #majors_auto="matAutocomplete" class="autocomplete-custom-template"
-                                (optionSelected)="autoCompleteSelected($event,'eligible_programs')" >
-                <mat-option *ngFor="let option of filteredMajors | async" [value]="option">
-                  {{ option }}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-            <!--
-              <table>
-                <tr  *ngFor="let school of userProfile.eligible_programs; let i = index">
-                  <td> {{program}} </td>
-                  <td>
-                    <a class="waves-effect waves-light btn right" (click)="deleteArrayitem(userProfile.eligible_programs, i)">
-                      <i class="fa fa-trash-o" aria-hidden="true"></i>
-                    </a>
-                  </td>
-                </tr>
-              </table>
-
-              <mat-form-field class="example-full-width">
-                <input #eligibleProgramInput  class="browser-default" matInput id="eligible_programs" name="eligible_programs"
-                       placeholder="E.g. Health Science, Engineering, Business, Law School etc." (keyup)="0">
-                <button class="waves-effect waves-light btn center" (click)="autoCompleteSelected($event, 'eligible_programs',eligibleProgramInput.value)">
-                  <i class="fa fa-plus" aria-hidden="true"></i>
-                </button>
-              </mat-form-field>
-
-              -->
-
-          </div>
           <br>
           <!-- TODO: Do we need to explain this? Perhaps do some A/B Testing? -->
 

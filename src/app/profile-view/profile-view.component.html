@@ -1,5 +1,8 @@
 <div class="container" *ngIf="userProfile">
 
+
+
+
       <mat-card class="profile-header">
 
       <mat-card-header class="row">
@@ -9,12 +12,12 @@
              <!--&lt;!&ndash;*ngIf="profile_pic_url" [style.background]="profile_pic_url">&ndash;&gt;-->
 
         <!--</div>-->
-        <img class="col-md-3 header-image" mat-card-avatar [src]="userProfile.profile_pic_url">
+        <img class="col-sm-4 header-image" mat-card-avatar [src]="userProfile.profile_pic_url" style="margin-left: 15%">
 
       <div >
         <!--Show the profile info, IN the header on regular devices.-->
         <span class="hide-on-med-and-down">
-        <div class="col offset-l3-5 offset-md-4 " style="margin-left:5%">
+        <div class="col-sm-4 " style="margin-left:5%">
           <mat-card-title><h4>{{userProfile.first_name}} {{userProfile.last_name}}</h4></mat-card-title>
           <mat-card-subtitle class="title"><h5>{{userProfile.title}}</h5></mat-card-subtitle>
           <mat-card-subtitle *ngIf="userProfile.post_secondary_school" class="title"><h5>{{userProfile.post_secondary_school}}</h5></mat-card-subtitle>
@@ -103,10 +106,14 @@
               </mat-form-field>
             </div>
             <div class="row">
-              <mat-form-field class="col-sm-12">
-                <input class="browser-default" matInput id="post_secondary_school" type="text" placeholder="University/College Name or Apprenticesip Program"
-                       [(ngModel)]="userProfile.post_secondary_school" name="post_secondary_school">
-              </mat-form-field>
+              <div class="col-sm-12">
+                <strong>{{userProfile.post_secondary_school}}</strong>
+                <app-typeahead [model]="userProfile.post_secondary_school" [dataset]="SCHOOLS_LIST"
+                               (typeaheadSelectedEvent)="typeaheadEvent($event)"
+                               [metadata]="{'placeholder':'University/College Name or Apprenticesip Program',
+                                  'key':'post_secondary_school','tabindex':'9'}">
+                </app-typeahead>
+              </div>
             </div>
             <div class="row">
               <mat-form-field class="col-sm-12">

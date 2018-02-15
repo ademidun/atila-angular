@@ -18,6 +18,7 @@ import { Observable } from 'rxjs/Observable';
 import * as firebase from "firebase";
 import * as $ from 'jquery';
 import {ApplicationService} from '../_services/application.service';
+import {SCHOOLS_LIST} from '../_models/constants';
 
 @Component({
   selector: 'app-profile-view',
@@ -34,6 +35,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
   showPreview:boolean = false;
   userApplications: any;
   profile_pic_url;
+  SCHOOLS_LIST = SCHOOLS_LIST;
 
   currentUser:number;
 
@@ -247,5 +249,8 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
   }
 
 
+  typeaheadEvent(event) {
+    this.userProfile[event.type] = event.event.item;
+  }
 
 }

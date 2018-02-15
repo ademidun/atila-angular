@@ -38,3 +38,6 @@ body {
 a.btn {
   color: white;
 }
+a:not([href]):not([tabindex]) {
+  color: white;
+}

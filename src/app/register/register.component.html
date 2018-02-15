@@ -118,6 +118,8 @@
                 <mat-option *ngFor="let field of EDUCATION_FIELD" [value]="field" ngDefaultControl>{{field}} </mat-option>
               </mat-select>
             </mat-form-field>
+            <div class="autocomplete-form">
+
               <div class="row">
                 <div class="col-sm-12">
 
@@ -161,24 +163,25 @@
 
               <div class="row">
                 <div class="col-sm-12">
-                    <p> What schools are you interested in?</p>
-                    <table>
-                      <tr  *ngFor="let school of userProfile.eligible_schools; let i = index" ngDefaultControl>
-                        <td>{{school}} </td>
-                        <td>
-                          <a class="waves-effect waves-light btn right" (click)="deleteArrayitem(userProfile.eligible_schools, i)">
-                            <i class="fa fa-trash-o" aria-hidden="true"></i>
-                          </a>
-                        </td>
-                      </tr>
-                    </table>
-                  </div>
+                  <p> What schools are you interested in?</p>
+                  <table>
+                    <tr  *ngFor="let school of userProfile.eligible_schools; let i = index" ngDefaultControl>
+                      <td>{{school}} </td>
+                      <td>
+                        <a class="waves-effect waves-light btn right" (click)="deleteArrayitem(userProfile.eligible_schools, i)">
+                          <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
                 <div class="col-sm-12">
                   <app-typeahead [model]="userProfile.eligible_schools" [dataset]="SCHOOLS_LIST"
                                  [metadata]="{'placeholder':'Schools e.g. Mcmaster University, Sheridan College', 'key':'major','tabindex':'9'}">
                   </app-typeahead>
                 </div>
               </div>
+            </div>
 
 
             </div>
