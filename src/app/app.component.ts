@@ -55,6 +55,7 @@ export class AppComponent implements AfterViewInit {
       if (event instanceof NavigationEnd ) {
         ga('set', 'page', event.urlAfterRedirects);
         ga('send', 'pageview');
+
       }
     });
   }

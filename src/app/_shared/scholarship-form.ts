@@ -80,3 +80,14 @@ export function filterUserInput(val: string, type: string): string[] {
   }
 
 }
+
+
+export function getOptionsList (key: string) {
+
+  if (key == 'school') {
+    return SCHOOLS_LIST;
+  }
+  if (key == 'major' || key == 'eligible_programs') {
+    return MAJORS_LIST;
+  }
+}

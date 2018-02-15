@@ -1,12 +1,21 @@
-<mat-form-field class="col s12">
-  <input #autoCompleteInput type="text" matInput [formControl]="formControl" [placeholder]="metadata['placeholder']" [matAutocomplete]="autcomplete_input"
-         (keyup)="autoCompleteSelected($event)"  [(ngModel)]="model">
+<!-- todo https://stackoverflow.com/questions/46422007/error-error-no-value-accessor-for-form-control-with-unspecified-name-attribute-->
+<!-- todo Use custom form controls: https://alligator.io/angular/custom-form-control/-->
+<div *ngIf="formGroup" [formGroup]="formGroup">
+  <mat-form-field class="col s12">
+    <input *ngIf="model" [(ngModel)]="model" #autoCompleteInput type="text" [formControlName]="formControl" [placeholder]="metadata['placeholder']" [matAutocomplete]="autcomplete_input"
+           (keyup)="autoCompleteSelected($event)" [name]="metadata['key']" ngDefaultControl>
+
+    <input *ngIf="!model" #autoCompleteInput type="text" matInput [formControlName]="formControl" [placeholder]="metadata['placeholder']" [matAutocomplete]="autcomplete_input"
+           (keyup)="autoCompleteSelected($event)" [name]="metadata['key']" >
 
 
-  <mat-autocomplete tabindex="9" style="min-width: 300px !important;" #autcomplete_input="matAutocomplete" class="autocomplete-custom-template"
-                    (optionSelected)="autoCompleteSelected($event,metadata['key']);formControl.setValue('')" >
-    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-      {{ option }}
-    </mat-option>
-  </mat-autocomplete>
-</mat-form-field>
+    <mat-autocomplete  [tabindex]="metadata['tabindex']" style="min-width: 300px !important;" #autcomplete_input="matAutocomplete" class="autocomplete-custom-template"
+                       (optionSelected)="autoCompleteSelected($event,metadata['key']);formControl.setValue('')" >
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>
+
+

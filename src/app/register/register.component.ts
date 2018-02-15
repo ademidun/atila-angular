@@ -60,20 +60,8 @@ export class RegisterComponent implements OnInit {
   disableRegistrationButton: any;
   differentPassword: boolean;
   locationPlaceHolder: any;
-  filteredOptions: Observable<string[]>;
-  filteredMajors: Observable<string[]>;
-  topFilteredMajors: Observable<string[]>;
-
-  schoolNames: any;
-  majorNames: any;
-
-
-  myControl: FormControl = new FormControl();
-  majorControl: FormControl = new FormControl();
-  topMajorControl: FormControl = new FormControl();
-
-  autCompleteFormGroup: FormGroup;
-  autCompleteOptions: any;
+  autoCompleteFormGroup: FormGroup;
+  autoCompleteOptions: any;
   userProfile: UserProfile;
   constructor(
     public router: Router,
@@ -83,22 +71,10 @@ export class RegisterComponent implements OnInit {
   }
 
 
-
   ngOnInit() {
     this.userProfile = new UserProfile();
-
-
-    this.schoolNames = SCHOOLS_DICT.map(school => school.name);
-
-    if(MAJORS_DICT) {
-      this.majorNames = MAJORS_DICT.map(major => major.name);
-    }
-    this.initializeForm();
-
-    this.autCompleteFormGroup = AutoCompleteForm();
-
-
-    this.autCompleteOptions = initializeAutoCompleteOptions(this.autCompleteFormGroup);
+    this.autoCompleteFormGroup = AutoCompleteForm();
+    this.autoCompleteOptions = initializeAutoCompleteOptions(this.autoCompleteFormGroup);
   }
 
   registerUser(registerForm: NgForm) {
@@ -109,14 +85,12 @@ export class RegisterComponent implements OnInit {
     //   return;
     //
     // }
-
     if (registerForm.valid) {
       this.disableRegistrationButton = true;
       let postOperation: Observable<any>;
 
 
       // Create a new User
-      this.userProfile.major = this.topMajorControl.value;
       for (let key in ['city', 'province', 'country'] ) {
         this.locationData[key] = this.locationData[key] ? this.toTitleCase(this.locationData[key]) : this.locationData[key];
       }
@@ -126,7 +100,7 @@ export class RegisterComponent implements OnInit {
         locationData: this.locationData,
       };
 
-
+      console.log('sendData',sendData);
 
       postOperation = this.userProfileService.createUserAndProfile(sendData);
       // Subscribe to Observable
@@ -210,67 +184,24 @@ export class RegisterComponent implements OnInit {
         }
 
       }
+
+      else if (selectionType == 'major') {
+        if (selectionValue) {
+          this.userProfile.major = selectionValue;
+          selectionValue = "";
+        }
+        else {
+          this.userProfile.major = event.option.value;
+          event.option.value = "";
+        }
+
+      }
     }
 
     // if( typeof(event) == 'Event' && (<KeyboardEvent>event).keyCode == 13) {
     if( (<KeyboardEvent>event).keyCode == 13) {
 
       event.preventDefault();
-    }
-
-  }
-
-  initializeForm() {
-    /*
-    //https://stackoverflow.com/questions/43575515/md-autocomplete-angular2-getting-data-from-server-with-a-service
-    this.myControl.valueChanges
-      //.debounceTime(500)
-      .subscribe(query => {
-        this.scholarshipService.searchSchools(query)
-          .then(res => {
-            console.log('res',res);
-            return this.filteredOptions = res.map(element => element['name']);
-          },
-            err => {
-              console.log('err',err);
-          });
-      });
-      */
-
-    let formControl =  new FormControl();
-
-    this.filteredMajors = this.majorControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(val => this.filterUserInput(val,'major'))
-      );
-
-    this.topFilteredMajors = this.topMajorControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(val => this.filterUserInput(val,'major'))
-      );
-
-  }
-
-  filterUserInput(val: string, type: string): string[] {
-
-    //Allow user input to be used if no other choices available;
-
-    if(type =='school') {
-      let customOptions = this.schoolNames.filter(option =>
-        option.toLowerCase().indexOf(val.toLowerCase()) !== -1);
-
-      customOptions.push(val);
-      return customOptions;
-    }
-    if (type == 'major') {
-
-      let customOptions = this.majorNames.filter(option =>
-        option.toLowerCase().indexOf(val.toLowerCase()) !== -1);
-
-      customOptions.push(val);
-      return customOptions;
     }
 
   }

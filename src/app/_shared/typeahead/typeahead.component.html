@@ -1,0 +1,10 @@
+<p>This typeahead shows a hint when the input matches because the default values have been customized.</p>
+
+<label for="typeahead-config">Search for a state:</label>
+<input id="typeahead-config" type="text" class="form-control" (click)="optionSelected($event)" [(ngModel)]="model" [ngbTypeahead]="search" />
+
+{{model}}
+{{model | json }}
+
+{{results}}
+{{results | json }}

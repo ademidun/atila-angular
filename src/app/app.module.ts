@@ -80,6 +80,7 @@ import { CardGenericComponent } from './card-generic/card-generic.component';
 import { TitleCasePipe } from './_pipes/title-case.pipe';
 import { MarkdownModule } from 'ngx-markdown';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
+import { TypeaheadComponent } from './_shared/typeahead/typeahead.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -120,7 +121,8 @@ import { AutocompleteComponent } from './autocomplete/autocomplete.component';
     DynamicQuestionGeneralComponent,
     CardGenericComponent,
     TitleCasePipe,
-    AutocompleteComponent
+    AutocompleteComponent,
+    TypeaheadComponent
   ],
   imports: [
     NgbModule.forRoot(),

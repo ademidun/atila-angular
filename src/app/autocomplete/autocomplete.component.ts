@@ -5,9 +5,10 @@ import {QuestionBase} from '../_models/question-base';
 @Component({
   selector: 'app-autocomplete',
   templateUrl: './autocomplete.component.html',
-  styleUrls: ['./autocomplete.component.scss']
+  styleUrls: ['./autocomplete.component.scss'],
 })
 export class AutocompleteComponent implements OnInit {
+  @Input() formGroup: FormGroup;
   @Input() formControl: FormControl;
   @Input() filteredOptions: any;
   @Input() metadata: any;
