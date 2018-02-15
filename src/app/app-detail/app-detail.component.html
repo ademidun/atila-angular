@@ -1,8 +1,6 @@
 <div class="container">
     <div class="card">
-      <div class="row">
         <div class="card-content" *ngIf="userProfile && scholarship">
-
           <h4><a routerLink="/profile/{{userProfile.username}}">{{userProfile.first_name}}</a>'s Application for: <br>
               <a [routerLink]="['/scholarship-detail', scholarship.slug]">
                 {{scholarship.name}}
@@ -28,9 +26,8 @@
 
             </div>
             <br>
-            <form   [formGroup]="profileForm"  class="col-sm-12">
+            <form   [formGroup]="profileForm" >
               <h4>General Info</h4>
-              <div class="row">
                 <div *ngFor="let question of userProfileDynamicQuestions" >
                   <app-dynamic-question-general [form]="profileForm" [question]="question" [responses]="userProfile"></app-dynamic-question-general>
                 </div>
@@ -39,7 +36,6 @@
                 <div *ngFor="let question of locationQuestions" >
                   <app-dynamic-question-general [form]="profileForm" [question]="question" [responses]="locationData"></app-dynamic-question-general>
                 </div>
-              </div>
 
             <div class="row">
               <span  *ngIf="scholarship.resume_required" >
@@ -122,8 +118,8 @@
               </div>
 
             <div class="row">
-                <a mat-raised-button class="col btn white-text left s12 m5" (click)="uploadUserDocuments()" style="margin-left:1%">Upload Document</a>
-                <a (click)="saveUserProfile(profileForm)" class=" col btn btn-success right s12 m5">Save Profile</a>
+                <a mat-raised-button class="col btn white-text left s12 col-md-5" (click)="uploadUserDocuments()" style="margin-left:1%">Upload Document</a>
+                <a (click)="saveUserProfile(profileForm)" class="btn btn-success right s12 col-md-5 offset-md-1">Save Profile</a>
               <p class=" col"> Location changes can be saved in <a routerLink="/edit-profile">edit profile</a>.</p>
 
               <mat-progress-bar style="margin-bottom: 1%;" *ngIf="uploadProgress" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
@@ -136,5 +132,4 @@
 
         </div>
       </div>
-    </div>
   </div>

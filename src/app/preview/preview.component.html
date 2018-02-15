@@ -1,104 +1,82 @@
-<div class="background-image" >
-  <!-- <img src="../../assets/img/bg-preview-3.jpg"/> -->
-        <div class="container">
-        </div>
-      </div>
+  <div class="background-image" >
+    <!-- <img src="../../assets/img/bg-preview-3.jpg"/> -->
+    <div class="container">
+    </div>
+  </div>
 
-          <div class="container">
+  <div class="container">
 
-            <div class="preview-form">
-              <form #previewForm="ngForm" (ngSubmit)="onSubmit(previewForm)">
-                <div class="semi-dark-background">
+    <div class="preview-form">
+      <form #previewForm="ngForm" (ngSubmit)="onSubmit(previewForm)">
+        <div class="semi-dark-background">
 
-                <h1 style="margin-bottom: 0px" class="form-header">Get Your Education Funded</h1>
-                <div style="margin-bottom: -22px; font-size: x-large" class="row preview-questions">
+          <h1 style="margin-bottom: 0px" class="form-header">Get Your Education Funded</h1>
+          <div style="margin-bottom: -22px; font-size: x-large" class="row preview-questions">
 
-                  <!-- Try using Google Maps Places Autocomplete API: https://developers.google.com/maps/documentation/javascript/places-autocomplete#address_forms -->
-                  <!-- https://stackoverflow.com/questions/42341930/google-places-autocomplete-angular2 -->
-                  <mat-form-field class="browser-default col-sm-12 m4 location-div">
-                      <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
-                      <input matInput type="text" class="form-control" style="padding-bottom: 0%" inputStyle="" required [placeholder]="locationPlaceHolder" name="location" id="location" [(ngModel)]="model.location.name" #LocationCtrl="ngModel"
-                             appGooglePlace (setAddress)="placeAutoComplete($event,LocationCtrl)"  (googlePlaceNoLoad)="googlePlaceNoLoad()" (keydown)="keyDownHandler($event)" >
-                    </mat-form-field>
+            <!-- Try using Google Maps Places Autocomplete API: https://developers.google.com/maps/documentation/javascript/places-autocomplete#address_forms -->
+            <!-- https://stackoverflow.com/questions/42341930/google-places-autocomplete-angular2 -->
+            <mat-form-field class="browser-default col-sm-12 col-md-4 location-div">
+              <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
+              <input matInput type="text" class="form-control" style="padding-bottom: 0%" inputStyle="" required [placeholder]="locationPlaceHolder" name="location" id="location" [(ngModel)]="model.location.name" #LocationCtrl="ngModel"
+                     appGooglePlace (setAddress)="placeAutoComplete($event,LocationCtrl)"  (googlePlaceNoLoad)="googlePlaceNoLoad()" (keydown)="keyDownHandler($event)" >
+            </mat-form-field>
 
-                  <mat-form-field class="form-group input-field col-sm-12 m4">
-                    <mat-select [(ngModel)]="model.education_level" name="education_level" id="education_level" multiple=true required placeholder="Select Education Type">
-                      <mat-option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </mat-option>
-                    </mat-select>
-                  </mat-form-field>
+            <mat-form-field class="form-group input-field col-sm-12 col-md-4">
+              <mat-select [(ngModel)]="model.education_level" name="education_level" id="education_level" multiple=true required placeholder="Select Education Type">
+                <mat-option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </mat-option>
+              </mat-select>
+            </mat-form-field>
 
-                  <mat-form-field class="form-group input-field col-sm-12 m4">
-                    <mat-select [(ngModel)]="model.education_field" name="education_field" id="education_field" multiple=true required placeholder="Select Education Field">
-                      <mat-option *ngFor="let field of EDUCATION_FIELD" [value]="field">{{field}} </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-
-
-
-                  <!--<div class=" input-field col-sm-12 m4 location-div">-->
-                  <!--<input type="text" class="form-control" style="padding-bottom: 0" required name="location" id="location" [(ngModel)]="model.location.name" #LocationCtrl="ngModel"-->
-                  <!--appGooglePlace (setAddress)="placeAutoComplete($event,LocationCtrl)" (googlePlaceNoLoad)="googlePlaceNoLoad()" (keydown)="keyDownHandler($event)" >-->
-                  <!--<label for="location">City, Province/State or Country</label>-->
-                  <!--</div>-->
-
-                  <!--<div class="form-group input-field col-sm-12 m4">-->
-                  <!--<select multiple  [(ngModel)]="model.education_level" name="education_level" id="education_level"required>-->
-                  <!--<option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </option>-->
-                  <!--</select>-->
-                  <!--<label for="education_level">Select Your Education Type</label>-->
-                  <!--</div>-->
-
-                  <!--<div class="form-group input-field col-sm-12 m4">-->
-                  <!--<select multiple  [(ngModel)]="model.education_field" name="education_field" id="education_field" required>-->
-                  <!--<option *ngFor="let field of EDUCATION_FIELD" [value]="field">{{field}} </option>-->
-                  <!--</select>-->
-                  <!--<label for="education_field">Select Your Education Field</label>-->
-                  <!--</div>-->
-
-                </div>
-                </div>
-                <br>
-                <p *ngIf="model.errors" style="color: white">
-                  {{model.errors}}
-                </p>
-                <div class="row center scholarship-btn-div" style="text-align: center;">
-                    <button class=" col-sm-8 offset-s2 waves-effect waves-light btn scholarship-btn" type="submit">See My Scholarships</button>
-                  <a style="padding-top: 1.8%" class=" col-sm-8 offset-s2 waves-effect waves-light btn scholarship-btn" routerLink="/applications/demo">Try The Live Demo</a>
-                </div>
-                <br>
-
-              </form>
-            </div>
-
-            <!--Youtube video demo-->
-            <div class="row">
-              <h1 style="color: white; text-align: center"> Live Demo </h1>
-              <div class="videowrapper ">
-                <iframe src="//www.youtube.com/embed/c_K4342WMwQ?cc_load_policy=1" width="560" height="314"
-                        allowfullscreen="allowfullscreen">
-
-                </iframe>
-              </div>
-            </div>
-
-            <div class="row center" style="text-align: center;margin-bottom: 0px;">
-              <p style="color: white; font-size: medium" class="col-sm-6">Subscribe to get updates on new scholarships, blog posts and new product features.
-
-                <span *ngIf="subscriber.response" style="color: greenyellow">
-                  <br>
-                  {{subscriber.response}}
-                </span>
-              </p>
-
-              <mat-form-field class="browser-default col-sm-3 ">
-                <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
-                <input matInput type="email" class="form-control" style="padding-bottom: 0; margin-bottom: 0"  name="email" id="emailid"
-                       placeholder="Email Address" email [(ngModel)]="subscriber.email" (keyup.enter)="addSubscriber($event)">
-              </mat-form-field>
-              <a class="waves-effect waves-light btn browser-default col-sm-2" style="background-color:#4080ff; margin-top: 3.7% " (click)="addSubscriber()">Subscribe</a>
-
-
-            </div>
-
+            <mat-form-field class="form-group input-field col-sm-12 col-md-4">
+              <mat-select [(ngModel)]="model.education_field" name="education_field" id="education_field" multiple=true required placeholder="Select Education Field">
+                <mat-option *ngFor="let field of EDUCATION_FIELD" [value]="field">{{field}} </mat-option>
+              </mat-select>
+            </mat-form-field>
 
           </div>
+        </div>
+        <br>
+        <p *ngIf="model.errors" style="color: white">
+          {{model.errors}}
+        </p>
+        <div class="" style="text-align: center;">
+          <button class=" col-sm-8 offset-sm-2 waves-effect waves-light btn scholarship-btn" type="submit">See My Scholarships</button>
+          <a style="padding-top: 1.8%" class=" col-sm-8 offset-sm-2 waves-effect waves-light btn scholarship-btn" routerLink="/applications/demo">Try The Live Demo</a>
+        </div>
+        <br>
+
+      </form>
+    </div>
+
+    <!--Youtube video demo-->
+    <div class="row">
+      <h1 style="color: white; text-align: center" class="col"> Live Demo </h1>
+      <div class="videowrapper ">
+        <iframe src="//www.youtube.com/embed/c_K4342WMwQ?cc_load_policy=1" width="560" height="314"
+                allowfullscreen="allowfullscreen">
+        </iframe>
+      </div>
+    </div>
+
+    <div class="row center" style="text-align: center;margin-bottom: 0px;">
+      <p style="color: white; font-size: medium" class="col-sm-6">Subscribe to get updates on new scholarships, blog posts and new product features.
+
+        <span *ngIf="subscriber.response" style="color: greenyellow">
+                    <br>
+                    {{subscriber.response}}
+                  </span>
+      </p>
+
+      <mat-form-field class="browser-default col-sm-3 ">
+        <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
+        <input matInput type="email" class="form-control" style="padding-bottom: 0; margin-bottom: 0"  name="email" id="emailid"
+               placeholder="Email Address" email [(ngModel)]="subscriber.email" (keyup.enter)="addSubscriber($event)">
+      </mat-form-field>
+      <a class="waves-effect waves-light btn browser-default col-sm-2" style="background-color:#4080ff; margin-top: 3.7% " (click)="addSubscriber()">Subscribe</a>
+
+
+    </div>
+
+
+  </div>
+  <hr>

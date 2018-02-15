@@ -24,15 +24,15 @@
           </div>
 
 
-        <p class="col offset-md-5">Save for Later</p>
-        <button mat-fab  (click)="addToMyScholarships(scholarship)" style="margin-left: -7%">
+        <p class="col col-md-3">Save for Later</p>
+        <button mat-fab  (click)="addToMyScholarships(scholarship)" style="margin-left: -23%">
           <mat-icon [ngStyle]="{'color': alreadySaved ? '#4080ff' : ''}"  class="atila-blue" aria-hidden="true" aria-label="Save">bookmark</mat-icon>
         </button>
 
         <button mat-raised-button *ngIf=scholarship.is_automated (click)="getOrCreateApp()"
         style="background-color: #4080ff; " class="white-text">Apply now</button>
 
-        <div  *ngIf=!scholarship.is_automated class="col-sm-6 m4">
+        <div  *ngIf=!scholarship.is_automated class="col-sm-6 col-md-4">
           <p>Request Automation and we'll automate the scholarship for you.</p>
           <button mat-raised-button (click)="requestAutomation()"
                   style="background-color: #4080ff; min-height: 60px" class="white-text">Request Automation</button>

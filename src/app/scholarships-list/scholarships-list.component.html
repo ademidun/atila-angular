@@ -40,9 +40,9 @@
 
         <div class="row">
 
-          <a class=" col-sm-8 offset-s2 waves-effect waves-light btn " routerLink="/applications/demo">Try The Live Demo</a>
+          <a class=" col-sm-6 waves-effect waves-light btn " routerLink="/applications/demo">Try The Live Demo</a>
 
-          <mat-form-field class="col-sm-6 m4 right">
+          <mat-form-field class="col-sm-5 right">
             <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
             <mat-select  [(ngModel)]="form_data.sort_by"  id="sort_by" name="sort_by" placeholder="Sort By:" (change)="getScholarshipPreview()">
               <mat-option *ngFor="let sortType of ['relevance','deadline','surprise_me','only_automated']" [value]="sortType">{{prettifyKeys(sortType)}} </mat-option>
@@ -56,14 +56,14 @@
         <div *ngIf="!isLoggedIn; else registeredContent">
 
           <div class="row">
-            <div *ngFor="let scholarship of scholarships;  let i=index" class="col-sm-12 m10">
+            <div *ngFor="let scholarship of scholarships;  let i=index" class="col-sm-12 col-md-10">
               <ng-template [ngIf]="i<3">
                 <app-scholarship-card [scholarship]="scholarship" [userProfile]="userProfile"></app-scholarship-card>
               </ng-template>
             </div>
           </div>
 
-          <div class="row center">
+          <div class="center col-sm-8 offset-sm-2 offset-md-1">
 
             <a *ngIf="scholarship_count!=0" class="waves-effect waves-light btn" routerLink="/register">Register here to view the rest of the scholarships</a>
             <a *ngIf="scholarship_count==0" class="waves-effect waves-light btn" routerLink="/register">Register here to start qualifying for scholarships</a>
@@ -83,7 +83,7 @@
           <div class="container">
             <div class="row">
 
-              <div *ngFor="let scholarship of scholarships;  let i=index"class="col-sm-12 m10" style="margin-bottom: -5%">
+              <div *ngFor="let scholarship of scholarships;  let i=index"class="col-sm-12 col-md-10" style="margin-bottom: -5%">
                 <app-scholarship-card [scholarship]="scholarship" [userProfile]="userProfile"></app-scholarship-card>
               </div>
 

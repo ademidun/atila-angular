@@ -1,18 +1,15 @@
 <div class="container" *ngIf="userProfile">
 
-
-
-
       <mat-card class="profile-header">
 
       <mat-card-header class="row">
         <!-- NOTE Mat card header text is hidden in css -->
-        <!--<div class="col offset-l2 offset-md-4 offset-s2 header-image" mat-card-avatar-->
+        <!--<div class="col offset-l2 offset-md-4 offset-sm-2 header-image" mat-card-avatar-->
              <!--[ngStyle]="{ 'background-image': 'url( '+ userProfile.profile_pic_url +' )' }">-->
              <!--&lt;!&ndash;*ngIf="profile_pic_url" [style.background]="profile_pic_url">&ndash;&gt;-->
 
         <!--</div>-->
-        <img class="col offset-l2 offset-md-4 offset-s2 header-image" mat-card-avatar [src]="userProfile.profile_pic_url">
+        <img class="col-md-3 header-image" mat-card-avatar [src]="userProfile.profile_pic_url">
 
       <div >
         <!--Show the profile info, IN the header on regular devices.-->

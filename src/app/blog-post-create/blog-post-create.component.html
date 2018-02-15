@@ -1,6 +1,4 @@
 <div class="container">
-  <div class="row">
-
     <div class="col-sm-11">
       <h3> {{blogPost.title}} </h3>
 
@@ -9,33 +7,34 @@
       <mat-card-content>
           <input id="forum_title" placeholder="Title" [(ngModel)]="blogPost.title" (change)="titleToSlug(blogSlugInput)">
 
-        <a (click)="extraBlogOptions = !extraBlogOptions" style="cursor: pointer">More Settings</a>
+        <a (click)="extraBlogOptions = !extraBlogOptions" style="cursor: pointer; color: #68d5ff">More Settings</a>
 
         <div [hidden]="!extraBlogOptions">
 
         <div class="row">
 
-            <div class="col-sm-12 col-lg-2">
+            <div class="col-sm-12">
                 <label>Paste an image url for blog Post Header Image</label>
-              <input [(ngModel)]="blogPost.header_image_url" class="browser-default" id="header_image_url" type="text" placeholder="Paste header image url"
+              <input [(ngModel)]="blogPost.header_image_url" id="header_image_url" type="text" placeholder="Paste header image url"
                  #uploadPicInput name="header_image_url">
             </div>
-            <div class="col-sm-12 col-lg-2">
+            <div class="col-sm-12">
                 <label>Or upload a blog Post Header Image</label>
-              <input class="browser-default" id="header_image_url_file" type="file" placeholder="Upload your Header Image"
+              <input id="header_image_url_file" type="file" placeholder="Upload your Header Image"
                  #uploadPicInput name="header_image_url_file">
             </div>
 
             <mat-progress-bar style="margin-bottom: 1%;" *ngIf="uploadProgress" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
 
-            <div class="col-sm-6 col-lg-2">
+            <div class="col-sm-6">
               <button mat-raised-button class="btn white-text" (click)="uploadPicture(uploadPicInput)">Upload</button>
             </div>
 
         </div>
 
-          <span class="example-tooltip-host" matTooltip="A short preview of your article. Used for social media or search engines." matTooltipPosition="below">
-            <mat-icon aria-label="Why add a description">help_outline</mat-icon>
+          <span ngbPopover="Write a short preview of your article. Used for social media or search engines."
+                triggers="mouseenter:mouseleave" popoverTitle="Blog Preview">
+            <mat-icon aria-label="Blog Preview. A short preview of your article. Used for social media or search engines.">help_outline</mat-icon>
           </span>
           <input id="blog_post_description" class="prefix_input" placeholder="Blog preview" [(ngModel)]="blogPost.description">
           <div><span *ngIf="userProfile" id="url_prefix">atila.ca/blog/{{userProfile.username}}/</span>
@@ -57,12 +56,11 @@
     </div>
 
     <br>
-    <div style="margin-top:3%" class="col col-md-8 offset-md-2 offset-lg-8 offset-lg-2 col-sm-11">
+    <div style="margin-top:3%" class="col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-sm-11">
       <h5>Preview</h5>
       <h3> {{blogPost.title}} </h3>
       <img [src]="blogPost.header_image_url" style="max-height: 100%;max-width: 100%;"/>
     </div>
-    <div [innerHTML]="blogPost.body | safeHtml" class="col col-md-8 offset-md-d-2 offset-lg-8 offset-lg-2 col-sm-11"></div>
+    <div [innerHTML]="blogPost.body | safeHtml" class="col col-md-8 offset-md-d-2 col-lg-8 offset-lg-2 col-sm-11"></div>
 
-  </div>
 </div>

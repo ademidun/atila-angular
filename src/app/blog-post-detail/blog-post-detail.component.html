@@ -7,7 +7,7 @@
 
             <div class="col-sm-12 col-md-8  offset-md-2">
                 <a *ngIf="userProfile && userProfile.user==blogPost.user.id" [routerLink]="[ '/edit-blog-post', blogPost.id ]">Edit Blog</a>
-                <img src="{{blogPost.header_image_url}}" style="max-height: 100%;max-width: 100%; margin-left: 20%"/>
+                <img src="{{blogPost.header_image_url}}" style="max-height: 100%;max-width: 100%"/>
 
               <hr>
                 <button mat-mini-fab style="background-color: transparent" [disabled]="blogPost['alreadyLiked']" (click)="likeContent(blogPost)" >

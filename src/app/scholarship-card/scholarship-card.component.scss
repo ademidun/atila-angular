@@ -1,12 +1,8 @@
 @import '../../styles.scss';
 
-mat-card{
-  margin-bottom: 7%;
-}
-
 mat-card-content{
-  height: 100px;
-  overflow: hidden;
+  height: auto;
+  overflow: scroll;
 }
 
 mat-card-title{
@@ -51,14 +47,16 @@ mat-card-actions{
 
 
 .scholarship-card {
-  margin: 5%;
+  margin-left: 3%;
+  margin-right: 3%;
+  margin-bottom: 10%;
 }
 
 
 .my-mat-card-image{
   display: block;
-  max-width:150px;
-  max-height:150px;
+  max-width:100px;
+  max-height:100px;
   width: auto;
   height: auto;
 }
@@ -70,7 +68,7 @@ mat-card:hover {
 }
 
 .mat-card>.mat-card-actions:last-child {
-  margin-bottom: 0px;
+  margin-bottom: 0;
   padding-bottom: 0;
 }
 

@@ -2,7 +2,7 @@
     <form (ngSubmit)="onSubmit()" [formGroup]="form">
       <h4>Specific Info</h4>
    <div *ngIf="questions.length!=0" >
-      <div *ngFor="let question of questions" class="row">
+      <div *ngFor="let question of questions">
         <app-dynamic-form-question  [question]="question" [form]="form" [profileForm]="profileForm"
          [generalData]="generalData" (uploaded)="fileChangeEvent($event)"></app-dynamic-form-question>
 
@@ -11,9 +11,9 @@
    </div>
 
       <div class="row">
-          <a  class="btn col-sm-12 m5 left btn-atila" (click)="uploadUserDocuments($event)" >Upload Document</a>
-          <a  class="btn col-sm-12 m5 right btn-atila" (click)="saveApplication($event)">Save Application</a>
-          <button mat-raised-button class="btn col-sm-12 m5 left btn-atila" type="submit" style="background-color: #37b5ff" [disabled]="!form.valid || showAutomationLoading">Automate!</button>
+          <a  class="btn col-sm-12 col-md-5 left btn-atila" (click)="uploadUserDocuments($event)" style="margin-top: 3%" >Upload Document</a>
+          <a  class="btn col-sm-12 col-md-5 offset-md-1 right btn-atila" (click)="saveApplication($event)">Save Application</a>
+          <button mat-raised-button class="btn col-sm-12 col-md-5 left btn-atila" type="submit" style="background-color: #37b5ff" [disabled]="!form.valid || showAutomationLoading">Automate!</button>
 
         <span class="col-sm-6" *ngIf="generalData.demoMode">
               <a style="font-size: larger" routerLink="/register"> Register</a>
