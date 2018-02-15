@@ -1,69 +1,72 @@
 <div class="container">
     <div class="card">
-      <div class="row">
-        <div class="card-content">
-          <form #form="ngForm" (ngSubmit)="login()"  class="col-sm-12">
-            <h4>Login</h4>
-            <div class="row">
-              <mat-form-field class="col-sm-12">
-                <input matInput class="browser-default" id="username" type="text" ngControl="username"
-                  required [(ngModel)]="credentials.username" name="username" placeholder="Email or username" autocomplete="username">
-              </mat-form-field>
+      <div class="row card-content">
+        <form #form="ngForm" (ngSubmit)="login()"  class="col-sm-12">
+          <h4>Login</h4>
+          <div class="row">
+            <mat-form-field class="col-sm-12">
+              <input matInput class="browser-default" id="username" type="text" ngControl="username"
+                     required [(ngModel)]="credentials.username" name="username" placeholder="Email or username" autocomplete="username">
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field class="col-sm-12">
+              <input matInput class="browser-default" id="password" type="password" required ngControl="password"
+                     [(ngModel)]="credentials.password" name="password" placeholder="Password" autocomplete="current-password">
+            </mat-form-field>
+
+            <div class="col-sm-6 button-container">
+            <button type="submit" class="waves-effect waves-light btn left" (click)="login()">Login</button>
             </div>
-            <div class="row">
-              <mat-form-field class="col-sm-12">
-                <input matInput class="browser-default" id="password" type="password" required ngControl="password"
-                  [(ngModel)]="credentials.password" name="password" placeholder="Password" autocomplete="current-password">
-              </mat-form-field>
 
-                <button type="submit" class="waves-effect waves-light btn left" (click)="login()">Login</button>
-                <a class="waves-effect waves-light btn right" routerLink="/register">Register</a>
-
+            <div class="col-sm-6 button-container">
+            <a class="waves-effect waves-light btn right" routerLink="/register">Register</a>
             </div>
-            <div class="row">
 
-              <a style="cursor: pointer;color: #039be5" (click)="forgotPassword =!forgotPassword">Forgot Password?</a>
+          </div>
+          <div class="row">
 
-                <div *ngIf="forgotPassword" class="col-sm-12 button-container">
-                  <p>An email will be sent to the provided email or username with a verification token.<br>
-                    Click the link in email or go to <a routerLink="/verify" [queryParams]="{verification_type: 'reset_password'}">
-                      Reset Password</a>.</p>
-                  <mat-form-field class="col-sm-12">
-                  <input matInput class="browser-default" id="resetPasswordEmail" type="text" ngControl="resetPasswordEmail"
-                         required #resetEmailUsername name="username" placeholder="Email or username" autocomplete="username">
-                  </mat-form-field>
-                  <a class="waves-effect waves-light btn right" (click)="resetPassword(resetEmailUsername)">Send Email</a>
+            <a style="cursor: pointer;color: #039be5" (click)="forgotPassword =!forgotPassword">Forgot Password?</a>
 
-                  <div  *ngIf="!resetResponse" class="col-sm-10">
-                    <p style="font-size: large">Sending Email...</p>
-                    <mat-progress-bar aria-label="Sending..." mode="indeterminate"></mat-progress-bar>
-                  </div>
-                  <p>{{resetResponse}}</p>
+            <div *ngIf="forgotPassword" class="col-sm-12 button-container">
+              <p>An email will be sent to the provided email or username with a verification token.<br>
+                Click the link in email or go to <a routerLink="/verify" [queryParams]="{verification_type: 'reset_password'}">
+                  Reset Password</a>.</p>
+              <mat-form-field class="col-sm-12">
+                <input matInput class="browser-default" id="resetPasswordEmail" type="text" ngControl="resetPasswordEmail"
+                       required #resetEmailUsername name="username" placeholder="Email or username" autocomplete="username">
+              </mat-form-field>
+              <a class="waves-effect waves-light btn right" (click)="resetPassword(resetEmailUsername)">Send Email</a>
 
+              <div  *ngIf="!resetResponse" class="col-sm-10">
+                <p style="font-size: large">Sending Email...</p>
+                <mat-progress-bar aria-label="Sending..." mode="indeterminate"></mat-progress-bar>
               </div>
-
+              <p>{{resetResponse}}</p>
 
             </div>
 
 
-            <!-- Loading progress circle -->
-            <div *ngIf="isLoading" class="preloader-background">
-              <div class="preloader-wrapper big active">
-                <div class="spinner-layer spinner-blue-only">
-                  <div class="circle-clipper left">
-                    <div class="circle"></div>
-                  </div>
-                  <div class="gap-patch">
-                    <div class="circle"></div>
-                  </div>
-                  <div class="circle-clipper right">
-                    <div class="circle"></div>
-                  </div>
+          </div>
+
+
+          <!-- Loading progress circle -->
+          <div *ngIf="isLoading" class="preloader-background">
+            <div class="preloader-wrapper big active">
+              <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                  <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                  <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                  <div class="circle"></div>
                 </div>
               </div>
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
