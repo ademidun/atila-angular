@@ -43,7 +43,9 @@
       </a>
     </div>
   </div>
-
+  <a *ngIf=scholarship.is_automated [routerLink]="['../scholarship-detail', scholarship.slug]" title="Automated Scholarships"
+     style="left: 150px; bottom: 10px" class="btn-floating interactive-btn halfway-fab waves-effect waves-light atila-blue">
+    <i class="material-icons automate-tag">tag_faces</i></a>
 </div>
 
 
