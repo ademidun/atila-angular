@@ -2,9 +2,9 @@
   <div class="card-action">
     <a [routerLink]="['../scholarship-detail', scholarship.slug]" class="card-title">{{scholarship.name | truncate:40}}</a>
 
-    <div class="card-subtitle text-muted"  *ngIf="scholarship.extra_questions && !scholarship.extra_questions.funding_amount_varies; else funding_varies">
-      {{scholarship.funding_amount | currency:'USD':'symbol':'1.0-0'}}
-      <ng-template #funding_varies><div class="card-text">Varies</div></ng-template>
+    <div class="card-subtitle text-muted">
+      <div *ngIf="scholarship.extra_questions && !scholarship.extra_questions.funding_amount_varies">{{scholarship.funding_amount | currency:'USD':'symbol':'1.0-0'}}</div>
+      <div *ngIf="scholarship.extra_questions && scholarship.extra_questions.funding_amount_varies" class="card-text">Varies</div>
       <div *ngIf="scholarship.deadline && !this.scholarship['metadata']['deadline_tbd']">Deadline: {{ scholarship.deadline | date:'mediumDate' }}</div>
       <div *ngIf="scholarship.deadline && this.scholarship['metadata']['deadline_tbd']">Deadline: {{scholarship.metadata.deadline_tbd}}</div>
     </div>
