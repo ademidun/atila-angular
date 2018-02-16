@@ -1,67 +1,117 @@
-<mat-card class="scholarship-card">
-    <mat-card-header class="mat-card-header">
-      <div mat-card-avatar [ngStyle]="{ 'background-image': 'url( '+ scholarship.img_url +' )' }" class="header-image"></div>
-      <mat-card-title ><a [routerLink]="['../scholarship-detail', scholarship.slug]" class="card-title">{{scholarship.name | truncate:40}}</a></mat-card-title>
-      <mat-card-subtitle class="card-text"  *ngIf="scholarship.extra_questions && !scholarship.extra_questions.funding_amount_varies; else funding_varies">
-        {{scholarship.funding_amount | currency:'USD':'symbol':'1.0-0'}}</mat-card-subtitle>
-      <ng-template #funding_varies><mat-card-subtitle class="card-text">Varies</mat-card-subtitle></ng-template>
-      <mat-card-subtitle *ngIf="scholarship.deadline && !this.scholarship['metadata']['deadline_tbd']">Deadline: {{ scholarship.deadline | date:'mediumDate' }}</mat-card-subtitle>
-      <mat-card-subtitle *ngIf="scholarship.deadline && this.scholarship['metadata']['deadline_tbd']">Deadline: {{scholarship.metadata.deadline_tbd}}</mat-card-subtitle>
-    </mat-card-header>
+<div class="card horizontal">
+  <div class="card-action">
+    <a [routerLink]="['../scholarship-detail', scholarship.slug]" class="card-title">{{scholarship.name | truncate:40}}</a>
 
-    <mat-card-content>
-      <table>
-        <tr>
-          <td>
-            <a [routerLink]="['../scholarship-detail', scholarship.slug]">
-              <img mat-card-image class="my-mat-card-image" src="{{scholarship.img_url}}">
-            </a>
-          </td>
-          <td class="col-sm-12" style="padding-left: 10%">
-            <p class="card-text">
-              {{scholarship.description | truncate:250}}
-            </p>
-          </td>
-        </tr>
-      </table>
-    </mat-card-content>
+    <div class="card-subtitle text-muted"  *ngIf="scholarship.extra_questions && !scholarship.extra_questions.funding_amount_varies; else funding_varies">
+      {{scholarship.funding_amount | currency:'USD':'symbol':'1.0-0'}}
+      <ng-template #funding_varies><div class="card-text">Varies</div></ng-template>
+      <div *ngIf="scholarship.deadline && !this.scholarship['metadata']['deadline_tbd']">Deadline: {{ scholarship.deadline | date:'mediumDate' }}</div>
+      <div *ngIf="scholarship.deadline && this.scholarship['metadata']['deadline_tbd']">Deadline: {{scholarship.metadata.deadline_tbd}}</div>
+    </div>
 
-  <mat-card-actions>
-      <a *ngIf=scholarship.is_automated [routerLink]="['../scholarship-detail', scholarship.slug]" title="Automated Scholarships"><button mat-button><i class="material-icons automate-tag">tag_faces</i></button></a>
+  </div>
+  <div class="row" style="margin-bottom: 0">
+    <div class="card-image col-sm-4">
+      <a [routerLink]="['../scholarship-detail', scholarship.slug]">
+        <img [src]="scholarship.img_url">
+      </a>
+    </div>
+    <div class="card-content col-sm-8">
+      <p> {{scholarship.description | truncate:250}}</p>
+    </div>
+  </div>
+  <a class="btn-floating interactive-btn halfway-fab waves-effect waves-light atila-blue" (click)="addToMyScholarship(scholarship)" [ngStyle]="{'background-color': alreadySaved ? '#4080ff' : 'gray'}" style="left: 15px; bottom: 10px">
+    <i class="material-icons">bookmark</i>
+  </a>
+  <div class="card-action dropdown show">
+    <a class="btn-floating  interactive-btn halfway-fab waves-effect" (click)="webShare()" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="left: 70px; bottom: 10px">
+      <i class="material-icons">share</i>
+    </a>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+      <a class="dropdown-item" target="_blank" (click)="logShareType('email')" [href]="'mailto:?body=Have you seen this scholarship from Atila\?%0A%0Ahttps://atila.ca/scholarship-detail/'+scholarship.slug+'&subject=Scholarship From Atila - '+ scholarship.name" >
+        <mat-icon svgIcon="email"></mat-icon>
+      </a>
+      <a class="dropdown-item" (click)="logShareType('facebook-messenger')" target="_blank" [href]="'http://www.facebook.com/dialog/send?app_id=401124503672116&link=https://atila.ca/scholarship-detail/'+scholarship.slug+'&redirect_uri=https://atila.ca/'">
+          <mat-icon svgIcon="facebook-messenger"></mat-icon>
+      </a>
+      <a class="dropdown-item" (click)="logShareType('facebook')" target="_blank" [href]="'https://www.facebook.com/sharer.php?display=popup&quote=Have you seen this scholarship from Atila? : '+scholarship.name+'+&u=https://atila.ca/scholarship-detail/'+scholarship.slug+'&app_id=401124503672116'" rel="noopener">
+        <mat-icon svgIcon="facebook"></mat-icon>
+      </a>
+      <a class="dropdown-item"  (click)="logShareType('whatsapp')" target="_blank"
+         [href]="'https://web.whatsapp.com/send?text=https://atila.ca/scholarship-detail/'+scholarship.slug">
+        <mat-icon svgIcon="whatsapp"></mat-icon>
+      </a>
+    </div>
+  </div>
 
-      <button mat-fab  (click)="addToMyScholarship(scholarship)">
-        <mat-icon [ngStyle]="{'color': alreadySaved ? '#4080ff' : ''}"  class="atila-blue" aria-hidden="true" aria-label="Save">bookmark</mat-icon>
-      </button>
+</div>
 
-      <button mat-fab [matMenuTriggerFor]="shareMenu" (click)="webShare()">
-        <mat-icon  class="atila-blue" aria-hidden="true" aria-label="Share">share</mat-icon>
-      </button>
-      <!-- Dropdown Share Menu -->
-      <mat-menu #shareMenu="matMenu" [overlapTrigger]="false">
 
-        <a target="_blank" [href]="'mailto:?body=Have you seen this scholarship from Atila\?%0A%0Ahttps://atila.ca/scholarship-detail/'+scholarship.slug+'&subject=Scholarship From Atila - '+ scholarship.name" >
-          <button mat-menu-item (click)="logShareType('email')">
-            <mat-icon svgIcon="email"></mat-icon>
-          </button>
-        </a>
-        <a target="_blank" [href]="'http://www.facebook.com/dialog/send?app_id=401124503672116&link=https://atila.ca/scholarship-detail/'+scholarship.slug+'&redirect_uri=https://atila.ca/'">
-          <button mat-menu-item (click)="logShareType('facebook-messenger')">
-            <mat-icon svgIcon="facebook-messenger"></mat-icon>
-          </button>
-        </a>
-        <a target="_blank" [href]="'https://www.facebook.com/sharer.php?display=popup&quote=Have you seen this scholarship from Atila? : '+scholarship.name+'+&u=https://atila.ca/scholarship-detail/'+scholarship.slug+'&app_id=401124503672116'" rel="noopener">
-          <button mat-menu-item (click)="logShareType('facebook')">
-            <mat-icon svgIcon="facebook"></mat-icon>
-          </button>
-        </a>
+<!--<mat-card class="scholarship-card">-->
+<!--<mat-card-header class="mat-card-header">-->
+<!--<div mat-card-avatar [ngStyle]="{ 'background-image': 'url( '+ scholarship.img_url +' )' }" class="header-image"></div>-->
+<!--<mat-card-title ><a [routerLink]="['../scholarship-detail', scholarship.slug]" class="card-title">{{scholarship.name | truncate:40}}</a></mat-card-title>-->
+<!--<mat-card-subtitle class="card-text"  *ngIf="scholarship.extra_questions && !scholarship.extra_questions.funding_amount_varies; else funding_varies">-->
+<!--{{scholarship.funding_amount | currency:'USD':'symbol':'1.0-0'}}</mat-card-subtitle>-->
+<!--<ng-template #funding_varies><mat-card-subtitle class="card-text">Varies</mat-card-subtitle></ng-template>-->
+<!--<mat-card-subtitle *ngIf="scholarship.deadline && !this.scholarship['metadata']['deadline_tbd']">Deadline: {{ scholarship.deadline | date:'mediumDate' }}</mat-card-subtitle>-->
+<!--<mat-card-subtitle *ngIf="scholarship.deadline && this.scholarship['metadata']['deadline_tbd']">Deadline: {{scholarship.metadata.deadline_tbd}}</mat-card-subtitle>-->
+<!--</mat-card-header>-->
 
-        <a  (click)="logShareType('whatsapp')" target="_blank"[href]="'https://web.whatsapp.com/send?text=https://atila.ca/scholarship-detail/'+scholarship.slug">
-          <button mat-menu-item>
-            <mat-icon svgIcon="whatsapp"></mat-icon>
-          </button>
-        </a>
-      </mat-menu>
-      <!--<a [routerLink]="['../scholarship-detail', scholarship.slug]" ><button mat-button><mat-icon svgIcon="plus-one"></mat-icon></button></a>-->
-    </mat-card-actions>
+<!--<mat-card-content>-->
+<!--<table>-->
+<!--<tr>-->
+<!--<td>-->
+<!--<a [routerLink]="['../scholarship-detail', scholarship.slug]">-->
+<!--<img mat-card-image class="my-mat-card-image" src="{{scholarship.img_url}}">-->
+<!--</a>-->
+<!--</td>-->
+<!--<td class="col-sm-12" style="padding-left: 10%">-->
+<!--<p class="card-text">-->
+<!--{{scholarship.description | truncate:250}}-->
+<!--</p>-->
+<!--</td>-->
+<!--</tr>-->
+<!--</table>-->
+<!--</mat-card-content>-->
 
-</mat-card>
+<!--<mat-card-actions>-->
+<!--<a *ngIf=scholarship.is_automated [routerLink]="['../scholarship-detail', scholarship.slug]" title="Automated Scholarships"><button mat-button><i class="material-icons automate-tag">tag_faces</i></button></a>-->
+
+<!--<button mat-fab  (click)="addToMyScholarship(scholarship)">-->
+<!--<mat-icon [ngStyle]="{'color': alreadySaved ? '#4080ff' : ''}"  class="atila-blue" aria-hidden="true" aria-label="Save">bookmark</mat-icon>-->
+<!--</button>-->
+
+<!--<button mat-fab [matMenuTriggerFor]="shareMenu" (click)="webShare()">-->
+<!--<mat-icon  class="atila-blue" aria-hidden="true" aria-label="Share">share</mat-icon>-->
+<!--</button>-->
+<!--&lt;!&ndash; Dropdown Share Menu &ndash;&gt;-->
+<!--<mat-menu #shareMenu="matMenu" [overlapTrigger]="false">-->
+
+<!--<a target="_blank" [href]="'mailto:?body=Have you seen this scholarship from Atila\?%0A%0Ahttps://atila.ca/scholarship-detail/'+scholarship.slug+'&subject=Scholarship From Atila - '+ scholarship.name" >-->
+<!--<button mat-menu-item (click)="logShareType('email')">-->
+<!--<mat-icon svgIcon="email"></mat-icon>-->
+<!--</button>-->
+<!--</a>-->
+<!--<a target="_blank" [href]="'http://www.facebook.com/dialog/send?app_id=401124503672116&link=https://atila.ca/scholarship-detail/'+scholarship.slug+'&redirect_uri=https://atila.ca/'">-->
+<!--<button mat-menu-item (click)="logShareType('facebook-messenger')">-->
+<!--<mat-icon svgIcon="facebook-messenger"></mat-icon>-->
+<!--</button>-->
+<!--</a>-->
+<!--<a target="_blank" [href]="'https://www.facebook.com/sharer.php?display=popup&quote=Have you seen this scholarship from Atila? : '+scholarship.name+'+&u=https://atila.ca/scholarship-detail/'+scholarship.slug+'&app_id=401124503672116'" rel="noopener">-->
+<!--<button mat-menu-item (click)="logShareType('facebook')">-->
+<!--<mat-icon svgIcon="facebook"></mat-icon>-->
+<!--</button>-->
+<!--</a>-->
+
+<!--<a  (click)="logShareType('whatsapp')" target="_blank"[href]="'https://web.whatsapp.com/send?text=https://atila.ca/scholarship-detail/'+scholarship.slug">-->
+<!--<button mat-menu-item>-->
+<!--<mat-icon svgIcon="whatsapp"></mat-icon>-->
+<!--</button>-->
+<!--</a>-->
+<!--</mat-menu>-->
+<!--&lt;!&ndash;<a [routerLink]="['../scholarship-detail', scholarship.slug]" ><button mat-button><mat-icon svgIcon="plus-one"></mat-icon></button></a>&ndash;&gt;-->
+<!--</mat-card-actions>-->
+
+<!--</mat-card>-->
+

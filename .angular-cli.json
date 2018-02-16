@@ -20,15 +20,15 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
+        "styles.scss",
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
-        "../node_modules/materialize-css/dist/css/materialize.css",
-        "styles.scss"
+        "../node_modules/materialize-css/dist/css/materialize.css"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
         "../node_modules/hammerjs/hammer.js",
         "../node_modules/marked/lib/marked.js",
-        "../node_modules/bootstrap/dist/js/bootstrap.min.js",
+        "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
         "../node_modules/materialize-css/dist/js/materialize.js"
       ],
       "environmentSource": "environments/environment.ts",

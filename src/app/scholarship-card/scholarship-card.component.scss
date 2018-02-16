@@ -5,20 +5,14 @@
 //  overflow: scroll;
 //}
 
-mat-card-title{
-  max-height: 3em;
-  overflow: hidden;
+.btn-floating {
+  left: 15px;
+  bottom: 10px;
+  background-color: $my-lighten;
 }
-
-mat-card-header{
-  //height: 100px;
+.interactive-btn {
+  border: 1px solid $my-lighten;
 }
-
-mat-card-actions{
-  padding: 0;
-  height: 40px;
-}
-
 .scholarship-preview-count{
   opacity:0.75;
   //font-family:FuturaStd-Book;
@@ -32,44 +26,13 @@ mat-card-actions{
   text-align: center;
   max-height: 2.8em;
 }
-.mat-button{
-  min-width: 65px;
-}
 
-.btn {
-  margin: 10px;
-}
-
-
-.logo-img {
-  height: 60px;
-}
-
-
-.scholarship-card {
-  margin-left: 3%;
-  margin-right: 3%;
-  margin-bottom: 10%;
-}
-
-
-.my-mat-card-image{
+.card-image{
   display: block;
-  max-width:100px;
-  max-height:100px;
+  max-width:150px !important;
+  max-height:150px !important;
   width: auto;
   height: auto;
-}
-
-mat-card:hover {
-  color: black;
-  background-color: #DDD;
-  left: .1em;
-}
-
-.mat-card>.mat-card-actions:last-child {
-  margin-bottom: 0;
-  padding-bottom: 0;
 }
 
 
@@ -78,19 +41,23 @@ mat-card:hover {
   background-size: cover;
 }
 
-button:focus, button:hover{
-  background-color: #C1BCBC;
-}
-
-
-button.mat-fab.mat-accent {
-  background-color: white;
-}
+//button:focus, button:hover{
+//  background-color: #C1BCBC;
+//}
 
 .mat-simple-snackbar-action {
   color: $my-lighten;
 }
 
-td {
-  padding: 0;
+
+a {
+  color: #4080ff !important;
+}
+a:hover {
+  color: #7cc7ff !important;
+}
+
+.card {
+  padding-left: 3%;
+  margin-bottom: 10%;
 }
