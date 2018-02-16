@@ -1,17 +1,18 @@
 @import '../../styles.scss';
 
 .background-image {
-    background: url('../../assets/img/bg-preview-1x.jpg') center / cover;
-    background-image: -webkit-image-set(
-      url('../../assets/img/bg-preview-1x.jpg') 1x center / cover,
-      url('../../assets/img/bg-preview-2x.jpg') 2x  center / cover
-    );
-    background-image: image-set(
-      url('../../assets/img/bg-preview-1x.jpg') 1x center / cover,
-      url('../../assets/img/bg-preview-2x.jpg') 2x center / cover
-    );
-    height: 450px;
-    width: 100%;
+  //background: url('../../assets/img/bg-preview-1x.jpg') 1x center / cover;
+  background: url('../../assets/img/bg-preview-1x.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  //height: 450px;
+  //width: 100%;
+  //background-image: -webkit-image-set(
+  //    url('../../assets/img/bg-preview-1x.jpg') 1x center / cover,
+  //    url('../../assets/img/bg-preview-2x.jpg') 2x center / cover
+  //);
 }
 
 mat-select {
@@ -19,31 +20,32 @@ mat-select {
 }
 
 :host /deep/ .mat-select-value-text {
-  color: white ;
+  color: white;
 }
 
-.scholarship-btn{
+.scholarship-btn {
   margin: 1%;
   background-color: #4080ff;
   min-height: 75px !important;
 }
 
-:host/deep/ .mat-pseudo-checkbox-checked{
+:host /deep/ .mat-pseudo-checkbox-checked {
   background-color: $primary;
 }
 
 // .input-field{
 //   border-bottom: solid white;
 // }
-:host/deep/ .mat-input-placeholder {
+:host /deep/ .mat-input-placeholder {
   color: white;
 }
+
 :host /deep/ .mat-select-underline {
   background-color: white !important;
 }
 
-mat-form-field{
-  color: white ;
+mat-form-field {
+  color: white;
 }
 
 :host /deep/ .mat-input-underline {
@@ -55,42 +57,44 @@ mat-form-field{
 }
 
 :host /deep/ .mat-select-placeholder {
-    color: white;
-    font-size: 1.3em;
+  color: white;
+  font-size: 1.3em;
 }
 
-
-:host /deep/  .mat-form-field-label {
+:host /deep/ .mat-form-field-label {
   font-size: 100%;
 }
 
 .subheader {
   font-size: 3.2em;
-  color:#FFFFFF;
+  color: #FFFFFF;
   width: 45%;
-  padding: 50px 0px;
+  padding: 50px 0;
   margin-left: 5%;
 }
-mat-form-field.location-div .mat-input-wrapper{
-  padding-bottom: 0%;
+
+mat-form-field.location-div .mat-input-wrapper {
+  padding-bottom: 0;
 }
 
-#location{
+#location {
   border-bottom: 1px solid white;
-  margin-bottom: 0%;
+  margin-bottom: 0;
 }
+
 .preview-form {
   background: transparent;
-  padding: 1px 0 0px 0;
-  margin-top: -37%;
+  padding: 1px 0 0 0;
+  //margin-top: -37%;
 }
 
 .form-header {
   text-align: center;
-  font-size:55px;
-  color:white;
+  font-size: 55px;
+  color: white;
 }
-.mat-input-placeholder{
+
+.mat-input-placeholder {
   color: white;
 }
 
@@ -107,6 +111,7 @@ mat-form-field.location-div .mat-input-wrapper{
 .scholarship-btn-div {
   margin-top: 5.7%;
 }
+
 .videowrapper {
   float: none;
   clear: both;
@@ -116,6 +121,7 @@ mat-form-field.location-div .mat-input-wrapper{
   padding-top: 25px;
   height: 0;
 }
+
 .videowrapper iframe {
   position: absolute;
   top: 0;
@@ -124,30 +130,32 @@ mat-form-field.location-div .mat-input-wrapper{
   height: 100%;
 }
 
-@media (max-width:320px), (max-width:481px)   {
-    /* smartphones, iPhone, portrait 480x320 phones */
-    /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
+@media (max-width: 320px), (max-width: 481px) {
+  /* smartphones, iPhone, portrait 480x320 phones */
+  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
 
-  .background-image{
-    background: url('../../assets/img/bg-preview-mobile.jpg') center / cover; max-width:100%;
+  .background-image {
+    background: url('../../assets/img/bg-preview-mobile.jpg') center / cover;
+    max-width: 100%;
     background-position-x: 73%;
     height: 30em;
   }
-  .preview-form{
-    margin-top: -117%;
-  }
-  .form-header{
+/*
+  //.preview-form {
+  //  margin-top: -117%;
+  //}
+  .form-header {
     font-size: 3em;
   }
-  .subheader{
+  .subheader {
     padding-top: 50%;
     width: 100%;
   }
-  input[type = text]{
+  input[type = text] {
     margin-bottom: 0;
   }
 
-  .scholarship-btn{
+  .scholarship-btn {
     margin: 1%;
     background-color: #4080ff;
     min-height: 100px !important;
@@ -157,5 +165,5 @@ mat-form-field.location-div .mat-input-wrapper{
     margin-top: 0;
   }
 
-
+*/
 }
