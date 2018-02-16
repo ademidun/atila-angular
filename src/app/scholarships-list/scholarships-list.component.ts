@@ -11,6 +11,10 @@ import {SubscriberDialogComponent} from '../subscriber-dialog/subscriber-dialog.
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {MyFirebaseService} from '../_services/myfirebase.service';
 import {prettifyKeys, toTitleCase} from '../_models/utils';
+import { EditProfileModalComponent } from '../edit-profile-modal/edit-profile-modal.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {environment} from '../../environments/environment';
+
 @Component({
   selector: 'app-scholarships-list',
   templateUrl: './scholarships-list.component.html',
@@ -22,13 +26,8 @@ export class ScholarshipsListComponent implements OnInit {
   isLoggedIn: boolean;
   userId: string;
   contentFetched: boolean = false;
-  sortVal = 1;
   isLoading = true;
   userProfile: UserProfile;
-
-  sortTypes = [
-    {key:'relevance'}
-  ]
 
   scholarships: Scholarship[]; //TODO: If i use scholarship[] I can't access property members, why?
   scholarship_count: number = 0;
@@ -70,6 +69,10 @@ export class ScholarshipsListComponent implements OnInit {
             'sort_by': 'relevance',
           };
 
+          setTimeout(() => {
+            this.editProfileModal();
+          }, 5000);
+
           this.getScholarshipPreview(this.pageNo);
         }
       )}
@@ -87,6 +90,65 @@ export class ScholarshipsListComponent implements OnInit {
       )
     }
 
+  }
+
+
+  editProfileModal(data?) {
+
+    if (!data || !data['forceOpen']) {
+      if (this.userProfile.major && this.userProfile.post_secondary_school) {
+        return;
+      }
+
+      if (!this.userProfile.preferences['edit_profile_reminder']) {
+        this.userProfile.preferences['edit_profile_reminder'] = {};
+        let reminderTime = new Date().getTime();
+        this.userProfile.preferences['edit_profile_reminder']['last_reminder'] = 	reminderTime;
+        this.userProfile.preferences['edit_profile_reminder']['reminders'] = [];
+        this.userProfile.preferences['edit_profile_reminder']['reminders'].push(reminderTime);
+      }
+
+
+      else if (this.userProfile.preferences['edit_profile_reminder']['last_reminder']){
+
+        let lastReminder = parseInt(this.userProfile.preferences['edit_profile_reminder']['last_reminder']);
+
+        let difference = new Date().getTime() - lastReminder;
+        let daysDifference = Math.floor(difference/1000/60/60/24);
+        if ( daysDifference < 3) {
+          return
+        }
+
+      }
+
+
+      let reminderTime = new Date().getTime();
+      this.userProfile.preferences['edit_profile_reminder']['last_reminder'] = 	reminderTime;
+
+      if (!Array.isArray(this.userProfile.preferences['edit_profile_reminder']['reminders'])){
+        this.userProfile.preferences['edit_profile_reminder']['reminders'] = [];
+      }
+
+      this.userProfile.preferences['edit_profile_reminder']['reminders'].push(reminderTime);
+
+      this.userProfileService.updateHelper(this.userProfile)
+        .subscribe(res => {
+        });
+    }
+
+
+    let dialogRef = this.dialog.open(EditProfileModalComponent, {
+      width: '500px',
+      height: '500px',
+      data: this.userProfile,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      this.userProfileService.updateHelper(this.userProfile)
+        .subscribe(res => {
+        });
+    });
   }
 
 

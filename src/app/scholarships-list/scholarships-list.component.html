@@ -1,24 +1,23 @@
 <div *ngIf="contentFetched">
+
     <!--TODO: Why is this line giving me an error. <h5 > You qualify for <strong>{{ scholarships.length}}</strong> Scholarships</h5>-->
     <br/>
     <div *ngIf="form_data">
 
-      <div class="container">
         <div class="row center">
 
-          <h4 class="registered-title">
+          <h4 class="registered-title" style="margin-left: 10%">
             <span *ngIf="userProfile">{{userProfile.first_name}}, </span>You can get
             <strong>{{ scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and up to <strong>{{total_funding}}</strong> in funding</span>.
           </h4>
 
-          <h2 *ngIf="scholarship_count!=0 && !isLoggedIn" class="scholarship-preview-count"> You can get <strong>{{scholarship_count}}</strong> scholarships
-            <span *ngIf="show_scholarship_funding"> and up to <strong>{{total_funding}}</strong> in funding</span>.</h2>
           <h2 *ngIf="scholarship_count==0" class="scholarship-preview-count"> Unfortunately, you currently qualify for <strong>{{scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and <strong>{{total_funding}}</strong> in funding</span>.
           Try another search.</h2>
 
         </div>
 
-        <div class="row center" style="text-align: center;margin-bottom: 0px;">
+        <!-- TODO: Should we ask the user occasionally to subscribe? Even if already logged in? -->
+        <div *ngIf="!isLoggedIn" class="row center" style="text-align: center;margin-bottom: 0px;">
           <p style="font-size: medium" class="col-sm-6">Subscribe to get updates on new scholarships, blog posts and new product features.
 
             <span *ngIf="subscriber.response" style="color: green">
@@ -38,16 +37,20 @@
 
         </div>
 
-        <div class="row">
+        <div class="offset-1">
 
           <a class=" col-sm-6 waves-effect waves-light btn " routerLink="/applications/demo">Try The Live Demo</a>
 
-          <mat-form-field class="col-sm-5 right">
+          <mat-form-field class="col-sm-6 col-md-3">
             <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
             <mat-select  [(ngModel)]="form_data.sort_by"  id="sort_by" name="sort_by" placeholder="Sort By:" (change)="getScholarshipPreview()">
               <mat-option *ngFor="let sortType of ['relevance','deadline','surprise_me','only_automated']" [value]="sortType">{{prettifyKeys(sortType)}} </mat-option>
             </mat-select>
           </mat-form-field>
+          <p *ngIf="isLoggedIn && (!userProfile.major || !userProfile.post_secondary_school)">
+            Your account is incomplete. School or program information is missing:
+            <a (click)="editProfileModal({'forceOpen': true})">Complete Profile</a>
+          </p>
 
         </div>
         <br>
@@ -101,9 +104,6 @@
             </div>
           </div>
         </ng-template>
-
-    </div>
-
 
     </div>
 

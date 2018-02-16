@@ -1,0 +1,11 @@
+@import '../../styles.scss';
+
+
+mat-dialog-content, .modal-header {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.modal-subheader {
+  font-weight: bold;
+}

@@ -39,16 +39,6 @@ export class PreviewResponse {
 })
 export class PreviewComponent implements OnInit, OnDestroy {
 
-    CITY_CHOICES = [
-    'Milton',
-    'Oakville',
-    'Burlington',
-    'Toronto',
-    'Mississauga',
-    'Brampton',
-    'Other',
-   ];
-
     EDUCATION_LEVEL = [
     'Secondary School',
     'University',

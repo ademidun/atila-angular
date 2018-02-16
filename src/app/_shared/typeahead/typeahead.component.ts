@@ -6,6 +6,7 @@ import 'rxjs/add/operator/merge';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import {Subject} from 'rxjs/Subject';
+import {prettifyKeys} from '../../_models/utils';
 
 @Component({
   selector: 'app-typeahead',
@@ -40,6 +41,8 @@ export class TypeaheadComponent implements OnInit {
         .merge(this.click$.filter(() => !this.instance.isPopupOpen()))
         .map(term => term.length < 1 ? this.dataset
           : this.filterUserInput(term, this.dataset));
+
+    this.metadata['placeholder'] = this.metadata['placeholder'] || prettifyKeys(this.metadata['key'])
   }
 
   filterUserInput(val: string, dataSet, keepUserInput=true): string[] {
@@ -64,7 +67,9 @@ export class TypeaheadComponent implements OnInit {
       item.value = '';
     }
     else {
+      event.preventDefault();
       this.model = event.item;
+      item.value = this.model;
     }
     let eventData = {
       'event': event,

@@ -17,7 +17,7 @@ export class SearchComponent implements OnInit {
 
   query: any;
   userId: any;
-  isRegistered: boolean = false;
+  isLoggedIn: boolean = false;
   isSearching: boolean;
 
   searchResults: any = {};
@@ -41,6 +41,9 @@ export class SearchComponent implements OnInit {
 
     this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
 
+    if (!isNaN(this.userId)) {
+      this.isLoggedIn = true;
+    }
     let queryOptions = this.route.snapshot.queryParams;
 
     if (this.query) {
@@ -62,7 +65,7 @@ export class SearchComponent implements OnInit {
 
 
     if (!isNaN(this.userId)) {
-      this.isRegistered = true;
+      this.isLoggedIn = true;
       queryMetaData.user_id = this.userId
     }
 

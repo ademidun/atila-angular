@@ -36,9 +36,10 @@ body {
     background-color: white;
 }
 
-a.btn {
+a:not([href]):not([tabindex]).btn {
   color: white;
 }
-a:not([href]):not([tabindex]) {
+a:not([href]):not([tabindex]):not(.btn) {
   color: #039be5;
+  cursor: pointer;
 }

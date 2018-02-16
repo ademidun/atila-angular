@@ -81,6 +81,7 @@ import { TitleCasePipe } from './_pipes/title-case.pipe';
 import { MarkdownModule } from 'ngx-markdown';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { TypeaheadComponent } from './_shared/typeahead/typeahead.component';
+import { EditProfileModalComponent } from './edit-profile-modal/edit-profile-modal.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -122,7 +123,8 @@ import { TypeaheadComponent } from './_shared/typeahead/typeahead.component';
     CardGenericComponent,
     TitleCasePipe,
     AutocompleteComponent,
-    TypeaheadComponent
+    TypeaheadComponent,
+    EditProfileModalComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -179,6 +181,7 @@ import { TypeaheadComponent } from './_shared/typeahead/typeahead.component';
   entryComponents: [
     AddQuestionModalComponent,
     SubscriberDialogComponent,
+    EditProfileModalComponent,
   ]
 })
 export class AppModule {
