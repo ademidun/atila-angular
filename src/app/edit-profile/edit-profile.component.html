@@ -3,7 +3,17 @@
     <div class="row">
       <div class="card-content">
 
+
       <form #profileForm="ngForm" (ngSubmit)="saveProfile(profileForm)" class="col-sm-12">
+
+
+
+        <div class="fixed-action-btn">
+          <a class="btn-floating btn-large" (click)="saveProfile(profileForm)">
+            Save
+          </a>
+        </div>
+
         <div [ngClass]='{hidden: !profileInfo}'>
           <h4>Edit <span *ngIf="userProfile.first_name">{{userProfile.first_name}}'s</span> Profile</h4>
           <span>
@@ -25,6 +35,7 @@
           </div>
 
 
+          <button class="waves-effect waves-light btn right" (click)="switchPage()" style="margin-left:1%">Next Page</button>
           <div class="row">
             <mat-form-field class="col-sm-6">
               <input class="browser-default" matInput id="first_name" type="text" required minlength="2" placeholder="First name"
@@ -204,6 +215,27 @@
                 </div>
               </div>
 
+              <div class="row">
+                <div class="col-md-6" *ngFor="let entry of Object.keys(autoCompleteLists)">
+
+                  <table>
+                    <p style="font-weight: bold">{{prettifyKeys(entry)}}</p>
+                    <tr  *ngFor="let item of userProfile[entry]; let i = index" ngDefaultControl>
+                      <td>{{item}} </td>
+                      <td>
+                        <a class="waves-effect waves-light btn right" (click)="deleteArrayitem( userProfile[entry], i)">
+                          <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
+
+                  <app-typeahead [model]="userProfile[entry]" [dataset]="autoCompleteLists[entry]"
+                                 [metadata]="{'placeholder':prettifyKeys(entry), 'key': entry,'col':'col-sm-6'}">
+                  </app-typeahead>
+                </div>
+              </div>
+
             </div>
 
           <br>
@@ -288,17 +320,17 @@
                 <div class="row">
 
                     <button mat-raised-button class="btn white-text" (click)="uploadUserDocuments()" style="margin-left:1%">Upload Document</button>
-                    <button type="submit" class="btn btn-success left">Save Profile</button>
-                    <a class="waves-effect waves-light btn right" (click)="switchPage()">Next</a>
+                    <button type="submit" class="btn btn-success left" style="margin-left:1%">Save Profile</button>
+                    <button class="waves-effect waves-light btn right" (click)="switchPage()" style="margin-left:1%">Next</button>
                 </div>
         </div>
         <div [ngClass]='{hidden: profileInfo}'>
             <div class="row">
                   <!-- TODO: Get real % of scholarships asking for alternate rerefence letters. -->
                   <h5> Long Answer Questions </h5>
-                  <p>You can answer these questions later. But remember, <b>{{documentScholarshipsPercent}}%</b> of scholarships ask at least one of these questions.
-                    <br>So the more questions you answer, the more scholarships we can automate for you.</p>
-                    <br><a >Need Help Answering these Questions?</a>
+                  <!--<p>You can answer these questions later. But remember, <b>{{documentScholarshipsPercent}}%</b> of scholarships ask at least one of these questions.-->
+                    <!--<br>So the more questions you answer, the more scholarships we can automate for you.</p>-->
+                    <!--<br><a >Need Help Answering these Questions?</a>-->
               </div>
           <div class="row">
             <label> Describe your school related activities and identify your significant contributions both to school and

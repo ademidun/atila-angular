@@ -24,9 +24,10 @@ import {FormControl} from '@angular/forms';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
 import {debounceTime} from 'rxjs/operators/debounceTime';
-import { SCHOOLS_DICT } from '../_models/constants';
+import {ACTIVITIES, COUNTRIES, DISABILITY, ETHNICITY, RELIGION, SCHOOLS_DICT, SPORTS} from '../_models/constants';
 import {ScholarshipService} from '../_services/scholarship.service';
-import {SCHOOLS_LIST, MAJORS_LIST} from '../_models/constants';
+import {SCHOOLS_LIST, MAJORS_LIST, LANGUAGE} from '../_models/constants';
+import {prettifyKeys} from '../_models/utils';
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
@@ -59,8 +60,7 @@ EDUCATION_FIELD = [
   profileInfo = true;
   documentScholarshipsPercent =87;
 
-  userDocuments = {};
-
+  Object = Object;
   userName: string;
 
   formFile: File;
@@ -82,6 +82,18 @@ EDUCATION_FIELD = [
   schoolNames: any;
 
   filteredOptions: Observable<string[]>;
+
+  autoCompleteLists = {
+    'activities': ACTIVITIES,
+    'sports': SPORTS,
+    'ethnicity': ETHNICITY,
+    'religion': RELIGION,
+    'heritage': COUNTRIES,
+    'disability': DISABILITY,
+    'citizenship': COUNTRIES,
+    'language': LANGUAGE,
+  };
+
 
   constructor(
     public userProfileService: UserProfileService,
@@ -438,6 +450,10 @@ showSnackBar(text: string, action = '', duration: number) {
 
   typeaheadEvent(event) {
       this.userProfile[event.type] = event.event.item;
+  }
+
+  prettifyKeys(str) {
+    return prettifyKeys(str);
   }
 
 }
