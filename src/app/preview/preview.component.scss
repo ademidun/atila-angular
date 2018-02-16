@@ -1,12 +1,15 @@
 @import '../../styles.scss';
 
 .background-image {
-  //background: url('../../assets/img/bg-preview-1x.jpg') 1x center / cover;
-  background: url('../../assets/img/bg-preview-1x.jpg') no-repeat center center fixed;
+  background: url('../../assets/img/bg-preview-1x.jpg') 1x center / cover;
+  //background: url('../../assets/img/bg-new-1x.jpg') no-repeat center center fixed;
+  //background: url('../../assets/img/bg-new-1x.jpg') 1x center / cover;
+  //background: url('https://images.unsplash.com/photo-1496317899792-9d7dbcd928a1?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=be65ab7d411929c176f6ded8f1b8bb99&auto=format&fit=crop&w=634&q=80')  no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+
   //height: 450px;
   //width: 100%;
   //background-image: -webkit-image-set(
@@ -135,10 +138,16 @@ mat-form-field.location-div .mat-input-wrapper {
   /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
 
   .background-image {
-    background: url('../../assets/img/bg-preview-mobile.jpg') center / cover;
+    //background: url('https://images.unsplash.com/photo-1496317899792-9d7dbcd928a1?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=be65ab7d411929c176f6ded8f1b8bb99&auto=format&fit=crop&w=1534&q=80')  no-repeat center center fixed;
+    background: url('../../assets/img/bg-preview-mobile.jpg')  no-repeat center center fixed;
     max-width: 100%;
-    background-position-x: 73%;
-    height: 30em;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    height: auto;
+    height: -webkit-fill-available;
+    background-position-x: 28%;
   }
 /*
   //.preview-form {
