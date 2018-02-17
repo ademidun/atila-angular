@@ -1,3 +1,6 @@
+
+import {EDUCATION_FIELDS, EDUCATION_LEVEL} from '../_models/constants';
+
 export class Scholarship {
     activities?: string[];
     citizenship?: string[];
@@ -43,4 +46,20 @@ export class Scholarship {
     sports?:string[];
     submission_info?:any;
     transcript_required?:any;
+  }
+
+
+  export function scholarshipQuickCreate(scholarship: Scholarship) {
+
+    scholarship.education_field = EDUCATION_FIELDS;
+    scholarship.education_level = EDUCATION_LEVEL;
+    scholarship.description = $(scholarship.criteria_info).text().slice(0,300);
+
+    console.log('scholarshipQuickCreate() scholarship:',scholarship);
+    if(!scholarship.metadata){
+      scholarship.metadata = {};
+    }
+    scholarship.metadata['quick_add'] = true;
+    scholarship.metadata['needs_review'] = true;
+    return scholarship
   }

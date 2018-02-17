@@ -50,7 +50,9 @@
 
       </mat-card>
 
-    <textarea id="{{editorId}}"></textarea>
+      <div [froalaEditor]="options" [(froalaModel)]="blogPost.body"></div>
+
+
     <button mat-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveBlog(false)">Save</button>
     <button mat-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveBlog(true)">Publish</button>
     </div>
@@ -61,6 +63,7 @@
       <h3> {{blogPost.title}} </h3>
       <img [src]="blogPost.header_image_url" style="max-height: 100%;max-width: 100%;"/>
     </div>
-    <div [innerHTML]="blogPost.body | safeHtml" class="col col-md-8 offset-md-d-2 col-lg-8 offset-lg-2 col-sm-11"></div>
+
+    <div [froalaView]="blogPost.body" class="col col-md-8 offset-md-d-2 col-lg-8 offset-lg-2 col-sm-11"></div>
 
 </div>

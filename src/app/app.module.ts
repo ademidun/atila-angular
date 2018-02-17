@@ -82,6 +82,8 @@ import { MarkdownModule } from 'ngx-markdown';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { TypeaheadComponent } from './_shared/typeahead/typeahead.component';
 import { EditProfileModalComponent } from './edit-profile-modal/edit-profile-modal.component';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -154,6 +156,8 @@ import { EditProfileModalComponent } from './edit-profile-modal/edit-profile-mod
     CommonModule,
     MaterializeModule,
     MarkdownModule.forRoot(),
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot()
   ],
   providers: [ScholarshipService, UserProfileService,
      AuthService, ApplicationService,

@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit} from '@angular/core';
-import { Scholarship } from '../_models/scholarship';
+import { Scholarship, scholarshipQuickCreate } from '../_models/scholarship';
 import { UploadFile } from '../_models/upload-file';
 import { ScholarshipService } from '../_services/scholarship.service';
 import { Observable } from 'rxjs/Observable';
@@ -18,7 +18,7 @@ import { MyFirebaseService } from "../_services/myfirebase.service";
 
 import { GooglePlaceDirective } from "../_directives/google-place.directive";
 import * as firebase from "firebase";
-
+import { MarkdownService } from 'ngx-markdown';
 @Component({
   selector: 'app-add-scholarship',
   templateUrl: './add-scholarship.component.html',
@@ -32,7 +32,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
     'University',
     'College',
     'Workplace or Apprenticeship',
-  ]
+  ];
 
   EDUCATION_FIELDS = [
     'Arts (Undergrad)',
@@ -45,14 +45,14 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
     'Arts (Grad School)',
     'STEM (Grad School)',
     'Other'
-  ]
+  ];
 
   stringDict = {
     'city': '',
     'province': '',
     'country': '',
     'eligible_schools':''
-  }
+  };
 
 
   FUNDING_TYPES = [
@@ -91,13 +91,14 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
   locationList = [];
   locationInput: any = {
     city: '',
-  }
+  };
   locationPlaceHolder = 'City, Province/State, or Country';
   isOwner = false;
   countries = [];
-  provinces = []
-  cities = []
+  provinces = [];
+  cities = [];
 
+  quickAdd = true;
   activeCountry = '';
   activeProvince:any = {};
   scholarshipOwner;
@@ -106,6 +107,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
 
   webForms : any;
   myJson = JSON;
+  froalaOptions: any;
   constructor(
     public router: Router,
     public snackBar: MatSnackBar,
@@ -116,8 +118,21 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
     public userProfileService: UserProfileService,
     public titleService: Title,
     public firebaseService: MyFirebaseService,
+    public markdownService: MarkdownService,
   ) {
     this.scholarshipSlug = route.snapshot.params['slug'];
+
+    this.froalaOptions = {
+      placeholder: "Criteria Description",
+      events : {
+        'froalaEditor.focus' : function(e, editor) {
+          console.log('e,editor.selection.get()',e, editor.selection.get());
+        },
+      },
+      toolbarButtons: ['bold', 'italic', 'underline', 'paragraphFormat','insertLink', 'outdent', 'indent', 'insertTable', 'html'],
+      heightMin: 150,
+
+    }
   }
 
   ngOnInit() {
@@ -125,13 +140,18 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
     this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
 
 
-
     if(this.scholarshipSlug){
       this.editMode = true;
+      this.quickAdd = false;
       this.loadScholarshipDatabase();
     }
 
 
+    else if(isNaN(this.userId)){
+      this.snackBar.open("Please Log In", '', {
+        duration: 3000
+      });
+    }
 
     this.loadScholarshipDefaults();
 
@@ -216,6 +236,9 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
 
           // Get the user profile of the scholarship owner
 
+          //convert scholarship criteria from markdown to HTML.
+          this.scholarship.criteria_info = this.markdownService.compile(this.scholarship.criteria_info);
+
           this.titleService.setTitle('Atila - Edit - ' + this.scholarship.name);
 
           if (this.scholarship.owner){
@@ -288,14 +311,37 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
     return Object.keys(obj).map((key)=>{ return obj[key]});
   }
 
-  saveScholarship(scholarshipForm: NgForm) {
+  saveScholarship(scholarshipForm: NgForm, metadata?: any) {
+
+    if (metadata && metadata['quickAdd']) {
+      if(isNaN(this.userId)){
+        this.snackBar.open("Please Log In", '', {
+          duration: 3000
+        });
+        return;
+      }
+
+
+      this.scholarship = scholarshipQuickCreate(this.scholarship);
+    }
+    console.log('this.scholarship', this.scholarship);
 
     this.scholarshipErrors = null;
 
-    if (this.scholarship.deadline != '') {
-      this.scholarship.deadline = new Date(this.scholarship.deadline).toISOString();
+    if (this.scholarship.deadline) {
+      try{
+        this.scholarship.deadline = new Date(this.scholarship.deadline).toISOString();
+      }
+      catch (err) {
+        if (!this.scholarship.metadata['errors']){
+        this.scholarship.metadata['errors'] = {}
+        }
+        this.scholarship.metadata['errors']['parse_deadline'] = {
+          'error': err.toString(),
+          'deadline': this.scholarship.deadline,
+        }
+      }
     }
-
 
     if(this.editMode && !this.isOwner){
       this.snackBar.open("You are not authorized to make Changes", '', {
@@ -303,6 +349,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
       });
       return;
     }
+
     if (scholarshipForm.valid) {
       let postOperation: Observable<Scholarship>;
       this.scholarship.owner = this.userId;

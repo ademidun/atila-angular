@@ -47,11 +47,14 @@
               <mat-option *ngFor="let sortType of ['relevance','deadline','surprise_me','only_automated']" [value]="sortType">{{prettifyKeys(sortType)}} </mat-option>
             </mat-select>
           </mat-form-field>
-          <p *ngIf="isLoggedIn && (!userProfile.major || !userProfile.post_secondary_school)">
-            Your account is incomplete. School or program information is missing:
-            <a (click)="editProfileModal({'forceOpen': true})">Complete Profile</a>
-          </p>
+          <div class="offset-1">
+            <p *ngIf="isLoggedIn && (!userProfile.major || !userProfile.post_secondary_school)">
+              Your account is incomplete. School or program information is missing:
+              <a (click)="editProfileModal({'forceOpen': true})">Complete Profile</a>
+            </p>
 
+            <p>Like Atila? Help others and <a routerLink="/add-scholarship">add a scholarship</a> in less than 15 seconds.</p>
+          </div>
         </div>
         <br>
 

@@ -1658,3 +1658,23 @@ export const DISABILITY = [
   "Speech and Language Disorders",
   "Vision Loss and Blindness"
 ];
+
+export const EDUCATION_LEVEL = [
+  'Secondary School',
+  'University',
+  'College',
+  'Workplace or Apprenticeship',
+];
+
+export const EDUCATION_FIELDS = [
+  'Arts (Undergrad)',
+  'STEM (Undergrad)',
+  'Trade School',
+  'Visual + Performing Arts',
+  'Law School',
+  'Medical School',
+  'MBA',
+  'Arts (Grad School)',
+  'STEM (Grad School)',
+  'Other'
+];

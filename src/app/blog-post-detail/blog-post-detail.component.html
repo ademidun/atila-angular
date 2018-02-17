@@ -15,7 +15,7 @@
                             svgIcon="thumb-up-outline" aria-label="Like Blog"></mat-icon>
                 </button>{{blogPost.up_votes_count}}
 
-                <div [innerHTML]="blogPost.body | safeHtml"></div>
+                <div [froalaView]="blogPost.body" ></div>
 
             </div>
 
