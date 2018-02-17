@@ -75,3 +75,19 @@ mat-card:hover {
   background-image: url('https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-scholarship-default-image.jpeg?alt=media&token=cd789758-3400-43d5-9ea7-d2facf709ea2');
   background-size: cover;
 }
+
+@media (max-width: 990px) {
+  .popover-anchor {
+    margin-left: -20%;
+    //margin-top: -3%;
+  }
+
+}
+
+@media (max-width: 768px){
+  .register-btn {
+    margin-left: -5%;
+  }
+}
+
+

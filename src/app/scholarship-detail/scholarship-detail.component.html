@@ -44,7 +44,7 @@
       <p>{{scholarship.description}}</p>
       <br>
 
-      <div *ngIf="scholarship.extra_criteria"> <span style="font-size: larger">Other Criteria</span>
+      <div *ngIf="Object.keys(scholarship.extra_criteria)"> <span style="font-size: larger">Other Criteria</span>
 
           <div *ngFor="let key of Object.keys(scholarship.extra_criteria)">
             <p><strong>{{key}}:</strong>{{scholarship.extra_criteria[key]}}</p>
@@ -55,7 +55,7 @@
     </div></div>
   <div class="row">
     <div class="col-sm-12">
-      <h4>Criteria</h4>
+      <h4>More Information</h4>
       <ul>
         <li style="white-space: pre-line">
 

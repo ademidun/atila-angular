@@ -39,7 +39,7 @@
         </div>
       </div>
 
-      <div class="row center"  *ngIf="!isLoggedIn">
+      <div class="row center"  *ngIf="!isLoggedIn && searchResults.scholarships">
         <p>Some results may be omitted, <a routerLink="/register">register</a>  to see all results</p>
         <a class="waves-effect waves-light btn scholarship-btn" routerLink="/register">Register</a>
       </div>
@@ -54,7 +54,7 @@
     <h4>Forums</h4>
 
     <div class="row">
-      <div class="col-sm-12 col-md-7" *ngFor="let forum of this.searchResults.forums; let i = index">
+      <div class="col-sm-12 col-md-7" *ngFor="let forum of searchResults.forums; let i = index">
         <div class="card ">
           <div class="card-content ">
             <span class="card-title"><a (click)="saveQueryClick(forum,'forum')" routerLink="/forum/{{forum.slug}}">{{forum.title | truncate:50}}</a></span>
@@ -67,7 +67,7 @@
       </div>
     </div>
 
-    <div class="row center"  *ngIf="!isLoggedIn">
+    <div class="row center"  *ngIf="!isLoggedIn && searchResults.forums">
       <p>Some results may be omitted, <a routerLink="/register">register</a>  to see all results</p>
       <a class="waves-effect waves-light btn scholarship-btn" routerLink="/register">Register</a>
     </div>
@@ -103,8 +103,7 @@
         </div>
       </div>
 
-
-      <div class="row center"  *ngIf="!isLoggedIn" >
+      <div class="row center"  *ngIf="!isLoggedIn && searchResults.blogPosts" >
         <p>Some results may be omitted, <a routerLink="/register">register</a>  to see all results</p>
         <a class="waves-effect waves-light btn scholarship-btn" routerLink="/register">Register</a>
       </div>

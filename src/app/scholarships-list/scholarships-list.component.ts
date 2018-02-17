@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { ScholarshipService } from "../_services/scholarship.service";
 import { UserProfileService } from '../_services/user-profile.service';
 
@@ -12,7 +12,7 @@ import {MatDialog, MatSnackBar} from '@angular/material';
 import {MyFirebaseService} from '../_services/myfirebase.service';
 import {prettifyKeys, toTitleCase} from '../_models/utils';
 import { EditProfileModalComponent } from '../edit-profile-modal/edit-profile-modal.component';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, NgbPopover} from '@ng-bootstrap/ng-bootstrap';
 import {environment} from '../../environments/environment';
 
 @Component({
@@ -38,6 +38,7 @@ export class ScholarshipsListComponent implements OnInit {
   paginationLen: number = 12;
   pageLen: number;
   subscriber: any = {};
+  @ViewChild('trySearch') public popover: NgbPopover;
   constructor(
     public scholarshipService: ScholarshipService,
     public userProfileService: UserProfileService,
@@ -73,23 +74,94 @@ export class ScholarshipsListComponent implements OnInit {
             this.editProfileModal();
           }, 5000);
 
+          setTimeout(() => {
+
+            this.toggleSearchModal();
+
+          }, 1000);
+
           this.getScholarshipPreview(this.pageNo);
         }
       )}
 
     else {
       this.isLoggedIn = false;
+
+      setTimeout(() => {
+
+        this.toggleSearchModal();
+
+      }, 1000);
+
       this.scholarshipService.getScholarshipPreviewForm()
       .then(
         res => {
           this.form_data = res;
         },
+
       )
       .then(
         res => this.getScholarshipPreview(),
       )
     }
 
+
+  }
+
+
+
+  getScholarshipPreview(page: number = 1){
+
+    if (this.form_data ) {
+
+      if (!this.form_data['sort_by']) {
+        this.form_data['sort_by'] = 'relevance';
+      }
+
+      this.scholarshipService.getPaginatedscholarships(this.form_data, page)
+      .subscribe(
+        res => {
+          this.saveScholarships(res);
+          this.contentFetched = true;
+          this.isLoading = false;
+        },
+        error => {
+
+          this.contentFetched = false;
+          this.isLoading = false;
+        },
+        () => {},
+      );
+    }
+  }
+
+  saveScholarships(res: any){
+
+
+    this.scholarships = res['data'];
+    this.scholarship_count = res['length'];
+    this.total_funding = res['funding'];
+
+    if (this.total_funding){
+      this.show_scholarship_funding = true;
+    }
+
+    this.pageLen = Math.ceil(this.scholarship_count / this.paginationLen);
+  }
+
+  prettifyKeys(str) {
+    return prettifyKeys(str);
+  }
+  nextPage() {
+    this.pageNo++;
+    this.getScholarshipPreview(this.pageNo);
+    window.scrollTo(0, 0);
+  }
+
+  previousPage() {
+    this.pageNo--;
+    this.getScholarshipPreview(this.pageNo);
+    window.scrollTo(0, 0);
   }
 
 
@@ -151,59 +223,35 @@ export class ScholarshipsListComponent implements OnInit {
     });
   }
 
+  toggleSearchModal(data?:any){
 
-  getScholarshipPreview(page: number = 1){
-
-    if (this.form_data ) {
-
-      if (!this.form_data['sort_by']) {
-        this.form_data['sort_by'] = 'relevance';
+    if(data && data['toggle']) {
+      const isOpen = this.popover.isOpen();
+      if(isOpen){
+        this.popover.close()
       }
-
-      this.scholarshipService.getPaginatedscholarships(this.form_data, page)
-      .subscribe(
-        res => {
-          this.saveScholarships(res);
-          this.contentFetched = true;
-          this.isLoading = false;
-        },
-        error => {
-
-          this.contentFetched = false;
-          this.isLoading = false;
-        },
-        () => {},
-      );
+      else{
+        this.popover.open()
+      }
+      return;
     }
-  }
-
-  saveScholarships(res: any){
-
-
-    this.scholarships = res['data'];
-    this.scholarship_count = res['length'];
-    this.total_funding = res['funding'];
-
-    if (this.total_funding){
-      this.show_scholarship_funding = true;
+    if(this.userProfile) {
+      if (!this.userProfile.preferences['try_search_reminder']) {
+        this.userProfile.preferences['try_search_reminder'] = new Date().getTime();
+        this.userProfileService.updateHelper(this.userProfile).subscribe();
+      }
+      else {
+        return;
+      }
     }
 
-    this.pageLen = Math.ceil(this.scholarship_count / this.paginationLen);
-  }
-
-  prettifyKeys(str) {
-    return prettifyKeys(str);
-  }
-  nextPage() {
-    this.pageNo++;
-    this.getScholarshipPreview(this.pageNo);
-    window.scrollTo(0, 0);
-  }
-
-  previousPage() {
-    this.pageNo--;
-    this.getScholarshipPreview(this.pageNo);
-    window.scrollTo(0, 0);
+    const isOpen = this.popover.isOpen();
+    if(isOpen){
+      this.popover.close()
+    }
+    else{
+      this.popover.open()
+    }
   }
 
 

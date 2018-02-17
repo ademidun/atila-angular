@@ -32,9 +32,9 @@
 
         </div>
 
-          <span ngbPopover="Write a short preview of your article. Used for social media or search engines."
+          <span ngbPopover="Write a short preview of your article. Helpful for other readers, social media and search engines."
                 triggers="mouseenter:mouseleave" popoverTitle="Blog Preview">
-            <mat-icon aria-label="Blog Preview. A short preview of your article. Used for social media or search engines.">help_outline</mat-icon>
+            <mat-icon aria-label="Write a short preview of your article. Helpful for other readers, social media and search engines.">help_outline</mat-icon>
           </span>
           <input id="blog_post_description" class="prefix_input" placeholder="Blog preview" [(ngModel)]="blogPost.description">
           <div><span *ngIf="userProfile" id="url_prefix">atila.ca/blog/{{userProfile.username}}/</span>

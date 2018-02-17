@@ -1,7 +1,16 @@
+<div [ngbPopover]="popContent" popoverTitle="Try Search" #trySearch="ngbPopover"
+     placement="bottom" triggers="manual" class="popover-anchor">
+</div>
+
+<ng-template #popContent >Try
+  <a routerLink="/search" [queryParams]="{q_cta: 'popover',q_source:'scholarships_list'}"><b> Search</b></a>.
+  Enter your term and find matching scholarships. <a (click)="toggleSearchModal({'toggle':true})">Close</a></ng-template>
+
 <div *ngIf="contentFetched">
 
     <!--TODO: Why is this line giving me an error. <h5 > You qualify for <strong>{{ scholarships.length}}</strong> Scholarships</h5>-->
     <br/>
+
     <div *ngIf="form_data">
 
         <div class="row center">
@@ -37,9 +46,9 @@
 
         </div>
 
-        <div class="offset-1">
+        <div class="offset-md-2">
 
-          <a class=" col-sm-6 waves-effect waves-light btn " routerLink="/applications/demo">Try The Live Demo</a>
+          <a class=" col-sm-6 waves-effect waves-light btn demo-btn" routerLink="/applications/demo">Try The Live Demo</a>
 
           <mat-form-field class="col-sm-6 col-md-3">
             <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
@@ -62,7 +71,7 @@
         <div *ngIf="!isLoggedIn; else registeredContent">
 
           <div class="row">
-            <div *ngFor="let scholarship of scholarships;  let i=index" class="col-sm-12 col-md-10">
+            <div *ngFor="let scholarship of scholarships;  let i=index" class="col-sm-12 col-md-10  offset-md-1">
               <ng-template [ngIf]="i<3">
                 <app-scholarship-card [scholarship]="scholarship" [userProfile]="userProfile"></app-scholarship-card>
               </ng-template>
@@ -71,13 +80,13 @@
 
           <div class="center col-sm-8 offset-sm-2 offset-md-1">
 
-            <a *ngIf="scholarship_count!=0" class="waves-effect waves-light btn" routerLink="/register">Register here to view the rest of the scholarships</a>
-            <a *ngIf="scholarship_count==0" class="waves-effect waves-light btn" routerLink="/register">Register here to start qualifying for scholarships</a>
+            <a *ngIf="scholarship_count!=0" class="waves-effect waves-light btn register-btn" routerLink="/register">Register to See Remaining Scholarships</a>
+            <a *ngIf="scholarship_count==0" class="waves-effect waves-light btn register-btn" routerLink="/register">Register to qualify for more scholarships</a>
 
           </div>
 
           <div class="row center">
-            <p class="text-align-center col-sm--3">Are we missing a scholarship you want? You can easily <a routerLink="/add-scholarship" title="Add Scholarship">Add a Scholarship </a> to Atila or
+            <p class="text-align-center offset-md-2">Are we missing a scholarship you want? You can easily <a routerLink="/add-scholarship" title="Add Scholarship">Add a Scholarship </a> to Atila or
               <a href="https://docs.google.com/spreadsheets/d/13YshWzg38Au-tPkGyDfY4hJHGJDWl_7vUpXNXkf5afM/edit?usp=sharing"
                  target="_blank" title="Scholarship Spreadsheet">Tell us the link</a> and we'll automate it for you.</p>
           </div>
@@ -89,7 +98,7 @@
           <div class="container">
             <div class="row">
 
-              <div *ngFor="let scholarship of scholarships;  let i=index"class="col-sm-12 col-md-10" style="margin-bottom: -5%">
+              <div *ngFor="let scholarship of scholarships;  let i=index" class="col-sm-12 col-md-10 offset-md-1" style="margin-bottom: -5%">
                 <app-scholarship-card [scholarship]="scholarship" [userProfile]="userProfile"></app-scholarship-card>
               </div>
 

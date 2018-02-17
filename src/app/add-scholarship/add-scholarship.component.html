@@ -32,7 +32,8 @@
                     </div>
 
                     <div class="row">
-                      <a class="waves-effect waves-light btn left" (click)="quickAdd=false; pageNo=1">Keep Editing</a>
+                      <a *ngIf="scholarship.slug" class="waves-effect waves-light btn left" routerLink="/edit-scholarship/{{scholarship.slug}}">Keep Editing</a>
+                      <a *ngIf="!scholarship.slug" class="waves-effect waves-light btn left" (click)="quickAdd=false; pageNo=1">Keep Editing</a>
                       <a class="waves-effect waves-light btn right" (click)="saveScholarship(scholarshipForm,{quickAdd:true})" style="margin-left: 5%">
                         Add Scholarship</a>
                     </div>

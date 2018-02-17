@@ -214,6 +214,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
         scholarship => {
           this.scholarship = scholarship;
 
+          console.log('loadScholarshipDatabase() this.scholarship', this.scholarship);
           //If the current scholarship has a web form and the web_form_entries have not been defined, initialize them with default values
           if(this.scholarship.submission_info.application_form_type=='Web' && !this.scholarship.submission_info.web_form_entries){
             this.scholarship.submission_info.web_form_entries = [
@@ -320,7 +321,6 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
         });
         return;
       }
-
 
       this.scholarship = scholarshipQuickCreate(this.scholarship);
     }

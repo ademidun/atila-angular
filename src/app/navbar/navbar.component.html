@@ -54,6 +54,11 @@
               </button>
               <!-- Dropdown Profile Menu -->
               <mat-menu #menu="matMenu" [overlapTrigger]="false">
+                <a routerLink="/add-scholarship">
+                  <button mat-menu-item>
+                    <span>Add Scholarship</span>
+                  </button>
+                </a>
                 <a *ngIf="userProfile" [routerLink]="['/profile', userProfile.username]">
                     <button button mat-menu-item >
                     <span>My profile</span>
@@ -62,11 +67,6 @@
                 <a routerLink="/edit-profile">
                   <button mat-menu-item>
                     <span>Edit profile</span>
-                  </button>
-                </a>
-                <a routerLink="/add-scholarship">
-                  <button mat-menu-item>
-                    <span>Add Scholarship</span>
                   </button>
                 </a>
                 <a (click)="logout()">
