@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, HostListener} from '@angular/core';
+import {Component, OnInit, OnDestroy, HostListener, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 
 import { ScholarshipService } from "../_services/scholarship.service";
@@ -12,6 +12,7 @@ import {MatDialog} from '@angular/material';
 import {SubscriberDialogComponent} from '../subscriber-dialog/subscriber-dialog.component';
 import {UserProfileService} from '../_services/user-profile.service';
 import {MyFirebaseService} from '../_services/myfirebase.service';
+import {NgbPopover} from '@ng-bootstrap/ng-bootstrap';
 //import {GeocoderAddressComponent} from '@types/googlemaps'
 
 //import 'googlemaps';
@@ -72,6 +73,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
     */
     public locationPlaceHolder = 'City, Province or Country';
     public subscriber: any = {};
+    @ViewChild('trySearch') public popover: NgbPopover;
     constructor(
     public scholarshipService: ScholarshipService,
     public firebaseService: MyFirebaseService,
@@ -85,8 +87,18 @@ export class PreviewComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     document.body.style.backgroundColor = '#194F87';
-    // https://stackoverflow.com/questions/391979/how-to-get-clients-ip-address-using-javascript-only
+    setTimeout(() => {
 
+      this.toggleSearchModal();
+
+    }, 7000);
+
+
+    setTimeout(() => {
+
+      this.toggleSearchModal();
+
+    }, 18000);
 
   }
 
@@ -241,6 +253,37 @@ export class PreviewComponent implements OnInit, OnDestroy {
   }
 
 
+  toggleSearchModal(data?:any){
+    if(data && data['toggle']) {
+      const isOpen = this.popover.isOpen();
+      if(isOpen){
+        this.popover.close()
+      }
+      else{
+        this.popover.open()
+      }
+      return;
+    }
+
+    // TODO check to see if we have already asked user to prevent repetitve asking
+    // if(this.userProfile) {
+    //   if (!this.userProfile.preferences['try_search_reminder']) {
+    //     this.userProfile.preferences['try_search_reminder'] = new Date().getTime();
+    //     this.userProfileService.updateHelper(this.userProfile).subscribe();
+    //   }
+    //   else {
+    //     return;
+    //   }
+    // }
+
+    const isOpen = this.popover.isOpen();
+    if(isOpen){
+      this.popover.close()
+    }
+    else{
+      this.popover.open()
+    }
+  }
 
 
 }

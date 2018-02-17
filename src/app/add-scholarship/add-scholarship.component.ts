@@ -126,7 +126,6 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
       placeholder: "Criteria Description",
       events : {
         'froalaEditor.focus' : function(e, editor) {
-          console.log('e,editor.selection.get()',e, editor.selection.get());
         },
       },
       toolbarButtons: ['bold', 'italic', 'underline', 'paragraphFormat','insertLink', 'outdent', 'indent', 'insertTable', 'html'],
@@ -214,7 +213,6 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
         scholarship => {
           this.scholarship = scholarship;
 
-          console.log('loadScholarshipDatabase() this.scholarship', this.scholarship);
           //If the current scholarship has a web form and the web_form_entries have not been defined, initialize them with default values
           if(this.scholarship.submission_info.application_form_type=='Web' && !this.scholarship.submission_info.web_form_entries){
             this.scholarship.submission_info.web_form_entries = [
@@ -324,7 +322,6 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
 
       this.scholarship = scholarshipQuickCreate(this.scholarship);
     }
-    console.log('this.scholarship', this.scholarship);
 
     this.scholarshipErrors = null;
 

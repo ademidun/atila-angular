@@ -71,7 +71,7 @@
         <div *ngIf="!isLoggedIn; else registeredContent">
 
           <div class="row">
-            <div *ngFor="let scholarship of scholarships;  let i=index" class="col-sm-12 col-md-10  offset-md-1">
+            <div *ngFor="let scholarship of scholarships;  let i=index" class="col-sm-12 col-md-10  offset-md-1" style="margin-bottom: -5%">
               <ng-template [ngIf]="i<3">
                 <app-scholarship-card [scholarship]="scholarship" [userProfile]="userProfile"></app-scholarship-card>
               </ng-template>

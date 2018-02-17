@@ -55,7 +55,6 @@ export class Scholarship {
     scholarship.education_level = EDUCATION_LEVEL;
     scholarship.description = $(scholarship.criteria_info).text().slice(0,300);
 
-    console.log('scholarshipQuickCreate() scholarship:',scholarship);
     if(!scholarship.metadata){
       scholarship.metadata = {};
     }

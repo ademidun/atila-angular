@@ -50,9 +50,9 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
           placeholder: "Share your thoughts",
           events : {
             'froalaEditor.focus' : function(e, editor) {
-              console.log('e,editor.selection.get()',e, editor.selection.get());
             }
-          }
+          },
+        heightMin: 200,
         }
     }
 
