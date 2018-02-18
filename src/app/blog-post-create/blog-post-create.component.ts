@@ -15,7 +15,17 @@ import { AuthService } from "../_services/auth.service";
 import { Observable } from 'rxjs/Observable';
 
 import * as firebase from "firebase";
-
+// https://go.tinymce.com/blog/angular-2-and-tinymce/
+  import 'tinymce';
+import 'tinymce/themes/modern';
+import 'tinymce/plugins/table';
+import 'tinymce/plugins/link';
+import 'tinymce/plugins/toc';
+import 'tinymce/plugins/preview';
+import 'tinymce/plugins/lists';
+import 'tinymce/plugins/media';
+import 'tinymce/plugins/autolink';
+import 'tinymce/plugins/code';
 declare var tinymce: any;
 import * as $ from 'jquery';
 
@@ -26,6 +36,7 @@ import * as $ from 'jquery';
 })
 export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy {
 
+  editorId = "post-editor";
   blogPost:BlogPost;
   userProfile: UserProfile;
   userId: number;
@@ -81,18 +92,18 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
           if (this.userId!=this.blogPost.user.id) {
             this.router.navigate(['/login']);
           }
+          if(this.editor){
+            //this.editor.setContent(this.blogPost.body);
+            //$('#'+this.editorId).html(this.blogPost.body);
+            tinymce.get(this.editorId).setContent(this.blogPost.body);
+          }
         },
         err => this.snackBar.open(err,'',{duration: 3000})
       )
     }
 
     else{
-    /*
-    this.blogPost.body =`<p>This was potentially my favorite blog post to write.</p> <ol> <li>It was actionable</li> <li>It was on a
-    topic which I really enjoyed.</li> <li>I think I may be right.&nbsp;</li> </ol> <blockquote> <p>"An investment in
-    education pays the best interest."</p> <p>&nbsp; &nbsp; - Benjamin Franklin</p> </blockquote> <p>This is why I
-    would prefer going back to my regular writing.</p> <p>&nbsp;</p>`;
-    */
+
     this.blogPost.body = `Share your thoughts`;
     }
     if (!isNaN(this.userId)){
@@ -107,8 +118,43 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
 
   }
   ngAfterViewInit() {
+    tinymce.init({
+      selector: '#' + this.editorId,
+      plugins: ['link', 'table','toc','preview','lists','media','autolink','code'],
+      toolbar: 'undo redo | styleselect | bold italic | link image | fontsizeselect',
+      skin_url: '/assets/skins/lightgray',
+      height : "500",
+      invalid_elements : 'script',
+      setup: editor => {
+        this.editor = editor;
+        editor.on('keyup change', (e) => {
+          const content = editor.getContent();
+          this.onEditorContentChange(e,content, editor);
+        });
+      },
+      init_instance_callback : (editor) => {
+
+        if(this.blogPost.body){ //body may not be loaded from server yet
+          editor.setContent(this.blogPost.body);
+        }
+        this.editor = editor;
+      }
+    });
+
+  }
+  onEditorContentChange(event:any, content:any, editor: any){
+
+    if((<KeyboardEvent>event).keyCode == 13) {
 
 
+
+      this.blogPost.body = content;
+
+    }
+    this.blogPost.body = content;
+    if (!this.ref['destroyed']) {
+      this.ref.detectChanges();
+    }
   }
 
   ngOnDestroy() {
@@ -116,6 +162,7 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
     //Add 'implements OnDestroy' to the class.
 
     this.ref.detach();
+    tinymce.remove(this.editor);
   }
 
 
