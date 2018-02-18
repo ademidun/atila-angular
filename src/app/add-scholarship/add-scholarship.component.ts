@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit} from '@angular/core';
+import {Component, OnInit, AfterViewInit, ChangeDetectorRef, OnDestroy} from '@angular/core';
 import { Scholarship, scholarshipQuickCreate } from '../_models/scholarship';
 import { UploadFile } from '../_models/upload-file';
 import { ScholarshipService } from '../_services/scholarship.service';
@@ -17,14 +17,29 @@ import {AddQuestionModalComponent} from '../add-question-modal/add-question-moda
 import { MyFirebaseService } from "../_services/myfirebase.service";
 
 import { GooglePlaceDirective } from "../_directives/google-place.directive";
-import * as firebase from "firebase";
 import { MarkdownService } from 'ngx-markdown';
+
+import 'tinymce';
+import 'tinymce/themes/modern';
+import 'tinymce/plugins/table';
+import 'tinymce/plugins/link';
+import 'tinymce/plugins/toc';
+import 'tinymce/plugins/preview';
+import 'tinymce/plugins/lists';
+import 'tinymce/plugins/media';
+import 'tinymce/plugins/autolink';
+import 'tinymce/plugins/code';
+import * as firebase from "firebase";
+
+declare var tinymce: any;
+
 @Component({
   selector: 'app-add-scholarship',
   templateUrl: './add-scholarship.component.html',
   styleUrls: ['./add-scholarship.component.scss']
 })
-export class AddScholarshipComponent implements OnInit, AfterViewInit{
+
+export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   EDUCATION_LEVEL = [
@@ -108,7 +123,13 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
   webForms : any;
   myJson = JSON;
   froalaOptions: any;
+
+  editorId = "tinymce-editor";
+  editorId2 = "tinymce-editor2";
+  editor: any;
+
   constructor(
+    public ref:ChangeDetectorRef,
     public router: Router,
     public snackBar: MatSnackBar,
     public scholarshipService: ScholarshipService,
@@ -122,16 +143,16 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
   ) {
     this.scholarshipSlug = route.snapshot.params['slug'];
 
-    this.froalaOptions = {
-      placeholder: "Criteria Description",
-      events : {
-        'froalaEditor.focus' : function(e, editor) {
-        },
-      },
-      toolbarButtons: ['bold', 'italic', 'underline', 'paragraphFormat','insertLink', 'outdent', 'indent', 'insertTable', 'html'],
-      heightMin: 150,
-
-    }
+    // this.froalaOptions = {
+    //   placeholder: "Criteria Description",
+    //   events : {
+    //     'froalaEditor.focus' : function(e, editor) {
+    //     },
+    //   },
+    //   toolbarButtons: ['bold', 'italic', 'underline', 'paragraphFormat','insertLink', 'outdent', 'indent', 'insertTable', 'html'],
+    //   heightMin: 150,
+    //
+    // }
   }
 
   ngOnInit() {
@@ -157,11 +178,92 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
   }
 
   ngAfterViewInit() {
+    tinymce.init({
+      selector: '.' + this.editorId,
+      plugins: ['link', 'table','toc','preview','lists','media','autolink','code'],
+      toolbar: 'undo redo | styleselect | bold italic | link image | fontsizeselect',
+      skin_url: '/assets/skins/lightgray',
+      height : "200",
+      invalid_elements : 'script',
+      setup: editor => {
+        this.editor = editor;
+        editor.on('keyup change', (e) => {
+          const content = editor.getContent();
+          this.onEditorContentChange(e,content, editor);
+        });
+      },
+      init_instance_callback : (editor) => {
 
+        if(this.scholarship.criteria_info){ //body may not be loaded from server yet
+          editor.setContent(this.scholarship.criteria_info);
+        }
+        this.editor = editor;
+      }
+    });
+
+  }
+
+  onEditorContentChange(event:any, content:any, editor: any){
+
+    if((<KeyboardEvent>event).keyCode == 13) {
+
+      this.scholarship.criteria_info = content;
+
+    }
+    this.scholarship.criteria_info = content;
+    if (!this.ref['destroyed']) {
+      this.ref.detectChanges();
+    }
+
+  }
+
+  ngOnDestroy() {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+
+    this.ref.detach();
+    tinymce.remove(this.editor);
   }
 
   next() {
     this.pageNo = Math.min(3,this.pageNo+1);
+
+    if (this.pageNo==2) {
+      setTimeout(()=>{this.initTinymce();},5);
+    }
+  }
+
+  back() {
+    this.pageNo = Math.max(1,this.pageNo-1);
+    if (this.pageNo==2) {
+      setTimeout(()=>{this.initTinymce();},5);
+
+    }
+  }
+
+  initTinymce() {
+    tinymce.init({
+      selector: '.' + this.editorId,
+      plugins: ['link', 'table','toc','preview','lists','media','autolink','code'],
+      toolbar: 'undo redo | styleselect | bold italic | link image | fontsizeselect',
+      skin_url: '/assets/skins/lightgray',
+      height : "200",
+      invalid_elements : 'script',
+      setup: editor => {
+        this.editor = editor;
+        editor.on('keyup change', (e) => {
+          const content = editor.getContent();
+          this.onEditorContentChange(e,content, editor);
+        });
+      },
+      init_instance_callback : (editor) => {
+
+        if(this.scholarship.criteria_info){ //body may not be loaded from server yet
+          editor.setContent(this.scholarship.criteria_info);
+        }
+        this.editor = editor;
+      }
+    });
   }
 
   loadScholarshipDefaults(){
@@ -189,6 +291,12 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
       attribute_type : '',
       attribute_value: '',
     };
+
+    if(this.editor){
+      //this.editor.setContent(this.blogPost.body);
+      //$('#'+this.editorId).html(this.blogPost.body);
+      tinymce.get(this.editorId).setContent(this.scholarship.criteria_info);
+    }
 
     this.userProfileService.getById(this.scholarship.owner)
       .subscribe(
@@ -237,7 +345,11 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
 
           //convert scholarship criteria from markdown to HTML.
           this.scholarship.criteria_info = this.markdownService.compile(this.scholarship.criteria_info);
-
+          if(this.editor){
+            //this.editor.setContent(this.blogPost.body);
+            //$('#'+this.editorId).html(this.blogPost.body);
+            tinymce.get(this.editorId).setContent(this.scholarship.criteria_info);
+          }
           this.titleService.setTitle('Atila - Edit - ' + this.scholarship.name);
 
           if (this.scholarship.owner){
@@ -302,9 +414,6 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit{
     delete this.scholarship.extra_questions[key];
   }
 
-  back() {
-    this.pageNo = Math.max(1,this.pageNo-1);
-  }
 
   generateArray(obj){
     return Object.keys(obj).map((key)=>{ return obj[key]});

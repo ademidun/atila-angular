@@ -28,12 +28,13 @@
 
                     <div class="row">
                       <p style="margin-left:2%; margin-bottom:2%" >Type or copy and paste information about the scholarship.</p>
-                      <div class="col-sm-12" placeholder="Criteria Description" name="criteria_info"  [froalaEditor]="froalaOptions" [(froalaModel)]="scholarship.criteria_info"></div>
+                      <!--<div class="col-sm-12" placeholder="Criteria Description" name="criteria_info"  [froalaEditor]="froalaOptions" [(froalaModel)]="scholarship.criteria_info"></div>-->
+                      <textarea class="col-sm-12" class="{{editorId}}"></textarea>
                     </div>
 
                     <div class="row">
                       <a *ngIf="scholarship.slug" class="waves-effect waves-light btn left" routerLink="/edit-scholarship/{{scholarship.slug}}">Keep Editing</a>
-                      <a *ngIf="!scholarship.slug" class="waves-effect waves-light btn left" (click)="quickAdd=false; pageNo=1">Keep Editing</a>
+                      <a *ngIf="!scholarship.slug" class="waves-effect waves-light btn left" (click)="quickAdd=false; pageNo=0;next()">Keep Editing</a>
                       <a class="waves-effect waves-light btn right" (click)="saveScholarship(scholarshipForm,{quickAdd:true})" style="margin-left: 5%">
                         Add Scholarship</a>
                     </div>
@@ -176,6 +177,8 @@
                           </mat-select>
                         </mat-form-field>
                         <br>
+
+
                       </fieldset>
 
                       <div class="row">
@@ -275,15 +278,18 @@
                         </div>
 
 
+                        {{scholarship.criteria_info}}
                         <div class="row">
-                          <label for="criteria_info">Is there any additional information about the scholarship not covered already? </label>
-                          <textarea class="col-sm-12" id="criteria_info" type="text" [froalaEditor]="froalaOptions" [(froalaModel)]="scholarship.criteria_info" name="criteria_info"></textarea>
+                          <label>Is there any additional information about the scholarship not covered already? </label>
+                          <!--<textarea class="col-sm-12" id="criteria_info" type="text" [froalaEditor]="froalaOptions" [(froalaModel)]="scholarship.criteria_info" name="criteria_info"></textarea>-->
+                          <textarea  class="col-sm-12" ngClass="{{editorId}}"></textarea>
                         </div>
+
                       </fieldset>
                       <div class="row">
                         <div class="col-sm-12">
                           <a class="waves-effect waves-light btn left" (click)="back()">Back</a>
-                          <a *ngIf="editMode" class="waves-effect waves-light btn left"  style="margin-left: 5%;"(click)="saveScholarship(scholarshipForm)">Save</a>
+                          <a *ngIf="editMode" class="waves-effect waves-light btn left"  style="margin-left: 5%;" (click)="saveScholarship(scholarshipForm)">Save</a>
                           <a class="waves-effect waves-light btn right" (click)="next()">Next</a>
                         </div>
                       </div>

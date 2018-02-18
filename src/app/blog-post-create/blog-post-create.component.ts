@@ -57,14 +57,14 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
     public route: ActivatedRoute,) {
 
       this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
-      this.options = {
-          placeholder: "Share your thoughts",
-          events : {
-            'froalaEditor.focus' : function(e, editor) {
-            }
-          },
-        heightMin: 200,
-        }
+      // this.options = {
+      //     placeholder: "Share your thoughts",
+      //     events : {
+      //       'froalaEditor.focus' : function(e, editor) {
+      //       }
+      //     },
+      //   heightMin: 200,
+      //   }
     }
 
   ngOnInit() {
