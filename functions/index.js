@@ -197,7 +197,7 @@ const app = express();
 
 // You might instead set these as environment varibles
 // I just want to make this example explicitly clear
-const appUrl = 'atila-7.firebaseapp.com';
+const appUrl = 'atila.ca';
 // const renderUrl = 'https://render-tron.appspot.com/render';
 const renderUrl = 'https://atila-7.appspot.com/render';
 

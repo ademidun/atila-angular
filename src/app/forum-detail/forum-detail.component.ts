@@ -55,7 +55,7 @@ export class ForumDetailComponent implements OnInit {
           this.seoService.generateTags({
             title: this.forum.title,
             description: this.forum.starting_comment.text,
-            image: this.forum.user.profile_pic_url == defaultProfileImage ? atilaImage :this.forum.user.profile_pic_url,
+            image:  !this.forum.user.profile_pic_url || this.forum.user.profile_pic_url == defaultProfileImage ? atilaImage :this.forum.user.profile_pic_url,
             slug: `forum/${this.forum.slug}/`
           });
         }
