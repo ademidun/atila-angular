@@ -83,6 +83,7 @@ import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { TypeaheadComponent } from './_shared/typeahead/typeahead.component';
 import { EditProfileModalComponent } from './edit-profile-modal/edit-profile-modal.component';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import { SeoService } from './_services/seo.service';
 
 @NgModule({
   declarations: [
@@ -170,6 +171,8 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
        AuthGuard,
       GoogleAnalyticsEventsService,
       SearchService,
+      SeoService,
+
        {
         provide: HTTP_INTERCEPTORS,
         useClass: TokenInterceptor,

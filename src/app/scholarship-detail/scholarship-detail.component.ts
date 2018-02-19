@@ -16,6 +16,7 @@ import { AuthService } from "../_services/auth.service";
 import {Meta, Title} from '@angular/platform-browser';
 import {MyFirebaseService} from '../_services/myfirebase.service';
 import {UserProfile, addToMyScholarshipHelper} from '../_models/user-profile';
+import {SeoService} from '../_services/seo.service';
 
 
 @Component({
@@ -53,6 +54,7 @@ export class ScholarshipDetailComponent implements OnInit {
     public authService: AuthService,
     public metaService: Meta,
     public firebaseService: MyFirebaseService,
+    public seoService: SeoService
   ) {
     // Get the id that was passed in the route
     this.scholarshipSlug = route.snapshot.params['slug'];
@@ -63,17 +65,26 @@ export class ScholarshipDetailComponent implements OnInit {
 
   ngOnInit() {
     // Load scholarship from the id
+
     this.scholarshipService.getBySlug(this.scholarshipSlug)
       .subscribe(
         scholarship => {
+
           this.scholarship = scholarship;
+
+          this.seoService.generateTags({
+            title: this.scholarship.name,
+            description: this.scholarship.description,
+            image: this.scholarship.img_url,
+            slug: `scholarship-detail/${this.scholarship.slug}/`
+          });
 
           if ('2019-01-01T00:00:00Z' == this.scholarship.deadline) {
             this.scholarship['metadata']['deadline_tbd'] = 'TBD';
           }
 
           this.titleService.setTitle('Atila - ' + this.scholarship.name);
-          this.updateMeta();
+          //this.updateMeta();
           // Get the user profile of the scholarship owner
           if (this.scholarship.owner){
             this.userProfileService.getById(scholarship.owner)
@@ -362,7 +373,7 @@ export class ScholarshipDetailComponent implements OnInit {
         return comment.up_votes_count;
     }
   }
-
+  /*
   updateMeta(){
 
     const fullUrl = document.location.href;
@@ -441,4 +452,5 @@ export class ScholarshipDetailComponent implements OnInit {
     );
 
   }
+  */
 }

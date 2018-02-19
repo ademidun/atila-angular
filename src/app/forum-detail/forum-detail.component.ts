@@ -16,6 +16,7 @@ import { NgZone } from '@angular/core';
 import { Title }     from '@angular/platform-browser';
 import { AuthService } from "../_services/auth.service";
 import {MatSnackBar} from '@angular/material';
+import {SeoService} from '../_services/seo.service';
 @Component({
   selector: 'app-forum-detail',
   templateUrl: './forum-detail.component.html',
@@ -39,17 +40,32 @@ export class ForumDetailComponent implements OnInit {
     public commentService: CommentService,
     public forumService: ForumService,
     public authService: AuthService,
-    public snackBar: MatSnackBar,) {
+    public snackBar: MatSnackBar,
+    public seoService: SeoService,) {
       this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
     }
 
   ngOnInit() {
-
+    let defaultProfileImage = 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2Fgeneral-data%2Fdefault-profile-pic.png?alt=media&token=455c59f7-3a05-43f1-a79e-89abff1eae57';
+    let atilaImage = 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-image-preview-nov-24-2.png?alt=media&token=f4bb94ac-60f6-451a-a3df-f2300d92818d"';
     this.forumService.getBySlug(this.route.snapshot.params['slug']).subscribe(
       forum => {
         this.forum = forum;
+        try {
+          this.seoService.generateTags({
+            title: this.forum.title,
+            description: this.forum.starting_comment.text,
+            image: this.forum.user.profile_pic_url == defaultProfileImage ? atilaImage :this.forum.user.profile_pic_url,
+            slug: `forum/${this.forum.slug}/`
+          });
+        }
+        catch (err) {
+          console.log('seoService Error', err);
+        }
         this.forum.starting_comment = null;
         this.titleService.setTitle('Atila Forum - ' + this.forum.title);
+
+
         this.commentService.getComments(this.forum.id,'Forum').subscribe(
           res => {
 

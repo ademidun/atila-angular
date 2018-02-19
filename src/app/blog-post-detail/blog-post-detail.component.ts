@@ -18,6 +18,7 @@ import {Meta, Title} from '@angular/platform-browser';
 import { AuthService } from "../_services/auth.service";
 import {MatSnackBar} from '@angular/material';
 import {MyFirebaseService} from '../_services/myfirebase.service';
+import {SeoService} from '../_services/seo.service';
 
 
 @Component({
@@ -44,6 +45,7 @@ export class BlogPostDetailComponent implements OnInit {
     public metaService: Meta,
     public authService: AuthService,
     public firebaseService: MyFirebaseService,
+    public seoService: SeoService,
     ) {
       this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
     }
@@ -54,7 +56,18 @@ export class BlogPostDetailComponent implements OnInit {
       res => {
         this.blogPost = (<any>res).blog;
 
-        this.updateMeta();
+        //this.updateMeta();
+        try {
+          this.seoService.generateTags({
+            title: this.blogPost.title,
+            description: this.blogPost.description,
+            image: this.blogPost.header_image_url,
+            slug: `blog/${this.blogPost.user.username}/${this.blogPost.slug}`
+          });
+        }
+        catch (err) {
+          console.log('seoService Error', err);
+        }
 
         this.titleService.setTitle(this.blogPost.title);
         if (! isNaN(this.userId)){
