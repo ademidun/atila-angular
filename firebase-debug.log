@@ -1,0 +1,39 @@
+[debug] [2018-02-19T03:39:27.425Z] ----------------------------------------------------------------------
+[debug] [2018-02-19T03:39:27.427Z] Command:       /usr/local/Cellar/node/8.4.0/bin/node /usr/local/bin/firebase deploy
+[debug] [2018-02-19T03:39:27.428Z] CLI Version:   3.16.0
+[debug] [2018-02-19T03:39:27.428Z] Platform:      darwin
+[debug] [2018-02-19T03:39:27.428Z] Node Version:  v8.4.0
+[debug] [2018-02-19T03:39:27.428Z] Time:          Sun Feb 18 2018 22:39:27 GMT-0500 (EST)
+[debug] [2018-02-19T03:39:27.428Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-02-19T03:39:27.443Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-02-19T03:39:27.443Z] > authorizing via signed-in user
+[debug] [2018-02-19T03:39:27.446Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-02-19T03:39:27.446Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ { refresh_token: '1/Yl_zCdUmZsC9neC2mpmxxEvNEVNZ_Q5vdntAkEGhs_c',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Sun Feb 18 2018 22:39:27 GMT-0500 (EST)
+[debug] [2018-02-19T03:39:27.811Z] <<< HTTP RESPONSE 200
+[debug] [2018-02-19T03:39:27.825Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/atila-7  
+  
+ Sun Feb 18 2018 22:39:27 GMT-0500 (EST)
+[debug] [2018-02-19T03:41:08.701Z] ----------------------------------------------------------------------
+[debug] [2018-02-19T03:41:08.703Z] Command:       /usr/local/Cellar/node/8.4.0/bin/node /usr/local/bin/firebase deploy
+[debug] [2018-02-19T03:41:08.703Z] CLI Version:   3.16.0
+[debug] [2018-02-19T03:41:08.703Z] Platform:      darwin
+[debug] [2018-02-19T03:41:08.703Z] Node Version:  v8.4.0
+[debug] [2018-02-19T03:41:08.704Z] Time:          Sun Feb 18 2018 22:41:08 GMT-0500 (EST)
+[debug] [2018-02-19T03:41:08.704Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-02-19T03:41:08.716Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-02-19T03:41:08.716Z] > authorizing via signed-in user
+[debug] [2018-02-19T03:41:08.718Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/atila-7  
+  
+ Sun Feb 18 2018 22:41:08 GMT-0500 (EST)
+[debug] [2018-02-19T03:41:09.102Z] <<< HTTP RESPONSE 200
+[debug] [2018-02-19T03:41:09.102Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/atila-7/tokens  
+  
+ Sun Feb 18 2018 22:41:09 GMT-0500 (EST)
