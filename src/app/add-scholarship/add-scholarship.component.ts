@@ -1,12 +1,12 @@
 import {Component, OnInit, AfterViewInit, ChangeDetectorRef, OnDestroy} from '@angular/core';
-import { Scholarship, scholarshipQuickCreate } from '../_models/scholarship';
+import { Scholarship, scholarshipQuickCreate,scholarshipCreationHelper } from '../_models/scholarship';
 import { UploadFile } from '../_models/upload-file';
 import { ScholarshipService } from '../_services/scholarship.service';
 import { Observable } from 'rxjs/Observable';
 import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import {NgForm} from '@angular/forms';
+import {NgForm, ValidationErrors} from '@angular/forms';
 
 import {NgModel} from '@angular/forms';
 import { UserProfileService } from '../_services/user-profile.service';
@@ -34,6 +34,7 @@ import {ACTIVITIES, COUNTRIES, DISABILITY, ETHNICITY, RELIGION, SCHOOLS_DICT, SP
 
 import {SCHOOLS_LIST, MAJORS_LIST, LANGUAGE, FUNDING_TYPES, APPLICATION_FORM_TYPES, APPLICATION_SUBMISSION_TYPES} from '../_models/constants';
 import {prettifyKeys} from '../_models/utils';
+import {hasOwnProperty} from 'tslint/lib/utils';
 
 declare var tinymce: any;
 
@@ -451,7 +452,14 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
       return;
     }
 
-    if (scholarshipForm.valid) {
+
+    if (!this.editMode) {
+      this.scholarship = scholarshipCreationHelper(this.scholarship);
+    }
+
+    console.log(scholarshipForm);
+    // Ignore errors with description not being filled yet
+    if (!scholarshipForm.controls.description.value || scholarshipForm.valid) {
       let postOperation: Observable<Scholarship>;
       this.scholarship.owner = this.userId;
 
@@ -459,18 +467,16 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
         countries: this.countries,
         provinces: this.provinces,
         cities: this.cities
-      }
+      };
 
       let sendData = {
         'scholarship': this.scholarship,
         'locationData': this.locationList,
-      }
+      };
 
-
-
+      console.log('sendData',sendData);
 
       if(this.editMode){
-
 
         this.scholarshipService.updateAny(sendData)
           .subscribe(
@@ -505,6 +511,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
               duration: 3000
             });
             this.scholarship=data;
+            this.editMode = true;
             // todo change to this.router.navigate(['my-scholarships'])
             //this.router.navigate(['scholarships-list']);
           },
@@ -521,7 +528,25 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
     }
     else {
 
-      this.snackBar.open("Invalid form", '', {
+      console.log(scholarshipForm.valid);
+      console.log('scholarshipForm.errors', scholarshipForm, scholarshipForm.errors);
+
+      let errMsg = '';
+      let formErrors = {};
+
+      for (let key in scholarshipForm.form.controls) {
+        if (scholarshipForm.form.controls[key].errors) {
+          formErrors[key] = scholarshipForm.form.controls[key];
+        }
+      }
+
+      console.log('formErrors',formErrors);
+      for (let error in formErrors) {
+        console.log('error',error);
+          errMsg += `${error}: ${JSON.stringify(scholarshipForm.form.controls[error].errors)}`;
+      }
+
+      this.snackBar.open("Invalid form - "+errMsg, '', {
         duration: 3000
       });
     }

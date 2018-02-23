@@ -5,8 +5,8 @@
                 <form #scholarshipForm="ngForm" class="col-sm-12" id="scholarshipForm" >
 
                   <div  class="fixed-action-btn">
-                    <a *ngIf="!editMode" class="waves-effect waves-light btn right btn-floating btn-large" (click)="saveScholarship(scholarshipForm)">Create</a>
-                    <a *ngIf="editMode" class="waves-effect waves-light btn right btn-floating btn-large" (click)="saveScholarship(scholarshipForm)">Save</a>
+                    <a *ngIf="!editMode" class="mat-fab btn right btn-floating btn-large" (click)="saveScholarship(scholarshipForm)">Create</a>
+                    <a *ngIf="editMode" class="mat-fab btn right btn-floating btn-large" (click)="saveScholarship(scholarshipForm)">Save</a>
                   </div>
 
                     <h4 *ngIf="editMode">Edit Scholarship</h4>
@@ -68,6 +68,7 @@
                           <label> Give a short description of the scholarship. You will be able to give more details later.</label><br>
                           <textarea  class="browser-default" matInput id="description" type="text"
                                      required placeholder="Description"  [(ngModel)]="scholarship.description" name="description"></textarea>
+                          <!--<span *ngIf="scholarship.description" [ngStyle]="{'color': scholarship.description.length>500? 'red' : 'black'}">-->
                           <span *ngIf="scholarship.description">
                               {{scholarship.description.length}}/500
                             </span>
@@ -86,7 +87,7 @@
 
                           <div class="col-sm-12" *ngIf="scholarship.extra_questions">
                             <input class="browser-default" id="funding_amount_varies" type="checkbox" [(ngModel)]="scholarship.extra_questions.funding_amount_varies"
-                                   name="is_automated">
+                                   name="funding_amount_varies">
                             <label for="funding_amount_varies" data-error="Invalid input">Funding Amount Varies?</label>
                           </div>
 
@@ -155,7 +156,7 @@
                         <br>
                         <div class="row">
                           <mat-form-field class="input-field col-sm-12 ">
-                            <mat-select class="col-sm-12" [(ngModel)]="scholarship.funding_type" name="funding_type" required id="funding_type" multiple=true
+                            <mat-select class="col-sm-12" [(ngModel)]="scholarship.funding_type" name="funding_type" id="funding_type" multiple=true
                                         placeholder="Funding Type">
                               <mat-option *ngFor="let type of FUNDING_TYPES" [value]="type">{{type}} </mat-option>
                             </mat-select>
@@ -163,14 +164,14 @@
                         </div>
                         <br>
                         <mat-form-field class="input-field col-sm-12 ">
-                          <mat-select [(ngModel)]="scholarship.education_level" name="education_level" id="education_level" multiple=true required placeholder="Select Your Education Type">
+                          <mat-select [(ngModel)]="scholarship.education_level" name="education_level" id="education_level" multiple=true placeholder="Select Your Education Type">
                             <mat-option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </mat-option>
                           </mat-select>
                         </mat-form-field>
                         <br>
                         <mat-form-field class="input-field col-sm-12 ">
                           <mat-select class="col-sm-12" [(ngModel)]="scholarship.education_field" name="education_field" id="education_field" multiple=true
-                                      required placeholder="Education Field">
+                                       placeholder="Education Field">
                             <mat-option *ngFor="let education_field of EDUCATION_FIELDS" [value]="education_field">{{education_field}} </mat-option>
                           </mat-select>
                         </mat-form-field>

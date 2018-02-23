@@ -51,6 +51,7 @@ export class Scholarship {
 
     this.extra_questions = {};
     this.submission_info = {};
+    this.metadata = {};
     // TODO: Are most scholarships pdf forms this.APPLICATION_FORM_TYPES[0] or web forms this.APPLICATION_FORM_TYPES[1]
     this.submission_info.application_form_type = APPLICATION_FORM_TYPES[0];
     this.funding_type = [FUNDING_TYPES[0]];
@@ -70,7 +71,6 @@ export class Scholarship {
       attribute_value: '',
     };
     for (let key in AUTOCOMPLETE_DICT ) {
-      console.log('let key in AUTOCOMPLETE_DICT', key);
       this[key] = [];
     }
 }
@@ -80,14 +80,28 @@ export class Scholarship {
 
   export function scholarshipQuickCreate(scholarship: Scholarship) {
 
-    scholarship.education_field = EDUCATION_FIELDS;
-    scholarship.education_level = EDUCATION_LEVEL;
-    scholarship.description = $(scholarship.criteria_info).text().slice(0,300);
 
+    scholarship = scholarshipCreationHelper(scholarship);
+    scholarship.metadata['quick_add'] = true;
+    scholarship.metadata['needs_review'] = true;
+    scholarship.extra_questions.funding_amount_varies = true;
+    return scholarship
+  }
+
+  export function scholarshipCreationHelper(scholarship: Scholarship){
+
+    console.log('scholarshipCreationHelper', scholarship);
     if(!scholarship.metadata){
       scholarship.metadata = {};
     }
-    scholarship.metadata['quick_add'] = true;
-    scholarship.metadata['needs_review'] = true;
-    return scholarship
+
+    scholarship.education_field = scholarship.education_field || EDUCATION_FIELDS;
+    scholarship.education_level = scholarship.education_level || EDUCATION_LEVEL;
+    // Sometimes jQuery takes a bit too long and the change isn't reflected in the form
+    // scholarship.description = scholarship.description || $(scholarship.criteria_info).text().slice(0,300);
+    scholarship.description = scholarship.description || scholarship.criteria_info.replace(/<(?:.|\n)*?>/gm, '').slice(0,300);
+
+    console.log('scholarshipCreationHelper', scholarship);
+    return scholarship;
   }
+

@@ -1,9 +1,8 @@
 @import '../../styles.scss';
 
 #description{
-    margin-top: 0px;
-    margin-bottom: 0px;
-    height: 5rem;
+    margin: (0,1%);
+    height: 10rem;
 }
 
 #critera-info{
@@ -17,5 +16,8 @@
 }
 .fixed-action-btn {
   right: 85%;
+}
+
+.btn-floating{
   font-size: 12px;
 }
