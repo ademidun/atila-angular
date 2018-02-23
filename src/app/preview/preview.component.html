@@ -13,7 +13,8 @@
       <form #previewForm="ngForm" (ngSubmit)="onSubmit(previewForm)" class="col-sm-12">
         <div class="semi-dark-background">
 
-          <h1 style="margin-bottom: 0" class="form-header">Get Your Education Funded</h1>
+          <h1 style="margin-bottom: 0" class="form-header">Find Your Scholarships</h1>
+          <h2 class="form-header" style="margin-bottom: 0;font-size: larger;">Automatically find and apply to scholarships in one click.</h2>
           <div style="margin-bottom: -22px; font-size: x-large" class="row preview-questions">
 
             <!-- Try using Google Maps Places Autocomplete API: https://developers.google.com/maps/documentation/javascript/places-autocomplete#address_forms -->
@@ -65,7 +66,8 @@
   </div>
 
   <div class="row center" style="text-align: center;margin-bottom: 0px;">
-    <p style="color: white; font-size: medium" class="col-sm-6">Subscribe to get updates on new scholarships, blog posts and new product features.
+    <p style="color: white; font-size: medium" class="col-sm-6">Subscribe to get updates on new scholarships, <a routerLink="/blog" style="text-decoration: underline; color: #68b9ff">blog</a> and
+      <a routerLink="/forum" style="text-decoration: underline; color: #68b9ff">forum posts</a>, and new product features.
 
       <span *ngIf="subscriber.response" style="color: greenyellow">
                       <br>
