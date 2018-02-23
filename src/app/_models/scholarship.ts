@@ -1,51 +1,80 @@
 
-import {EDUCATION_FIELDS, EDUCATION_LEVEL} from '../_models/constants';
+import {EDUCATION_FIELDS, EDUCATION_LEVEL, FUNDING_TYPES, APPLICATION_FORM_TYPES, AUTOCOMPLETE_DICT} from './constants';
 
 export class Scholarship {
-    activities?: string[];
-    citizenship?: string[];
-    applicants?: any[];
-    city?: any;
-    country?: any;
-    cover_letter_required?: any;
-    criteria_info?: string;
-    date_created?: string;
-    deadline?: string;
-    description?: string;
-    disability?: string[];
-    financial_need?: string;
-    education_field?: any;
-    education_level?: any;
-    eligible_programs?: string[];
-    eligible_schools?: any;
-    enrollment_proof_required?: any;
-    ethnicity?: string[];
-    extra_questions?: any;
-    extra_criteria?: any;
-    form_url?: string;
-    funding_amount?: number;
-    funding_type?: string[];
-    heritage?: string[];
-    id?: number;
-    img_url?: any;
-    is_automated?: boolean;
-    language?: any;
-    local_form_location?: any;
-    metadata: any;
-    name?: string;
-    number_available_scholarships?: number;
-    owner?: any;
-    province?: any;
-    purpose?: any;
-    reference_letter_required?:number;
-    religion?: string[];
-    resume_required?:any;
-    scholarship_img_url?: string;
-    scholarship_url?: string;
-    slug?: string;
-    sports?:string[];
-    submission_info?:any;
-    transcript_required?:any;
+  constructor(
+  public activities?: string[],
+  public citizenship?: string[],
+  public applicants?: any[],
+  public city?: any,
+  public country?: any,
+  public cover_letter_required?: any,
+  public criteria_info?: string,
+  public date_created?: string,
+  public deadline?: string,
+  public description?: string,
+  public disability?: string[],
+  public financial_need?: string,
+  public education_field?: any,
+  public education_level?: any,
+  public eligible_programs?: string[],
+  public eligible_schools?: any,
+  public enrollment_proof_required?: any,
+  public ethnicity?: string[],
+  public extra_questions?: any,
+  public extra_criteria?: any,
+  public form_url?: string,
+  public funding_amount?: number,
+  public funding_type?: string[],
+  public heritage?: string[],
+  public id?: number,
+  public img_url?: any,
+  public is_automated?: boolean,
+  public language?: any,
+  public local_form_location?: any,
+  public metadata?: any,
+  public name?: string,
+  public number_available_scholarships?: number,
+  public owner?: any,
+  public province?: any,
+  public purpose?: any,
+  public reference_letter_required?:number,
+  public religion?: string[],
+  public resume_required?:any,
+  public scholarship_img_url?: string,
+  public scholarship_url?: string,
+  public slug?: string,
+  public sports?:string[],
+  public submission_info?:any,
+  public transcript_required?:any,
+  ) {
+
+    this.extra_questions = {};
+    this.submission_info = {};
+    // TODO: Are most scholarships pdf forms this.APPLICATION_FORM_TYPES[0] or web forms this.APPLICATION_FORM_TYPES[1]
+    this.submission_info.application_form_type = APPLICATION_FORM_TYPES[0];
+    this.funding_type = [FUNDING_TYPES[0]];
+    this.reference_letter_required =0;
+    this.number_available_scholarships =1;
+
+    this.submission_info.web_form_entries = [
+      {
+        attribute_type : '',
+        attribute_value: '',
+        question_key: ''
+      },];
+
+    this.submission_info.web_form_parent = {
+      element_type: '',
+      attribute_type : '',
+      attribute_value: '',
+    };
+    for (let key in AUTOCOMPLETE_DICT ) {
+      console.log('let key in AUTOCOMPLETE_DICT', key);
+      this[key] = [];
+    }
+}
+
   }
 
 

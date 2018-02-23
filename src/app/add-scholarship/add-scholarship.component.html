@@ -3,6 +3,12 @@
         <div class="row">
             <div class="card-content">
                 <form #scholarshipForm="ngForm" class="col-sm-12" id="scholarshipForm" >
+
+                  <div  class="fixed-action-btn">
+                    <a *ngIf="!editMode" class="waves-effect waves-light btn right btn-floating btn-large" (click)="saveScholarship(scholarshipForm)">Create</a>
+                    <a *ngIf="editMode" class="waves-effect waves-light btn right btn-floating btn-large" (click)="saveScholarship(scholarshipForm)">Save</a>
+                  </div>
+
                     <h4 *ngIf="editMode">Edit Scholarship</h4>
                     <h4 *ngIf="!editMode">Add Scholarship</h4>
 
@@ -73,11 +79,6 @@
                           </mat-form-field>
                         </div>
                         <div class="row">
-                          <mat-form-field class="col-sm-12">
-                            <input class="browser-default" matInput id="img_url" type=url placeholder="Scholarship Image URL" [(ngModel)]="scholarship.img_url" name="img_url">
-                          </mat-form-field>
-                        </div>
-                        <div class="row">
 
                           <mat-form-field class="col-sm-12"  *ngIf="scholarship.extra_questions && !scholarship.extra_questions.funding_amount_varies">
                             <input class="browser-default" min="0" matInput id="funding_amount" type="number" placeholder="Funding Amount" [(ngModel)]="scholarship.funding_amount" name="funding_amount">
@@ -117,10 +118,14 @@
                         </div>
                         <!-- TODO: Changing Location Creation -->
 
-
-
                         <!--{{ myJson.stringify(locationList) }}-->
                         <br>
+                        <mat-form-field class="col-sm-12 col-md-4">
+
+                          <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
+                          <input class="browser-default" matInput type="text" class="form-control" [disabled]="this.editMode && !this.isOwner" [placeholder]="locationPlaceHolder" name="location" id="location" [(ngModel)]="locationInput.city" #LocationCtrl="ngModel"
+                                 appGooglePlace (setAddress)="placeAutoComplete($event,LocationCtrl)"  (googlePlaceNoLoad)="googlePlaceNoLoad()" (keydown)="keyDownHandler($event)">
+                        </mat-form-field>
                         <!-- See table-layout.component.html as a guide -->
                         <table class="table">
                           <caption >Locations</caption>
@@ -146,13 +151,6 @@
 
 
                         </table>
-                        <mat-form-field class="browser-default col-sm-12 col-md-4">
-
-                          <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
-                          <input matInput type="text" class="form-control" [disabled]="this.editMode && !this.isOwner" [placeholder]="locationPlaceHolder" name="location" id="location" [(ngModel)]="locationInput.city" #LocationCtrl="ngModel"
-                                 appGooglePlace (setAddress)="placeAutoComplete($event,LocationCtrl)"  (googlePlaceNoLoad)="googlePlaceNoLoad()" (keydown)="keyDownHandler($event)">
-                        </mat-form-field>
-
 
                         <br>
                         <div class="row">
@@ -178,6 +176,29 @@
                         </mat-form-field>
                         <br>
 
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <p> What programs are this scholarship for? (Leave blank for any program)</p>
+                            <table>
+                              <tr  *ngFor="let program of scholarship.eligible_programs; let i = index">
+                                <td> {{program}} </td>
+                                <td>
+                                  <a class="waves-effect waves-light btn right" (click)="deleteArrayitem(scholarship.eligible_programs, i)">
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                  </a>
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
+
+                          <div class="col-sm-12">
+                            <app-typeahead [model]="scholarship.eligible_programs" [dataset]="MAJORS_LIST"
+                                           [metadata]="{'placeholder':'What programs are this scholarship for? (Leave blank for any program)', 'key':'major','tabindex':'9'}">
+                            </app-typeahead>
+                          </div>
+
+                        </div>
+
 
                       </fieldset>
 
@@ -190,59 +211,59 @@
                     <div *ngIf="pageNo==2">
                       <h5>General Information {{pageNo}}/3</h5>
                       <fieldset [disabled]="editMode && !isOwner">
-                        <div class="row">
-                          <div class="col-sm-12">
-                            <input class="browser-default" id="is_automated" type="checkbox" [(ngModel)]="scholarship.is_automated" name="is_automated">
-                            <label for="is_automated" data-error="Invalid input">Can this form be automated by Atila?<a> What is an automatable form?</a></label>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <label for="application_form_type" data-error="Invalid input">What type of form is the application?</label>
-                          <div class="input-field">
-                            <mat-form-field class="col-sm-12">
-                              <mat-select class="col-sm-12" [(ngModel)]="scholarship.submission_info.application_form_type" name="application_form_type" id="application_form_type" placeholder="Application Form Type">
-                                <mat-option *ngFor="let type of APPLICATION_FORM_TYPES" [value]="type">{{type}} </mat-option>
-                              </mat-select>
-                            </mat-form-field>
-                          </div>
-                        </div>
 
                         <div class="row">
-                          <label for="submission_type" data-error="Invalid input">How to submit this application?</label>
-                          <div class="input-field">
-                            <mat-form-field class="col-sm-12">
-                              <mat-select class="col-sm-12" [(ngModel)]="scholarship.submission_info.submission_type" name="submission_type" id="submission_type" placeholder="Submission Type" (ngModelChange)="configureSubmissionInfo($event)" >
-                                <mat-option *ngFor="let type of APPLICATION_SUBMISSION_TYPES" [value]="type">{{type}} </mat-option>
-                              </mat-select>
-                            </mat-form-field>
+                          <p>Add an application form.</p>
+                          <div class="col-sm-3">
+                            <label>Upload an application form</label>
+                            <input class="browser-default" id="form_url" type="file" placeholder="Application Form" name="form_url" (change)="scholarshipAppFormChangeEvent($event)">
+                          </div>
+                          <div class="col-sm-3">
+                            <button mat-raised-button class="btn white-text" (click)="uploadScholarshipAppForm()">Upload</button>
+
+                            <div  *ngIf="showUploadLoading">
+                              Uploading File Please Wait...
+                              <mat-progress-bar aria-label="Uploading File Please Wait..." mode="indeterminate"></mat-progress-bar>
+                            </div>
+                            <div *ngIf="scholarship.form_url" class="col-sm-4">
+                              <a target="_blank" href="{{scholarship.form_url}}">View Current Application</a>
+                            </div>
                           </div>
                         </div>
 
-
-                        <div class="row" *ngIf="scholarship.submission_info.submission_type=='Other'">
+                        <div class="row">
+                          <label>You may also use the url of an application form that already exists online.</label>
                           <mat-form-field class="col-sm-12">
-                            <input class="browser-default" type="text" matInput [(ngModel)]="scholarship.submission_info.submission_type_other" name="submission_type_other" id="submission_type_other" placeholder="Submission Type (Other)" >
+                            <input class="browser-default" matInput id="form_url" type=url placeholder="Form URL" [(ngModel)]="scholarship.form_url" name="form_url" (change)="formNeedsParsing()">
                           </mat-form-field>
                         </div>
 
-                        <div class="row" *ngIf="scholarship.submission_info.submission_type=='Email'">
-                          <mat-form-field class="col-sm-12">
-                            <input class="browser-default" type="text" matInput [(ngModel)]="scholarship.submission_info.email_address" name="submission_info_email_address" id="submission_info_email_address" placeholder="Submission Info Email Address" >
-                            <label>What email will this application be sent to?</label>
-                          </mat-form-field>
 
-                          <div class="col-sm-12">
-                            <input class="browser-default" id="email_subject_is_custom" type="checkbox" [(ngModel)]="scholarship.submission_info.email_subject_is_custom" name="email_subject_is_custom">
-                            <label for="email_subject_is_custom" data-error="Invalid input">Use Custom Subject?</label>
+                        <div class="row">
+                          <mat-form-field class="col-sm-12">
+                            <input class="browser-default" matInput id="img_url" type=url placeholder="Scholarship Image URL" [(ngModel)]="scholarship.img_url" name="img_url">
+                          </mat-form-field>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-6" *ngFor="let entry of Object.keys(autoCompleteLists)">
+
+                            <table>
+                              <p style="font-weight: bold">{{prettifyKeys(entry)}}</p>
+                              <tr  *ngFor="let item of scholarship[entry]; let i = index" ngDefaultControl>
+                                <td>{{item}} </td>
+                                <td>
+                                  <a class="waves-effect waves-light btn right" (click)="deleteArrayitem( scholarship[entry], i)">
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                  </a>
+                                </td>
+                              </tr>
+                            </table>
+
+                            <app-typeahead [model]="scholarship[entry]" [dataset]="autoCompleteLists[entry]"
+                                           [metadata]="{'placeholder':prettifyKeys(entry), 'key': entry,'col':'col-sm-6'}">
+                            </app-typeahead>
                           </div>
-                          <p style="font-size: smaller">
-                            Default subject is currently selected. Using each applicant's name as seen below:
-                          </p>
-                          <mat-form-field class="col-sm-12">
-                            <label>What is the email subject?</label>
-                            <input class="browser-default" type="text" matInput [(ngModel)]="scholarship.submission_info.email_subject" [disabled]="!scholarship.submission_info.email_subject_is_custom" name="submission_info_email_subject" id="submission_info_email_subject" placeholder="Submission Info Email Subject" >
-                          </mat-form-field>
-
                         </div>
 
                         <div class="row">
@@ -277,8 +298,6 @@
                           </mat-form-field>
                         </div>
 
-
-                        {{scholarship.criteria_info}}
                         <div class="row">
                           <label>Is there any additional information about the scholarship not covered already? </label>
                           <!--<textarea class="col-sm-12" id="criteria_info" type="text" [froalaEditor]="froalaOptions" [(froalaModel)]="scholarship.criteria_info" name="criteria_info"></textarea>-->
@@ -350,34 +369,62 @@
                       <div class="row">
                         <div class="col-sm-12">
                           <fieldset [disabled]="editMode && !isOwner">
-                            <p>You can upload an application form for the scholarship after you create the scholarship.
-                              Don't worry if you make a mistake, you can edit your scholarship later.</p>
-                            <div class="row" *ngIf="showFormUpload || editMode">
-                              <div class="col-sm-3">
-                                <label>Upload an application form</label>
-                                <input class="browser-default" id="form_url" type="file" placeholder="Application Form" name="form_url" (change)="scholarshipAppFormChangeEvent($event)">
-                              </div>
-                              <div class="col-sm-3">
-                                <button mat-raised-button class="btn white-text" (click)="uploadScholarshipAppForm()">Upload</button>
-
-                                <div  *ngIf="showUploadLoading">
-                                  Uploading File Please Wait...
-                                  <mat-progress-bar aria-label="Uploading File Please Wait..." mode="indeterminate"></mat-progress-bar>
-                                </div>
-                                <div *ngIf="scholarship.form_url" class="col-sm-4">
-                                  <a target="_blank" href="{{scholarship.form_url}}">View Current Application</a>
-                                </div>
-                              </div>
-                              <a routerLink="/scholarships-list">Skip</a>
-                            </div>
-
 
                             <div class="row">
-                              <label>We recommend uploading an editable pdf, however you may also use the url of an application form that already exists online.</label>
+                              <div class="col-sm-12">
+                                <input class="browser-default" id="is_automated" type="checkbox" [(ngModel)]="scholarship.is_automated" name="is_automated">
+                                <label for="is_automated" data-error="Invalid input">Can this form be automated by Atila?<a> What is an automatable form?</a></label>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <label for="application_form_type" data-error="Invalid input">What type of form is the application?</label>
+                              <div class="input-field">
+                                <mat-form-field class="col-sm-12">
+                                  <mat-select class="col-sm-12" [(ngModel)]="scholarship.submission_info.application_form_type" name="application_form_type" id="application_form_type" placeholder="Application Form Type">
+                                    <mat-option *ngFor="let type of APPLICATION_FORM_TYPES" [value]="type">{{type}} </mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <label for="submission_type" data-error="Invalid input">How to submit this application?</label>
+                              <div class="input-field">
+                                <mat-form-field class="col-sm-12">
+                                  <mat-select class="col-sm-12" [(ngModel)]="scholarship.submission_info.submission_type" name="submission_type" id="submission_type" placeholder="Submission Type" (ngModelChange)="configureSubmissionInfo($event)" >
+                                    <mat-option *ngFor="let type of APPLICATION_SUBMISSION_TYPES" [value]="type">{{type}} </mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                              </div>
+                            </div>
+
+
+                            <div class="row" *ngIf="scholarship.submission_info.submission_type=='Other'">
                               <mat-form-field class="col-sm-12">
-                                <input class="browser-default" matInput id="form_url" type=url placeholder="Form URL" [(ngModel)]="scholarship.form_url" name="form_url" (change)="formNeedsParsing()">
+                                <input class="browser-default" type="text" matInput [(ngModel)]="scholarship.submission_info.submission_type_other" name="submission_type_other" id="submission_type_other" placeholder="Submission Type (Other)" >
                               </mat-form-field>
                             </div>
+
+                            <div class="row" *ngIf="scholarship.submission_info.submission_type=='Email'">
+                              <mat-form-field class="col-sm-12">
+                                <input class="browser-default" type="text" matInput placeholder="What email will this application be sent to?"
+                                       [(ngModel)]="scholarship.submission_info.email_address" name="submission_info_email_address" id="submission_info_email_address">
+                              </mat-form-field>
+
+                              <div class="col-sm-12">
+                                <input class="browser-default" id="email_subject_is_custom" type="checkbox" [(ngModel)]="scholarship.submission_info.email_subject_is_custom" name="email_subject_is_custom">
+                                <label for="email_subject_is_custom" data-error="Invalid input">Use Custom Subject?</label>
+                              </div>
+                              <p style="font-size: smaller">
+                                Default subject is currently selected. Using each applicant's name as seen below:
+                              </p>
+                              <mat-form-field class="col-sm-12">
+                                <label>What is the email subject?</label>
+                                <input class="browser-default" type="text" matInput [(ngModel)]="scholarship.submission_info.email_subject" [disabled]="!scholarship.submission_info.email_subject_is_custom" name="submission_info_email_subject" id="submission_info_email_subject" placeholder="Submission Info Email Subject" >
+                              </mat-form-field>
+
+                            </div>
+
                           </fieldset>
 
                           <a class="waves-effect waves-light btn left" (click)="back()">Back</a>

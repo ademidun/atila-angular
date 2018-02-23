@@ -1678,3 +1678,37 @@ export const EDUCATION_FIELDS = [
   'STEM (Grad School)',
   'Other'
 ];
+
+
+export const AUTOCOMPLETE_DICT = {
+  'activities': ACTIVITIES,
+  'sports': SPORTS,
+  'ethnicity': ETHNICITY,
+  'religion': RELIGION,
+  'heritage': COUNTRIES,
+  'disability': DISABILITY,
+  'citizenship': COUNTRIES,
+  'language': LANGUAGE,
+  'eligible_schools': LANGUAGE,
+  'eligible_programs': LANGUAGE,
+};
+
+export const FUNDING_TYPES = [
+  'Scholarship',
+  'Loan',
+  'Other',
+];
+
+export const APPLICATION_FORM_TYPES = [
+  'PDF',
+  'Web',
+  'Other'
+];
+
+
+export const APPLICATION_SUBMISSION_TYPES = [
+  'Email',
+  'Physical Mail',
+  'Web',
+  'Other'
+]

@@ -30,6 +30,10 @@ import 'tinymce/plugins/media';
 import 'tinymce/plugins/autolink';
 import 'tinymce/plugins/code';
 import * as firebase from "firebase";
+import {ACTIVITIES, COUNTRIES, DISABILITY, ETHNICITY, RELIGION, SCHOOLS_DICT, SPORTS} from '../_models/constants';
+
+import {SCHOOLS_LIST, MAJORS_LIST, LANGUAGE, FUNDING_TYPES, APPLICATION_FORM_TYPES, APPLICATION_SUBMISSION_TYPES} from '../_models/constants';
+import {prettifyKeys} from '../_models/utils';
 
 declare var tinymce: any;
 
@@ -61,7 +65,18 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
     'STEM (Grad School)',
     'Other'
   ];
-
+  MAJORS_LIST = MAJORS_LIST;
+  autoCompleteLists = {
+    'activities': ACTIVITIES,
+    'sports': SPORTS,
+    'eligible_schools': SCHOOLS_LIST,
+    'ethnicity': ETHNICITY,
+    'religion': RELIGION,
+    'heritage': COUNTRIES,
+    'disability': DISABILITY,
+    'citizenship': COUNTRIES,
+    'language': LANGUAGE,
+  };
   stringDict = {
     'city': '',
     'province': '',
@@ -70,33 +85,20 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
   };
 
 
-  FUNDING_TYPES = [
-    'Scholarship',
-    'Loan',
-    'Other',
-  ];
+  FUNDING_TYPES = FUNDING_TYPES;
 
-  APPLICATION_FORM_TYPES = [
-    'PDF',
-    'Web',
-    'Other'
-  ];
+  APPLICATION_FORM_TYPES = APPLICATION_FORM_TYPES;
 
+  APPLICATION_SUBMISSION_TYPES = APPLICATION_SUBMISSION_TYPES;
 
-  APPLICATION_SUBMISSION_TYPES = [
-    'Email',
-    'Physical Mail',
-    'Web',
-    'Other'
-  ];
-
-  LOCATION_TYPES = ['city','province','country']
+  LOCATION_TYPES = ['city','province','country'];
 
   userId: number;
   pageNo: number =1;
   scholarship: Scholarship = new Scholarship();
   generalInfo = true; // Display general info section
-  showFormUpload = false;
+  showFormUpload = true;
+  Object = Object;
   scholarshipFormFile: File;
   scholarshipSlug;
   appFormFile: UploadFile;
@@ -201,6 +203,8 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
       }
     });
 
+    console.log('this.scholarship', this.scholarship);
+
   }
 
   onEditorContentChange(event:any, content:any, editor: any){
@@ -266,31 +270,22 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
     });
   }
 
+  deleteArrayitem(arr: any[], index) {
+    arr.splice(index,1)
+  }
+
+
+  prettifyKeys(str) {
+    return prettifyKeys(str);
+  }
+
   loadScholarshipDefaults(){
+
+    this.scholarship = new Scholarship();
     this.scholarship.owner = this.userId;
-    this.scholarship.extra_questions = {};
-    this.scholarship.submission_info = {};
     this.webForms = [{"question_key": "", "attribute_type": "", "attribute_value": ""}];
-    // TODO: Are most scholarships pdf forms this.APPLICATION_FORM_TYPES[0] or web forms this.APPLICATION_FORM_TYPES[1]
-    this.scholarship.submission_info.application_form_type = this.APPLICATION_FORM_TYPES[0];
-    this.scholarship.funding_type = [this.FUNDING_TYPES[0]];
-    this.scholarship.reference_letter_required =0;
-    this.scholarship.number_available_scholarships =1;
     this.stringDict.eligible_schools = '';
     this.stringDict['city'] = '';
-
-    this.scholarship.submission_info.web_form_entries = [
-      {
-        attribute_type : '',
-        attribute_value: '',
-        question_key: ''
-      },];
-
-    this.scholarship.submission_info.web_form_parent = {
-      element_type: '',
-      attribute_type : '',
-      attribute_value: '',
-    };
 
     if(this.editor){
       //this.editor.setContent(this.blogPost.body);
@@ -509,7 +504,6 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
             this.snackBar.open("Scholarship succesfully created", '', {
               duration: 3000
             });
-            this.showFormUpload = true;
             this.scholarship=data;
             // todo change to this.router.navigate(['my-scholarships'])
             //this.router.navigate(['scholarships-list']);
