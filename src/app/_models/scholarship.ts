@@ -23,6 +23,7 @@ export class Scholarship {
   public ethnicity?: string[],
   public extra_questions?: any,
   public extra_criteria?: any,
+  public female_only?: boolean,
   public form_url?: string,
   public funding_amount?: number,
   public funding_type?: string[],
@@ -85,6 +86,8 @@ export class Scholarship {
     scholarship.metadata['quick_add'] = true;
     scholarship.metadata['needs_review'] = true;
     scholarship.extra_questions.funding_amount_varies = true;
+
+    console.log('scholarshipQuickCreate', scholarship);
     return scholarship
   }
 
@@ -99,7 +102,9 @@ export class Scholarship {
     scholarship.education_level = scholarship.education_level || EDUCATION_LEVEL;
     // Sometimes jQuery takes a bit too long and the change isn't reflected in the form
     // scholarship.description = scholarship.description || $(scholarship.criteria_info).text().slice(0,300);
-    scholarship.description = scholarship.description || scholarship.criteria_info.replace(/<(?:.|\n)*?>/gm, '').slice(0,300);
+    if (scholarship.criteria_info) {
+      scholarship.description = scholarship.description || scholarship.criteria_info.replace(/<(?:.|\n)*?>/gm, '').slice(0,300);
+    }
 
     console.log('scholarshipCreationHelper', scholarship);
     return scholarship;

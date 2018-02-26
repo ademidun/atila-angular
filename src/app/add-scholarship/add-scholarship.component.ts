@@ -183,8 +183,8 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
   ngAfterViewInit() {
     tinymce.init({
       selector: '.' + this.editorId,
-      plugins: ['link', 'table','toc','preview','lists','media','autolink','code'],
-      toolbar: 'undo redo | styleselect | bold italic | link image | fontsizeselect',
+      plugins: ['link', 'table','toc','preview','lists','media','autolink','code',],
+      toolbar: 'undo redo | styleselect | bold italic | link image | fontsizeselect | numlist bullist',
       skin_url: '/assets/skins/lightgray',
       height : "200",
       invalid_elements : 'script',
@@ -196,8 +196,9 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
         });
       },
       init_instance_callback : (editor) => {
-
         if(this.scholarship.criteria_info){ //body may not be loaded from server yet
+
+          console.log('this.scholarship.criteria_info',this.scholarship.criteria_info);
           editor.setContent(this.scholarship.criteria_info);
         }
         this.editor = editor;
@@ -250,7 +251,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
     tinymce.init({
       selector: '.' + this.editorId,
       plugins: ['link', 'table','toc','preview','lists','media','autolink','code'],
-      toolbar: 'undo redo | styleselect | bold italic | link image | fontsizeselect',
+      toolbar: 'undo redo | styleselect | bold italic | link image | fontsizeselect | numlist bullist',
       skin_url: '/assets/skins/lightgray',
       height : "200",
       invalid_elements : 'script',
@@ -262,8 +263,8 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
         });
       },
       init_instance_callback : (editor) => {
-
         if(this.scholarship.criteria_info){ //body may not be loaded from server yet
+          console.log('this.scholarship.criteria_info',this.scholarship.criteria_info);
           editor.setContent(this.scholarship.criteria_info);
         }
         this.editor = editor;
@@ -289,9 +290,10 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
     this.stringDict['city'] = '';
 
     if(this.editor){
-      //this.editor.setContent(this.blogPost.body);
-      //$('#'+this.editorId).html(this.blogPost.body);
-      tinymce.get(this.editorId).setContent(this.scholarship.criteria_info);
+      console.log('this.scholarship.criteria_info',this.scholarship.criteria_info);
+      if (tinymce.get(this.editorId)) {
+        tinymce.get(this.editorId).setContent(this.scholarship.criteria_info);
+      }
     }
 
     this.userProfileService.getById(this.scholarship.owner)
@@ -342,9 +344,11 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
           //convert scholarship criteria from markdown to HTML.
           this.scholarship.criteria_info = this.markdownService.compile(this.scholarship.criteria_info);
           if(this.editor){
-            //this.editor.setContent(this.blogPost.body);
-            //$('#'+this.editorId).html(this.blogPost.body);
-            tinymce.get(this.editorId).setContent(this.scholarship.criteria_info);
+            if (tinymce.get(this.editorId)) {
+
+              console.log('this.scholarship.criteria_info',this.scholarship.criteria_info);
+              tinymce.get(this.editorId).setContent(this.scholarship.criteria_info);
+            }
           }
           this.titleService.setTitle('Atila - Edit - ' + this.scholarship.name);
 
@@ -425,6 +429,13 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
         return;
       }
 
+      if (!this.scholarship.description && !this.scholarship.criteria_info) {
+        this.snackBar.open("Please Enter a Scholarship Description", '', {
+          duration: 3000
+        });
+        return;
+      }
+
       this.scholarship = scholarshipQuickCreate(this.scholarship);
     }
 
@@ -459,7 +470,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
     console.log(scholarshipForm);
     // Ignore errors with description not being filled yet
-    if (!scholarshipForm.controls.description.value || scholarshipForm.valid) {
+    if (scholarshipForm.valid || !this.scholarship.description) {
       let postOperation: Observable<Scholarship>;
       this.scholarship.owner = this.userId;
 

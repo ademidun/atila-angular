@@ -484,6 +484,7 @@ export const MAJORS_LIST = [
     "Education",
     "Educational Psychology",
     "Electrical Engineering",
+    "Engineering",
     "English",
     "Entrepreneurship",
     "Environment",

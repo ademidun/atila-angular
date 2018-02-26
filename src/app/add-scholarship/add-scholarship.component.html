@@ -5,8 +5,8 @@
                 <form #scholarshipForm="ngForm" class="col-sm-12" id="scholarshipForm" >
 
                   <div  class="fixed-action-btn">
-                    <a *ngIf="!editMode" class="mat-fab btn right btn-floating btn-large" (click)="saveScholarship(scholarshipForm)">Create</a>
-                    <a *ngIf="editMode" class="mat-fab btn right btn-floating btn-large" (click)="saveScholarship(scholarshipForm)">Save</a>
+                    <button *ngIf="!editMode" class="waves-effect waves-light btn right btn-floating btn-large" (click)="saveScholarship(scholarshipForm,{quickAdd:quickAdd})">Create</button>
+                    <button *ngIf="editMode" class="waves-effect waves-light btn right btn-floating btn-large" (click)="saveScholarship(scholarshipForm)">Save</button>
                   </div>
 
                     <h4 *ngIf="editMode">Edit Scholarship</h4>
@@ -226,7 +226,7 @@
                               Uploading File Please Wait...
                               <mat-progress-bar aria-label="Uploading File Please Wait..." mode="indeterminate"></mat-progress-bar>
                             </div>
-                            <div *ngIf="scholarship.form_url" class="col-sm-4">
+                            <div *ngIf="scholarship.form_url" class="col-sm-12">
                               <a target="_blank" href="{{scholarship.form_url}}">View Current Application</a>
                             </div>
                           </div>
@@ -264,6 +264,12 @@
                             <app-typeahead [model]="scholarship[entry]" [dataset]="autoCompleteLists[entry]"
                                            [metadata]="{'placeholder':prettifyKeys(entry), 'key': entry,'col':'col-sm-6'}">
                             </app-typeahead>
+                          </div>
+
+                          <div class="col-md-6">
+                            <!--TODO change to dropdown select for all genders?-->
+                            <input class="browser-default" id="female_only" type="checkbox" [(ngModel)]="scholarship.female_only" name="female_only">
+                            <label for="female_only" data-error="Invalid input">Female Only?</label>
                           </div>
                         </div>
 
