@@ -163,20 +163,21 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
     this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
 
 
+    if(isNaN(this.userId)){
+      this.snackBar.open("Please Log In", '', {
+        duration: 3000
+      });
+    }
+
     if(this.scholarshipSlug){
       this.editMode = true;
       this.quickAdd = false;
       this.loadScholarshipDatabase();
     }
 
-
-    else if(isNaN(this.userId)){
-      this.snackBar.open("Please Log In", '', {
-        duration: 3000
-      });
+    else {
+      this.loadScholarshipDefaults();
     }
-
-    this.loadScholarshipDefaults();
 
   }
 
@@ -198,14 +199,11 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
       init_instance_callback : (editor) => {
         if(this.scholarship.criteria_info){ //body may not be loaded from server yet
 
-          console.log('this.scholarship.criteria_info',this.scholarship.criteria_info);
           editor.setContent(this.scholarship.criteria_info);
         }
         this.editor = editor;
       }
     });
-
-    console.log('this.scholarship', this.scholarship);
 
   }
 
@@ -264,7 +262,6 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
       },
       init_instance_callback : (editor) => {
         if(this.scholarship.criteria_info){ //body may not be loaded from server yet
-          console.log('this.scholarship.criteria_info',this.scholarship.criteria_info);
           editor.setContent(this.scholarship.criteria_info);
         }
         this.editor = editor;
@@ -290,7 +287,6 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
     this.stringDict['city'] = '';
 
     if(this.editor){
-      console.log('this.scholarship.criteria_info',this.scholarship.criteria_info);
       if (tinymce.get(this.editorId)) {
         tinymce.get(this.editorId).setContent(this.scholarship.criteria_info);
       }
@@ -342,11 +338,11 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
           // Get the user profile of the scholarship owner
 
           //convert scholarship criteria from markdown to HTML.
+
           this.scholarship.criteria_info = this.markdownService.compile(this.scholarship.criteria_info);
           if(this.editor){
             if (tinymce.get(this.editorId)) {
 
-              console.log('this.scholarship.criteria_info',this.scholarship.criteria_info);
               tinymce.get(this.editorId).setContent(this.scholarship.criteria_info);
             }
           }
@@ -421,6 +417,13 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
   saveScholarship(scholarshipForm: NgForm, metadata?: any) {
 
+    if(this.editMode && !this.isOwner){
+      this.snackBar.open("You are not authorized to make Changes", '', {
+        duration: 3000
+      });
+      return;
+    }
+
     if (metadata && metadata['quickAdd']) {
       if(isNaN(this.userId)){
         this.snackBar.open("Please Log In", '', {
@@ -439,6 +442,9 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
       this.scholarship = scholarshipQuickCreate(this.scholarship);
     }
 
+    else if (!this.editMode) {
+      this.scholarship = scholarshipCreationHelper(this.scholarship);
+    }
     this.scholarshipErrors = null;
 
     if (this.scholarship.deadline) {
@@ -456,36 +462,16 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
       }
     }
 
-    if(this.editMode && !this.isOwner){
-      this.snackBar.open("You are not authorized to make Changes", '', {
-        duration: 3000
-      });
-      return;
-    }
-
-
-    if (!this.editMode) {
-      this.scholarship = scholarshipCreationHelper(this.scholarship);
-    }
-
-    console.log(scholarshipForm);
     // Ignore errors with description not being filled yet
     if (scholarshipForm.valid || !this.scholarship.description) {
       let postOperation: Observable<Scholarship>;
       this.scholarship.owner = this.userId;
-
-      let locationData  = {
-        countries: this.countries,
-        provinces: this.provinces,
-        cities: this.cities
-      };
 
       let sendData = {
         'scholarship': this.scholarship,
         'locationData': this.locationList,
       };
 
-      console.log('sendData',sendData);
 
       if(this.editMode){
 
@@ -539,8 +525,6 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
     }
     else {
 
-      console.log(scholarshipForm.valid);
-      console.log('scholarshipForm.errors', scholarshipForm, scholarshipForm.errors);
 
       let errMsg = '';
       let formErrors = {};
@@ -551,9 +535,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
         }
       }
 
-      console.log('formErrors',formErrors);
       for (let error in formErrors) {
-        console.log('error',error);
           errMsg += `${error}: ${JSON.stringify(scholarshipForm.form.controls[error].errors)}`;
       }
 

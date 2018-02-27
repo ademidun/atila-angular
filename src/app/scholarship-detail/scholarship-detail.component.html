@@ -44,7 +44,7 @@
       <p>{{scholarship.description}}</p>
       <br>
 
-      <div *ngIf="Object.keys(scholarship.extra_criteria)"> <span style="font-size: larger">Other Criteria</span>
+      <div *ngIf="(scholarship.extra_criteria | json) != '{}'"> <span style="font-size: larger">Other Criteria</span>
 
           <div *ngFor="let key of Object.keys(scholarship.extra_criteria)">
             <p><strong>{{key}}:</strong>{{scholarship.extra_criteria[key]}}</p>
@@ -56,22 +56,9 @@
   <div class="row">
     <div class="col-sm-12">
       <h4>More Information</h4>
-      <ul>
-        <li style="white-space: pre-line">
 
           <markdown [data]="scholarship.criteria_info"></markdown>
-          <!--{{scholarship.criteria_info}}-->
 
-        </li>
-      </ul>
-      <ul>
-        <!-- TODO: THis should actually be done using a pipe https://stackoverflow.com/questions/35534959/access-key-and-value-of-object-using-ngfor -->
-
-        <!--<li *ngIf="scholarship.city">Located in:-->
-            <!--{{keyGetter(scholarship.city)}}-->
-         <!--</li>-->
-        <!--<li>Field: {{scholarship.education_field}}</li>-->
-      </ul>
     </div>
 
   </div>

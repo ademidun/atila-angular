@@ -83,7 +83,7 @@ export class ScholarshipDetailComponent implements OnInit {
             this.scholarship['metadata']['deadline_tbd'] = 'TBD';
           }
 
-          this.titleService.setTitle('Atila - ' + this.scholarship.name);
+          this.titleService.setTitle(this.scholarship.name + ' - Atila');
           //this.updateMeta();
           // Get the user profile of the scholarship owner
           if (this.scholarship.owner){

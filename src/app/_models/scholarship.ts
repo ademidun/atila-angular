@@ -87,13 +87,11 @@ export class Scholarship {
     scholarship.metadata['needs_review'] = true;
     scholarship.extra_questions.funding_amount_varies = true;
 
-    console.log('scholarshipQuickCreate', scholarship);
     return scholarship
   }
 
   export function scholarshipCreationHelper(scholarship: Scholarship){
 
-    console.log('scholarshipCreationHelper', scholarship);
     if(!scholarship.metadata){
       scholarship.metadata = {};
     }
@@ -106,7 +104,6 @@ export class Scholarship {
       scholarship.description = scholarship.description || scholarship.criteria_info.replace(/<(?:.|\n)*?>/gm, '').slice(0,300);
     }
 
-    console.log('scholarshipCreationHelper', scholarship);
     return scholarship;
   }
 

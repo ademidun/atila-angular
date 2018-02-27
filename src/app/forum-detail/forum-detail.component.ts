@@ -63,7 +63,7 @@ export class ForumDetailComponent implements OnInit {
           console.log('seoService Error', err);
         }
         this.forum.starting_comment = null;
-        this.titleService.setTitle('Atila Forum - ' + this.forum.title);
+        this.titleService.setTitle( this.forum.title + ' - Atila Forum');
 
 
         this.commentService.getComments(this.forum.id,'Forum').subscribe(

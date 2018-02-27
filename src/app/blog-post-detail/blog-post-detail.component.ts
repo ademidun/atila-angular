@@ -69,7 +69,7 @@ export class BlogPostDetailComponent implements OnInit {
           console.log('seoService Error', err);
         }
 
-        this.titleService.setTitle(this.blogPost.title);
+        this.titleService.setTitle(this.blogPost.title + ' - Atila');
         if (! isNaN(this.userId)){
 
           this.userProfileService.getById(parseInt(this.userId)).subscribe(
