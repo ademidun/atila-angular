@@ -68,9 +68,9 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
   ];
   MAJORS_LIST = MAJORS_LIST;
   autoCompleteLists = {
+    'eligible_schools': SCHOOLS_LIST,
     'activities': ACTIVITIES,
     'sports': SPORTS,
-    'eligible_schools': SCHOOLS_LIST,
     'ethnicity': ETHNICITY,
     'religion': RELIGION,
     'heritage': COUNTRIES,
@@ -187,8 +187,9 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
       plugins: ['link', 'table','toc','preview','lists','media','autolink','code',],
       toolbar: 'undo redo | styleselect | bold italic | link image | fontsizeselect | numlist bullist',
       skin_url: '/assets/skins/lightgray',
-      height : "200",
+      height : "300",
       invalid_elements : 'script',
+      default_link_target: "_blank",
       setup: editor => {
         this.editor = editor;
         editor.on('keyup change', (e) => {
@@ -251,8 +252,9 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
       plugins: ['link', 'table','toc','preview','lists','media','autolink','code'],
       toolbar: 'undo redo | styleselect | bold italic | link image | fontsizeselect | numlist bullist',
       skin_url: '/assets/skins/lightgray',
-      height : "200",
+      height : "300",
       invalid_elements : 'script',
+      default_link_target: "_blank",
       setup: editor => {
         this.editor = editor;
         editor.on('keyup change', (e) => {
@@ -481,9 +483,15 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
               this.loadScholarshipDatabase();
 
-              this.snackBar.open("Scholarship succesfully Saved", '', {
+              let snackBarRef = this.snackBar.open("Scholarship Succesfully Saved", 'View Scholarship', {
                 duration: 3000
               });
+
+              snackBarRef.onAction().subscribe(
+                () => {
+                  this.router.navigate(['scholarship-detail',this.scholarship.slug]);
+                },
+              );
 
             },
             err => {
@@ -504,9 +512,15 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
         postOperation.subscribe(
           data => {
 
-            this.snackBar.open("Scholarship succesfully created", '', {
+            let snackBarRef = this.snackBar.open("Scholarship Succesfully Created", 'View Scholarship', {
               duration: 3000
             });
+
+            snackBarRef.onAction().subscribe(
+              () => {
+                this.router.navigate(['scholarship-detail',this.scholarship.slug]);
+              },
+            );
             this.scholarship=data;
             this.editMode = true;
             // todo change to this.router.navigate(['my-scholarships'])

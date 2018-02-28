@@ -125,6 +125,7 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
       skin_url: '/assets/skins/lightgray',
       height : "500",
       invalid_elements : 'script',
+      default_link_target: "_blank",
       setup: editor => {
         this.editor = editor;
         editor.on('keyup change', (e) => {

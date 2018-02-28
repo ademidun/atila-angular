@@ -35,6 +35,7 @@ export class Scholarship {
   public local_form_location?: any,
   public metadata?: any,
   public name?: string,
+  public no_essay_required?: boolean,
   public number_available_scholarships?: number,
   public owner?: any,
   public province?: any,
@@ -101,8 +102,15 @@ export class Scholarship {
     // Sometimes jQuery takes a bit too long and the change isn't reflected in the form
     // scholarship.description = scholarship.description || $(scholarship.criteria_info).text().slice(0,300);
     if (scholarship.criteria_info) {
-      scholarship.description = scholarship.description || scholarship.criteria_info.replace(/<(?:.|\n)*?>/gm, '').slice(0,300);
-    }
+      if ($){
+        scholarship.description = scholarship.description ||$(scholarship.criteria_info).text().slice(0,300);
+      }
+      else {
+        scholarship.description = scholarship.description ||
+          scholarship.criteria_info.replace(/<(?:.|\n)*?>/gm, '').replace('&nbsp;','').replace('&ndash;','').slice(0,300);
+      }
+
+      }
 
     return scholarship;
   }

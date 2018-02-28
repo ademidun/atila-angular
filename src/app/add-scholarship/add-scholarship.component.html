@@ -78,7 +78,19 @@
                           <mat-form-field class="col-sm-12">
                             <input class="browser-default" matInput id="scholarship_url" type=url placeholder="Schlarship URL" [(ngModel)]="scholarship.scholarship_url" name="scholarship_url">
                           </mat-form-field>
+
+                          <mat-form-field class="col-sm-12">
+                            <input class="browser-default" matInput id="img_url" type=url placeholder="Scholarship Image URL" [(ngModel)]="scholarship.img_url" name="img_url">
+                          </mat-form-field>
+
+
+                          <mat-form-field class="col-sm-12">
+                            <input class="browser-default" matInput id="form_url" type=url placeholder="Application Form URL" [(ngModel)]="scholarship.form_url" name="form_url" (change)="formNeedsParsing()">
+                          </mat-form-field>
+                          <label for="form_url">To upload a file, see next page</label>
+
                         </div>
+
                         <div class="row">
 
                           <mat-form-field class="col-sm-12"  *ngIf="scholarship.extra_questions && !scholarship.extra_questions.funding_amount_varies">
@@ -215,11 +227,11 @@
 
                         <div class="row">
                           <p>Add an application form.</p>
-                          <div class="col-sm-3">
+                          <div class="col-sm-6">
                             <label>Upload an application form</label>
                             <input class="browser-default" id="form_url" type="file" placeholder="Application Form" name="form_url" (change)="scholarshipAppFormChangeEvent($event)">
                           </div>
-                          <div class="col-sm-3">
+                          <div class="col-sm-6">
                             <button mat-raised-button class="btn white-text" (click)="uploadScholarshipAppForm()">Upload</button>
 
                             <div  *ngIf="showUploadLoading">
@@ -229,22 +241,14 @@
                             <div *ngIf="scholarship.form_url" class="col-sm-12">
                               <a target="_blank" href="{{scholarship.form_url}}">View Current Application</a>
                             </div>
+
+                            <mat-form-field class="col-sm-12">
+                              <input class="browser-default" matInput id="form_url" type=url placeholder="Application Form URL" [(ngModel)]="scholarship.form_url" name="form_url" (change)="formNeedsParsing()">
+                            </mat-form-field>
                           </div>
                         </div>
 
-                        <div class="row">
-                          <label>You may also use the url of an application form that already exists online.</label>
-                          <mat-form-field class="col-sm-12">
-                            <input class="browser-default" matInput id="form_url" type=url placeholder="Form URL" [(ngModel)]="scholarship.form_url" name="form_url" (change)="formNeedsParsing()">
-                          </mat-form-field>
-                        </div>
 
-
-                        <div class="row">
-                          <mat-form-field class="col-sm-12">
-                            <input class="browser-default" matInput id="img_url" type=url placeholder="Scholarship Image URL" [(ngModel)]="scholarship.img_url" name="img_url">
-                          </mat-form-field>
-                        </div>
 
                         <div class="row">
                           <div class="col-md-6" *ngFor="let entry of Object.keys(autoCompleteLists)">
@@ -266,47 +270,25 @@
                             </app-typeahead>
                           </div>
 
-                          <div class="col-md-6">
+                          <div class="row">
+
+                          <div class="col-sm-12" style="margin-left:  1rem;" *ngFor="let questionKey of ['female_only','international_students_eligible',
+                          'no_essay_required','resume_required','cover_letter_required','transcript_required','enrollment_proof_required']">
                             <!--TODO change to dropdown select for all genders?-->
-                            <input class="browser-default" id="female_only" type="checkbox" [(ngModel)]="scholarship.female_only" name="female_only">
-                            <label for="female_only" data-error="Invalid input">Female Only?</label>
+                            <input class="browser-default" id="{{questionKey}}" type="checkbox" [(ngModel)]="scholarship[questionKey]" name="{{questionKey}}">
+                            <label for="{{questionKey}}" data-error="Invalid input">{{prettifyKeys(questionKey)}}?</label>
                           </div>
                         </div>
 
-                        <div class="row">
-                          <div class="col-sm-12">
-                            <input class="browser-default" id="resume_required" type="checkbox" [(ngModel)]="scholarship.resume_required" name="resume_required">
-                            <label for="resume_required" data-error="Invalid input">Resume required?</label>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-sm-12">
-                            <input class="browser-default" id="cover_letter_required" type="checkbox" [(ngModel)]="scholarship.cover_letter_required" name="cover_letter_required">
-                            <label for="cover_letter_required" data-error="Invalid input">Cover Letter required?</label>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-sm-12">
-                            <input class="browser-default" id="transcript_required" type="checkbox" [(ngModel)]="scholarship.transcript_required" name="transcript_required">
-                            <label for="transcript_required" data-error="Invalid input">Transcript required?</label>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-sm-12">
-                            <input class="browser-default" id="enrollment_proof_required" type="checkbox" [(ngModel)]="scholarship.enrollment_proof_required" name="enrollment_proof_required">
-                            <label for="enrollment_proof_required" data-error="Invalid input">Proof of Enrollment required?</label>
-                          </div>
-                        </div>
-
-                        <div class="row">
                           <mat-form-field class="col-sm-12">
                             <input class="browser-default" matInput id="reference_letter_required" type="number" [(ngModel)]="scholarship.reference_letter_required" name="reference_letter_required">
                             <label for="reference_letter_required" data-error="Invalid input">Number of reference letters required? (Leave as 0 if reference letter is not required.)</label>
                           </mat-form-field>
+
                         </div>
 
                         <div class="row">
-                          <label>Is there any additional information about the scholarship not covered already? </label>
+                          <label>Any additional Information? </label>
                           <!--<textarea class="col-sm-12" id="criteria_info" type="text" [froalaEditor]="froalaOptions" [(froalaModel)]="scholarship.criteria_info" name="criteria_info"></textarea>-->
                           <textarea  class="col-sm-12" ngClass="{{editorId}}"></textarea>
                         </div>

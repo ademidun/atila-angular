@@ -742,6 +742,7 @@ export const ETHNICITY = [
   "Indian/South-Asian",
   "Latino/Hispanic",
   "Middle Eastern",
+  "Visible Minority",
   "White/Caucasian"
 ];
 export const COUNTRIES = [
@@ -1855,6 +1856,7 @@ export const SPORTS = [
   "Alpine",
   "Alpine Skiing",
   "American",
+  "Any Sport",
   "Archery",
   "Arm Wrestling",
   "Athletics",

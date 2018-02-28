@@ -4,16 +4,33 @@
           We're missing some information for your account.</h5>
       </div>
       <div class="modal-body">
+        <!--Ask for userProfile first if it does not already exist, else Ask for school first-->
+        <div *ngIf="!userProfile.major">
           <p class="modal-subheader">What's your major?</p>
           {{userProfile.major}}
-          <app-typeahead [dataset]="MAJORS_LIST" [model]="userProfile.major" [metadata]="{'key': 'major'}"
+          <app-typeahead [dataset]="MAJORS_LIST" [model]="userProfile.major" [metadata]="{'key': 'major','disableFocusFirst': true}"
                          (typeaheadSelectedEvent)="typeaheadEvent($event)">
 
           </app-typeahead>
           <p class="modal-subheader">What School do you attend or are you interested in?</p>
           {{userProfile.post_secondary_school}}
-          <app-typeahead [dataset]="SCHOOLS_LIST" [model]="userProfile.post_secondary_school" [metadata]="{'key': 'post_secondary_school'}"
+          <app-typeahead [dataset]="SCHOOLS_LIST" [model]="userProfile.post_secondary_school" [metadata]="{'key': 'post_secondary_school','disableFocusFirst': true}"
                          (typeaheadSelectedEvent)="typeaheadEvent($event)"></app-typeahead>
+        </div>
+
+        <div *ngIf="userProfile.major">
+
+          <p class="modal-subheader">What School do you attend or are you interested in?</p>
+          {{userProfile.post_secondary_school}}
+          <app-typeahead [dataset]="SCHOOLS_LIST" [model]="userProfile.post_secondary_school" [metadata]="{'key': 'post_secondary_school','disableFocusFirst': true}"
+                         (typeaheadSelectedEvent)="typeaheadEvent($event)"></app-typeahead>
+          <p class="modal-subheader">What's your major?</p>
+          {{userProfile.major}}
+          <app-typeahead [dataset]="MAJORS_LIST" [model]="userProfile.major" [metadata]="{'key': 'major','disableFocusFirst': true}"
+                         (typeaheadSelectedEvent)="typeaheadEvent($event)"></app-typeahead>
+
+        </div>
+
 
         <a  (click)="seeMore= !seeMore">See More</a>
         <hr>
@@ -21,10 +38,10 @@
         <div *ngIf="seeMore">
           <p class="modal-subheader">What Other programs are you interested in?</p>
           {{userProfile.eligible_programs | json}}
-          <app-typeahead [dataset]="MAJORS_LIST" [model]="userProfile.eligible_programs" [metadata]="{'key': 'eligible_programs'}"></app-typeahead>
+          <app-typeahead [dataset]="MAJORS_LIST" [model]="userProfile.eligible_programs" [metadata]="{'key': 'eligible_programs','disableFocusFirst': true}"></app-typeahead>
           <p class="modal-subheader">What Other Schools are you interested in?</p>
           {{userProfile.eligible_schools | json}}
-          <app-typeahead [dataset]="SCHOOLS_LIST" [model]="userProfile.eligible_schools" [metadata]="{'key': 'eligible_schools'}"></app-typeahead>
+          <app-typeahead [dataset]="SCHOOLS_LIST" [model]="userProfile.eligible_schools" [metadata]="{'key': 'eligible_schools','disableFocusFirst': true}"></app-typeahead>
         </div>
 
         You can visit<a routerLink="/edit-profile" (click)="dialogRef.close()"> edit profile</a> to complete your profile.

@@ -79,7 +79,6 @@ import "materialize-css";
 import { CardGenericComponent } from './card-generic/card-generic.component';
 import { TitleCasePipe } from './_pipes/title-case.pipe';
 import { MarkdownModule } from 'ngx-markdown';
-import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { TypeaheadComponent } from './_shared/typeahead/typeahead.component';
 import { EditProfileModalComponent } from './edit-profile-modal/edit-profile-modal.component';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
@@ -125,7 +124,6 @@ import { SeoService } from './_services/seo.service';
     DynamicQuestionGeneralComponent,
     CardGenericComponent,
     TitleCasePipe,
-    AutocompleteComponent,
     TypeaheadComponent,
     EditProfileModalComponent
   ],

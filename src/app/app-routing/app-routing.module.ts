@@ -10,7 +10,6 @@ import { RegisterComponent } from '../register/register.component'
 import { CreateProfileComponent } from '../create-profile/create-profile.component'
 import { EditProfileComponent } from '../edit-profile/edit-profile.component'
 
-import { EditScholarshipComponent } from '../edit-scholarship/edit-scholarship.component';
 import { AppDetailComponent } from '../app-detail/app-detail.component';
 
 import { ProfileViewComponent } from '../profile-view/profile-view.component';
@@ -34,19 +33,19 @@ const routes: Routes = [
   { path: 'applications/:id' , component: AppDetailComponent, data: {title: 'Application Detail'}, canActivate:[AuthGuard]},
   { path: 'add-scholarship' , component: AddScholarshipComponent, data: {title: 'Atila - Add Scholarship'}},
   { path: 'blog' , component: BlogsListComponent, data: {title: 'Atila - Blogs List'}},
-  { path: 'blog/:username/:slug' , component: BlogPostDetailComponent, data: {title: 'Atila - Blog Post'}},
-  { path: 'create-blog-post' , component: BlogPostCreateComponent, data: {title: 'Atila - Create Blog Post'}},
+  { path: 'blog/:username/:slug' , component: BlogPostDetailComponent, data: {title: 'Blog Post - Atila'}},
+  { path: 'create-blog-post' , component: BlogPostCreateComponent, data: {title: 'Create Blog Post - Atila'}},
   { path: 'edit-blog-post/:id' , component: BlogPostCreateComponent, data: {title: 'Atila - Edit Blog Post'}},
   { path: 'create-profile' , component: CreateProfileComponent, data: {title: 'Atila - Create Profile'}},
-  { path: 'profile/:username' , component: ProfileViewComponent, data: {title: 'Atila - Profile'}},
-  { path: 'profile/:username/my-atila' , component: ProfileViewComponent, data: {title: 'Atila - Profile'}},
+  { path: 'profile/:username' , component: ProfileViewComponent, data: {title: 'Profile - Atila'}},
+  { path: 'profile/:username/my-atila' , component: ProfileViewComponent, data: {title: 'Profile - Atila'}},
   { path: 'edit-profile' , component: EditProfileComponent, data: {title: 'Atila - Edit Profile'}},
   //{ path: 'edit-scholarship/:slug' , component: EditScholarshipComponent, data: {title: 'Atila - Edit Scholarship'}},
-  { path: 'edit-scholarship/:slug' , component: AddScholarshipComponent, data: {title: 'Atila - Edit Scholarship'}},
-  { path: 'forum' , component: ForumsListComponent, data: {title: 'Atila - Forums'}},
-  { path: 'forum/:slug' , component: ForumDetailComponent, data: {title: 'Atila - Forums'}},
-  { path: 'login' , component: LoginComponent, data: {title: 'Atila - Login'}},
-  { path: 'messages' , component: MessagesComponent, data: {title: 'Atila - My Messages'}},
+  { path: 'edit-scholarship/:slug' , component: AddScholarshipComponent, data: {title: 'Edit Scholarship - Atila'}},
+  { path: 'forum' , component: ForumsListComponent, data: {title: 'Forums - Atila'}},
+  { path: 'forum/:slug' , component: ForumDetailComponent, data: {title: 'Forums - Atila'}},
+  { path: 'login' , component: LoginComponent, data: {title: 'Login - Atila'}},
+  { path: 'messages' , component: MessagesComponent, data: {title: 'My Messages - Atila'}},
   { path: 'my-scholarships' , component: ProfileViewComponent, data: {title: 'Atila - My Scholarships'}},
   { path: 'preview' , component: PreviewComponent, data: {title: 'Atila - Preview'}},
   { path: 'register' , component: RegisterComponent, data: {title: 'Atila - Register'}},
@@ -54,11 +53,11 @@ const routes: Routes = [
   { path: 'scholarships-list' , component: ScholarshipsListComponent, data: {title: 'Atila | Automated Scholarships. The Right Way'}},
   //{ path: 'scholarship-detail/:id' , component: ScholarshipDetailComponent, data: {title: 'Atila - Scholarship Detail'}},
   { path: 'scholarship-detail/:slug' , component: ScholarshipDetailComponent, data: {title: 'Atila - Scholarship Detail'}},
-  { path: 'verify' , component: VerifyComponent, data: {title: 'Atila - Verify'}},
-  { path: 'team' , component: TeamComponent, data: {title: 'Atila - Team'}},
-  { path: 'terms-and-conditions' , component: TermsConditionsComponent, data: {title: 'Atila - Terms and Conditions'}},
+  { path: 'verify' , component: VerifyComponent, data: {title: 'Verify - Atila'}},
+  { path: 'team' , component: TeamComponent, data: {title: 'Team - Atila'}},
+  { path: 'terms-and-conditions' , component: TermsConditionsComponent, data: {title: 'Terms and Conditions - Atila'}},
   { path: '**', component: PreviewComponent, data: {title: 'Atila | Automated Scholarships. The Right Way'} }
-]
+];
 
 @NgModule({
   imports: [

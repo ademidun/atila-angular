@@ -43,3 +43,7 @@ a:not([href]):not([tabindex]):not(.btn) {
   color: #039be5;
   cursor: pointer;
 }
+
+a:not(.btn):hover {
+  text-decoration: underline !important;
+}

@@ -29,7 +29,7 @@ export class TypeaheadComponent implements OnInit {
   constructor(public config: NgbTypeaheadConfig,
               public instance: NgbTypeahead,
               ) {
-    config.focusFirst = true;
+    config.focusFirst = !this.metadata['disableFocusFirst'];
   }
 
   ngOnInit() {
