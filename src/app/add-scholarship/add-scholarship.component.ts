@@ -186,10 +186,20 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
       selector: '.' + this.editorId,
       plugins: ['link', 'table','toc','preview','lists','media','autolink','code',],
       toolbar: 'undo redo | styleselect | bold italic | link image | fontsizeselect | numlist bullist',
-      skin_url: '/assets/skins/lightgray',
+      skin_url: '/assets/skins/light',
       height : "300",
       invalid_elements : 'script',
       default_link_target: "_blank",
+      invalid_styles: {
+        '*': 'color font-family margin padding border background background-image', // Global invalid styles
+        // 'a': 'background' // Link specific invalid styles
+      },
+      formats: {
+        removeformat: [
+          {selector: 'span', attributes : ['style', 'class'], remove : 'empty', split : true, expand : false, deep : true},
+          {selector: '*', attributes : ['style', 'class'], remove : 'empty', split : true, expand : false, deep : true}
+        ]
+      },
       setup: editor => {
         this.editor = editor;
         editor.on('keyup change', (e) => {
@@ -251,10 +261,20 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
       selector: '.' + this.editorId,
       plugins: ['link', 'table','toc','preview','lists','media','autolink','code'],
       toolbar: 'undo redo | styleselect | bold italic | link image | fontsizeselect | numlist bullist',
-      skin_url: '/assets/skins/lightgray',
+      skin_url: '/assets/skins/light',
       height : "300",
       invalid_elements : 'script',
       default_link_target: "_blank",
+      invalid_styles: {
+        '*': 'color font-family margin padding border background background-image', // Global invalid styles
+        // 'a': 'background' // Link specific invalid styles
+      },
+      formats: {
+        removeformat: [
+          {selector: 'span', attributes : ['style', 'class'], remove : 'empty', split : true, expand : false, deep : true},
+          {selector: '*', attributes : ['style', 'class'], remove : 'empty', split : true, expand : false, deep : true}
+        ]
+      },
       setup: editor => {
         this.editor = editor;
         editor.on('keyup change', (e) => {

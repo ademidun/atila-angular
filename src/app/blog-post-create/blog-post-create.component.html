@@ -51,7 +51,9 @@
       </mat-card>
 
       <!--<div [froalaEditor]="options" [(froalaModel)]="blogPost.body"></div>-->
-      <textarea id="{{editorId}}"></textarea>
+      <div  class="wysiywyg-editor">
+        <textarea  id="{{editorId}}"></textarea>
+      </div>
 
     <button mat-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveBlog(false)">Save</button>
     <button mat-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveBlog(true)">Publish</button>

@@ -122,7 +122,7 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
       selector: '#' + this.editorId,
       plugins: ['link', 'table','toc','preview','lists','media','autolink','code'],
       toolbar: 'undo redo | styleselect | bold italic | link image | fontsizeselect | numlist bullist',
-      skin_url: '/assets/skins/lightgray',
+      skin_url: '/assets/skins/light',
       height : "500",
       invalid_elements : 'script',
       default_link_target: "_blank",

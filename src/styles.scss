@@ -47,3 +47,7 @@ a:not([href]):not([tabindex]):not(.btn) {
 a:not(.btn):hover {
   text-decoration: underline !important;
 }
+
+.wysiywyg-editor {
+  border: 1px #039be5;
+}

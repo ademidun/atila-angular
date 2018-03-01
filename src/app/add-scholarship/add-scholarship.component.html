@@ -36,8 +36,8 @@
 
                     </div>
 
-                    <div class="row">
-                      <p style="margin-left:2%; margin-bottom:2%" >Type or copy and paste information about the scholarship.</p>
+                    <p style="margin-left:2%; margin-bottom:2%" >Type or copy and paste information about the scholarship.</p>
+                    <div class="row wysiywyg-editor">
                       <!--<div class="col-sm-12" placeholder="Criteria Description" name="criteria_info"  [froalaEditor]="froalaOptions" [(froalaModel)]="scholarship.criteria_info"></div>-->
                       <textarea class="col-sm-12" class="{{editorId}}"></textarea>
                     </div>
@@ -312,10 +312,10 @@
 
                         </div>
 
-                        <div class="row">
+                        <div class="row wysiywyg-editor">
                           <label>Any additional Information? </label>
                           <!--<textarea class="col-sm-12" id="criteria_info" type="text" [froalaEditor]="froalaOptions" [(froalaModel)]="scholarship.criteria_info" name="criteria_info"></textarea>-->
-                          <textarea [ngClass]="editorId +'col-sm-12'"></textarea>
+                          <textarea [ngClass]="editorId +' col-sm-12'"></textarea>
                         </div>
 
                       </fieldset>
