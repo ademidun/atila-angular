@@ -19,6 +19,10 @@
 
                   <div *ngIf="quickAdd; else fullEdit">
                     <h5 *ngIf="!editMode">Quick Add</h5>
+                    <h6>Don't know where to start?
+                      <a href="https://docs.google.com/spreadsheets/d/13YshWzg38Au-tPkGyDfY4hJHGJDWl_7vUpXNXkf5afM/edit#gid=0" target="_blank">
+                        This spreadsheet</a> has a list of scholarships that need to be added to Atila.</h6>
+                    <br>
                     <p>Simply enter the name, website and a description of the scholarship.</p>
                     <div class="row">
 
@@ -66,7 +70,7 @@
                         </div>
                         <div class="row">
                           <label> Give a short description of the scholarship. You will be able to give more details later.</label><br>
-                          <textarea  class="browser-default" matInput id="description" type="text"
+                          <textarea  class="browser-default col-sm-12" matInput id="description" type="text"
                                      required placeholder="Description"  [(ngModel)]="scholarship.description" name="description"></textarea>
                           <!--<span *ngIf="scholarship.description" [ngStyle]="{'color': scholarship.description.length>500? 'red' : 'black'}">-->
                           <span *ngIf="scholarship.description">
@@ -119,15 +123,36 @@
                           </mat-form-field>
 
 
-                          <span *ngIf="scholarship.deadline" class="col-sm-6">
+                          <div *ngIf="scholarship.deadline" class="col-sm-12 col-md-6">
                             <!-- TODO: Wrong time zone offset on deadline -->
                               Deadline: {{ scholarship.deadline | date:'fullDate' }} {{ scholarship.deadline | date:'shortTime' }}
-                          </span>
+                          </div>
 
-                          <span *ngIf="scholarship.deadline" style="font-size: smaller" class="col-sm-6">
-                           <strong>Note</strong>: Time displayed may be a few hours different due to timezone differences.
-                          </span>
+                          <div style="font-size: smaller" class="col-sm-12 col-md-6">
+                            <span *ngIf="scholarship.deadline" >
+                              <strong>Note</strong>: Time displayed may be a few hours different due to timezone differences.
+                            </span>
+                          </div>
 
+                          <div class="col col-sm-12 col-md-6">
+                            <input class="browser-default" id="not_open_yet" type="checkbox" [(ngModel)]="scholarship.metadata['not_open_yet']"
+                             name="not_open_yet">
+                            <label for="not_open_yet" data-error="Invalid input">Scholarship Not Open Yet?</label>
+                          </div>
+
+                          <div class="col col-sm-12 col-md-6" *ngIf="scholarship.metadata['not_open_yet']">
+                            <label for="open_date"></label>
+                            <br/>
+                            <input id="open_date" type="date"
+                                   [(ngModel)]="scholarship.metadata['open_date']" name="open_date">
+                          </div>
+
+
+                          <div class="col col-sm-12 col-md-6">
+                            <input class="browser-default" id="needs_automation" type="checkbox" [(ngModel)]="scholarship.metadata['needs_automation']"
+                                   name="needs_automation">
+                            <label for="needs_automation" data-error="Invalid input">Needs Automation?</label>
+                          </div>
                         </div>
                         <!-- TODO: Changing Location Creation -->
 
@@ -251,7 +276,7 @@
 
 
                         <div class="row">
-                          <div class="col-md-6" *ngFor="let entry of Object.keys(autoCompleteLists)">
+                          <div class="col-sm-12 col-md-6" *ngFor="let entry of Object.keys(autoCompleteLists)">
 
                             <table>
                               <p style="font-weight: bold">{{prettifyKeys(entry)}}</p>
@@ -290,7 +315,7 @@
                         <div class="row">
                           <label>Any additional Information? </label>
                           <!--<textarea class="col-sm-12" id="criteria_info" type="text" [froalaEditor]="froalaOptions" [(froalaModel)]="scholarship.criteria_info" name="criteria_info"></textarea>-->
-                          <textarea  class="col-sm-12" ngClass="{{editorId}}"></textarea>
+                          <textarea [ngClass]="editorId +'col-sm-12'"></textarea>
                         </div>
 
                       </fieldset>

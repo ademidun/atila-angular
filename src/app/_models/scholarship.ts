@@ -60,6 +60,9 @@ export class Scholarship {
     this.reference_letter_required =0;
     this.number_available_scholarships =1;
 
+
+    this.extra_questions.funding_amount_varies = true;
+
     this.submission_info.web_form_entries = [
       {
         attribute_type : '',
