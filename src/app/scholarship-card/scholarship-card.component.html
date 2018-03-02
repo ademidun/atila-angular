@@ -47,11 +47,12 @@
     </div>
   </div>
   <a *ngIf=scholarship.is_automated [routerLink]="['../scholarship-detail', scholarship.slug]" title="Automated Scholarships"
-     style="left: 150px; bottom: 10px" class="btn-floating interactive-btn halfway-fab waves-effect waves-light atila-blue">
+     style="left: 150px; bottom: 10px" class="btn-floating interactive-btn halfway-fab waves-effect waves-light atila-blue" triggers="mouseenter" placement="bottom" [ngbPopover]="automationInfoPopover" popoverTitle="Automated Scholarship">
     <i class="material-icons automate-tag">tag_faces</i></a>
 </div>
 
-
+<ng-template #automationInfoPopover>Automatically <a [routerLink]="['../scholarship-detail', scholarship.slug]">apply</a> for this scholarship in one click!
+  <a  routerLink="/blog/atila/what-is-atila">More Info</a>.</ng-template>
 <!--<mat-card class="scholarship-card">-->
 <!--<mat-card-header class="mat-card-header">-->
 <!--<div mat-card-avatar [ngStyle]="{ 'background-image': 'url( '+ scholarship.img_url +' )' }" class="header-image"></div>-->
