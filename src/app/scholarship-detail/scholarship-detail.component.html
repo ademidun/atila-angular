@@ -40,7 +40,7 @@
 
       </div>
       <br>
-      <div class="divider"></div>
+      <div class="divider"  id="bootstrap-override"></div>
       <p>{{scholarship.description}}</p>
       <br>
 
@@ -57,7 +57,7 @@
     <div class="col-sm-12">
       <h4>More Information</h4>
 
-          <markdown [data]="scholarship.criteria_info"></markdown>
+      <div [innerHTML]="scholarship.criteria_info | safeHtml"></div>
 
     </div>
 

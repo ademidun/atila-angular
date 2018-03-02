@@ -36,7 +36,7 @@
 
                     </div>
 
-                    <p style="margin-left:2%; margin-bottom:2%" >Type or copy and paste information about the scholarship.</p>
+                    <p style="margin-bottom:2%" >Type or copy and paste information about the scholarship.</p>
                     <div class="row wysiywyg-editor">
                       <!--<div class="col-sm-12" placeholder="Criteria Description" name="criteria_info"  [froalaEditor]="froalaOptions" [(froalaModel)]="scholarship.criteria_info"></div>-->
                       <textarea class="col-sm-12" class="{{editorId}}"></textarea>
@@ -126,13 +126,13 @@
                           <div *ngIf="scholarship.deadline" class="col-sm-12 col-md-6">
                             <!-- TODO: Wrong time zone offset on deadline -->
                               Deadline: {{ scholarship.deadline | date:'fullDate' }} {{ scholarship.deadline | date:'shortTime' }}
-                          </div>
 
-                          <div style="font-size: smaller" class="col-sm-12 col-md-6">
-                            <span *ngIf="scholarship.deadline" >
+                            <span *ngIf="scholarship.deadline"  style="font-size: smaller">
                               <strong>Note</strong>: Time displayed may be a few hours different due to timezone differences.
                             </span>
+
                           </div>
+
 
                           <div class="col col-sm-12 col-md-6">
                             <input class="browser-default" id="not_open_yet" type="checkbox" [(ngModel)]="scholarship.metadata['not_open_yet']"
@@ -141,10 +141,10 @@
                           </div>
 
                           <div class="col col-sm-12 col-md-6" *ngIf="scholarship.metadata['not_open_yet']">
-                            <label for="open_date"></label>
+                            <label for="open_date"> What date does the scholarship Open?</label>
                             <br/>
                             <input id="open_date" type="date"
-                                   [(ngModel)]="scholarship.metadata['open_date']" name="open_date">
+                                   [(ngModel)]="scholarship.open_date" name="open_date">
                           </div>
 
 
@@ -312,8 +312,8 @@
 
                         </div>
 
+                        <p>Any additional Information? </p>
                         <div class="row wysiywyg-editor">
-                          <label>Any additional Information? </label>
                           <!--<textarea class="col-sm-12" id="criteria_info" type="text" [froalaEditor]="froalaOptions" [(froalaModel)]="scholarship.criteria_info" name="criteria_info"></textarea>-->
                           <textarea [ngClass]="editorId +' col-sm-12'"></textarea>
                         </div>

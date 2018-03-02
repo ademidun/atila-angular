@@ -36,6 +36,13 @@ body {
     background-color: white;
 }
 
+#bootstrap-override {
+  ul:not(.browser-default) > li {
+    list-style-type: initial;
+  }
+}
+
+
 a:not([href]):not([tabindex]).btn {
   color: white;
 }
@@ -49,5 +56,5 @@ a:not(.btn):hover {
 }
 
 .wysiywyg-editor {
-  border: 1px #039be5;
+  border: 1px solid #039be5;
 }

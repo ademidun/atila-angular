@@ -17,7 +17,6 @@ import {AddQuestionModalComponent} from '../add-question-modal/add-question-moda
 import { MyFirebaseService } from "../_services/myfirebase.service";
 
 import { GooglePlaceDirective } from "../_directives/google-place.directive";
-import { MarkdownService } from 'ngx-markdown';
 
 import 'tinymce';
 import 'tinymce/themes/modern';
@@ -142,7 +141,6 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
     public userProfileService: UserProfileService,
     public titleService: Title,
     public firebaseService: MyFirebaseService,
-    public markdownService: MarkdownService,
   ) {
     this.scholarshipSlug = route.snapshot.params['slug'];
 
@@ -359,9 +357,6 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
           // Get the user profile of the scholarship owner
 
-          //convert scholarship criteria from markdown to HTML.
-
-          this.scholarship.criteria_info = this.markdownService.compile(this.scholarship.criteria_info);
           if(this.editor){
             if (tinymce.get(this.editorId)) {
 

@@ -38,6 +38,7 @@ export class Scholarship {
   public no_essay_required?: boolean,
   public number_available_scholarships?: number,
   public owner?: any,
+  public open_date?: any,
   public province?: any,
   public purpose?: any,
   public reference_letter_required?:number,
