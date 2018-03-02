@@ -180,6 +180,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
 
   saveProfile(){
 
+    this.userProfile.metadata['stale_cache'] = true;
     this.userProfileService.updateHelper(this.userProfile)
     .subscribe(
       data => {

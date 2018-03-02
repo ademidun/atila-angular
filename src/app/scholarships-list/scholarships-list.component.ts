@@ -150,6 +150,9 @@ export class ScholarshipsListComponent implements OnInit {
   }
 
   prettifyKeys(str) {
+    if (str == 'only_automated'){
+      return 'Is Automated';
+    }
     return prettifyKeys(str);
   }
   nextPage() {
@@ -216,7 +219,7 @@ export class ScholarshipsListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-
+      this.userProfile.metadata['stale_cache'] = true;
       this.userProfileService.updateHelper(this.userProfile)
         .subscribe(res => {
         });

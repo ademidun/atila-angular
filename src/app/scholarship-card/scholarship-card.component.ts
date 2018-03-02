@@ -34,7 +34,7 @@ export class ScholarshipCardComponent implements OnInit {
     }
 
     if ('2019-01-01T00:00:00Z' == this.scholarship.deadline) {
-      this.scholarship['metadata']['deadline_tbd'] = 'TBD';
+      this.scholarship['metadata']['deadline_tbd'] = 'TBA';
     }
   }
 

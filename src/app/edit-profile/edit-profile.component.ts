@@ -185,6 +185,7 @@ initializeLocations(cities: Array<any>){
   }
   saveProfile(profileForm?) {
 
+  this.userProfile.metadata['stale_cache'] = true;
     if(!profileForm) {
       let sendData = {
         userProfile: this.userProfile,

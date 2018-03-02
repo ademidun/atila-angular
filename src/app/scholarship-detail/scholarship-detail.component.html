@@ -3,36 +3,49 @@
     <div class="col-sm-12">
       <img class="scholarship-image" [src]="scholarship.img_url" />
     </div>
-    <div class="col-sm-12">
+    <div class="row">
       <h3>{{scholarship.name}}</h3>
-      <div class="sub-header">
+      <div class="sub-header row">
 
-          <div class="date-created">
+          <div class="date-created col col-sm-12 col-md-8">
+            <span *ngIf="scholarship.metadata['not_open_yet'];else hasDeadline"><strong>Opens:</strong> {{scholarship.open_date | date:'mediumDate' }}</span>
+            <ng-template #hasDeadline><strong>Deadline:</strong>
+              <span *ngIf="!this.scholarship['metadata']['deadline_tbd']">
+                {{scholarship.deadline | date:'longDate'}}</span>
+              <span  *ngIf="this.scholarship['metadata']['deadline_tbd']">TBA</span>
+            </ng-template>
+
+            <strong>
+            <p *ngIf="scholarship.funding_amount > 0">Amount: {{scholarship.funding_amount | currency:'USD':'symbol':'1.0-0'}}</p>
+            </strong>
+
             <div *ngIf="scholarshipOwner">
               Added by: <a routerLink="/profile/{{scholarshipOwner.username}}">{{scholarshipOwner.first_name}} {{scholarshipOwner.last_name}}</a>
             </div>
-            Deadline: <span *ngIf="!this.scholarship['metadata']['deadline_tbd']">{{scholarship.deadline | date:'longDate'}}</span>
-            <span  *ngIf="this.scholarship['metadata']['deadline_tbd']">{{this.scholarship['metadata']['deadline_tbd']}}</span><br>
-            <strong>
-            <p *ngIf="scholarship.funding_amount > 0">{{scholarship.funding_amount | currency:'USD':'symbol':'1.0-0'}}</p>
-            </strong>
-            <a *ngIf="scholarship.owner==userId" [routerLink]="['/edit-scholarship', scholarship.slug]"> Edit Scholarship </a><br>
+
+            <a *ngIf="scholarship.owner==userId" [routerLink]="['/edit-scholarship', scholarship.slug]"> Edit Scholarship </a>
             <!--<a *ngIf="scholarship.owner!=userId" [routerLink]="['/edit-scholarship', scholarship.slug]"> Suggest/View Edits </a><br>-->
-            <a target="_blank" *ngIf="scholarship.form_url" href="{{scholarship.form_url}}"> View Application Form </a><br>
-            <a target="_blank" *ngIf="scholarship.scholarship_url" href="{{scholarship.scholarship_url}}"> Visit Scholarship Website </a> <br>
+            <a target="_blank" *ngIf="scholarship.form_url" href="{{scholarship.form_url}}"> View Application Form </a>
+            <span class="show-on-small" style="max-height: 0"><br></span>
+
+            <a target="_blank" *ngIf="scholarship.scholarship_url" href="{{scholarship.scholarship_url}}"> Visit Scholarship Website </a>
             <!--<a target="_blank" *ngIf="scholarship.local_form_location.indexOf('scholartree') !== -1;" href="https://scholartree.ca">Source</a> <br>-->
+
+            <div >
+              <p>Save for Later</p>
+              <!--<button mat-fab  (click)="addToMyScholarships(scholarship)" style="margin-left: -23%">-->
+              <button mat-fab  (click)="addToMyScholarships(scholarship)">
+                <mat-icon [ngStyle]="{'color': alreadySaved ? '#4080ff' : ''}"  class="atila-blue" aria-hidden="true" aria-label="Save">bookmark</mat-icon>
+              </button>
+            </div>
+
           </div>
 
-
-        <p class="col col-md-3">Save for Later</p>
-        <button mat-fab  (click)="addToMyScholarships(scholarship)" style="margin-left: -23%">
-          <mat-icon [ngStyle]="{'color': alreadySaved ? '#4080ff' : ''}"  class="atila-blue" aria-hidden="true" aria-label="Save">bookmark</mat-icon>
-        </button>
 
         <button mat-raised-button *ngIf=scholarship.is_automated (click)="getOrCreateApp()"
         style="background-color: #4080ff; " class="white-text">Apply now</button>
 
-        <div  *ngIf=!scholarship.is_automated class="col-sm-6 col-md-4">
+        <div  *ngIf=!scholarship.is_automated class="col-sm-12 col-md-4">
           <p>Request Automation and we'll automate the scholarship for you.</p>
           <button mat-raised-button (click)="requestAutomation()"
                   style="background-color: #4080ff; min-height: 60px" class="white-text">Request Automation</button>
