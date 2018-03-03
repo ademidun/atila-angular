@@ -104,10 +104,10 @@ export class ScholarshipDetailComponent implements OnInit {
               .subscribe(
                 res => {
                   this.userProfile = res;
-                  if(this.userProfile && this.userProfile.metadata.saved_scholarships) {
+                  if(this.userProfile && this.userProfile.saved_scholarships) {
 
-                    for (let i =0; i<this.userProfile.metadata.saved_scholarships.length; i++) {
-                      if (this.userProfile.metadata.saved_scholarships[i].id == this.scholarship.id) {
+                    for (let i =0; i<this.userProfile.saved_scholarships.length; i++) {
+                      if (this.userProfile.saved_scholarships[i] == this.scholarship.id) {
                         this.alreadySaved = true;
                         break;
                       }

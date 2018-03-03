@@ -23,10 +23,10 @@ export class ScholarshipCardComponent implements OnInit {
     public userProfileService: UserProfileService) { }
 
   ngOnInit() {
-    if(this.userProfile && this.userProfile.metadata.saved_scholarships) {
+    if(this.userProfile && this.userProfile.saved_scholarships) {
 
-      for (let i =0; i<this.userProfile.metadata.saved_scholarships.length; i++) {
-        if (this.userProfile.metadata.saved_scholarships[i].id == this.scholarship.id) {
+      for (let i =0; i<this.userProfile.saved_scholarships.length; i++) {
+        if (this.userProfile.saved_scholarships[i] == this.scholarship.id) {
           this.alreadySaved = true;
           break;
         }
@@ -51,18 +51,10 @@ export class ScholarshipCardComponent implements OnInit {
     this.logShareType('save_my_scholarships');
     if (this.userProfile) {
 
-      if(!this.userProfile.metadata.saved_scholarships) {
-        this.userProfile.metadata.saved_scholarships = [];
+      if(!this.userProfile.saved_scholarships) {
+        this.userProfile.saved_scholarships = [];
       }
-      let savedScholarship = {
-        id: this.scholarship.id,
-        name: this.scholarship.name,
-        slug: this.scholarship.slug,
-        description: this.scholarship.description,
-        img_url: this.scholarship.img_url,
-        deadline: this.scholarship.deadline,
-      };
-      this.userProfile.metadata.saved_scholarships.push(savedScholarship);
+      this.userProfile.saved_scholarships.push(this.scholarship.id);
       this.alreadySaved = true;
 
 

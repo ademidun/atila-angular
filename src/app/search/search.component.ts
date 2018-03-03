@@ -103,13 +103,12 @@ export class SearchComponent implements OnInit {
   customizeResults() {
 
 
-    if(this.userProfile.metadata.saved_scholarships) {
-      let userScholarshipsId = this.userProfile.metadata.saved_scholarships.map(scholarship => scholarship.id);
+    if(this.userProfile.saved_scholarships) {
 
 
       this.searchResults.scholarships =  this.searchResults.scholarships.map(
         scholarship => {
-          if (userScholarshipsId.includes(scholarship.id) ) {
+          if (this.userProfile.saved_scholarships.includes(scholarship.id) ) {
             scholarship.alreadySaved = true;
           }
 

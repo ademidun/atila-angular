@@ -1,5 +1,3 @@
-import {MatSnackBar} from '@angular/material';
-
 export class UserProfile {
         constructor(
             public academic_average?: any,
@@ -44,6 +42,7 @@ export class UserProfile {
             public reference_letter_alternate?:any,
             public extracurricular_description?:any,
             public academic_career_goals?:any,
+            public saved_scholarships?:any,
             public secondary_school?:any,
             public signature?:any,
             public sports?:string[],
@@ -89,26 +88,17 @@ export class UserProfile {
      export function addToMyScholarshipHelper(userProfile, item) {
 
 
-         for (let i =0; i<userProfile.metadata.saved_scholarships.length; i++) {
-           if (userProfile.metadata.saved_scholarships[i].id == item.id) {
-
+         for (let i =0; i<userProfile.saved_scholarships.length; i++) {
+           if (userProfile.saved_scholarships[i] == item.id) {
              return [userProfile, false];
            }
          }
 
-
-         if(!userProfile.metadata.saved_scholarships) {
-           userProfile.metadata.saved_scholarships = [];
+         if(!userProfile.saved_scholarships) {
+           userProfile.saved_scholarships = [];
          }
-         let savedScholarship = {
-           id: item.id,
-           name: item.name,
-           slug: item.slug,
-           description: item.description,
-           img_url: item.import,
-           deadline: item.deadline,
-         };
-         userProfile.metadata.saved_scholarships.push(savedScholarship);
+
+         userProfile.saved_scholarships.push(item.id,);
 
          return [userProfile, true];
 

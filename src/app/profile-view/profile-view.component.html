@@ -151,7 +151,7 @@
               <th class="hide-on-small-and-down">Save</th>
             </tr>
 
-            <tr *ngFor="let scholarship of userProfile.metadata['saved_scholarships']">
+            <tr *ngFor="let scholarship of savedScholarships">
               <td><a [routerLink]="['/scholarship-detail', scholarship.slug]">{{scholarship.name}}</a></td>
               <td>{{scholarship.deadline | date:'EEEE, MMMM d, y'}}</td>
               <td><textarea style="height: 6.7rem"  [(ngModel)]="scholarship['user_notes']"

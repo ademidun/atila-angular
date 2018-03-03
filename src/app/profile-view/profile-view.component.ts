@@ -38,6 +38,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
   SCHOOLS_LIST = SCHOOLS_LIST;
 
   currentUser:number;
+  savedScholarships = [];
 
   myAtilaMode: boolean;
   constructor(
@@ -66,7 +67,12 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
 
         this.profile_pic_url = this.sanitization.bypassSecurityTrustStyle(`url(${this.userProfile.profile_pic_url})`);
 
-
+        this.userProfileService.getRouteDetail(this.userProfile.user,'scholarships').subscribe(
+          res => {
+            this.savedScholarships = res['scholarships'];
+          },
+          error2 => {},
+        );
         if (this.router.url.indexOf('my-atila') !== -1) {
           this.myAtilaMode = true;
         }

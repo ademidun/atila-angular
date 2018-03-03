@@ -56,6 +56,13 @@ export class UserProfileService {
       .catch(err=>Observable.throw(err));
   }
 
+  getRouteDetail(id,path: string): Observable<any>{
+    // note urls missing the apropriate '/' will be redirected and be blocked by CORS policy.
+    return this.http.get(`${this.userProfileEndpoint}${id}/${path}/`)
+      .map(this.extractData)
+      .catch(err=>Observable.throw(err));
+  }
+
   isLoggedIn(): boolean {
       // Determines if user is logged in from the token
       var token = localStorage.getItem('token');
