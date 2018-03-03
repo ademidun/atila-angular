@@ -55,8 +55,7 @@ export class Scholarship {
     this.extra_questions = {};
     this.submission_info = {};
     this.metadata = {};
-    // TODO: Are most scholarships pdf forms this.APPLICATION_FORM_TYPES[0] or web forms this.APPLICATION_FORM_TYPES[1]
-    this.submission_info.application_form_type = APPLICATION_FORM_TYPES[0];
+    this.submission_info.application_form_type = APPLICATION_FORM_TYPES[1];
     this.funding_type = [FUNDING_TYPES[0]];
     this.reference_letter_required =0;
     this.number_available_scholarships =1;

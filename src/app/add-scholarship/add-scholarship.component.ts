@@ -115,6 +115,8 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
   provinces = [];
   cities = [];
 
+  hideCriteriaInfo =true;
+
   quickAdd = true;
   activeCountry = '';
   activeProvince:any = {};

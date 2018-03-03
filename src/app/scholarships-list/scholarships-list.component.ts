@@ -153,7 +153,7 @@ export class ScholarshipsListComponent implements OnInit {
     if (str == 'only_automated'){
       return 'Is Automated';
     }
-    return prettifyKeys(str);
+    return toTitleCase(prettifyKeys(str));
   }
   nextPage() {
     this.pageNo++;
