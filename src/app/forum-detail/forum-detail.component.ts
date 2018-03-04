@@ -48,6 +48,8 @@ export class ForumDetailComponent implements OnInit {
   ngOnInit() {
     let defaultProfileImage = 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2Fgeneral-data%2Fdefault-profile-pic.png?alt=media&token=455c59f7-3a05-43f1-a79e-89abff1eae57';
     let atilaImage = 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-image-preview-nov-24-2.png?alt=media&token=f4bb94ac-60f6-451a-a3df-f2300d92818d"';
+
+
     this.forumService.getBySlug(this.route.snapshot.params['slug']).subscribe(
       forum => {
         this.forum = forum;

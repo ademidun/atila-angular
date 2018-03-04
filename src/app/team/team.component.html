@@ -1,52 +1,23 @@
 <div class="container row" >
-  <!--xmlns:https="http://www.w3.org/1999/xhtml"-->
 
-  <mat-card class="profile-header col-sm-12 col-md-8 offset-md-d-2">
+  <mat-card class="profile-header col-sm-12 col-md-2-3" *ngFor="let member of teamData">
     <mat-card-header class="row">
       <!-- NOTE Mat card header text is hidden in css -->
-      <div class=" header-image" mat-card-avatar style="background-image: url('https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fprofile-pictures%2Ffacebook-profile-picture.jpg?alt=media&token=143797ab-ef34-4a67-91d1-f55504f5b726')"
-      ></div>
+      <div class="header-image center-block" mat-card-avatar [ngStyle]="{'background-image': 'url(' + member.img_url + ')'}"></div>
 
-      <div  style="margin-left:5%">
-        <mat-card-title><h4>Tomiwa Ademidun </h4></mat-card-title>
-        <mat-card-subtitle class="title"><h5>Founder</h5></mat-card-subtitle>
-        <a routerLink="/profile/tomiwa" class="btn white-text">Profile</a>
-        <br>
-        <a style="margin-top: 3%" class="btn btn-link" href="http://tomiwa.ca/" target="_blank">My Website</a>
+      <div  class="center center-block">
+        <mat-card-title><h4>{{member.first_name}} {{member.last_name}} </h4></mat-card-title>
+        <mat-card-subtitle class="title"><h5>{{member.position}}</h5></mat-card-subtitle>
+        <a routerLink="/profile/kitan" class="btn-link">Profile</a> |
+        <a class="btn-link" href="http://tomiwa.ca/">{{member.first_name}}'s {{member.link_type}}</a>
       </div>
     </mat-card-header>
 
     <mat-card-content>
       <p style="font-size: larger">
-        Tomiwa is the founder and lead engineer at Atila.
-        He's currently taking a year off a dual degree in software engineering and business at Ivey Business School in Canada to start Atila.
-        He enjoys playing soccer in his free time and is a big Arsenal F.C. fan.
-      </p>
-    </mat-card-content>
-  </mat-card>
-
-
-  <mat-card class="profile-header col-sm-12 col-md-8 offset-md-d-2">
-    <mat-card-header class="row">
-      <!-- NOTE Mat card header text is hidden in css -->
-      <div class=" header-image" mat-card-avatar style="background-image: url('https://scontent-yyz1-1.xx.fbcdn.net/v/t1.0-9/26733628_10155344642078727_4093035391117660989_n.jpg?oh=eadf1f87d66bb3c774471ec569893219&oe=5B118117')"
-      ></div>
-
-      <div  style="margin-left:5%">
-        <mat-card-title><h4>Madalitso Mchaina </h4></mat-card-title>
-        <mat-card-subtitle class="title"><h5>Front-end Engineer Intern</h5></mat-card-subtitle>
-        <a routerLink="/profile/kitan" class="btn white-text" href="javascript:undefined">Profile</a>
+       {{member.description_1}}
         <br>
-        <a style="margin-top: 3%" class="btn btn-link" href="http://tomiwa.ca/">My Resume</a>
-      </div>
-    </mat-card-header>
-
-    <mat-card-content>
-      <p style="font-size: larger">
-        Madalitso is a full-stack engineering intern at Atila. he is currently studying computer engineering at Western University in Canada.
-        <br>
-        He will be leaving Atila in May 😢 and is currently looking for summer internships (<a  href="mailto:info@atila.ca">madalitso@atila.ca</a>).
-        He helped build this awesome site so Atila recommends her with two thumbs up. 👍👍
+        <span [innerHTML]="member.description_2"></span>
       </p>
     </mat-card-content>
   </mat-card>
