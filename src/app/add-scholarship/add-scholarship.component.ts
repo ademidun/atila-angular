@@ -123,6 +123,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
   scholarshipOwner;
 
   scholarshipErrors: any;
+  uploadProgress: any;
 
   webForms : any;
   myJson = JSON;
@@ -610,7 +611,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
             (snapshot:any) => {
               // Observe state change events such as progress, pause, and resume
               // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-              var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+              this.uploadProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 
             },
             (error)=> {

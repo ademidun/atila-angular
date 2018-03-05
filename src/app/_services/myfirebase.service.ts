@@ -167,9 +167,12 @@ export class MyFirebaseService {
       size: uploadFile.file.size,
       name: uploadFile.file.name,
     };
-    console.log('uploadFileFirebase', uploadRef);
 
-    return uploadRef.put(uploadFile.file, metadata);
+    let metadata2 = Object.assign({}, uploadFile.metadata, metadata);
+
+    console.log('uploadFileFirebase', uploadRef, metadata2);
+
+    return uploadRef.put(uploadFile.file, metadata2);
 
 
   }

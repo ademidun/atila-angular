@@ -249,6 +249,9 @@ initializeLocations(cities: Array<any>){
     //create Upload file and configure its properties before uploading.
 
     this.uploadFile = new UploadFile(this.formFile);
+
+    this.uploadFile.metadata['user_field'] = this.formFileEvent.target.id;
+    this.uploadFile.metadata['original_name'] = this.uploadFile.name;
     this.uploadFile.name = this.authService.hashFileName(this.formFile.name);
     this.uploadFile.path = "user-profiles/" + this.userProfile.user + "/documents/";
     this.uploadFile.path = this.uploadFile.path + this.uploadFile.name;

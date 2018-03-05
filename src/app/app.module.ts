@@ -27,7 +27,6 @@ import { AuthService } from './_services/auth.service';
 import { ScholarshipDetailComponent } from './scholarship-detail/scholarship-detail.component';
 import { AddScholarshipComponent } from './add-scholarship/add-scholarship.component';
 import { ApplicationService } from './_services/application.service';
-import { EditScholarshipComponent } from './edit-scholarship/edit-scholarship.component';
 import { QuestionControlService } from './_services/question-control.service';
 import { DynamicFormComponent } from './dynamic-form/dynamic-form.component';
 import { QuestionService } from './_services/question.service';
@@ -99,7 +98,6 @@ import { SeoService } from './_services/seo.service';
     EditProfileComponent,
     ScholarshipDetailComponent,
     AddScholarshipComponent,
-    EditScholarshipComponent,
     DynamicFormComponent,
     DynamicFormQuestionComponent,
     AddQuestionModalComponent,

@@ -122,7 +122,10 @@
                 <a (click)="saveUserProfile(profileForm)" class="btn btn-success right s12 col-md-5 offset-md-1">Save Profile</a>
               <p class=" col"> Location changes can be saved in <a routerLink="/edit-profile">edit profile</a>.</p>
 
-              <mat-progress-bar style="margin-bottom: 1%;" *ngIf="uploadProgress" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
+              <div *ngIf="uploadProgress" class="col-md-3 col-sm-12 mb-3">
+                Progress: <p style="font-weight: bold">{{uploadProgress | number:'1.0-0'}}%</p>
+                <mat-progress-bar mode="determinate" [value]="uploadProgress"></mat-progress-bar>
+              </div>
             </div>
             </form>
             <span *ngIf="dynamicForm">

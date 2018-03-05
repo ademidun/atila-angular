@@ -280,7 +280,10 @@
 
                             <div  *ngIf="showUploadLoading">
                               Uploading File Please Wait...
-                              <mat-progress-bar aria-label="Uploading File Please Wait..." mode="indeterminate"></mat-progress-bar>
+                              <div *ngIf="uploadProgress" class="col-md-3 col-sm-12 mb-3">
+                                Progress: <p style="font-weight: bold">{{uploadProgress | number:'1.0-0'}}%</p>
+                                <mat-progress-bar mode="determinate" [value]="uploadProgress"></mat-progress-bar>
+                              </div>
                             </div>
                             <div *ngIf="scholarship.form_url" class="col-sm-12">
                               <a target="_blank" href="{{scholarship.form_url}}">View Current Application</a>

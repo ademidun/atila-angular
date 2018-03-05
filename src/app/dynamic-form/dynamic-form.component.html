@@ -7,7 +7,10 @@
          [generalData]="generalData" (uploaded)="fileChangeEvent($event)"></app-dynamic-form-question>
 
       </div>
-     <mat-progress-bar style="margin-bottom: 1%;" *ngIf="uploadProgress" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
+     <div *ngIf="uploadProgress" class="col-md-3 col-sm-12 mb-3">
+       Progress: <p style="font-weight: bold">{{uploadProgress | number:'1.0-0'}}%</p>
+       <mat-progress-bar mode="determinate" [value]="uploadProgress"></mat-progress-bar>
+     </div>
    </div>
 
       <div class="row">

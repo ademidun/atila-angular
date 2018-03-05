@@ -2,6 +2,7 @@
 export class UploadFile {
     $key: string;
     file:File;
+    metadata: any;
     name:string;
     url:string;
     path:string;
@@ -16,6 +17,7 @@ export class UploadFile {
     constructor(file:File) {
       this.file = file;
       this.name = file.name;
+      this.metadata = {};
     }
 
   }
