@@ -45,24 +45,13 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
     loginOperation = this.authService.login(this.credentials);
     loginOperation.subscribe(
-        // We're assuming the response will be an object
-        // with the JWT on an id_token key
         data => {
-
-
-          this.authService.encryptlocalStorage('token', data.token);
-          // this.cookieService.putObject('userId', data.id);
-          this.authService.encryptlocalStorage('uid',data.id);
-          this.authService.isLoggedIn = true;
           this.router.navigate(["/scholarships-list"]);
-
         },
         err => {
-
-
           this.snackBar.open("Incorrect login credentials", '', {
             duration: 3000
-          })
+          });
           this.isLoading = false;
         },
 

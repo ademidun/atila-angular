@@ -6,6 +6,8 @@ import { Router } from '@angular/router'
 import { Observable } from 'rxjs/Observable';
 import * as CryptoJS from "crypto-js";
 //import * as crypto from "crypto";
+
+import * as firebase from "firebase";
 //ES6 style imports
 //https://stackoverflow.com/questions/39415661/what-does-resolves-to-a-non-module-entity-and-cannot-be-imported-using-this
 
@@ -36,13 +38,42 @@ export class AuthService {
 
     // there should always be a secret key available even after you clear local storage
     this.initializeSecretKey(true);
-
     this.isLoggedIn = false;
+    firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+    }).catch(function(error) {
+      // An error happened.
+    });
   }
 
   login(credentials: any) {
     return this.http.post(this.loginUrl, credentials)
-       .map(res=>res)
+       .map(res=>{
+
+           let data: any = res;
+           console.log('data',data);
+           this.encryptlocalStorage('token', data.token);
+           this.encryptlocalStorage('firebase_token', data.firebase_token);
+           console.log('data',this.decryptLocalStorage('firebase_token'));
+
+           // this.cookieService.putObject('userId', data.id);
+           this.encryptlocalStorage('uid',data.id);
+           this.isLoggedIn = true;
+           try {
+             firebase.auth().signInWithCustomToken(data.firebase_token)
+               .then(res2 => {
+                 console.log('signInWithCustomToken res2',res2);
+               })
+               .catch(error => {
+                 // Handle Errors here.
+                 console.log('error', error);
+               });
+           }
+           catch (err) {
+             console.log('firebase auth error', err);
+           }
+           return res;
+       })
        .catch(this.handleError);
    }
 

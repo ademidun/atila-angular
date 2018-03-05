@@ -125,9 +125,23 @@ export class MyFirebaseService {
   }
 
 
-
   //reference: https://angularfirebase.com/lessons/angular-file-uploads-to-firebase-storage/
   fileUpload(uploadFile: UploadFile){
+
+    if (!firebase.apps.length) {
+      firebase.initializeApp(environment.firebase);
+    }
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        console.log('user', user)
+      } else {
+        // No user is signed in.
+        console.log('not signed in', user)
+      }
+    });
+
+
     /**
      * Upload handler which gets the Firebase API keys before we upload the file.
      */
@@ -166,13 +180,13 @@ export class MyFirebaseService {
       contentType: uploadFile.file.type,
       size: uploadFile.file.size,
       name: uploadFile.file.name,
+      customMetadata: uploadFile.metadata,
     };
 
-    let metadata2 = Object.assign({}, uploadFile.metadata, metadata);
 
-    console.log('uploadFileFirebase', uploadRef, metadata2);
+    console.log('uploadFileFirebase', uploadRef, metadata);
 
-    return uploadRef.put(uploadFile.file, metadata2);
+    return uploadRef.put(uploadFile.file, metadata);
 
 
   }

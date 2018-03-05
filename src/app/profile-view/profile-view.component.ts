@@ -116,6 +116,10 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
     this.profilePicFile.path = "user-profiles/" + this.userProfile.user+ "/profile-pictures/";
     this.profilePicFile.path = this.profilePicFile.path + this.profilePicFile.name;
 
+    this.profilePicFile.metadata = {
+      'owner': this.userProfile.user,
+      'testing': 'foobar',
+    };
 
     this.firebaseService.fileUpload(this.profilePicFile)
     .subscribe(
