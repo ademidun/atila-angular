@@ -18,6 +18,7 @@ import { Observable } from 'rxjs/Observable';
 import * as firebase from "firebase";
 import * as $ from 'jquery';
 import {ApplicationService} from '../_services/application.service';
+import {MyFirebaseService} from '../_services/myfirebase.service';
 import {SCHOOLS_LIST} from '../_models/constants';
 
 @Component({
@@ -51,6 +52,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
     public messagingService: MessagingService,
     public applicationService: ApplicationService,
     public sanitization: DomSanitizer,
+    public firebaseService: MyFirebaseService,
   ) {
     this.userNameSlug = route.snapshot.params['username'];
   }
@@ -115,71 +117,31 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
     this.profilePicFile.path = this.profilePicFile.path + this.profilePicFile.name;
 
 
-    this.fileUpload(this.profilePicFile)
+    this.firebaseService.fileUpload(this.profilePicFile)
     .subscribe(
-      res => {}
+      res => {
+        console.log('firebaseService.fileUpload.subscribe res',res);
+        let uploadTask = res;
+        uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+          (snapshot:any) => {
+            this.uploadProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+          },
+          (error)=> {
+              console.log('firebaseService.fileUpload error',error);
+          },
+          () => {
+
+            this.userProfile.profile_pic_url = uploadTask.snapshot.downloadURL;
+            this.uploadProgress = null;
+            this.saveProfile();
+
+          });
+      },
+    err => {
+                      this.showSnackBar(err,'', 3000);
+                    },
     )
-
-
-
-  }
-
-  //TODO: Refactor this code into the firebase service
-  //TODO:
-  fileUpload(uploadFile: UploadFile){
-    /**
-     * Upload handler which gets the Firebase API keys before we upload the file.
-     */
-    return this.authService.getAPIKey("FIREBASE_CONFIG_KEYS")
-    .map(res => this.uploadFileFirebase(res, uploadFile))
-    .catch(err=>Observable.throw(err))
-  }
-
-  //TODO: Refactor this code into the firebase service
-  //TODO: How can we get uploadFileFirebase to return an observable with the URL of the uploaded file
-  uploadFileFirebase(res: Response, uploadFile: UploadFile){
-
-
-
-    let config;
-    config = res['api_key'];
-
-    if (!firebase.apps.length) {
-      firebase.initializeApp(config);
-    }
-
-    //Initiliazing the firebase client
-    //https://angularfirebase.com/lessons/angular-file-uploads-to-firebase-storage/
-    //
-
-    uploadFile.name = config.toString();
-    let storage = firebase.storage();
-    let storageRef = storage.ref();
-    let uploadRef = storageRef.child(uploadFile.path);
-    let metadata = {
-      contentType: uploadFile.file.type,
-      size: uploadFile.file.size,
-      name: uploadFile.file.name,
-    };
-
-    let uploadTask = uploadRef.put(uploadFile.file, metadata);
-
-    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-    (snapshot:any) => {
-      this.uploadProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-
-    },
-    (error)=> {
-
-    },
-    () => {
-
-      this.userProfile.profile_pic_url = uploadTask.snapshot.downloadURL;
-      this.uploadProgress = null;
-      this.saveProfile();
-
-    });
-
 
   }
 

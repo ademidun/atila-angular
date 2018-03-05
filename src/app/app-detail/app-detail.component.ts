@@ -15,6 +15,7 @@ import * as firebase from "firebase";
 import {MatSnackBar} from '@angular/material';
 import {prettifyKeys, toTitleCase} from '../_models/utils';
 import {environment} from '../../environments/environment';
+import {MyFirebaseService} from '../_services/myfirebase.service';
 
 @Component({
   selector: 'app-app-detail',
@@ -72,6 +73,7 @@ export class AppDetailComponent implements OnInit {
     public authService: AuthService,
     public router: Router,
     public snackBar: MatSnackBar,
+    public firebaseService: MyFirebaseService,
   ) {
 
     this.appId = parseInt(route.snapshot.params['id']);
@@ -278,80 +280,48 @@ export class AppDetailComponent implements OnInit {
     this.uploadFile.path = "user-profiles/" + this.userProfile.user + "/documents/";
     this.uploadFile.path = this.uploadFile.path + this.uploadFile.name;
 
-
-    this.fileUpload(this.uploadFile)
+    this.firebaseService.fileUpload(this.uploadFile)
       .subscribe(
-        res => {}
+        res => {
+          console.log('firebaseService.fileUpload.subscribe res',res);
+          let uploadTask = res;
+
+          //https://firebase.google.com/docs/storage/web/upload-files?authuser=0
+
+          // Register three observers:
+          // 1. 'state_changed' observer, called any time the state changes
+          // 2. Error observer, called on failure
+          // 3. Completion observer, called on successful completion
+
+          uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+            (snapshot:any) => {
+              // Observe state change events such as progress, pause, and resume
+              // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+              this.uploadProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+            },
+            (error)=> {
+
+            },
+            () => {
+              // Handle successful uploads on complete
+              // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+              //var downloadURL = uploadTask.snapshot.downloadURL;
+
+              //this.userProfile.form_url = uploadTask.snapshot.downloadURL;
+
+              //get the userProfile attribute that needs to be saved.
+              //Will this have a significant impact on speed? As opposed to just saving the event ID as a variable
+              this.userProfile[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
+              this.generalData.application.document_urls[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
+              this.uploadProgress = null;
+
+            });
+        },
+        err => {
+          this.snackBar.open(err,'',{ duration: 3000});
+        },
       )
-
-  }
-
-//TODO: Refactor this code into the firebase service
-  fileUpload(uploadFile: UploadFile){
-    return this.authService.getAPIKey("FIREBASE_CONFIG_KEYS")
-      .map(res => this.uploadFileFirebase(res, uploadFile))
-      .catch(err=>Observable.throw(err))
-  }
-
-  uploadFileFirebase(res: Response, uploadFile: UploadFile){
-
-
-
-    let config;
-    config = res['api_key'];
-
-    if (!firebase.apps.length) {
-      firebase.initializeApp(config);
-    }
-
-    uploadFile.name = config.toString();
-    //why does google documentation use var instead of ref
-
-    //preparing the firebase storage for upload
-    var storage = firebase.storage();
-    let storageRef = storage.ref();
-    let uploadRef = storageRef.child(uploadFile.path);
-    var metadata = {
-      contentType: uploadFile.file.type,
-      size: uploadFile.file.size,
-      name: uploadFile.file.name,
-    };
-
-
-    var uploadTask = uploadRef.put(uploadFile.file, metadata);
-
-    //https://firebase.google.com/docs/storage/web/upload-files?authuser=0
-
-    // Register three observers:
-    // 1. 'state_changed' observer, called any time the state changes
-    // 2. Error observer, called on failure
-    // 3. Completion observer, called on successful completion
-
-    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-      (snapshot:any) => {
-        // Observe state change events such as progress, pause, and resume
-        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-        this.uploadProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-
-      },
-      (error)=> {
-
-      },
-      () => {
-        // Handle successful uploads on complete
-        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-        //var downloadURL = uploadTask.snapshot.downloadURL;
-
-        //this.userProfile.form_url = uploadTask.snapshot.downloadURL;
-
-        //get the userProfile attribute that needs to be saved.
-        //Will this have a significant impact on speed? As opposed to just saving the event ID as a variable
-        this.userProfile[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
-        this.generalData.application.document_urls[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
-        this.uploadProgress = null;
-
-      });
-
 
   }
 

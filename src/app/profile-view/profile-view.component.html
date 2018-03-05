@@ -90,7 +90,7 @@
                        #uploadPicInput name="profile_pic_url">
               </div>
 
-              <mat-progress-bar style="margin-bottom: 1%;" *ngIf="uploadProgress" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
+              <mat-progress-bar *ngIf="uploadProgress" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
 
               <div class="col-sm-6">
                 <button mat-raised-button class="btn white-text" (click)="uploadProfilePic(uploadPicInput)">Upload</button>

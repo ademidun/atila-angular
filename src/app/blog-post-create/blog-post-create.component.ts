@@ -28,6 +28,7 @@ import 'tinymce/plugins/autolink';
 import 'tinymce/plugins/code';
 declare var tinymce: any;
 import * as $ from 'jquery';
+import {MyFirebaseService} from '../_services/myfirebase.service';
 
 @Component({
   selector: 'app-blog-post-create',
@@ -54,7 +55,8 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
     public authService: AuthService,
     public router: Router,
     public snackBar: MatSnackBar,
-    public route: ActivatedRoute,) {
+    public route: ActivatedRoute,
+    public firebaseService: MyFirebaseService,) {
 
       this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
       // this.options = {
@@ -248,8 +250,6 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
     var uploadPicFile = uploadPicInput.files[0];
 
 
-
-
     this.pictureFile = new UploadFile(uploadPicFile);
 
     // Instructions on how the file should be saved to the database
@@ -262,80 +262,42 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
 
 
     // the path where the file should be saved on firebase
-    this.pictureFile.path = "blogs/" + this.userProfile.user+ "/" + 1 + "/"
-    this.pictureFile.path = this.pictureFile.path + this.pictureFile.name
+    this.pictureFile.path = "blogs/" + this.userProfile.user+ "/" + 1 + "/";
+    this.pictureFile.path = this.pictureFile.path + this.pictureFile.name;
 
+    this.firebaseService.fileUpload(this.pictureFile)
+      .subscribe(
+        res => {
+          console.log('firebaseService.fileUpload.subscribe res',res);
+          let uploadTask = res;
 
-    this.fileUpload(this.pictureFile)
-    .subscribe(
-      res => {}
-    )
+          uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+            (snapshot:any) => {
+              this.uploadProgress = (uploadTask.snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 
+            },
+            (error)=> {
+              this.snackBar.open(error.message,'', {
+                duration: 5000
+              });
+            },
+            () => {
 
+              this.blogPost.header_image_url = uploadTask.snapshot.downloadURL;
+              this.uploadProgress = null;
+              this.saveBlog(false);
 
-  }
+            });
+        },
+        err => {
+          this.snackBar.open(err,'',{ duration: 3000});
+        },
+      )
 
-  //TODO: Refactor this code into the firebase service
-  //TODO:
-  fileUpload(uploadFile: UploadFile){
-    /**
-     * Upload handler which gets the Firebase API keys before we upload the file.
-     */
-    return this.authService.getAPIKey("FIREBASE_CONFIG_KEYS")
-    .map(res => this.uploadFileFirebase(res, uploadFile))
-    .catch(err=>Observable.throw(err))
-  }
-
-  //TODO: Refactor this code into the firebase service
-  //TODO: How can we get uploadFileFirebase to return an observable with the URL of the uploaded file
-  uploadFileFirebase(res: Response, uploadFile: UploadFile){
-
-
-
-    let config;
-    config = res['api_key'];
-
-    if (!firebase.apps.length) {
-      firebase.initializeApp(config);
-    }
-
-    //Initiliazing the firebase client
-    //https://angularfirebase.com/lessons/angular-file-uploads-to-firebase-storage/
-    //
-
-    uploadFile.name = config.toString();
-    var storage = firebase.storage();
-    let storageRef = storage.ref();
-    let uploadRef = storageRef.child(uploadFile.path);
-    var metadata = {
-      contentType: uploadFile.file.type,
-      size: uploadFile.file.size,
-      name: uploadFile.file.name,
-    };
-
-    var uploadTask = uploadRef.put(uploadFile.file, metadata);
-
-    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-    (snapshot:any) => {
-      var progress = (uploadTask.snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      this.uploadProgress = progress;
-
-    },
-    (error)=> {
-      this.snackBar.open(error.message,'', {
-        duration: 5000
-      });
-    },
-    () => {
-
-      this.blogPost.header_image_url = uploadTask.snapshot.downloadURL;
-      this.uploadProgress = null;
-      this.saveBlog(false);
-
-    });
 
 
   }
+
 
   convertToSlug(text){
       return text

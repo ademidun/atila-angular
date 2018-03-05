@@ -600,11 +600,38 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
 
     delete this.scholarship.submission_info['pdf_already_parsed'];
-    this.fileUpload(this.appFormFile)
+
+    this.firebaseService.fileUpload(this.appFormFile)
       .subscribe(
         res => {
-        }
+          console.log('firebaseService.fileUpload.subscribe res',res);
+          let uploadTask = res;
+          uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+            (snapshot:any) => {
+              // Observe state change events such as progress, pause, and resume
+              // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+              var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+            },
+            (error)=> {
+
+            },
+            () => {
+              // Handle successful uploads on complete
+              // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+              //var downloadURL = uploadTask.snapshot.downloadURL;
+
+              this.scholarship.form_url = uploadTask.snapshot.downloadURL;
+              this.showUploadLoading = false;
+
+            });
+        },
+        err => {
+          this.snackBar.open(err,'',{ duration: 3000});
+        },
       )
+
+
 
   }
 
@@ -612,71 +639,6 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
     delete this.scholarship.submission_info['pdf_already_parsed'];
   }
 
-  //TODO: Refactor this code into the firebase service
-  fileUpload(uploadFile: UploadFile){
-    return this.authService.getAPIKey("FIREBASE_CONFIG_KEYS")
-      .map(res => this.uploadFileFirebase(res, uploadFile))
-      .catch(err=>Observable.throw(err))
-  }
-
-  uploadFileFirebase(res: Response, uploadFile: UploadFile){
-    /**
-     * Refactor this into a firebase service, using streaming of observables.
-     */
-
-
-    let config;
-    config = res['api_key'];
-
-    if (!firebase.apps.length) {
-      firebase.initializeApp(config);
-    }
-
-    uploadFile.name = config.toString();
-    //why does google documentation use var instead of ref
-
-    //preparing the firebase storage for upload
-    var storage = firebase.storage();
-    let storageRef = storage.ref();
-    let uploadRef = storageRef.child(uploadFile.path);
-    var metadata = {
-      contentType: uploadFile.file.type,
-      size: uploadFile.file.size,
-      name: uploadFile.file.name,
-    };
-
-
-    var uploadTask = uploadRef.put(uploadFile.file, metadata);
-
-    //https://firebase.google.com/docs/storage/web/upload-files?authuser=0
-
-    // Register three observers:
-    // 1. 'state_changed' observer, called any time the state changes
-    // 2. Error observer, called on failure
-    // 3. Completion observer, called on successful completion
-
-    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-      (snapshot:any) => {
-        // Observe state change events such as progress, pause, and resume
-        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-
-      },
-      (error)=> {
-
-      },
-      () => {
-        // Handle successful uploads on complete
-        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-        //var downloadURL = uploadTask.snapshot.downloadURL;
-
-        this.scholarship.form_url = uploadTask.snapshot.downloadURL;
-        this.showUploadLoading = false;
-
-      });
-
-
-  }
 
   initializeLocations(){
     // See createLocations() int edit-scholarship or add-scholarship.component.ts

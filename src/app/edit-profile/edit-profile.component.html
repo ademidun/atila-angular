@@ -318,10 +318,11 @@
                   </div>
                 </div>
                 <div class="row">
-
-                    <button mat-raised-button class="btn white-text" (click)="uploadUserDocuments()" style="margin-left:1%">Upload Document</button>
+                  Progress: <p style="font-weight: bold">{{uploadProgress}}%</p>
+                  <mat-progress-bar *ngIf="uploadProgress" mode="determinate" [value]="uploadProgress"></mat-progress-bar>
+                    <button type="button" mat-raised-button class="btn white-text" (click)="uploadUserDocuments()" style="margin-left:1%">Upload Document</button>
                     <button type="submit" class="btn btn-success left" style="margin-left:1%">Save Profile</button>
-                    <button class="waves-effect waves-light btn right" (click)="switchPage()" style="margin-left:1%">Next</button>
+                    <button type="button" class="waves-effect waves-light btn right" (click)="switchPage()" style="margin-left:1%">Next</button>
                 </div>
         </div>
         <div [ngClass]='{hidden: profileInfo}'>
