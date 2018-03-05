@@ -280,6 +280,10 @@ export class AppDetailComponent implements OnInit {
     this.uploadFile.path = "user-profiles/" + this.userProfile.user + "/documents/";
     this.uploadFile.path = this.uploadFile.path + this.uploadFile.name;
 
+    if(!isNaN(this.userId)) {
+      this.uploadFile.metadata['owner'] = this.userId;
+    }
+
     this.firebaseService.fileUpload(this.uploadFile)
       .subscribe(
         res => {

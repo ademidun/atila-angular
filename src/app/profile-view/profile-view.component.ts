@@ -118,7 +118,6 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
 
     this.profilePicFile.metadata = {
       'owner': this.userProfile.user,
-      'testing': 'foobar',
     };
 
     this.firebaseService.fileUpload(this.profilePicFile)

@@ -141,7 +141,6 @@ export class MyFirebaseService {
       }
     });
 
-
     /**
      * Upload handler which gets the Firebase API keys before we upload the file.
      */

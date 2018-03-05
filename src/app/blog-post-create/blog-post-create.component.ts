@@ -258,13 +258,16 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
       model: "UserProfile",
       id: this.userProfile.user,
       fieldName: 'profile_pic_url'
-    }
+    };
 
 
     // the path where the file should be saved on firebase
     this.pictureFile.path = "blogs/" + this.userProfile.user+ "/" + 1 + "/";
     this.pictureFile.path = this.pictureFile.path + this.pictureFile.name;
 
+    if(!isNaN(this.userId)) {
+      this.pictureFile.metadata['owner'] = this.userId;
+    }
     this.firebaseService.fileUpload(this.pictureFile)
       .subscribe(
         res => {

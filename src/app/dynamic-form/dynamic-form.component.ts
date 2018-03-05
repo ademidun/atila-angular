@@ -393,15 +393,16 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
 
     this.uploadFile = new UploadFile(this.formFile);
     this.uploadFile.name = this.authService.hashFileName(this.formFile.name);
-    this.uploadFile.path = "scholarships/" + this.generalData.scholarship.id + "/application-documents/" + this.generalData.application.id + "/";
+    // todo use template string e.g. `scholarships/${this.generalData.scholarship.id}`
+    this.uploadFile.path = `scholarships/${this.generalData.scholarship.id}/application-documents/${this.generalData.application.owner}/${this.generalData.application.id}/`;
     this.uploadFile.path = this.uploadFile.path + this.uploadFile.name;
+    this.uploadFile.metadata['owner'] = this.generalData.application.owner;
 
     this.firebaseService.fileUpload(this.uploadFile)
       .subscribe(
         res => {
           console.log('firebaseService.fileUpload.subscribe res',res);
           let uploadTask = res;
-
 
           uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
             (snapshot:any) => {

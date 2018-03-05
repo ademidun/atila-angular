@@ -594,10 +594,14 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
       model: "Scholarship",
       id: this.scholarship.id,
       fieldName: 'form_url'
-    }
+    };
 
     this.appFormFile.path = "scholarships/" + this.scholarship.id + "/scholarship-templates/";
     this.appFormFile.path = this.appFormFile.path + this.appFormFile.name;
+
+    if(!isNaN(this.userId)) {
+      this.appFormFile.metadata['owner'] = this.userId;
+    }
 
 
     delete this.scholarship.submission_info['pdf_already_parsed'];
