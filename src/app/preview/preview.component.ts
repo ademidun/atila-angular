@@ -86,7 +86,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    document.body.style.backgroundColor = '#194F87';
     setTimeout(() => {
 
       this.toggleSearchModal();

@@ -586,6 +586,12 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
     //let uploadOperation: Observable<any>;
 
     //create Upload file and configure its properties before uploading.
+
+    if (!this.scholarship.id){
+      this.snackBar.open('Please login to Add Scholarshio');
+      return;
+
+    }
     this.showUploadLoading = true;
     this.appFormFile = new UploadFile(this.scholarshipFormFile);
     this.appFormFile.name = this.scholarshipFormFile.name;

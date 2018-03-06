@@ -1,37 +1,8 @@
 @import '../../styles.scss';
- /*
+
 .background-image {
+  background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
 
-  background: url('../../assets/img/bg-preview-1x.jpg') 1x center / cover;
-  //background: url('../../assets/img/bg-new-1x.jpg') no-repeat center center fixed;
-  //background: url('../../assets/img/bg-new-1x.jpg') 1x center / cover;
-  //background: url('https://images.unsplash.com/photo-1496317899792-9d7dbcd928a1?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=be65ab7d411929c176f6ded8f1b8bb99&auto=format&fit=crop&w=634&q=80')  no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-
-  //height: 450px;
-  //width: 100%;
-  //background-image: -webkit-image-set(
-  //    url('../../assets/img/bg-preview-1x.jpg') 1x center / cover,
-  //    url('../../assets/img/bg-preview-2x.jpg') 2x center / cover
-  //);
-}
-
-  */
-.background-image {
-  background: url('../../assets/img/bg-preview-1x.jpg') center / cover;
-  background-image: -webkit-image-set(
-    url('../../assets/img/bg-preview-1x.jpg') 1x center / cover,
-    url('../../assets/img/bg-preview-2x.jpg') 2x  center / cover
-  );
-  background-image: image-set(
-    url('../../assets/img/bg-preview-1x.jpg') 1x center / cover,
-    url('../../assets/img/bg-preview-2x.jpg') 2x center / cover
-  );
-  //height: 450px;
-  //width: 100%;
 }
 .container-fluid {
   padding-left: 0;
@@ -121,16 +92,6 @@ mat-form-field.location-div .mat-input-wrapper {
   color: white;
 }
 
-.semi-dark-background {
-  background-color: rgba(25, 79, 135, .18);
-
-  -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
-  -moz-animation: fadein 2s; /* Firefox < 16 */
-  -ms-animation: fadein 2s; /* Internet Explorer */
-  -o-animation: fadein 2s; /* Opera < 12.1 */
-  animation: fadein 2s;
-}
-
 .scholarship-btn-div {
   margin-top: 5.7%;
 }
@@ -158,48 +119,4 @@ mat-form-field.location-div .mat-input-wrapper {
     //margin-top: -3%;
   }
 
-}
-@media (max-width: 320px), (max-width: 481px) {
-  /* smartphones, iPhone, portrait 480x320 phones */
-  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
-
-  .background-image {
-    //background: url('https://images.unsplash.com/photo-1496317899792-9d7dbcd928a1?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=be65ab7d411929c176f6ded8f1b8bb99&auto=format&fit=crop&w=1534&q=80')  no-repeat center center fixed;
-    background: url('../../assets/img/bg-preview-mobile.jpg')  no-repeat center center fixed;
-    max-width: 100%;
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    height: auto;
-    background-position-x: 28%;
-  }
-
-  .preview-form {
-    //margin-top: -117%;
-  }
-
-/*
-  .form-header {
-    font-size: 3em;
-  }
-  .subheader {
-    padding-top: 50%;
-    width: 100%;
-  }
-  input[type = text] {
-    margin-bottom: 0;
-  }
-
-  .scholarship-btn {
-    margin: 1%;
-    background-color: #4080ff;
-    min-height: 100px !important;
-  }
-
-  .scholarship-btn-div {
-    margin-top: 0;
-  }
-
-*/
 }
