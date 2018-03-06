@@ -42,13 +42,20 @@
           </div>
 
 
-        <button mat-raised-button *ngIf=scholarship.is_automated (click)="getOrCreateApp()"
-        style="background-color: #4080ff; " class="white-text">Apply now</button>
 
-        <div  *ngIf=!scholarship.is_automated class="col-sm-12 col-md-4">
-          <p>Request Automation and we'll automate the scholarship for you.</p>
-          <button mat-raised-button (click)="requestAutomation()"
-                  style="background-color: #4080ff; min-height: 60px" class="white-text">Request Automation</button>
+        <div  class="col-sm-12 col-md-4">
+
+          <span *ngIf="scholarship.is_automated">
+            <button mat-raised-button (click)="getOrCreateApp()"
+                style="background-color: #4080ff; min-height: 60px" class="white-text">Apply now</button>
+          </span>
+
+          <span *ngIf="!scholarship.is_automated">
+            <p>Request Automation and we'll automate the scholarship for you.</p>
+            <button mat-raised-button (click)="requestAutomation()"
+                    style="background-color: #4080ff; min-height: 60px" class="white-text">Request Automation</button>
+          </span>
+
         </div>
 
       </div>
@@ -57,7 +64,7 @@
       <p>{{scholarship.description}}</p>
       <br>
 
-      <div *ngIf="(scholarship.extra_criteria | json) != '{}'"> <span style="font-size: larger">Other Criteria</span>
+      <div *ngIf="scholarship.extra_criteria"> <span style="font-size: larger">Other Criteria</span>
 
           <div *ngFor="let key of Object.keys(scholarship.extra_criteria)">
             <p><strong>{{key}}:</strong>{{scholarship.extra_criteria[key]}}</p>
@@ -81,7 +88,7 @@
       <div class="col-sm-12 forum-box">
           <h5 > Comments </h5>
 
-                  <mat-card class="comment-card">
+                  <mat-card class="comment-card" *ngIf="userComment" >
 
                     <mat-card-content>
                         <input id="comment_title" placeholder="Title" [(ngModel)]="userComment.title">

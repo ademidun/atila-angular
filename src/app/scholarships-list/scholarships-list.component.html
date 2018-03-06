@@ -110,9 +110,9 @@
                    target="_blank" title="Scholarship Spreadsheet">Tell us the link</a> and we'll automate it for you.</p>
 
               <div class="col-sm-12 center">
-                <a class="waves-effect waves-light btn scholarship-btn" (click)="previousPage()" [ngClass]="{'hidden': pageNo == '1'}"><i class="fa fa-caret-left" aria-hidden="true"></i>  Previous</a>
+                <a class="waves-effect waves-light btn scholarship-btn" (click)="previousPage()" [ngClass]="{hidden: pageNo == '1'}"><i class="fa fa-caret-left" aria-hidden="true"></i>  Previous</a>
                 <button mat-button (click)="nextPage()" disabled="true">{{pageNo}}</button>
-                <a class="waves-effect waves-light btn scholarship-btn" (click)="nextPage()" [ngClass]="{'hidden': pageNo == pageLen}">Next  <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+                <a class="waves-effect waves-light btn scholarship-btn" (click)="nextPage()" [ngClass]='{hidden:  pageNo == pageLen}'>Next  <i class="fa fa-caret-right" aria-hidden="true"></i></a>
               </div>
             </div>
           </div>

@@ -305,7 +305,10 @@ export class AppDetailComponent implements OnInit {
 
             },
             (error)=> {
-
+                  console.log('error', error);
+                  this.snackBar.open(JSON.stringify(error),'',{
+                    duration: 3000,
+                  })
             },
             () => {
               // Handle successful uploads on complete
@@ -323,6 +326,7 @@ export class AppDetailComponent implements OnInit {
             });
         },
         err => {
+          console.log('err', err);
           this.snackBar.open(err,'',{ duration: 3000});
         },
       )

@@ -394,10 +394,13 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     this.uploadFile = new UploadFile(this.formFile);
     this.uploadFile.name = this.authService.hashFileName(this.formFile.name);
     // todo use template string e.g. `scholarships/${this.generalData.scholarship.id}`
-    this.uploadFile.path = `scholarships/${this.generalData.scholarship.id}/application-documents/${this.generalData.application.owner}/${this.generalData.application.id}/`;
+    this.uploadFile.path = `scholarships/${this.generalData.scholarship.id}/application-documents/${this.generalData.application.user}/${this.generalData.application.id}/`;
     this.uploadFile.path = this.uploadFile.path + this.uploadFile.name;
+
+    console.log('this.uploadFile.path ',this.uploadFile.path );
     this.uploadFile.metadata['owner'] = this.generalData.application.owner;
 
+    // todo show snackbar error handler if upload fails
     this.firebaseService.fileUpload(this.uploadFile)
       .subscribe(
         res => {
@@ -409,8 +412,8 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
               this.uploadProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 
             },
-            (error)=> {
-
+            (err)=> {
+              console.log('err', err);
             },
             () => {
               this.generalData.application.document_urls[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
@@ -420,6 +423,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
             });
         },
         err => {
+          console.log('err', err);
           this.snackBar.open(err,'',{ duration: 3000});
         },
       )
