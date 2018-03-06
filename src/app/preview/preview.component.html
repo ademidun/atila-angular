@@ -11,11 +11,10 @@
   <div class="background-image" >
     <div class="preview-form container row">
       <form #previewForm="ngForm" (ngSubmit)="onSubmit(previewForm)" class="col-sm-12">
-        <div class="semi-dark-background">
 
           <h1 style="margin-bottom: 0" class="form-header">Find Your Scholarships</h1>
           <h2 class="form-header" style="margin-bottom: 0;font-size: larger;">Automatically find and apply to scholarships in one click.</h2>
-          <div style="margin-bottom: -22px; font-size: x-large" class="row preview-questions">
+          <div style="margin-bottom: -22px; font-size: x-large" class="row preview-questions white-placeholder">
 
             <!-- Try using Google Maps Places Autocomplete API: https://developers.google.com/maps/documentation/javascript/places-autocomplete#address_forms -->
             <!-- https://stackoverflow.com/questions/42341930/google-places-autocomplete-angular2 -->
@@ -38,7 +37,6 @@
             </mat-form-field>
 
           </div>
-        </div>
         <br>
         <p *ngIf="model.errors" style="color: white">
           {{model.errors}}
@@ -58,7 +56,7 @@
   <!--Youtube video demo-->
   <div class="container">
     <h1 style="color: #2cb5e8; text-align: center" class="col"> Live Demo </h1>
-    <div class="videowrapper col-sm-10 offset-sm-2">
+    <div class="videowrapper col-sm-12 center-block">
       <iframe src="//www.youtube.com/embed/c_K4342WMwQ?cc_load_policy=1" width="560" height="314"
               allowfullscreen="allowfullscreen">
       </iframe>
@@ -69,15 +67,15 @@
     <p style="font-size: medium" class="col-sm-6">Subscribe to get updates on new scholarships, <a routerLink="/blog" style="text-decoration: underline; color: #68b9ff">blog</a> and
       <a routerLink="/forum" style="text-decoration: underline; color: #68b9ff">forum posts</a>, and new product features.
 
-      <span *ngIf="subscriber.response" style="color: greenyellow">
+      <span *ngIf="subscriber.response" style="color: green">
                       <br>
                       {{subscriber.response}}
                     </span>
     </p>
 
-    <mat-form-field class="browser-default col-sm-3 ">
+    <mat-form-field class="browser-default col-sm-3 dark-placeholder">
       <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
-      <input matInput type="email" class="form-control" style="padding-bottom: 0; margin-bottom: 0"  name="email" id="emailid"
+      <input matInput type="email" class="form-control" style="padding-bottom: 0; margin-bottom: 0; color: #194F87"  name="email" id="emailid"
              placeholder="Email Address" email [(ngModel)]="subscriber.email" (keyup.enter)="addSubscriber($event)">
     </mat-form-field>
     <a class="waves-effect waves-light btn browser-default col-sm-2" style="background-color:#4080ff; margin-top: 3.7% " (click)="addSubscriber()">Subscribe</a>

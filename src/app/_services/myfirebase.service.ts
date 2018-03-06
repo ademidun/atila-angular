@@ -126,7 +126,7 @@ export class MyFirebaseService {
 
 
   //reference: https://angularfirebase.com/lessons/angular-file-uploads-to-firebase-storage/
-  // todo show snackbar error handler if upload fails
+  // toodo show snackbar error handler if upload fails
   fileUpload(uploadFile: UploadFile){
 
     if (!firebase.apps.length) {
