@@ -11,6 +11,7 @@ import * as firebase from "firebase";
 //ES6 style imports
 //https://stackoverflow.com/questions/39415661/what-does-resolves-to-a-non-module-entity-and-cannot-be-imported-using-this
 
+import { map, filter, catchError, timeout, flatMap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import {environment} from '../../environments/environment';
 @Injectable()
@@ -20,6 +21,7 @@ export class AuthService {
   public userUrl = environment.apiUrl + 'users/';
   public usernameUrl = environment.apiUrl + 'user-name/';
   public apiKeyUrl = environment.apiUrl + 'api-keys/';
+  public authUrl = environment.apiUrl + 'auth/';
   public  isLoggedIn: boolean = false; //should this be public or protected?
   public secretKey:string;
   token: string;

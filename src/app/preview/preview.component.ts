@@ -86,18 +86,20 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    setTimeout(() => {
+    /**
+     * setTimeout(() => {
 
       this.toggleSearchModal();
 
     }, 7000);
 
 
-    setTimeout(() => {
+     setTimeout(() => {
 
       this.toggleSearchModal();
 
     }, 18000);
+     */
 
   }
 
@@ -253,6 +255,12 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
 
   toggleSearchModal(data?:any){
+
+    // disable search Modal until we figure out how to make it less annoying
+
+    if(this){
+      return;
+    }
     if(data && data['toggle']) {
       const isOpen = this.popover.isOpen();
       if(isOpen){

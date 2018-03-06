@@ -143,8 +143,8 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
           });
       },
     err => {
-                      this.showSnackBar(err,'', 3000);
-                    },
+                  this.showSnackBar(err,'', 3000);
+                },
     )
 
   }

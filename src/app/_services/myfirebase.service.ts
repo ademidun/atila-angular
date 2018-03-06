@@ -127,20 +127,26 @@ export class MyFirebaseService {
 
   //reference: https://angularfirebase.com/lessons/angular-file-uploads-to-firebase-storage/
   // toodo show snackbar error handler if upload fails
-  fileUpload(uploadFile: UploadFile){
+
+  //TODO refactor so user gets automatically resigned in to server without forcing re-signing in.
+  fileUpload(uploadFile: UploadFile, options={}){
+
+    console.log('options',options);
 
     if (!firebase.apps.length) {
       firebase.initializeApp(environment.firebase);
     }
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        // User is signed in.
-        console.log('user', user)
-      } else {
-        // No user is signed in.
-        console.log('not signed in', user)
+    let user = firebase.auth().currentUser;
+
+    if (user) {
+      // User is signed in.
+
+    } else {
+      // User is logged in to Atila but not Firebase
+      if(this.authService.isLoggedIn && !options['demoMode'] ) {
+        return Observable.throw('Session Expired. Please log in again.')
       }
-    });
+    }
 
     /**
      * Upload handler which gets the Firebase API keys before we upload the file.

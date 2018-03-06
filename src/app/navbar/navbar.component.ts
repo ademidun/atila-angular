@@ -7,6 +7,7 @@ import { UserProfile } from '../_models/user-profile';
 import { MatSnackBar} from '@angular/material';
 import { Router } from '@angular/router';
 import {environment} from '../../environments/environment';
+import {MyFirebaseService} from '../_services/myfirebase.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -21,10 +22,13 @@ export class NavbarComponent implements OnInit {
     email: '',
   };
 
+  userId: any;
+
   public query: any;
   constructor(
     public userProfileService: UserProfileService,
     public authService: AuthService,
+    public firebaseService: MyFirebaseService,
     public snackBar: MatSnackBar,
     public router: Router,
 
@@ -32,11 +36,12 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.authService.isLoggedIn =false;
+    this.userId =  this.authService.decryptLocalStorage('uid');
+    console.log('(this.userId', this.userId, isNaN(this.userId));
+
     if (this.userProfileService.isLoggedIn()) {
       this.isLoggedIn = true;
       this.authService.isLoggedIn = true;
-
-
     }
 
     if (this.authService.decryptLocalStorage('uid')) {

@@ -74,11 +74,11 @@ export class ScholarshipsListComponent implements OnInit {
             this.editProfileModal();
           }, 5000);
 
-          setTimeout(() => {
-
-            this.toggleSearchModal();
-
-          }, 1000);
+          // setTimeout(() => {
+          //
+          //   this.toggleSearchModal();
+          //
+          // }, 1000);
 
           this.getScholarshipPreview(this.pageNo);
         }
@@ -87,11 +87,11 @@ export class ScholarshipsListComponent implements OnInit {
     else {
       this.isLoggedIn = false;
 
-      setTimeout(() => {
-
-        this.toggleSearchModal();
-
-      }, 1000);
+      // setTimeout(() => {
+      //
+      //   this.toggleSearchModal();
+      //
+      // }, 1000);
 
       this.scholarshipService.getScholarshipPreviewForm()
       .then(
@@ -228,6 +228,9 @@ export class ScholarshipsListComponent implements OnInit {
 
   toggleSearchModal(data?:any){
 
+    if(this){
+      return;
+    }
     if(data && data['toggle']) {
       const isOpen = this.popover.isOpen();
       if(isOpen){

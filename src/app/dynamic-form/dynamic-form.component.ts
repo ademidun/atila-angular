@@ -400,8 +400,12 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     console.log('this.uploadFile.path ',this.uploadFile.path );
     this.uploadFile.metadata['owner'] = this.generalData.application.owner;
 
+    let options = {};
+    if(this.generalData.demoMode) {
+      options['demoMode'] = true;
+    }
     // todo show snackbar error handler if upload fails
-    this.firebaseService.fileUpload(this.uploadFile)
+    this.firebaseService.fileUpload(this.uploadFile,options)
       .subscribe(
         res => {
           console.log('firebaseService.fileUpload.subscribe res',res);
@@ -424,6 +428,8 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
             });
         },
         err => {
+
+          console.log('firebaseService.fileUpload.subscribe err',err);
           this.snackBar.open(err,'',{ duration: 3000});
         },
       )
