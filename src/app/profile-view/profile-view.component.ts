@@ -131,7 +131,8 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
 
           },
           (error)=> {
-              console.log('firebaseService.fileUpload error',error);
+            this.snackBar.open('Upload Error','',{ duration: 3000});
+            this.uploadProgress = null;
           },
           () => {
 

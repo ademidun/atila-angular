@@ -619,6 +619,11 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
             },
             (error)=> {
+              this.snackBar.open('Upload Error','',{
+                duration: 3000,
+              });
+              this.uploadProgress = null;
+              this.showUploadLoading = false;
 
             },
             () => {
@@ -635,8 +640,6 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
           this.snackBar.open(err,'',{ duration: 3000});
         },
       )
-
-
 
   }
 

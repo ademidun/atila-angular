@@ -254,6 +254,7 @@ initializeLocations(cities: Array<any>){
     this.uploadFile.metadata['original_name'] = this.uploadFile.name;
     this.uploadFile.metadata['owner'] = this.userProfile.user;
     this.uploadFile.name = this.authService.hashFileName(this.formFile.name);
+    // this.uploadFile.path = "user-profiles/" + this.userProfile.user + "/documents/";
     this.uploadFile.path = "user-profiles/" + this.userProfile.user + "/documents/";
     this.uploadFile.path = this.uploadFile.path + this.uploadFile.name;
 
@@ -269,6 +270,8 @@ initializeLocations(cities: Array<any>){
             },
             (error) => {
 
+              this.snackBar.open('Upload Error','',{ duration: 3000});
+              this.uploadProgress = null;
             },
             () => {
               // Handle successful uploads on complete
@@ -286,7 +289,6 @@ initializeLocations(cities: Array<any>){
             });
         },
         err => {
-          console.log(err,'err');
           this.showSnackBar(err.message,'', 3000);
         },);
 

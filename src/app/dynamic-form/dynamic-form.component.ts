@@ -413,7 +413,8 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
 
             },
             (err)=> {
-              console.log('err', err);
+              this.snackBar.open('Upload Error','',{ duration: 3000});
+              this.uploadProgress = null;
             },
             () => {
               this.generalData.application.document_urls[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
@@ -423,7 +424,6 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
             });
         },
         err => {
-          console.log('err', err);
           this.snackBar.open(err,'',{ duration: 3000});
         },
       )

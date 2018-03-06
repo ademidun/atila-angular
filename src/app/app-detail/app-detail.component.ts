@@ -305,10 +305,10 @@ export class AppDetailComponent implements OnInit {
 
             },
             (error)=> {
-                  console.log('error', error);
-                  this.snackBar.open(JSON.stringify(error),'',{
+                  this.snackBar.open('Upload Error','',{
                     duration: 3000,
-                  })
+                  });
+                  this.uploadProgress = null;
             },
             () => {
               // Handle successful uploads on complete
