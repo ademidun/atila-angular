@@ -62,7 +62,7 @@ export class ForumDetailComponent implements OnInit {
           });
         }
         catch (err) {
-          console.log('seoService Error', err);
+
         }
         this.forum.starting_comment = null;
         this.titleService.setTitle( this.forum.title + ' - Atila Forum');

@@ -279,7 +279,7 @@ export class AppDetailComponent implements OnInit {
     this.uploadFile.name = this.authService.hashFileName(this.formFile.name);
     this.uploadFile.path = "user-profiles/" + this.userProfile.user + "/documents/";
     if(this.userProfile.metadata['test_mode']) {
-      console.log('test_mode,this.userProfile',this.userProfile.metadata['test_mode'], this.userProfile);
+
       this.uploadFile.path = "user-profiles/" + 777+ "/documents/";
     }
     this.uploadFile.path = this.uploadFile.path + this.uploadFile.name;
@@ -292,7 +292,7 @@ export class AppDetailComponent implements OnInit {
     this.firebaseService.fileUpload(this.uploadFile)
       .subscribe(
         res => {
-          console.log('firebaseService.fileUpload.subscribe res',res);
+
           let uploadTask = res;
 
           //https://firebase.google.com/docs/storage/web/upload-files?authuser=0
@@ -328,12 +328,12 @@ export class AppDetailComponent implements OnInit {
               this.generalData.application.document_urls[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
               this.uploadProgress = null;
 
-              this.snackBar.open('File successfully uploaded.');
+              this.snackBar.open('File successfully uploaded.','',{ duration: 3000});
 
             });
         },
         err => {
-          console.log('err', err);
+
           this.snackBar.open(err,'',{ duration: 3000});
         },
       )

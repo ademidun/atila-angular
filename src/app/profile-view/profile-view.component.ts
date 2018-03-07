@@ -116,7 +116,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
     this.profilePicFile.path = "user-profiles/" + this.userProfile.user+ "/profile-pictures/";
 
     if(this.userProfile.metadata['test_mode']) {
-      console.log('test_mode,this.userProfile',this.userProfile.metadata['test_mode'], this.userProfile);
+
       this.profilePicFile.path = "user-profiles/" + 777+ "/profile-pictures/";
     }
 
@@ -129,7 +129,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
     this.firebaseService.fileUpload(this.profilePicFile)
     .subscribe(
       res => {
-        console.log('firebaseService.fileUpload.subscribe res',res);
+
         let uploadTask = res;
         uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
           (snapshot:any) => {

@@ -142,11 +142,11 @@ EDUCATION_FIELD = [
       .subscribe(query => {
         this.scholarshipService.searchSchools(query)
           .then(res => {
-            console.log('res',res);
+
             return this.filteredOptions = res.map(element => element['name']);
           },
             err => {
-              console.log('err',err);
+
           });
       });
       */
@@ -257,7 +257,7 @@ initializeLocations(cities: Array<any>){
     // this.uploadFile.path = "user-profiles/" + this.userProfile.user + "/documents/";
     this.uploadFile.path = "user-profiles/" + this.userProfile.user + "/documents/";
     if(this.userProfile.metadata['test_mode']) {
-      console.log('test_mode,this.userProfile',this.userProfile.metadata['test_mode'], this.userProfile);
+
       this.uploadFile.path = "user-profiles/" + 777+ "/documents/";
     }
     this.uploadFile.path = this.uploadFile.path + this.uploadFile.name;
@@ -266,7 +266,7 @@ initializeLocations(cities: Array<any>){
     this.firebaseService.fileUpload(this.uploadFile)
       .subscribe(
         res => {
-          console.log('firebaseService.fileUpload.subscribe res', res);
+
           let uploadTask = res;
           uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
             (snapshot: any) => {

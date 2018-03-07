@@ -272,7 +272,7 @@
                         <div class="row">
                           <p>Add an application form.</p>
                           <div class="col-sm-6">
-                            <label>Upload an application form</label>
+                            <label>Upload an application form <span *ngIf="!scholarship.id">Create Scholarship first.</span></label>
                             <input class="browser-default" id="form_url" type="file" placeholder="Application Form" name="form_url" (change)="scholarshipAppFormChangeEvent($event)">
                           </div>
                           <div class="col-sm-6">

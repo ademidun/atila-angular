@@ -66,7 +66,6 @@ export class BlogPostDetailComponent implements OnInit {
           });
         }
         catch (err) {
-          console.log('seoService Error', err);
         }
 
         this.titleService.setTitle(this.blogPost.title + ' - Atila');

@@ -588,7 +588,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
     //create Upload file and configure its properties before uploading.
 
     if (!this.scholarship.id){
-      this.snackBar.open('Please login to Add Scholarshio');
+      this.snackBar.open('Create Scholarship before uploading form','',{ duration: 3000});
       return;
 
     }
@@ -615,7 +615,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
     this.firebaseService.fileUpload(this.appFormFile)
       .subscribe(
         res => {
-          console.log('firebaseService.fileUpload.subscribe res',res);
+
           let uploadTask = res;
           uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
             (snapshot:any) => {

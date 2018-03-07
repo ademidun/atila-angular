@@ -103,15 +103,15 @@ export class TeamComponent implements OnInit {
 
     let metaTags = {
       title: 'Meet the Atila Team',
-      description: 'Meet the people who helped build Atila.',
-      image: 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-team-header.png?alt=media&token=e44a9f6b-3de8-4257-b302-acdb2baf37dd',
+      description: 'Meet the people helping build Atila.',
+      image: 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-team-header-2.png?alt=media&token=ce8b7b97-9796-4c44-b7ab-7c0b65f0b6d5',
       slug: 'team',
     };
     seoService.generateTags(metaTags);
   }
 
   ngOnInit() {
-    console.log(this.teamData);
+
   }
 
 }

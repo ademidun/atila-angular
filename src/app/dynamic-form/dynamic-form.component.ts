@@ -397,14 +397,14 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     this.uploadFile.path = `scholarships/${this.generalData.scholarship.id}/application-documents/${this.generalData.application.user}/${this.generalData.application.id}/`;
 
     if(this.generalData.application.metadata['test_mode']) {
-      console.log('test_mode,this.generalData',this.generalData.application.metadata['test_mode'], this.generalData);
-      this.uploadFile.path = `scholarships/${this.generalData.scholarship.id}/application-documents/${this.generalData.application.user}/${this.generalData.application.id}/`;
+
+      this.uploadFile.path = `scholarships/${this.generalData.scholarship.id}/application-documents/777/${this.generalData.application.id}/`;
     }
 
     this.uploadFile.path = this.uploadFile.path + this.uploadFile.name;
 
 
-    console.log('this.uploadFile.path ',this.uploadFile.path );
+
     this.uploadFile.metadata['owner'] = this.generalData.application.owner;
 
     let options = {};
@@ -415,7 +415,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     this.firebaseService.fileUpload(this.uploadFile,options)
       .subscribe(
         res => {
-          console.log('firebaseService.fileUpload.subscribe res',res);
+
           let uploadTask = res;
 
           uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
@@ -433,12 +433,12 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
 
               this.uploadProgress = null;
 
-              this.snackBar.open('File successfully uploaded.');
+              this.snackBar.open('File successfully uploaded.','',{ duration: 3000});
             });
         },
         err => {
 
-          console.log('firebaseService.fileUpload.subscribe err',err);
+
           this.snackBar.open(err,'',{ duration: 3000});
         },
       )

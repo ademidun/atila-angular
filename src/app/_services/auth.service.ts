@@ -53,10 +53,10 @@ export class AuthService {
        .map(res=>{
 
            let data: any = res;
-           console.log('data',data);
+
            this.encryptlocalStorage('token', data.token);
            this.encryptlocalStorage('firebase_token', data.firebase_token);
-           console.log('data',this.decryptLocalStorage('firebase_token'));
+
 
            // this.cookieService.putObject('userId', data.id);
            this.encryptlocalStorage('uid',data.id);
@@ -64,15 +64,15 @@ export class AuthService {
            try {
              firebase.auth().signInWithCustomToken(data.firebase_token)
                .then(res2 => {
-                 console.log('signInWithCustomToken res2',res2);
+
                })
                .catch(error => {
                  // Handle Errors here.
-                 console.log('error', error);
+
                });
            }
            catch (err) {
-             console.log('firebase auth error', err);
+
            }
            return res;
        })

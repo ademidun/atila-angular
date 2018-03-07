@@ -271,7 +271,7 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
     this.firebaseService.fileUpload(this.pictureFile)
       .subscribe(
         res => {
-          console.log('firebaseService.fileUpload.subscribe res',res);
+
           let uploadTask = res;
 
           uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,

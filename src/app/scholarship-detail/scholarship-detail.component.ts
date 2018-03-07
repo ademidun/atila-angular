@@ -72,9 +72,9 @@ export class ScholarshipDetailComponent implements OnInit {
 
           this.scholarship = scholarship;
 
-          console.log("scholarship", scholarship);
-          console.log("scholarship.extra_criteria", scholarship.extra_criteria);
-          console.log("Object.keys(scholarship.extra_criteria)",Object.keys(scholarship.extra_criteria));
+
+
+
 
           this.seoService.generateTags({
             title: this.scholarship.name,
@@ -98,7 +98,7 @@ export class ScholarshipDetailComponent implements OnInit {
 
               },
               err => {
-                console.log('err', err);
+
               }
             )
           }
@@ -124,7 +124,7 @@ export class ScholarshipDetailComponent implements OnInit {
 
         },
         err => {
-              console.log('err',err);
+
         },
 
         () => {

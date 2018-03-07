@@ -131,7 +131,7 @@ export class MyFirebaseService {
   //TODO refactor so user gets automatically resigned in to server without forcing re-signing in.
   fileUpload(uploadFile: UploadFile, options={}){
 
-    console.log('options',options);
+
 
     if (!firebase.apps.length) {
       firebase.initializeApp(environment.firebase);
@@ -156,7 +156,7 @@ export class MyFirebaseService {
       return Observable.throw('File size must be less than 25 MB.');
     }
 
-    console.log('uploadFile', uploadFile);
+
     return this.authService.getAPIKey("FIREBASE_CONFIG_KEYS")
       .map(res => {
         return this.uploadFileFirebase(res, uploadFile)
@@ -190,7 +190,7 @@ export class MyFirebaseService {
     };
 
 
-    console.log('uploadFileFirebase', uploadRef, metadata);
+
 
     return uploadRef.put(uploadFile.file, metadata);
 
