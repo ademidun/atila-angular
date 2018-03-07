@@ -256,6 +256,10 @@ initializeLocations(cities: Array<any>){
     this.uploadFile.name = this.authService.hashFileName(this.formFile.name);
     // this.uploadFile.path = "user-profiles/" + this.userProfile.user + "/documents/";
     this.uploadFile.path = "user-profiles/" + this.userProfile.user + "/documents/";
+    if(this.userProfile.metadata['test_mode']) {
+      console.log('test_mode,this.userProfile',this.userProfile.metadata['test_mode'], this.userProfile);
+      this.uploadFile.path = "user-profiles/" + 777+ "/documents/";
+    }
     this.uploadFile.path = this.uploadFile.path + this.uploadFile.name;
 
 

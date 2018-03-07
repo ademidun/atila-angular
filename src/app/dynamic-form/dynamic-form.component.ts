@@ -395,7 +395,14 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     this.uploadFile.name = this.authService.hashFileName(this.formFile.name);
     // todo use template string e.g. `scholarships/${this.generalData.scholarship.id}`
     this.uploadFile.path = `scholarships/${this.generalData.scholarship.id}/application-documents/${this.generalData.application.user}/${this.generalData.application.id}/`;
+
+    if(this.generalData.application.metadata['test_mode']) {
+      console.log('test_mode,this.generalData',this.generalData.application.metadata['test_mode'], this.generalData);
+      this.uploadFile.path = `scholarships/${this.generalData.scholarship.id}/application-documents/${this.generalData.application.user}/${this.generalData.application.id}/`;
+    }
+
     this.uploadFile.path = this.uploadFile.path + this.uploadFile.name;
+
 
     console.log('this.uploadFile.path ',this.uploadFile.path );
     this.uploadFile.metadata['owner'] = this.generalData.application.owner;
@@ -425,6 +432,8 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
               this.generalData.application.responses[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
 
               this.uploadProgress = null;
+
+              this.snackBar.open('File successfully uploaded.');
             });
         },
         err => {

@@ -98,9 +98,9 @@ export class AuthService {
 
    public decryptLocalStorage(key:string){
 
-      var encryptedData = localStorage.getItem(key);
+      let encryptedData = localStorage.getItem(key);
 
-      var decryptedValue = '';
+      let decryptedValue = '';
       if (encryptedData){
         decryptedValue = CryptoJS.AES.decrypt(encryptedData, this.secretKey).toString(CryptoJS.enc.Utf8);
         return decryptedValue;

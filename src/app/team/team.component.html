@@ -8,8 +8,8 @@
       <div  class="center center-block">
         <mat-card-title><h4>{{member.first_name}} {{member.last_name}} </h4></mat-card-title>
         <mat-card-subtitle class="title"><h5>{{member.position}}</h5></mat-card-subtitle>
-        <a routerLink="/profile/kitan" class="btn-link">Profile</a> |
-        <a class="btn-link" href="http://tomiwa.ca/">{{member.first_name}}'s {{member.link_type}}</a>
+        <a *ngIf="member.username" routerLink="/profile/{{member.username}}" class="btn-link">Profile |</a>
+        <a *ngIf="member.link_url" class="btn-link" href="{{member.link_url}}">{{member.link_type}}</a>
       </div>
     </mat-card-header>
 

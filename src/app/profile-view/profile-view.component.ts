@@ -114,6 +114,12 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
 
     // the path where the file should be saved on firebase
     this.profilePicFile.path = "user-profiles/" + this.userProfile.user+ "/profile-pictures/";
+
+    if(this.userProfile.metadata['test_mode']) {
+      console.log('test_mode,this.userProfile',this.userProfile.metadata['test_mode'], this.userProfile);
+      this.profilePicFile.path = "user-profiles/" + 777+ "/profile-pictures/";
+    }
+
     this.profilePicFile.path = this.profilePicFile.path + this.profilePicFile.name;
 
     this.profilePicFile.metadata = {

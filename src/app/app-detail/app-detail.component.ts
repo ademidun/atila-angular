@@ -278,11 +278,16 @@ export class AppDetailComponent implements OnInit {
     this.uploadFile = new UploadFile(this.formFile);
     this.uploadFile.name = this.authService.hashFileName(this.formFile.name);
     this.uploadFile.path = "user-profiles/" + this.userProfile.user + "/documents/";
+    if(this.userProfile.metadata['test_mode']) {
+      console.log('test_mode,this.userProfile',this.userProfile.metadata['test_mode'], this.userProfile);
+      this.uploadFile.path = "user-profiles/" + 777+ "/documents/";
+    }
     this.uploadFile.path = this.uploadFile.path + this.uploadFile.name;
 
     if(!isNaN(this.userId)) {
       this.uploadFile.metadata['owner'] = this.userId;
     }
+
 
     this.firebaseService.fileUpload(this.uploadFile)
       .subscribe(
@@ -322,6 +327,8 @@ export class AppDetailComponent implements OnInit {
               this.userProfile[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
               this.generalData.application.document_urls[this.formFileEvent.target.id] = uploadTask.snapshot.downloadURL;
               this.uploadProgress = null;
+
+              this.snackBar.open('File successfully uploaded.');
 
             });
         },
