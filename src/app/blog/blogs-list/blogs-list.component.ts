@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { BlogPostService } from "../_services/blog-post.service";
+import { BlogPostService } from "../../_services/blog-post.service";
 
-import { BlogPost, likeContent } from "../_models/blog-post";
-import { Comment } from "../_models/comment";
+import { BlogPost, likeContent } from "../../_models/blog-post";
+import { Comment } from "../../_models/comment";
 
-import { UserProfile } from '../_models/user-profile';
+import { UserProfile } from '../../_models/user-profile';
 
-import { UserProfileService } from '../_services/user-profile.service';
-import { AuthService } from "../_services/auth.service";
+import { UserProfileService } from '../../_services/user-profile.service';
+import { AuthService } from "../../_services/auth.service";
 import {MatSnackBar} from '@angular/material';
-import { MyFirebaseService} from '../_services/myfirebase.service';
+import { MyFirebaseService} from '../../_services/myfirebase.service';
 @Component({
   selector: 'app-blogs-list',
   templateUrl: './blogs-list.component.html',

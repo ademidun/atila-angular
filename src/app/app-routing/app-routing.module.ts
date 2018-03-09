@@ -13,18 +13,14 @@ import { AppDetailComponent } from '../app-detail/app-detail.component';
 
 import { ProfileViewComponent } from '../profile-view/profile-view.component';
 import { MessagesComponent } from '../messages/messages.component';
-import { ForumsListComponent } from '../forums-list/forums-list.component';
-import { ForumDetailComponent } from '../forum-detail/forum-detail.component';
-
-import { BlogsListComponent } from '../blogs-list/blogs-list.component';
-import { BlogPostCreateComponent } from '../blog-post-create/blog-post-create.component';
-import { BlogPostDetailComponent } from "../blog-post-detail/blog-post-detail.component";
 
 import { AuthGuard } from '../_guards/auth.guard';
 import {TeamComponent} from '../team/team.component';
 import {VerifyComponent} from '../verify/verify.component';
 import {TermsConditionsComponent} from '../terms-conditions/terms-conditions.component';
 import {SearchComponent} from '../search/search.component';
+import {BlogModule} from '../blog/blog.module';
+import {ForumModule} from '../forum/forum.module';
 
 const routes: Routes = [
   { path: '' , component: PreviewComponent, data: {title: 'Atila | Automated Scholarships. The Right Way'}},
@@ -40,13 +36,14 @@ const routes: Routes = [
   { path: 'profile/my-scholarships' , component: ProfileViewComponent, data: {title: 'Atila - My Scholarships'}},
   { path: 'profile/:username' , component: ProfileViewComponent, data: {title: 'Profile - Atila'}},
   { path: 'profile/:username/my-atila' , component: ProfileViewComponent, data: {title: 'Profile - Atila'}},
-  { path: 'blog' , component: BlogsListComponent, data: {title: 'Atila - Blogs List'}},
-  { path: 'blog/add' , component: BlogPostCreateComponent, data: {title: 'Create Blog Post - Atila'}},
-  { path: 'blog/edit/:id' , component: BlogPostCreateComponent, data: {title: 'Edit Blog Post - Atila'}},
-  { path: 'blog/:username' , component: ProfileViewComponent, data: {title: 'Profile - Atila'}},
-  { path: 'blog/:username/:slug' , component: BlogPostDetailComponent, data: {title: 'Blog Post - Atila'}},
-  { path: 'forum' , component: ForumsListComponent, data: {title: 'Forums - Atila'}},
-  { path: 'forum/:slug' , component: ForumDetailComponent, data: {title: 'Forums - Atila'}},
+  {
+    path: 'blog',
+    loadChildren: '../blog/blog.module#BlogModule'
+  },
+  {
+    path: 'forum',
+    loadChildren: '../forum/forum.module#ForumModule'
+  },
   { path: 'messages' , component: MessagesComponent, data: {title: 'My Messages - Atila'}},
   { path: 'preview' , component: PreviewComponent, data: {title: 'Atila - Preview'}},
   { path: 'login' , component: LoginComponent, data: {title: 'Login - Atila'}},

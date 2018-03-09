@@ -1,24 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { BlogPostService } from "../_services/blog-post.service";
+import { BlogPostService } from "../../_services/blog-post.service";
 
-import { BlogPost, likeContent} from "../_models/blog-post";
-import { Comment } from "../_models/comment";
+import { BlogPost, likeContent} from "../../_models/blog-post";
+import { Comment } from "../../_models/comment";
 
-import { UserProfile } from '../_models/user-profile';
+import { UserProfile } from '../../_models/user-profile';
 
-import { UserProfileService } from '../_services/user-profile.service';
+import { UserProfileService } from '../../_services/user-profile.service';
 
-import { CommentService } from '../_services/comment.service';
+import { CommentService } from '../../_services/comment.service';
 
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { NgZone } from '@angular/core';
 import {Meta, Title} from '@angular/platform-browser';
 
-import { AuthService } from "../_services/auth.service";
+import { AuthService } from "../../_services/auth.service";
 import {MatSnackBar} from '@angular/material';
-import {MyFirebaseService} from '../_services/myfirebase.service';
-import {SeoService} from '../_services/seo.service';
+import {MyFirebaseService} from '../../_services/myfirebase.service';
+import {SeoService} from '../../_services/seo.service';
 
 
 @Component({

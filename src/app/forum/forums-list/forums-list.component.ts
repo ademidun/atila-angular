@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ForumService } from "../_services/forum.service";
+import { ForumService } from "../../_services/forum.service";
 
-import { Forum } from "../_models/forum";
-import { Comment } from "../_models/comment";
+import { Forum } from "../../_models/forum";
+import { Comment } from "../../_models/comment";
 
-import { UserProfile } from '../_models/user-profile';
+import { UserProfile } from '../../_models/user-profile';
 
-import { UserProfileService } from '../_services/user-profile.service';
-import { AuthService } from "../_services/auth.service";
+import { UserProfileService } from '../../_services/user-profile.service';
+import { AuthService } from "../../_services/auth.service";
 import {MatSnackBar} from '@angular/material';
-import {MyFirebaseService} from '../_services/myfirebase.service';
+import {MyFirebaseService} from '../../_services/myfirebase.service';
 import {Router} from '@angular/router';
 @Component({
   selector: 'app-forums-list',

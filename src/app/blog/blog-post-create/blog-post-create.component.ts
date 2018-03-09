@@ -1,16 +1,16 @@
 import { Component, OnInit, AfterViewInit, EventEmitter, OnDestroy, Input,Output, ChangeDetectorRef } from '@angular/core';
-import { BlogPost } from "../_models/blog-post";
-import { UserProfile } from '../_models/user-profile';
+import { BlogPost } from "../../_models/blog-post";
+import { UserProfile } from '../../_models/user-profile';
 
-import { UserProfileService } from '../_services/user-profile.service';
+import { UserProfileService } from '../../_services/user-profile.service';
 import { MatSnackBar } from '@angular/material';
 
-import { BlogPostService } from "../_services/blog-post.service";
+import { BlogPostService } from "../../_services/blog-post.service";
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { UploadFile } from '../_models/upload-file';
+import { UploadFile } from '../../_models/upload-file';
 
-import { AuthService } from "../_services/auth.service";
+import { AuthService } from "../../_services/auth.service";
 
 import { Observable } from 'rxjs/Observable';
 
@@ -28,7 +28,7 @@ import 'tinymce/plugins/autolink';
 import 'tinymce/plugins/code';
 declare var tinymce: any;
 import * as $ from 'jquery';
-import {MyFirebaseService} from '../_services/myfirebase.service';
+import {MyFirebaseService} from '../../_services/myfirebase.service';
 
 @Component({
   selector: 'app-blog-post-create',

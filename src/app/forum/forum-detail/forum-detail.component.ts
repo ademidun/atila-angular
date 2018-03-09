@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { ForumService } from "../_services/forum.service";
+import { ForumService } from "../../_services/forum.service";
 
-import { Forum } from "../_models/forum";
-import { Comment } from "../_models/comment";
+import { Forum } from "../../_models/forum";
+import { Comment } from "../../_models/comment";
 
-import { UserProfile } from '../_models/user-profile';
+import { UserProfile } from '../../_models/user-profile';
 
-import { UserProfileService } from '../_services/user-profile.service';
+import { UserProfileService } from '../../_services/user-profile.service';
 
-import { CommentService } from '../_services/comment.service';
+import { CommentService } from '../../_services/comment.service';
 
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { NgZone } from '@angular/core';
 import { Title }     from '@angular/platform-browser';
-import { AuthService } from "../_services/auth.service";
+import { AuthService } from "../../_services/auth.service";
 import {MatSnackBar} from '@angular/material';
-import {SeoService} from '../_services/seo.service';
+import {SeoService} from '../../_services/seo.service';
 @Component({
   selector: 'app-forum-detail',
   templateUrl: './forum-detail.component.html',
