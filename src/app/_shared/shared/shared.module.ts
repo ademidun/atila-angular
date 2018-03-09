@@ -12,7 +12,7 @@ import {CommentService} from '../../_services/comment.service';
 import {MyFirebaseService} from '../../_services/myfirebase.service';
 import {AuthService} from '../../_services/auth.service';
 import {MaterializeModule} from 'angular2-materialize';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {
   MatAutocompleteModule, MatButtonModule, MatCardModule, MatCheckboxModule, MatDialogModule, MatFormFieldModule,
   MatIconModule,
@@ -26,12 +26,13 @@ import {
 import {HttpModule} from '@angular/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AppRoutingModule} from '../../app-routing/app-routing.module';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {environment} from '../../../environments/environment';
 import {AngularFireModule} from 'angularfire2';
 import {RouterModule} from '@angular/router';
 import {BrowserModule} from '@angular/platform-browser';
+import {TokenInterceptor} from '../../_services/token.interceptor';
+import {UnAuthorizedInterceptor} from '../../_services/unauthorized.interceptor';
 
 @NgModule({
   imports: [
@@ -77,6 +78,16 @@ import {BrowserModule} from '@angular/platform-browser';
     AuthService,
     MyFirebaseService,
     CommentService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UnAuthorizedInterceptor,
+      multi: true,
+    },
   ],
 })
 export class SharedModule { }
