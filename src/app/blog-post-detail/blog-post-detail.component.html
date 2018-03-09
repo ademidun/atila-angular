@@ -6,7 +6,7 @@
             </span>
 
             <div class="col-sm-12 col-md-8  offset-md-2">
-                <a *ngIf="userProfile && userProfile.user==blogPost.user.id" [routerLink]="[ '/edit-blog-post', blogPost.id ]">Edit Blog</a>
+                <a *ngIf="userProfile && userProfile.user==blogPost.user.id" [routerLink]="[ '/blog/edit', blogPost.id ]">Edit Blog</a>
                 <img src="{{blogPost.header_image_url}}" style="max-height: 100%;max-width: 100%"/>
 
               <hr>

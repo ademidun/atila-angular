@@ -21,7 +21,6 @@ import { UserProfileService } from './_services/user-profile.service';
 import { TruncatePipe } from './_pipes/truncate.pipe';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { CreateProfileComponent } from './create-profile/create-profile.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { AuthService } from './_services/auth.service';
 import { ScholarshipDetailComponent } from './scholarship-detail/scholarship-detail.component';
@@ -94,7 +93,6 @@ import { SeoService } from './_services/seo.service';
     TruncatePipe,
     LoginComponent,
     RegisterComponent,
-    CreateProfileComponent,
     EditProfileComponent,
     ScholarshipDetailComponent,
     AddScholarshipComponent,
