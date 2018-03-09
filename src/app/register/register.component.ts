@@ -13,6 +13,7 @@ import { AuthService } from "../_services/auth.service";
 import {SCHOOLS_LIST, MAJORS_LIST} from '../_models/constants';
 import {AutoCompleteForm, initializeAutoCompleteOptions} from '../_shared/scholarship-form';
 
+import * as firebase from "firebase";
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
