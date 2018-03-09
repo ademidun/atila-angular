@@ -90,10 +90,10 @@ export class TeamComponent implements OnInit {
       "first_name": "Mariam",
       "last_name": "Walaa",
       // "username": "Product Manager",
-      "position": "Product Manager",
+      "position": "Advisor",
       "img_url": "https://scontent.fyto1-1.fna.fbcdn.net/v/t1.0-1/28377469_10204156139741793_8293032094223382732_n.jpg?oh=3da6391b71fcc27f64c8c39a3c901901&oe=5B0FC80F",
       "description_1": "Mariam is currently studying business at Schulich school of Business, York University and is on a year off.",
-      "description_2": "She is also the cofounder of <a  href=\"mailto:info@atila.ca\">edNEST</a>, an edtech community in Toronto.",
+      "description_2": "She is also the cofounder of <a  href=\"https://www.linkedin.com/company/nestcanada/\">edNEST</a>, an edtech community in Toronto.",
       "link_type": "LinkedIn",
       "link_url": "https://ca.linkedin.com/in/mariamwalaa"
     }
@@ -104,7 +104,7 @@ export class TeamComponent implements OnInit {
     let metaTags = {
       title: 'Meet the Atila Team',
       description: 'Meet the people helping build Atila.',
-      image: 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-team-header-2.png?alt=media&token=ce8b7b97-9796-4c44-b7ab-7c0b65f0b6d5',
+      image: 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-team-header-2-new.png?alt=media&token=877be9e1-a694-44f8-8b31-f77e0d6958dc',
       slug: 'team',
     };
     seoService.generateTags(metaTags);

@@ -110,6 +110,21 @@ export class RegisterComponent implements OnInit {
           this.authService.encryptlocalStorage('token', data.token);
           // this.cookieService.putObject('userId', data.id);
           this.authService.encryptlocalStorage('uid',data.id);
+          this.authService.encryptlocalStorage('firebase_token', data.firebase_token);
+
+          try {
+            firebase.auth().signInWithCustomToken(data.firebase_token)
+              .then(res2 => {
+
+              })
+              .catch(error => {
+                // Handle Errors here.
+
+              });
+          }
+          catch (err) {
+
+          }
 
           this.registrationResponse = true;
           this.disableRegistrationButton = false;
