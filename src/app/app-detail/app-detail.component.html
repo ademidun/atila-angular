@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-content" *ngIf="userProfile && scholarship">
           <h4><a routerLink="/profile/{{userProfile.username}}">{{userProfile.first_name}}</a>'s Application for: <br>
-              <a [routerLink]="['/scholarship-detail', scholarship.slug]">
+              <a [routerLink]="['/scholarship', scholarship.slug]">
                 {{scholarship.name}}
               </a>
               </h4>
@@ -120,7 +120,7 @@
             <div class="row">
                 <a mat-raised-button class="col btn white-text left s12 col-md-5" (click)="uploadUserDocuments()" style="margin-left:1%">Upload Document</a>
                 <a (click)="saveUserProfile(profileForm)" class="btn btn-success right s12 col-md-5 offset-md-1">Save Profile</a>
-              <p class=" col"> Location changes can be saved in <a routerLink="/edit-profile">edit profile</a>.</p>
+              <p class=" col"> Location changes can be saved in <a routerLink="/profile/edit">edit profile</a>.</p>
 
               <div *ngIf="uploadProgress" class="col-md-3 col-sm-12 mb-3">
                 Progress: <p style="font-weight: bold">{{uploadProgress | number:'1.0-0'}}%</p>

@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
     loginOperation = this.authService.login(this.credentials);
     loginOperation.subscribe(
         data => {
-          this.router.navigate(["/scholarships-list"]);
+          this.router.navigate(["/scholarship"]);
         },
         err => {
           this.snackBar.open("Incorrect login credentials", '', {

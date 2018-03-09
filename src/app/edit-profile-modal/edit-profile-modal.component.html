@@ -44,7 +44,7 @@
           <app-typeahead [dataset]="SCHOOLS_LIST" [model]="userProfile.eligible_schools" [metadata]="{'key': 'eligible_schools','disableFocusFirst': true}"></app-typeahead>
         </div>
 
-        You can visit<a routerLink="/edit-profile" (click)="dialogRef.close()"> edit profile</a> to complete your profile.
+        You can visit<a routerLink="profile/edit" (click)="dialogRef.close()"> edit profile</a> to complete your profile.
       </div>
 
       <div class="modal-footer row">

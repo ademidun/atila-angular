@@ -80,7 +80,7 @@ export class ScholarshipDetailComponent implements OnInit {
             title: this.scholarship.name,
             description: this.scholarship.description,
             image: this.scholarship.img_url,
-            slug: `scholarship-detail/${this.scholarship.slug}/`
+            slug: `scholarship/${this.scholarship.slug}/`
           });
 
           if ('2019-01-01T00:00:00Z' == this.scholarship.deadline) {

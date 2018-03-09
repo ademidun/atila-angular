@@ -15,7 +15,7 @@
                     <h6 *ngIf="editMode && !isOwner">You don't have permission to save edits. If you want to make edits, please suggest them in the comments.</h6>
 
                     <h4>{{scholarship.name}}</h4>
-                    <a *ngIf="scholarship && scholarship.slug" routerLink="/scholarship-detail/{{scholarship.slug}}">View Scholarship</a>
+                    <a *ngIf="scholarship && scholarship.slug" routerLink="/scholarship/{{scholarship.slug}}">View Scholarship</a>
 
                   <div *ngIf="quickAdd; else fullEdit">
                     <h5 *ngIf="!editMode">Quick Add</h5>
@@ -62,7 +62,7 @@
 
 
                     <div class="row">
-                      <a *ngIf="scholarship.slug" class="waves-effect waves-light btn left" routerLink="/edit-scholarship/{{scholarship.slug}}">Keep Editing</a>
+                      <a *ngIf="scholarship.slug" class="waves-effect waves-light btn left" routerLink="/scholarship/edit/{{scholarship.slug}}">Keep Editing</a>
                       <a *ngIf="!scholarship.slug" class="waves-effect waves-light btn left" (click)="quickAdd=false; pageNo=0;next()">Keep Editing</a>
                       <a class="waves-effect waves-light btn right" (click)="saveScholarship(scholarshipForm,{quickAdd:true})" style="margin-left: 5%">
                         Add Scholarship</a>

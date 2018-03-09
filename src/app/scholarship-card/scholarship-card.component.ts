@@ -109,8 +109,8 @@ export class ScholarshipCardComponent implements OnInit {
       if ((<any>navigator).share) {
         (<any>navigator).share({
           title: 'Scholarship From Atila - '+ this.scholarship.name,
-          text: 'Have you seen this scholarship from Atila: https://atila.ca/scholarship-detail/'+this.scholarship.slug,
-          url: 'https://atila.ca/scholarship-detail/'+this.scholarship.slug,
+          text: 'Have you seen this scholarship from Atila: https://atila.ca/scholarship/'+this.scholarship.slug,
+          url: 'https://atila.ca/scholarship/'+this.scholarship.slug,
         })
           .then(() => {})
           .catch((error) => {});

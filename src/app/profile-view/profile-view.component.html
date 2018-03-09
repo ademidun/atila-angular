@@ -28,7 +28,7 @@
           <div class="header-buttons">
             <!--<button mat-raised-button class="btn white-text" (click)="message()">Message</button>-->
             <a *ngIf="profileOwner" (click)="showPreview = !showPreview" style="cursor: pointer">Preview Profile</a> |
-            <a *ngIf="profileOwner" [routerLink]="['/edit-profile']">Edit profile</a>
+            <a *ngIf="profileOwner" [routerLink]="['/profile/edit']">Edit profile</a>
             <!-- <span  *ngIf="profileOwner" >
                 <a *ngIf="!showPreview" (click)="showPreview = !showPreview"  href="javascript:undefined">Preview Profile</a>
                 <a *ngIf="showPreview" (click)="showPreview = !showPreview"  href="javascript:undefined">Edit Profile</a>
@@ -54,7 +54,7 @@
           <div class="header-buttons">
             <!--<button mat-raised-button class="btn white-text" (click)="message()">Message</button>-->
             <a *ngIf="profileOwner" (click)="showPreview = !showPreview" style="cursor: pointer">Preview Profile</a> |
-            <a *ngIf="profileOwner" [routerLink]="['/edit-profile']">Edit profile</a>
+            <a *ngIf="profileOwner" [routerLink]="['/profile/edit']">Edit profile</a>
             <!-- <span  *ngIf="profileOwner" >
                 <a *ngIf="!showPreview" (click)="showPreview = !showPreview"  href="javascript:undefined">Preview Profile</a>
                 <a *ngIf="showPreview" (click)="showPreview = !showPreview"  href="javascript:undefined">Edit Profile</a>
@@ -152,7 +152,7 @@
             </tr>
 
             <tr *ngFor="let scholarship of savedScholarships">
-              <td><a [routerLink]="['/scholarship-detail', scholarship.slug]">{{scholarship.name}}</a></td>
+              <td><a [routerLink]="['/scholarship', scholarship.slug]">{{scholarship.name}}</a></td>
               <td>{{scholarship.deadline | date:'EEEE, MMMM d, y'}}</td>
               <td><textarea style="height: 6.7rem"  [(ngModel)]="scholarship['user_notes']"
                             placeholder="e.g. Upload transcript. Share scholarship with Alice."></textarea></td>

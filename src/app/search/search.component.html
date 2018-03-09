@@ -24,7 +24,7 @@
         <div *ngFor=" let scholarship of searchResults.scholarships" class="col-sm-12 col-md-10">
           <div class="card small">
             <div class="card-title">
-              <a (click)="saveQueryClick(scholarship,'scholarship')" [routerLink]="['../scholarship-detail', scholarship.slug]">
+              <a (click)="saveQueryClick(scholarship,'scholarship')" [routerLink]="['/scholarship', scholarship.slug]">
                 {{scholarship.name}}</a>
             </div>
             <div class="card-content">

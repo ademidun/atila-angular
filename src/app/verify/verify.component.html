@@ -28,7 +28,7 @@
 
               <p *ngIf="!verificationResponse.isValidToken"> <br>
                 <span style="color: red">Invalid username/token combination.</span> <br>
-                Visit <a [routerLink]="['/edit-profile']">edit profile</a> to get a new token.
+                Visit <a [routerLink]="['profile/edit']">edit profile</a> to get a new token.
               </p>
             </div>
 

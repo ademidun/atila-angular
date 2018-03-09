@@ -507,7 +507,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
               snackBarRef.onAction().subscribe(
                 () => {
-                  this.router.navigate(['scholarship-detail',this.scholarship.slug]);
+                  this.router.navigate(['scholarship',this.scholarship.slug]);
                 },
               );
 
@@ -536,7 +536,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
             snackBarRef.onAction().subscribe(
               () => {
-                this.router.navigate(['scholarship-detail',this.scholarship.slug]);
+                this.router.navigate(['scholarship',this.scholarship.slug]);
               },
             );
             this.scholarship=data;

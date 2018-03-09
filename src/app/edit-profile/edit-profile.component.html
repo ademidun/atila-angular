@@ -17,7 +17,7 @@
         <div [ngClass]='{hidden: !profileInfo}'>
           <h4>Edit <span *ngIf="userProfile.first_name">{{userProfile.first_name}}'s</span> Profile</h4>
           <span>
-          <a [routerLink]="['../profile', userProfile.username]" >View Profile</a>
+          <a [routerLink]="['/profile', userProfile.username]" >View Profile</a>
           </span>
 
           <div *ngIf="!environment.production || !userProfile.is_verified">

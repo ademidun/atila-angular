@@ -1,7 +1,7 @@
   <nav class="white" role="navigation">
     <div class="nav-wrapper container atila-blue">
       <a *ngIf="!authService.isLoggedIn" id="logo-container" routerLink="/" class="brand-logo">Atila</a>
-      <a *ngIf="authService.isLoggedIn" id="logo-container" routerLink="/scholarships-list" class="brand-logo">Atila</a>
+      <a *ngIf="authService.isLoggedIn" id="logo-container" routerLink="/scholarship" class="brand-logo">Atila</a>
 
       <!-- Show on Desktop  -->
       <ul class="right hide-on-med-and-down">
@@ -63,7 +63,7 @@
               </button>
               <!-- Dropdown Profile Menu -->
               <mat-menu #menu="matMenu" [overlapTrigger]="false">
-                <a routerLink="/add-scholarship">
+                <a routerLink="/scholarship/add">
                   <button mat-menu-item>
                     <span>Add Scholarship</span>
                   </button>
@@ -73,7 +73,7 @@
                     <span>My profile</span>
                   </button>
                 </a>
-                <a routerLink="/edit-profile">
+                <a routerLink="profile/edit">
                   <button mat-menu-item>
                     <span>Edit profile</span>
                   </button>
@@ -137,7 +137,7 @@
               <!--</li>-->
 
             <!--<li>-->
-                <!--<a routerLink="/add-scholarship" title="Add Scholarship">-->
+                <!--<a routerLink="/scholarship/add" title="Add Scholarship">-->
                   <!--<button md-fab mat-fab >-->
                     <!--<p style="margin-top:  -9%;margin-left:  -27%;">-->
                       <!--Add-->
@@ -236,7 +236,7 @@
               <mat-icon>perm_identity</mat-icon>
           </button>
           <mat-menu #profileMenu="matMenu" [overlapTrigger]="false">
-                <a routerLink="/add-scholarship">
+                <a routerLink="/scholarship/add">
                   <button mat-menu-item>
                       <span>Add Scholarship</span>
                   </button>
@@ -247,7 +247,7 @@
 
                   </button>
                 </a>
-                <a routerLink="/edit-profile">
+                <a routerLink="profile/edit">
                   <button mat-menu-item>
                     <span>Edit profile</span>
                   </button>
