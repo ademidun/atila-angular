@@ -78,7 +78,7 @@ import {TypeaheadComponent} from './_shared/typeahead/typeahead.component';
 import {EditProfileModalComponent} from './edit-profile-modal/edit-profile-modal.component';
 import {FroalaEditorModule, FroalaViewModule} from 'angular-froala-wysiwyg';
 import {SeoService} from './_services/seo.service';
-import {SharedModule} from './_shared/shared/shared.module';
+import {SharedModule} from './_shared/shared.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -143,9 +143,13 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     FroalaEditorModule.forRoot(),
     FroalaViewModule.forRoot()
   ],
-  providers: [ScholarshipService, UserProfileService,
-    AuthService, ApplicationService,
-    QuestionControlService, QuestionService,
+  providers: [
+    ScholarshipService,
+    UserProfileService,
+    AuthService,
+    ApplicationService,
+    QuestionControlService,
+    QuestionService,
     MyFirebaseService,
     CommentService,
     MessagingService,
@@ -155,7 +159,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     GoogleAnalyticsEventsService,
     SearchService,
     SeoService,
-
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

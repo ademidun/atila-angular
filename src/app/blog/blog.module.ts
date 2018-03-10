@@ -40,7 +40,7 @@ import {environment} from '../../environments/environment';
 import {GoogleAnalyticsEventsService} from '../_services/google-analytics-events.service';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {BlogPostService} from '../_services/blog-post.service';
-import {SharedModule} from '../_shared/shared/shared.module';
+import {SharedModule} from '../_shared/shared.module';
 
 
 @NgModule({
@@ -71,15 +71,7 @@ import {SharedModule} from '../_shared/shared/shared.module';
     MaterializeModule,
   ],
 
-  providers: [
-    UserProfileService,
-    AuthService,
-    QuestionControlService, QuestionService,
-    MyFirebaseService,
-    CommentService,
-    BlogPostService,
-    GoogleAnalyticsEventsService,
-  ],
+  providers: [],
   declarations: [
     BlogPostCreateComponent,
     BlogsListComponent,

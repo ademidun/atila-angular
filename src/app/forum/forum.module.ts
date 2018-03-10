@@ -36,7 +36,7 @@ import {CommentService} from '../_services/comment.service';
 import {MyFirebaseService} from '../_services/myfirebase.service';
 import {AuthService} from '../_services/auth.service';
 import {UserProfileService} from '../_services/user-profile.service';
-import {SharedModule} from '../_shared/shared/shared.module';
+import {SharedModule} from '../_shared/shared.module';
 
 @NgModule({
   imports: [
@@ -66,14 +66,7 @@ import {SharedModule} from '../_shared/shared/shared.module';
     MaterializeModule,
   ],
 
-  providers: [
-    UserProfileService,
-    AuthService,
-    MyFirebaseService,
-    CommentService,
-    ForumService,
-    GoogleAnalyticsEventsService,
-  ],
+  providers: [],
   declarations: [
     ForumDetailComponent,
     ForumsListComponent]
