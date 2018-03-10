@@ -33,7 +33,6 @@ import {ScholarshipService} from './_services/scholarship.service';
 import {UserProfileService} from './_services/user-profile.service';
 import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
-import {EditProfileComponent} from './edit-profile/edit-profile.component';
 import {AuthService} from './_services/auth.service';
 import {ScholarshipDetailComponent} from './scholarship-detail/scholarship-detail.component';
 import {AddScholarshipComponent} from './add-scholarship/add-scholarship.component';
@@ -46,7 +45,6 @@ import {AddQuestionModalComponent} from './add-question-modal/add-question-modal
 import {AppDetailComponent} from './app-detail/app-detail.component';
 import {MyFirebaseService} from './_services/myfirebase.service';
 import {CommentService} from './_services/comment.service';
-import {ProfileViewComponent} from './profile-view/profile-view.component';
 import {MessagesComponent} from './messages/messages.component';
 import {MessagingService} from './_services/messaging.service';
 import {ForumService} from './_services/forum.service';
@@ -74,7 +72,6 @@ import {MaterializeModule} from 'angular2-materialize';
 import "materialize-css";
 import {CardGenericComponent} from './card-generic/card-generic.component';
 import {MarkdownModule} from 'ngx-markdown';
-import {TypeaheadComponent} from './_shared/typeahead/typeahead.component';
 import {EditProfileModalComponent} from './edit-profile-modal/edit-profile-modal.component';
 import {FroalaEditorModule, FroalaViewModule} from 'angular-froala-wysiwyg';
 import {SeoService} from './_services/seo.service';
@@ -91,14 +88,12 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     ScholarshipCardComponent,
     LoginComponent,
     RegisterComponent,
-    EditProfileComponent,
     ScholarshipDetailComponent,
     AddScholarshipComponent,
     DynamicFormComponent,
     DynamicFormQuestionComponent,
     AddQuestionModalComponent,
     AppDetailComponent,
-    ProfileViewComponent,
     MessagesComponent,
     HtmlEditorComponent,
     TeamComponent,
@@ -108,7 +103,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     SearchComponent,
     DynamicQuestionGeneralComponent,
     CardGenericComponent,
-    TypeaheadComponent,
     EditProfileModalComponent
   ],
   imports: [

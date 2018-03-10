@@ -1,20 +1,20 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-import { SharedRoutingModule } from './shared-routing.module';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {SafeHtmlPipe} from '../_pipes/safe-html.pipe';
 import {TitleCasePipe} from '../_pipes/title-case.pipe';
 import {GooglePlaceDirective} from '../_directives/google-place.directive';
 import {SafeResourcePipe} from '../_pipes/safe-resource.pipe';
 import {TruncatePipe} from '../_pipes/truncate.pipe';
 import {CommentComponent} from '../comment/comment.component';
-import {CommentService} from '../_services/comment.service';
-import {MyFirebaseService} from '../_services/myfirebase.service';
-import {AuthService} from '../_services/auth.service';
 import {MaterializeModule} from 'angular2-materialize';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {
-  MatAutocompleteModule, MatButtonModule, MatCardModule, MatCheckboxModule, MatDialogModule, MatFormFieldModule,
+  MatAutocompleteModule,
+  MatButtonModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatDialogModule,
+  MatFormFieldModule,
   MatIconModule,
   MatInputModule,
   MatMenuModule,
@@ -33,7 +33,9 @@ import {RouterModule} from '@angular/router';
 import {BrowserModule} from '@angular/platform-browser';
 import {TokenInterceptor} from '../_services/token.interceptor';
 import {UnAuthorizedInterceptor} from '../_services/unauthorized.interceptor';
+import {TypeaheadComponent} from './typeahead/typeahead.component';
 
+import {NgbTypeaheadModule} from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   imports: [
     CommonModule,
@@ -58,6 +60,7 @@ import {UnAuthorizedInterceptor} from '../_services/unauthorized.interceptor';
     MatCardModule,
     HttpClientModule,
     MaterializeModule,
+    NgbTypeaheadModule,
   ],
   declarations: [
     SafeHtmlPipe,
@@ -65,7 +68,8 @@ import {UnAuthorizedInterceptor} from '../_services/unauthorized.interceptor';
     TruncatePipe,
     SafeResourcePipe,
     GooglePlaceDirective,
-    CommentComponent],
+    CommentComponent,
+    TypeaheadComponent,],
   exports: [
     SafeHtmlPipe,
     TitleCasePipe,
@@ -73,7 +77,10 @@ import {UnAuthorizedInterceptor} from '../_services/unauthorized.interceptor';
     SafeResourcePipe,
     GooglePlaceDirective,
     CommentComponent,
-    RouterModule],
+    RouterModule,
+    NgbTypeaheadModule,
+    TypeaheadComponent,
+    ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
@@ -87,4 +94,5 @@ import {UnAuthorizedInterceptor} from '../_services/unauthorized.interceptor';
     },
   ],
 })
-export class SharedModule { }
+export class SharedModule {
+}

@@ -32,10 +32,6 @@ const routes: Routes = [
   { path: 'scholarship/edit/:slug' , component: AddScholarshipComponent, data: {title: 'Edit Scholarship - Atila'}},
   { path: 'scholarship/:slug' , component: ScholarshipDetailComponent, data: {title: 'Atila - Scholarship Detail'}},
   { path: 'search' , component: SearchComponent, data: {title: 'Atila - Search'}},
-  { path: 'profile/edit' , component: EditProfileComponent, data: {title: 'Atila - Edit Profile'}},
-  { path: 'profile/my-scholarships' , component: ProfileViewComponent, data: {title: 'Atila - My Scholarships'}},
-  { path: 'profile/:username' , component: ProfileViewComponent, data: {title: 'Profile - Atila'}},
-  { path: 'profile/:username/my-atila' , component: ProfileViewComponent, data: {title: 'Profile - Atila'}},
   {
     path: 'blog',
     loadChildren: '../blog/blog.module#BlogModule'
@@ -43,6 +39,10 @@ const routes: Routes = [
   {
     path: 'forum',
     loadChildren: '../forum/forum.module#ForumModule'
+  },
+  {
+    path: 'profile',
+    loadChildren: '../profile/profile.module#ProfileModule'
   },
   { path: 'messages' , component: MessagesComponent, data: {title: 'My Messages - Atila'}},
   { path: 'preview' , component: PreviewComponent, data: {title: 'Atila - Preview'}},

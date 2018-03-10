@@ -1,10 +1,8 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import {BlogRoutingModule} from './blog-routing.module';
-import {BlogPostDetailComponent} from './blog-post-detail/blog-post-detail.component';
-import {BlogsListComponent} from './blogs-list/blogs-list.component';
-import {BlogPostCreateComponent} from './blog-post-create/blog-post-create.component';
+import { ProfileRoutingModule } from './profile-routing.module';
+import {environment} from '../../environments/environment';
 
 import {MaterializeModule} from 'angular2-materialize';
 import "materialize-css";
@@ -30,17 +28,18 @@ import {
 import {HttpClientModule} from '@angular/common/http';
 
 import {AngularFireModule} from 'angularfire2';
-import {environment} from '../../environments/environment';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {SharedModule} from '../_shared/shared.module';
+import {ProfileViewComponent} from '../profile-view/profile-view.component';
+import {EditProfileComponent} from '../edit-profile/edit-profile.component';
 
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    BlogRoutingModule,
-    NgbModule.forRoot(),
+    NgbModule,
+    ProfileRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     FormsModule,
@@ -62,12 +61,9 @@ import {SharedModule} from '../_shared/shared.module';
     CommonModule,
     MaterializeModule,
   ],
-
-  providers: [],
   declarations: [
-    BlogPostCreateComponent,
-    BlogsListComponent,
-    BlogPostDetailComponent,]
+    EditProfileComponent,
+    ProfileViewComponent,
+    ]
 })
-export class BlogModule {
-}
+export class ProfileModule { }
