@@ -201,7 +201,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
     this.scholarshipService.setScholarshipPreviewForm(this.model)
       .then(
-      res => this.router.navigate(['scholarships-list']))  //use promise to ensure that form is saved to Service before navigating away
+      res => this.router.navigate(['scholarship']))  //use promise to ensure that form is saved to Service before navigating away
 
 }
 

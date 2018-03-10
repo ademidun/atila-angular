@@ -1,7 +1,7 @@
 import {Component, OnInit, AfterViewInit, ChangeDetectorRef, OnDestroy} from '@angular/core';
-import { Scholarship, scholarshipQuickCreate,scholarshipCreationHelper } from '../_models/scholarship';
-import { UploadFile } from '../_models/upload-file';
-import { ScholarshipService } from '../_services/scholarship.service';
+import { Scholarship, scholarshipQuickCreate,scholarshipCreationHelper } from '../../_models/scholarship';
+import { UploadFile } from '../../_models/upload-file';
+import { ScholarshipService } from '../../_services/scholarship.service';
 import { Observable } from 'rxjs/Observable';
 import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,14 +9,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import {NgForm, ValidationErrors} from '@angular/forms';
 
 import {NgModel} from '@angular/forms';
-import { UserProfileService } from '../_services/user-profile.service';
-import { AuthService } from "../_services/auth.service";
+import { UserProfileService } from '../../_services/user-profile.service';
+import { AuthService } from "../../_services/auth.service";
 import { Title }     from '@angular/platform-browser';
 import {MatDialog, MatDialogRef} from '@angular/material';
-import {AddQuestionModalComponent} from '../add-question-modal/add-question-modal.component';
-import { MyFirebaseService } from "../_services/myfirebase.service";
+import {AddQuestionModalComponent} from '../../add-question-modal/add-question-modal.component';
+import { MyFirebaseService } from "../../_services/myfirebase.service";
 
-import { GooglePlaceDirective } from "../_directives/google-place.directive";
+import { GooglePlaceDirective } from "../../_directives/google-place.directive";
 
 import 'tinymce';
 import 'tinymce/themes/modern';
@@ -29,10 +29,10 @@ import 'tinymce/plugins/media';
 import 'tinymce/plugins/autolink';
 import 'tinymce/plugins/code';
 import * as firebase from "firebase";
-import {ACTIVITIES, COUNTRIES, DISABILITY, ETHNICITY, RELIGION, SCHOOLS_DICT, SPORTS} from '../_models/constants';
+import {ACTIVITIES, COUNTRIES, DISABILITY, ETHNICITY, RELIGION, SCHOOLS_DICT, SPORTS} from '../../_models/constants';
 
-import {SCHOOLS_LIST, MAJORS_LIST, LANGUAGE, FUNDING_TYPES, APPLICATION_FORM_TYPES, APPLICATION_SUBMISSION_TYPES} from '../_models/constants';
-import {prettifyKeys} from '../_models/utils';
+import {SCHOOLS_LIST, MAJORS_LIST, LANGUAGE, FUNDING_TYPES, APPLICATION_FORM_TYPES, APPLICATION_SUBMISSION_TYPES} from '../../_models/constants';
+import {prettifyKeys} from '../../_models/utils';
 import {hasOwnProperty} from 'tslint/lib/utils';
 
 declare var tinymce: any;

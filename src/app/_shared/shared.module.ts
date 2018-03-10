@@ -36,6 +36,10 @@ import {UnAuthorizedInterceptor} from '../_services/unauthorized.interceptor';
 import {TypeaheadComponent} from './typeahead/typeahead.component';
 
 import {NgbTypeaheadModule} from '@ng-bootstrap/ng-bootstrap';
+import {AddQuestionModalComponent} from '../add-question-modal/add-question-modal.component';
+import {SubscriberDialogComponent} from '../subscriber-dialog/subscriber-dialog.component';
+import {EditProfileModalComponent} from '../edit-profile-modal/edit-profile-modal.component';
+import {TableLayoutModule} from '../table-layout/table-layout.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -61,6 +65,7 @@ import {NgbTypeaheadModule} from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     MaterializeModule,
     NgbTypeaheadModule,
+    TableLayoutModule,
   ],
   declarations: [
     SafeHtmlPipe,
@@ -69,7 +74,10 @@ import {NgbTypeaheadModule} from '@ng-bootstrap/ng-bootstrap';
     SafeResourcePipe,
     GooglePlaceDirective,
     CommentComponent,
-    TypeaheadComponent,],
+    TypeaheadComponent,
+    AddQuestionModalComponent,
+    SubscriberDialogComponent,
+    EditProfileModalComponent,],
   exports: [
     SafeHtmlPipe,
     TitleCasePipe,
@@ -80,6 +88,10 @@ import {NgbTypeaheadModule} from '@ng-bootstrap/ng-bootstrap';
     RouterModule,
     NgbTypeaheadModule,
     TypeaheadComponent,
+    AddQuestionModalComponent,
+    SubscriberDialogComponent,
+    EditProfileModalComponent,
+    TableLayoutModule,
     ],
   providers: [
     {

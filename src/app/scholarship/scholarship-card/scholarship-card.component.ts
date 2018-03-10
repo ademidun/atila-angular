@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
-import {UserProfile} from '../_models/user-profile';
-import {MyFirebaseService} from '../_services/myfirebase.service';
-import {UserProfileService} from '../_services/user-profile.service';
+import {UserProfile} from '../../_models/user-profile';
+import {MyFirebaseService} from '../../_services/myfirebase.service';
+import {UserProfileService} from '../../_services/user-profile.service';
 @Component({
   selector: 'app-scholarship-card',
   templateUrl: './scholarship-card.component.html',

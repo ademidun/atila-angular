@@ -1,6 +1,6 @@
 import { Component, OnInit,Inject } from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {ScholarshipsListComponent} from '../scholarships-list/scholarships-list.component';
+import {ScholarshipsListComponent} from '../scholarship/scholarships-list/scholarships-list.component';
 import {UserProfile} from '../_models/user-profile';
 
 import {SCHOOLS_LIST, MAJORS_LIST} from '../_models/constants';

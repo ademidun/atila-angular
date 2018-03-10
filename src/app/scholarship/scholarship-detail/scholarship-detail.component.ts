@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Scholarship } from '../_models/scholarship';
-import { Comment, upVoteComment, downVoteComment } from "../_models/comment";
+import { Scholarship } from '../../_models/scholarship';
+import { Comment, upVoteComment, downVoteComment } from "../../_models/comment";
 import { ActivatedRoute, Router } from '@angular/router';
-import { ScholarshipService } from '../_services/scholarship.service';
-import { ApplicationService } from '../_services/application.service';
+import { ScholarshipService } from '../../_services/scholarship.service';
+import { ApplicationService } from '../../_services/application.service';
 import { Observable } from 'rxjs/Observable';
 import { NgZone } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { MatSnackBar } from '@angular/material';
-import { UserProfileService } from '../_services/user-profile.service';
+import { UserProfileService } from '../../_services/user-profile.service';
 
-import { CommentService } from '../_services/comment.service';
-import { AuthService } from "../_services/auth.service";
+import { CommentService } from '../../_services/comment.service';
+import { AuthService } from "../../_services/auth.service";
 import {Meta, Title} from '@angular/platform-browser';
-import {MyFirebaseService} from '../_services/myfirebase.service';
-import {UserProfile, addToMyScholarshipHelper} from '../_models/user-profile';
-import {SeoService} from '../_services/seo.service';
+import {MyFirebaseService} from '../../_services/myfirebase.service';
+import {UserProfile, addToMyScholarshipHelper} from '../../_models/user-profile';
+import {SeoService} from '../../_services/seo.service';
 
 
 @Component({

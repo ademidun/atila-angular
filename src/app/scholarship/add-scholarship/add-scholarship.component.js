@@ -7,10 +7,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var scholarship_1 = require("../_models/scholarship");
-var upload_file_1 = require("../_models/upload-file");
+var scholarship_1 = require("../../_models/scholarship");
+var upload_file_1 = require("../../_models/upload-file");
 var Observable_1 = require("rxjs/Observable");
-var add_question_modal_component_1 = require("../add-question-modal/add-question-modal.component");
+var add_question_modal_component_1 = require("../../add-question-modal/add-question-modal.component");
 var firebase = require("firebase");
 var AddScholarshipComponent = (function () {
     function AddScholarshipComponent(router, snackBar, scholarshipService, dialog, authService, route, userProfileService, titleService) {
@@ -101,9 +101,9 @@ var AddScholarshipComponent = (function () {
         for (var key in stringArray) {
         }
         /* for (var i = 0; i < event.srcElement.form.length; i++) {
-    
+
            event.srcElement.form[i].disabled = true;
-    
+
          }
          */
     };
@@ -165,7 +165,7 @@ var AddScholarshipComponent = (function () {
             this.cities.splice(index,1);
           }
           break;
-    
+
           default:
             break;
         }

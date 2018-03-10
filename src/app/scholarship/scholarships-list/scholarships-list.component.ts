@@ -1,19 +1,19 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { ScholarshipService } from "../_services/scholarship.service";
-import { UserProfileService } from '../_services/user-profile.service';
+import { ScholarshipService } from "../../_services/scholarship.service";
+import { UserProfileService } from '../../_services/user-profile.service';
 
-import { Scholarship } from '../_models/scholarship';
+import { Scholarship } from '../../_models/scholarship';
 
 import { Router } from '@angular/router';
-import { AuthService } from "../_services/auth.service";
-import {UserProfile} from '../_models/user-profile';
-import {SubscriberDialogComponent} from '../subscriber-dialog/subscriber-dialog.component';
+import { AuthService } from "../../_services/auth.service";
+import {UserProfile} from '../../_models/user-profile';
+import {SubscriberDialogComponent} from '../../subscriber-dialog/subscriber-dialog.component';
 import {MatDialog, MatSnackBar} from '@angular/material';
-import {MyFirebaseService} from '../_services/myfirebase.service';
-import {prettifyKeys, toTitleCase} from '../_models/utils';
-import { EditProfileModalComponent } from '../edit-profile-modal/edit-profile-modal.component';
+import {MyFirebaseService} from '../../_services/myfirebase.service';
+import {prettifyKeys, toTitleCase} from '../../_models/utils';
+import { EditProfileModalComponent } from '../../edit-profile-modal/edit-profile-modal.component';
 import {NgbModal, NgbPopover} from '@ng-bootstrap/ng-bootstrap';
-import {environment} from '../../environments/environment';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-scholarships-list',

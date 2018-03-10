@@ -8,7 +8,6 @@ import {NavbarComponent} from './navbar/navbar.component';
 import {PreviewComponent} from './preview/preview.component';
 import {FooterComponent} from './footer/footer.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {TableLayoutModule} from './table-layout/table-layout.module';
 
 import {AppRoutingModule} from './app-routing/app-routing.module';
 import {
@@ -27,15 +26,11 @@ import {
   MatSelectModule,
   MatSnackBarModule
 } from '@angular/material';
-import {ScholarshipsListComponent} from './scholarships-list/scholarships-list.component';
-import {ScholarshipCardComponent} from './scholarship-card/scholarship-card.component';
 import {ScholarshipService} from './_services/scholarship.service';
 import {UserProfileService} from './_services/user-profile.service';
 import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {AuthService} from './_services/auth.service';
-import {ScholarshipDetailComponent} from './scholarship-detail/scholarship-detail.component';
-import {AddScholarshipComponent} from './add-scholarship/add-scholarship.component';
 import {ApplicationService} from './_services/application.service';
 import {QuestionControlService} from './_services/question-control.service';
 import {DynamicFormComponent} from './dynamic-form/dynamic-form.component';
@@ -84,26 +79,19 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     NavbarComponent,
     PreviewComponent,
     FooterComponent,
-    ScholarshipsListComponent,
-    ScholarshipCardComponent,
     LoginComponent,
     RegisterComponent,
-    ScholarshipDetailComponent,
-    AddScholarshipComponent,
     DynamicFormComponent,
     DynamicFormQuestionComponent,
-    AddQuestionModalComponent,
     AppDetailComponent,
     MessagesComponent,
     HtmlEditorComponent,
     TeamComponent,
     VerifyComponent,
-    SubscriberDialogComponent,
     TermsConditionsComponent,
     SearchComponent,
     DynamicQuestionGeneralComponent,
     CardGenericComponent,
-    EditProfileModalComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -127,7 +115,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     MatCheckboxModule,
     MatAutocompleteModule,
     MatCardModule,
-    TableLayoutModule,
     HttpClientModule,
     CommonModule,
     MaterializeModule,
@@ -164,11 +151,13 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
       multi: true,
     },
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [
+    AppComponent
+  ],
   entryComponents: [
-    AddQuestionModalComponent,
     SubscriberDialogComponent,
     EditProfileModalComponent,
+    AddQuestionModalComponent,
   ]
 })
 export class AppModule {
