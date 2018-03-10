@@ -54,8 +54,8 @@
 
 
   <!--Youtube video demo-->
-  <div class="container">
-    <h1 style="color: #2cb5e8; text-align: center" class="col"> Live Demo </h1>
+  <div class="container row">
+    <h1 style="color: #2cb5e8;margin-top: 0; text-align: center" class="col-sm-12"> Live Demo </h1>
     <div class="videowrapper col-sm-12 center-block">
       <iframe src="//www.youtube.com/embed/c_K4342WMwQ?cc_load_policy=1" width="560" height="314"
               allowfullscreen="allowfullscreen">
@@ -64,7 +64,7 @@
   </div>
 
   <div class="row center" style="text-align: center;margin-bottom: 0; margin-top: 1%">
-    <p style="font-size: medium" class="col-sm-6">Subscribe to get updates on new scholarships, <a routerLink="/blog" style="text-decoration: underline; color: #68b9ff">blog</a> and
+    <p style="font-size: medium" class="col-sm-12 col-md-6">Subscribe to get updates on new scholarships, <a routerLink="/blog" style="text-decoration: underline; color: #68b9ff">blog</a> and
       <a routerLink="/forum" style="text-decoration: underline; color: #68b9ff">forum posts</a>, and new product features.
 
       <span *ngIf="subscriber.response" style="color: green">
@@ -73,7 +73,7 @@
                     </span>
     </p>
 
-    <mat-form-field class="browser-default col-sm-3 dark-placeholder">
+    <mat-form-field class="browser-default col-sm-12 col-md-5 dark-placeholder">
       <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
       <input matInput type="email" class="form-control" style="padding-bottom: 0; margin-bottom: 0; color: #194F87"  name="email" id="emailid"
              placeholder="Email Address" email [(ngModel)]="subscriber.email" (keyup.enter)="addSubscriber($event)">

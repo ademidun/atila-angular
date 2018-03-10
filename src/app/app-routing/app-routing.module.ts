@@ -38,11 +38,11 @@ const routes: Routes = [
     path: 'profile',
     loadChildren: '../profile/profile.module#ProfileModule'
   },
+  { path: 'scholarships',   redirectTo: '/scholarship', pathMatch: 'prefix' },
   {
     path: 'scholarship',
     loadChildren: '../scholarship/scholarship.module#ScholarshipModule'
   },
-
   {path: 'search', component: SearchComponent, data: {title: 'Atila - Search'}},
   {path: 'messages', component: MessagesComponent, data: {title: 'My Messages - Atila'}},
   {path: 'preview', component: PreviewComponent, data: {title: 'Atila - Preview'}},
