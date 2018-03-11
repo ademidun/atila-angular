@@ -37,51 +37,53 @@
 
           <li>
             <a routerLink="/blog" title="Blogs" >
-              <button mat-fab >
+
                 <!--<mat-icon  class="atila-blue" aria-hidden="true" aria-label="See Blogs" md-colors="{color:'$my-lighten'}">chrome_reader_mode</mat-icon>-->
                 Blog
-              </button>
+
             </a>
           </li>
 
           <li>
             <a routerLink="/forum" title="Forums">
-              <button button mat-fab >
+
                 <!--<mat-icon  class="atila-blue" aria-hidden="true" md-colors="{color:'$my-lighten'}">forum</mat-icon>-->
                 Forum
-              </button>
+
             </a>
           </li>
 
-          <li><a class="atila-blue" routerLink="/login"><button mat-fab class= "left far-left">Log In</button></a></li>
+          <li><a class="atila-blue" routerLink="/login">Log In</a></li>
 
         </span>
 
         <span *ngIf="authService.isLoggedIn">
-            <button mat-fab [matMenuTriggerFor]="menu">
+          <button mat-fab [matMenuTriggerFor]="desktopProfilemenu" class= "right far-right">
+
                 <mat-icon aria-hidden="true" md-colors="{color:'$my-lighten'}">perm_identity</mat-icon>
-              </button>
+          </button>
+
               <!-- Dropdown Profile Menu -->
-              <mat-menu #menu="matMenu" [overlapTrigger]="false">
+              <mat-menu #desktopProfilemenu="matMenu" [overlapTrigger]="false">
                 <a routerLink="/scholarship/add">
-                  <button mat-menu-item>
+
                     <span>Add Scholarship</span>
-                  </button>
+
                 </a>
                 <a *ngIf="userProfile" [routerLink]="['/profile', userProfile.username]">
-                    <button button mat-menu-item >
+
                     <span>My profile</span>
-                  </button>
+
                 </a>
                 <a routerLink="profile/edit">
-                  <button mat-menu-item>
+
                     <span>Edit profile</span>
-                  </button>
+
                 </a>
                 <a (click)="logout()">
-                  <button mat-menu-item>
+
                     <span>Logout</span>
-                  </button>
+
                 </a>
               </mat-menu>
 
@@ -94,17 +96,18 @@
 
             <li>
               <a routerLink="/search" title="Search" >
-                <button mat-fab >
+
+              <button mat-fab >
                   <mat-icon  class="atila-blue" aria-hidden="true" aria-label="Search" md-colors="{color:'$my-lighten'}">search</mat-icon>
-                </button>
+              </button>
               </a>
             </li>
               <li>
                   <a routerLink="/blog" title="Blogs" >
-                    <button mat-fab >
+
                         <!--<mat-icon  class="atila-blue" aria-hidden="true" aria-label="See Blogs" md-colors="{color:'$my-lighten'}">chrome_reader_mode</mat-icon>-->
                       Blog
-                    </button>
+
                   </a>
               </li>
 
@@ -112,10 +115,10 @@
 
               <li>
                   <a routerLink="/forum" title="Forums">
-                    <button button mat-fab >
+
                         <!--<mat-icon  class="atila-blue" aria-hidden="true" md-colors="{color:'$my-lighten'}">forum</mat-icon>-->
                     Forum
-                    </button>
+
                   </a>
                 </li>
 
@@ -161,16 +164,16 @@
 
       <!--Not Logged In -->
       <span *ngIf="!authService.isLoggedIn">
-        <a routerLink="/forum" class="atila-blue">
-            <button mat-fab>
+        <a routerLink="/forum" class="atila-blue" style="margin-right: 1%">
+
                 <span>Forums</span>
-            </button>
+
           </a>
 
           <a routerLink="/blog" class="atila-blue">
-            <button mat-fab>
+
                 <span>Blogs</span>
-            </button>
+
           </a>
 
 
@@ -178,11 +181,10 @@
 
 
       <!-- Horizontally the top most div is the right most div.-->
-      <a routerLink="/login" class="atila-blue right"><button mat-fab class= "left far-left">Login</button></a>
+      <a routerLink="/login" class="atila-blue right">Login</a>
       <a routerLink="/search" title="Search"  class= "right" >
-        <button mat-fab >
           <mat-icon  class="atila-blue" aria-hidden="true" aria-label="See Blogs" md-colors="{color:'$my-lighten'}">search</mat-icon>
-        </button>
+
       </a>
         <span class="hide-on-small-and-down">
           <mat-form-field style="width: 27%" >
@@ -195,25 +197,27 @@
 
         <!-- Logged In -->
       <span  *ngIf="authService.isLoggedIn">
+          <ul>
+            <li>
+              <a routerLink="/forum" class="atila-blue">
+                    <span>Forums</span>
+              </a>
+            </li>
+            <li>
+              <a routerLink="/blog" class="atila-blue">
+                    <span>Blogs</span>
 
-          <a routerLink="/forum" class="atila-blue">
-            <button mat-fab>
-                <span>Forums</span>
-            </button>
-          </a>
-
-          <a routerLink="/blog" class="atila-blue">
-            <button mat-fab>
-                <span>Blogs</span>
-            </button>
-          </a>
+              </a>
+            </li>
+          </ul>
 
 
-          <button mat-fab [matMenuTriggerFor]="profileMenu" class= "right far-right">
+            <button mat-fab [matMenuTriggerFor]="profileMenu" class= "right far-right">
               <mat-icon>perm_identity</mat-icon>
-          </button>
+            </button>
+
           <mat-menu #profileMenu="matMenu" [overlapTrigger]="false">
-                <a routerLink="/scholarship/add">
+                <a routerLink="/add-scholarship">
                   <button mat-menu-item>
                       <span>Add Scholarship</span>
                   </button>
@@ -224,7 +228,7 @@
 
                   </button>
                 </a>
-                <a routerLink="profile/edit">
+                <a routerLink="/edit-profile">
                   <button mat-menu-item>
                     <span>Edit profile</span>
                   </button>
@@ -238,9 +242,9 @@
             </mat-menu>
 
           <a routerLink="/search" title="Search" class="right" >
-          <button mat-fab >
+            <button mat-fab >
             <mat-icon  class="atila-blue" aria-hidden="true" aria-label="See Blogs" md-colors="{color:'$my-lighten'}">search</mat-icon>
-          </button>
+            </button>
           </a>
 
 
