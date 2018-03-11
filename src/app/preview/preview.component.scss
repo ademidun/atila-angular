@@ -131,3 +131,9 @@ mat-form-field.location-div .mat-input-wrapper {
   }
 
 }
+
+@media (min-width: 768px) {
+  .offset-md-5 {
+    margin-left: 41.666667%;
+  }
+}

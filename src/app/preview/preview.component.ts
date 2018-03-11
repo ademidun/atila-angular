@@ -86,20 +86,10 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    /**
-     * setTimeout(() => {
+      $(document).ready(function(){
+        $('iframe.lazy-load-element').attr('src', '//www.youtube.com/embed/c_K4342WMwQ?cc_load_policy=1');
+      });
 
-      this.toggleSearchModal();
-
-    }, 7000);
-
-
-     setTimeout(() => {
-
-      this.toggleSearchModal();
-
-    }, 18000);
-     */
 
   }
 

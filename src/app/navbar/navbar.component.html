@@ -26,14 +26,14 @@
           </li>
 
 
-          <li>
-            <a routerLink="/team" title="Team" >
-              <button mat-fab >
-                <!--<mat-icon  class="atila-blue" aria-hidden="true" aria-label="See Blogs" md-colors="{color:'$my-lighten'}">chrome_reader_mode</mat-icon>-->
-                Team
-              </button>
-            </a>
-          </li>
+          <!--<li>-->
+            <!--<a routerLink="/team" title="Team" >-->
+              <!--<button mat-fab >-->
+                <!--&lt;!&ndash;<mat-icon  class="atila-blue" aria-hidden="true" aria-label="See Blogs" md-colors="{color:'$my-lighten'}">chrome_reader_mode</mat-icon>&ndash;&gt;-->
+                <!--Team-->
+              <!--</button>-->
+            <!--</a>-->
+          <!--</li>-->
 
           <li>
             <a routerLink="/blog" title="Blogs" >
@@ -161,75 +161,52 @@
 
       <!--Not Logged In -->
       <span *ngIf="!authService.isLoggedIn">
-      <button mat-fab [matMenuTriggerFor]="mobileMenu" class= "left far-left">
-          <mat-icon>menu</mat-icon>
-       </button>
-       <mat-menu #mobileMenu="matMenu" [overlapTrigger]="false">
-
-          <a routerLink="/forum">
-            <button mat-menu-item>
+        <a routerLink="/forum" class="atila-blue">
+            <button mat-fab>
                 <span>Forums</span>
             </button>
           </a>
 
-          <a routerLink="/blog">
-            <button mat-menu-item>
+          <a routerLink="/blog" class="atila-blue">
+            <button mat-fab>
                 <span>Blogs</span>
             </button>
           </a>
-      </mat-menu>
 
 
 
 
 
       <!-- Horizontally the top most div is the right most div.-->
-        <a routerLink="/login" class="atila-blue right"><button mat-fab [matMenuTriggerFor]="mobileMenu" class= "left far-left">Login</button></a>
+      <a routerLink="/login" class="atila-blue right"><button mat-fab class= "left far-left">Login</button></a>
       <a routerLink="/search" title="Search"  class= "right" >
         <button mat-fab >
           <mat-icon  class="atila-blue" aria-hidden="true" aria-label="See Blogs" md-colors="{color:'$my-lighten'}">search</mat-icon>
         </button>
       </a>
-      <mat-form-field style="width: 27%" >
-          <input matInput class="browser-default"  type="text"
-                      [(ngModel)]="query" name="search" placeholder="Search" (keyup.enter)="search(query)">
-      </mat-form-field>
+        <span class="hide-on-small-and-down">
+          <mat-form-field style="width: 27%" >
+              <input matInput class="browser-default"  type="text"
+                     [(ngModel)]="query" name="search" placeholder="Search" (keyup.enter)="search(query)">
+          </mat-form-field>
+        </span>
 
       </span>
 
         <!-- Logged In -->
       <span  *ngIf="authService.isLoggedIn">
 
-          <button mat-fab [matMenuTriggerFor]="mobileMenu" class= "left far-left">
-              <mat-icon>menu</mat-icon>
-           </button>
-          <mat-menu #mobileMenu="matMenu" [overlapTrigger]="false">
+          <a routerLink="/forum" class="atila-blue">
+            <button mat-fab>
+                <span>Forums</span>
+            </button>
+          </a>
 
-
-              <a routerLink="/forum">
-                <button mat-menu-item>
-                    <span>Forums</span>
-                </button>
-              </a>
-
-              <a routerLink="/blog">
-                <button mat-menu-item>
-                    <span>Blogs</span>
-                </button>
-              </a>
-
-              <!--<a routerLink="/messages">-->
-                <!--<button mat-menu-item>-->
-                    <!--<span>Messages</span>-->
-                <!--</button>-->
-              <!--</a>-->
-
-              <a (click)="logout()">
-                <button mat-menu-item>
-                  <span>Logout</span>
-                </button>
-              </a>
-          </mat-menu>
+          <a routerLink="/blog" class="atila-blue">
+            <button mat-fab>
+                <span>Blogs</span>
+            </button>
+          </a>
 
 
           <button mat-fab [matMenuTriggerFor]="profileMenu" class= "right far-right">
@@ -266,10 +243,13 @@
           </button>
           </a>
 
+
+        <span class="hide-on-small-and-down">
           <mat-form-field style="width: 27%" >
               <input matInput class="browser-default"  type="text"
-                      [(ngModel)]="query" name="search" placeholder="Search" (keyup.enter)="search(query)">
+                     [(ngModel)]="query" name="search" placeholder="Search" (keyup.enter)="search(query)">
           </mat-form-field>
+        </span>
 
 
         <!--<a routerLink="/messages" class="right">-->
