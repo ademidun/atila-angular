@@ -54,7 +54,7 @@ mat-form-field {
 }
 
 :host /deep/ .mat-input-underline {
-  background-color: transparent !important;
+  background-color: white !important;
 }
 
 :host /deep/ .mat-select-arrow {
@@ -135,5 +135,11 @@ mat-form-field.location-div .mat-input-wrapper {
 @media (min-width: 768px) {
   .offset-md-5 {
     margin-left: 41.666667%;
+  }
+}
+
+@media (max-width: 576px){
+  .subscribe-btn {
+    margin-left: 5%;
   }
 }

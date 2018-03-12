@@ -186,7 +186,19 @@ export class ScholarshipsListComponent implements OnInit {
 
   // todo move this to a seperate function as it will rarely be called
   saveUser(userForm){
+
+    console.log('saveUser(), this.userProfile',this.userProfile);
     if (userForm.valid) {
+      if (!this.userProfile.major || this.userProfile.eligible_schools.length < 1) {
+        this.snackBar.open("Enter school or program information.",'', {duration: 3000});
+      }
+
+      if (!this.userProfile.post_secondary_school) {
+        this.userProfile.post_secondary_school = this.userProfile.eligible_schools[0];
+      }
+      this.userProfile.metadata['incomplete_profile'] =  false;
+      this.userProfile.metadata['stale_cache'] =  true;
+
 
       let sendData = {
         userProfile: this.userProfile,

@@ -67,9 +67,9 @@
       <a routerLink="/forum" style="text-decoration: underline; color: #68b9ff">forum posts</a>, and new product features.
 
       <span *ngIf="subscriber.response" style="color: green">
-                      <br>
-                      {{subscriber.response}}
-                    </span>
+        <br>
+        {{subscriber.response}}
+      </span>
     </p>
 
     <mat-form-field class="browser-default col-sm-12 col-md-5 dark-placeholder">
@@ -77,7 +77,7 @@
       <input matInput type="email" class="form-control" style="padding-bottom: 0; margin-bottom: 0; color: #194F87"  name="email" id="emailid"
              placeholder="Email Address" email [(ngModel)]="subscriber.email" (keyup.enter)="addSubscriber($event)">
     </mat-form-field>
-    <a class="waves-effect waves-light btn browser-default col-md-5 col-sm-12 offset-md-6" style="background-color:#4080ff;"
+    <a class="waves-effect waves-light btn browser-default col-md-5 col-sm-12 offset-md-6" style="background-color:#4080ff; width: 90%;"
        (click)="addSubscriber()">Subscribe</a>
 
   </div>

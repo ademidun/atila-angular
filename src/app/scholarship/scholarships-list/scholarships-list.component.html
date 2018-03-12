@@ -13,9 +13,9 @@
 
     <div *ngIf="form_data">
 
-        <div class="row center">
+        <div class="row center container">
 
-          <h4 class="registered-title" style="margin-left: 10%">
+          <h4 class="registered-title">
             <span *ngIf="userProfile">{{userProfile.first_name}}, </span>You can get
             <strong>{{ scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and up to <strong>{{total_funding}}</strong> in funding</span>.
           </h4>
@@ -42,14 +42,14 @@
             <input matInput type="email" class="form-control" style="padding-bottom: 0; margin-bottom: 0"  name="email" id="emailid"
                    placeholder="Email Address" email [(ngModel)]="subscriber.email" (keyup.enter)="addSubscriber($event)">
           </mat-form-field>
-          <a class="waves-effect waves-light btn browser-default col-sm-2" style="background-color:#4080ff; " (click)="addSubscriber()">Subscribe</a>
+          <a class="waves-effect waves-light btn browser-default col-sm-2 register-btn" style="background-color:#4080ff; " (click)="addSubscriber()">Subscribe</a>
 
 
         </div>
 
         <div class="offset-md-2">
 
-          <a class=" col-sm-6 waves-effect waves-light btn demo-btn" routerLink="/applications/demo">Try The Live Demo</a>
+          <a class=" col-sm-12 col-md-6 waves-effect waves-light btn demo-btn" routerLink="/applications/demo">Try The Live Demo</a>
 
           <mat-form-field class="col-sm-6 col-md-3">
             <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
@@ -126,7 +126,7 @@
 <div *ngIf="inCompleteProfile && userProfile" class="container">
   <div class="row center">
 
-    <h4 class="registered-title" style="margin-left: 10%">
+    <h4 class="registered-title">
       {{userProfile.first_name}}, You can get
       <!--<strong>🤔</strong> scholarships and up to <strong>🤔</strong> in funding.-->
       <strong>🤷</strong> scholarships and up to <strong>🤷</strong> in funding.
@@ -229,7 +229,7 @@
         <div class="col-sm-12">
           <app-typeahead [model]="userProfile.major" [dataset]="MAJORS_LIST"
                          (typeaheadSelectedEvent)="typeaheadEvent($event)"
-                         [metadata]="{'placeholder':'Major e.g. Engineering, Biology, Business, Political Science',
+                         [metadata]="{'placeholder':'Major e.g. Engineering, Biology, Business, Electrician, Political Science',
                                   'key':'major','tabindex':'9'}">
           </app-typeahead>
         </div>
