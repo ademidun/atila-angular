@@ -8,11 +8,11 @@
 
 
             <mat-form-field class="col-sm-12">
-              <input tabindex="5" class="browser-default" matInput id="first_name" type="text" required minlength="2" placeholder="First name"
+              <input tabindex="1" class="browser-default" matInput id="first_name" type="text" required minlength="2" placeholder="First name"
                      [(ngModel)]="userProfile.first_name" name="first_name">
             </mat-form-field>
             <mat-form-field class="col-sm-12">
-              <input tabindex="6" class="browser-default" matInput id="last_name" type="text" required minlength="2" placeholder="Last Name"
+              <input tabindex="1" class="browser-default" matInput id="last_name" type="text" required minlength="2" placeholder="Last Name"
                      [(ngModel)]="userProfile.last_name" name="last_name">
             </mat-form-field>
 
@@ -49,24 +49,36 @@
             {{isAgreeTerms}}
           </div>
           <div class="row">
-            <p *ngIf="registrationResponse" style="font-size: large; margin-bottom: 1%; color: green">
+            <!--<span *ngIf="true" style="font-size: large; margin-bottom: 1%; color: green">-->
+            <span *ngIf="registrationResponse" style="font-size: large; margin-bottom: 1%; color: green">
               <!--emoji (putting this here so I can command f to find the emoji.-->
               Registration successful 😄.
               <br>
-              Visit<a routerLink="/scholarship" [queryParams]="{'utm_campaign':'register_1','utm_source':'atila', 'utm_medium':'registration_form', 'utm_content':'scholarships_list'}"> My Scholarships</a>
-              <br>
-              Visit<a routerLink="/blog" [queryParams]="{'utm_campaign':'register_1','utm_source':'atila', 'utm_medium':'registration_form', 'utm_content':'scholarships_list'}"> BLogs</a>
-              <br>
-              Visit<a routerLink="/forum" [queryParams]="{'utm_campaign':'register_1','utm_source':'atila', 'utm_medium':'registration_form', 'utm_content':'forum'}"> Forums</a>
               Your verification email has been sent, please check your inbox (or your spam folder 🙄).
-            </p>
+
+            <h4>Next Steps:</h4>
+            <ul class="browser-default">
+              <li>
+                Visit<a routerLink="/scholarship" [queryParams]="{'utm_campaign':'register_1','utm_source':'atila', 'utm_medium':'registration_form', 'utm_content':'scholarships_list'}"> My Scholarships</a>
+                <br>
+              </li>
+              <li>
+                Visit<a routerLink="/blog" [queryParams]="{'utm_campaign':'register_1','utm_source':'atila', 'utm_medium':'registration_form', 'utm_content':'scholarships_list'}"> Blogs</a>
+                <br>
+              </li>
+              <li>
+                Visit<a routerLink="/forum" [queryParams]="{'utm_campaign':'register_1','utm_source':'atila', 'utm_medium':'registration_form', 'utm_content':'forum'}"> Forums</a>
+              </li>
+            </ul>
+
+            </span>
           </div>
 
           <div class="col-sm-12 button-container">
             <a class="waves-effect waves-light btn left" routerLink="/login">Log In</a>
 
-            <a class="waves-effect waves-light btn right btn-submit" (click)="registerUser(registerForm)"
-               [ngClass]="{disabled: disableRegistrationButton}">Register</a>
+            <button class="waves-effect waves-light btn right btn-submit" (click)="registerUser(registerForm)"
+               [disabled]="disableRegistrationButton">Register</button>
             <!--<a tabindex="4" class="waves-effect waves-light btn right" (click)="nextPage()">Next</a>-->
           </div>
         </div>
@@ -228,16 +240,27 @@
           </div>
           <div class="row">
 
-            <p *ngIf="registrationResponse" style="font-size: large; margin-bottom: 1%; color: green">
+            <span *ngIf="registrationResponse" style="font-size: large; margin-bottom: 1%; color: green">
               <!--emoji (putting this here so I can command f to find the emoji.-->
               Registration successful 😄.
               <br>
-              Visit<a routerLink="/forum" [queryParams]="{'utm_campaign':'register_1','utm_source':'atila', 'utm_medium':'registration_form', 'utm_content':'forum'}"> Forums</a>
-              <br>
-              Visit<a routerLink="/scholarship" [queryParams]="{'utm_campaign':'register_1','utm_source':'atila', 'utm_medium':'registration_form', 'utm_content':'scholarships_list'}"> My Scholarships</a>
-              <br>
+              <h5>Next Steps:</h5>
+            <ul>
+              <li>
+                Visit<a routerLink="/forum" [queryParams]="{'utm_campaign':'register_1','utm_source':'atila', 'utm_medium':'registration_form', 'utm_content':'forum'}"> Forums</a>
+                <br>
+              </li>
+              <li>
+                Visit<a routerLink="/scholarship" [queryParams]="{'utm_campaign':'register_1','utm_source':'atila', 'utm_medium':'registration_form', 'utm_content':'scholarships_list'}"> My Scholarships</a>
+                <br>
+              </li>
+              <li>
+
+              </li>
+            </ul>
+
               Your verification email has been sent, please check your inbox (or your spam folder 🙄).
-            </p>
+            </span>
 
             <div class="col-sm-6 button-container">
               <a class="waves-effect waves-light btn left" (click)="prevPage()">Previous</a>

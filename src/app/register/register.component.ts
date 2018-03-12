@@ -88,8 +88,9 @@ export class RegisterComponent implements OnInit {
     // }
     if (registerForm.valid) {
 
-      if (this.disableRegistrationButton) {
-        this.showSnackBar("Please wait", 3000);
+
+      if (this.model.password!=this.model.confirmPassword) {
+        this.snackBar.open('Your passwords do not match.','', {duration: 3000});
         return;
       }
       this.disableRegistrationButton = true;
@@ -99,13 +100,14 @@ export class RegisterComponent implements OnInit {
       let sendData = {
         user: this.model,
         userProfile: this.userProfile,
+        locationData: null,
       };
       console.log('sendData',sendData);
       postOperation = this.userProfileService.createUserAndProfile(sendData);
       // Subscribe to Observable
       postOperation.subscribe(
         data => {
-          this.model = new User('','','','');
+          this.model = new User(this.model.email,this.model.username,'','');
           this.showSnackBar('Registration successful', 3000);
 
           this.authService.isLoggedIn = true;
