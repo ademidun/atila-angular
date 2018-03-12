@@ -54,6 +54,7 @@ export class UserProfile {
 
           this.eligible_schools = [];
           this.eligible_programs = [];
+          this.metadata = {};
         }
     }
 

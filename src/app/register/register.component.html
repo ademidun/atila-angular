@@ -5,6 +5,17 @@
         <h4>Register</h4>
         <div *ngIf="pageNo==1">
           <div class="row">
+
+
+            <mat-form-field class="col-sm-12">
+              <input tabindex="5" class="browser-default" matInput id="first_name" type="text" required minlength="2" placeholder="First name"
+                     [(ngModel)]="userProfile.first_name" name="first_name">
+            </mat-form-field>
+            <mat-form-field class="col-sm-12">
+              <input tabindex="6" class="browser-default" matInput id="last_name" type="text" required minlength="2" placeholder="Last Name"
+                     [(ngModel)]="userProfile.last_name" name="last_name">
+            </mat-form-field>
+
             <mat-form-field class="col-sm-12">
               <input tabindex="1" matInput class="browser-default" id="username" type="text"
                      required [(ngModel)]="model.username" name="username" placeholder="Username" autocomplete="username">
@@ -31,9 +42,32 @@
             <p *ngIf="differentPassword">Your passwords do not match</p>
           </div>
 
+          <div class="row">
+            By clicking register you agree to the <a routerLink="/terms-and-conditions"> Terms and Conditions</a>.
+          </div>
+          <div>
+            {{isAgreeTerms}}
+          </div>
+          <div class="row">
+            <p *ngIf="registrationResponse" style="font-size: large; margin-bottom: 1%; color: green">
+              <!--emoji (putting this here so I can command f to find the emoji.-->
+              Registration successful 😄.
+              <br>
+              Visit<a routerLink="/scholarship" [queryParams]="{'utm_campaign':'register_1','utm_source':'atila', 'utm_medium':'registration_form', 'utm_content':'scholarships_list'}"> My Scholarships</a>
+              <br>
+              Visit<a routerLink="/blog" [queryParams]="{'utm_campaign':'register_1','utm_source':'atila', 'utm_medium':'registration_form', 'utm_content':'scholarships_list'}"> BLogs</a>
+              <br>
+              Visit<a routerLink="/forum" [queryParams]="{'utm_campaign':'register_1','utm_source':'atila', 'utm_medium':'registration_form', 'utm_content':'forum'}"> Forums</a>
+              Your verification email has been sent, please check your inbox (or your spam folder 🙄).
+            </p>
+          </div>
+
           <div class="col-sm-12 button-container">
             <a class="waves-effect waves-light btn left" routerLink="/login">Log In</a>
-            <a tabindex="4" class="waves-effect waves-light btn right" (click)="nextPage()">Next</a>
+
+            <a class="waves-effect waves-light btn right btn-submit" (click)="registerUser(registerForm)"
+               [ngClass]="{disabled: disableRegistrationButton}">Register</a>
+            <!--<a tabindex="4" class="waves-effect waves-light btn right" (click)="nextPage()">Next</a>-->
           </div>
         </div>
 

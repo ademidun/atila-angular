@@ -19,3 +19,7 @@ table {
 .btn {
   color: white;
 }
+a.disabled {
+  pointer-events: none;
+  color: #ccc;
+}

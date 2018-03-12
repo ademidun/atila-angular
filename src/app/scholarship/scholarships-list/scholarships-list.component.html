@@ -123,6 +123,178 @@
 
 </div>
 
+<div *ngIf="inCompleteProfile && userProfile" class="container">
+  <div class="row center">
+
+    <h4 class="registered-title" style="margin-left: 10%">
+      {{userProfile.first_name}}, You can get
+      <!--<strong>🤔</strong> scholarships and up to <strong>🤔</strong> in funding.-->
+      <strong>🤷</strong> scholarships and up to <strong>🤷</strong> in funding.
+    </h4>
+    <br>
+
+    <h2 class="scholarship-preview-count">Complete profile to see eligible scholarships.</h2>
+
+  </div>
+
+  <form *ngIf="userProfile" #completeProfileForm="ngForm" class="col-sm-12"  (keydown.enter)="$event.preventDefault()">
+  <div class="row">
+
+    <mat-form-field class="col-sm-12">
+      <input tabindex="5" class="browser-default" matInput id="first_name" type="text" required minlength="2" placeholder="First name"
+             [(ngModel)]="userProfile.first_name" name="first_name">
+    </mat-form-field>
+    <mat-form-field class="col-sm-12">
+      <input tabindex="6" class="browser-default" matInput id="last_name" type="text" required minlength="2" placeholder="Last Name"
+             [(ngModel)]="userProfile.last_name" name="last_name">
+    </mat-form-field>
+    <mat-form-field class="col-sm-12">
+      <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
+      <mat-select tabindex="6" [(ngModel)]="userProfile.gender"  id="gender" name="gender" placeholder="Gender" required >
+        <mat-option *ngFor="let gender of ['Male','Female','Other']" [value]="gender">{{gender}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="col-sm-12">
+      <input class="browser-default" id="is_international_student" type="checkbox" [(ngModel)]="userProfile.is_international_student" name="is_international_student">
+      <label for="is_international_student" data-error="Invalid input">International Student?</label>
+    </div>
+
+  </div>
+
+  <!-- fake fields to prevent chrome from autofilling location since we have Google Autocomplete -->
+  <input autocomplete="false" style="display:none" type="text" name="city" />
+  <input autocomplete="false" style="display:none" type="text" name="province"/>
+  <input autocomplete="false" style="display:none" type="text" name="country"/>
+
+  <div class="row">
+
+    <!-- Try using Google Maps Places Autocomplete API: https://developers.google.com/maps/documentation/javascript/places-autocomplete#address_forms -->
+    <!-- https://stackoverflow.com/questions/42341930/google-places-autocomplete-angular2 -->
+    <mat-form-field class="col-sm-12 location-div">
+      <!--Prevent Chrome Autofill-->
+      <label>Ci<span style="display: none">w.com/questions/4234</span>ty*</label>
+      <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
+      <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
+      <input tabindex="7" matInput type="text" class="browser-default " style="padding-bottom: 0" required name="ignore-this-autofill-please"
+             autocomplete="disabled"
+             [(ngModel)]="locationData.city" #LocationCtrl="ngModel" appGooglePlace (setAddress)="placeAutoComplete($event,LocationCtrl)"
+             (keydown)="keyDownHandler($event)">
+    </mat-form-field>
+
+  </div>
+  <div class="row">
+    <mat-form-field class="col-sm-12">
+      <input class="browser-default" matInput id="province" type="text" required placeholder="Province/State"
+             [(ngModel)]="locationData.province" name="province"  appGooglePlace (setAddress)="placeAutoComplete($event,{'name': 'province'})"
+             (keydown)="keyDownHandler($event)" autocomplete="false">
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field class="col-sm-12">
+      <input class="browser-default" matInput id="country" type="text" required placeholder="Country"
+             [(ngModel)]="locationData.country" name="country"  appGooglePlace (setAddress)="placeAutoComplete($event,{'name': 'country'})"
+             (keydown)="keyDownHandler($event)" autocomplete="false">
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+    <mat-form-field class="col-sm-12">
+      <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
+      <mat-select tabindex="8" [(ngModel)]="userProfile.education_level"   name="education_level"  id="education_level" multiple=true placeholder="Education Type" required >
+        <mat-option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <br>
+  <div class="row">
+
+    <mat-form-field class="col-sm-12">
+      <!-- TODO: Add a Modal or hover info explaining the diff. between Art and STEM -->
+      <mat-select tabindex="9" [(ngModel)]="userProfile.education_field"  name="education_field"  id="education_field" multiple=true required placeholder="Education Field">
+        <mat-option *ngFor="let field of EDUCATION_FIELD" [value]="field" ngDefaultControl>{{field}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="autocomplete-form">
+
+      <div class="row">
+        <div class="col-sm-12">
+
+          <p> What is your major?
+            <br>
+
+            <strong>{{userProfile.major}}</strong>
+          </p>
+        </div>
+        <div class="col-sm-12">
+          <app-typeahead [model]="userProfile.major" [dataset]="MAJORS_LIST"
+                         (typeaheadSelectedEvent)="typeaheadEvent($event)"
+                         [metadata]="{'placeholder':'Major e.g. Engineering, Biology, Business, Political Science',
+                                  'key':'major','tabindex':'9'}">
+          </app-typeahead>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <p> What Other programs are you interested in?</p>
+          <table>
+            <tr  *ngFor="let program of userProfile.eligible_programs; let i = index">
+              <td> {{program}} </td>
+              <td>
+                <a class="waves-effect waves-light btn right" (click)="deleteArrayitem(userProfile.eligible_programs, i)">
+                  <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="col-sm-12">
+          <app-typeahead [model]="userProfile.eligible_programs" [dataset]="MAJORS_LIST"
+                         [metadata]="{'placeholder':'What Other programs are you interested in?', 'key':'major','tabindex':'9'}">
+          </app-typeahead>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <p> What schools are you interested in?</p>
+          <table>
+            <tr  *ngFor="let school of userProfile.eligible_schools; let i = index" ngDefaultControl>
+              <td>{{school}} </td>
+              <td>
+                <a class="waves-effect waves-light btn right" (click)="deleteArrayitem(userProfile.eligible_schools, i)">
+                  <i class="fa fa-trash-o" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-sm-12">
+          <app-typeahead [model]="userProfile.eligible_schools" [dataset]="SCHOOLS_LIST"
+                         [metadata]="{'placeholder':'Schools e.g. Mcmaster University, Sheridan College', 'key':'major','tabindex':'9'}">
+          </app-typeahead>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+    <div class="row">
+
+
+      <div class="col-sm-6 button-container">
+        <button tabindex="10" class="waves-effect waves-light btn right btn-submit"
+                (click)="saveUser(completeProfileForm)" [disabled]="disableRegistrationButton">Complete Profile</button>
+      </div>
+    </div>
+  </form>
+
+
+</div>
 
 <!-- Loading progress circle -->
 <div *ngIf="isLoading" class="preloader-background">
@@ -149,3 +321,6 @@
     <h4 class="scholarship-preview-count my-dark-blue-text"><a routerLink="/register">Learn how to qualify for more scholarships.</a></h4>
   </div>
 </ng-template>
+
+
+

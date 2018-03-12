@@ -87,19 +87,20 @@ export class RegisterComponent implements OnInit {
     //
     // }
     if (registerForm.valid) {
+
+      if (this.disableRegistrationButton) {
+        this.showSnackBar("Please wait", 3000);
+        return;
+      }
       this.disableRegistrationButton = true;
       let postOperation: Observable<any>;
 
-
-      // Create a new User
-      for (let key in ['city', 'province', 'country'] ) {
-        this.locationData[key] = this.locationData[key] ? this.toTitleCase(this.locationData[key]) : this.locationData[key];
-      }
+      this.userProfile.metadata['incomplete_profile'] = true;
       let sendData = {
         user: this.model,
         userProfile: this.userProfile,
-        locationData: this.locationData,
       };
+      console.log('sendData',sendData);
       postOperation = this.userProfileService.createUserAndProfile(sendData);
       // Subscribe to Observable
       postOperation.subscribe(
@@ -116,7 +117,7 @@ export class RegisterComponent implements OnInit {
           try {
             firebase.auth().signInWithCustomToken(data.firebase_token)
               .then(res2 => {
-
+                // this.router.navigate(['scholarship']);
               })
               .catch(error => {
                 // Handle Errors here.

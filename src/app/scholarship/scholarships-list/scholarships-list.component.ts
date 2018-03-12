@@ -14,7 +14,10 @@ import {prettifyKeys, toTitleCase} from '../../_models/utils';
 import { EditProfileModalComponent } from '../../edit-profile-modal/edit-profile-modal.component';
 import {NgbModal, NgbPopover} from '@ng-bootstrap/ng-bootstrap';
 import {environment} from '../../../environments/environment';
+import {AutoCompleteForm, initializeAutoCompleteOptions} from '../../_shared/scholarship-form';
+import {FormGroup} from '@angular/forms';
 
+import {SCHOOLS_LIST, MAJORS_LIST, EDUCATION_FIELDS, EDUCATION_LEVEL} from '../../_models/constants';
 @Component({
   selector: 'app-scholarships-list',
   templateUrl: './scholarships-list.component.html',
@@ -26,6 +29,7 @@ export class ScholarshipsListComponent implements OnInit {
   isLoggedIn: boolean;
   userId: string;
   contentFetched: boolean = false;
+  inCompleteProfile: boolean = false;
   isLoading = true;
   userProfile: UserProfile;
 
@@ -38,6 +42,20 @@ export class ScholarshipsListComponent implements OnInit {
   paginationLen: number = 12;
   pageLen: number;
   subscriber: any = {};
+  autoCompleteFormGroup: FormGroup;
+  autoCompleteOptions: any;
+
+  locationData = {
+    'city': '',
+    'province': '',
+    'country': '',
+  };
+  EDUCATION_LEVEL = EDUCATION_LEVEL;
+
+  EDUCATION_FIELD = EDUCATION_FIELDS;
+  MAJORS_LIST = MAJORS_LIST;
+  SCHOOLS_LIST = SCHOOLS_LIST;
+
   @ViewChild('trySearch') public popover: NgbPopover;
   constructor(
     public scholarshipService: ScholarshipService,
@@ -60,8 +78,17 @@ export class ScholarshipsListComponent implements OnInit {
       this.userProfileService.getById(parseInt(this.userId))
       .subscribe(
         data => {
-          var tempCity = [];
+          let tempCity = [];
           this.userProfile = data;
+
+          if (this.userProfile.metadata['incomplete_profile']) {
+            console.log('this.userProfile',this.userProfile);
+            this.inCompleteProfile = true;
+            this.isLoading = false;
+            this.initCompleteProfileForm();
+
+            return;
+          }
           tempCity.push(data.city);
           this.form_data = {
             'city': data.city,
@@ -70,15 +97,6 @@ export class ScholarshipsListComponent implements OnInit {
             'sort_by': 'relevance',
           };
 
-          setTimeout(() => {
-            this.editProfileModal();
-          }, 5000);
-
-          // setTimeout(() => {
-          //
-          //   this.toggleSearchModal();
-          //
-          // }, 1000);
 
           this.getScholarshipPreview(this.pageNo);
         }
@@ -107,8 +125,6 @@ export class ScholarshipsListComponent implements OnInit {
 
 
   }
-
-
 
   getScholarshipPreview(page: number = 1){
 
@@ -165,6 +181,41 @@ export class ScholarshipsListComponent implements OnInit {
     this.pageNo--;
     this.getScholarshipPreview(this.pageNo);
     window.scrollTo(0, 0);
+  }
+
+
+  // todo move this to a seperate function as it will rarely be called
+  saveUser(userForm){
+    if (userForm.valid) {
+
+      let sendData = {
+        userProfile: this.userProfile,
+        locationData: this.locationData,
+      };
+
+      this.userProfileService.updateAny(sendData)
+        .subscribe(
+          data => {
+
+            this.snackBar.open("Successfully Updated Your Profile.",'', {duration: 3000});
+            this.inCompleteProfile = false;
+            this.isLoading = false;
+            this.form_data = {
+              'city': data.city,
+              'education_level': data.education_level,
+              'education_field': data.education_field,
+              'sort_by': 'relevance',
+            };
+
+            this.getScholarshipPreview(this.pageNo);
+            },
+            err => {
+              this.snackBar.open('Profile updated unsuccessfully - ' + err.error? err.error: err,'', {duration: 3000});
+            }
+          )
+    } else {
+      this.snackBar.open("Form is not valid",'', {duration: 3000});
+    }
   }
 
 
@@ -313,6 +364,81 @@ export class ScholarshipsListComponent implements OnInit {
 
   saveUserAnalytics(path, userData) {
     this.firebaseService.saveUserAnalytics(userData,path);
+  }
+
+
+  initCompleteProfileForm() {
+
+    this.autoCompleteFormGroup = AutoCompleteForm();
+    this.autoCompleteOptions = initializeAutoCompleteOptions(this.autoCompleteFormGroup);
+
+    if(this.userProfile.city.length>0){
+      this.locationData.city= this.userProfile.city[0].name;
+      this.locationData.country=this.userProfile.city[0].country;
+      this.locationData.province=this.userProfile.city[0].province;
+    }
+  }
+
+
+  typeaheadEvent(event) {
+    if (event.type == 'major') {
+      this.userProfile.major = event.event.item;
+    }
+  }
+
+  /**
+   * Adding Google Places API Autocomplete for User Location:
+   * @param {google.maps.places.PlaceResult} placeResult
+   * https://developers.google.com/maps/documentation/javascript/reference#PlaceResult
+   * https://developers.google.com/maps/documentation/javascript/places-autocomplete#address_forms
+   * https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform
+   * https://stackoverflow.com/questions/42341930/google-places-autocomplete-angular2
+   */
+  placeAutoComplete(placeResult:any, autoCompleteOptions?: any){ //Assign types to the parameters place result is a PlaceResult Type, see documentation
+
+    this.predictLocation(this.locationData, placeResult, autoCompleteOptions);
+
+  }
+
+  /**
+   * Translate the PlaceResult object into an Atila location object, containing only the city, province/state and country.
+   * @param location
+   * @param placeResult
+   */
+  predictLocation(location, placeResult, autoCompleteOptions?: any){
+
+    var addressComponents = placeResult.address_components ;
+
+    var keys = ['city', 'province', 'country'];
+
+    //TODO: Find a more elegant solution for this.
+
+    addressComponents.forEach((element, i, arr) => {
+
+      if(element.types[0]=='locality' || element.types[0]=='administrative_area_level_3' ||  element.types[0]=='postal_town'||  element.types[0]=='sublocality_level_1'){
+        this.locationData.city = element.long_name;
+      }
+
+      if(element.types[0]=='administrative_area_level_1'){
+        this.locationData.province = element.long_name;
+      }
+
+      if(element.types[0]=='country'){
+        this.locationData['country'] = element.long_name;
+      }
+    });
+  }
+
+  /**
+   * If user presses enter on location button, don't allow the form to submit because we still need to pull the location Data from Google Maps.
+   */
+  keyDownHandler(event: Event) {
+
+    if((<KeyboardEvent>event).keyCode == 13) {
+
+      event.preventDefault();
+    }
+    //TODO! Change this, allow user to submit with enterButton.
   }
 
 }
