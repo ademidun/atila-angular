@@ -30,8 +30,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {AngularFireModule} from 'angularfire2';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {SharedModule} from '../_shared/shared.module';
-import {ProfileViewComponent} from '../profile-view/profile-view.component';
-import {EditProfileComponent} from '../edit-profile/edit-profile.component';
+import {ProfileViewComponent} from './profile-view/profile-view.component';
+import {EditProfileComponent} from './edit-profile/edit-profile.component';
 
 
 @NgModule({

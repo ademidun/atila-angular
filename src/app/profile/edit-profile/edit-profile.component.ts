@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import { UserProfile, toTitleCase } from '../_models/user-profile';
-import { UserProfileService } from "../_services/user-profile.service";
+import { UserProfile, toTitleCase } from '../../_models/user-profile';
+import { UserProfileService } from "../../_services/user-profile.service";
 
 import {NgForm, NgModel} from '@angular/forms';
 
@@ -11,23 +11,23 @@ import {MatAutocompleteSelectedEvent, MatSnackBar} from '@angular/material';
 
 import { Title }     from '@angular/platform-browser';
 
-import { UploadFile } from '../_models/upload-file';
+import { UploadFile } from '../../_models/upload-file';
 
-import { AuthService } from "../_services/auth.service";
+import { AuthService } from "../../_services/auth.service";
 
-import { MyFirebaseService } from "../_services/myfirebase.service";
+import { MyFirebaseService } from "../../_services/myfirebase.service";
 
 import * as firebase from "firebase";
-import {environment} from '../../environments/environment';
+import {environment} from '../../../environments/environment';
 
 import {FormControl} from '@angular/forms';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
 import {debounceTime} from 'rxjs/operators/debounceTime';
-import {ACTIVITIES, COUNTRIES, DISABILITY, ETHNICITY, RELIGION, SCHOOLS_DICT, SPORTS} from '../_models/constants';
-import {ScholarshipService} from '../_services/scholarship.service';
-import {SCHOOLS_LIST, MAJORS_LIST, LANGUAGE} from '../_models/constants';
-import {prettifyKeys} from '../_models/utils';
+import {ACTIVITIES, COUNTRIES, DISABILITY, ETHNICITY, RELIGION, SCHOOLS_DICT, SPORTS} from '../../_models/constants';
+import {ScholarshipService} from '../../_services/scholarship.service';
+import {SCHOOLS_LIST, MAJORS_LIST, LANGUAGE} from '../../_models/constants';
+import {prettifyKeys} from '../../_models/utils';
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',

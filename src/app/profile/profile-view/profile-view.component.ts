@@ -1,25 +1,25 @@
 import { Component, OnInit, AfterContentInit } from '@angular/core';
-import { UserProfile } from '../_models/user-profile';
+import { UserProfile } from '../../_models/user-profile';
 
-import { UploadFile } from '../_models/upload-file';
-import { UserProfileService } from '../_services/user-profile.service';
+import { UploadFile } from '../../_models/upload-file';
+import { UserProfileService } from '../../_services/user-profile.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Title,DomSanitizer }     from '@angular/platform-browser';
-import { AuthService } from "../_services/auth.service";
+import { AuthService } from "../../_services/auth.service";
 import { MatSnackBar } from '@angular/material';
 
 
-import { MessagingService } from '../_services/messaging.service';
+import { MessagingService } from '../../_services/messaging.service';
 
-import { Thread } from '../_models/thread';
+import { Thread } from '../../_models/thread';
 
 import { Observable } from 'rxjs/Observable';
 import * as firebase from "firebase";
 import * as $ from 'jquery';
-import {ApplicationService} from '../_services/application.service';
-import {MyFirebaseService} from '../_services/myfirebase.service';
-import {SCHOOLS_LIST} from '../_models/constants';
+import {ApplicationService} from '../../_services/application.service';
+import {MyFirebaseService} from '../../_services/myfirebase.service';
+import {SCHOOLS_LIST} from '../../_models/constants';
 
 @Component({
   selector: 'app-profile-view',
