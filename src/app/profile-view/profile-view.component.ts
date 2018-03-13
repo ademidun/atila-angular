@@ -62,6 +62,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
     this.userProfileService.getByUsername(this.userNameSlug).subscribe(
       res => {
         this.userProfile = res;
+        console.log('this.userProfile',this.userProfile);
         this.titleService.setTitle('Atila - ' + this.userProfile.first_name + " " +this.userProfile.last_name +"'s Profile");
 
         this.currentUser = parseInt(this.authService.decryptLocalStorage('uid')); // Current user
@@ -73,6 +74,14 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
           this.userProfileService.getRouteDetail(this.userProfile.user,'scholarships').subscribe(
             res => {
               this.savedScholarships = res['scholarships'];
+
+              this.savedScholarships.forEach(scholarship => {
+                if (!this.userProfile.saved_scholarships_metadata[scholarship.id]) {
+                  this.userProfile.saved_scholarships_metadata[scholarship.id] = {'notes':''};
+                }
+              });
+
+              console.log('this.userProfile',this.userProfile);
             },
             error2 => {},
           );

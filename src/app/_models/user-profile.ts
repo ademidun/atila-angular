@@ -43,6 +43,7 @@ export class UserProfile {
             public extracurricular_description?:any,
             public academic_career_goals?:any,
             public saved_scholarships?:any,
+            public saved_scholarships_metadata?:any,
             public secondary_school?:any,
             public signature?:any,
             public sports?:string[],
@@ -97,9 +98,11 @@ export class UserProfile {
 
          if(!userProfile.saved_scholarships) {
            userProfile.saved_scholarships = [];
+           userProfile.saved_scholarships_metadata = {};
          }
 
          userProfile.saved_scholarships.push(item.id,);
+         userProfile.saved_scholarships_metadata[item.id] = {notes: ""};
 
          return [userProfile, true];
 

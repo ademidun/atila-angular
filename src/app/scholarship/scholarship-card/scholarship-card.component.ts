@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
-import {UserProfile} from '../../_models/user-profile';
+import {addToMyScholarshipHelper, UserProfile} from '../../_models/user-profile';
 import {MyFirebaseService} from '../../_services/myfirebase.service';
 import {UserProfileService} from '../../_services/user-profile.service';
 @Component({
@@ -51,27 +51,32 @@ export class ScholarshipCardComponent implements OnInit {
     this.logShareType('save_my_scholarships');
     if (this.userProfile) {
 
-      if(!this.userProfile.saved_scholarships) {
-        this.userProfile.saved_scholarships = [];
+      let saveResult = addToMyScholarshipHelper(this.userProfile,this.scholarship);
+
+      if(!saveResult[1]) {
+        this.snackBar.open("Already Saved", '', {
+          duration: 3000
+        });
+
+        this.alreadySaved = true;
+        return;
       }
-      this.userProfile.saved_scholarships.push(this.scholarship.id);
-      this.alreadySaved = true;
+      else {
+        this.userProfile = saveResult[0];
+        this.userProfileService.updateHelper(this.userProfile).subscribe(
+            res => {
+              let snackBarRef = this.snackBar.open("Saved to My Scholarships", 'My Scholarships', {
+                duration: 5000
+              });
+              snackBarRef.onAction().subscribe(
+                () => {
+                  this.router.navigate(['profile',this.userProfile.username,'my-atila']);
+                },
+              )},
+            err=> {},
+          );
+      }
 
-
-      this.userProfileService.updateHelper(this.userProfile)
-        .subscribe(
-          res => {},
-          err=> {},
-        )
-      let snackBarRef = this.snackBar.open("Saved to My Scholarships", 'My Scholarships', {
-        duration: 5000
-      });
-
-      snackBarRef.onAction().subscribe(
-        () => {
-          this.router.navigate(['profile',this.userProfile.username,'my-atila']);
-        },
-      )
     }
 
     else {
