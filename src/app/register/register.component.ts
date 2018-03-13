@@ -79,7 +79,7 @@ export class RegisterComponent implements OnInit {
   }
 
   registerUser(registerForm: NgForm) {
-
+    console.log('registerForm',registerForm);
     // if(registerForm) {
     //
     //   this.userProfile.major = this.topMajorControl.value;
@@ -103,8 +103,12 @@ export class RegisterComponent implements OnInit {
         locationData: null,
       };
       console.log('sendData',sendData);
+
+
       postOperation = this.userProfileService.createUserAndProfile(sendData);
       // Subscribe to Observable
+
+
       postOperation.subscribe(
         data => {
           this.model = new User(this.model.email,this.model.username,'','');
@@ -115,6 +119,7 @@ export class RegisterComponent implements OnInit {
           // this.cookieService.putObject('userId', data.id);
           this.authService.encryptlocalStorage('uid',data.id);
           this.authService.encryptlocalStorage('firebase_token', data.firebase_token);
+          this.userProfile = data.user_profile;
 
           try {
             firebase.auth().signInWithCustomToken(data.firebase_token)
@@ -145,6 +150,18 @@ export class RegisterComponent implements OnInit {
             this.showSnackBar(err.error, 3000);
           }
 
+        },
+        () =>  {
+          $.getJSON('//freegeoip.net/json/?callback=?',
+            data => {
+              this.userProfile.metadata['registration_location'] = data;
+              this.userProfileService.updateHelper(this.userProfile)
+                .subscribe(res=>{});
+
+            },
+            done => {
+
+            });
         }
       )
 

@@ -14,16 +14,15 @@
         <!--</div>-->
         <img class="header-image" mat-card-avatar [src]="userProfile.profile_pic_url" style="margin-left: 10%">
 
-      <div >
         <!--Show the profile info, IN the header on regular devices.-->
-        <div class="hide-on-small-and-down">
+        <div class="hide-on-small-and-down col-md-7">
         <div class="offset-md-1">
           <mat-card-title><h4>{{userProfile.first_name}} {{userProfile.last_name}}</h4></mat-card-title>
           <mat-card-subtitle class="title"><h5>{{userProfile.title}}</h5></mat-card-subtitle>
           <mat-card-subtitle *ngIf="userProfile.post_secondary_school" class="title"><h5>{{userProfile.post_secondary_school}}</h5></mat-card-subtitle>
           <mat-card-subtitle *ngIf="!userProfile.post_secondary_school && userProfile.secondary_school" class="title"><h5>{{userProfile.secondary_school}}</h5></mat-card-subtitle>
-          <mat-card-subtitle *ngIf="userProfile['metadata']['profile_link_name']" >
-            <a  class="btn btn-link" [href]="userProfile['metadata']['profile_link_url']" target="_blank">{{userProfile['metadata']['profile_link_name']}}</a>
+          <mat-card-subtitle *ngIf="userProfile['public_metadata']['profile_link_name']" >
+            <a  class="btn btn-link" [href]="userProfile['public_metadata']['profile_link_url']" target="_blank" style="background-color: #4080ff">{{userProfile['public_metadata']['profile_link_name']}}</a>
           </mat-card-subtitle>
           <div class="header-buttons">
             <!--<button mat-raised-button class="btn white-text" (click)="message()">Message</button>-->
@@ -37,7 +36,6 @@
         </div>
 
         </div>
-      </div>
       </mat-card-header>
 
         <!--Show the profile info, after photo on mobile devices.-->
@@ -48,8 +46,8 @@
           <mat-card-subtitle class="title"><h5>{{userProfile.title}}</h5></mat-card-subtitle>
           <mat-card-subtitle *ngIf="userProfile.post_secondary_school" class="title"><h5>{{userProfile.post_secondary_school}}</h5></mat-card-subtitle>
           <mat-card-subtitle *ngIf="!userProfile.post_secondary_school && userProfile.secondary_school" class="title"><h5>{{userProfile.secondary_school}}</h5></mat-card-subtitle>
-          <mat-card-subtitle *ngIf="userProfile['metadata']['profile_link_name']" >
-            <a  class="btn btn-link" [href]="userProfile['metadata']['profile_link_url']" target="_blank">{{userProfile['metadata']['profile_link_name']}}</a>
+          <mat-card-subtitle *ngIf="userProfile['public_metadata']['profile_link_name']" >
+            <a  class="btn btn-link" [href]="userProfile['public_metadata']['profile_link_url']" target="_blank" style="background-color: #4080ff">{{userProfile['public_metadata']['profile_link_name']}}</a>
           </mat-card-subtitle>
           <div class="header-buttons">
             <!--<button mat-raised-button class="btn white-text" (click)="message()">Message</button>-->
@@ -127,11 +125,11 @@
               <p>You can add a custom link to your account</p>
               <mat-form-field class="col-sm-12">
                 <input class="browser-default" matInput id="profile_link_name" type="text" placeholder="E.g. My Resume, My LinkedIn, My Website"
-                       [(ngModel)]="userProfile['metadata']['profile_link_name']" name="profile_link_name">
+                       [(ngModel)]="userProfile['public_metadata']['profile_link_name']" name="profile_link_name">
               </mat-form-field>
               <mat-form-field class="col-sm-12">
                 <input class="browser-default" matInput id="profile_link_url" type="text" placeholder=" e.g. https://mywebsite.com"
-                       [(ngModel)]="userProfile['metadata']['profile_link_url']" name="profile_link_url">
+                       [(ngModel)]="userProfile['public_metadata']['profile_link_url']" name="profile_link_url">
               </mat-form-field>
             </div>
 

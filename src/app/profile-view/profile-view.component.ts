@@ -69,14 +69,16 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
 
         this.profile_pic_url = this.sanitization.bypassSecurityTrustStyle(`url(${this.userProfile.profile_pic_url})`);
 
-        this.userProfileService.getRouteDetail(this.userProfile.user,'scholarships').subscribe(
-          res => {
-            this.savedScholarships = res['scholarships'];
-          },
-          error2 => {},
-        );
-        if (this.router.url.indexOf('my-atila') !== -1) {
-          this.myAtilaMode = true;
+        if(this.profileOwner) {
+          this.userProfileService.getRouteDetail(this.userProfile.user,'scholarships').subscribe(
+            res => {
+              this.savedScholarships = res['scholarships'];
+            },
+            error2 => {},
+          );
+          if (this.router.url.indexOf('my-atila') !== -1) {
+            this.myAtilaMode = true;
+          }
         }
       }
     )

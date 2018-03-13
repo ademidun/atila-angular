@@ -196,7 +196,7 @@ export class ScholarshipsListComponent implements OnInit {
       if (!this.userProfile.post_secondary_school) {
         this.userProfile.post_secondary_school = this.userProfile.eligible_schools[0];
       }
-      this.userProfile.metadata['incomplete_profile'] =  false;
+      delete this.userProfile.metadata['incomplete_profile'];
       this.userProfile.metadata['stale_cache'] =  true;
 
 
