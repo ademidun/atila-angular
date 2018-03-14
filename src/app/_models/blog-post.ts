@@ -26,6 +26,7 @@ export class BlogPost {
 }
 
 
+// todo move this to the blog.service
 export function likeContent(content: BlogPost, userProfile?,blogService?: BlogPostService, firebaseService?: MyFirebaseService, snackBar?: MatSnackBar) {
   if (!userProfile) {
 

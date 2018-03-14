@@ -43,19 +43,19 @@ export class SeoService {
     // });
 
     try {
-
-
       if ($) {
         $('meta[itemprop="name"]').attr('content',config.title);
         $('meta[itemprop="description"]').attr('content',config.description);
-        $('meta[itemprop="image"]').attr('content',config.description);
-        $('meta[name="description"]').attr('content',config.image);
+        $('meta[name="Description"]').attr('content',config.description);
+        $('meta[name="description"]').attr('content',config.description);
+        $('meta[itemprop="image"]').attr('content',config.image);
       }
     }
     catch (e) {
       this.meta.updateTag({ itemprop: 'name', content: config.title });
       this.meta.updateTag({ itemprop: 'description', content: config.description });
       this.meta.updateTag({ name: 'description', content: config.description });
+      this.meta.updateTag({ name: 'Description', content: config.title });
       this.meta.updateTag({ itemprop: 'image', content: config.image });
     }
 
