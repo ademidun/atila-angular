@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 
-import { Meta } from '@angular/platform-browser';
+import {Meta, Title} from '@angular/platform-browser';
 // https://angularfirebase.com/lessons/seo-angular-part-1-rendertron-meta-tags/#Setting-Social-Media-Meta-Tags-in-Angular
 @Injectable()
 export class SeoService {
 
-  constructor(private meta: Meta) { }
+  constructor(private meta: Meta,
+              public titleService: Title) { }
 
   generateTags(config) {
     /*
@@ -13,13 +14,14 @@ export class SeoService {
     config = {
       title: 'Atila | Automated Scholarships. The Right Way.',
       description: 'Automatically find and apply to scholarships at the click of a button. Learn and share information about education, career and life.',
-      image: 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-image-preview-nov-24-2.png?alt=media&token=f4bb94ac-60f6-451a-a3df-f2300d92818d',
+      image: 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-gradient-banner-march-14.png?alt=media&token=9d791ba9-18d0-4750-ace8-b390a4e90fdc',
       slug: '',
     };
 
     */
 
     config.title = config.title + ' - Atila';
+    this.titleService.setTitle( config.title);
     this.meta.updateTag({ name: 'twitter:card', content: 'summary' });
     this.meta.updateTag({ name: 'twitter:site', content: '@atilatech' });
     this.meta.updateTag({ name: 'twitter:title', content: config.title });

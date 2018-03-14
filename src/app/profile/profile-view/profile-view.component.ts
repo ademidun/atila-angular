@@ -20,6 +20,7 @@ import * as $ from 'jquery';
 import {ApplicationService} from '../../_services/application.service';
 import {MyFirebaseService} from '../../_services/myfirebase.service';
 import {SCHOOLS_LIST} from '../../_models/constants';
+import {SeoService} from '../../_services/seo.service';
 
 @Component({
   selector: 'app-profile-view',
@@ -53,6 +54,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
     public applicationService: ApplicationService,
     public sanitization: DomSanitizer,
     public firebaseService: MyFirebaseService,
+    public seoService: SeoService,
   ) {
     this.userNameSlug = route.snapshot.params['username'];
   }
@@ -62,8 +64,19 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
     this.userProfileService.getByUsername(this.userNameSlug).subscribe(
       res => {
         this.userProfile = res;
+
+
         console.log('this.userProfile',this.userProfile);
-        this.titleService.setTitle('Atila - ' + this.userProfile.first_name + " " +this.userProfile.last_name +"'s Profile");
+        this.titleService.setTitle(this.userProfile.first_name + " " +this.userProfile.last_name +"'s Profile" +' - Atila');
+
+        let description = `${this.userProfile.first_name} ${this.userProfile.last_name} ${this.userProfile.title}
+         ${this.userProfile.post_secondary_school || this.userProfile.secondary_school}`;
+        this.seoService.generateTags({
+          title: this.userProfile.first_name + " " +this.userProfile.last_name +"'s Profile",
+          description: description,
+          image: this.userProfile.profile_pic_url,
+          slug: `profile/${this.userProfile.username}/`
+        });
 
         this.currentUser = parseInt(this.authService.decryptLocalStorage('uid')); // Current user
         this.profileOwner = (this.currentUser == this.userProfile.user);

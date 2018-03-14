@@ -72,10 +72,6 @@ export class ScholarshipDetailComponent implements OnInit {
 
           this.scholarship = scholarship;
 
-
-
-
-
           this.seoService.generateTags({
             title: this.scholarship.name,
             description: this.scholarship.description,

@@ -47,6 +47,7 @@ export class UserProfile {
             public secondary_school?:any,
             public signature?:any,
             public sports?:string[],
+            public title?:string[],
             public post_secondary_school?:any,
             public verification_token?:any,
 
