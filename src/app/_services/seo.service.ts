@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 
 import {Meta, Title} from '@angular/platform-browser';
+
+import * as $ from 'jquery';
+
 // https://angularfirebase.com/lessons/seo-angular-part-1-rendertron-meta-tags/#Setting-Social-Media-Meta-Tags-in-Angular
 @Injectable()
 export class SeoService {
@@ -35,12 +38,27 @@ export class SeoService {
     this.meta.updateTag({ property: 'og:image', content: config.image });
     this.meta.updateTag({ property: 'og:url', content: `https://atila.ca/${config.slug}` });
 
+    // ['name','description','image'].forEach(tag => {
+    //   this.meta.removeTag(tag)
+    // });
 
-    this.meta.updateTag({ itemprop: 'name', content: config.title });
-    this.meta.updateTag({ itemprop: 'description', content: config.description });
-    this.meta.updateTag({ name: 'description', content: config.description });
-    this.meta.updateTag({ itemprop: 'image', content: config.image });
-    this.meta.updateTag({ itemprop: 'og:url', content: `https://atila.ca/${config.slug}` });
+    try {
+
+
+      if ($) {
+        $('meta[itemprop="name"]').attr('content',config.title);
+        $('meta[itemprop="description"]').attr('content',config.description);
+        $('meta[itemprop="image"]').attr('content',config.description);
+        $('meta[name="description"]').attr('content',config.image);
+      }
+    }
+    catch (e) {
+      this.meta.updateTag({ itemprop: 'name', content: config.title });
+      this.meta.updateTag({ itemprop: 'description', content: config.description });
+      this.meta.updateTag({ name: 'description', content: config.description });
+      this.meta.updateTag({ itemprop: 'image', content: config.image });
+    }
+
 
 
   }
