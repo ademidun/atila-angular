@@ -21,6 +21,7 @@ import {ApplicationService} from '../../_services/application.service';
 import {MyFirebaseService} from '../../_services/myfirebase.service';
 import {SCHOOLS_LIST} from '../../_models/constants';
 import {SeoService} from '../../_services/seo.service';
+import {BlogPost} from '../../_models/blog-post';
 
 @Component({
   selector: 'app-profile-view',
@@ -38,6 +39,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
   userApplications: any;
   profile_pic_url;
   SCHOOLS_LIST = SCHOOLS_LIST;
+  blogPosts: any[];
 
   currentUser:number;
   savedScholarships = [];
@@ -101,6 +103,10 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
           if (this.router.url.indexOf('my-atila') !== -1) {
             this.myAtilaMode = true;
           }
+        }
+
+        else {
+          this.getBlogs();
         }
       }
     )
@@ -213,6 +219,28 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
         )
     }
 
+  }
+
+  getBlogs() {
+    if(!this.blogPosts){
+      this.userProfileService.getDetail(this.userProfile.user,'blogs')
+        .subscribe(
+          res => {
+            this.blogPosts = res.blogs;
+
+            this.blogPosts = this.blogPosts.map( blog => {
+              blog = {
+                title: blog.title,
+                description: blog.description,
+                slug: `/blog/${blog.user.username}/${blog.slug}`,
+                image: blog.header_image_url,
+                user: blog.user,
+              };
+              return blog;
+            })
+          },
+        )
+    }
   }
 
   saveMyAtila(objectType, atilaObject, index?) {

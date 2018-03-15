@@ -65,7 +65,6 @@ import {DynamicQuestionGeneralComponent} from './dynamic-question-general/dynami
 import {CommonModule} from '@angular/common';
 import {MaterializeModule} from 'angular2-materialize';
 import "materialize-css";
-import {CardGenericComponent} from './card-generic/card-generic.component';
 import {MarkdownModule} from 'ngx-markdown';
 import {EditProfileModalComponent} from './edit-profile-modal/edit-profile-modal.component';
 import {FroalaEditorModule, FroalaViewModule} from 'angular-froala-wysiwyg';
@@ -91,7 +90,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     TermsConditionsComponent,
     SearchComponent,
     DynamicQuestionGeneralComponent,
-    CardGenericComponent,
   ],
   imports: [
     NgbModule.forRoot(),

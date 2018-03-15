@@ -51,7 +51,7 @@
           </mat-card-subtitle>
           <div class="header-buttons">
             <!--<button mat-raised-button class="btn white-text" (click)="message()">Message</button>-->
-            <a *ngIf="profileOwner" (click)="showPreview = !showPreview" style="cursor: pointer">Preview Profile</a> |
+            <a *ngIf="profileOwner" (click)="getBlogs(); showPreview = !showPreview;" style="cursor: pointer">Preview Profile</a> |
             <a *ngIf="profileOwner" [routerLink]="['/profile/edit']">Edit profile</a>
             <!-- <span  *ngIf="profileOwner" >
                 <a *ngIf="!showPreview" (click)="showPreview = !showPreview"  href="javascript:undefined">Preview Profile</a>
@@ -74,6 +74,7 @@
                 Edit Profile</a></li>
               <li class="tab"><a href="#test2" [ngClass]="myAtilaMode ? 'active' : ''">My Scholarships</a></li>
               <li (click)="getApplications()" class="tab"><a href="#test3">My Applications</a></li>
+              <li (click)="getBlogs()" class="tab"><a href="#test4">My Blogs</a></li>
             </ul>
           </div>
         </nav>
@@ -202,9 +203,25 @@
           </table>
         </div>
 
+        <!--Blog Results -->
+        <div id="test4" class=" card row">
+          <h4 class="center">{{userProfile.first_name}}'s Blog Posts</h4>
+          <div *ngFor=" let blogPost of blogPosts" class="col-sm-12 col-md-6 offset-md-3">
+            <app-card-generic [item]="blogPost"></app-card-generic>
+          </div>
+        </div>
+
       </div>
 
-
+      <div  *ngIf="!profileOwner || showPreview"s>
+        <!--Blog Results -->
+        <div class=" card row">
+          <h4 class="center">{{userProfile.first_name}}'s Blog Posts</h4>
+          <div *ngFor=" let blogPost of blogPosts" class="col-sm-12 col-md-6 offset-md-3">
+            <app-card-generic [item]="blogPost"></app-card-generic>
+          </div>
+        </div>
+      </div>
 
     <!--<mat-card class="background-card">-->
       <!--<h3></h3>-->

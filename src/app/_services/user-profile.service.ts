@@ -49,6 +49,12 @@ export class UserProfileService {
       .catch(err=>Observable.throw(err));
   }
 
+  getDetail(id, detail) {
+    return this.http.get(`${this.userProfileEndpoint}${id}/${detail}/`)
+      .map(this.extractData)
+      .catch(err=>Observable.throw(err));
+  }
+
   getByUsername(username: string): Observable<UserProfile>{
       // note urls missing the apropriate '/' will be redirected and be blocked by CORS policy.
       return this.http.get(`${this.userProfileEndpoint}user-name/?username=${username}/`)

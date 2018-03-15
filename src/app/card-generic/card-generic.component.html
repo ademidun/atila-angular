@@ -1,3 +1,16 @@
-<p>
-  card-generic works!
-</p>
+<div class="card">
+  <div class="card-title card-header">
+    <a [routerLink]="item.slug"> {{item.title}}</a>
+  </div>
+  <div class="card-image">
+    <a [routerLink]="item.slug">
+      <img [src]="item.image" >
+    </a>
+
+  </div>
+  <div class="card-content">
+    <p class="card-text" *ngIf="item.description">
+      {{item.description | truncate:280}}
+    </p>
+  </div>
+</div>

@@ -40,6 +40,7 @@ import {AddQuestionModalComponent} from '../add-question-modal/add-question-moda
 import {SubscriberDialogComponent} from '../subscriber-dialog/subscriber-dialog.component';
 import {EditProfileModalComponent} from '../edit-profile-modal/edit-profile-modal.component';
 import {TableLayoutModule} from '../table-layout/table-layout.module';
+import {CardGenericComponent} from '../card-generic/card-generic.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -77,7 +78,8 @@ import {TableLayoutModule} from '../table-layout/table-layout.module';
     TypeaheadComponent,
     AddQuestionModalComponent,
     SubscriberDialogComponent,
-    EditProfileModalComponent,],
+    EditProfileModalComponent,
+    CardGenericComponent],
   exports: [
     SafeHtmlPipe,
     TitleCasePipe,
@@ -92,6 +94,7 @@ import {TableLayoutModule} from '../table-layout/table-layout.module';
     SubscriberDialogComponent,
     EditProfileModalComponent,
     TableLayoutModule,
+    CardGenericComponent,
     ],
   providers: [
     {

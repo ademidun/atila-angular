@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-card-generic',
@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CardGenericComponent implements OnInit {
 
-  constructor() { }
+  @Input() item: any;
+  constructor() {
+
+  }
 
   ngOnInit() {
+    console.log('BEFORE item', this.item);
   }
 
 }
