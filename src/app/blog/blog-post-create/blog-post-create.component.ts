@@ -173,7 +173,7 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
 
 
     //if the blog has already been published, keep the publication status.
-    this.blogPost.published = this.blogPost.published? this.blogPost.published: isPublished;
+    this.blogPost.published = isPublished;
 
     let postOperation: Observable<any>;
 
@@ -230,6 +230,10 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
 
 
       this.blogPost.slug = this.convertToSlug(this.blogPost.title);
+  }
+
+  scrollToElement(elementSelector: string) {
+    $("html, body").animate({scrollTop: $(elementSelector).offset().top}, 1000);
   }
 
   uploadPicture(uploadPicInput:HTMLInputElement){

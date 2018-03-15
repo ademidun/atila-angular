@@ -65,7 +65,7 @@ export class ForumDetailComponent implements OnInit {
 
         }
         this.forum.starting_comment = null;
-        this.titleService.setTitle( this.forum.title + ' - Atila Forum');
+        // this.titleService.setTitle( this.forum.title + ' - Atila Forum');
 
 
         this.commentService.getComments(this.forum.id,'Forum').subscribe(

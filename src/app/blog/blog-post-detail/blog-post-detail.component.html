@@ -3,6 +3,7 @@
 
             <span class="col-sm-12">
               <h3 style="text-align: center; "> {{blogPost.title}} </h3>
+              <span *ngIf="!blogPost.published" style=" font-size: medium; font-weight: bold; ">Unpublished</span>
             </span>
 
             <div class="col-sm-12 col-md-8  offset-md-2">
@@ -38,14 +39,14 @@
 
                 <span (click)="scrollToComments()" class="btn-floating halfway-fab waves-effect waves-light left white-text"
                    style="left: 180px; bottom: 1px">
-                  <span class="btn-text">10</span>
-                  <!--<span (click)="likeContent(blogPost)" class="btn-text">{{blogPost.metadata['comments_count']}}</span>-->
+                  <!--<span class="btn-text">10</span>-->
+                  <span class="btn-text">{{blogPost.metadata['comments_count']}}</span>
                 </span>
               </div>
               <hr>
 
                 <!--<div [froalaView]="blogPost.body" ></div>-->
-              <div style="overflow-x: scroll" [innerHTML]="blogPost.body | safeHtml"></div>
+              <div class="blog-text" [innerHTML]="blogPost.body | safeHtml"></div>
 
             </div>
 

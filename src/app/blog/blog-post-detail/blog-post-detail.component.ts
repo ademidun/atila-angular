@@ -64,7 +64,7 @@ export class BlogPostDetailComponent implements OnInit {
         catch (err) {
         }
 
-        this.titleService.setTitle(this.blogPost.title + ' - Atila');
+        // this.titleService.setTitle(this.blogPost.title + ' - Atila');
         if (!isNaN(this.userId)) {
 
           this.userProfileService.getById(parseInt(this.userId)).subscribe(
@@ -93,7 +93,6 @@ export class BlogPostDetailComponent implements OnInit {
 
       },
     );
-
 
   }
 

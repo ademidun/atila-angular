@@ -29,3 +29,9 @@
 .interactive-btn {
   border: 1px solid $my-lighten;
 }
+
+@media only screen and (max-width: 500px){
+  .container {
+    width: 100%;
+  }
+}

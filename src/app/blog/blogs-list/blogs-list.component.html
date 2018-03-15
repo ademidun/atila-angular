@@ -19,7 +19,10 @@
 
           <div class="card">
             <div class="card-content ">
-              <span class="card-title"><a routerLink="/blog/{{blog.user.username}}/{{blog.slug}}">{{blog.title | truncate:140}}</a></span>
+              <span class="card-title responsive-height">
+                <a routerLink="/blog/{{blog.user.username}}/{{blog.slug}}">{{blog.title | truncate:140}}</a>
+                <span *ngIf="!blog.published" style=" font-size: medium; font-weight: bold; ">Unpublished</span>
+              </span>
               <span *ngIf="blog.user">
                 <a routerLink="/profile/{{blog.user.username}}">
                   <div class="chip">
@@ -46,13 +49,13 @@
                  class="btn-floating halfway-fab waves-effect waves-light left interactive-btn" style="left: 15px; bottom: 10px">
                 <mat-icon class="material-icons interactive-icon md-36"  [ngStyle]="{'color': blog.alreadyLiked ? 'white' : '#4080FF'}"
                           svgIcon="thumb-up-outline"></mat-icon></a>
-              <a routerLink="/blog/{{blog.slug}}" class="btn-floating halfway-fab waves-effect waves-light left"
+              <a routerLink="/blog/{{blog.user.username}}/{{blog.slug}}" class="btn-floating halfway-fab waves-effect waves-light left"
                  style="left: 70px; bottom: 10px">
                 <p class="btn-text">{{blog.up_votes_count}}</p>
               </a>
-              <a  routerLink="/blog/{{blog.slug}}" class="btn-floating halfway-fab waves-effect waves-light left" style="left: 125px; bottom: 10px">
+              <a  routerLink="/blog/{{blog.user.username}}/{{blog.slug}}" class="btn-floating halfway-fab waves-effect waves-light left" style="left: 125px; bottom: 10px">
                 <i class="material-icons md-36">comment</i></a>
-              <a routerLink="/blog/{{blog.slug}}" class="btn-floating halfway-fab waves-effect waves-light left"
+              <a routerLink="/blog/{{blog.user.username}}/{{blog.slug}}" class="btn-floating halfway-fab waves-effect waves-light left"
                  style="left: 180px; bottom: 10px">
                 <p class="btn-text">{{blog.metadata['comments_count']}}</p>
               </a>

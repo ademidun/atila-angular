@@ -18,11 +18,12 @@ export class CommentComponent implements OnInit {
 
   userId: number;
   isOwner: boolean;
+  trimText: boolean;
 
   constructor(
     public commentService: CommentService,
     public authService: AuthService,
-    public firebaseservice: MyFirebaseService,
+    public firebaseService: MyFirebaseService,
     public router: Router,
     public snackBar: MatSnackBar,
   ) {
@@ -69,7 +70,7 @@ export class CommentComponent implements OnInit {
       'is_comment': true,
     };
 
-    this.firebaseservice.saveUserAnalytics(userAgent, 'content_likes/'+userAgent.content_type);
+    this.firebaseService.saveUserAnalytics(userAgent, 'content_likes/'+userAgent.content_type);
 
     //convert the owner attribute to only keep the id, as per the API format.
     var sendData = Object.assign({}, this.comment);
@@ -95,6 +96,21 @@ export class CommentComponent implements OnInit {
         err=>{})
   }
 
+  logSeeMoreClick(){
+
+    let userAgent = {
+      'content_type': getCommentType(this.comment),
+      'content_id': this.comment.id,
+      'action_type': 'see_more_click',
+      'is_comment': true,
+    };
+
+
+    this.firebaseService.saveUserAnalytics(userAgent,'see_more_click/');
+
+
+  }
+
 
   getCommentMetadata(){
 
@@ -102,8 +118,12 @@ export class CommentComponent implements OnInit {
       this.isOwner = true;
     }
 
+    // A/B Test to see effect of trimming the text on engagement.
+    this.trimText = !this.metaData['titleComment'] && this.comment.text.length > 300;
+
     if(this.comment.up_votes_id.includes(this.userId)){//if the current user (ID) already liked the video, disable the up_vote_button
       this.comment['alreadyLiked'] = true;
+
     }
 
 

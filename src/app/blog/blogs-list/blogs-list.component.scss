@@ -29,3 +29,18 @@
 .interactive-btn {
   border: 1px solid $my-lighten;
 }
+.card-content > .card-title.responsive-height {
+  font-size: 5vh;
+  line-height: 5vh !important;
+}
+
+@media only screen and (max-width: 500px){
+  .container {
+    width: 100%;
+    padding: 0;
+  }
+}
+
+.chip {
+  margin-top: 1%;
+}
