@@ -68,7 +68,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
         this.userProfile = res;
 
 
-        console.log('this.userProfile',this.userProfile);
+
         this.titleService.setTitle(this.userProfile.first_name + " " +this.userProfile.last_name +"'s Profile" +' - Atila');
 
         let description = `${this.userProfile.first_name} ${this.userProfile.last_name} ${this.userProfile.title}
@@ -96,7 +96,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
                 }
               });
 
-              console.log('this.userProfile',this.userProfile);
+
             },
             error2 => {},
           );

@@ -217,6 +217,7 @@
         <!--Blog Results -->
         <div class=" card row">
           <h4 class="center">{{userProfile.first_name}}'s Blog Posts</h4>
+          <h6 *ngIf="profileOwner" class="center">Note: Unpublished blogs are only visible to you.</h6>
           <div *ngFor=" let blogPost of blogPosts" class="col-sm-12 col-md-6 offset-md-3">
             <app-card-generic [item]="blogPost"></app-card-generic>
           </div>

@@ -13,7 +13,7 @@ export class CardGenericComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('BEFORE item', this.item);
+
   }
 
 }

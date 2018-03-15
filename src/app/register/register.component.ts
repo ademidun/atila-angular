@@ -78,7 +78,7 @@ export class RegisterComponent implements OnInit {
   }
 
   registerUser(registerForm: NgForm) {
-    console.log('registerForm', registerForm);
+
     // if(registerForm) {
     //
     //   this.userProfile.major = this.topMajorControl.value;
@@ -101,7 +101,7 @@ export class RegisterComponent implements OnInit {
         userProfile: this.userProfile,
         locationData: null,
       };
-      console.log('sendData', sendData);
+
 
 
       postOperation = this.userProfileService.createUserAndProfile(sendData);

@@ -82,7 +82,7 @@ export class ScholarshipsListComponent implements OnInit {
           this.userProfile = data;
 
           if (this.userProfile.metadata['incomplete_profile']) {
-            console.log('this.userProfile',this.userProfile);
+
             this.inCompleteProfile = true;
             this.isLoading = false;
             this.initCompleteProfileForm();
@@ -187,7 +187,7 @@ export class ScholarshipsListComponent implements OnInit {
   // todo move this to a seperate function as it will rarely be called
   saveUser(userForm){
 
-    console.log('saveUser(), this.userProfile',this.userProfile);
+
     if (userForm.valid) {
       if (!this.userProfile.major || this.userProfile.eligible_schools.length < 1) {
         this.snackBar.open("Enter school or program information.",'', {duration: 3000});
