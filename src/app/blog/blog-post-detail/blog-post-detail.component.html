@@ -6,8 +6,8 @@
             </span>
 
             <div class="col-sm-12 col-md-8  offset-md-2">
-                <a *ngIf="userProfile && userProfile.user==blogPost.user.id" [routerLink]="[ '/blog/edit', blogPost.id ]">Edit Blog</a> |
-                <span *ngIf="!blogPost.published" style="font-weight: bold; ">Unpublished</span>
+                <a *ngIf="userProfile && userProfile.user==blogPost.user.id" [routerLink]="[ '/blog/edit', blogPost.id ]">Edit Blog</a>
+                <span *ngIf="!blogPost.published" style="font-weight: bold; "> | Unpublished</span>
                 <img src="{{blogPost.header_image_url}}" style="max-height: 100%;max-width: 100%"/>
 
               <div class="card">

@@ -85,6 +85,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
 
         this.profile_pic_url = this.sanitization.bypassSecurityTrustStyle(`url(${this.userProfile.profile_pic_url})`);
 
+        this.getBlogs();
         if(this.profileOwner) {
           this.userProfileService.getRouteDetail(this.userProfile.user,'scholarships').subscribe(
             res => {
@@ -105,9 +106,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
           }
         }
 
-        else {
-          this.getBlogs();
-        }
+
       }
     )
 
@@ -221,7 +220,8 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
 
   }
 
-  getBlogs() {
+  getBlogs(options?: {}) {
+
     if(!this.blogPosts){
       this.userProfileService.getDetail(this.userProfile.user,'blogs')
         .subscribe(
@@ -239,8 +239,11 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
               return blog;
             })
           },
+
         )
     }
+
+    return;
   }
 
   saveMyAtila(objectType, atilaObject, index?) {

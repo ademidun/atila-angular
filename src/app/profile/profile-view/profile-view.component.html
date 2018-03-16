@@ -51,7 +51,7 @@
           </mat-card-subtitle>
           <div class="header-buttons">
             <!--<button mat-raised-button class="btn white-text" (click)="message()">Message</button>-->
-            <a *ngIf="profileOwner" (click)="getBlogs(); showPreview = !showPreview;" style="cursor: pointer">Preview Profile</a> |
+            <a *ngIf="profileOwner" (click)="showPreview = !showPreview;" style="cursor: pointer">Preview Profile</a> |
             <a *ngIf="profileOwner" [routerLink]="['/profile/edit']">Edit profile</a>
             <!-- <span  *ngIf="profileOwner" >
                 <a *ngIf="!showPreview" (click)="showPreview = !showPreview"  href="javascript:undefined">Preview Profile</a>
@@ -213,7 +213,7 @@
 
       </div>
 
-      <div  *ngIf="!profileOwner || showPreview"s>
+      <div  *ngIf="!profileOwner || showPreview">
         <!--Blog Results -->
         <div class=" card row">
           <h4 class="center">{{userProfile.first_name}}'s Blog Posts</h4>

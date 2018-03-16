@@ -189,7 +189,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
       toolbar: 'undo redo | styleselect | bold italic | link image | fontsizeselect | numlist bullist',
       skin_url: '/assets/skins/light',
       height : "300",
-      invalid_elements : 'script',
+      invalid_elements : ['script','iframe'],
       default_link_target: "_blank",
       invalid_styles: {
         '*': 'color font-family margin padding border background background-image', // Global invalid styles
