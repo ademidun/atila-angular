@@ -29,6 +29,7 @@ import 'tinymce/plugins/code';
 declare var tinymce: any;
 import * as $ from 'jquery';
 import {MyFirebaseService} from '../../_services/myfirebase.service';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-blog-post-create',
@@ -56,7 +57,8 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
     public router: Router,
     public snackBar: MatSnackBar,
     public route: ActivatedRoute,
-    public firebaseService: MyFirebaseService,) {
+    public firebaseService: MyFirebaseService,
+    public titleService: Title,) {
 
       this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
       // this.options = {
@@ -184,7 +186,10 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
       postOperation = this.blogPostService.update(this.blogPost.id,this.blogPost);
     }
     else{
-      postOperation = this.blogPostService.create(this.blogPost);
+      console.log('this.blogPost,this.editMode',this.blogPost,this.editMode);
+      this.blogPostService.create(this.blogPost);
+      this.editMode = true;
+      this.titleService.setTitle('Edit Blog Post - Atila');
     }
 
     postOperation.subscribe(

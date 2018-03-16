@@ -15,12 +15,12 @@
 
           </mat-card>
         </div>
-        <div *ngFor="let blog of blogs; let i = index" class="col-sm-12 col-md-8 offset-md-2 blog-box">
+        <div *ngFor="let blog of blogs; let i = index" class="col-sm-12 col-md-10 offset-md-1 blog-box">
 
           <div class="card">
             <div class="card-content ">
               <span class="card-title responsive-height">
-                <a routerLink="/blog/{{blog.user.username}}/{{blog.slug}}">{{blog.title | truncate:140}}</a>
+                <a routerLink="/blog/{{blog.user.username}}/{{blog.slug}}">{{blog.title | truncate:75}}</a>
                 <span *ngIf="!blog.published" style=" font-size: medium; font-weight: bold; ">Unpublished</span>
               </span>
               <span *ngIf="blog.user">

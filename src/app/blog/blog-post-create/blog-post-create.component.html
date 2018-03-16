@@ -40,7 +40,10 @@
                 triggers="mouseenter:mouseleave" popoverTitle="Blog Preview">
             <mat-icon aria-label="Write a short preview of your article. Helpful for other readers, social media and search engines.">help_outline</mat-icon>
           </span>
-          <input id="blog_post_description" class="prefix_input" placeholder="Blog preview" [(ngModel)]="blogPost.description">
+          <textarea id="blog_post_description" class="prefix_input" placeholder="Blog preview"
+                    [(ngModel)]="blogPost.description">
+
+          </textarea>
           <div><span *ngIf="userProfile" id="url_prefix">atila.ca/blog/{{userProfile.username}}/</span>
             <input class="prefix_input" #blogSlugInput type="text" [(ngModel)]="blogPost.slug" placeholder="Blog URL">
           </div>
@@ -64,10 +67,10 @@
     </div>
 
     <br>
-    <div style="margin-top:3%" class="col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-sm-11" id="preview-blog">
+    <div style="margin-top:3%" class="col-sm-12 col-md-10 offset-md-1" id="preview-blog">
       <h5>Preview</h5>
       <h3> {{blogPost.title}} </h3>
-      <img [src]="blogPost.header_image_url" style="max-height: 100%;max-width: 100%;"/>
+      <img *ngIf="blogPost.header_image_url" [src]="blogPost.header_image_url" style="max-height: 100%;max-width: 100%;"/>
     </div>
     <div [innerHTML]="blogPost.body | safeHtml" class="col m8 offset-m2 l8 offset-l2 s11"></div>
     <!--<div [froalaView]="blogPost.body" class="col col-md-8 offset-md-d-2 col-lg-8 offset-lg-2 col-sm-11"></div>-->
