@@ -14,9 +14,9 @@
 
           </span>
     <span style="white-space: pre-line">
-      <p *ngIf="trimText">{{comment.text| truncate:300}}</p>
+      <p *ngIf="trimText">{{comment.text| truncate:500}}</p>
       <p *ngIf="!trimText">{{comment.text}}</p>
-      <a *ngIf="comment.text.length > 300 && !metaData['titleComment']" (click)="trimText=!trimText; logSeeMoreClick()">{{trimText ? 'See More': 'See Less'}}</a>
+      <a *ngIf="comment.text.length > 500 && !metaData['titleComment']" (click)="trimText=!trimText; logSeeMoreClick()">{{trimText ? 'See More': 'See Less'}}</a>
     </span>
   </div>
 

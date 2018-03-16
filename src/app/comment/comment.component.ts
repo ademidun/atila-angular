@@ -119,7 +119,7 @@ export class CommentComponent implements OnInit {
     }
 
     // A/B Test to see effect of trimming the text on engagement.
-    this.trimText = !this.metaData['titleComment'] && this.comment.text.length > 300;
+    this.trimText = !this.metaData['titleComment'] && this.comment.text.length > 500;
 
     if(this.comment.up_votes_id.includes(this.userId)){//if the current user (ID) already liked the video, disable the up_vote_button
       this.comment['alreadyLiked'] = true;
