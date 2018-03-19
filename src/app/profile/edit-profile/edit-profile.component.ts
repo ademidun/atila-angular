@@ -27,7 +27,7 @@ import {debounceTime} from 'rxjs/operators/debounceTime';
 import {ACTIVITIES, COUNTRIES, DISABILITY, ETHNICITY, RELIGION, SCHOOLS_DICT, SPORTS} from '../../_models/constants';
 import {ScholarshipService} from '../../_services/scholarship.service';
 import {SCHOOLS_LIST, MAJORS_LIST, LANGUAGE} from '../../_models/constants';
-import {prettifyKeys} from '../../_models/utils';
+import {prettifyKeys} from '../../_shared/utils';
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',

@@ -17,6 +17,8 @@ import {AuthService} from "../../_services/auth.service";
 import {MatSnackBar} from '@angular/material';
 import {MyFirebaseService} from '../../_services/myfirebase.service';
 import {SeoService} from '../../_services/seo.service';
+import {SearchService} from '../../_services/search.service';
+import {genericItemTransform} from '../../_shared/utils';
 
 
 @Component({
@@ -33,6 +35,7 @@ export class BlogPostDetailComponent implements OnInit {
   userProfile: UserProfile;
   userId;
   userAnalytics: any = {};
+  relatedItems: any = {};
 
   constructor(public route: ActivatedRoute,
               public _ngZone: NgZone,
@@ -43,9 +46,11 @@ export class BlogPostDetailComponent implements OnInit {
               public snackBar: MatSnackBar,
               public authService: AuthService,
               public firebaseService: MyFirebaseService,
-              public seoService: SeoService,) {
-    this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
-  }
+              public seoService: SeoService,
+              public searchService: SearchService,)
+              {
+                this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
+              }
 
   ngOnInit() {
 
@@ -90,7 +95,9 @@ export class BlogPostDetailComponent implements OnInit {
 
             this.comments = res.comments;
           }
-        )
+        );
+
+        this.getRelatedItems();
 
       },
     );
@@ -146,6 +153,21 @@ export class BlogPostDetailComponent implements OnInit {
 
   likeContent(content: BlogPost) {
     this.blogPost = likeContent(content, this.userProfile, this.blogPostService, this.firebaseService, this.snackBar)
+  }
+
+  getRelatedItems() {
+    this.searchService.relatedItems('blog', this.blogPost)
+      .subscribe( res => {
+        console.log('res', res);
+
+        this.relatedItems = res.scholarships.map( item => {
+          return genericItemTransform(item);
+        });
+
+        this.relatedItems = this.relatedItems.slice(0,3);
+
+        console.log('this.relatedItems',this.relatedItems);
+      });
   }
 
 }

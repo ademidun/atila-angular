@@ -32,7 +32,7 @@ import * as firebase from "firebase";
 import {ACTIVITIES, COUNTRIES, DISABILITY, ETHNICITY, RELIGION, SCHOOLS_DICT, SPORTS} from '../../_models/constants';
 
 import {SCHOOLS_LIST, MAJORS_LIST, LANGUAGE, FUNDING_TYPES, APPLICATION_FORM_TYPES, APPLICATION_SUBMISSION_TYPES} from '../../_models/constants';
-import {prettifyKeys} from '../../_models/utils';
+import {prettifyKeys} from '../../_shared/utils';
 import {hasOwnProperty} from 'tslint/lib/utils';
 
 declare var tinymce: any;

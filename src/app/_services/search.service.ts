@@ -26,5 +26,11 @@ export class SearchService {
       .catch(err=>Observable.throw(err))
   }
 
+  relatedItems(type, item) {
+    return this.http.get(this.searchUrl+`?q=engineer`,item)
+      .map(res=>res)
+      .catch(err=>Observable.throw(err))
+  }
+
 
 }

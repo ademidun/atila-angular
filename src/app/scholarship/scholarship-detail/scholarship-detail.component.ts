@@ -167,10 +167,9 @@ export class ScholarshipDetailComponent implements OnInit {
       },
 
       err =>{
-
       }
 
-    )
+    );
 
     this.userComment.text = "";
     this.userComment.title = "";
@@ -212,8 +211,6 @@ export class ScholarshipDetailComponent implements OnInit {
         .subscribe(
         application => {
           this.appId = application.id;
-
-
         },
         error => {
 

@@ -6,7 +6,7 @@ import 'rxjs/add/operator/merge';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import {Subject} from 'rxjs/Subject';
-import {prettifyKeys} from '../../_models/utils';
+import {prettifyKeys} from '../utils';
 
 @Component({
   selector: 'app-typeahead',

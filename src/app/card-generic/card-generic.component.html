@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" [ngStyle]="cardStyle">
   <div class="card-title card-header">
     <a [routerLink]="item.slug"> {{item.title}}</a>
   </div>
@@ -8,7 +8,7 @@
     </a>
 
   </div>
-  <div class="card-content">
+  <div class="card-content" *ngIf="!metadata.hideDescription">
     <p class="card-text" *ngIf="item.description">
       {{item.description | truncate:280}}
     </p>

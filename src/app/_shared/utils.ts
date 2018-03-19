@@ -35,3 +35,28 @@ export function toTitleCase(str) {
 
   return str;
 }
+
+export function genericItemTransform (item) {
+    if (item.hasOwnProperty('deadline')) {
+      item.type = 'scholarship'
+    }
+
+  switch(item.type) {
+    case 'scholarship':
+      item = {
+        title: item.name,
+        description: item.description,
+        slug: `/scholarship/${item.slug}/`,
+        image: item.img_url,
+        type: item.type,
+      };
+      break;
+    default:
+      // code block
+  }
+
+    console.log('item', item);
+
+    return item;
+
+}

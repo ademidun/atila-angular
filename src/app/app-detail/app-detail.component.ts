@@ -13,7 +13,7 @@ import {UploadFile, isValidDemoFile} from '../_models/upload-file';
 
 import * as firebase from "firebase";
 import {MatSnackBar} from '@angular/material';
-import {prettifyKeys, toTitleCase} from '../_models/utils';
+import {prettifyKeys, toTitleCase} from '../_shared/utils';
 import {environment} from '../../environments/environment';
 import {MyFirebaseService} from '../_services/myfirebase.service';
 
