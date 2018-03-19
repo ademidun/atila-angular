@@ -5,10 +5,10 @@
               <h3 style="text-align: center; "> {{blogPost.title}} </h3>
             </span>
 
-            <div class="col-sm-12 col-md-8  offset-md-2">
+            <div class="col-sm-12 col-md-10  offset-md-1">
                 <a *ngIf="userProfile && userProfile.user==blogPost.user.id" [routerLink]="[ '/blog/edit', blogPost.id ]">Edit Blog</a>
-                <span *ngIf="!blogPost.published" style="font-weight: bold; "> | Unpublished</span>
-                <img src="{{blogPost.header_image_url}}" style="max-height: 100%;max-width: 100%"/>
+                <div *ngIf="!blogPost.published" style="font-weight: bold; "> | Unpublished</div>
+                <img src="{{blogPost.header_image_url}}" style="max-height: 100%;max-width: 100%" class="center-block"/>
 
               <div class="card">
                   <div *ngIf="blogPost.user" style="margin: 3%">
@@ -32,16 +32,20 @@
                      style="left: 70px; bottom: 1px">
                     <span class="btn-text">{{blogPost.up_votes_count}}</span>
                   </a>
+
                   <span (click)="scrollToComments()" class="btn-floating halfway-fab waves-effect waves-light left" style="left: 125px; bottom: 1px">
                     <i class="material-icons md-36 ">comment</i>
                   </span>
-                </div>
-
-                <span (click)="scrollToComments()" class="btn-floating halfway-fab waves-effect waves-light left white-text"
-                   style="left: 180px; bottom: 1px">
+                  <span (click)="scrollToComments()" class="btn-floating halfway-fab waves-effect waves-light left white-text"
+                        style="left: 180px; bottom: 1px">
                   <!--<span class="btn-text">10</span>-->
                   <span class="btn-text">{{blogPost.metadata['comments_count']}}</span>
                 </span>
+                <app-share-item [item]="{title: blogPost.title,
+                url:'https://atila.ca/blog/'+blogPost.user.username+'/'+blogPost.slug+'/',
+                id: blogPost.id, source:'blog_detail',type:'blog'}"></app-share-item>
+                </div>
+
               </div>
               <hr>
 

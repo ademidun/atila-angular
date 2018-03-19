@@ -41,6 +41,7 @@ import {SubscriberDialogComponent} from '../subscriber-dialog/subscriber-dialog.
 import {EditProfileModalComponent} from '../edit-profile-modal/edit-profile-modal.component';
 import {TableLayoutModule} from '../table-layout/table-layout.module';
 import {CardGenericComponent} from '../card-generic/card-generic.component';
+import { ShareItemComponent } from './share-item/share-item.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -79,7 +80,8 @@ import {CardGenericComponent} from '../card-generic/card-generic.component';
     AddQuestionModalComponent,
     SubscriberDialogComponent,
     EditProfileModalComponent,
-    CardGenericComponent],
+    CardGenericComponent,
+    ShareItemComponent],
   exports: [
     SafeHtmlPipe,
     TitleCasePipe,
@@ -95,6 +97,7 @@ import {CardGenericComponent} from '../card-generic/card-generic.component';
     EditProfileModalComponent,
     TableLayoutModule,
     CardGenericComponent,
+    ShareItemComponent,
     ],
   providers: [
     {

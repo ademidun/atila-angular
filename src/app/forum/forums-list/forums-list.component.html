@@ -53,6 +53,10 @@
           <p class="btn-text">{{forum['metadata']['comments_count']}}</p>
           </a>
 
+          <app-share-item [item]="{title: forum.title,
+                url:'https://atila.ca/forum/'+forum.slug+'/',
+                id: forum.id, source:'forum_list',type:'forum'}" [metadata]="{'shareItemStyle': {'left': '225px','bottom': '10px'} }"></app-share-item>
+
         </div>
       </div>
 

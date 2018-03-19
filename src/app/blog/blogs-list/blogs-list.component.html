@@ -61,6 +61,9 @@
                  style="left: 180px; bottom: 10px">
                 <p class="btn-text">{{blog.metadata['comments_count']}}</p>
               </a>
+              <app-share-item [item]="{title: blog.title,
+                url:'https://atila.ca/blog/'+blog.user.username+'/'+blog.slug+'/',
+                id: blog.id, source:'blog_list',type:'blog'}" [metadata]="{'shareItemStyle': {'left': '225px','bottom': '10px'} }"></app-share-item>
 
             </div>
             </div>

@@ -44,6 +44,13 @@
     <a class="btn-floating halfway-fab waves-effect waves-light left" style="left: 70px; bottom: 10px">
       <p class="btn-text white-text">{{comment.up_votes_count}}</p>
       </a>
+    <span *ngIf="metaData['isShareItem']">
+    <app-share-item [item]="{title: metaData['shareItem']['title'],
+                url :metaData['shareItem']['url'],
+                id: metaData['shareItem']['id'], source:metaData['shareItem']['source'],type: metaData['shareItem']['type']}"
+                    [metadata]="{'shareItemStyle': {'left': isOwner ? '225px' : '125px','bottom': '10px'} }"></app-share-item>
+    </span>
+
     <!--Temporarily disable comment deletion-->
     <!--<a *ngIf="isOwner" (click)="deleteComment()"  class="btn-floating halfway-fab waves-effect waves-light left" style="left: 125px; bottom: 10px">-->
       <!--<i class="material-icons md-36">delete</i></a>-->

@@ -75,6 +75,16 @@ export class ForumDetailComponent implements OnInit {
             this.comments = res.forum_comments;
             this.forumMetaData['hideTitle'] = true;
             this.forumMetaData['titleComment'] = true;
+
+            this.forumMetaData['isShareItem'] = true;
+
+            this.forumMetaData['shareItem'] = {
+              title : this.forum.starting_comment.title,
+              url : `https://atila.ca/forum/${this.forum.slug}/`,
+              id : this.forum.id,
+              type : 'forum',
+              source : 'forum_detail',
+            }
           }
         )
       }

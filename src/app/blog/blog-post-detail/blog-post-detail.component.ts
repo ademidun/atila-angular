@@ -32,6 +32,7 @@ export class BlogPostDetailComponent implements OnInit {
   userComment: Comment;
   userProfile: UserProfile;
   userId;
+  userAnalytics: any = {};
 
   constructor(public route: ActivatedRoute,
               public _ngZone: NgZone,
@@ -143,11 +144,8 @@ export class BlogPostDetailComponent implements OnInit {
 
   }
 
-
   likeContent(content: BlogPost) {
-
     this.blogPost = likeContent(content, this.userProfile, this.blogPostService, this.firebaseService, this.snackBar)
-
   }
 
 }
