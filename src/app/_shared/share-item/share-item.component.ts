@@ -26,6 +26,7 @@ export class ShareItemComponent implements OnInit {
   ngOnInit() {
 
     this.shareItemStyle = this.metadata.shareItemStyle || this.shareItemStyle;
+    console.log('this.shareItemStyle',this.shareItemStyle);
   }
 
   logShareType(sharingType) {

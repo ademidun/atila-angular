@@ -37,6 +37,11 @@
               <button mat-fab  (click)="addToMyScholarships(scholarship)">
                 <mat-icon [ngStyle]="{'color': alreadySaved ? '#4080ff' : ''}"  class="atila-blue" aria-hidden="true" aria-label="Save">bookmark</mat-icon>
               </button>
+
+
+              <app-share-item [item]="{title: scholarship.name,
+                url:'https://atila.ca/scholarship/'+scholarship.slug+'/',
+                id: scholarship.id, source:'scholarship_detail',type:'scholarship'}"></app-share-item>
             </div>
 
           </div>
