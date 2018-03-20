@@ -17,6 +17,9 @@ import {Meta, Title} from '@angular/platform-browser';
 import {MyFirebaseService} from '../../_services/myfirebase.service';
 import {UserProfile, addToMyScholarshipHelper} from '../../_models/user-profile';
 import {SeoService} from '../../_services/seo.service';
+import {SearchService} from '../../_services/search.service';
+import {genericItemTransform} from '../../_shared/utils';
+import {SubscriberDialogComponent} from '../../subscriber-dialog/subscriber-dialog.component';
 
 
 @Component({
@@ -40,6 +43,9 @@ export class ScholarshipDetailComponent implements OnInit {
   public scholarshipOwner;
   public keyGetter = Object.keys;
   public alreadySaved: boolean;
+  public relatedItems: any = [];
+  public subscriber: any = {};
+  public isLoggedIn;
   constructor(
     route: ActivatedRoute,
     public router: Router,
@@ -54,7 +60,8 @@ export class ScholarshipDetailComponent implements OnInit {
     public authService: AuthService,
     public metaService: Meta,
     public firebaseService: MyFirebaseService,
-    public seoService: SeoService
+    public seoService: SeoService,
+    public searchService: SearchService,
   ) {
     // Get the id that was passed in the route
     this.scholarshipSlug = route.snapshot.params['slug'];
@@ -84,6 +91,8 @@ export class ScholarshipDetailComponent implements OnInit {
           }
 
           this.titleService.setTitle(this.scholarship.name + ' - Atila');
+
+          this.getRelatedItems();
           //this.updateMeta();
           // Get the user profile of the scholarship owner
           if (this.scholarship.owner){
@@ -351,6 +360,89 @@ export class ScholarshipDetailComponent implements OnInit {
 
     }
 
+  }
+
+
+  logRelatedItemClick(item) {
+    let itemCopy: any = {};
+    itemCopy.item_type = item.type;
+    itemCopy.title = item.title;
+    itemCopy.item_id= item.id;
+    itemCopy.share_source= 'scholarship_detail';
+    this.firebaseService.saveUserAnalytics(itemCopy,'related_item_click');
+
+    console.log('item, itemCopy', item, itemCopy);
+  }
+
+  getRelatedItems() {
+    let queryString= `?type=scholarship&id=${this.scholarship.id}`;
+
+    this.searchService.relatedItems(queryString)
+      .subscribe( res => {
+        console.log('res', res);
+
+        this.relatedItems = res.items.map( item => {
+          return genericItemTransform(item);
+        });
+
+        this.relatedItems = this.relatedItems.slice(0,3);
+
+        console.log('this.relatedItems',this.relatedItems);
+      });
+  }
+
+
+  addSubscriber(event?: KeyboardEvent) {
+
+
+    if(!this.subscriber.email) {
+      this.subscriber.response ='Please enter email.';
+      return;
+    }
+    // In case we want to see if people are more likely to submit by typing Enter or clicking.
+    if (event) {
+      this.subscriber.dialog_open_event = event.key;
+    }
+    else {
+      this.subscriber.dialog_open_event = 'ButtonClick';
+    }
+
+    this.subscriber.utm_source =       'scholarship_detail';
+    this.subscriber.utm_type =       'scholarship';
+    this.subscriber.utm_id =       this.scholarship.id;
+    this.subscriber.utm_title =       this.scholarship.name;
+
+    let dialogRef = this.dialog.open(SubscriberDialogComponent, {
+      width: '300px',
+      data: this.subscriber,
+    });
+
+
+    dialogRef.afterClosed().subscribe(
+      result => {
+        this.subscriber = result;
+        if(this.subscriber) {
+
+          this.subscriber.dialog_submit_event = result.dialog_submit_event || 'ButtonClick';
+
+          $.getJSON('//freegeoip.net/json/?callback=?',
+            data => {
+              this.subscriber.geo_ip = data;
+
+              this.firebaseService.addSubscriber(this.subscriber)
+                .then(res => {
+                    this.subscriber.response ='Successfully subscribed to Atila 😄.';
+                  },
+                  err => this.subscriber.response ='Subscription error.');
+            });
+        }
+        else {
+          this.subscriber = {};
+          this.subscriber.response ='Please enter subscription information 😄.';
+        }
+
+
+      });
   }
 
    //Make this an exported member function of comment
