@@ -10,12 +10,8 @@ export class CardGenericComponent implements OnInit {
   @Input() item: any;
   @Input() metadata: any = {};
   @Input() cardStyle: any = {};
-  constructor() {
+  constructor() {}
 
-  }
-
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
 }

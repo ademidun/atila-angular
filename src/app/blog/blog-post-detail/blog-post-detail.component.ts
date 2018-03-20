@@ -166,11 +166,13 @@ export class BlogPostDetailComponent implements OnInit {
   }
 
   getRelatedItems() {
-    this.searchService.relatedItems('blog', this.blogPost)
+    let queryString= `?type=blog&id=${this.blogPost.id}`;
+
+    this.searchService.relatedItems(queryString)
       .subscribe( res => {
         console.log('res', res);
 
-        this.relatedItems = res.scholarships.map( item => {
+        this.relatedItems = res.items.map( item => {
           return genericItemTransform(item);
         });
 

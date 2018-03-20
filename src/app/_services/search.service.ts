@@ -26,8 +26,8 @@ export class SearchService {
       .catch(err=>Observable.throw(err))
   }
 
-  relatedItems(type, item) {
-    return this.http.get(this.searchUrl+`?q=engineer`,item)
+  relatedItems(queryString, metaData?) {
+    return this.http.get(this.searchUrl + 'related-items/'+queryString)
       .map(res=>res)
       .catch(err=>Observable.throw(err))
   }

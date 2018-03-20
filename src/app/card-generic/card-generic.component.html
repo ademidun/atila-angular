@@ -2,13 +2,13 @@
   <div class="card-title card-header">
     <a [routerLink]="item.slug"> {{item.title}}</a>
   </div>
-  <div class="card-image">
+  <div class="card-image" *ngIf="item.image">
     <a [routerLink]="item.slug">
       <img [src]="item.image" >
     </a>
 
   </div>
-  <div class="card-content" *ngIf="!metadata.hideDescription">
+  <div class="my-card-content" *ngIf="!metadata.hideDescription">
     <p class="card-text" *ngIf="item.description">
       {{item.description | truncate:280}}
     </p>
