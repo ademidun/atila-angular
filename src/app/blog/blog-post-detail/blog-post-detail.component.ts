@@ -14,11 +14,12 @@ import {ActivatedRoute} from '@angular/router';
 import {Title} from '@angular/platform-browser';
 
 import {AuthService} from "../../_services/auth.service";
-import {MatSnackBar} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import {MyFirebaseService} from '../../_services/myfirebase.service';
 import {SeoService} from '../../_services/seo.service';
 import {SearchService} from '../../_services/search.service';
 import {genericItemTransform} from '../../_shared/utils';
+import {SubscriberDialogComponent} from '../../subscriber-dialog/subscriber-dialog.component';
 
 
 @Component({
@@ -35,6 +36,7 @@ export class BlogPostDetailComponent implements OnInit {
   userProfile: UserProfile;
   userId;
   relatedItems: any = [];
+  subscriber: any = {};
 
   constructor(public route: ActivatedRoute,
               public _ngZone: NgZone,
@@ -46,6 +48,7 @@ export class BlogPostDetailComponent implements OnInit {
               public authService: AuthService,
               public firebaseService: MyFirebaseService,
               public seoService: SeoService,
+              public dialog: MatDialog,
               public searchService: SearchService,)
               {
                 this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
@@ -179,6 +182,59 @@ export class BlogPostDetailComponent implements OnInit {
         this.relatedItems = this.relatedItems.slice(0,3);
 
         console.log('this.relatedItems',this.relatedItems);
+      });
+  }
+
+  addSubscriber(event?: KeyboardEvent) {
+
+
+    if(!this.subscriber.email) {
+      this.subscriber.response ='Please enter email.';
+      return;
+    }
+    // In case we want to see if people are more likely to submit by typing Enter or clicking.
+    if (event) {
+      this.subscriber.dialog_open_event = event.key;
+    }
+    else {
+      this.subscriber.dialog_open_event = 'ButtonClick';
+    }
+
+    this.subscriber.utm_source =       'blog_detail';
+    this.subscriber.utm_type =       'blog';
+    this.subscriber.utm_id =       this.blogPost.id;
+    this.subscriber.utm_title =       this.blogPost.title;
+
+    let dialogRef = this.dialog.open(SubscriberDialogComponent, {
+      width: '300px',
+      data: this.subscriber,
+    });
+
+
+    dialogRef.afterClosed().subscribe(
+      result => {
+        this.subscriber = result;
+        if(this.subscriber) {
+
+          this.subscriber.dialog_submit_event = result.dialog_event || 'ButtonClick';
+
+          $.getJSON('//freegeoip.net/json/?callback=?',
+            data => {
+              this.subscriber.geo_ip = data;
+
+              this.firebaseService.addSubscriber(this.subscriber)
+                .then(res => {
+                    this.subscriber.response ='Successfully subscribed to Atila 😄.';
+                  },
+                  err => this.subscriber.response ='Subscription error.');
+            });
+        }
+        else {
+          this.subscriber = {};
+          this.subscriber.response ='Please enter subscription information 😄.';
+        }
+
+
       });
   }
 

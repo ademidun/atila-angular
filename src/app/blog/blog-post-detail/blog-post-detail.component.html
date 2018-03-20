@@ -55,7 +55,29 @@
             </div>
 
 
-    <div *ngIf="relatedItems" class="row">
+      <!-- TODO: Should we ask the user occasionally to subscribe? Even if already logged in? -->
+      <div *ngIf="!isLoggedIn" class="row center" style="text-align: center;margin-bottom: 0px;">
+        <p style="font-size: medium" class="col-sm-6">Subscribe to get updates on new scholarships, <a routerLink="/blog" style="text-decoration: underline; color: #68b9ff">blog</a> and
+          <a routerLink="/forum" style="text-decoration: underline; color: #68b9ff">forum posts</a>, and new product features.
+
+          <span *ngIf="subscriber.response" style="color: green">
+                <br>
+                {{subscriber.response}}
+          </span>
+        </p>
+
+
+        <mat-form-field class="browser-default col-sm-3 ">
+          <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
+          <input matInput type="email" class="form-control" style="padding-bottom: 0; margin-bottom: 0"  name="email" id="emailid"
+                 placeholder="Email Address" email [(ngModel)]="subscriber.email" (keyup.enter)="addSubscriber($event)">
+        </mat-form-field>
+        <a class="waves-effect waves-light btn browser-default col-sm-2 register-btn" style="background-color:#4080ff; " (click)="addSubscriber()">Subscribe</a>
+
+
+      </div>
+
+      <div *ngIf="relatedItems" class="row">
         <div style="width: 100%; margin-left: 5%" class="row"><h5>Related</h5> <span style="font-size: smaller; color: #194F87">Beta</span></div>
         <div  *ngFor="let item of relatedItems; let i = index; first as isFirst;" class="col-md-4">
           <div (click)="logRelatedItemClick(item)">
@@ -65,7 +87,7 @@
         </div>
     </div>
 
-    <div class="col-sm-11 comment-box">
+      <div class="col-sm-11 comment-box">
         <h5 > Comments </h5>
 
                 <mat-card *ngIf="userComment" class="comment-card">
