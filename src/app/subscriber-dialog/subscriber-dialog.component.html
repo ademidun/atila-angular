@@ -5,7 +5,7 @@
     <input matInput [(ngModel)]="subscriber.first_name" placeholder="First Name">
   </mat-form-field>
   <mat-form-field>
-    <input matInput [(ngModel)]="subscriber.last_name" placeholder="Last Name" (keyup.enter)="onEnter($event)">
+    <input matInput [(ngModel)]="subscriber.last_name" placeholder="Last Name" (keyup.enter)="submitSubscription($event)">
   </mat-form-field>
 </div>
 <div mat-dialog-actions>

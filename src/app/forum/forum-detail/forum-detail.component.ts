@@ -15,8 +15,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgZone } from '@angular/core';
 import { Title }     from '@angular/platform-browser';
 import { AuthService } from "../../_services/auth.service";
-import {MatSnackBar} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import {SeoService} from '../../_services/seo.service';
+import {SearchService} from '../../_services/search.service';
+import {genericItemTransform} from '../../_shared/utils';
+import {SubscriberDialogComponent} from '../../subscriber-dialog/subscriber-dialog.component';
+import {MyFirebaseService} from '../../_services/myfirebase.service';
 @Component({
   selector: 'app-forum-detail',
   templateUrl: './forum-detail.component.html',
@@ -32,6 +36,8 @@ export class ForumDetailComponent implements OnInit {
   userId;
   forumMetaData: any = {};
   showPostHelper;
+  relatedItems: any = [];
+  subscriber: any = {};
   constructor(
     public route: ActivatedRoute,
     public _ngZone: NgZone,
@@ -41,7 +47,10 @@ export class ForumDetailComponent implements OnInit {
     public forumService: ForumService,
     public authService: AuthService,
     public snackBar: MatSnackBar,
-    public seoService: SeoService,) {
+    public seoService: SeoService,
+    public dialog: MatDialog,
+    public searchService: SearchService,
+    public firebaseService: MyFirebaseService,) {
       this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
     }
 
@@ -86,7 +95,8 @@ export class ForumDetailComponent implements OnInit {
               source : 'forum_detail',
             }
           }
-        )
+        );
+        this.getRelatedItems();
       }
     );
 
@@ -132,6 +142,90 @@ export class ForumDetailComponent implements OnInit {
   trackByFn(index: any, item: any) {
     return index;
 
+  }
+
+
+  logRelatedItemClick(item) {
+    let itemCopy: any = {};
+    itemCopy.item_type = item.type;
+    itemCopy.title = item.title;
+    itemCopy.item_id= item.id;
+    itemCopy.share_source= 'forum_detail';
+    this.firebaseService.saveUserAnalytics(itemCopy,'related_item_click');
+
+    console.log('item, itemCopy', item, itemCopy);
+  }
+
+  getRelatedItems() {
+    let queryString= `?type=forum&id=${this.forum.id}`;
+
+    this.searchService.relatedItems(queryString)
+      .subscribe( res => {
+        console.log('res', res);
+
+        this.relatedItems = res.items.map( item => {
+          return genericItemTransform(item);
+        });
+
+        this.relatedItems = this.relatedItems.slice(0,3);
+
+        console.log('this.relatedItems',this.relatedItems);
+      });
+  }
+
+  addSubscriber(event?: KeyboardEvent) {
+
+
+    if(!this.subscriber.email) {
+      this.subscriber.response ='Please enter email.';
+      return;
+    }
+
+    console.log('event',event);
+    // In case we want to see if people are more likely to submit by typing Enter or clicking.
+    if (event) {
+      this.subscriber.dialog_open_event = event.key;
+    }
+    else {
+      this.subscriber.dialog_open_event = 'ButtonClick';
+    }
+
+    this.subscriber.utm_source =       'forum_detail';
+    this.subscriber.utm_type =       'forum';
+    this.subscriber.utm_id =       this.forum.id;
+    this.subscriber.utm_title =       this.forum.starting_comment.title;
+
+    let dialogRef = this.dialog.open(SubscriberDialogComponent, {
+      width: '300px',
+      data: this.subscriber,
+    });
+
+
+    dialogRef.afterClosed().subscribe(
+      result => {
+        this.subscriber = result;
+        if(this.subscriber) {
+
+          this.subscriber.dialog_submit_event = result.dialog_submit_event || 'ButtonClick';
+
+          $.getJSON('//freegeoip.net/json/?callback=?',
+            data => {
+              this.subscriber.geo_ip = data;
+
+              this.firebaseService.addSubscriber(this.subscriber)
+                .then(res => {
+                    this.subscriber.response ='Successfully subscribed to Atila 😄.';
+                  },
+                  err => this.subscriber.response ='Subscription error.');
+            });
+        }
+        else {
+          this.subscriber = {};
+          this.subscriber.response ='Please enter subscription information 😄.';
+        }
+
+
+      });
   }
 
 }

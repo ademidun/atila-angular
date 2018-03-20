@@ -15,7 +15,7 @@
 
           </mat-card>
         </div>
-        <div *ngFor="let blog of blogs; let i = index" class="col-sm-12 col-md-10 offset-md-1 blog-box">
+        <div *ngFor="let blog of blogs; let i = index" class="col-sm-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2 blog-box">
 
           <div class="card">
             <div class="card-content ">
@@ -42,8 +42,7 @@
               </a>
             </div>
             <div class="card-content ">
-
-              <p>{{blog.description| truncate:280}}</p>
+              <p style="font-size: larger">{{blog.description| truncate:280}}</p>
             </div>
 
             <div class="card-action">

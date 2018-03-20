@@ -106,17 +106,6 @@ export class BlogPostDetailComponent implements OnInit {
 
   }
 
-  logRelatedItemClick(item) {
-    let itemCopy: any = {};
-    itemCopy.item_type = item.type;
-    itemCopy.title = item.title;
-    itemCopy.item_id= item.id;
-    itemCopy.share_source= 'blog_detail';
-    this.firebaseService.saveUserAnalytics(itemCopy,'related_item_click');
-
-    console.log('item, itemCopy', item, itemCopy);
-  }
-
 
   postComment() {
 
@@ -168,6 +157,17 @@ export class BlogPostDetailComponent implements OnInit {
     this.blogPost = likeContent(content, this.userProfile, this.blogPostService, this.firebaseService, this.snackBar)
   }
 
+  logRelatedItemClick(item) {
+    let itemCopy: any = {};
+    itemCopy.item_type = item.type;
+    itemCopy.title = item.title;
+    itemCopy.item_id= item.id;
+    itemCopy.share_source= 'blog_detail';
+    this.firebaseService.saveUserAnalytics(itemCopy,'related_item_click');
+
+    console.log('item, itemCopy', item, itemCopy);
+  }
+
   getRelatedItems() {
     let queryString= `?type=blog&id=${this.blogPost.id}`;
 
@@ -216,7 +216,7 @@ export class BlogPostDetailComponent implements OnInit {
         this.subscriber = result;
         if(this.subscriber) {
 
-          this.subscriber.dialog_submit_event = result.dialog_event || 'ButtonClick';
+          this.subscriber.dialog_submit_event = result.dialog_submit_event || 'ButtonClick';
 
           $.getJSON('//freegeoip.net/json/?callback=?',
             data => {

@@ -352,7 +352,7 @@ export class ScholarshipsListComponent implements OnInit {
         this.subscriber = result;
         if(this.subscriber) {
 
-          this.subscriber.dialog_submit_event = result.dialog_event || 'ButtonClick';
+          this.subscriber.dialog_submit_event = result.dialog_submit_event || 'ButtonClick';
 
           $.getJSON('//freegeoip.net/json/?callback=?',
             data => {
