@@ -13,7 +13,7 @@
           </a>
 
           </span>
-    <span style="white-space: pre-line">
+    <span style="white-space: pre-line; font-size: larger">
       <p *ngIf="trimText">{{comment.text| truncate:500}}</p>
       <p *ngIf="!trimText">{{comment.text}}</p>
       <a *ngIf="comment.text.length > 500 && !metaData['titleComment']" (click)="trimText=!trimText; logSeeMoreClick()">{{trimText ? 'See More': 'See Less'}}</a>
@@ -47,7 +47,7 @@
     <span *ngIf="metaData['isShareItem']">
     <app-share-item [item]="{title: metaData['shareItem']['title'],
                 url :metaData['shareItem']['url'],
-                id: metaData['shareItem']['id'], source:metaData['shareItem']['source'],type: metaData['shareItem']['type']}"
+                id: metaData['shareItem']['title'], source:metaData['shareItem']['title'],type: metaData['shareItem']['title']}"
                     [metadata]="{'shareItemStyle': {'left': isOwner ? '225px' : '125px','bottom': '10px'} }"></app-share-item>
     </span>
 
