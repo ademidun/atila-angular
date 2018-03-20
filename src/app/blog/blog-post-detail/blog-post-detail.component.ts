@@ -34,8 +34,7 @@ export class BlogPostDetailComponent implements OnInit {
   userComment: Comment;
   userProfile: UserProfile;
   userId;
-  userAnalytics: any = {};
-  relatedItems: any = {};
+  relatedItems: any = [];
 
   constructor(public route: ActivatedRoute,
               public _ngZone: NgZone,
@@ -102,6 +101,17 @@ export class BlogPostDetailComponent implements OnInit {
       },
     );
 
+  }
+
+  logRelatedItemClick(item) {
+    let itemCopy: any = {};
+    itemCopy.item_type = item.type;
+    itemCopy.title = item.title;
+    itemCopy.item_id= item.id;
+    itemCopy.share_source= 'blog_detail';
+    this.firebaseService.saveUserAnalytics(itemCopy,'related_item_click');
+
+    console.log('item, itemCopy', item, itemCopy);
   }
 
 

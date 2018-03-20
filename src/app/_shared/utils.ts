@@ -46,6 +46,7 @@ export function genericItemTransform (item) {
       item = {
         title: item.name,
         description: item.description,
+        id: item.id,
         slug: `/scholarship/${item.slug}/`,
         image: item.img_url,
         type: item.type,
