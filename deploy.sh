@@ -14,6 +14,10 @@ deploy () {
    return 0
 }
 
+just_deploy(){
+npm run ng-high-mem -- build --prod;
+firebase deploy --only hosting ;
+}
 test_args(){
 only_hosting=false
 	case $2 in
