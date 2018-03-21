@@ -27,7 +27,7 @@ import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common'
 })
 export class ScholarshipsListComponent implements OnInit {
 
-  form_data: Object;
+  form_data: any;
   isLoggedIn: boolean;
   userId: string;
   contentFetched: boolean = false;
@@ -100,6 +100,7 @@ export class ScholarshipsListComponent implements OnInit {
             'education_level': data.education_level,
             'education_field': data.education_field,
             'sort_by': 'relevance',
+            'filter_by_show_eligible_only': true,
           };
 
           this.pageNo = this.activatedRoute.snapshot.params['page'] || this.pageNo;
@@ -136,6 +137,8 @@ export class ScholarshipsListComponent implements OnInit {
   getScholarshipPreview(page: number = 1){
 
     if (this.form_data ) {
+
+      console.log('this.form_data',this.form_data);
 
       if(this.isLoggedIn) {
         const url = this
@@ -255,6 +258,7 @@ export class ScholarshipsListComponent implements OnInit {
               'education_level': data.education_level,
               'education_field': data.education_field,
               'sort_by': 'relevance',
+              'filter_by_show_eligible_only': true,
             };
 
             this.getScholarshipPreview(this.pageNo);
@@ -489,6 +493,13 @@ export class ScholarshipsListComponent implements OnInit {
       event.preventDefault();
     }
     //TODO! Change this, allow user to submit with enterButton.
+  }
+
+  transformFilterDisplay(filter_type) {
+    if (['city','province','country'].indexOf(filter_type) > -1) {
+      return this.userProfile[filter_type][0]['name']
+    }
+    return this.userProfile[filter_type];
   }
 
 }

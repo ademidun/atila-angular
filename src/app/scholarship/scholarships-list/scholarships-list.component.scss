@@ -87,9 +87,15 @@ mat-card:hover {
 
 @media (max-width: 576px){
 
-  a.demo-btn, .register-btn{
+  a.demo-btn, .register-btn,.filter-div{
     margin: 0 0 3% 5%;
     width: 90%;
+  }
+}
+@media (min-width: 768px) {
+  //.offset-md-2,  not working for filter-div
+  .filter-div {
+    margin-left: 16.666667%;
   }
 }
 
