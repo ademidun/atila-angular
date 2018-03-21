@@ -18,7 +18,7 @@ export class SubscriberDialogComponent implements OnInit {
   }
 
   submitSubscription(event? : KeyboardEvent) {
-    console.log('event',event);
+
     if(event) {
       this.subscriber.dialog_submit_event = event.key;
     }

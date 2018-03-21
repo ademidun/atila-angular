@@ -371,7 +371,7 @@ export class ScholarshipDetailComponent implements OnInit {
     itemCopy.share_source= 'scholarship_detail';
     this.firebaseService.saveUserAnalytics(itemCopy,'related_item_click');
 
-    console.log('item, itemCopy', item, itemCopy);
+
   }
 
   getRelatedItems() {
@@ -379,7 +379,7 @@ export class ScholarshipDetailComponent implements OnInit {
 
     this.searchService.relatedItems(queryString)
       .subscribe( res => {
-        console.log('res', res);
+
 
         this.relatedItems = res.items.map( item => {
           return genericItemTransform(item);
@@ -387,7 +387,7 @@ export class ScholarshipDetailComponent implements OnInit {
 
         this.relatedItems = this.relatedItems.slice(0,3);
 
-        console.log('this.relatedItems',this.relatedItems);
+
       });
   }
 

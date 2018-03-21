@@ -153,7 +153,7 @@ export class ForumDetailComponent implements OnInit {
     itemCopy.share_source= 'forum_detail';
     this.firebaseService.saveUserAnalytics(itemCopy,'related_item_click');
 
-    console.log('item, itemCopy', item, itemCopy);
+
   }
 
   getRelatedItems() {
@@ -161,7 +161,7 @@ export class ForumDetailComponent implements OnInit {
 
     this.searchService.relatedItems(queryString)
       .subscribe( res => {
-        console.log('res', res);
+
 
         this.relatedItems = res.items.map( item => {
           return genericItemTransform(item);
@@ -169,7 +169,7 @@ export class ForumDetailComponent implements OnInit {
 
         this.relatedItems = this.relatedItems.slice(0,3);
 
-        console.log('this.relatedItems',this.relatedItems);
+
       });
   }
 
@@ -181,7 +181,7 @@ export class ForumDetailComponent implements OnInit {
       return;
     }
 
-    console.log('event',event);
+
     // In case we want to see if people are more likely to submit by typing Enter or clicking.
     if (event) {
       this.subscriber.dialog_open_event = event.key;

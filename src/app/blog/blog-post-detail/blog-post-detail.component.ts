@@ -165,7 +165,6 @@ export class BlogPostDetailComponent implements OnInit {
     itemCopy.share_source= 'blog_detail';
     this.firebaseService.saveUserAnalytics(itemCopy,'related_item_click');
 
-    console.log('item, itemCopy', item, itemCopy);
   }
 
   getRelatedItems() {
@@ -173,15 +172,13 @@ export class BlogPostDetailComponent implements OnInit {
 
     this.searchService.relatedItems(queryString)
       .subscribe( res => {
-        console.log('res', res);
-
         this.relatedItems = res.items.map( item => {
           return genericItemTransform(item);
         });
 
         this.relatedItems = this.relatedItems.slice(0,3);
 
-        console.log('this.relatedItems',this.relatedItems);
+
       });
   }
 

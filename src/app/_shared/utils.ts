@@ -81,7 +81,7 @@ export function genericItemTransform (item) {
       // code block
   }
 
-    console.log('item', item);
+
 
     return item;
 

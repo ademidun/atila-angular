@@ -186,8 +186,8 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
       postOperation = this.blogPostService.update(this.blogPost.id,this.blogPost);
     }
     else{
-      console.log('this.blogPost,this.editMode',this.blogPost,this.editMode);
-      this.blogPostService.create(this.blogPost);
+
+      postOperation = this.blogPostService.create(this.blogPost);
       this.editMode = true;
       this.titleService.setTitle('Edit Blog Post - Atila');
     }
@@ -203,25 +203,32 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
         });
       },
       () => {
+
+        let snackbarMessage = '';
         if (this.blogPost.published){
-          let snackBarRef = this.snackBar.open("Sucessfully Published Blog", 'View Blog', {
-            duration: 3000
-          });
-
-          snackBarRef.onAction().subscribe(
-            () => {
-
-              this.router.navigate(['blog',this.userProfile.username,this.blogPost.slug]);
-            },
-            err =>  {}
-          )
+          snackbarMessage = "Sucessfully Published Blog";
         }
+
 
         else {
-          this.snackBar.open("Sucessfully Saved Blog", '', {
-            duration: 3000
-          });
+          snackbarMessage = "Sucessfully Saved Blog";
         }
+
+
+        let snackBarRef = this.snackBar.open(snackbarMessage, 'View Blog', {
+          duration: 3000
+        });
+
+        snackBarRef.onAction().subscribe(
+          () => {
+            if (this.blogPost.slug) {
+              this.router.navigate(['blog',this.userProfile.username,this.blogPost.slug]);
+            }
+
+          },
+          err =>  {}
+        )
+
 
 
 
