@@ -100,7 +100,7 @@ export class ScholarshipsListComponent implements OnInit {
             'education_level': data.education_level,
             'education_field': data.education_field,
             'sort_by': 'relevance',
-            'filter_by_show_eligible_only': true,
+            'filter_by_user_show_eligible_only': true,
           };
 
           this.pageNo = this.activatedRoute.snapshot.params['page'] || this.pageNo;
@@ -138,8 +138,8 @@ export class ScholarshipsListComponent implements OnInit {
 
     if (this.form_data ) {
 
-      if(this.form_data.filter_by) {
-        this.form_data.filter_by_data = [{filter_type: this.form_data.filter_by, filter_value: [this.transformFilterDisplay(this.form_data.filter_by)]}]
+      if(this.form_data.filter_by_user) {
+        this.form_data.filter_by_user_data = [{filter_type: this.form_data.filter_by_user, filter_value: [this.transformFilterDisplay(this.form_data.filter_by_user)]}]
       }
 
       console.log('this.form_data',this.form_data);
@@ -192,7 +192,21 @@ export class ScholarshipsListComponent implements OnInit {
       this.show_scholarship_funding = true;
     }
 
+    if(this.form_data.filter_by_user) {
 
+      let resultsPreview = [];
+
+      for (let i = 0; i < Math.min(5,this.scholarships.length); i++) {
+        resultsPreview.push({id: this.scholarships[i]['id'], name: this.scholarships[i]['name']})
+      }
+      let filterByUserResult = {
+        form_data: this.form_data,
+        scholarship_count: this.scholarship_count,
+        total_funding: this.total_funding,
+        results_preview: resultsPreview
+      };
+      this.firebaseService.saveUserAnalytics(filterByUserResult,'filter_by_user_results')
+    }
 
     this.pageLen = Math.ceil(this.scholarship_count / this.paginationLen);
 
@@ -262,7 +276,7 @@ export class ScholarshipsListComponent implements OnInit {
               'education_level': data.education_level,
               'education_field': data.education_field,
               'sort_by': 'relevance',
-              'filter_by_show_eligible_only': true,
+              'filter_by_user_show_eligible_only': true,
             };
 
             this.getScholarshipPreview(this.pageNo);

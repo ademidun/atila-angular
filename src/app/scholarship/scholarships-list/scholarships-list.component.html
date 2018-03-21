@@ -47,6 +47,32 @@
 
         </div>
 
+
+        <div class="row filter-div">
+
+          <ng-template #tryFilter>
+            <p class="col-sm-12 col-md-6" style="font-size: larger"> <span style="font-weight: bold">New!</span> Filter using your Profile</p>
+          </ng-template>
+
+          <mat-form-field class="col-sm-6 col-md-3">
+            <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
+            <mat-select  [(ngModel)]="form_data.filter_by_user"  id="filter_by_user" name="filter_by_user" placeholder="Filter By:" (change)="getScholarshipPreview()">
+              <mat-option>None</mat-option>
+              <mat-option *ngFor="let filterType of ['major','post_secondary_school','city','province','country']" [value]="filterType">{{prettifyKeys(filterType)}} </mat-option>
+            </mat-select>
+
+          </mat-form-field>
+          <div class="col-sm-6 col-md-3" *ngIf="form_data.filter_by_user">
+            <input class="browser-default" id="filter_by_user_show_eligible_only" type="checkbox" [(ngModel)]="form_data.filter_by_user_show_eligible_only" name="filter_by_user_show_eligible_only"  (change)="getScholarshipPreview()">
+            <label for="filter_by_user_show_eligible_only" data-error="Invalid input">Only Show Eligible Scholarships?</label>
+          </div>
+          <p *ngIf="transformFilterDisplay(form_data.filter_by_user); else tryFilter" class="col-sm-12 col-md-6"> Showing Scholarships for:
+            <span style="font-weight: bold">{{transformFilterDisplay(form_data.filter_by_user) | json}}</span>  </p>
+
+
+        </div>
+        <br>
+
         <div class="offset-md-2">
 
           <a class=" col-sm-12 col-md-6 waves-effect waves-light btn demo-btn" routerLink="/applications/demo">Try The Live Demo</a>
@@ -65,26 +91,6 @@
 
             <p>Like Atila? Help others and <a routerLink="/scholarship/add">add a scholarship</a> in less than 15 seconds.</p>
           </div>
-        </div>
-        <br>
-
-        <div class="row filter-div">
-
-          <mat-form-field class="col-sm-6 col-md-3">
-            <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
-            <mat-select  [(ngModel)]="form_data.filter_by"  id="filter_by" name="filter_by" placeholder="Filter By:" (change)="getScholarshipPreview()">
-              <mat-option>None</mat-option>
-              <mat-option *ngFor="let filterType of ['major','post_secondary_school','city','province','country']" [value]="filterType">{{prettifyKeys(filterType)}} </mat-option>
-            </mat-select>
-
-          </mat-form-field>
-          <div class="col-sm-6 col-md-3" *ngIf="form_data.filter_by">
-            <input class="browser-default" id="filter_by_show_eligible_only" type="checkbox" [(ngModel)]="form_data.filter_by_show_eligible_only" name="filter_by_show_eligible_only">
-            <label for="filter_by_show_eligible_only" data-error="Invalid input">Only Show Eligible Scholarships?</label>
-          </div>
-          <p *ngIf="transformFilterDisplay(form_data.filter_by)" class="col-sm-12 col-md-6"> Showing Scholarships for:
-            <span style="font-weight: bold">{{transformFilterDisplay(form_data.filter_by) | json}}</span>  </p>
-
         </div>
         <br>
 
