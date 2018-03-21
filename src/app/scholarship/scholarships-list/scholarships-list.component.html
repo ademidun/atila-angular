@@ -73,11 +73,12 @@
           <mat-form-field class="col-sm-6 col-md-3">
             <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
             <mat-select  [(ngModel)]="form_data.filter_by"  id="filter_by" name="filter_by" placeholder="Filter By:" (change)="getScholarshipPreview()">
-              <mat-option *ngFor="let filterType of ['post_secondary_school','major','city','province','country']" [value]="filterType">{{prettifyKeys(filterType)}} </mat-option>
+              <mat-option>None</mat-option>
+              <mat-option *ngFor="let filterType of ['major','post_secondary_school','city','province','country']" [value]="filterType">{{prettifyKeys(filterType)}} </mat-option>
             </mat-select>
 
           </mat-form-field>
-          <div class="col-sm-6 col-md-3">
+          <div class="col-sm-6 col-md-3" *ngIf="form_data.filter_by">
             <input class="browser-default" id="filter_by_show_eligible_only" type="checkbox" [(ngModel)]="form_data.filter_by_show_eligible_only" name="filter_by_show_eligible_only">
             <label for="filter_by_show_eligible_only" data-error="Invalid input">Only Show Eligible Scholarships?</label>
           </div>

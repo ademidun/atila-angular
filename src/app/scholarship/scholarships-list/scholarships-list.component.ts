@@ -138,6 +138,10 @@ export class ScholarshipsListComponent implements OnInit {
 
     if (this.form_data ) {
 
+      if(this.form_data.filter_by) {
+        this.form_data.filter_by_data = [{filter_type: this.form_data.filter_by, filter_value: [this.transformFilterDisplay(this.form_data.filter_by)]}]
+      }
+
       console.log('this.form_data',this.form_data);
 
       if(this.isLoggedIn) {
