@@ -72,7 +72,7 @@
       <h3> {{blogPost.title}} </h3>
       <img *ngIf="blogPost.header_image_url" [src]="blogPost.header_image_url" style="max-height: 100%;max-width: 100%;"/>
     </div>
-    <div [innerHTML]="blogPost.body | safeHtml" class="col m8 offset-m2 l8 offset-l2 s11"></div>
+    <div [innerHTML]="blogPost.body | safeHtml" class="col-sm-12 col-md-10 offset-md-1"></div>
     <!--<div [froalaView]="blogPost.body" class="col col-md-8 offset-md-d-2 col-lg-8 offset-lg-2 col-sm-11"></div>-->
 
 </div>

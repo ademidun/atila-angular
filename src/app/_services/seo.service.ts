@@ -25,7 +25,12 @@ export class SeoService {
 
     config.title = config.title + ' - Atila';
     this.titleService.setTitle( config.title);
-    this.meta.updateTag({ name: 'twitter:card', content: 'summary' });
+    if (config.image)  {
+      this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
+    }
+    else {
+      this.meta.updateTag({ name: 'twitter:card', content: 'summary' });
+    }
     this.meta.updateTag({ name: 'twitter:site', content: '@atilatech' });
     this.meta.updateTag({ name: 'twitter:title', content: config.title });
     this.meta.updateTag({ name: 'twitter:description', content: config.description });
