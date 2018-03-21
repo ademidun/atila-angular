@@ -33,7 +33,6 @@ import {AngularFireModule} from 'angularfire2';
 import {environment} from '../../environments/environment';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {SharedModule} from '../_shared/shared.module';
-import {SubscriberDialogComponent} from '../subscriber-dialog/subscriber-dialog.component';
 
 
 @NgModule({
@@ -68,7 +67,7 @@ import {SubscriberDialogComponent} from '../subscriber-dialog/subscriber-dialog.
   declarations: [
     BlogPostCreateComponent,
     BlogsListComponent,
-    BlogPostDetailComponent,]
+    BlogPostDetailComponent]
 })
 export class BlogModule {
 }

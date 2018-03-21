@@ -7,6 +7,7 @@ import {BlogPostDetailComponent} from './blog-post-detail/blog-post-detail.compo
 const routes: Routes = [
   { path: 'add' , component: BlogPostCreateComponent, data: {title: 'Create Blog Post - Atila'}},
   { path: 'edit/:id' , component: BlogPostCreateComponent, data: {title: 'Edit Blog Post - Atila'}},
+  {path: ':username', redirectTo: '/profile/:username', pathMatch: 'full'},
   { path: ':username/:slug' , component: BlogPostDetailComponent, data: {title: 'Blog Post - Atila'}},
   { path: '' , component: BlogsListComponent, data: {title: 'Blogs List - Atila'}},
 ];
