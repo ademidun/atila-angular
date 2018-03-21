@@ -4,7 +4,7 @@ import { UserProfileService } from '../../_services/user-profile.service';
 
 import { Scholarship } from '../../_models/scholarship';
 
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router,} from '@angular/router';
 import { AuthService } from "../../_services/auth.service";
 import {UserProfile} from '../../_models/user-profile';
 import {SubscriberDialogComponent} from '../../subscriber-dialog/subscriber-dialog.component';
@@ -18,10 +18,12 @@ import {AutoCompleteForm, initializeAutoCompleteOptions} from '../../_shared/sch
 import {FormGroup} from '@angular/forms';
 
 import {SCHOOLS_LIST, MAJORS_LIST, EDUCATION_FIELDS, EDUCATION_LEVEL} from '../../_models/constants';
+import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 @Component({
   selector: 'app-scholarships-list',
   templateUrl: './scholarships-list.component.html',
-  styleUrls: ['./scholarships-list.component.scss']
+  styleUrls: ['./scholarships-list.component.scss'],
+  providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}]
 })
 export class ScholarshipsListComponent implements OnInit {
 
@@ -41,6 +43,7 @@ export class ScholarshipsListComponent implements OnInit {
   pageNo: number = 1;
   paginationLen: number = 12;
   pageLen: number;
+  pages = [1];
   subscriber: any = {};
   autoCompleteFormGroup: FormGroup;
   autoCompleteOptions: any;
@@ -60,11 +63,13 @@ export class ScholarshipsListComponent implements OnInit {
   constructor(
     public scholarshipService: ScholarshipService,
     public userProfileService: UserProfileService,
-    public router: Router,
     public authService: AuthService,
     public dialog: MatDialog,
     public firebaseService: MyFirebaseService,
     public snackBar: MatSnackBar,
+    public activatedRoute: ActivatedRoute,
+    public router: Router,
+    public location: Location,
   ) { }
 
 
@@ -97,7 +102,9 @@ export class ScholarshipsListComponent implements OnInit {
             'sort_by': 'relevance',
           };
 
+          this.pageNo = this.activatedRoute.snapshot.params['page'] || this.pageNo;
 
+          console.log('this.activatedRoute.snapshot.params[\'page\'],this.pageNo',this.activatedRoute.params, this.activatedRoute.snapshot.params['page'],this.pageNo);
           this.getScholarshipPreview(this.pageNo);
         }
       )}
@@ -130,6 +137,20 @@ export class ScholarshipsListComponent implements OnInit {
 
     if (this.form_data ) {
 
+      if(this.isLoggedIn) {
+        const url = this
+          .router
+          .createUrlTree([{page: page}], {relativeTo: this.activatedRoute})
+          .toString();
+
+        this.location.go(url);
+      }
+
+      else {
+        page = 1;
+      }
+
+
       if (!this.form_data['sort_by']) {
         this.form_data['sort_by'] = 'relevance';
       }
@@ -140,6 +161,8 @@ export class ScholarshipsListComponent implements OnInit {
           this.saveScholarships(res);
           this.contentFetched = true;
           this.isLoading = false;
+
+
         },
         error => {
 
@@ -162,7 +185,14 @@ export class ScholarshipsListComponent implements OnInit {
       this.show_scholarship_funding = true;
     }
 
+
+
     this.pageLen = Math.ceil(this.scholarship_count / this.paginationLen);
+
+    this.pages = [];
+    for (let i = 1; i <= this.pageLen; i++) {
+      this.pages.push(i);
+    }
   }
 
   prettifyKeys(str) {
@@ -181,6 +211,14 @@ export class ScholarshipsListComponent implements OnInit {
     this.pageNo--;
     this.getScholarshipPreview(this.pageNo);
     window.scrollTo(0, 0);
+  }
+
+  goToPage(pageNo = 1) {
+    this.getScholarshipPreview(pageNo);
+    // todo, why isn't window.scrollTo(0, 0); working?
+    window.scrollTo(0, 0);
+    $("html, body").animate({scrollTop: $('.nav-wrapper').offset().top}, 500);
+
   }
 
 
