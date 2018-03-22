@@ -182,7 +182,8 @@
                           <!--{{ myJson.stringify(locationList) }}-->
 
                           <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
-                          <input class="browser-default" matInput type="text" class="form-control" [disabled]="this.editMode && !this.isOwner" [placeholder]="locationPlaceHolder" name="location" id="location" [(ngModel)]="locationInput.city" #LocationCtrl="ngModel"
+                          <input class="browser-default" matInput type="text" class="form-control" [disabled]="this.editMode && !this.isOwner"
+                                 [placeholder]="locationPlaceHolder" name="location" id="location" [(ngModel)]="locationInput.city" #LocationCtrl="ngModel"
                                  appGooglePlace (setAddress)="placeAutoComplete($event,LocationCtrl)"  (googlePlaceNoLoad)="googlePlaceNoLoad()" (keydown)="keyDownHandler($event)">
                         </mat-form-field>
                           <!-- See table-layout.component.html as a guide -->

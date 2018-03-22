@@ -328,6 +328,7 @@
                 </div>
         </div>
         <div [ngClass]='{hidden: profileInfo}'>
+
             <div class="row">
                   <!-- TODO: Get real % of scholarships asking for alternate rerefence letters. -->
                   <h5> Long Answer Questions </h5>
@@ -347,6 +348,41 @@
                 <textarea class="browser-default" matInput id="academic_career_goals" type="text"
                 placeholder="Type here..." [(ngModel)]="userProfile.academic_career_goals" name="academic_career_goals"></textarea>
             </div>
+
+
+          <span class="location-edit-section">
+                        <mat-form-field class="col-sm-12 col-md-4">
+
+                          <label style="font-size: larger"> Where else would you like to study? (Country) </label><br>
+                          <input class="browser-default" matInput type="text" class="form-control"  [placeholder]="locationPlaceHolder" name="location" id="location" [(ngModel)]="extraLocationInput.country" #LocationCtrl="ngModel"
+                                 appGooglePlace (setAddress)="placeAutoComplete($event,LocationCtrl,{object_key: 'extraLocationInput'})"  (googlePlaceNoLoad)="googlePlaceNoLoad()" (keydown)="keyDownHandler($event)">
+                        </mat-form-field>
+            <!-- See table-layout.component.html as a guide -->
+                        <table class="table">
+                          <caption >Locations</caption>
+                          <thead>
+                          <tr>
+                            <th>Country</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+
+                          <tr *ngFor="let location of userProfile.country_extra; let i = index"><!-- For each row (or entry) of data  -->
+                            <td>{{ location | json}}</td>
+                            <br>
+
+                            <a class="waves-effect waves-light btn right" (click)="userProfile.country_extra.splice(i,1)">
+                              <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            </a>
+
+
+                          </tr>
+                          </tbody>
+
+
+                        </table>
+
+                        </span>
 
           <div class="row">
             <a class="waves-effect waves-light btn left" (click)="switchPage()">Back</a>

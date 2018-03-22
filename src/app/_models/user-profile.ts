@@ -5,6 +5,7 @@ export class UserProfile {
             public citizenship?: string[],
             public city?: any,
             public country?: any,
+            public country_extra?: any,
             public cover_letter?: any,
             public birth_date?: Date,
             public degree?: Date,

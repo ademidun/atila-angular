@@ -202,8 +202,6 @@ export class ScholarshipsListComponent implements OnInit {
         total_funding: this.total_funding,
         results_preview: resultsPreview
       };
-
-      console.log('filterByUserResult',filterByUserResult);
       this.firebaseService.saveUserAnalytics(filterByUserResult,'filter_by_user_results')
     }
 

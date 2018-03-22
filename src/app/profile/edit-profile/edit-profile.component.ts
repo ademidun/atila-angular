@@ -76,6 +76,11 @@ EDUCATION_FIELD = [
     'province': '',
     'country': '',
   };
+
+  extraCountryList = [];
+  extraLocationInput: any = {
+    country: '',
+  };
   uploadProgress: any;
 
   myControl: FormControl = new FormControl();
@@ -118,7 +123,8 @@ EDUCATION_FIELD = [
         .subscribe(
           data => {
             this.userProfile = data;
-            let profileTitle = this.userProfile.first_name +' '+ this.userProfile.last_name + "'s Profile"
+            console.log('this.userProfile',this.userProfile);
+            let profileTitle = this.userProfile.first_name +' '+ this.userProfile.last_name + "'s Profile";
             this.titleService.setTitle('Atila - ' + profileTitle);
             this.initializeLocations(this.userProfile.city);
 
@@ -189,6 +195,8 @@ initializeLocations(cities: Array<any>){
 
   this.userProfile.metadata['stale_cache'] = true;
     if(!profileForm) {
+
+
       let sendData = {
         userProfile: this.userProfile,
         locationData: this.locationData,
@@ -215,6 +223,7 @@ initializeLocations(cities: Array<any>){
         locationData: this.locationData,
       };
 
+      console.log('sendData, this.extraCountryList',sendData, this.extraCountryList);
 
       this.userProfileService.updateAny(sendData)
         .subscribe(
@@ -333,10 +342,10 @@ showSnackBar(text: string, action = '', duration: number) {
    * https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform
    * https://stackoverflow.com/questions/42341930/google-places-autocomplete-angular2
    */
-  placeAutoComplete(placeResult:any, locationModel: NgModel){ //Assign types to the parameters place result is a PlaceResult Type, see documentation
+  placeAutoComplete(placeResult:any, locationModel: NgModel, options= {}){ //Assign types to the parameters place result is a PlaceResult Type, see documentation
 
 
-    this.predictLocation(this.locationData, placeResult);
+    this.predictLocation(this.locationData, placeResult,options);
 
   }
 
@@ -345,7 +354,9 @@ showSnackBar(text: string, action = '', duration: number) {
    * @param location
    * @param placeResult
    */
-  predictLocation(location, placeResult){
+  predictLocation(location, placeResult, options= {}){
+
+    options['object_key'] = options['object_key'] || 'locationData';
 
     var addressComponents = placeResult.address_components ;
 
@@ -356,17 +367,23 @@ showSnackBar(text: string, action = '', duration: number) {
 
     addressComponents.forEach((element, i, arr) => {
       if(element.types[0]=='locality' || element.types[0]=='administrative_area_level_3' ||  element.types[0]=='postal_town'||  element.types[0]=='sublocality_level_1'){
-        this.locationData.city = element.long_name;
+        this[options['object_key']].city = element.long_name;
       }
 
       if(element.types[0]=='administrative_area_level_1'){
-        this.locationData.province = element.long_name;
+        this[options['object_key']].province = element.long_name;
       }
 
       if(element.types[0]=='country'){
-        this.locationData[element.types[0]] = element.long_name;
+        this[options['object_key']][element.types[0]] = element.long_name;
       }
     });
+
+    if (options['object_key'] == 'extraLocationInput' && this[options['object_key']]['country']) {
+      //prevent changes in locationInput to be tracked in LocationList
+      this.userProfile.country_extra.push(this[options['object_key']]['country']);
+
+    }
 
   }
 
