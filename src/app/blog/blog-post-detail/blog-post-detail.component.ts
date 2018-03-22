@@ -69,7 +69,6 @@ export class BlogPostDetailComponent implements OnInit {
     if (!this.slugUsername && !this.slugTitle) {
       return;
     }
-    console.log('ngOnInit',this.slugUsername,this.slugTitle);
       this.blogPostService.getBySlug(this.slugUsername, this.slugTitle).subscribe(
         res => {
           this.blogPost = (<any>res).blog;

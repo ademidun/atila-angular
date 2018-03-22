@@ -77,6 +77,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
     'citizenship': COUNTRIES,
     'language': LANGUAGE,
   };
+  hideExtraCriteriaInfo: boolean = true;
   stringDict = {
     'city': '',
     'province': '',

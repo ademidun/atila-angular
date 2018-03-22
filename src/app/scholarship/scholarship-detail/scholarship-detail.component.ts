@@ -70,7 +70,6 @@ export class ScholarshipDetailComponent implements OnInit {
     //reload the url if a new slug is clicked from related items
     router.events.subscribe(data=>{
       if(data instanceof ActivationEnd){
-        console.log('this.scholarshipSlug',this.scholarshipSlug);
         this.scholarshipSlug = route.snapshot.params['slug'];
         this.ngOnInitHelper();
       }
