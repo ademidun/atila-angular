@@ -67,7 +67,9 @@
             <label for="filter_by_user_show_eligible_only" data-error="Invalid input">Only Show Eligible Scholarships?</label>
           </div>
           <p *ngIf="transformFilterDisplay(form_data.filter_by_user); else tryFilter" class="col-sm-12 col-md-6"> Showing Scholarships for:
-            <span style="font-weight: bold">{{transformFilterDisplay(form_data.filter_by_user) | json}}</span>  </p>
+            <span style="font-weight: bold">{{transformFilterDisplay(form_data.filter_by_user) | json}}</span>
+            <span *ngIf="!isLoggedIn">(<a routerLink="/login">Login</a> to use your actual {{prettifyKeys(form_data.filter_by_user)}})</span>
+          </p>
 
 
         </div>

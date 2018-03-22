@@ -104,8 +104,6 @@ export class ScholarshipsListComponent implements OnInit {
           };
 
           this.pageNo = this.activatedRoute.snapshot.params['page'] || this.pageNo;
-
-          console.log('this.activatedRoute.snapshot.params[\'page\'],this.pageNo',this.activatedRoute.params, this.activatedRoute.snapshot.params['page'],this.pageNo);
           this.getScholarshipPreview(this.pageNo);
         }
       )}
@@ -123,6 +121,7 @@ export class ScholarshipsListComponent implements OnInit {
       .then(
         res => {
           this.form_data = res;
+          this.form_data['filter_by_user_show_eligible_only']=true;
         },
 
       )
@@ -138,11 +137,11 @@ export class ScholarshipsListComponent implements OnInit {
 
     if (this.form_data ) {
 
+      console.log('this.form_data',this.form_data);
+
       if(this.form_data.filter_by_user) {
         this.form_data.filter_by_user_data = [{filter_type: this.form_data.filter_by_user, filter_value: [this.transformFilterDisplay(this.form_data.filter_by_user)]}]
       }
-
-      console.log('this.form_data',this.form_data);
 
       if(this.isLoggedIn) {
         const url = this
@@ -205,6 +204,8 @@ export class ScholarshipsListComponent implements OnInit {
         total_funding: this.total_funding,
         results_preview: resultsPreview
       };
+
+      console.log('filterByUserResult',filterByUserResult);
       this.firebaseService.saveUserAnalytics(filterByUserResult,'filter_by_user_results')
     }
 
@@ -514,10 +515,37 @@ export class ScholarshipsListComponent implements OnInit {
   }
 
   transformFilterDisplay(filter_type) {
-    if (['city','province','country'].indexOf(filter_type) > -1) {
-      return this.userProfile[filter_type][0]['name']
+
+    if (this.userProfile) {
+      if (['city','province','country'].indexOf(filter_type) > -1) {
+        return this.userProfile[filter_type][0]['name']
+      }
+      return this.userProfile[filter_type];
     }
-    return this.userProfile[filter_type];
+    else {
+      if (['city','province','country'].indexOf(filter_type) > -1) {
+        if (!this.form_data.location[filter_type]) {
+          switch (filter_type) {
+            case 'city':
+              return 'Toronto';
+
+            case 'province':
+              return 'Ontario';
+
+            case 'country':
+              return 'Canada';
+          }
+        }
+        return this.form_data.location[filter_type];
+      }
+      if (filter_type == 'post_secondary_school') {
+        return 'University of Western Ontario';
+      }
+      if (filter_type == 'major') {
+        return 'Engineering';
+      }
+    }
+
   }
 
 }
