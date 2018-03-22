@@ -10,7 +10,7 @@ import { UserProfileService } from '../../_services/user-profile.service';
 
 import { CommentService } from '../../_services/comment.service';
 
-import { ActivatedRoute, Router } from '@angular/router';
+import {ActivatedRoute, ActivationEnd, Router} from '@angular/router';
 
 import { NgZone } from '@angular/core';
 import { Title }     from '@angular/platform-browser';
@@ -38,8 +38,10 @@ export class ForumDetailComponent implements OnInit {
   showPostHelper;
   relatedItems: any = [];
   subscriber: any = {};
+  forumSlug: any = {};
   constructor(
     public route: ActivatedRoute,
+    public router: Router,
     public _ngZone: NgZone,
     public userProfileService: UserProfileService,
     public titleService: Title,
@@ -52,14 +54,25 @@ export class ForumDetailComponent implements OnInit {
     public searchService: SearchService,
     public firebaseService: MyFirebaseService,) {
       this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
+
+
+    //reload the url if a new slug is clicked from related items
+    router.events.subscribe(data=>{
+      if(data instanceof ActivationEnd){
+        this.forumSlug = route.snapshot.params['slug'];
+        this.ngOnInitHelper();
+      }
+    });
     }
 
-  ngOnInit() {
+  ngOnInitHelper() {
     let defaultProfileImage = 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2Fgeneral-data%2Fdefault-profile-pic.png?alt=media&token=455c59f7-3a05-43f1-a79e-89abff1eae57';
     let atilaImage = 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-gradient-banner-march-14.png?alt=media&token=9d791ba9-18d0-4750-ace8-b390a4e90fdc"';
 
-
-    this.forumService.getBySlug(this.route.snapshot.params['slug']).subscribe(
+    if (!this.forumSlug){
+      return;
+    }
+    this.forumService.getBySlug(this.forumSlug).subscribe(
       forum => {
         this.forum = forum;
         try {
@@ -102,6 +115,8 @@ export class ForumDetailComponent implements OnInit {
 
     this.userComment = new Comment(this.userId);
   }
+
+  ngOnInit(){}
 
   postComment(){
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Scholarship } from '../../_models/scholarship';
 import { Comment, upVoteComment, downVoteComment } from "../../_models/comment";
-import { ActivatedRoute, Router } from '@angular/router';
+import {ActivatedRoute, ActivationEnd, Router} from '@angular/router';
 import { ScholarshipService } from '../../_services/scholarship.service';
 import { ApplicationService } from '../../_services/application.service';
 import { Observable } from 'rxjs/Observable';
@@ -64,14 +64,25 @@ export class ScholarshipDetailComponent implements OnInit {
     public searchService: SearchService,
   ) {
     // Get the id that was passed in the route
-    this.scholarshipSlug = route.snapshot.params['slug'];
     this.userId = parseInt(this.authService.decryptLocalStorage('uid')); // Current user, TODO: Should we use the request user ID?
+
+
+    //reload the url if a new slug is clicked from related items
+    router.events.subscribe(data=>{
+      if(data instanceof ActivationEnd){
+        console.log('this.scholarshipSlug',this.scholarshipSlug);
+        this.scholarshipSlug = route.snapshot.params['slug'];
+        this.ngOnInitHelper();
+      }
+    });
 
 
   }
 
-  ngOnInit() {
-    // Load scholarship from the id
+  ngOnInitHelper() {
+    if (!this.scholarshipSlug) {
+
+    }
 
     this.scholarshipService.getBySlug(this.scholarshipSlug)
       .subscribe(
@@ -97,15 +108,15 @@ export class ScholarshipDetailComponent implements OnInit {
           // Get the user profile of the scholarship owner
           if (this.scholarship.owner){
             this.userProfileService.getById(scholarship.owner)
-            .subscribe(
-              user => {
-                this.scholarshipOwner = user;
+              .subscribe(
+                user => {
+                  this.scholarshipOwner = user;
 
-              },
-              err => {
+                },
+                err => {
 
-              }
-            )
+                }
+              )
           }
 
           if (!isNaN(this.userId)) {
@@ -136,8 +147,8 @@ export class ScholarshipDetailComponent implements OnInit {
           this.getScholarshipComments();
         }
       );
-
-    // Load reviews
+  }
+  ngOnInit() {
   }
 
   getScholarshipComments(){

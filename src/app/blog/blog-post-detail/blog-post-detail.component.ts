@@ -10,7 +10,7 @@ import {UserProfileService} from '../../_services/user-profile.service';
 
 import {CommentService} from '../../_services/comment.service';
 
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, ActivationEnd, Router} from '@angular/router';
 import {Title} from '@angular/platform-browser';
 
 import {AuthService} from "../../_services/auth.service";
@@ -37,8 +37,11 @@ export class BlogPostDetailComponent implements OnInit {
   userId;
   relatedItems: any = [];
   subscriber: any = {};
+  slugUsername: any = {};
+  slugTitle: any = {};
 
   constructor(public route: ActivatedRoute,
+              public router: Router,
               public _ngZone: NgZone,
               public userProfileService: UserProfileService,
               public titleService: Title,
@@ -52,57 +55,71 @@ export class BlogPostDetailComponent implements OnInit {
               public searchService: SearchService,)
               {
                 this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
+
+                router.events.subscribe(data=>{
+                  if(data instanceof ActivationEnd){
+                    this.slugUsername = data.snapshot.params['username'];
+                    this.slugTitle = data.snapshot.params['slug'];
+                    this.ngOnInitHelper();
+                  }
+                });
               }
 
-  ngOnInit() {
+  ngOnInitHelper() {
+    if (!this.slugUsername && !this.slugTitle) {
+      return;
+    }
+    console.log('ngOnInit',this.slugUsername,this.slugTitle);
+      this.blogPostService.getBySlug(this.slugUsername, this.slugTitle).subscribe(
+        res => {
+          this.blogPost = (<any>res).blog;
 
-    this.blogPostService.getBySlug(this.route.snapshot.params['username'], this.route.snapshot.params['slug']).subscribe(
-      res => {
-        this.blogPost = (<any>res).blog;
+          //this.updateMeta();
+          try {
+            this.seoService.generateTags({
+              title: this.blogPost.title,
+              description: this.blogPost.description,
+              image: this.blogPost.header_image_url,
+              slug: `blog/${this.blogPost.user.username}/${this.blogPost.slug}`
+            });
+          }
+          catch (err) {
+          }
 
-        //this.updateMeta();
-        try {
-          this.seoService.generateTags({
-            title: this.blogPost.title,
-            description: this.blogPost.description,
-            image: this.blogPost.header_image_url,
-            slug: `blog/${this.blogPost.user.username}/${this.blogPost.slug}`
-          });
-        }
-        catch (err) {
-        }
+          // this.titleService.setTitle(this.blogPost.title + ' - Atila');
+          if (!isNaN(this.userId)) {
 
-        // this.titleService.setTitle(this.blogPost.title + ' - Atila');
-        if (!isNaN(this.userId)) {
+            this.userProfileService.getById(parseInt(this.userId)).subscribe(
+              res => {
+                this.userProfile = res;
 
-          this.userProfileService.getById(parseInt(this.userId)).subscribe(
+                if (this.blogPost.up_votes_id.includes(this.userId)) {//if the current user (ID) already liked the video, disable the up_vote_button
+                  this.blogPost['alreadyLiked'] = true;
+                }
+
+              }
+            );
+
+            this.userComment = new Comment(this.userId);
+          }
+
+          else {
+            this.userComment = new Comment(0);
+          }
+          this.commentService.getComments(this.blogPost.id, 'BlogPost').subscribe(
             res => {
-              this.userProfile = res;
 
-              if (this.blogPost.up_votes_id.includes(this.userId)) {//if the current user (ID) already liked the video, disable the up_vote_button
-                this.blogPost['alreadyLiked'] = true;
-              }
-
+              this.comments = res.comments;
             }
           );
 
-          this.userComment = new Comment(this.userId);
-        }
+          this.getRelatedItems();
 
-        else {
-          this.userComment = new Comment(0);
-        }
-        this.commentService.getComments(this.blogPost.id, 'BlogPost').subscribe(
-          res => {
+        },
+      );
 
-            this.comments = res.comments;
-          }
-        );
-
-        this.getRelatedItems();
-
-      },
-    );
+  }
+  ngOnInit() {
 
   }
 
