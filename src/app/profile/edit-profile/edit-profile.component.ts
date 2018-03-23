@@ -123,7 +123,6 @@ EDUCATION_FIELD = [
         .subscribe(
           data => {
             this.userProfile = data;
-            console.log('this.userProfile',this.userProfile);
             let profileTitle = this.userProfile.first_name +' '+ this.userProfile.last_name + "'s Profile";
             this.titleService.setTitle('Atila - ' + profileTitle);
             this.initializeLocations(this.userProfile.city);
@@ -222,9 +221,6 @@ initializeLocations(cities: Array<any>){
         userProfile: this.userProfile,
         locationData: this.locationData,
       };
-
-      console.log('sendData, this.extraCountryList',sendData, this.extraCountryList);
-
       this.userProfileService.updateAny(sendData)
         .subscribe(
           data => {

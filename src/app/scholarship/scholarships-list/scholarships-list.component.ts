@@ -58,6 +58,10 @@ export class ScholarshipsListComponent implements OnInit {
   EDUCATION_FIELD = EDUCATION_FIELDS;
   MAJORS_LIST = MAJORS_LIST;
   SCHOOLS_LIST = SCHOOLS_LIST;
+  showExtraCountryChoice: boolean;
+  extraLocationInput: any = {
+    country: '',
+  };
 
   @ViewChild('trySearch') public popover: NgbPopover;
   constructor(
@@ -180,7 +184,6 @@ export class ScholarshipsListComponent implements OnInit {
 
   saveScholarships(res: any){
 
-
     this.scholarships = res['data'];
     this.scholarship_count = res['length'];
     this.total_funding = res['funding'];
@@ -241,7 +244,7 @@ export class ScholarshipsListComponent implements OnInit {
 
 
   // todo move this to a seperate function as it will rarely be called
-  saveUser(userForm){
+  saveUser(userForm, options = {}){
 
 
     if (userForm.valid) {
@@ -260,12 +263,16 @@ export class ScholarshipsListComponent implements OnInit {
         userProfile: this.userProfile,
         locationData: this.locationData,
       };
-
       this.userProfileService.updateAny(sendData)
         .subscribe(
           data => {
 
             this.snackBar.open("Successfully Updated Your Profile.",'', {duration: 3000});
+
+            if(options['updateUser']) {
+              this.userProfile = data;
+            }
+
             this.inCompleteProfile = false;
             this.isLoading = false;
             this.form_data = {
@@ -464,8 +471,7 @@ export class ScholarshipsListComponent implements OnInit {
    * https://stackoverflow.com/questions/42341930/google-places-autocomplete-angular2
    */
   placeAutoComplete(placeResult:any, autoCompleteOptions?: any){ //Assign types to the parameters place result is a PlaceResult Type, see documentation
-
-    this.predictLocation(this.locationData, placeResult, autoCompleteOptions);
+    this.predictLocation(placeResult, autoCompleteOptions);
 
   }
 
@@ -473,8 +479,11 @@ export class ScholarshipsListComponent implements OnInit {
    * Translate the PlaceResult object into an Atila location object, containing only the city, province/state and country.
    * @param location
    * @param placeResult
+   * @param options
    */
-  predictLocation(location, placeResult, autoCompleteOptions?: any){
+  predictLocation(placeResult, options= {}){
+
+    options['object_key'] = options['object_key'] || 'locationData';
 
     var addressComponents = placeResult.address_components ;
 
@@ -482,20 +491,27 @@ export class ScholarshipsListComponent implements OnInit {
 
     //TODO: Find a more elegant solution for this.
 
-    addressComponents.forEach((element, i, arr) => {
 
+    addressComponents.forEach((element, i, arr) => {
       if(element.types[0]=='locality' || element.types[0]=='administrative_area_level_3' ||  element.types[0]=='postal_town'||  element.types[0]=='sublocality_level_1'){
-        this.locationData.city = element.long_name;
+        this[options['object_key']].city = element.long_name;
       }
 
       if(element.types[0]=='administrative_area_level_1'){
-        this.locationData.province = element.long_name;
+        this[options['object_key']].province = element.long_name;
       }
 
       if(element.types[0]=='country'){
-        this.locationData['country'] = element.long_name;
+        this[options['object_key']][element.types[0]] = element.long_name;
       }
     });
+
+    if (options['object_key'] == 'extraLocationInput' && this[options['object_key']]['country']) {
+      //prevent changes in locationInput to be tracked in LocationList
+      this.userProfile.country_extra.push(this[options['object_key']]['country']);
+
+    }
+
   }
 
   /**
@@ -543,7 +559,6 @@ export class ScholarshipsListComponent implements OnInit {
     }
 
   }
-
 
 
 }

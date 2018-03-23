@@ -288,7 +288,7 @@
             <tr  *ngFor="let program of userProfile.eligible_programs; let i = index">
               <td> {{program}} </td>
               <td>
-                <a class="waves-effect waves-light btn right" (click)="deleteArrayitem(userProfile.eligible_programs, i)">
+                <a class="waves-effect waves-light btn right" (click)="userProfile.eligible_programs.splice(i,1)">
                   <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </a>
               </td>
@@ -311,7 +311,7 @@
             <tr  *ngFor="let school of userProfile.eligible_schools; let i = index" ngDefaultControl>
               <td>{{school}} </td>
               <td>
-                <a class="waves-effect waves-light btn right" (click)="deleteArrayitem(userProfile.eligible_schools, i)">
+                <a class="waves-effect waves-light btn right" (click)="userProfile.eligible_schools.splice(i,1)">
                   <i class="fa fa-trash-o" aria-hidden="true"></i>
                 </a>
               </td>
@@ -324,6 +324,41 @@
           </app-typeahead>
         </div>
       </div>
+
+      <a (click)="showExtraCountryChoice=!showExtraCountryChoice">Planning on Studying in a foreign Country?</a>
+      <div *ngIf="showExtraCountryChoice" class="location-edit-section">
+          <mat-form-field class="col-sm-12 col-md-6">
+
+            <label style="font-size: larger"> Where else would you like to study? (Country) </label><br>
+            <input class="form-control" matInput type="text" name="location" id="location" [(ngModel)]="extraLocationInput.country" #LocationCtrl="ngModel"
+                 appGooglePlace (setAddress)="placeAutoComplete($event,{object_key: 'extraLocationInput'})" (keydown)="keyDownHandler($event)">
+          </mat-form-field>
+          <!-- See table-layout.component.html as a guide -->
+          <table class="table">
+            <caption >Locations</caption>
+            <thead>
+            <tr>
+              <th>Country</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr *ngFor="let location of userProfile.country_extra; let i = index"><!-- For each row (or entry) of data  -->
+              <td>{{location}}</td>
+              <br>
+
+              <a class="waves-effect waves-light btn right" (click)="userProfile.country_extra.splice(i,1)">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+              </a>
+
+
+            </tr>
+            </tbody>
+
+
+          </table>
+
+        </div>
     </div>
 
   </div>
@@ -334,7 +369,7 @@
 
       <div class="col-sm-6 button-container">
         <button tabindex="10" class="waves-effect waves-light btn right btn-submit"
-                (click)="saveUser(completeProfileForm)" [disabled]="disableRegistrationButton">Complete Profile</button>
+                (click)="saveUser(completeProfileForm,{updateUser:true})">Complete Profile</button>
       </div>
     </div>
   </form>

@@ -368,7 +368,7 @@
                           <tbody>
 
                           <tr *ngFor="let location of userProfile.country_extra; let i = index"><!-- For each row (or entry) of data  -->
-                            <td>{{ location | json}}</td>
+                            <td>{{location}}</td>
                             <br>
 
                             <a class="waves-effect waves-light btn right" (click)="userProfile.country_extra.splice(i,1)">
