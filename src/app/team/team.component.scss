@@ -29,6 +29,13 @@
   margin: 0 75px !important;
 }
 
+@media (min-width: 576px) {
+ .team-container {
+   margin-left: 5%;
+ }
+}
+
+
 @media (min-width: 768px) {
   .col-md-2-3 {
     flex: 0 0 21%;

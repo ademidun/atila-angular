@@ -9,7 +9,7 @@ import {SeoService} from '../_services/seo.service';
 })
 export class TeamComponent implements OnInit {
 
-  teamData = [
+  teamData: any[] = [
     {
       "first_name": "Tomiwa",
       "last_name": "Ademidun",

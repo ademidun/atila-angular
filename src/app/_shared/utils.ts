@@ -70,8 +70,8 @@ export function genericItemTransform (item) {
       break;
     case 'forum':
       item = {
-        title: item.starting_comment.title || item.title,
-        description: item.starting_comment.text,
+        title: item.starting_comment ? item.starting_comment.title || item.title : item.title,
+        description: item.starting_comment ?  item.starting_comment.text || item.text: item.text,
         id: item.id,
         slug: `/forum/${item.slug}/`,
         type: item.type,

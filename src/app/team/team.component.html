@@ -1,4 +1,4 @@
-<div class="container row" >
+<div class="col-sm-12 row team-container" >
 
   <mat-card class="profile-header col-sm-12 col-md-2-3" *ngFor="let member of teamData">
     <mat-card-header class="row">
@@ -17,12 +17,12 @@
       <p style="font-size: larger">
        {{member.description_1}}
         <br>
-        <span [innerHTML]="member.description_2"></span>
+        <span class="inner-html" [innerHTML]="member.description_2"></span>
       </p>
     </mat-card-content>
   </mat-card>
 
-  <p style="font-size: larger" class="col-sm-12 col-md-8 offset-md-d-2">
+  <p style="font-size: larger" class="col-sm-12 col-md-8 offset-md-d-2">e
     If you would like to join the team or help out in some way,
     <a  href="mailto:info@atila.ca">send an email </a> to <a  href="mailto:info@atila.ca">info@atila.ca</a> with your resume and/or links to cool stuff you've done.
 
