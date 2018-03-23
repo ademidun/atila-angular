@@ -183,7 +183,6 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
         }
         catch (err)
         {
-          console.error('live demo analytics err', err);
           this.firebaseService.saveAny(err.toString(),'error_logs/live_demo');
         }
       }
