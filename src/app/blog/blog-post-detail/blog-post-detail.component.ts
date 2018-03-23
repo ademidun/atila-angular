@@ -1,4 +1,4 @@
-import {Component, NgZone, OnInit} from '@angular/core';
+import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
 import {BlogPostService} from "../../_services/blog-post.service";
 
 import {BlogPost, likeContent} from "../../_models/blog-post";
@@ -20,6 +20,7 @@ import {SeoService} from '../../_services/seo.service';
 import {SearchService} from '../../_services/search.service';
 import {genericItemTransform} from '../../_shared/utils';
 import {SubscriberDialogComponent} from '../../subscriber-dialog/subscriber-dialog.component';
+import {Subscription} from 'rxjs/Subscription';
 
 
 @Component({
@@ -27,7 +28,7 @@ import {SubscriberDialogComponent} from '../../subscriber-dialog/subscriber-dial
   templateUrl: './blog-post-detail.component.html',
   styleUrls: ['./blog-post-detail.component.scss']
 })
-export class BlogPostDetailComponent implements OnInit {
+export class BlogPostDetailComponent implements OnInit, OnDestroy {
 
   comments: Comment[];
   //commentType ="Forum";
@@ -39,6 +40,7 @@ export class BlogPostDetailComponent implements OnInit {
   subscriber: any = {};
   slugUsername: any = {};
   slugTitle: any = {};
+  routerChanges: Subscription;
 
   constructor(public route: ActivatedRoute,
               public router: Router,
@@ -56,7 +58,7 @@ export class BlogPostDetailComponent implements OnInit {
               {
                 this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
 
-                router.events.subscribe(data=>{
+                this.routerChanges = router.events.subscribe(data=>{
                   if(data instanceof ActivationEnd){
                     this.slugUsername = data.snapshot.params['username'];
                     this.slugTitle = data.snapshot.params['slug'];
@@ -66,7 +68,9 @@ export class BlogPostDetailComponent implements OnInit {
               }
 
   ngOnInitHelper() {
-    if (!this.slugUsername && !this.slugTitle) {
+
+    console.log('this.slugUsername','this.slugTitle',this.slugUsername, this.slugTitle);
+    if (!this.slugUsername || !this.slugTitle) {
       return;
     }
       this.blogPostService.getBySlug(this.slugUsername, this.slugTitle).subscribe(
@@ -120,6 +124,10 @@ export class BlogPostDetailComponent implements OnInit {
   }
   ngOnInit() {
 
+  }
+
+  ngOnDestroy() {
+    this.routerChanges.unsubscribe();
   }
 
 

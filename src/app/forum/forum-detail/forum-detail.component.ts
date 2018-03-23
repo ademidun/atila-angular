@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { ForumService } from "../../_services/forum.service";
 
 import { Forum } from "../../_models/forum";
@@ -21,12 +21,13 @@ import {SearchService} from '../../_services/search.service';
 import {genericItemTransform} from '../../_shared/utils';
 import {SubscriberDialogComponent} from '../../subscriber-dialog/subscriber-dialog.component';
 import {MyFirebaseService} from '../../_services/myfirebase.service';
+import {Subscription} from 'rxjs/Subscription';
 @Component({
   selector: 'app-forum-detail',
   templateUrl: './forum-detail.component.html',
   styleUrls: ['./forum-detail.component.scss']
 })
-export class ForumDetailComponent implements OnInit {
+export class ForumDetailComponent implements OnInit, OnDestroy {
 
   comments: Comment[];
   //commentType ="Forum";
@@ -39,6 +40,7 @@ export class ForumDetailComponent implements OnInit {
   relatedItems: any = [];
   subscriber: any = {};
   forumSlug: any = {};
+  routerChanges: Subscription;
   constructor(
     public route: ActivatedRoute,
     public router: Router,
@@ -57,7 +59,7 @@ export class ForumDetailComponent implements OnInit {
 
 
     //reload the url if a new slug is clicked from related items
-    router.events.subscribe(data=>{
+    this.routerChanges = router.events.subscribe(data=>{
       if(data instanceof ActivationEnd){
         this.forumSlug = route.snapshot.params['slug'];
         this.ngOnInitHelper();
@@ -66,6 +68,9 @@ export class ForumDetailComponent implements OnInit {
     }
 
   ngOnInitHelper() {
+
+    console.log('this.forumSlug',this.forumSlug);
+
     let defaultProfileImage = 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2Fgeneral-data%2Fdefault-profile-pic.png?alt=media&token=455c59f7-3a05-43f1-a79e-89abff1eae57';
     let atilaImage = 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-gradient-banner-march-14.png?alt=media&token=9d791ba9-18d0-4750-ace8-b390a4e90fdc"';
 
@@ -117,6 +122,10 @@ export class ForumDetailComponent implements OnInit {
   }
 
   ngOnInit(){}
+
+  ngOnDestroy() {
+    this.routerChanges.unsubscribe();
+  }
 
   postComment(){
 

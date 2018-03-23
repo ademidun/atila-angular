@@ -37,6 +37,7 @@ export function toTitleCase(str) {
 }
 
 export function genericItemTransform (item) {
+
     if (item.hasOwnProperty('deadline')) {
       item.type = 'scholarship'
     }
@@ -47,41 +48,39 @@ export function genericItemTransform (item) {
       item.type = 'blog'
     }
 
-  switch(item.type) {
-    case 'scholarship':
-      item = {
-        title: item.name,
-        description: item.description,
-        id: item.id,
-        slug: `/scholarship/${item.slug}/`,
-        image: item.img_url,
-        type: item.type,
-      };
-      break;
-    case 'blog':
-      item = {
-        title: item.title,
-        description: item.description,
-        image: item.header_image_url,
-        id: item.id,
-        slug: `/blog/${item.user.username}/${item.slug}/`,
-        type: item.type,
-      };
-      break;
-    case 'forum':
-      item = {
-        title: item.starting_comment ? item.starting_comment.title || item.title : item.title,
-        description: item.starting_comment ?  item.starting_comment.text || item.text: item.text,
-        id: item.id,
-        slug: `/forum/${item.slug}/`,
-        type: item.type,
-      };
-      break;
-    default:
-      // code block
-  }
-
-
+    switch(item.type) {
+      case 'scholarship':
+        item = {
+          title: item.name,
+          description: item.description,
+          id: item.id,
+          slug: `/scholarship/${item.slug}/`,
+          image: item.img_url,
+          type: item.type,
+        };
+        break;
+      case 'blog':
+        item = {
+          title: item.title,
+          description: item.description,
+          image: item.header_image_url,
+          id: item.id,
+          slug: `/blog/${item.user.username}/${item.slug}/`,
+          type: item.type,
+        };
+        break;
+      case 'forum':
+        item = {
+          title: item.starting_comment ? item.starting_comment.title || item.title : item.title,
+          description: item.starting_comment ?  item.starting_comment.text || item.text: item.text,
+          id: item.id,
+          slug: `/forum/${item.slug}/`,
+          type: item.type,
+        };
+        break;
+      default:
+        // code block
+    }
 
     return item;
 

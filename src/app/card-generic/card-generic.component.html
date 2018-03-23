@@ -1,16 +1,20 @@
+
+
 <div class="card" [ngStyle]="cardStyle">
   <div class="card-title card-header">
     <a [routerLink]="item.slug"> {{item.title}}</a>
   </div>
-  <div class="card-image" *ngIf="item.image">
+  <div class="card-image" *ngIf="item.image && !previewDescription">
     <a [routerLink]="item.slug">
       <img [src]="item.image" >
     </a>
 
   </div>
-  <div class="my-card-content" *ngIf="!metadata.hideDescription">
+  <div class="my-card-content" *ngIf="!metadata.hideDescription || previewDescription">
     <p class="card-text" *ngIf="item.description">
       {{item.description | truncate:280}}
     </p>
   </div>
 </div>
+<a (click)="togglePreview()"
+   (mouseenter)="togglePreview()">Preview</a>

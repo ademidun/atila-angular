@@ -58,7 +58,6 @@ export class ScholarshipsListComponent implements OnInit {
   EDUCATION_FIELD = EDUCATION_FIELDS;
   MAJORS_LIST = MAJORS_LIST;
   SCHOOLS_LIST = SCHOOLS_LIST;
-  showExtraCountryChoice: boolean;
   extraLocationInput: any = {
     country: '',
   };

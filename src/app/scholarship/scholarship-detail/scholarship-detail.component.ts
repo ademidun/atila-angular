@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 
 import { Scholarship } from '../../_models/scholarship';
 import { Comment, upVoteComment, downVoteComment } from "../../_models/comment";
@@ -20,6 +20,7 @@ import {SeoService} from '../../_services/seo.service';
 import {SearchService} from '../../_services/search.service';
 import {genericItemTransform} from '../../_shared/utils';
 import {SubscriberDialogComponent} from '../../subscriber-dialog/subscriber-dialog.component';
+import {Subscription} from 'rxjs/Subscription';
 
 
 @Component({
@@ -27,7 +28,7 @@ import {SubscriberDialogComponent} from '../../subscriber-dialog/subscriber-dial
   templateUrl: './scholarship-detail.component.html',
   styleUrls: ['./scholarship-detail.component.scss']
 })
-export class ScholarshipDetailComponent implements OnInit {
+export class ScholarshipDetailComponent implements OnInit, OnDestroy {
 
   scholarship: Scholarship;
   scholarshipComments: Comment[];
@@ -38,6 +39,7 @@ export class ScholarshipDetailComponent implements OnInit {
   json = JSON;
   userProfile: UserProfile;
   Object = Object;
+  routerChanges: Subscription;
   public reviews: any[];
   public reviewsLoaded: boolean = false;
   public scholarshipOwner;
@@ -68,13 +70,12 @@ export class ScholarshipDetailComponent implements OnInit {
 
 
     //reload the url if a new slug is clicked from related items
-    router.events.subscribe(data=>{
+    this.routerChanges = router.events.subscribe(data=>{
       if(data instanceof ActivationEnd){
         this.scholarshipSlug = route.snapshot.params['slug'];
         this.ngOnInitHelper();
       }
     });
-
 
   }
 
@@ -147,7 +148,12 @@ export class ScholarshipDetailComponent implements OnInit {
         }
       );
   }
+
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.routerChanges.unsubscribe();
   }
 
   getScholarshipComments(){

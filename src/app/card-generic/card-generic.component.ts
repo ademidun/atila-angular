@@ -10,8 +10,16 @@ export class CardGenericComponent implements OnInit {
   @Input() item: any;
   @Input() metadata: any = {};
   @Input() cardStyle: any = {};
+
+  previewDescription: boolean;
   constructor() {}
 
   ngOnInit() {}
+
+  togglePreview() {
+    this.previewDescription=!this.previewDescription;
+    this.cardStyle['overflow-y'] = this.previewDescription ? 'scroll': 'hidden';
+
+  }
 
 }
