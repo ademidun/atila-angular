@@ -5,7 +5,7 @@ import {AddScholarshipComponent} from './add-scholarship/add-scholarship.compone
 import {ScholarshipsListComponent} from './scholarships-list/scholarships-list.component';
 
 const routes: Routes = [
-  { path: '', component: ScholarshipsListComponent, data: {title: 'Atila | Automated Scholarships. The Right Way'}},
+  { path: '', component: ScholarshipsListComponent, data: {title: 'Atila | Scholarships Automated. The Right Way'}},
   { path: 'add' , component: AddScholarshipComponent, data: {title: 'Add Scholarship - Atila'}},
   { path: 'edit/:slug' , component: AddScholarshipComponent, data: {title: 'Edit Scholarship - Atila'}},
   { path: ':slug' , component: ScholarshipDetailComponent, data: {title: 'Atila - Scholarship Detail'}},

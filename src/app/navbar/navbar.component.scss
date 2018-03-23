@@ -29,7 +29,9 @@ button.mat-fab.mat-accent {
   margin-right: -3%;
 }
 
-
+#mobile-login {
+  margin-left: 3%;
+}
 /* Smartphones (portrait) ----------- */
 @media only screen and (max-width : 480px) {
 
@@ -39,6 +41,11 @@ button.mat-fab.mat-accent {
 
   .my-offset-ln7 {
     margin-left: -7%;
+  }
+
+
+  .far-right{
+    margin-right: -10%;
   }
 }
 

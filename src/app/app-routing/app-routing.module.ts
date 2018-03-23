@@ -16,7 +16,7 @@ import {TermsConditionsComponent} from '../terms-conditions/terms-conditions.com
 import {SearchComponent} from '../search/search.component';
 
 const routes: Routes = [
-  {path: '', component: PreviewComponent, data: {title: 'Atila | Automated Scholarships. The Right Way'}},
+  {path: '', component: PreviewComponent, data: {title: 'Atila | Scholarships Automated. The Right Way'}},
   {path: 'applications/demo', component: AppDetailComponent, data: {title: 'Automation Demo'}},
   {
     path: 'applications/:id',
@@ -25,7 +25,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   //todo redirect scholarships/** to scholarship/**
-  // { path: 'scholarships' , component: ScholarshipsListComponent, data: {title: 'Atila | Automated Scholarships. The Right Way'}},
+  // { path: 'scholarships' , component: ScholarshipsListComponent, data: {title: 'Atila | Scholarships Automated. The Right Way'}},
   {
     path: 'blog',
     loadChildren: '../blog/blog.module#BlogModule'
@@ -51,7 +51,7 @@ const routes: Routes = [
   {path: 'verify', component: VerifyComponent, data: {title: 'Verify - Atila'}},
   {path: 'team', component: TeamComponent, data: {title: 'Team - Atila'}},
   {path: 'terms-and-conditions', component: TermsConditionsComponent, data: {title: 'Terms and Conditions - Atila'}},
-  {path: '**', component: PreviewComponent, data: {title: 'Atila | Automated Scholarships. The Right Way'}}
+  {path: '**', component: PreviewComponent, data: {title: 'Atila | Scholarships Automated. The Right Way'}}
 ];
 
 @NgModule({

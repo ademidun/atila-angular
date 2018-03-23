@@ -18,7 +18,7 @@
             </li>
 
           <li>
-            <a routerLink="/search" title="Search" >
+            <a routerLink="/search" title="Search">
               <button mat-fab >
                 <mat-icon  class="atila-blue" aria-hidden="true" aria-label="See Blogs" md-colors="{color:'$my-lighten'}">search</mat-icon>
               </button>
@@ -172,7 +172,7 @@
 
         <!--Mobile: Not Logged In -->
         <span *ngIf="!authService.isLoggedIn">
-          <a routerLink="/forum"  style="margin-right: 1%">
+          <a routerLink="/forum"  style="margin-right: 1%" class="atila-blue">
 
                   <span>Forums</span>
 
@@ -189,12 +189,12 @@
 
 
         <!-- Horizontally the top most div is the right most div.-->
-          <a routerLink="/login" class="atila-blue right" style="margin-left: 3%">
+          <a routerLink="/login" class="atila-blue right far-right">
             <button mat-fab class= "left far-left">
               Login
             </button>
           </a>
-        <a routerLink="/search" title="Search"  class= "right" >
+        <a routerLink="/search" title="Search" class= "right"  style="margin-right: 1%">
           <button mat-fab >
             <mat-icon  class="atila-blue" aria-hidden="true" aria-label="See Blogs" md-colors="{color:'$my-lighten'}">search</mat-icon>
           </button>
@@ -254,7 +254,7 @@
                 </a>
               </mat-menu>
 
-            <a routerLink="/search" title="Search" class="right" >
+            <a routerLink="/search" title="Search" class="right" style="margin-right: 1%">
               <button mat-fab >
               <mat-icon  class="atila-blue" aria-hidden="true" aria-label="See Blogs" md-colors="{color:'$my-lighten'}">search</mat-icon>
               </button>
