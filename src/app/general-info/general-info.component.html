@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="card">
+    <div class="row">
+      <div class="card-content">
+          <h1 style="font-size: x-large;"> Contact Us </h1>
+          <h6> Or send an email to: <a  href="mailto:info@atila.ca">info@atila.ca</a>  </h6>
+          <div class="row">
+            <mat-form-field class="col-sm-12">
+              <input matInput class="browser-default" id="first_name" type="text"
+                     [required]="!reportBug" [(ngModel)]="model.first_name" name="first_name" placeholder="First Name">
+            </mat-form-field>
+
+            <mat-form-field class="col-sm-12">
+              <input matInput class="browser-default" id="last_name"
+                     [(ngModel)]="model.last_name" name="last_name" placeholder="Last Name" >
+            </mat-form-field>
+
+            <mat-form-field class="col-sm-12">
+              <input matInput class="browser-default" id="email" [required]="!reportBug"
+                     [(ngModel)]="model.email" name="email" placeholder="Email" >
+            </mat-form-field>
+
+            <mat-form-field class="col-sm-12">
+              <textarea matInput class="browser-default" id="message" required
+                        [(ngModel)]="model.message" name="message" placeholder="Message"  style="height: 7em; padding-left: 1%" >
+              </textarea>
+            </mat-form-field>
+
+            <div class="col-sm-10  offset-sm-2" style="margin-bottom: 3%">
+              <a class="waves-effect waves-light btn" (click)="sendMessage()">Send</a>
+            </div>
+
+            <div *ngIf="sendMessageResponse" class="col-sm-12 ">
+              <p style="color: green"> <br>
+                {{sendMessageResponse}}
+              </p>
+            </div>
+
+          </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>

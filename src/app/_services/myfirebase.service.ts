@@ -31,9 +31,9 @@ export class MyFirebaseService {
           subscriber = this.addMetadata(subscriber);
           subscriber.geo_ip = data;
           return this.db.list('email_subscribers').push(subscriber);
-        },
-        done => {
-
+        })
+        .fail((jqXHR, textStatus) => {
+          return this.db.list('email_subscribers').push(subscriber);
         });
 
     }
@@ -49,9 +49,9 @@ export class MyFirebaseService {
 
         return this.db.list(customPath).push(user);
 
-      },
-      done => {
-
+      })
+      .fail((jqXHR, textStatus) => {
+        return this.db.list(path).push(user);
       });
 
 
@@ -66,9 +66,9 @@ export class MyFirebaseService {
         queryData.geo_ip = data;
         return this.db.list('search_analytics/queries').push(queryData);
 
-      },
-      done => {
-
+      })
+      .fail((jqXHR, textStatus) => {
+        return this.db.list('search_analytics/queries').push(queryData);
       });
 
   }
@@ -82,12 +82,12 @@ export class MyFirebaseService {
       data.timestamp = new Date().getTime();
       return $.getJSON('//freegeoip.net/json/?callback=?',
         res => {
+          console.log('getJSON() res',res);
           data.geo_ip = res;
-
           return this.db.list(path).push(data);
-        },
-        done => {
-
+        })
+        .fail((jqXHR, textStatus) => {
+        return this.db.list(path).push(data);
         });
     }
   }

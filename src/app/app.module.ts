@@ -71,6 +71,7 @@ import {FroalaEditorModule, FroalaViewModule} from 'angular-froala-wysiwyg';
 import {SeoService} from './_services/seo.service';
 import {SharedModule} from './_shared/shared.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { GeneralInfoComponent } from './general-info/general-info.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     TermsConditionsComponent,
     SearchComponent,
     DynamicQuestionGeneralComponent,
+    GeneralInfoComponent,
   ],
   imports: [
     NgbModule.forRoot(),

@@ -14,6 +14,7 @@ import {TeamComponent} from '../team/team.component';
 import {VerifyComponent} from '../verify/verify.component';
 import {TermsConditionsComponent} from '../terms-conditions/terms-conditions.component';
 import {SearchComponent} from '../search/search.component';
+import {GeneralInfoComponent} from '../general-info/general-info.component';
 
 const routes: Routes = [
   {path: '', component: PreviewComponent, data: {title: 'Atila | Scholarships Automated. The Right Way'}},
@@ -50,6 +51,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent, data: {title: 'Atila - Register'}},
   {path: 'verify', component: VerifyComponent, data: {title: 'Verify - Atila'}},
   {path: 'team', component: TeamComponent, data: {title: 'Team - Atila'}},
+  {path: 'contact', component: GeneralInfoComponent, data: {title: 'Team - Atila'}},
   {path: 'terms-and-conditions', component: TermsConditionsComponent, data: {title: 'Terms and Conditions - Atila'}},
   {path: '**', component: PreviewComponent, data: {title: 'Atila | Scholarships Automated. The Right Way'}}
 ];

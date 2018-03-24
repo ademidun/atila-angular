@@ -85,11 +85,9 @@ export class PreviewComponent implements OnInit, OnDestroy {
     }
 
   ngOnInit() {
-
-      $(document).ready(function(){
+      $(function(){
         $('iframe.lazy-load-element').attr('src', '//www.youtube.com/embed/c_K4342WMwQ?cc_load_policy=1');
       });
-
 
   }
 
