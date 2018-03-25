@@ -13,10 +13,14 @@ import { UploadFile } from '../../_models/upload-file';
 import { AuthService } from "../../_services/auth.service";
 
 import { Observable } from 'rxjs/Observable';
+import {MyFirebaseService} from '../../_services/myfirebase.service';
+import {Title} from '@angular/platform-browser';
+
+import {environment} from '../../../environments/environment';
 
 import * as firebase from "firebase";
 // https://go.tinymce.com/blog/angular-2-and-tinymce/
-  import 'tinymce';
+import 'tinymce';
 import 'tinymce/themes/modern';
 import 'tinymce/plugins/table';
 import 'tinymce/plugins/link';
@@ -28,10 +32,6 @@ import 'tinymce/plugins/autolink';
 import 'tinymce/plugins/code';
 declare var tinymce: any;
 import * as $ from 'jquery';
-import {MyFirebaseService} from '../../_services/myfirebase.service';
-import {Title} from '@angular/platform-browser';
-
-import {environment} from '../../../environments/environment';
 @Component({
   selector: 'app-blog-post-create',
   templateUrl: './blog-post-create.component.html',
@@ -192,7 +192,7 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
 
       postOperation = this.blogPostService.create(this.blogPost);
       this.editMode = true;
-      this.titleService.setTitle('Edit Blog Post - Atila');
+      this.titleService.setTitle(`Edit Blog Post - ${this.blogPost.title} - Atila`);
     }
 
     postOperation.subscribe(
@@ -274,14 +274,15 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
     // Instructions on how the file should be saved to the database
     this.pictureFile.uploadInstructions = {
       type: 'update_model',
-      model: "UserProfile",
-      id: this.userProfile.user,
-      fieldName: 'profile_pic_url'
+      model: "BlogPost",
+      id: this.blogPost.id,
+      fieldName: 'header_image_url'
     };
 
 
     // the path where the file should be saved on firebase
-    this.pictureFile.path = "blogs/" + this.userProfile.user+ "/" + 1 + "/";
+    this.pictureFile.path = "blogs/" + this.blogPost.id+ "/" + 1 + "/";
+    this.pictureFile.path = `blogs/${this.blogPost.id}/header_image_url/`;
     this.pictureFile.path = this.pictureFile.path + this.pictureFile.name;
 
     if(!isNaN(this.userId)) {

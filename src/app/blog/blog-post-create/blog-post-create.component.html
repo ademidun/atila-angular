@@ -44,7 +44,10 @@
                     [(ngModel)]="blogPost.description">
 
           </textarea>
-          <div><span *ngIf="userProfile" id="url_prefix">atila.ca/blog/{{userProfile.username}}/</span>
+          <div>
+            <span style="font-weight: bold" *ngIf="blogPost && blogPost.user && blogPost.user.username; else backupPrefix">
+              atila.ca/blog/{{blogPost.user.username}}/</span>
+            <ng-template #backupPrefix><span style="font-weight: bold" *ngIf="userProfile" id="url_prefix">atila.ca/blog/{{userProfile.username}}/</span></ng-template>
             <input class="prefix_input" #blogSlugInput type="text" [(ngModel)]="blogPost.slug" placeholder="Blog URL">
           </div>
         </div>

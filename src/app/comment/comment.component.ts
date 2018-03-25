@@ -6,6 +6,7 @@ import { CommentService } from '../_services/comment.service';
 import {MyFirebaseService} from '../_services/myfirebase.service';
 import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
+import {environment} from '../../environments/environment';
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
@@ -19,6 +20,7 @@ export class CommentComponent implements OnInit {
   userId: number;
   isOwner: boolean;
   trimText: boolean;
+
 
   constructor(
     public commentService: CommentService,
@@ -114,7 +116,7 @@ export class CommentComponent implements OnInit {
 
   getCommentMetadata(){
 
-    if (!isNaN(this.userId) && this.comment && this.userId == this.comment.user.id){
+    if (!isNaN(this.userId) && this.comment && this.userId == this.comment.user.id || environment.adminIds.indexOf(this.userId) > -1){
       this.isOwner = true;
     }
 
