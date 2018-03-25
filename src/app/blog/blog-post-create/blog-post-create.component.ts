@@ -49,6 +49,7 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
   editor: any;
   editMode=false;
   options: Object;
+  isLoggedIn: boolean;
 
   constructor(public ref:ChangeDetectorRef,
     public userProfileService: UserProfileService,
@@ -85,7 +86,6 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
       this.blogPost = new BlogPost(0);
     }
     else{
-
       this.blogPost = new BlogPost(this.userId);
     }
     if(blogId){
@@ -114,6 +114,7 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
       this.userProfileService.getById(this.userId).subscribe(
         res => {
           this.userProfile = res;
+          this.isLoggedIn = true;
 
         },)
     }

@@ -50,9 +50,9 @@
         </div>
 
       </mat-card-content>
-
+        <p *ngIf="!isLoggedIn">Please <a routerLink="/login">Log In</a></p>
       <mat-card-actions>
-          <button mat-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveBlog(blogPost.published)">Save</button>
+          <button mat-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveBlog(blogPost.published)" [disabled]="!isLoggedIn">Save</button>
       </mat-card-actions>
 
       </mat-card>
@@ -62,8 +62,9 @@
         <textarea  id="{{editorId}}"></textarea>
       </div>
 
-    <button mat-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveBlog(blogPost.published)">Save</button>
-    <button mat-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveBlog(!blogPost.published)">{{!blogPost.published ? 'Publish' : 'UnPublish'}}</button>
+    <p *ngIf="!isLoggedIn">Please <a routerLink="/login">Log In</a></p>
+    <button mat-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveBlog(blogPost.published)" [disabled]="!isLoggedIn">Save</button>
+    <button mat-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveBlog(!blogPost.published)" [disabled]="!isLoggedIn">{{!blogPost.published ? 'Publish' : 'UnPublish'}}</button>
     </div>
 
     <br>
