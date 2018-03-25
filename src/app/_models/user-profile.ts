@@ -21,6 +21,7 @@ export class UserProfile {
             public ethnicity?: string[],
             public gender?: any,
             public heritage?: string[],
+            public is_atila_admin?:any,
             public is_sponsor?:any,
             public is_verified?:any,
             public is_international_student?:any,

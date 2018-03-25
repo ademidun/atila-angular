@@ -8,6 +8,7 @@ export const environment = {
   apiUrl: 'http://127.0.0.1:8000/api/',
   testUserId: 52,
   testAppId: 37,
+  adminIds: [4],
   firebase : {
     apiKey: "AIzaSyDs2UY2qe7SJyGGPqKt32zutqWwB-SfANE",
     authDomain: "atila-7.firebaseapp.com",

@@ -2,6 +2,7 @@ export const environment = {
   production: true,
   testUserId: 70,
   testAppId: 35,
+  adminIds: [1],
   apiUrl: 'https://atila-7.herokuapp.com/api/',
   firebase : {
     apiKey: "AIzaSyDs2UY2qe7SJyGGPqKt32zutqWwB-SfANE",

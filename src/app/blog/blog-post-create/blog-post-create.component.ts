@@ -31,6 +31,7 @@ import * as $ from 'jquery';
 import {MyFirebaseService} from '../../_services/myfirebase.service';
 import {Title} from '@angular/platform-browser';
 
+import {environment} from '../../../environments/environment';
 @Component({
   selector: 'app-blog-post-create',
   templateUrl: './blog-post-create.component.html',
@@ -50,6 +51,7 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
   editMode=false;
   options: Object;
   isLoggedIn: boolean;
+  enivronment = environment;
 
   constructor(public ref:ChangeDetectorRef,
     public userProfileService: UserProfileService,
@@ -93,7 +95,7 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
       this.blogPostService.getById(blogId).subscribe(
         res => {
           this.blogPost = <any>res;
-          if (this.userId!=this.blogPost.user.id) {
+          if (this.userId!=this.blogPost.user.id && this.enivronment.adminIds.indexOf(this.userId) < 0) {
             this.router.navigate(['/login']);
           }
           if(this.editor){
@@ -223,7 +225,7 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
         snackBarRef.onAction().subscribe(
           () => {
             if (this.blogPost.slug) {
-              this.router.navigate(['blog',this.userProfile.username,this.blogPost.slug]);
+              this.router.navigate(['blog',this.blogPost.user.username,this.blogPost.slug]);
             }
 
           },
