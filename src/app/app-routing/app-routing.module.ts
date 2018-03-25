@@ -52,6 +52,7 @@ const routes: Routes = [
   {path: 'verify', component: VerifyComponent, data: {title: 'Verify - Atila'}},
   {path: 'team', component: TeamComponent, data: {title: 'Team - Atila'}},
   {path: 'contact', component: GeneralInfoComponent, data: {title: 'Team - Atila'}},
+  {path: 'sitemap', component: GeneralInfoComponent, data: {title: 'SiteMap - Atila'}},
   {path: 'terms-and-conditions', component: TermsConditionsComponent, data: {title: 'Terms and Conditions - Atila'}},
   {path: '**', component: PreviewComponent, data: {title: 'Atila | Scholarships Automated. The Right Way'}}
 ];
