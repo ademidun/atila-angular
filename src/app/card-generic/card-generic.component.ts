@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-
+import {toTitleCase} from '../_shared/utils';
 @Component({
   selector: 'app-card-generic',
   templateUrl: './card-generic.component.html',
@@ -21,5 +21,11 @@ export class CardGenericComponent implements OnInit {
     this.cardStyle['overflow-y'] = this.previewDescription ? 'scroll': 'hidden';
 
   }
+
+  toTitleCase(str) {
+    return toTitleCase(str);
+  }
+
+
 
 }

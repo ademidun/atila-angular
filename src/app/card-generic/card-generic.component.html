@@ -3,6 +3,9 @@
 <div class="card" [ngStyle]="cardStyle">
   <div class="card-title card-header">
     <a [routerLink]="item.slug"> {{item.title}}</a>
+    <p *ngIf="item.type" class="card-subtitle text-muted " style="font-size: small;">
+      {{toTitleCase(item.type)}}
+    </p>
   </div>
   <div class="card-image" *ngIf="item.image && !previewDescription">
     <a [routerLink]="item.slug">
@@ -17,4 +20,4 @@
   </div>
 </div>
 <a (click)="togglePreview()"
-   (mouseenter)="togglePreview()">Preview</a>
+   >Preview</a>
