@@ -7,7 +7,7 @@
           <div class="row">
             <mat-form-field class="col-sm-12">
               <input matInput class="browser-default" id="first_name" type="text"
-                     [required]="!reportBug" [(ngModel)]="model.first_name" name="first_name" placeholder="First Name">
+                     [required]="!internalReferral" [(ngModel)]="model.first_name" name="first_name" placeholder="First Name">
             </mat-form-field>
 
             <mat-form-field class="col-sm-12">
@@ -16,7 +16,7 @@
             </mat-form-field>
 
             <mat-form-field class="col-sm-12">
-              <input matInput class="browser-default" id="email" [required]="!reportBug"
+              <input matInput class="browser-default" id="email" [required]="!internalReferral"
                      [(ngModel)]="model.email" name="email" placeholder="Email" >
             </mat-form-field>
 
