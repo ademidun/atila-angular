@@ -23,8 +23,6 @@ export class GeneralInfoComponent implements OnInit {
     this.internalReferral = this.route.snapshot.queryParams['atila_ref'];
 
     if(this.route.snapshot.url[0].path.indexOf('sitemap') > -1) {
-
-      console.log('this.route.snapshot.url[0].path',this.route.snapshot.url,this.route.snapshot.url[0],this.route.snapshot.url[0].path)
       this.sitemapData = {
         "scholarships": [
           "https://atila.ca/scholarship/aist-steel-intern-scholarships",
@@ -191,5 +189,9 @@ export class GeneralInfoComponent implements OnInit {
       .then(res=> {
         this.sendMessageResponse = 'Thank you. You will receive a response within 1 day.'
       } );
+  }
+
+  removeDomain(str: string) {
+    return str.replace('https://atila.ca','')
   }
 }

@@ -45,15 +45,15 @@
         <div class="card-content">
           <h1>Scholarships</h1>
           <ul>
-            <li  *ngFor="let link of sitemapData['scholarships'].slice(0, 0 + 75)"><a [href]="link">{{link}}</a></li>
+            <li  *ngFor="let link of sitemapData['scholarships'].slice(0, 0 + 50)"><a [routerLink]=removeDomain(link)>{{link}}</a></li>
           </ul>
           <h1>Blogs</h1>
           <ul>
-            <li  *ngFor="let link of sitemapData['blogs']"><a [href]="link">{{link}}</a></li>
+            <li  *ngFor="let link of sitemapData['blogs']"><a [routerLink]=removeDomain(link)>{{link}}</a></li>
           </ul>
           <h1>Forum</h1>
           <ul>
-            <li  *ngFor="let link of sitemapData['forums']"><a [href]="link">{{link}}</a></li>
+            <li  *ngFor="let link of sitemapData['forums']"><a [routerLink]=removeDomain(link)>{{link}}</a></li>
           </ul>
         </div></ng-template>
     </div>
