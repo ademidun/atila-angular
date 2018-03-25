@@ -33,8 +33,10 @@
                 </div>
 
                 <!--<p>Location responses can only be saved to profile from edit profile.</p>-->
-                <div *ngFor="let question of locationQuestions" >
-                  <app-dynamic-question-general [form]="profileForm" [question]="question" [responses]="locationData"></app-dynamic-question-general>
+                <div *ngIf="!hideLocationQuestions">
+                  <div *ngFor="let question of locationQuestions" >
+                    <app-dynamic-question-general [form]="profileForm" [question]="question" [responses]="locationData"></app-dynamic-question-general>
+                  </div>
                 </div>
 
             <div class="row">

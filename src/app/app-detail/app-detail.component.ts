@@ -52,6 +52,7 @@ export class AppDetailComponent implements OnInit {
 
   savedProfile: any;
   uploadProgress: any;
+  hideLocationQuestions: boolean;
 
 
   locationData = {
@@ -60,7 +61,8 @@ export class AppDetailComponent implements OnInit {
     'country': '',
   };
   // Questions included in every application
-  basicQuestions = ['first_name', 'last_name', 'street_address','postal_code','email'];
+  // basicQuestions = ['first_name', 'last_name', 'street_address','postal_code','email'];
+  basicQuestions = ['first_name', 'last_name',];
 
   locationQuestions: any;
 
@@ -367,7 +369,6 @@ export class AppDetailComponent implements OnInit {
 
 
 
-
     // Only keep the userProfile questions that are also in the scholarship Questions
     this.userProfileDynamicQuestions = this.userProfileDynamicQuestions.filter(function(item){
       return scholarshipQuestions.indexOf(item.key) != -1;
@@ -375,7 +376,18 @@ export class AppDetailComponent implements OnInit {
 
     this.userProfileDynamicQuestions.forEach(question=> {
       question.label = toTitleCase(prettifyKeys(question.key)) ;
-    })
+    });
+
+    let locations = ['city', 'province', 'country'];
+
+    let locationsAsked = scholarshipQuestions.filter(function(n) {
+      return locations.indexOf(n) !== -1;
+    });
+
+    if (locationsAsked.length==0) {
+      this.hideLocationQuestions = true;
+    }
+    console.log('scholarshipQuestions',scholarshipQuestions);
 
   }
 
