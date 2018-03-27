@@ -6,6 +6,10 @@
                 {{scholarship.name}}
               </a>
               </h4>
+          <span *ngIf="scholarship.submission_info['application_form_type']=='Web'">
+            <h5>Note: Web Automation is in Beta Mode</h5>
+            <h6>Confirm that your application was received by scholarship provider.</h6>
+          </span>
             <h6> Application ID #{{appId}} </h6>
 
             <div *ngIf="demoMode">

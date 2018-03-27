@@ -284,8 +284,7 @@ export class UserProfileService {
       return questions.sort((a, b) => a.order - b.order);
     }
 
-
-    getLocationQuestions () {
+  getLocationQuestions () {
       let questions: QuestionBase<any>[] = [
 
         new TextboxQuestion({
@@ -308,8 +307,7 @@ export class UserProfileService {
       return questions;
     }
 
-
-    public extractData(res: HttpResponse<any>) {
+  public extractData(res: HttpResponse<any>) {
         let body = res.body;
 
         return res || { };
@@ -317,7 +315,7 @@ export class UserProfileService {
     }
 
 
-    getApplications(userId: number) {
+  getApplications(userId: number) {
       return this.http.get(`${this.userProfileEndpoint}${userId}/applications/`)
         .map(res=>res)
         .catch(err=>Observable.throw(err))

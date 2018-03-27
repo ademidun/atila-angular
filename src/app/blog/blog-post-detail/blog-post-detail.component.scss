@@ -51,6 +51,11 @@
   border: 1px solid $my-lighten;
 }
 
+ul:not(.browser-default) {
+  padding-left: 0;
+  list-style-type: disc;
+}
+
 @media only screen and (max-width: 500px){
   .container {
     width: 100%;
