@@ -4,7 +4,7 @@
       <img class="scholarship-image" [src]="scholarship.img_url" />
     </div>
     <div class="row">
-      <h3>{{scholarship.name}}</h3>
+      <h3 style="width: 100%">{{scholarship.name}}</h3>
       <div class="sub-header row">
 
           <div class="date-created col col-sm-12 col-md-8">
@@ -23,12 +23,12 @@
               Added by: <a routerLink="/profile/{{scholarshipOwner.username}}">{{scholarshipOwner.first_name}} {{scholarshipOwner.last_name}}</a>
             </div>
 
-            <a *ngIf="scholarship.owner==userId" [routerLink]="['/scholarship/edit', scholarship.slug]"> Edit Scholarship </a>
-            <!--<a *ngIf="scholarship.owner!=userId" [routerLink]="['/edit-scholarship', scholarship.slug]"> Suggest/View Edits </a><br>-->
-            <a target="_blank" *ngIf="scholarship.form_url" href="{{scholarship.form_url}}"> View Application Form </a>
-            <span class="show-on-small" style="max-height: 0"><br></span>
+            <a *ngIf="scholarship.owner==userId" [routerLink]="['/scholarship/edit', scholarship.slug]"> Edit Scholarship <br></a>
+            <!--<a *ngIf="scholarship.owner!=userId" [routerLink]="['/scholarship/edit', scholarship.slug]"> Suggest/View Edits </a><br>-->
+            <!--<span class="show-on-small" style="max-height: 0"><br></span>-->
 
-            <a target="_blank" *ngIf="scholarship.scholarship_url" href="{{scholarship.scholarship_url}}"> Visit Scholarship Website </a>
+            <a target="_blank" *ngIf="scholarship.scholarship_url" href="{{scholarship.scholarship_url}}"> Visit Scholarship Website <br></a>
+            <a target="_blank" *ngIf="scholarship.form_url" href="{{scholarship.form_url}}"> View Application Form </a>
             <!--<a target="_blank" *ngIf="scholarship.local_form_location.indexOf('scholartree') !== -1;" href="https://scholartree.ca">Source</a> <br>-->
 
             <div >
@@ -41,7 +41,7 @@
 
               <app-share-item [item]="{title: scholarship.name,
                 url:'https://atila.ca/scholarship/'+scholarship.slug+'/',
-                id: scholarship.id, source:'scholarship_detail',type:'scholarship'}"></app-share-item>
+                id: scholarship.id, source:'scholarship_detail',type:'scholarship'}" [metadata]="{'shareItemStyle':{'left': '55px','bottom': '30px', 'zoom':1.4}}"></app-share-item>
             </div>
 
             <p> Something Wrong?
@@ -70,7 +70,7 @@
       </div>
       <br>
       <div class="divider"  id="bootstrap-override"></div>
-      <p>{{scholarship.description}}</p>
+      <p style="width: 90%">{{scholarship.description}}</p>
       <br>
 
 

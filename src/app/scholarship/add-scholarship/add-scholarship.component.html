@@ -12,7 +12,9 @@
                     <h4 *ngIf="editMode">Edit Scholarship</h4>
                     <h4 *ngIf="!editMode">Add Scholarship</h4>
 
-                    <h6 *ngIf="editMode && !isOwner">You don't have permission to save edits. If you want to make edits, please suggest them in the comments.</h6>
+                    <h6 *ngIf="editMode && !isOwner">You don't have permission to save edits yet. If you want to make edits, please suggest them in the comments.</h6>
+                    <h6 *ngIf="editMode && !isOwner">Open Edits in closed beta. <a routerLink="/contact">Request Closed Beta Access</a></h6>
+
 
                     <h4>{{scholarship.name}}</h4>
                     <a *ngIf="scholarship && scholarship.slug" routerLink="/scholarship/{{scholarship.slug}}">View Scholarship</a>
