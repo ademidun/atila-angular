@@ -68,8 +68,6 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
               }
 
   ngOnInitHelper() {
-
-    console.log('this.slugUsername','this.slugTitle',this.slugUsername, this.slugTitle);
     if (!this.slugUsername || !this.slugTitle) {
       return;
     }

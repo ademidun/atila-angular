@@ -387,8 +387,6 @@ export class AppDetailComponent implements OnInit {
     if (locationsAsked.length==0) {
       this.hideLocationQuestions = true;
     }
-    console.log('scholarshipQuestions',scholarshipQuestions);
-
   }
 
 }

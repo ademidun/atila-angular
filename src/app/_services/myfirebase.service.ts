@@ -82,7 +82,6 @@ export class MyFirebaseService {
       data.timestamp = new Date().getTime();
       return $.getJSON('//freegeoip.net/json/?callback=?',
         res => {
-          console.log('getJSON() res',res);
           data.geo_ip = res;
           return this.db.list(path).push(data);
         })
