@@ -101,6 +101,20 @@
         </div>
         <br>
 
+        <div class="offset-md-2" *ngIf="userProfile.is_atila_admin">
+
+          <a class=" col-sm-12 col-md-6 waves-effect waves-light btn demo-btn" (click)="getScholarshipPreview(pageNo,{'view_as_user':viewAs.value})">View As</a>
+
+          <mat-form-field class="col-sm-12 col-md-6">
+            <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
+            <input #viewAs matInput class="form-control" style="padding-bottom: 0; margin-bottom: 0"  name="view_as" id="view_as"
+                   placeholder="View As...">
+          </mat-form-field>
+
+          <p>Viewing As: {{viewAsUser.first_name}}</p>
+        </div>
+        <br>
+
         <!--Unregistered user content -->
         <div *ngIf="!isLoggedIn; else registeredContent">
 

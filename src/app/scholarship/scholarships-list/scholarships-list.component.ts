@@ -39,6 +39,7 @@ export class ScholarshipsListComponent implements OnInit {
   scholarship_count: number = 0;
   total_funding: any = 0;
   show_scholarship_funding: boolean = false;
+  viewAsMode: boolean;
 
   pageNo: number = 1;
   paginationLen: number = 12;
@@ -58,6 +59,7 @@ export class ScholarshipsListComponent implements OnInit {
   EDUCATION_FIELD = EDUCATION_FIELDS;
   MAJORS_LIST = MAJORS_LIST;
   SCHOOLS_LIST = SCHOOLS_LIST;
+  viewAsUser: any;
   extraLocationInput: any = {
     country: '',
   };
@@ -136,8 +138,11 @@ export class ScholarshipsListComponent implements OnInit {
 
   }
 
-  getScholarshipPreview(page: number = 1){
+  getScholarshipPreview(page: number = 1,options:any = {}){
 
+    if (options['view_as_user']) {
+      this.form_data.view_as_user = options['view_as_user'];
+    }
     if (this.form_data ) {
 
       if(this.form_data.filter_by_user) {
@@ -162,6 +167,7 @@ export class ScholarshipsListComponent implements OnInit {
         this.form_data['sort_by'] = 'relevance';
       }
 
+      console.log('this.form_data', this.form_data);
       this.scholarshipService.getPaginatedscholarships(this.form_data, page)
       .subscribe(
         res => {
@@ -205,6 +211,10 @@ export class ScholarshipsListComponent implements OnInit {
         results_preview: resultsPreview
       };
       this.firebaseService.saveUserAnalytics(filterByUserResult,'filter_by_user_results')
+    }
+
+    if (this.form_data.view_as_user) {
+      this.viewAsUser = res['view_as_user'];
     }
 
     this.pageLen = Math.ceil(this.scholarship_count / this.paginationLen);

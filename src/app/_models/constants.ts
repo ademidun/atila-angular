@@ -622,6 +622,7 @@ export const SCHOOLS_LIST = [
     "Emily Carr Institute of Art + Design",
     "École nationale d'administration publique, Université du Québec",
     "École de technologie supérieure, Université du Québec",
+    "Fanshawe College",
     "First Nations University of Canada",
     "George Brown College",
     "École des Hautes Études Commerciales",
