@@ -109,7 +109,7 @@
           <mat-form-field class="col-sm-12 col-md-6">
             <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
             <input #viewAs matInput class="form-control" style="padding-bottom: 0; margin-bottom: 0"  name="view_as" id="view_as"
-                   placeholder="View As...">
+                   placeholder="View As..." (keyup.enter)="getScholarshipPreview(pageNo,{'view_as_user':viewAs.value})">
           </mat-form-field>
 
           <p *ngIf="viewAsUser">Viewing As: {{viewAsUser.first_name}}</p>

@@ -167,8 +167,10 @@ export class ScholarshipsListComponent implements OnInit {
       if (!this.form_data['sort_by']) {
         this.form_data['sort_by'] = 'relevance';
       }
+      if (options['view_as_user']) {
+        console.log('this.form_data', this.form_data);
+      }
 
-      console.log('this.form_data', this.form_data);
       this.scholarshipService.getPaginatedscholarships(this.form_data, page)
       .subscribe(
         res => {
@@ -189,7 +191,7 @@ export class ScholarshipsListComponent implements OnInit {
   }
 
   saveScholarships(res: any){
-    console.log('form_data, res', this.form_data, res);
+
     this.scholarships = res['data'];
     this.scholarship_count = res['length'];
     this.total_funding = res['funding'];
@@ -215,6 +217,15 @@ export class ScholarshipsListComponent implements OnInit {
     }
 
     this.viewAsUser = res['view_as_user'];
+
+
+    if (this.viewAsUser) {
+      console.log('form_data, res', this.form_data, res);
+    }
+
+    if (res['view_as_user_error']) {
+      this.snackBar.open(res['view_as_user_error'],'',{duration:3000})
+    }
 
     this.pageLen = Math.ceil(this.scholarship_count / this.paginationLen);
 
