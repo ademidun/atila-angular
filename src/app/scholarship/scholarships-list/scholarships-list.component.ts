@@ -141,7 +141,8 @@ export class ScholarshipsListComponent implements OnInit {
   getScholarshipPreview(page: number = 1,options:any = {}){
 
     if (options['view_as_user']) {
-      this.form_data.view_as_user = options['view_as_user'];
+      console.log("options['view_as_user']",options['view_as_user']);
+      this.form_data.view_as_user = options['view_as_user']==''? null : options['view_as_user'];
     }
     if (this.form_data ) {
 
@@ -188,7 +189,7 @@ export class ScholarshipsListComponent implements OnInit {
   }
 
   saveScholarships(res: any){
-
+    console.log('form_data, res', this.form_data, res);
     this.scholarships = res['data'];
     this.scholarship_count = res['length'];
     this.total_funding = res['funding'];
@@ -213,9 +214,7 @@ export class ScholarshipsListComponent implements OnInit {
       this.firebaseService.saveUserAnalytics(filterByUserResult,'filter_by_user_results')
     }
 
-    if (this.form_data.view_as_user) {
-      this.viewAsUser = res['view_as_user'];
-    }
+    this.viewAsUser = res['view_as_user'];
 
     this.pageLen = Math.ceil(this.scholarship_count / this.paginationLen);
 
@@ -538,10 +537,16 @@ export class ScholarshipsListComponent implements OnInit {
   transformFilterDisplay(filter_type) {
 
     if (this.userProfile) {
-      if (['city','province','country'].indexOf(filter_type) > -1) {
-        return this.userProfile[filter_type][0]['name']
+
+      let filterProfile = this.userProfile;
+      if (this.viewAsUser) {
+        filterProfile = this.viewAsUser;
       }
-      return this.userProfile[filter_type];
+
+      if (['city','province','country'].indexOf(filter_type) > -1) {
+        return filterProfile[filter_type][0]['name']
+      }
+      return filterProfile[filter_type];
     }
     else {
       if (['city','province','country'].indexOf(filter_type) > -1) {

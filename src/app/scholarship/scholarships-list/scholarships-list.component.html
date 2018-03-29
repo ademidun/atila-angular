@@ -17,7 +17,8 @@
         <div class="row center container">
 
           <h4 class="registered-title">
-            <span *ngIf="userProfile">{{userProfile.first_name}}, </span>You can get
+            <p *ngIf="viewAsUser" style="font-size: larger; color: green">Viewing As: {{viewAsUser.first_name}}</p>
+            <span *ngIf="userProfile && !viewAsUser">{{userProfile.first_name}}, </span>You can get
             <strong>{{ scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and up to <strong>{{total_funding}}</strong> in funding</span>.
           </h4>
 
@@ -101,7 +102,7 @@
         </div>
         <br>
 
-        <div class="offset-md-2" *ngIf="userProfile.is_atila_admin">
+        <div class="offset-md-2" *ngIf="userProfile && userProfile.is_atila_admin">
 
           <a class=" col-sm-12 col-md-6 waves-effect waves-light btn demo-btn" (click)="getScholarshipPreview(pageNo,{'view_as_user':viewAs.value})">View As</a>
 
@@ -111,7 +112,7 @@
                    placeholder="View As...">
           </mat-form-field>
 
-          <p>Viewing As: {{viewAsUser.first_name}}</p>
+          <p *ngIf="viewAsUser">Viewing As: {{viewAsUser.first_name}}</p>
         </div>
         <br>
 
