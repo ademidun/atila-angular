@@ -1,7 +1,6 @@
 
-
 <div class="card" [ngStyle]="cardStyle">
-  <div class="card-title card-header">
+  <div class="card-title card-header"  [ngStyle]="{'max-height': item.image && !previewDescription ? '175px' : null}">
     <a [routerLink]="item.slug"> {{item.title}}</a>
     <p *ngIf="item.type" class="card-subtitle text-muted " style="font-size: small;">
       {{toTitleCase(item.type)}}

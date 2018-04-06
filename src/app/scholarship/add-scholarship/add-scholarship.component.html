@@ -59,7 +59,9 @@
                             </span>
 
                     <div style="margin-top: 3%;margin-bottom:  5%;">
-                      <a (click)="hideCriteriaInfo= !hideCriteriaInfo" >Enter More Scholarship Details</a>
+                      <a (click)="hideCriteriaInfo= !hideCriteriaInfo" >
+                        {{hideCriteriaInfo ? 'Enter More Scholarship Details' : 'Hide More Scholarship Details'}}
+                      </a>
                     </div>
 
 
@@ -125,7 +127,8 @@
 
 
                       <div style="margin-top: 3%;margin-bottom:  5%;">
-                        <a (click)="hideExtraCriteriaInfo= !hideExtraCriteriaInfo" >Edit Program, School or Location Details</a>
+                        <a (click)="hideExtraCriteriaInfo= !hideExtraCriteriaInfo" >
+                          {{hideExtraCriteriaInfo ? 'Edit Program, School or Location Details' : 'Hide Program, School or Location Details'}}</a>
                       </div>
 
                       <div *ngIf="!hideExtraCriteriaInfo">
@@ -237,8 +240,8 @@
 
 
                     <div class="row">
-                      <a *ngIf="scholarship.slug" class="waves-effect waves-light btn left" routerLink="/scholarship/edit/{{scholarship.slug}}">Keep Editing</a>
-                      <a *ngIf="!scholarship.slug" class="waves-effect waves-light btn left" (click)="quickAdd=false; pageNo=0;next()">Keep Editing</a>
+                      <a *ngIf="scholarship.slug" class="waves-effect waves-light btn left" routerLink="/scholarship/edit/{{scholarship.slug}}">Show All Details</a>
+                      <a *ngIf="!scholarship.slug" class="waves-effect waves-light btn left" (click)="quickAdd=false; pageNo=0;next()">Show All Details</a>
                       <a class="waves-effect waves-light btn right" (click)="saveScholarship(scholarshipForm,{quickAdd:true})" style="margin-left: 5%">
                         Add Scholarship</a>
                     </div>

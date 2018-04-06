@@ -89,7 +89,7 @@ export class Scholarship {
     scholarship = scholarshipCreationHelper(scholarship);
     scholarship.metadata['quick_add'] = true;
     scholarship.metadata['needs_review'] = true;
-    scholarship.extra_questions.funding_amount_varies = true;
+    scholarship.extra_questions.funding_amount_varies = !scholarship.funding_amount;
 
     return scholarship
   }
