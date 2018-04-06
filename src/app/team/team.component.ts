@@ -62,7 +62,7 @@ export class TeamComponent implements OnInit {
       "description_1": "Kitan is currently studying software engineering and is in the AEO program at Ivey Business School",
       "description_2": "Prior to Atila she worked at AXA Mansard, a Nigerian insurance company.",
       "link_type": "LinkedIn",
-      // "link_url": "http://tomiwa.ca"
+      "link_url": "https://www.linkedin.com/in/kitan-ademidun-881330149/"
     },
     {
       "first_name": "Ann",

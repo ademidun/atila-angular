@@ -167,17 +167,8 @@
                 <mat-form-field>
                   <mat-select matInput [(ngModel)]="pageNo" (change)="goToPage(pageNo)">
                     <mat-option *ngFor="let page of pages" [value]="page">{{page}}</mat-option>
-
                   </mat-select>
                 </mat-form-field>
-
-
-                <div class="input-field col s12">
-                  <select [(ngModel)]="pageNo" (change)="goToPage(pageNo)" id="pagination-select">
-                    <option *ngFor="let page of pages" [value]="page">{{page}}</option>
-                  </select>
-                  <label for="pagination-select">Materialize Select</label>
-                </div>
 
                 <a class="waves-effect btn scholarship-btn" (click)="nextPage()" [ngClass]="pageNo == pageLen ? 'hide' : ''">Next  <i class="fa fa-caret-right" aria-hidden="true"></i></a>
               </div>

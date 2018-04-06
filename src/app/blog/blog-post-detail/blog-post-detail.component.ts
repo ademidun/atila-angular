@@ -71,6 +71,7 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
     if (!this.slugUsername || !this.slugTitle) {
       return;
     }
+      let slugCopy = {username:this.slugUsername, title:this.slugTitle};
       this.blogPostService.getBySlug(this.slugUsername, this.slugTitle).subscribe(
         res => {
           this.blogPost = (<any>res).blog;
@@ -117,6 +118,23 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
           this.getRelatedItems();
 
         },
+        err => {
+          let snackBarRef = this.snackBar.open("Blog Post Not Found.", 'Try User\'s Blogs', {
+            duration: 5000
+          });
+
+          // this.slugUsername keeps appearing as undefined
+          snackBarRef.onAction().subscribe(
+            () => {
+              this.router.navigate(['blog',slugCopy.username]);
+            });
+
+          setTimeout(() => {
+            this.router.navigate(['blog',slugCopy.username]);
+          }, 500);
+        }
+
+
       );
 
   }
