@@ -109,7 +109,6 @@ export class ScholarshipCardComponent implements OnInit {
 
   webShare() {
     // if(this.userProfile && (this.userProfile.user == 4 || this.userProfile.user == 1)) {
-    if(this.userProfile) {
 
       if ((<any>navigator).share) {
         (<any>navigator).share({
@@ -120,7 +119,6 @@ export class ScholarshipCardComponent implements OnInit {
           .then(() => {})
           .catch((error) => {});
       }
-    }
 
   }
 

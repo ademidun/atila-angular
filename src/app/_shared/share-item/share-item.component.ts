@@ -39,7 +39,6 @@ export class ShareItemComponent implements OnInit {
   webShare() {
 
     // if(this.userProfile && (this.userProfile.user == 4 || this.userProfile.user == 1)) {
-    if( this.authService.decryptLocalStorage('uid') ) {
 
 
       if ((<any>navigator).share) {
@@ -55,6 +54,5 @@ export class ShareItemComponent implements OnInit {
       }
     }
 
-  }
 
 }
