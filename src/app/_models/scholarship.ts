@@ -127,20 +127,22 @@ export interface ScholarshipEdit {
 
   export function getScholarshipDiff(oldScholarship: Scholarship, newScholarship: Scholarship) {
     let changes = {};
+
     for (let property in oldScholarship) {
       console.log('property,oldScholarship[property],newScholarship[property]',
         property,oldScholarship[property],newScholarship[property]);
-      if (oldScholarship.hasOwnProperty(property)) {
+
+        // Comparison operator for complex object only works if its a primitive like a string.
         if (oldScholarship[property] != newScholarship[property]) {
+
           console.log('property,oldScholarship[property],newScholarship[property]',
-            property,oldScholarship[property],newScholarship[property]);
+          property,oldScholarship[property],newScholarship[property]);
           changes[property] = {
             key: property,
             current: oldScholarship[property],
             next: newScholarship[property],
           }
         }
-      }
     }
 
     console.log('changes',changes);

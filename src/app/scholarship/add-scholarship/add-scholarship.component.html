@@ -25,13 +25,13 @@
 
                     <div *ngFor="let edit of scholarshipEdits | async">
 
-                        Edit by: <a [routerLink]="'/profile'+edit.user.username">{{edit.user.username}}</a> <br>
+                        Edit by: <a [routerLink]="'/profile/'+edit.user.username">{{edit.user.username}}</a> <br>
                         Changes: <br>
                         <div *ngFor="let change of Object.keys(edit.changes)">
 
                           <strong style="font-size: medium">{{change}}</strong><br>
-                          <li><strong>Current:</strong>{{edit.changes[change]['current']}}</li><br>
-                          <li><strong>Suggestion:</strong>{{edit.changes[change]['next']}}</li><br>
+                          <li><strong>Current:</strong>{{edit.changes[change]['current'] | json}}</li><br>
+                          <li><strong>Suggestion:</strong>{{edit.changes[change]['next'] | json}}</li><br>
 
                         </div>
 

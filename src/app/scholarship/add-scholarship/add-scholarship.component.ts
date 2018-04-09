@@ -418,7 +418,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
               }
 
               if(this.editMode && !this.isOwner){
-                this.originalScholarship = Object.assign({},this.scholarship);
+                this.originalScholarship = JSON.parse(JSON.stringify(this.scholarship));
                 this.suggestionMode = true;
                 // $("#scholarshipForm :input").prop("disabled", true);
 
@@ -472,6 +472,9 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
     if(this.editMode && this.suggestionMode){
 
+
+      console.log('BEFORE this.originalScholarship, this.scholarship',this.originalScholarship, this.scholarship);
+
       let changes = getScholarshipDiff(this.originalScholarship, this.scholarship);
 
       if (Object.keys(changes).length === 0) {
@@ -500,6 +503,8 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
       diff['id'] = this.firebaseService.saveAny_fs('scholarship_edits', diff);
       console.log('diff',diff);
+
+      console.log('AFTER this.originalScholarship, this.scholarship',this.originalScholarship, this.scholarship);
 
       this.snackBar.open("Thanks! Changes Saved. Sent to Scholarship creator for Review", '', {
         duration: 3000
