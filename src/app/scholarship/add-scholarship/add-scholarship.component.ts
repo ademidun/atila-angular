@@ -1,5 +1,5 @@
 import {Component, OnInit, AfterViewInit, ChangeDetectorRef, OnDestroy} from '@angular/core';
-import { Scholarship, scholarshipQuickCreate,scholarshipCreationHelper } from '../../_models/scholarship';
+import { Scholarship, scholarshipQuickCreate,scholarshipCreationHelper, getScholarshipDiff } from '../../_models/scholarship';
 import { UploadFile } from '../../_models/upload-file';
 import { ScholarshipService } from '../../_services/scholarship.service';
 import { Observable } from 'rxjs/Observable';
@@ -34,6 +34,7 @@ import {ACTIVITIES, COUNTRIES, DISABILITY, ETHNICITY, RELIGION, SCHOOLS_DICT, SP
 import {SCHOOLS_LIST, MAJORS_LIST, LANGUAGE, FUNDING_TYPES, APPLICATION_FORM_TYPES, APPLICATION_SUBMISSION_TYPES} from '../../_models/constants';
 import {prettifyKeys} from '../../_shared/utils';
 import {hasOwnProperty} from 'tslint/lib/utils';
+import {UserProfile} from '../../_models/user-profile';
 
 declare var tinymce: any;
 
@@ -105,6 +106,8 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
   appFormFile: UploadFile;
   showUploadLoading=false;
   editMode =false;
+  suggestionMode =false;
+  scholarshipEdits: any;
   locationData = [];
   locationList = [];
   locationInput: any = {
@@ -115,6 +118,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
   countries = [];
   provinces = [];
   cities = [];
+  originalScholarship: Scholarship;
 
   hideCriteriaInfo =true;
 
@@ -122,6 +126,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
   activeCountry = '';
   activeProvince:any = {};
   scholarshipOwner;
+  userProfile: UserProfile;
 
   scholarshipErrors: any;
   uploadProgress: any;
@@ -325,6 +330,13 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
           }
           this.arrayToString();
 
+          if (!isNaN(this.userId)) {
+            this.userProfileService.getById(this.userId)
+              .subscribe(
+                user => { this.userProfile = user }
+                )
+          }
+
         },
         err => {
 
@@ -393,13 +405,26 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
         },
 
         () => {
+
+          if (!isNaN(this.userId)) {
+            this.userProfileService.getById(this.userId)
+              .subscribe(
+                user => { this.userProfile = user }
+              )
+          }
               if (this.userId==this.scholarship.owner) {
                 this.isOwner = true;
               }
 
               if(this.editMode && !this.isOwner){
-                $("#scholarshipForm :input").prop("disabled", true);
+                this.originalScholarship = Object.assign({},this.scholarship);
+                this.suggestionMode = true;
+                // $("#scholarshipForm :input").prop("disabled", true);
+
+                this.scholarshipEdits = this.firebaseService.firestoreListen('scholarship_edits');
+
               }
+
         }
       );
   }
@@ -438,8 +463,31 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
   saveScholarship(scholarshipForm: NgForm, metadata?: any) {
 
-    if(this.editMode && !this.isOwner){
-      this.snackBar.open("You are not authorized to make Changes", '', {
+    if(this.editMode && this.suggestionMode){
+
+      let changes = getScholarshipDiff(this.originalScholarship, this.scholarship);
+
+      let diff = {
+        scholarship: this.scholarship.id,
+        timestamp: Date.now(),
+        changes: changes,
+        metadata: {},
+      };
+
+
+      if (!isNaN(this.userId)) {
+        diff['user_id'] = this.userId;
+        diff['user'] = {
+          username: this.userProfile.username,
+          profile_image_url: this.userProfile.profile_pic_url,
+          uid: this.userProfile.user,
+        };
+      }
+
+      diff['id'] = this.firebaseService.saveAny_fs('scholarship_edits', diff);
+      console.log('diff',diff);
+
+      this.snackBar.open("Thanks! Changes Saved. Sent to Scholarship creator for Review", '', {
         duration: 3000
       });
       return;

@@ -27,6 +27,7 @@ import {HttpModule} from '@angular/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 import {environment} from '../../environments/environment';
 import {AngularFireModule} from 'angularfire2';
 import {RouterModule} from '@angular/router';
@@ -91,6 +92,7 @@ import { ShareItemComponent } from './share-item/share-item.component';
     CommentComponent,
     RouterModule,
     NgbTypeaheadModule,
+    AngularFirestoreModule,
     TypeaheadComponent,
     AddQuestionModalComponent,
     SubscriberDialogComponent,

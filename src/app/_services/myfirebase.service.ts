@@ -8,6 +8,7 @@ import * as firebase from "firebase";
 import {environment} from '../../environments/environment';
 import { AngularFireDatabase} from 'angularfire2/database';
 import {AuthService} from './auth.service';
+import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
 
 @Injectable()
 export class MyFirebaseService {
@@ -17,6 +18,7 @@ export class MyFirebaseService {
   public saveFirebaseUrl = environment.apiUrl + 'save-firebase/';
   constructor(public http: HttpClient,
               private db: AngularFireDatabase,
+              public fs: AngularFirestore,
               public authService: AuthService) {
 
   }
@@ -91,6 +93,17 @@ export class MyFirebaseService {
     }
   }
 
+  saveAny_fs(path, data) {
+    const collection: AngularFirestoreCollection<any> = this.fs.collection(path);
+    const id = this.fs.createId();
+    collection.doc(id).set(data);
+
+    return id;
+  }
+
+  firestoreListen(path) {
+    return this.fs.collection(path).valueChanges()
+  }
 
 
   getAPIKey(apiKey: any){

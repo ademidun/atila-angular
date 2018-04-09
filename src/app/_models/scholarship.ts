@@ -82,7 +82,6 @@ export class Scholarship {
 
   }
 
-
   export function scholarshipQuickCreate(scholarship: Scholarship) {
 
 
@@ -116,5 +115,28 @@ export class Scholarship {
       }
 
     return scholarship;
+  }
+
+  export function getScholarshipDiff(oldScholarship: Scholarship, newScholarship: Scholarship) {
+    let changes = {};
+    for (let property in oldScholarship) {
+      if (oldScholarship.hasOwnProperty(property)) {
+        if (oldScholarship[property] == newScholarship[property]) {
+          continue;
+        }
+        console.log('property,oldScholarship[property],newScholarship[property]',
+          property,oldScholarship[property],newScholarship[property]);
+        changes[property] = {
+          key: property,
+          current: oldScholarship[property],
+          next: newScholarship[property],
+        }
+      }
+
+      return changes;
+    }
+
+    console.log('changes',changes);
+
   }
 

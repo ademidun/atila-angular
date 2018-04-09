@@ -12,9 +12,14 @@
                     <h4 *ngIf="editMode">Edit Scholarship</h4>
                     <h4 *ngIf="!editMode">Add Scholarship</h4>
 
-                    <h6 *ngIf="editMode && !isOwner">You don't have permission to save edits yet. If you want to make edits, please suggest them in the comments.</h6>
-                    <h6 *ngIf="editMode && !isOwner">Open Edits in closed beta. <a routerLink="/contact">Request Closed Beta Access</a></h6>
+                    <!--<h6 *ngIf="editMode && !suggestionMode">You don't have permission to save edits yet. If you want to make edits, please suggest them in the comments.</h6>-->
+                    <div *ngIf="suggestionMode"><h4 class="atila-blue">Suggestion Mode</h4> <h6>Edits will be sent to owner for review</h6></div>
 
+                  <div *ngIf="scholarshipEdits">
+                    <ul *ngFor="let edit of scholarshipEdits | async">
+                      <li>{{edit | json}}</li>
+                    </ul>
+                  </div>
 
                     <h4>{{scholarship.name}}</h4>
                     <a *ngIf="scholarship && scholarship.slug" routerLink="/scholarship/{{scholarship.slug}}">View Scholarship</a>
@@ -187,7 +192,7 @@
                           <!--{{ myJson.stringify(locationList) }}-->
 
                           <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
-                          <input class="browser-default" matInput type="text" class="form-control" [disabled]="this.editMode && !this.isOwner"
+                          <input class="browser-default" matInput type="text" class="form-control" [disabled]="editMode && !suggestionMode"
                                  [placeholder]="locationPlaceHolder" name="location" id="location" [(ngModel)]="locationInput.city" #LocationCtrl="ngModel"
                                  appGooglePlace (setAddress)="placeAutoComplete($event,LocationCtrl)"  (googlePlaceNoLoad)="googlePlaceNoLoad()" (keydown)="keyDownHandler($event)">
                         </mat-form-field>
@@ -253,7 +258,7 @@
                     <div *ngIf="pageNo==1">
                       <h5>General Information {{pageNo}}/3</h5>
 
-                      <fieldset [disabled]="editMode && !isOwner">
+                      <fieldset [disabled]="editMode && !suggestionMode">
 
                         <!--HTML copy paste formatting for text divs https://stackoverflow.com/questions/8806673/html-how-to-retain-formatting-in-textarea/22353003#22353003-->
                         <!--<label>Paste your HTML in the box below</label>-->
@@ -450,7 +455,7 @@
                     </div>
                     <div *ngIf="pageNo==2">
                       <h5>General Information {{pageNo}}/3</h5>
-                      <fieldset [disabled]="editMode && !isOwner">
+                      <fieldset [disabled]="editMode && !suggestionMode">
 
                         <div class="row">
                           <p>Add an application form.</p>
@@ -533,7 +538,7 @@
                       </div>
                     </div>
                     <div *ngIf="pageNo==3">
-                      <fieldset [disabled]="editMode && !isOwner">
+                      <fieldset [disabled]="editMode && !suggestionMode">
                         <h5>Additional Form Questions {{pageNo}}/3</h5>
                         <ol >
                           <li *ngFor="let question of generateArray(scholarship.extra_questions);let i = index" class="questions row">
@@ -587,7 +592,7 @@
                       </fieldset>
                       <div class="row">
                         <div class="col-sm-12">
-                          <fieldset [disabled]="editMode && !isOwner">
+                          <fieldset [disabled]="editMode && !suggestionMode">
 
                             <div class="row">
                               <div class="col-sm-12">
