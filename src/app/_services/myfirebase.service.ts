@@ -105,6 +105,11 @@ export class MyFirebaseService {
     return this.fs.collection(path).valueChanges()
   }
 
+  firestoreQuery(query) {
+    return this.fs.collection(query['path'],
+        ref => ref.where(query['field_path'], query['operator'], query['value']) )
+  }
+
 
   getAPIKey(apiKey: any){
     apiKey = apiKey.toString();

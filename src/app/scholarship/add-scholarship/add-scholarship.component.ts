@@ -106,6 +106,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
   appFormFile: UploadFile;
   showUploadLoading=false;
   editMode =false;
+  showEdits: boolean;
   suggestionMode =false;
   scholarshipEdits: any;
   locationData = [];
@@ -421,7 +422,13 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
                 this.suggestionMode = true;
                 // $("#scholarshipForm :input").prop("disabled", true);
 
-                this.scholarshipEdits = this.firebaseService.firestoreListen('scholarship_edits');
+                let queryParams= {
+                  path: 'scholarship_edits',
+                  field_path: 'scholarship',
+                  value: this.scholarship.id,
+                  operator: '=='
+                };
+                this.scholarshipEdits =  this.firebaseService.firestoreQuery(queryParams).valueChanges();
 
               }
 
@@ -467,11 +474,18 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
       let changes = getScholarshipDiff(this.originalScholarship, this.scholarship);
 
+      if (Object.keys(changes).length === 0) {
+        this.snackBar.open("No changes made.", '', {
+          duration: 3000
+        });
+        return;
+      }
       let diff = {
         scholarship: this.scholarship.id,
         timestamp: Date.now(),
         changes: changes,
         metadata: {},
+        status: 'PENDING',
       };
 
 

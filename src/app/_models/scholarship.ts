@@ -82,6 +82,14 @@ export class Scholarship {
 
   }
 
+export interface ScholarshipEdit {
+  timestamp: number,
+  scholarship: number,
+  changes: any,
+  user: any,
+  status: string,
+  metadata: any,
+}
   export function scholarshipQuickCreate(scholarship: Scholarship) {
 
 
@@ -120,23 +128,24 @@ export class Scholarship {
   export function getScholarshipDiff(oldScholarship: Scholarship, newScholarship: Scholarship) {
     let changes = {};
     for (let property in oldScholarship) {
+      console.log('property,oldScholarship[property],newScholarship[property]',
+        property,oldScholarship[property],newScholarship[property]);
       if (oldScholarship.hasOwnProperty(property)) {
-        if (oldScholarship[property] == newScholarship[property]) {
-          continue;
-        }
-        console.log('property,oldScholarship[property],newScholarship[property]',
-          property,oldScholarship[property],newScholarship[property]);
-        changes[property] = {
-          key: property,
-          current: oldScholarship[property],
-          next: newScholarship[property],
+        if (oldScholarship[property] != newScholarship[property]) {
+          console.log('property,oldScholarship[property],newScholarship[property]',
+            property,oldScholarship[property],newScholarship[property]);
+          changes[property] = {
+            key: property,
+            current: oldScholarship[property],
+            next: newScholarship[property],
+          }
         }
       }
-
-      return changes;
     }
 
     console.log('changes',changes);
+
+    return changes;
 
   }
 

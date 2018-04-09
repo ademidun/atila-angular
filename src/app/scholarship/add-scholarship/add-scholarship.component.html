@@ -13,12 +13,30 @@
                     <h4 *ngIf="!editMode">Add Scholarship</h4>
 
                     <!--<h6 *ngIf="editMode && !suggestionMode">You don't have permission to save edits yet. If you want to make edits, please suggest them in the comments.</h6>-->
-                    <div *ngIf="suggestionMode"><h4 class="atila-blue">Suggestion Mode</h4> <h6>Edits will be sent to owner for review</h6></div>
+                    <div *ngIf="suggestionMode">
+                      <h4 class="atila-blue">Suggestion Mode</h4>
+                      <p style="font-size: larger">Edits will be sent to owner for review</p>
+                    </div>
 
-                  <div *ngIf="scholarshipEdits">
-                    <ul *ngFor="let edit of scholarshipEdits | async">
-                      <li>{{edit | json}}</li>
-                    </ul>
+                    <a *ngIf="scholarshipEdits" (click)="showEdits=!showEdits">
+                      {{showEdits ? 'Hide Edits' : 'Show Suggested Edits'}}
+                    </a>
+                    <div class="row" *ngIf="scholarshipEdits && showEdits">
+
+                    <div *ngFor="let edit of scholarshipEdits | async">
+
+                        Edit by: <a [routerLink]="'/profile'+edit.user.username">{{edit.user.username}}</a> <br>
+                        Changes: <br>
+                        <div *ngFor="let change of Object.keys(edit.changes)">
+
+                          <strong style="font-size: medium">{{change}}</strong><br>
+                          <li><strong>Current:</strong>{{edit.changes[change]['current']}}</li><br>
+                          <li><strong>Suggestion:</strong>{{edit.changes[change]['next']}}</li><br>
+
+                        </div>
+
+                    </div>
+
                   </div>
 
                     <h4>{{scholarship.name}}</h4>
@@ -366,7 +384,7 @@
                           <!--{{ myJson.stringify(locationList) }}-->
 
                           <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
-                          <input class="browser-default" matInput type="text" class="form-control" [disabled]="this.editMode && !this.isOwner" [placeholder]="locationPlaceHolder" name="location" id="location" [(ngModel)]="locationInput.city" #LocationCtrl="ngModel"
+                          <input class="browser-default" matInput type="text" class="form-control" [disabled]="editMode && !suggestionMode" [placeholder]="locationPlaceHolder" name="location" id="location" [(ngModel)]="locationInput.city" #LocationCtrl="ngModel"
                                  appGooglePlace (setAddress)="placeAutoComplete($event,LocationCtrl)"  (googlePlaceNoLoad)="googlePlaceNoLoad()" (keydown)="keyDownHandler($event)">
                         </mat-form-field>
                           <!-- See table-layout.component.html as a guide -->
