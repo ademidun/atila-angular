@@ -141,9 +141,14 @@ export interface ScholarshipEdit {
               key: property,
               current: oldScholarship[property],
               next: newScholarship[property],
-            }
+            };
+            continue;
           }
-          else if (oldScholarship[property].toString() != newScholarship[property].toString()) {
+          if (property == 'extra_criteria') {
+            oldScholarship[property] = oldScholarship[property].toString().replace(/\n/g,'');
+            newScholarship[property] = newScholarship[property].toString().replace(/\n/g,'');
+          }
+           if (oldScholarship[property].toString() != newScholarship[property].toString()) {
             console.log('property,oldScholarship[property],newScholarship[property]',
               property,oldScholarship[property].toString(),newScholarship[property].toString());
 
