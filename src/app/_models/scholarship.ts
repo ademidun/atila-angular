@@ -129,18 +129,29 @@ export interface ScholarshipEdit {
     let changes = {};
 
     for (let property in oldScholarship) {
-      console.log('property,oldScholarship[property],newScholarship[property]',
-        property,oldScholarship[property],newScholarship[property]);
 
         // Comparison operator for complex object only works if its a primitive like a string.
         if (oldScholarship[property] != newScholarship[property]) {
 
           console.log('property,oldScholarship[property],newScholarship[property]',
           property,oldScholarship[property],newScholarship[property]);
-          changes[property] = {
-            key: property,
-            current: oldScholarship[property],
-            next: newScholarship[property],
+
+          if (!oldScholarship[property] || !newScholarship[property]) {
+            changes[property] = {
+              key: property,
+              current: oldScholarship[property],
+              next: newScholarship[property],
+            }
+          }
+          else if (oldScholarship[property].toString() != newScholarship[property].toString()) {
+            console.log('property,oldScholarship[property],newScholarship[property]',
+              property,oldScholarship[property].toString(),newScholarship[property].toString());
+
+            changes[property] = {
+              key: property,
+              current: oldScholarship[property],
+              next: newScholarship[property],
+            }
           }
         }
     }
