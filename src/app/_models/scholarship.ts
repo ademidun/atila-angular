@@ -96,7 +96,7 @@ export interface Change {
   upvotes: any[];
   downvotes: any[];
   key: string;
-  status: string, // ['PENDING','APPROVED','REJECTED']
+  status: string, // ['PENDING','ACCEPTED','REJECTED']
 
 }
 
@@ -149,6 +149,9 @@ export function getScholarshipDiff(oldScholarship: Scholarship, newScholarship: 
           key: property,
           current: oldScholarship[property],
           next: newScholarship[property],
+          upvotes: [],
+          downvotes: [],
+          status: 'PENDING',
         };
         continue;
       }
@@ -168,7 +171,6 @@ export function getScholarshipDiff(oldScholarship: Scholarship, newScholarship: 
         newCriteria =  txt.value;
 
         if (oldCriteria.toString().length == newCriteria.toString().length) {
-
           continue;
         }
 

@@ -95,7 +95,11 @@ export class MyFirebaseService {
 
   saveAny_fs(path, data, opts={}) {
 
-    const collection: AngularFirestoreCollection<any> = this.fs.collection(path);
+    let queryPath = path;
+    if (!environment.production) {
+      queryPath = 'DEVELOPMENT/data/'+ queryPath
+    }
+    const collection: AngularFirestoreCollection<any> = this.fs.collection(queryPath);
     const id = this.fs.createId();
 
     collection.doc(id).set(data);
@@ -106,12 +110,15 @@ export class MyFirebaseService {
     return $.getJSON('//api.ipstack.com/check?access_key=9e6a79fc9c2f5ab8b7f4f42095469029&output=json&legacy=1')
   }
 
-  firestoreListen(path) {
-    return this.fs.collection(path).valueChanges()
-  }
 
   firestoreQuery(query) {
-    return this.fs.collection(query['path'],
+
+    let queryPath = query['path'];
+    if (!environment.production) {
+      queryPath = 'DEVELOPMENT/data/'+ queryPath
+    }
+
+    return this.fs.collection(queryPath,
         ref => ref.where(query['field_path'], query['operator'], query['value']) )
   }
 

@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {Scholarship, ScholarshipEdit} from '../../_models/scholarship';
 
 @Component({
   selector: 'app-scholarship-edit-suggestion',
@@ -7,12 +8,14 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class ScholarshipEditSuggestionComponent implements OnInit {
 
-  @Input() edit: any;
+  @Input() edit: ScholarshipEdit;
   Object = Object;
 
-  constructor() { }
+  constructor() {
+    console.log('constructor() edit',this.edit);
+  }
   ngOnInit() {
-
+    console.log('ngOnInit() edit',this.edit);
   }
 
 }

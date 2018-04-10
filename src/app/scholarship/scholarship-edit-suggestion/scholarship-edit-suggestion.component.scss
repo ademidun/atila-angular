@@ -1,0 +1,8 @@
+@import '../../../styles.scss';
+.card {
+  padding: 3%;
+}
+
+.card .card-action .atila-blue a {
+  color: $primary !important;
+}

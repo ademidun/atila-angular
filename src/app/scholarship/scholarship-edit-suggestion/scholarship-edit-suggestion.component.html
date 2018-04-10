@@ -1,8 +1,9 @@
-<div class="scholarship-edit-suggestion">
+<div class="scholarship-edit-suggestion card">
 
-  Edit by: <a [routerLink]="'/profile/'+edit.user.username">{{edit.user.username}}</a> <br>
-  Changes: <br>
-  <div *ngFor="let change of Object.keys(edit.changes)">
+  <p>Edit by: <a [routerLink]="'/profile/'+edit.user.username">{{edit.user.username}}</a></p> <br>
+  Deadline: {{ edit.timestamp | date:'fullDate' }} {{ edit.timestamp | date:'shortTime' }} <br>
+  <p class="card-title">Changes: </p><br>
+  <div *ngFor="let change of Object.keys(edit.changes)" class="card-panel">
 
     <strong style="font-size: medium">{{change}}</strong><br>
     <li><strong>Current:</strong>{{edit.changes[change]['current'] | json}}</li><br>
@@ -12,14 +13,21 @@
 
       <div [ngSwitch]="edit.changes[change].status">
         <span *ngSwitchCase="'PENDING'" style="color: #194F87">{{edit.changes[change].status}}</span>
-        <span *ngSwitchCase="'APPROVED'" style="color: green">{{edit.changes[change].status}}</span>
+        <span *ngSwitchCase="'ACCEPTED'" style="color: green">{{edit.changes[change].status}}</span>
         <span *ngSwitchCase="'REJECTED'" style="color: red">{{edit.changes[change].status}}</span>
         <span *ngSwitchDefault>{{edit.changes[change].status}}</span>
       </div>
 
-    </li><br>
+      <div class="card-action atila-blue">
+        <a (click)="edit.changes[change].status='ACCEPTED'" ngbTooltip="Accept Change">
+          <i class="material-icons">check</i></a>
+        <a (click)="edit.changes[change].status='REJECTED'" ngbTooltip="Reject Change">
+          <i class="material-icons">cancel</i></a>
+        <a *ngIf="edit.changes[change].status!='PENDING'" (click)="edit.changes[change].status='PENDING'" ngbTooltip="Restore Suggestion">
+          <i class="material-icons">restore</i></a>
+      </div>
 
-    {{edit.metadata | json}}
+    </li><br>
 
   </div>
 </div>
