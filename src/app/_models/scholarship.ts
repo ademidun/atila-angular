@@ -82,6 +82,8 @@ export class Scholarship {
 }
 
 export interface ScholarshipEdit {
+  id: string,
+  firebase_path: string,
   timestamp: number,
   scholarship: number,
   changes: Change[],
@@ -148,7 +150,7 @@ export function getScholarshipDiff(oldScholarship: Scholarship, newScholarship: 
         changes[property] = {
           key: property,
           current: oldScholarship[property],
-          next: newScholarship[property],
+          suggested: newScholarship[property],
           upvotes: [],
           downvotes: [],
           status: 'PENDING',

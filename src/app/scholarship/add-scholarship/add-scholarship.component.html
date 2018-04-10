@@ -190,7 +190,7 @@
                           <!--{{ myJson.stringify(locationList) }}-->
 
                           <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
-                          <input class="browser-default" matInput type="text" class="form-control" [disabled]="editMode && !suggestionMode"
+                          <input class="browser-default" matInput type="text" class="form-control"
                                  [placeholder]="locationPlaceHolder" name="location" id="location" [(ngModel)]="locationInput.city" #LocationCtrl="ngModel"
                                  appGooglePlace (setAddress)="placeAutoComplete($event,LocationCtrl)"  (googlePlaceNoLoad)="googlePlaceNoLoad()" (keydown)="keyDownHandler($event)">
                         </mat-form-field>
@@ -259,7 +259,7 @@
                       <div *ngIf="pageNo==1">
                         <h5>General Information {{pageNo}}/3</h5>
 
-                        <fieldset [disabled]="editMode && !suggestionMode">
+                        <fieldset >
 
                           <!--HTML copy paste formatting for text divs https://stackoverflow.com/questions/8806673/html-how-to-retain-formatting-in-textarea/22353003#22353003-->
                           <!--<label>Paste your HTML in the box below</label>-->
@@ -367,7 +367,7 @@
                           <!--{{ myJson.stringify(locationList) }}-->
 
                           <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
-                          <input class="browser-default" matInput type="text" class="form-control" [disabled]="editMode && !suggestionMode" [placeholder]="locationPlaceHolder" name="location" id="location" [(ngModel)]="locationInput.city" #LocationCtrl="ngModel"
+                          <input class="browser-default" matInput type="text" class="form-control"  [placeholder]="locationPlaceHolder" name="location" id="location" [(ngModel)]="locationInput.city" #LocationCtrl="ngModel"
                                  appGooglePlace (setAddress)="placeAutoComplete($event,LocationCtrl)"  (googlePlaceNoLoad)="googlePlaceNoLoad()" (keydown)="keyDownHandler($event)">
                         </mat-form-field>
                             <!-- See table-layout.component.html as a guide -->
@@ -456,7 +456,7 @@
                       </div>
                       <div *ngIf="pageNo==2">
                         <h5>General Information {{pageNo}}/3</h5>
-                        <fieldset [disabled]="editMode && !suggestionMode">
+                        <fieldset >
 
                           <div class="row">
                             <p>Add an application form.</p>
@@ -539,7 +539,7 @@
                         </div>
                       </div>
                       <div *ngIf="pageNo==3">
-                        <fieldset [disabled]="editMode && !suggestionMode">
+                        <fieldset >
                           <h5>Additional Form Questions {{pageNo}}/3</h5>
                           <ol >
                             <li *ngFor="let question of generateArray(scholarship.extra_questions);let i = index" class="questions row">
@@ -593,7 +593,7 @@
                         </fieldset>
                         <div class="row">
                           <div class="col-sm-12">
-                            <fieldset [disabled]="editMode && !suggestionMode">
+                            <fieldset >
 
                               <div class="row">
                                 <div class="col-sm-12">
@@ -664,9 +664,11 @@
                     <mat-tab label="Suggested Edits">
                       <div style="max-width: 65vw" class="row" *ngIf="scholarshipEdits">
 
-                        <div class="col col-lg-6 col-sm-12" *ngFor="let edit of scholarshipEdits | async">
+                        <div class="col col-sm-12" *ngFor="let edit of scholarshipEdits | async">
 
-                          <app-scholarship-edit-suggestion [edit]="edit"></app-scholarship-edit-suggestion>
+                          <app-scholarship-edit-suggestion [edit]="edit" [metadata]="{isOwner: isOwner}" [userProfile]="userProfile">
+
+                          </app-scholarship-edit-suggestion>
                           <hr>
 
                         </div>

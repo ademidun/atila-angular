@@ -99,11 +99,24 @@ export class MyFirebaseService {
     if (!environment.production) {
       queryPath = 'DEVELOPMENT/data/'+ queryPath
     }
+    else {
+      queryPath = 'PRODUCTION/data/'+ queryPath
+    }
+
+    data['firebase_path'] = queryPath;
+
     const collection: AngularFirestoreCollection<any> = this.fs.collection(queryPath);
     const id = this.fs.createId();
-
+    data['id'] = id;
     collection.doc(id).set(data);
     return id;
+  }
+
+  updateAny_fs(path,id,data,opts={}) {
+
+    this.fs.collection(path).doc(id).set(data);
+    return id;
+
   }
 
   getGeoIp(opts={}) {
@@ -116,6 +129,9 @@ export class MyFirebaseService {
     let queryPath = query['path'];
     if (!environment.production) {
       queryPath = 'DEVELOPMENT/data/'+ queryPath
+    }
+    else {
+      queryPath = 'PRODUCTION/data/'+ queryPath
     }
 
     return this.fs.collection(queryPath,

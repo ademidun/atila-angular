@@ -498,7 +498,6 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
       return this.firebaseService.getGeoIp()
         .then(res=>{
-          console.log('res',res);
           diff.metadata['geo_ip'] = res;
           let path = 'scholarships/' + this.scholarship.id + '/edits';
           diff['id'] = this.firebaseService.saveAny_fs(path, diff);
