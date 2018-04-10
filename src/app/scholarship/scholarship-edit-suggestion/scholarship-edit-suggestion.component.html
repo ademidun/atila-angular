@@ -1,3 +1,26 @@
-<p>
-  scholarship-edit-suggestion works!
-</p>
+<div class="scholarship-edit-suggestion">
+
+  Edit by: <a [routerLink]="'/profile/'+edit.user.username">{{edit.user.username}}</a> <br>
+  Changes: <br>
+  <div *ngFor="let change of Object.keys(edit.changes)">
+
+    <strong style="font-size: medium">{{change}}</strong><br>
+    <li><strong>Current:</strong>{{edit.changes[change]['current'] | json}}</li><br>
+    <li><strong>Suggestion:</strong>{{edit.changes[change]['suggested'] | json}}</li><br>
+
+    <li><strong>Status:</strong>
+
+      <div [ngSwitch]="edit.changes[change].status">
+        <span *ngSwitchCase="'PENDING'" style="color: #194F87">{{edit.changes[change].status}}</span>
+        <span *ngSwitchCase="'APPROVED'" style="color: green">{{edit.changes[change].status}}</span>
+        <span *ngSwitchCase="'REJECTED'" style="color: red">{{edit.changes[change].status}}</span>
+        <span *ngSwitchDefault>{{edit.changes[change].status}}</span>
+      </div>
+
+    </li><br>
+
+    {{edit.metadata | json}}
+
+  </div>
+</div>
+

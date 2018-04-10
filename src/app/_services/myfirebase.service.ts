@@ -93,12 +93,17 @@ export class MyFirebaseService {
     }
   }
 
-  saveAny_fs(path, data) {
+  saveAny_fs(path, data, opts={}) {
+
     const collection: AngularFirestoreCollection<any> = this.fs.collection(path);
     const id = this.fs.createId();
-    collection.doc(id).set(data);
 
+    collection.doc(id).set(data);
     return id;
+  }
+
+  getGeoIp(opts={}) {
+    return $.getJSON('//api.ipstack.com/check?access_key=9e6a79fc9c2f5ab8b7f4f42095469029&output=json&legacy=1')
   }
 
   firestoreListen(path) {

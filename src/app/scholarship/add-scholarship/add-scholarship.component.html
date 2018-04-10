@@ -662,19 +662,12 @@
                     </div>
                     </mat-tab>
                     <mat-tab label="Suggested Edits">
-                      <div style="max-width: 70vw" class="row" *ngIf="scholarshipEdits">
+                      <div style="max-width: 65vw" class="row" *ngIf="scholarshipEdits">
 
                         <div class="col col-lg-6 col-sm-12" *ngFor="let edit of scholarshipEdits | async">
 
-                          Edit by: <a [routerLink]="'/profile/'+edit.user.username">{{edit.user.username}}</a> <br>
-                          Changes: <br>
-                          <div *ngFor="let change of Object.keys(edit.changes)">
-
-                            <strong style="font-size: medium">{{change}}</strong><br>
-                            <li><strong>Current:</strong>{{edit.changes[change]['current'] | json}}</li><br>
-                            <li><strong>Suggestion:</strong>{{edit.changes[change]['next'] | json}}</li><br>
-
-                          </div>
+                          <app-scholarship-edit-suggestion [edit]="edit"></app-scholarship-edit-suggestion>
+                          <hr>
 
                         </div>
 

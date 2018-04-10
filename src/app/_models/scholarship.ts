@@ -84,10 +84,20 @@ export class Scholarship {
 export interface ScholarshipEdit {
   timestamp: number,
   scholarship: number,
-  changes: any,
+  changes: Change[],
   user: any,
-  status: string,
   metadata: any,
+  status: 'PENDING',
+}
+
+export interface Change {
+  current: any;
+  suggested: any;
+  upvotes: any[];
+  downvotes: any[];
+  key: string;
+  status: string, // ['PENDING','APPROVED','REJECTED']
+
 }
 
 export function scholarshipQuickCreate(scholarship: Scholarship) {
@@ -169,7 +179,10 @@ export function getScholarshipDiff(oldScholarship: Scholarship, newScholarship: 
         changes[property] = {
           key: property,
           current: oldScholarship[property],
-          next: newScholarship[property],
+          suggested: newScholarship[property],
+          upvotes: [],
+          downvotes: [],
+          status: 'PENDING',
         }
       }
     }

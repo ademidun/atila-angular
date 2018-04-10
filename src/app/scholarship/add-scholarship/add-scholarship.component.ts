@@ -420,9 +420,8 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
                 this.originalScholarship = JSON.parse(JSON.stringify(this.scholarship));
                 this.suggestionMode = true;
                 // $("#scholarshipForm :input").prop("disabled", true);
-
                 let queryParams= {
-                  path: 'scholarship_edits',
+                  path: 'scholarships/' + this.scholarship.id + '/edits',
                   field_path: 'scholarship',
                   value: this.scholarship.id,
                   operator: '=='
@@ -471,8 +470,6 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
     if(this.editMode && this.suggestionMode){
 
-
-
       let changes = getScholarshipDiff(this.originalScholarship, this.scholarship);
 
       if (Object.keys(changes).length === 0) {
@@ -499,15 +496,30 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
         };
       }
 
-      diff['id'] = this.firebaseService.saveAny_fs('scholarship_edits', diff);
+      return this.firebaseService.getGeoIp()
+        .then(res=>{
+          console.log('res',res);
+          diff.metadata['geo_ip'] = res;
+          let path = 'scholarships/' + this.scholarship.id + '/edits';
+          diff['id'] = this.firebaseService.saveAny_fs(path, diff);
 
-      this.snackBar.open("Thanks! Changes Saved. Sent to Scholarship creator for Review", '', {
-        duration: 3000
-      });
-      return;
+        })
+        .fail( (jqXHR, textStatus, errorThrown) => {
+          console.log('jqXHR, textStatus, errorThrown',jqXHR, textStatus, errorThrown);
+
+          diff.metadata['geo_ip'] = textStatus;
+          diff['id'] = this.firebaseService.saveAny_fs('scholarship_edits', diff);
+        })
+        .done(()=> {
+
+          this.snackBar.open("Thanks! Changes Saved. Sent to Scholarship creator for Review", '', {
+            duration: 5000
+          });
+          return;
+        })
     }
 
-    if (metadata && metadata['quickAdd']) {
+    else if (metadata && metadata['quickAdd']) {
       if(isNaN(this.userId)){
         this.snackBar.open("Please Log In", '', {
           duration: 3000
