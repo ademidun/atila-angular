@@ -23,7 +23,7 @@
               Added by: <a routerLink="/profile/{{scholarshipOwner.username}}">{{scholarshipOwner.first_name}} {{scholarshipOwner.last_name}}</a>
             </div>
 
-            <a *ngIf="scholarship.owner==userId" [routerLink]="['/scholarship/edit', scholarship.slug]"> Edit Scholarship <br></a>
+            <a [routerLink]="['/scholarship/edit', scholarship.slug]"> Edit Scholarship <br></a>
             <!--<a *ngIf="scholarship.owner!=userId" [routerLink]="['/scholarship/edit', scholarship.slug]"> Suggest/View Edits </a><br>-->
             <!--<span class="show-on-small" style="max-height: 0"><br></span>-->
 
