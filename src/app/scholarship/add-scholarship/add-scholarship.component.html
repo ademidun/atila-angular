@@ -239,6 +239,7 @@
                         <!--<div class="col-sm-12" placeholder="Criteria Description" name="criteria_info"  [froalaEditor]="froalaOptions" [(froalaModel)]="scholarship.criteria_info"></div>-->
                         <textarea class="{{editorId + ' col-sm-12'}}"></textarea>
                       </div>
+
                     </div>
 
 
@@ -528,6 +529,9 @@
                             <!--<textarea class="col-sm-12" id="criteria_info" type="text" [froalaEditor]="froalaOptions" [(froalaModel)]="scholarship.criteria_info" name="criteria_info"></textarea>-->
                             <textarea [ngClass]="editorId +' col-sm-12'"></textarea>
                           </div>
+
+
+                          <div id="criteria_info_hidden" [innerHTML]="scholarship.criteria_info | safeHtml"></div>
 
                         </fieldset>
                         <div class="row">

@@ -47,8 +47,8 @@ export class ScholarshipService {
       .catch(this.handleError);
   }
 
-  patch(data) {
-    return this.http.patch(`${this.scholarshipsUrl}${data.id}/`,data)
+  patch(id,data,) {
+    return this.http.patch(`${this.scholarshipsUrl}${id}/`,data)
       .map(res => res)
       .catch(err => Observable.throw(err));
   }

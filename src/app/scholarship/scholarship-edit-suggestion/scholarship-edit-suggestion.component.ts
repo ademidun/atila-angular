@@ -3,7 +3,8 @@ import {Scholarship, ScholarshipEdit} from '../../_models/scholarship';
 import {MyFirebaseService} from '../../_services/myfirebase.service';
 import {UserProfile} from '../../_models/user-profile';
 import {MatSnackBar} from '@angular/material';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ScholarshipService} from '../../_services/scholarship.service';
 
 @Component({
   selector: 'app-scholarship-edit-suggestion',
@@ -19,7 +20,9 @@ export class ScholarshipEditSuggestionComponent implements OnInit {
 
   constructor(public firebaseService: MyFirebaseService,
               public snackBar: MatSnackBar,
-              public router: Router) {
+              public router: Router,
+              public scholarshipService: ScholarshipService,
+              public route: ActivatedRoute,) {
   }
   ngOnInit() {
 
@@ -54,13 +57,40 @@ export class ScholarshipEditSuggestionComponent implements OnInit {
       return;
     }
     else {
-      this.edit.changes[changeKey].status = newStatus;
 
       if (newStatus == 'ACCEPTED') {
-        // todo patch change to scholarship database
-        this.saveEdit();
+
+        let patchData = {
+          [changeKey]: this.edit.changes[changeKey].suggested
+        };
+        this.scholarshipService.patch(this.edit.scholarship,patchData)
+          .subscribe(
+            res => {
+              this.edit.changes[changeKey].status = newStatus;
+              console.log('res',res);
+              this.saveEdit();
+              let snackBarRef = this.snackBar.open("Success! Suggestion Applied",'View Scholarship',{duration: 4000});
+              snackBarRef.onAction().subscribe(
+                () => {
+                  let scholarshipSlug = this.route.snapshot.params['slug'];
+                  this.router.navigate(['/scholarship',scholarshipSlug]);
+                },
+              );
+            },
+            err => {
+              console.log('err',err);
+              let snackBarRef = this.snackBar.open("Error: " + JSON.stringify(err.error),'',{duration: 4000});
+              snackBarRef.onAction().subscribe(
+                () => {
+                  let scholarshipSlug = this.route.snapshot.params['slug'];
+                  this.router.navigate(['/scholarship',scholarshipSlug]);
+                },
+              );
+            }
+          );
       }
       else {
+        this.edit.changes[changeKey].status = newStatus;
         this.saveEdit();
       }
     }

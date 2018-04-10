@@ -232,6 +232,11 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
       this.scholarship.criteria_info = content;
 
     }
+
+
+    // remove all style attributes
+    // this.scholarship.criteria_info = content.replace(/(<[^>]+) style=".*?"/gi, '$1',);
+    let cleanString = content.replace(/(<[^>]+) style=".*?"/gi, '$1',);
     this.scholarship.criteria_info = content;
     if (!this.ref['destroyed']) {
       this.ref.detectChanges();
@@ -412,23 +417,24 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
                 user => { this.userProfile = user }
               )
           }
-              if (this.userId==this.scholarship.owner) {
-                this.isOwner = true;
-              }
 
-              if(this.editMode && !this.isOwner){
-                this.originalScholarship = JSON.parse(JSON.stringify(this.scholarship));
-                this.suggestionMode = true;
-                // $("#scholarshipForm :input").prop("disabled", true);
-                let queryParams= {
-                  path: 'scholarships/' + this.scholarship.id + '/edits',
-                  field_path: 'scholarship',
-                  value: this.scholarship.id,
-                  operator: '=='
-                };
-                this.scholarshipEdits =  this.firebaseService.firestoreQuery(queryParams).valueChanges();
+          if (this.userId==this.scholarship.owner) {
+            this.isOwner = true;
+          }
 
-              }
+          if(this.editMode && !this.isOwner){
+            this.originalScholarship = JSON.parse(JSON.stringify(this.scholarship));
+            this.suggestionMode = true;
+            // $("#scholarshipForm :input").prop("disabled", true);
+          }
+
+          let queryParams= {
+            path: 'scholarships/' + this.scholarship.id + '/edits',
+            field_path: 'scholarship',
+            value: this.scholarship.id,
+            operator: '=='
+          };
+          this.scholarshipEdits =  this.firebaseService.firestoreQuery(queryParams).valueChanges();
 
         }
       );

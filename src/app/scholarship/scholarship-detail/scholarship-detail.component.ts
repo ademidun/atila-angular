@@ -289,7 +289,7 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy {
     };
 
 
-    this.scholarshipService.patch(sendData)
+    this.scholarshipService.patch(this.scholarship.id,sendData)
       .subscribe(
         res => {
           this.firebaseService.saveUserAnalytics(userAnalytics, 'automation_requests')
