@@ -106,7 +106,6 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
   appFormFile: UploadFile;
   showUploadLoading=false;
   editMode =false;
-  showEdits: boolean;
   suggestionMode =false;
   scholarshipEdits: any;
   locationData = [];
@@ -473,7 +472,6 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
     if(this.editMode && this.suggestionMode){
 
 
-      console.log('BEFORE this.originalScholarship, this.scholarship',this.originalScholarship, this.scholarship);
 
       let changes = getScholarshipDiff(this.originalScholarship, this.scholarship);
 
@@ -502,9 +500,6 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
       }
 
       diff['id'] = this.firebaseService.saveAny_fs('scholarship_edits', diff);
-      console.log('diff',diff);
-
-      console.log('AFTER this.originalScholarship, this.scholarship',this.originalScholarship, this.scholarship);
 
       this.snackBar.open("Thanks! Changes Saved. Sent to Scholarship creator for Review", '', {
         duration: 3000

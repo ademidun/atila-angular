@@ -22,7 +22,8 @@ import {
   MatProgressBarModule,
   MatProgressSpinnerModule,
   MatSelectModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatTabsModule,
 } from '@angular/material';
 
 import {HttpClientModule} from '@angular/common/http';
@@ -37,6 +38,7 @@ import {ScholarshipCardComponent} from './scholarship-card/scholarship-card.comp
 import {ScholarshipsListComponent} from './scholarships-list/scholarships-list.component';
 import {SubscriberDialogComponent} from '../subscriber-dialog/subscriber-dialog.component';
 import {EditProfileModalComponent} from '../edit-profile-modal/edit-profile-modal.component';
+import { ScholarshipEditSuggestionComponent } from './scholarship-edit-suggestion/scholarship-edit-suggestion.component';
 
 @NgModule({
   imports: [
@@ -64,12 +66,14 @@ import {EditProfileModalComponent} from '../edit-profile-modal/edit-profile-moda
     HttpClientModule,
     CommonModule,
     MaterializeModule,
+    MatTabsModule
   ],
   declarations: [
     AddScholarshipComponent,
     ScholarshipDetailComponent,
     ScholarshipCardComponent,
     ScholarshipsListComponent,
+    ScholarshipEditSuggestionComponent,
   ],
   entryComponents: [
     SubscriberDialogComponent,
