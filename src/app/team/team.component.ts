@@ -56,7 +56,7 @@ export class TeamComponent implements OnInit {
     {
       "first_name": "Kitan",
       "last_name": "Ademidun",
-      "position": "Engineer + Marketing",
+      "position": "Engineering + Marketing",
       "username": "orekitan",
       "img_url": "https://scontent.fyto1-1.fna.fbcdn.net/v/t1.0-9/14237540_1196065180456920_3858531177241864113_n.jpg?oh=c8bc19db36d39f67779e3f7255b99a2e&oe=5B4B7162",
       "description_1": "Kitan is currently studying software engineering and is in the AEO program at Ivey Business School",
