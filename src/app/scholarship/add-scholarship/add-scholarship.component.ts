@@ -501,6 +501,14 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
           uid: this.userProfile.user,
         };
       }
+      else {
+        diff['user_id'] = 0;
+        diff['user'] = {
+          username: 'guest',
+          profile_image_url: 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2Fgeneral-data%2Fdefault-profile-pic.png?alt=media&token=455c59f7-3a05-43f1-a79e-89abff1eae57',
+          uid: 0,
+        };
+      }
 
       return this.firebaseService.getGeoIp()
         .then(res=>{

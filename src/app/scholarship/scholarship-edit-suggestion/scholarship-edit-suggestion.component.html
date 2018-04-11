@@ -1,23 +1,27 @@
 <div class="scholarship-edit-suggestion card">
 
-  <p>Edit by: <a [routerLink]="'/profile/'+edit.user.username">{{edit.user.username}}</a></p> <br>
+  <p>Edit by:
+    <ng-container *ngIf="edit.user.username=='guest'; else registeredEdit">{{edit.user.username}}</ng-container>
+    <ng-template #registeredEdit>
+      <a [routerLink]="'/profile/'+edit.user.username">{{edit.user.username}}</a>
+    </ng-template>
+    </p> <br>
   Date: {{ edit.timestamp | date:'fullDate' }} {{ edit.timestamp | date:'shortTime' }} <br>
   <p class="card-title">Changes: </p><br>
   <div *ngFor="let change of Object.keys(edit.changes)" class="card-panel">
 
-    <strong style="font-size: medium">{{change}}</strong><br>
-    <li><strong>Current:</strong>{{edit.changes[change]['current'] | json}}</li><br>
-    <li><strong>Suggestion:</strong>{{edit.changes[change]['suggested'] | json}}</li><br>
+    <strong style="font-size: medium">{{change}}</strong>
+    <ng-container [ngSwitch]="edit.changes[change].status">
+      <span *ngSwitchCase="'PENDING'" style="color: #194F87">{{edit.changes[change].status}}</span>
+      <span *ngSwitchCase="'ACCEPTED'" style="color: green">{{edit.changes[change].status}}</span>
+      <span *ngSwitchCase="'REJECTED'" style="color: red">{{edit.changes[change].status}}</span>
+      <span *ngSwitchDefault>{{edit.changes[change].status}}</span>
+    </ng-container> <br>
 
-    <li><strong>Status:</strong>
+      <li><strong>Current:</strong>{{edit.changes[change]['current'] | json}}</li><br>
+      <li><strong>Suggestion:</strong>{{edit.changes[change]['suggested'] | json}}</li><br>
 
-      <div [ngSwitch]="edit.changes[change].status">
-        <span *ngSwitchCase="'PENDING'" style="color: #194F87">{{edit.changes[change].status}}</span>
-        <span *ngSwitchCase="'ACCEPTED'" style="color: green">{{edit.changes[change].status}}</span>
-        <span *ngSwitchCase="'REJECTED'" style="color: red">{{edit.changes[change].status}}</span>
-        <span *ngSwitchDefault>{{edit.changes[change].status}}</span>
-      </div>
-
+    <div>
       <div class="card-action atila-blue">
         <a (click)="changeEditStatus(change,'ACCEPTED')" ngbTooltip="Accept Change">
           <i class="material-icons">check</i></a>
@@ -34,11 +38,9 @@
         <a (click)="voteForChange(change,'downvotes')" ngbTooltip="Downvote Change">
           <i class="material-icons">keyboard_arrow_down</i> ({{edit.changes[change].downvotes.length}}) </a>
       </div>
+    </div>
 
 
-
-
-    </li><br>
 
   </div>
 </div>

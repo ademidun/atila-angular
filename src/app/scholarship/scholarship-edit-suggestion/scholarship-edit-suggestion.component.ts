@@ -25,8 +25,6 @@ export class ScholarshipEditSuggestionComponent implements OnInit {
               public route: ActivatedRoute,) {
   }
   ngOnInit() {
-
-    console.log('this.edit',this.edit);
   }
 
   saveEdit() {

@@ -150,7 +150,7 @@ export class RegisterComponent implements OnInit {
 
         },
         () => {
-          $.getJSON('//freegeoip.net/json/?callback=?',
+          $.getJSON('//api.ipstack.com/check?access_key=9e6a79fc9c2f5ab8b7f4f42095469029&output=json&legacy=1',
             data => {
               this.userProfile.metadata['registration_location'] = data;
               this.userProfileService.updateHelper(this.userProfile)
