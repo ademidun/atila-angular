@@ -18,7 +18,8 @@
 
                     <!--<h6 *ngIf="editMode && !suggestionMode">You don't have permission to save edits yet. If you want to make edits, please suggest them in the comments.</h6>-->
                     <div *ngIf="suggestionMode">
-                      <h5 class="atila-blue">Suggestion Mode</h5>
+                      <h5 class="atila-blue">Suggestion Mode <span style="font-size: small">Beta</span></h5>
+
                       <!--<p style="font-size: larger">Edits will be sent to owner for review</p>-->
                     </div>
 
@@ -260,194 +261,195 @@
                       <div *ngIf="pageNo==1">
                         <h5>General Information {{pageNo}}/3</h5>
 
-                        <fieldset >
+                          <fieldset >
 
-                          <!--HTML copy paste formatting for text divs https://stackoverflow.com/questions/8806673/html-how-to-retain-formatting-in-textarea/22353003#22353003-->
-                          <!--<label>Paste your HTML in the box below</label>-->
-                          <!--<textarea style='display:none' id='htmlTextArea'></textarea>-->
-                          <!--<div id='htmlsource' contenteditable style='border:solid 1px black;padding:1em;width:100%;min-height:2em;' ></div>-->
+                            <!--HTML copy paste formatting for text divs https://stackoverflow.com/questions/8806673/html-how-to-retain-formatting-in-textarea/22353003#22353003-->
+                            <!--<label>Paste your HTML in the box below</label>-->
+                            <!--<textarea style='display:none' id='htmlTextArea'></textarea>-->
+                            <!--<div id='htmlsource' contenteditable style='border:solid 1px black;padding:1em;width:100%;min-height:2em;' ></div>-->
 
-                          <div class="row">
-                            <mat-form-field class="col-sm-12">
-                              <input class="browser-default" matInput id="name" type="text" required placeholder="Scholarship Name" [(ngModel)]="scholarship.name" name="name">
-                            </mat-form-field>
-                          </div>
-                          <div class="row">
-                            <label> Give a short description of the scholarship. You will be able to give more details later.</label><br>
-                            <textarea  class="browser-default col-sm-12" matInput id="description" type="text"
-                                       required placeholder="Description"  [(ngModel)]="scholarship.description" name="description"></textarea>
-                            <!--<span *ngIf="scholarship.description" [ngStyle]="{'color': scholarship.description.length>500? 'red' : 'black'}">-->
-                            <span *ngIf="scholarship.description">
-                              {{scholarship.description.length}}/500
-                            </span>
-
-                          </div>
-                          <div class="row">
-                            <mat-form-field class="col-sm-12">
-                              <input class="browser-default" matInput id="scholarship_url" type=url placeholder="Schlarship URL" [(ngModel)]="scholarship.scholarship_url" name="scholarship_url">
-                            </mat-form-field>
-
-                            <mat-form-field class="col-sm-12">
-                              <input class="browser-default" matInput id="img_url" type=url placeholder="Scholarship Image URL" [(ngModel)]="scholarship.img_url" name="img_url">
-                            </mat-form-field>
-
-
-                            <mat-form-field class="col-sm-12">
-                              <input class="browser-default" matInput id="form_url" type=url placeholder="Application Form URL" [(ngModel)]="scholarship.form_url" name="form_url" (change)="formNeedsParsing()">
-                            </mat-form-field>
-                            <label for="form_url">To upload a file, see next page</label>
-
-                          </div>
-
-                          <div class="row">
-
-                            <mat-form-field class="col-sm-12"  *ngIf="scholarship.extra_questions && !scholarship.extra_questions.funding_amount_varies">
-                              <input class="browser-default" min="0" matInput id="funding_amount" type="number" placeholder="Funding Amount" [(ngModel)]="scholarship.funding_amount" name="funding_amount">
-                            </mat-form-field>
-
-                            <div class="col-sm-12" *ngIf="scholarship.extra_questions">
-                              <input class="browser-default" id="funding_amount_varies" type="checkbox" [(ngModel)]="scholarship.extra_questions.funding_amount_varies"
-                                     name="funding_amount_varies">
-                              <label for="funding_amount_varies" data-error="Invalid input">Funding Amount Varies?</label>
+                            <div class="row">
+                              <mat-form-field class="col-sm-12">
+                                <input class="browser-default" matInput id="name" type="text" required placeholder="Scholarship Name" [(ngModel)]="scholarship.name" name="name">
+                              </mat-form-field>
                             </div>
+                            <div class="row">
+                              <label> Give a short description of the scholarship. You will be able to give more details later.</label><br>
+                              <textarea  class="browser-default col-sm-12" matInput id="description" type="text"
+                                         required placeholder="Description"  [(ngModel)]="scholarship.description" name="description"></textarea>
+                              <!--<span *ngIf="scholarship.description" [ngStyle]="{'color': scholarship.description.length>500? 'red' : 'black'}">-->
+                              <span *ngIf="scholarship.description">
+                                {{scholarship.description.length}}/500
+                              </span>
 
-                          </div>
+                            </div>
+                            <div class="row">
+                              <mat-form-field class="col-sm-12">
+                                <input class="browser-default" matInput id="scholarship_url" type=url placeholder="Schlarship URL" [(ngModel)]="scholarship.scholarship_url" name="scholarship_url">
+                              </mat-form-field>
 
-                          <div class="row">
-                            <mat-form-field class="col-sm-12">
-                              <input class="browser-default" matInput id="number_available_scholarships" type="number" placeholder="Number of Available Scholarships" [(ngModel)]="scholarship.number_available_scholarships" name="number_available_scholarships" value="1">
-                            </mat-form-field>
-                          </div>
-                          <div class="row">
-                            <mat-form-field class="col-sm-6">
-                              <label>Deadline</label>
-                              <br/>
-                              <input class="browser-default" matInput id="deadline" type="datetime-local"
-                                     [(ngModel)]="scholarship.deadline" name="deadline">
-                            </mat-form-field>
+                              <mat-form-field class="col-sm-12">
+                                <input class="browser-default" matInput id="img_url" type=url placeholder="Scholarship Image URL" [(ngModel)]="scholarship.img_url" name="img_url">
+                              </mat-form-field>
 
 
-                            <div *ngIf="scholarship.deadline" class="col-sm-12 col-md-6">
-                              <!-- TODO: Wrong time zone offset on deadline -->
-                              Deadline: {{ scholarship.deadline | date:'fullDate' }} {{ scholarship.deadline | date:'shortTime' }}
-
-                              <span *ngIf="scholarship.deadline"  style="font-size: smaller">
-                              <strong>Note</strong>: Time displayed may be a few hours different due to timezone differences.
-                            </span>
+                              <mat-form-field class="col-sm-12">
+                                <input class="browser-default" matInput id="form_url" type=url placeholder="Application Form URL" [(ngModel)]="scholarship.form_url" name="form_url" (change)="formNeedsParsing()">
+                              </mat-form-field>
+                              <label for="form_url">To upload a file, see next page</label>
 
                             </div>
 
+                            <div class="row">
 
-                            <div class="col col-sm-12 col-md-6">
-                              <input class="browser-default" id="not_open_yet" type="checkbox" [(ngModel)]="scholarship.metadata['not_open_yet']"
-                                     name="not_open_yet">
-                              <label for="not_open_yet" data-error="Invalid input">Scholarship Not Open Yet?</label>
+                              <mat-form-field class="col-sm-12"  *ngIf="scholarship.extra_questions && !scholarship.extra_questions.funding_amount_varies">
+                                <input class="browser-default" min="0" matInput id="funding_amount" type="number" placeholder="Funding Amount" [(ngModel)]="scholarship.funding_amount" name="funding_amount">
+                              </mat-form-field>
+
+                              <div class="col-sm-12" *ngIf="scholarship.extra_questions">
+                                <input class="browser-default" id="funding_amount_varies" type="checkbox" [(ngModel)]="scholarship.extra_questions.funding_amount_varies"
+                                       name="funding_amount_varies">
+                                <label for="funding_amount_varies" data-error="Invalid input">Funding Amount Varies?</label>
+                              </div>
+
                             </div>
 
-                            <div class="col col-sm-12 col-md-6" *ngIf="scholarship.metadata['not_open_yet']">
-                              <label for="open_date"> What date does the scholarship Open?</label>
-                              <br/>
-                              <input id="open_date" type="date"
-                                     [(ngModel)]="scholarship.open_date" name="open_date">
+                            <div class="row">
+                              <mat-form-field class="col-sm-12">
+                                <input class="browser-default" matInput id="number_available_scholarships" type="number" placeholder="Number of Available Scholarships" [(ngModel)]="scholarship.number_available_scholarships" name="number_available_scholarships" value="1">
+                              </mat-form-field>
+                            </div>
+                            <div class="row">
+                              <mat-form-field class="col-sm-6">
+                                <label>Deadline</label>
+                                <br/>
+                                <input class="browser-default" matInput id="deadline" type="datetime-local"
+                                       [(ngModel)]="scholarship.deadline" name="deadline">
+                              </mat-form-field>
+
+
+                              <div *ngIf="scholarship.deadline" class="col-sm-12 col-md-6">
+                                <!-- TODO: Wrong time zone offset on deadline -->
+                                Deadline: {{ scholarship.deadline | date:'fullDate' }} {{ scholarship.deadline | date:'shortTime' }}
+
+                                <span *ngIf="scholarship.deadline"  style="font-size: smaller">
+                                <strong>Note</strong>: Time displayed may be a few hours different due to timezone differences.
+                              </span>
+
+                              </div>
+
+
+                              <div class="col col-sm-12 col-md-6">
+                                <input class="browser-default" id="not_open_yet" type="checkbox" [(ngModel)]="scholarship.metadata['not_open_yet']"
+                                       name="not_open_yet">
+                                <label for="not_open_yet" data-error="Invalid input">Scholarship Not Open Yet?</label>
+                              </div>
+
+                              <div class="col col-sm-12 col-md-6" *ngIf="scholarship.metadata['not_open_yet']">
+                                <label for="open_date"> What date does the scholarship Open?</label>
+                                <br/>
+                                <input id="open_date" type="date"
+                                       [(ngModel)]="scholarship.open_date" name="open_date">
+                              </div>
+
+
+                              <div class="col col-sm-12 col-md-6">
+                                <input class="browser-default" id="needs_automation" type="checkbox" [(ngModel)]="scholarship.metadata['needs_automation']"
+                                       name="needs_automation">
+                                <label for="needs_automation" data-error="Invalid input">Needs Automation?</label>
+                              </div>
+                              <br>
                             </div>
 
+                            <span class="location-edit-section">
+                              <ng-container *ngIf="suggestionMode">Editing location not available in Suggestion beta mode, please leave a comment.</ng-container>
+                          <mat-form-field class="col-sm-12 col-md-4">
 
-                            <div class="col col-sm-12 col-md-6">
-                              <input class="browser-default" id="needs_automation" type="checkbox" [(ngModel)]="scholarship.metadata['needs_automation']"
-                                     name="needs_automation">
-                              <label for="needs_automation" data-error="Invalid input">Needs Automation?</label>
+                            <!-- TODO: Changing Location Creation -->
+
+                            <!--{{ myJson.stringify(locationList) }}-->
+
+                            <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
+                            <input class="browser-default" matInput type="text" class="form-control"  [placeholder]="locationPlaceHolder" name="location" id="location" [(ngModel)]="locationInput.city" #LocationCtrl="ngModel"
+                                   appGooglePlace (setAddress)="placeAutoComplete($event,LocationCtrl)"  (googlePlaceNoLoad)="googlePlaceNoLoad()" (keydown)="keyDownHandler($event)">
+                          </mat-form-field>
+                              <!-- See table-layout.component.html as a guide -->
+                          <table class="table">
+                            <caption >Locations</caption>
+                            <thead>
+                            <tr>
+                              <th *ngFor="let locationType of ['city','province','country']">{{ locationType }}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr *ngFor="let location of locationList; let i = index"><!-- For each row (or entry) of data  -->
+
+                              <td *ngFor="let locationType of ['city','province','country']">{{ location[locationType]}}</td>
+                              <br>
+
+                              <a class="waves-effect waves-light btn right" (click)="deleteLocationRow(i)">
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                              </a>
+
+
+                            </tr>
+                            </tbody>
+
+
+                          </table>
+
+                          </span>
+
+                            <br>
+                            <div class="row">
+                              <mat-form-field class="input-field col-sm-12 ">
+                                <mat-select class="col-sm-12" [(ngModel)]="scholarship.funding_type" name="funding_type" id="funding_type" multiple=true
+                                            placeholder="Funding Type">
+                                  <mat-option *ngFor="let type of FUNDING_TYPES" [value]="type">{{type}} </mat-option>
+                                </mat-select>
+                              </mat-form-field>
                             </div>
                             <br>
-                          </div>
-
-                          <span class="location-edit-section">
-                        <mat-form-field class="col-sm-12 col-md-4">
-
-                          <!-- TODO: Changing Location Creation -->
-
-                          <!--{{ myJson.stringify(locationList) }}-->
-
-                          <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
-                          <input class="browser-default" matInput type="text" class="form-control"  [placeholder]="locationPlaceHolder" name="location" id="location" [(ngModel)]="locationInput.city" #LocationCtrl="ngModel"
-                                 appGooglePlace (setAddress)="placeAutoComplete($event,LocationCtrl)"  (googlePlaceNoLoad)="googlePlaceNoLoad()" (keydown)="keyDownHandler($event)">
-                        </mat-form-field>
-                            <!-- See table-layout.component.html as a guide -->
-                        <table class="table">
-                          <caption >Locations</caption>
-                          <thead>
-                          <tr>
-                            <th *ngFor="let locationType of ['city','province','country']">{{ locationType }}</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-
-                          <tr *ngFor="let location of locationList; let i = index"><!-- For each row (or entry) of data  -->
-
-                            <td *ngFor="let locationType of ['city','province','country']">{{ location[locationType]}}</td>
-                            <br>
-
-                            <a class="waves-effect waves-light btn right" (click)="deleteLocationRow(i)">
-                              <i class="fa fa-trash-o" aria-hidden="true"></i>
-                            </a>
-
-
-                          </tr>
-                          </tbody>
-
-
-                        </table>
-
-                        </span>
-
-                          <br>
-                          <div class="row">
                             <mat-form-field class="input-field col-sm-12 ">
-                              <mat-select class="col-sm-12" [(ngModel)]="scholarship.funding_type" name="funding_type" id="funding_type" multiple=true
-                                          placeholder="Funding Type">
-                                <mat-option *ngFor="let type of FUNDING_TYPES" [value]="type">{{type}} </mat-option>
+                              <mat-select [(ngModel)]="scholarship.education_level" name="education_level" id="education_level" multiple=true placeholder="Select Your Education Type">
+                                <mat-option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </mat-option>
                               </mat-select>
                             </mat-form-field>
-                          </div>
-                          <br>
-                          <mat-form-field class="input-field col-sm-12 ">
-                            <mat-select [(ngModel)]="scholarship.education_level" name="education_level" id="education_level" multiple=true placeholder="Select Your Education Type">
-                              <mat-option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </mat-option>
-                            </mat-select>
-                          </mat-form-field>
-                          <br>
-                          <mat-form-field class="input-field col-sm-12 ">
-                            <mat-select class="col-sm-12" [(ngModel)]="scholarship.education_field" name="education_field" id="education_field" multiple=true
-                                        placeholder="Education Field">
-                              <mat-option *ngFor="let education_field of EDUCATION_FIELDS" [value]="education_field">{{education_field}} </mat-option>
-                            </mat-select>
-                          </mat-form-field>
-                          <br>
+                            <br>
+                            <mat-form-field class="input-field col-sm-12 ">
+                              <mat-select class="col-sm-12" [(ngModel)]="scholarship.education_field" name="education_field" id="education_field" multiple=true
+                                          placeholder="Education Field">
+                                <mat-option *ngFor="let education_field of EDUCATION_FIELDS" [value]="education_field">{{education_field}} </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                            <br>
 
-                          <div class="row">
-                            <div class="col-sm-12">
-                              <p> What programs are this scholarship for? (Leave blank for any program)</p>
-                              <table>
-                                <tr  *ngFor="let program of scholarship.eligible_programs; let i = index">
-                                  <td> {{program}} </td>
-                                  <td>
-                                    <a class="waves-effect waves-light btn right" (click)="deleteArrayitem(scholarship.eligible_programs, i)">
-                                      <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                    </a>
-                                  </td>
-                                </tr>
-                              </table>
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <p> What programs are this scholarship for? (Leave blank for any program)</p>
+                                <table>
+                                  <tr  *ngFor="let program of scholarship.eligible_programs; let i = index">
+                                    <td> {{program}} </td>
+                                    <td>
+                                      <a class="waves-effect waves-light btn right" (click)="deleteArrayitem(scholarship.eligible_programs, i)">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                      </a>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </div>
+
+                              <div class="col-sm-12">
+                                <app-typeahead [model]="scholarship.eligible_programs" [dataset]="MAJORS_LIST"
+                                               [metadata]="{'placeholder':'What programs are this scholarship for? (Leave blank for any program)', 'key':'major','tabindex':'9'}">
+                                </app-typeahead>
+                              </div>
+
                             </div>
 
-                            <div class="col-sm-12">
-                              <app-typeahead [model]="scholarship.eligible_programs" [dataset]="MAJORS_LIST"
-                                             [metadata]="{'placeholder':'What programs are this scholarship for? (Leave blank for any program)', 'key':'major','tabindex':'9'}">
-                              </app-typeahead>
-                            </div>
 
-                          </div>
-
-
-                        </fieldset>
+                          </fieldset>
 
                         <div class="row">
                           <a class="waves-effect waves-light btn right" (click)="next()">Next</a>
