@@ -28,7 +28,7 @@ export class MyFirebaseService {
     if (subscriber) {
 
       subscriber = this.addMetadata(subscriber);
-      return $.getJSON('//api.ipstack.com/check?access_key=9e6a79fc9c2f5ab8b7f4f42095469029&output=json&legacy=1',
+      return $.getJSON('https://api.ipdata.co',
         data => {
           subscriber = this.addMetadata(subscriber);
           subscriber.geo_ip = data;
@@ -43,7 +43,7 @@ export class MyFirebaseService {
   }
 
   saveUserAnalytics(user, path?) {
-    return $.getJSON('//api.ipstack.com/check?access_key=9e6a79fc9c2f5ab8b7f4f42095469029&output=json&legacy=1',
+    return $.getJSON('https://api.ipdata.co',
       data => {
         user = this.addMetadata(user);
         user.geo_ip = data;
@@ -63,7 +63,7 @@ export class MyFirebaseService {
 
     queryData = this.addMetadata(queryData);
 
-    return $.getJSON('//api.ipstack.com/check?access_key=9e6a79fc9c2f5ab8b7f4f42095469029&output=json&legacy=1',
+    return $.getJSON('https://api.ipdata.co',
       data => {
         queryData.geo_ip = data;
         return this.db.list('search_analytics/queries').push(queryData);
@@ -82,7 +82,7 @@ export class MyFirebaseService {
     if(path) {
       data = this.addMetadata(data);
       data.timestamp = new Date().getTime();
-      return $.getJSON('//api.ipstack.com/check?access_key=9e6a79fc9c2f5ab8b7f4f42095469029&output=json&legacy=1',
+      return $.getJSON('https://api.ipdata.co',
         res => {
           data.geo_ip = res;
           return this.db.list(path).push(data);
@@ -120,7 +120,7 @@ export class MyFirebaseService {
   }
 
   getGeoIp(opts={}) {
-    return $.getJSON('//api.ipstack.com/check?access_key=9e6a79fc9c2f5ab8b7f4f42095469029&output=json&legacy=1')
+    return $.getJSON('https://api.ipdata.co')
   }
 
 

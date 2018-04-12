@@ -12,7 +12,7 @@
                     <h4 *ngIf="editMode">Edit Scholarship</h4>
                     <h4 *ngIf="!editMode">Add Scholarship</h4>
 
-                    <h4>{{scholarship.name}}</h4>
+                    <h4>{{scholarship.name}}</h4><p *ngIf="scholarship.id" style="font-size: small">#{{scholarship.id}}</p>
                     <a *ngIf="scholarship && scholarship.slug" routerLink="/scholarship/{{scholarship.slug}}">View Scholarship</a>
 
 

@@ -28,7 +28,6 @@ export class ScholarshipEditSuggestionComponent implements OnInit {
   }
 
   saveEdit() {
-    console.log('saveEdit',this.edit);
     this.firebaseService.updateAny_fs(this.edit.firebase_path,this.edit.id,this.edit);
   }
 
