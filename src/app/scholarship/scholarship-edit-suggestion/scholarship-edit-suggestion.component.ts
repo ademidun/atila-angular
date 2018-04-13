@@ -64,7 +64,6 @@ export class ScholarshipEditSuggestionComponent implements OnInit {
           .subscribe(
             res => {
               this.edit.changes[changeKey].status = newStatus;
-              console.log('res',res);
               this.saveEdit();
               let snackBarRef = this.snackBar.open("Success! Suggestion Applied",'View Scholarship',{duration: 4000});
               snackBarRef.onAction().subscribe(
@@ -75,7 +74,6 @@ export class ScholarshipEditSuggestionComponent implements OnInit {
               );
             },
             err => {
-              console.log('err',err);
               let snackBarRef = this.snackBar.open("Error: " + JSON.stringify(err.error),'',{duration: 4000});
               snackBarRef.onAction().subscribe(
                 () => {

@@ -109,7 +109,7 @@ export class MyFirebaseService {
     const id = this.fs.createId();
     data['id'] = id;
     collection.doc(id).set(data);
-    return id;
+    return data;
   }
 
   updateAny_fs(path,id,data,opts={}) {

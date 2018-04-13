@@ -497,16 +497,16 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
         diff['user_id'] = this.userId;
         diff['user'] = {
           username: this.userProfile.username,
-          profile_image_url: this.userProfile.profile_pic_url,
-          uid: this.userProfile.user,
+          profile_pic_url: this.userProfile.profile_pic_url,
+          id: this.userProfile.user,
         };
       }
       else {
         diff['user_id'] = 0;
         diff['user'] = {
           username: 'guest',
-          profile_image_url: 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2Fgeneral-data%2Fdefault-profile-pic.png?alt=media&token=455c59f7-3a05-43f1-a79e-89abff1eae57',
-          uid: 0,
+          profile_pic_url: 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2Fgeneral-data%2Fdefault-profile-pic.png?alt=media&token=455c59f7-3a05-43f1-a79e-89abff1eae57',
+          id: 0,
         };
       }
 
@@ -514,21 +514,27 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
         .then(res=>{
           diff.metadata['geo_ip'] = res;
           let path = 'scholarships/' + this.scholarship.id + '/edits';
-          diff['id'] = this.firebaseService.saveAny_fs(path, diff);
+          diff = this.firebaseService.saveAny_fs(path, diff);
 
         })
         .fail( (jqXHR, textStatus, errorThrown) => {
-          console.log('jqXHR, textStatus, errorThrown',jqXHR, textStatus, errorThrown);
-
           diff.metadata['geo_ip'] = textStatus;
-          diff['id'] = this.firebaseService.saveAny_fs('scholarship_edits', diff);
+          diff = this.firebaseService.saveAny_fs('scholarship_edits', diff);
         })
         .done(()=> {
 
+
+          this.scholarshipService.createEdit(diff,{'translateEdit': true}).subscribe(
+            res => {
+              },
+            err => {
+              }
+          );
           this.snackBar.open("Thanks! Changes Saved. Sent to Scholarship creator for Review", '', {
             duration: 5000
           });
           return;
+
         })
     }
 

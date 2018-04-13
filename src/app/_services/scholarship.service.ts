@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
 
-import { Scholarship } from "../_models/scholarship";
+import {Scholarship, ScholarshipEdit} from "../_models/scholarship";
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -15,6 +15,7 @@ export class ScholarshipService {
   public scholarshipsUrl = environment.apiUrl + 'scholarships/';
   public scholarshipsPreviewUrl = environment.apiUrl + 'scholarship-preview/';
   public scholarshipSlugUrl = environment.apiUrl + 'scholarship-slug/';
+  public scholarshipEditUrl = environment.apiUrl + 'scholarship/edits/';
   constructor(public http: HttpClient,
               public firebaseService: MyFirebaseService) { }
   form_data: any;
@@ -24,6 +25,22 @@ export class ScholarshipService {
     return this.http.post(this.scholarshipsUrl, scholarship)
       .map(this.extractData)
       .catch(this.handleError);
+  }
+
+  createEdit(scholarshipEdit: ScholarshipEdit | any,opts={}): Observable<ScholarshipEdit>{
+
+    if (opts['translateEdit']) {
+      scholarshipEdit = this.translateEditData(scholarshipEdit);
+    }
+    return this.http.post(this.scholarshipEditUrl, scholarshipEdit)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  translateEditData(scholarshipEdit) {
+    scholarshipEdit['user'] = scholarshipEdit.user.id != 0 ? scholarshipEdit.user.id : null;
+
+    return scholarshipEdit;
   }
 
   createAny(data: any): Observable<Scholarship>{
