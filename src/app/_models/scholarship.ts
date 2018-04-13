@@ -45,6 +45,7 @@ export class Scholarship {
               public religion?: string[],
               public resume_required?: any,
               public scholarship_img_url?: string,
+              public scholarships_not_interested?: any[],
               public scholarship_url?: string,
               public slug?: string,
               public sports?: string[],

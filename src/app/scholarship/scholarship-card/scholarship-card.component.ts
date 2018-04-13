@@ -4,10 +4,19 @@ import {Router} from '@angular/router';
 import {addToMyScholarshipHelper, UserProfile} from '../../_models/user-profile';
 import {MyFirebaseService} from '../../_services/myfirebase.service';
 import {UserProfileService} from '../../_services/user-profile.service';
+import { trigger, state, animate, transition, style } from '@angular/animations';
+
 @Component({
   selector: 'app-scholarship-card',
   templateUrl: './scholarship-card.component.html',
-  styleUrls: ['./scholarship-card.component.scss']
+  styleUrls: ['./scholarship-card.component.scss'],
+  animations: [
+    trigger('hideCard', [
+      state('true', style({ opacity: 0, transform: 'scale(0.0)'  })),
+      state('false' , style({ opacity: 1, transform: 'scale(1.0)' })),
+      transition('* => *', animate('.5s ease-in'))
+    ])
+  ],
 })
 export class ScholarshipCardComponent implements OnInit {
 
@@ -16,6 +25,7 @@ export class ScholarshipCardComponent implements OnInit {
   @Input() userProfile: UserProfile;
   alreadySaved: boolean;
   userAnalytics: any = {};
+  hideCard: boolean;
   constructor(
     public snackBar: MatSnackBar,
     public router: Router,
@@ -119,6 +129,20 @@ export class ScholarshipCardComponent implements OnInit {
           .then(() => {})
           .catch((error) => {});
       }
+
+  }
+
+  logNotInterested() {
+
+    setTimeout( (args) => {
+      $('#scholarship-card-'+this.scholarship.id).css('display', 'none');
+        console.log('setTimeout()', args);
+    }, 700);
+    console.log('this.userProfile, this .scholarship', this.userProfile,this.scholarship);
+
+    this.userAnalytics.schoarship_id = this.scholarship.id;
+    this.userAnalytics.user_id = this.userProfile ? this.userProfile.user : 0;
+    this.firebaseService.saveUserAnalytics(this.userAnalytics,'scholarships/not_interested/'+this.scholarship.id);
 
   }
 

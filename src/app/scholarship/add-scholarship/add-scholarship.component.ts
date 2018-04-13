@@ -762,6 +762,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
   initializeLocations(){
     // See createLocations() int edit-scholarship or add-scholarship.component.ts
+    this.locationList = [];
     for (var index = 0; index < this.scholarship.country.length; index++) {
       var element = this.scholarship.country[index];
       this.locationList.push({

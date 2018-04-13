@@ -1,4 +1,4 @@
-<div class="card horizontal">
+<div class="card horizontal" [id]="'scholarship-card-'+scholarship.id" [@hideCard]="hideCard">
   <div class="card-action">
     <a [routerLink]="['/scholarship', scholarship.slug]" class="card-title">{{scholarship.name | truncate:40}}</a>
 
@@ -24,7 +24,8 @@
       <p> {{scholarship.description | truncate:250}}</p>
     </div>
   </div>
-  <a placement="bottom" ngbTooltip="Save Scholarship" class="btn-floating interactive-btn halfway-fab waves-effect waves-light atila-blue"title="Save Scholarship" (click)="addToMyScholarship(scholarship)" [ngStyle]="{'background-color': alreadySaved ? '#4080ff' : 'gray'}" style="left: 15px; bottom: 10px">
+  <a placement="bottom" ngbTooltip="Save Scholarship" class="btn-floating interactive-btn halfway-fab waves-effect waves-light atila-blue"title="Save Scholarship"
+     (click)="addToMyScholarship(scholarship)" [ngStyle]="{'background-color': alreadySaved ? '#4080ff' : 'gray'}" style="left: 15px; bottom: 10px">
     <i class="material-icons">bookmark</i>
   </a>
   <div class="card-action dropdown show">
@@ -48,8 +49,15 @@
     </div>
   </div>
   <a *ngIf=scholarship.is_automated [routerLink]="['/scholarship', scholarship.slug]" title="Automated Scholarship"
-     style="left: 150px; bottom: 10px" class="btn-floating interactive-btn halfway-fab waves-effect waves-light atila-blue" triggers="mouseenter" placement="bottom" [ngbPopover]="automationInfoPopover" popoverTitle="Automated Scholarship">
+     style="left: 150px; bottom: 10px" class="btn-floating interactive-btn halfway-fab waves-effect waves-light atila-blue" triggers="mouseenter" placement="bottom"
+     [ngbPopover]="automationInfoPopover" popoverTitle="Automated Scholarship">
     <i class="material-icons automate-tag">tag_faces</i></a>
+
+  <a (click)="hideCard=true;logNotInterested()" title="Not interested in this Scholarship"
+     [ngStyle]="{'left': scholarship.is_automated ? '200px' : '150px'}"
+     style="bottom: 10px" class="btn-floating interactive-btn halfway-fab waves-effect waves-light atila-blue"
+     ngbTooltip="Not interested in this Scholarship">
+    <i class="material-icons automate-tag">visibility_off</i></a>
 </div>
 
 <ng-template #automationInfoPopover>Automatically <a [routerLink]="['/scholarship', scholarship.slug]">apply</a> for this scholarship in one click!
