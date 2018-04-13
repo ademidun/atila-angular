@@ -33,6 +33,8 @@ export class UserProfile {
             public province?: any,
             public religion?: string[],
             public street_address?: string,
+            public scholarships_match_score?: any[],
+            public scholarships_not_interested?: any[],
             public user?: number,
             public username?:any,
             public preferences?:any,
@@ -62,7 +64,7 @@ export class UserProfile {
         }
     }
 
-     export function toTitleCase(str) {
+export function toTitleCase(str) {
        var i, j, lowers, uppers;
        str = str.replace(/([^\W_]+[^\s-]*) */g, function(txt) {
          return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
@@ -90,7 +92,7 @@ export class UserProfile {
        return str;
      }
 
-     export function addToMyScholarshipHelper(userProfile, item) {
+export function addToMyScholarshipHelper(userProfile, item) {
 
 
          for (let i =0; i<userProfile.saved_scholarships.length; i++) {
@@ -110,3 +112,20 @@ export class UserProfile {
          return [userProfile, true];
 
      }
+
+export function updateScholarshipMatchScore(userProfile: UserProfile, opts={}) {
+  if (opts['not_interested']) {
+    let notInterested = userProfile.scholarships_not_interested;
+
+    userProfile.scholarships_match_score = userProfile.scholarships_match_score.map(matchData => {
+      if (userProfile.scholarships_not_interested.includes(matchData['id'])) {
+        matchData['not_interested'] = true;
+      }
+      return matchData;
+    });
+  }
+  console.log('updateScholarshipMatchScore() userProfile: ',userProfile);
+  return userProfile;
+
+
+}

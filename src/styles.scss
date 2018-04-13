@@ -58,7 +58,7 @@ a:not(.btn):hover {
   text-decoration: underline !important;
 }
 
-ul:not(.browser-default) > li {
+.inner-html ul:not(.browser-default) > li {
   list-style-type: initial !important;
 }
 

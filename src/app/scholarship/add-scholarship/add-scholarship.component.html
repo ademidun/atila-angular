@@ -539,7 +539,7 @@
                             </a>
                             <ng-container *ngIf="showCriteriaInfoPreview">
                               <h4>Criteria Info Preview</h4>
-                              <div *ngIf="showCriteriaInfoPreview" [innerHTML]="scholarship.criteria_info | safeHtml"></div>
+                              <div *ngIf="showCriteriaInfoPreview" class="inner-html" [innerHTML]="scholarship.criteria_info | safeHtml"></div>
                             </ng-container>
                           </div>
 

@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
-import {addToMyScholarshipHelper, UserProfile} from '../../_models/user-profile';
+import {addToMyScholarshipHelper, UserProfile, updateScholarshipMatchScore} from '../../_models/user-profile';
 import {MyFirebaseService} from '../../_services/myfirebase.service';
 import {UserProfileService} from '../../_services/user-profile.service';
 import { trigger, state, animate, transition, style } from '@angular/animations';
@@ -144,6 +144,33 @@ export class ScholarshipCardComponent implements OnInit {
     this.userAnalytics.user_id = this.userProfile ? this.userProfile.user : 0;
     this.firebaseService.saveUserAnalytics(this.userAnalytics,'scholarships/not_interested/'+this.scholarship.id);
 
+    if (this.userProfile) {
+
+      this.userProfile.scholarships_not_interested.push(this.scholarship.id);
+
+      this.userProfile.metadata['stale_cache'] = true;
+
+      this.userProfile = updateScholarshipMatchScore(this.userProfile,{'not_interested': true});
+
+      let scholarships_not_interested = {
+        scholarships_not_interested: this.userProfile.scholarships_not_interested,
+        metadata: this.userProfile.metadata,
+      };
+      this.userProfileService.patch(this.userProfile.user, scholarships_not_interested).subscribe(
+        res => {
+          console.log('res',res);
+          let snackBarRef = this.snackBar.open("Changes Saved", 'Refresh Results', {
+            duration: 5000
+          });
+          snackBarRef.onAction().subscribe(
+            () => {
+              this.router.navigate(['scholarship']);
+            },
+          )
+
+        }
+      )
+    }
   }
 
   }

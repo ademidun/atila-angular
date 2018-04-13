@@ -84,6 +84,12 @@ export class UserProfileService {
         .map(res=>res)
         .catch(err => Observable.throw(err));
   }
+  patch(id, data: any) {
+
+      return this.http.patch(`${this.userProfileEndpoint}${id}/`, data)
+        .map(res=>res)
+        .catch(err => Observable.throw(err));
+  }
 
   updateHelper(userProfile: UserProfile){
       /**
