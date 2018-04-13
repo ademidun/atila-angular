@@ -21,3 +21,9 @@
 .btn-floating{
   font-size: 12px;
 }
+
+#criteria_info_preview {
+  max-height: 500px;
+  overflow-y: scroll;
+  padding-left: 5%;
+}

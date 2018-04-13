@@ -532,8 +532,17 @@
                             <textarea [ngClass]="editorId +' col-sm-12'"></textarea>
                           </div>
 
+                          <div *ngIf="scholarship.criteria_info" id="criteria_info_preview">
 
-                          <div id="criteria_info_hidden" [innerHTML]="scholarship.criteria_info | safeHtml"></div>
+                            <a (click)="showCriteriaInfoPreview=!showCriteriaInfoPreview">
+                              {{!showCriteriaInfoPreview ? 'Show Criteria Preview' : 'Hide Criteria Preview'}}
+                            </a>
+                            <ng-container *ngIf="showCriteriaInfoPreview">
+                              <h4>Criteria Info Preview</h4>
+                              <div *ngIf="showCriteriaInfoPreview" [innerHTML]="scholarship.criteria_info | safeHtml"></div>
+                            </ng-container>
+                          </div>
+
 
                         </fieldset>
                         <div class="row">

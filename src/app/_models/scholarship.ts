@@ -198,3 +198,15 @@ export function getScholarshipDiff(oldScholarship: Scholarship, newScholarship: 
 
 }
 
+export function cleanHtml(rawHtml: string) {
+
+  // https://stackoverflow.com/questions/19356398/remove-style-attribute-on-style-tag#19564598
+
+  rawHtml = rawHtml.replace(/(<[^>]+) style=".*?"/gi, '$1');
+
+  rawHtml = rawHtml.replace(/(<[^>]+) class=".*?"/gi, '$1');
+  rawHtml = rawHtml.replace(/<iframe.+?<\/iframe>/gi, '');
+
+  return rawHtml
+}
+

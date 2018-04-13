@@ -1,5 +1,6 @@
 import {Component, OnInit, AfterViewInit, ChangeDetectorRef, OnDestroy} from '@angular/core';
-import { Scholarship, scholarshipQuickCreate,scholarshipCreationHelper, getScholarshipDiff } from '../../_models/scholarship';
+import { Scholarship, scholarshipQuickCreate,scholarshipCreationHelper,
+  getScholarshipDiff, cleanHtml } from '../../_models/scholarship';
 import { UploadFile } from '../../_models/upload-file';
 import { ScholarshipService } from '../../_services/scholarship.service';
 import { Observable } from 'rxjs/Observable';
@@ -138,6 +139,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
   editorId = "tinymce-editor";
   editorId2 = "tinymce-editor2";
   editor: any;
+  showCriteriaInfoPreview: boolean;
 
   constructor(
     public ref:ChangeDetectorRef,
@@ -227,20 +229,24 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
   onEditorContentChange(event:any, content:any, editor: any){
 
+    console.log('rawCriteria', this.scholarship.criteria_info,'\n\n');
     if((<KeyboardEvent>event).keyCode == 13) {
 
-      this.scholarship.criteria_info = content;
+      console.log('<KeyboardEvent>event', this.scholarship.criteria_info,'\n\n');
+      this.scholarship.criteria_info = cleanHtml(content);
 
     }
 
 
     // remove all style attributes
     // this.scholarship.criteria_info = content.replace(/(<[^>]+) style=".*?"/gi, '$1',);
-    let cleanString = content.replace(/(<[^>]+) style=".*?"/gi, '$1',);
-    this.scholarship.criteria_info = content;
+    //let cleanString = content.replace(/(<[^>]+) style=".*?"/gi, '$1',);
+    this.scholarship.criteria_info = cleanHtml(content);
     if (!this.ref['destroyed']) {
       this.ref.detectChanges();
     }
+
+    console.log('clean', this.scholarship.criteria_info,'\n\n');
 
   }
 
@@ -474,6 +480,22 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
   saveScholarship(scholarshipForm: NgForm, metadata?: any) {
 
+
+    if (this.scholarship.deadline) {
+      try{
+        this.scholarship.deadline = new Date(this.scholarship.deadline).toISOString();
+      }
+      catch (err) {
+        if (!this.scholarship.metadata['errors']){
+          this.scholarship.metadata['errors'] = {}
+        }
+        this.scholarship.metadata['errors']['parse_deadline'] = {
+          'error': err.toString(),
+          'deadline': this.scholarship.deadline,
+        }
+      }
+    }
+
     if(this.editMode && this.suggestionMode){
 
       let changes = getScholarshipDiff(this.originalScholarship, this.scholarship);
@@ -526,6 +548,10 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
           this.scholarshipService.createEdit(diff,{'translateEdit': true}).subscribe(
             res => {
+
+              if (this.isOwner) {
+                this.loadScholarshipDatabase();
+              }
               },
             err => {
               }
@@ -561,20 +587,6 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
     }
     this.scholarshipErrors = null;
 
-    if (this.scholarship.deadline) {
-      try{
-        this.scholarship.deadline = new Date(this.scholarship.deadline).toISOString();
-      }
-      catch (err) {
-        if (!this.scholarship.metadata['errors']){
-        this.scholarship.metadata['errors'] = {}
-        }
-        this.scholarship.metadata['errors']['parse_deadline'] = {
-          'error': err.toString(),
-          'deadline': this.scholarship.deadline,
-        }
-      }
-    }
 
     // Ignore errors with description not being filled yet
     if (scholarshipForm.valid || !this.scholarship.description) {
