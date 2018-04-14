@@ -124,7 +124,6 @@ export function updateScholarshipMatchScore(userProfile: UserProfile, opts={}) {
       return matchData;
     });
   }
-  console.log('updateScholarshipMatchScore() userProfile: ',userProfile);
   return userProfile;
 
 

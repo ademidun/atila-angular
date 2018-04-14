@@ -229,10 +229,8 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
   onEditorContentChange(event:any, content:any, editor: any){
 
-    console.log('rawCriteria', this.scholarship.criteria_info,'\n\n');
     if((<KeyboardEvent>event).keyCode == 13) {
 
-      console.log('<KeyboardEvent>event', this.scholarship.criteria_info,'\n\n');
       this.scholarship.criteria_info = cleanHtml(content);
 
     }
@@ -246,9 +244,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
       this.ref.detectChanges();
     }
 
-    console.log('clean', this.scholarship.criteria_info,'\n\n');
-
-  }
+    }
 
   ngOnDestroy() {
     //Called once, before the instance is destroyed.

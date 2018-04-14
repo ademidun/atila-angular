@@ -17,7 +17,12 @@ import {SearchComponent} from '../search/search.component';
 import {GeneralInfoComponent} from '../general-info/general-info.component';
 
 const routes: Routes = [
-  {path: '', component: PreviewComponent, data: {title: 'Atila | Scholarships Automated. The Right Way'}},
+  {
+    path: '',
+    component: PreviewComponent,
+    data: {title: 'Atila | Scholarships Automated. The Right Way'},
+    canActivate: [AuthGuard]
+  },
   {path: 'applications/demo', component: AppDetailComponent, data: {title: 'Automation Demo'}},
   {
     path: 'applications/:id',

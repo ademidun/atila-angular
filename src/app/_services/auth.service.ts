@@ -111,8 +111,14 @@ export class AuthService {
 
 
    isUserLoggedIn(): boolean {
+    try {
+      return ! isNaN(parseInt(this.decryptLocalStorage('uid')));
+    }
 
-     return ! isNaN(parseInt(this.decryptLocalStorage('uid')));
+    catch (err) {
+      console.log('isUserLoggedIn() err',err);
+      return false;
+    }
    }
 
     public getToken(): string {

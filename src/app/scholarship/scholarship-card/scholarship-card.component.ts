@@ -23,6 +23,7 @@ export class ScholarshipCardComponent implements OnInit {
   //todo change to only handle one scholarship
   @Input() scholarship: any;
   @Input() userProfile: UserProfile;
+  @Input() metadata: any = {};
   alreadySaved: boolean;
   userAnalytics: any = {};
   hideCard: boolean;
@@ -136,12 +137,15 @@ export class ScholarshipCardComponent implements OnInit {
 
     setTimeout( (args) => {
       $('#scholarship-card-'+this.scholarship.id).css('display', 'none');
-        console.log('setTimeout()', args);
     }, 700);
-    console.log('this.userProfile, this .scholarship', this.userProfile,this.scholarship);
 
     this.userAnalytics.schoarship_id = this.scholarship.id;
+    this.userAnalytics.schoarship_name = this.scholarship.name;
     this.userAnalytics.user_id = this.userProfile ? this.userProfile.user : 0;
+
+    if (this.metadata['form_data']) {
+      this.userAnalytics.form_data = this.metadata['form_data'];
+    }
     this.firebaseService.saveUserAnalytics(this.userAnalytics,'scholarships/not_interested/'+this.scholarship.id);
 
     if (this.userProfile) {
@@ -158,7 +162,6 @@ export class ScholarshipCardComponent implements OnInit {
       };
       this.userProfileService.patch(this.userProfile.user, scholarships_not_interested).subscribe(
         res => {
-          console.log('res',res);
           this.snackBar.open("Changes Saved.", '', {
             duration: 5000
           });

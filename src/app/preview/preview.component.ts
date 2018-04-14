@@ -13,6 +13,7 @@ import {SubscriberDialogComponent} from '../subscriber-dialog/subscriber-dialog.
 import {UserProfileService} from '../_services/user-profile.service';
 import {MyFirebaseService} from '../_services/myfirebase.service';
 import {NgbPopover} from '@ng-bootstrap/ng-bootstrap';
+import {AuthService} from '../_services/auth.service';
 //import {GeocoderAddressComponent} from '@types/googlemaps'
 
 //import 'googlemaps';
@@ -80,14 +81,16 @@ export class PreviewComponent implements OnInit, OnDestroy {
     public router: Router,
     public googleAnalyticsEventService: GoogleAnalyticsEventsService,
     public dialog: MatDialog,
+    public authService: AuthService,
     ) {
 
     }
 
   ngOnInit() {
-      $(function(){
-        $('iframe.lazy-load-element').attr('src', '//www.youtube.com/embed/c_K4342WMwQ?cc_load_policy=1');
-      });
+
+    $(function(){
+      $('iframe.lazy-load-element').attr('src', '//www.youtube.com/embed/c_K4342WMwQ?cc_load_policy=1');
+    });
 
   }
 

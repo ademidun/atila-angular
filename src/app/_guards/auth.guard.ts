@@ -13,8 +13,17 @@ export class AuthGuard implements CanActivate {
   }
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
-    if (this.authService.isLoggedIn) { return true; }
+    if (state.url == '/') {
+      if (this.authService.isUserLoggedIn()){
+        this.router.navigate(['/scholarship']);
+        return false;
+      }
+      else {
+        return true;
+      }
+    }
 
+    if (this.authService.isLoggedIn) { return true; }
     // Navigate to the login page with extras
     this.snackBar.open("Unauthorized Access", '', {
       duration: 3000
