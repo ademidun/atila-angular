@@ -154,19 +154,14 @@ export class ScholarshipCardComponent implements OnInit {
 
       let scholarships_not_interested = {
         scholarships_not_interested: this.userProfile.scholarships_not_interested,
-        metadata: this.userProfile.metadata,
+        scholarships_match_score: this.userProfile.scholarships_match_score,
       };
       this.userProfileService.patch(this.userProfile.user, scholarships_not_interested).subscribe(
         res => {
           console.log('res',res);
-          let snackBarRef = this.snackBar.open("Changes Saved", 'Refresh Results', {
+          this.snackBar.open("Changes Saved.", '', {
             duration: 5000
           });
-          snackBarRef.onAction().subscribe(
-            () => {
-              this.router.navigate(['scholarship']);
-            },
-          )
 
         }
       )
