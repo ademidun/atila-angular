@@ -40,6 +40,7 @@ export class ScholarshipsListComponent implements OnInit {
   total_funding: any = 0;
   show_scholarship_funding: boolean = false;
   viewAsMode: boolean;
+  environment = environment;
 
   pageNo: number = 1;
   paginationLen: number = 12;
@@ -582,5 +583,21 @@ export class ScholarshipsListComponent implements OnInit {
 
   }
 
+  toggleDebugMode(event: any) {
+    console.log('toggleDebugMode()', event);
+    console.log('this.userProfile.is_debug_mode', this.userProfile.is_debug_mode);
+
+    let patchData = {
+      is_debug_mode: this.userProfile.is_debug_mode
+    };
+
+    this.userProfileService.patch(this.userProfile.user,patchData).subscribe(
+      res => {
+        console.log('res',res);
+        this.getScholarshipPreview(this.pageNo);
+      }
+    )
+
+  }
 
 }

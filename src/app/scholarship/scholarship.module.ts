@@ -8,7 +8,6 @@ import {MaterializeModule} from 'angular2-materialize';
 import "materialize-css";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -24,6 +23,7 @@ import {
   MatSelectModule,
   MatSnackBarModule,
   MatTabsModule,
+  MatSlideToggleModule,
 } from '@angular/material';
 
 import {HttpClientModule} from '@angular/common/http';
@@ -66,7 +66,8 @@ import { ScholarshipEditSuggestionComponent } from './scholarship-edit-suggestio
     HttpClientModule,
     CommonModule,
     MaterializeModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSlideToggleModule
   ],
   declarations: [
     AddScholarshipComponent,

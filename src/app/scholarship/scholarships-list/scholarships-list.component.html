@@ -75,6 +75,12 @@
 
 
         </div>
+
+        <div class="row filter-div" *ngIf="!environment.production || userProfile.is_atila_admin">
+          <mat-slide-toggle [checked]="userProfile.is_debug_mode" (change)="userProfile.is_debug_mode=!userProfile.is_debug_mode;
+          toggleDebugMode($event)">Debug Mode </mat-slide-toggle>
+           {{userProfile.is_debug_mode}}
+        </div>
         <br>
 
         <div class="offset-md-2">

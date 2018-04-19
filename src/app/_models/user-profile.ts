@@ -22,6 +22,7 @@ export class UserProfile {
             public gender?: any,
             public heritage?: string[],
             public is_atila_admin?:any,
+            public is_debug_mode?:boolean,
             public is_sponsor?:any,
             public is_verified?:any,
             public is_international_student?:any,
