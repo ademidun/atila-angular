@@ -76,11 +76,11 @@
 
         </div>
 
-        <div class="row filter-div" *ngIf="!environment.production || userProfile.is_atila_admin">
-          <mat-slide-toggle [checked]="userProfile.is_debug_mode" (change)="userProfile.is_debug_mode=!userProfile.is_debug_mode;
-          toggleDebugMode($event)">Debug Mode </mat-slide-toggle>
-           {{userProfile.is_debug_mode}}
-        </div>
+        <!--<div class="row filter-div" *ngIf="!environment.production || userProfile.is_atila_admin">-->
+          <!--<mat-slide-toggle [checked]="userProfile.is_debug_mode" (change)="userProfile.is_debug_mode=!userProfile.is_debug_mode;-->
+          <!--toggleDebugMode($event)">Debug Mode </mat-slide-toggle>-->
+           <!--{{userProfile.is_debug_mode}}-->
+        <!--</div>-->
         <br>
 
         <div class="offset-md-2">
@@ -90,7 +90,16 @@
           <mat-form-field class="col-sm-6 col-md-3">
             <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
             <mat-select  [(ngModel)]="form_data.sort_by"  id="sort_by" name="sort_by" placeholder="Sort By:" (change)="getScholarshipPreview()">
-              <mat-option *ngFor="let sortType of ['relevance','deadline','surprise_me','only_automated','currently_open']" [value]="sortType">{{prettifyKeys(sortType)}} </mat-option>
+              <ng-container  *ngIf="isLoggedIn; else unRegisteredSortOptions" >
+                <mat-option *ngFor="let sortType of ['relevance_new','relevance','deadline','surprise_me','only_automated','currently_open']" [value]="sortType">
+                  {{prettifyKeys(sortType)}}
+                </mat-option>
+              </ng-container>
+
+              <ng-template #unRegisteredSortOptions>
+                <mat-option *ngFor="let sortType of ['relevance','deadline','surprise_me','only_automated','currently_open']" [value]="sortType">{{prettifyKeys(sortType)}} </mat-option>
+              </ng-template>
+
             </mat-select>
           </mat-form-field>
           <div class="offset-1">

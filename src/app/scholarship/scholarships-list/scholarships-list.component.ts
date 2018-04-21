@@ -105,7 +105,7 @@ export class ScholarshipsListComponent implements OnInit {
             'city': data.city,
             'education_level': data.education_level,
             'education_field': data.education_field,
-            'sort_by': 'relevance',
+            'sort_by': 'relevance_new',
             'filter_by_user_show_eligible_only': true,
           };
 
@@ -165,7 +165,7 @@ export class ScholarshipsListComponent implements OnInit {
 
 
       if (!this.form_data['sort_by']) {
-        this.form_data['sort_by'] = 'relevance';
+        this.form_data['sort_by'] = this.isLoggedIn ? 'relevance_new' : 'relevance';
       }
       if (options['view_as_user']) {
         }
@@ -237,6 +237,10 @@ export class ScholarshipsListComponent implements OnInit {
     if (str == 'only_automated'){
       return 'Is Automated';
     }
+    if (str == 'relevance_new'){
+      return 'Relevance + New';
+    }
+
     return toTitleCase(prettifyKeys(str));
   }
   nextPage() {
@@ -296,7 +300,7 @@ export class ScholarshipsListComponent implements OnInit {
               'city': data.city,
               'education_level': data.education_level,
               'education_field': data.education_field,
-              'sort_by': 'relevance',
+              'sort_by': 'relevance_new',
               'filter_by_user_show_eligible_only': true,
             };
 
@@ -583,21 +587,5 @@ export class ScholarshipsListComponent implements OnInit {
 
   }
 
-  toggleDebugMode(event: any) {
-    console.log('toggleDebugMode()', event);
-    console.log('this.userProfile.is_debug_mode', this.userProfile.is_debug_mode);
-
-    let patchData = {
-      is_debug_mode: this.userProfile.is_debug_mode
-    };
-
-    this.userProfileService.patch(this.userProfile.user,patchData).subscribe(
-      res => {
-        console.log('res',res);
-        this.getScholarshipPreview(this.pageNo);
-      }
-    )
-
-  }
 
 }
