@@ -163,7 +163,7 @@
           <div class="container">
             <div class="row">
 
-              <div *ngFor="let scholarship of scholarships;  let i=index" class="col-sm-12 col-md-10 offset-md-1" style="margin-bottom: -5%">
+              <div *ngFor="let scholarship of scholarships;  let i=index" class="col-sm-12 col-md-10 offset-md-1" style="margin-bottom: -5%"  (click)="handleScholarshipClick(scholarship)">
                 <app-scholarship-card [scholarship]="scholarship" [userProfile]="userProfile"
                                       [metadata]="{'form_data':form_data}"></app-scholarship-card>
               </div>

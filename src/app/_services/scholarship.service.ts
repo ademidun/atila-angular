@@ -16,6 +16,7 @@ export class ScholarshipService {
   public scholarshipsPreviewUrl = environment.apiUrl + 'scholarship-preview/';
   public scholarshipSlugUrl = environment.apiUrl + 'scholarship-slug/';
   public scholarshipEditUrl = environment.apiUrl + 'scholarship/edits/';
+  public userScholarshipUrl = environment.apiUrl + 'scholarship/user-scholarship/';
   constructor(public http: HttpClient,
               public firebaseService: MyFirebaseService) { }
   form_data: any;
@@ -60,6 +61,12 @@ export class ScholarshipService {
   updateAny(data: any): Observable<any>{
 
     return this.http.put(`${this.scholarshipsUrl}${data.scholarship['id']}/`, data)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  sendUserScholarshipInteraction(user,scholarship,data) {
+    return this.http.get(`${this.userScholarshipUrl}interact/?user=${user}&scholarship=${scholarship}&${data['key']}=${data['value']}/`)
       .map(this.extractData)
       .catch(this.handleError);
   }

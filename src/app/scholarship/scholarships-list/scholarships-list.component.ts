@@ -587,5 +587,19 @@ export class ScholarshipsListComponent implements OnInit {
 
   }
 
+  handleScholarshipClick(scholarship: Scholarship) {
+
+    let data = {
+      'key': 'type',
+      'value': 'click',
+    };
+    this.scholarshipService.sendUserScholarshipInteraction(this.userId,scholarship.id,data)
+      .subscribe(
+        res => {
+          console.log(res);
+        }
+      )
+  }
+
 
 }
