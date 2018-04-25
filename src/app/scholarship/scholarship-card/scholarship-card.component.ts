@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
 import {addToMyScholarshipHelper, UserProfile, updateScholarshipMatchScore} from '../../_models/user-profile';
@@ -24,6 +24,7 @@ export class ScholarshipCardComponent implements OnInit {
   @Input() scholarship: any;
   @Input() userProfile: UserProfile;
   @Input() metadata: any = {};
+  @Output() handleClick:EventEmitter<any> = new EventEmitter();
   alreadySaved: boolean;
   userAnalytics: any = {};
   hideCard: boolean;
@@ -169,6 +170,21 @@ export class ScholarshipCardComponent implements OnInit {
         }
       )
     }
+  }
+
+  clickHandler(event) {
+
+    let emitData = {
+      event: event,
+      type: 'scholarship',
+      action: 'click',
+      scholarship: this.scholarship,
+      userProfile: this.userProfile,
+    };
+
+    console.log('clickHandler() emitData', emitData);
+
+    this.handleClick.emit(emitData);
   }
 
   }

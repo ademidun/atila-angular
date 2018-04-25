@@ -1,6 +1,7 @@
 <div class="card horizontal" [id]="'scholarship-card-'+scholarship.id" [@hideCard]="hideCard">
   <div class="card-action">
-    <a [routerLink]="['/scholarship', scholarship.slug]" class="card-title">{{scholarship.name | truncate:40}}</a>
+    <a [routerLink]="['/scholarship', scholarship.slug]" class="card-title" (click)="clickHandler($event)">
+      {{scholarship.name | truncate:40}}</a>
 
     <div class="card-subtitle text-muted">
       <div *ngIf="scholarship.extra_questions && !scholarship.extra_questions.funding_amount_varies">{{scholarship.funding_amount | currency:'USD':'symbol':'1.0-0'}}</div>
@@ -24,7 +25,7 @@
       <p> {{scholarship.description | truncate:250}}</p>
     </div>
   </div>
-  <a placement="bottom" ngbTooltip="Save Scholarship" class="btn-floating interactive-btn halfway-fab waves-effect waves-light atila-blue"title="Save Scholarship"
+  <a ngbTooltip="Save Scholarship" class="btn-floating interactive-btn halfway-fab waves-effect waves-light atila-blue"title="Save Scholarship"
      (click)="addToMyScholarship(scholarship)" [ngStyle]="{'background-color': alreadySaved ? '#4080ff' : 'gray'}" style="left: 15px; bottom: 10px">
     <i class="material-icons">bookmark</i>
   </a>
@@ -50,7 +51,7 @@
   </div>
   <a *ngIf=scholarship.is_automated [routerLink]="['/scholarship', scholarship.slug]" title="Automated Scholarship"
      style="left: 150px; bottom: 10px" class="btn-floating interactive-btn halfway-fab waves-effect waves-light atila-blue" triggers="mouseenter" placement="bottom"
-     [ngbPopover]="automationInfoPopover" popoverTitle="Automated Scholarship">
+     [ngbPopover]="automationInfoPopover" popoverTitle="Automated Scholarship"  (click)="clickHandler($event)">
     <i class="material-icons automate-tag">tag_faces</i></a>
 
   <a (click)="hideCard=true;logNotInterested()" title="Not interested in this Scholarship"

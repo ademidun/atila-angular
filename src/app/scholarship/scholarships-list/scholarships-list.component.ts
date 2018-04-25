@@ -587,12 +587,25 @@ export class ScholarshipsListComponent implements OnInit {
 
   }
 
-  handleScholarshipClick(scholarship: Scholarship) {
+  handleScholarshipClick(event: any) {
 
+    console.log('handleScholarshipClick() emitData', event);
     let data = {
       'key': 'type',
       'value': 'click',
     };
+
+
+    let scholarship = event.scholarship;
+    let userAnalyticsData = {
+      scholarship: scholarship.id,
+      form_data: this.form_data,
+      page_no: this.pageNo
+    };
+    this.firebaseService.saveUserAnalytics(userAnalyticsData,'scholarships_list_click');
+    if (isNaN( Number.parseInt(this.userId))) {
+      return;
+    }
     this.scholarshipService.sendUserScholarshipInteraction(this.userId,scholarship.id,data)
       .subscribe(
         res => {
