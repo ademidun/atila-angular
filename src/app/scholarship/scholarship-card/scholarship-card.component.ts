@@ -29,6 +29,9 @@ export class ScholarshipCardComponent implements OnInit {
   userAnalytics: any = {};
   hideCard: boolean;
   handler: any;
+  isFirstView= false;
+
+  old_visible: boolean;
   @ViewChild('scholarshipCard') scholarshipCardRef: ElementRef;
   constructor(
     public snackBar: MatSnackBar,
@@ -50,15 +53,13 @@ export class ScholarshipCardComponent implements OnInit {
     if ('2019-01-01T00:00:00Z' == this.scholarship.deadline) {
       this.scholarship['metadata']['deadline_tbd'] = 'TBA';
     }
-    // https://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport/7557433#7557433
-    this.handler = this.onVisibilityChange(this.scholarshipCardRef.nativeElement, () => {
-      console.log('onVisibilityChange',
-        $('#scholarship-card-'+this.scholarship.id), this.scholarshipCardRef,this.scholarshipCardRef.nativeElement);
-    });
 
-    $(window).on('DOMContentLoaded load resize scroll', this.handler);
+    if( typeof jQuery !== 'undefined' ) {
+      // https://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport/7557433#7557433
+      this.handler = this.onVisibilityChange(this.scholarshipCardRef.nativeElement, () => {});
+      $(window).on('DOMContentLoaded load resize scroll', this.handler);
+    }
   }
-
 
 
   addToMyScholarship(item) {
@@ -197,11 +198,20 @@ export class ScholarshipCardComponent implements OnInit {
   }
 
   onVisibilityChange(el, callback) {
-    var old_visible;
     return () => {
-      var visible = this.isElementInViewport(el);
-      if (visible != old_visible) {
-        old_visible = visible;
+      let visible = this.isElementInViewport(el);
+      if (visible != this.old_visible) {
+
+
+        if (visible && !this.isFirstView) {
+
+          console.log('onVisibilityChange',this.scholarship.name);
+          console.log('this.scholarshipCardRef.nativeElement',this.scholarshipCardRef.nativeElement);
+          console.log('firstView',this.scholarship.name);
+          this.isFirstView = true;
+        }
+
+        this.old_visible = visible;
         if (typeof callback == 'function') {
           callback();
         }
