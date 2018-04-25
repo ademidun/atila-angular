@@ -127,7 +127,9 @@ export class ScholarshipsListComponent implements OnInit {
       .then(
         res => {
           this.form_data = res;
-          this.form_data['filter_by_user_show_eligible_only']=true;
+          if(this.form_data){
+            this.form_data['filter_by_user_show_eligible_only']=true;
+          }
         },
 
       )
@@ -613,6 +615,8 @@ export class ScholarshipsListComponent implements OnInit {
         }
       )
   }
+
+
 
 
 }

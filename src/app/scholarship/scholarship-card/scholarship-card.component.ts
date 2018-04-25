@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
 import {addToMyScholarshipHelper, UserProfile, updateScholarshipMatchScore} from '../../_models/user-profile';
@@ -28,6 +28,8 @@ export class ScholarshipCardComponent implements OnInit {
   alreadySaved: boolean;
   userAnalytics: any = {};
   hideCard: boolean;
+  handler: any;
+  @ViewChild('scholarshipCard') scholarshipCardRef: ElementRef;
   constructor(
     public snackBar: MatSnackBar,
     public router: Router,
@@ -48,6 +50,13 @@ export class ScholarshipCardComponent implements OnInit {
     if ('2019-01-01T00:00:00Z' == this.scholarship.deadline) {
       this.scholarship['metadata']['deadline_tbd'] = 'TBA';
     }
+    // https://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport/7557433#7557433
+    this.handler = this.onVisibilityChange(this.scholarshipCardRef.nativeElement, () => {
+      console.log('onVisibilityChange',
+        $('#scholarship-card-'+this.scholarship.id), this.scholarshipCardRef,this.scholarshipCardRef.nativeElement);
+    });
+
+    $(window).on('DOMContentLoaded load resize scroll', this.handler);
   }
 
 
@@ -186,6 +195,38 @@ export class ScholarshipCardComponent implements OnInit {
 
     this.handleClick.emit(emitData);
   }
+
+  onVisibilityChange(el, callback) {
+    var old_visible;
+    return () => {
+      var visible = this.isElementInViewport(el);
+      if (visible != old_visible) {
+        old_visible = visible;
+        if (typeof callback == 'function') {
+          callback();
+        }
+      }
+    }
+  }
+
+  isElementInViewport (el) {
+
+    //special bonus for those using jQuery
+    if (typeof jQuery === "function" && el instanceof jQuery) {
+      el = el[0];
+    }
+
+    var rect = el.getBoundingClientRect();
+
+    return (
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /*or $(window).height() */
+      rect.right <= (window.innerWidth || document.documentElement.clientWidth) /*or $(window).width() */
+    );
+  }
+
+
 
   }
 

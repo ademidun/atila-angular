@@ -1,4 +1,4 @@
-<div class="card horizontal" [id]="'scholarship-card-'+scholarship.id" [@hideCard]="hideCard">
+<div class="card horizontal" [id]="'scholarship-card-'+scholarship.id" [@hideCard]="hideCard" #scholarshipCard>
   <div class="card-action">
     <a [routerLink]="['/scholarship', scholarship.slug]" class="card-title" (click)="clickHandler($event)">
       {{scholarship.name | truncate:40}}</a>
