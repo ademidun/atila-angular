@@ -5,6 +5,8 @@ import {addToMyScholarshipHelper, UserProfile, updateScholarshipMatchScore} from
 import {MyFirebaseService} from '../../_services/myfirebase.service';
 import {UserProfileService} from '../../_services/user-profile.service';
 import { trigger, state, animate, transition, style } from '@angular/animations';
+import {ScholarshipService} from '../../_services/scholarship.service';
+import {AuthService} from '../../_services/auth.service';
 
 @Component({
   selector: 'app-scholarship-card',
@@ -29,7 +31,8 @@ export class ScholarshipCardComponent implements OnInit {
   userAnalytics: any = {};
   hideCard: boolean;
   handler: any;
-  isFirstView= false;
+  userId: any;
+  isFirstView= true;
 
   old_visible: boolean;
   @ViewChild('scholarshipCard') scholarshipCardRef: ElementRef;
@@ -37,9 +40,14 @@ export class ScholarshipCardComponent implements OnInit {
     public snackBar: MatSnackBar,
     public router: Router,
     public firebaseService: MyFirebaseService,
-    public userProfileService: UserProfileService) { }
+    public userProfileService: UserProfileService,
+    public scholarshipService: ScholarshipService,
+    public authService: AuthService,) { }
 
   ngOnInit() {
+
+    this.userId = this.authService.decryptLocalStorage('uid');
+
     if(this.userProfile && this.userProfile.saved_scholarships) {
 
       for (let i =0; i<this.userProfile.saved_scholarships.length; i++) {
@@ -53,11 +61,17 @@ export class ScholarshipCardComponent implements OnInit {
     if ('2019-01-01T00:00:00Z' == this.scholarship.deadline) {
       this.scholarship['metadata']['deadline_tbd'] = 'TBA';
     }
+    console.log('ngOnInit, this.scholarship.name,this.scholarshipService.preventViewDoubleCount',
+      this.scholarship.name,this.scholarshipService.preventViewDoubleCount);
+    if (this.scholarshipService.preventViewDoubleCount){
+      this.scholarshipService.preventViewDoubleCount = false;
+    }
 
     if( typeof jQuery !== 'undefined' ) {
       // https://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport/7557433#7557433
       this.handler = this.onVisibilityChange(this.scholarshipCardRef.nativeElement, () => {});
       $(window).on('DOMContentLoaded load resize scroll', this.handler);
+      // $(window).on('resize scroll', this.handler);
     }
   }
 
@@ -184,6 +198,14 @@ export class ScholarshipCardComponent implements OnInit {
 
   clickHandler(event) {
 
+    let userAnalyticsData = {
+      scholarship: this.scholarship.id,
+      form_data: this.metadata['form_data'] || null,
+      page_no: this.metadata['page_no'] || null
+    };
+    this.firebaseService.saveUserAnalytics(userAnalyticsData,'scholarships_list_click');
+    this.sendScholarshipInteraction('click');
+
     let emitData = {
       event: event,
       type: 'scholarship',
@@ -191,9 +213,8 @@ export class ScholarshipCardComponent implements OnInit {
       scholarship: this.scholarship,
       userProfile: this.userProfile,
     };
-
     console.log('clickHandler() emitData', emitData);
-
+    this.scholarshipService.preventViewDoubleCount = true;
     this.handleClick.emit(emitData);
   }
 
@@ -202,13 +223,14 @@ export class ScholarshipCardComponent implements OnInit {
       let visible = this.isElementInViewport(el);
       if (visible != this.old_visible) {
 
-
-        if (visible && !this.isFirstView) {
+        if (visible && this.isFirstView && !this.scholarshipService.preventViewDoubleCount) {
 
           console.log('onVisibilityChange',this.scholarship.name);
+          console.log('onVisibilityChange,el, callback' ,el, callback);
           console.log('this.scholarshipCardRef.nativeElement',this.scholarshipCardRef.nativeElement);
           console.log('firstView',this.scholarship.name);
-          this.isFirstView = true;
+          this.isFirstView = false;
+          this.sendScholarshipInteraction('view');
         }
 
         this.old_visible = visible;
@@ -234,6 +256,26 @@ export class ScholarshipCardComponent implements OnInit {
       rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /*or $(window).height() */
       rect.right <= (window.innerWidth || document.documentElement.clientWidth) /*or $(window).width() */
     );
+  }
+
+  sendScholarshipInteraction(actionType) {
+
+    if (isNaN( Number.parseInt(this.userId))) {
+      return;
+    }
+    let actionData = {
+      'key': 'type',
+      'value': actionType,
+    };
+
+    console.log('sendScholarshipInteraction',actionData, this.userId, this.scholarship.id);
+    this.scholarshipService.sendUserScholarshipInteraction(this.userId,this.scholarship.id,actionData)
+      .subscribe(
+        res => {
+          console.log('res',this.scholarship.name);
+          console.log(res);
+        }
+      );
   }
 
 

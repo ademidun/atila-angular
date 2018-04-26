@@ -20,6 +20,7 @@ export class ScholarshipService {
   constructor(public http: HttpClient,
               public firebaseService: MyFirebaseService) { }
   form_data: any;
+  preventViewDoubleCount= false;
 
   create(scholarship: Scholarship): Observable<Scholarship>{
 
