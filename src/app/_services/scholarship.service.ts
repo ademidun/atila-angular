@@ -21,6 +21,9 @@ export class ScholarshipService {
               public firebaseService: MyFirebaseService) { }
   form_data: any;
   preventViewDoubleCount= false;
+  // hackx When the sort by drop down is clicked, all the newly loaded scholarships get double counted
+  // So count the first 9 results when sort by is clicked and exclude those from the initial count
+  preventSortByDoubleCount: boolean;
 
   create(scholarship: Scholarship): Observable<Scholarship>{
 

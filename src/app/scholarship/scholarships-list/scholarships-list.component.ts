@@ -175,6 +175,10 @@ export class ScholarshipsListComponent implements OnInit {
       this.scholarshipService.getPaginatedscholarships(this.form_data, page)
       .subscribe(
         res => {
+
+          if(options['change_sort_by']) {
+            this.scholarshipService.preventSortByDoubleCount=true;
+          }
           this.saveScholarships(res);
           this.contentFetched = true;
           this.isLoading = false;

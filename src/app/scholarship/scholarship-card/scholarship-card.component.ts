@@ -35,6 +35,7 @@ export class ScholarshipCardComponent implements OnInit {
   isFirstView= true;
 
   old_visible: boolean;
+  preventSortByDoubleCount:boolean;
   @ViewChild('scholarshipCard') scholarshipCardRef: ElementRef;
   constructor(
     public snackBar: MatSnackBar,
@@ -61,8 +62,6 @@ export class ScholarshipCardComponent implements OnInit {
     if ('2019-01-01T00:00:00Z' == this.scholarship.deadline) {
       this.scholarship['metadata']['deadline_tbd'] = 'TBA';
     }
-    console.log('ngOnInit, this.scholarship.name,this.scholarshipService.preventViewDoubleCount',
-      this.scholarship.name,this.scholarshipService.preventViewDoubleCount);
     if (this.scholarshipService.preventViewDoubleCount){
       this.scholarshipService.preventViewDoubleCount = false;
     }
@@ -72,6 +71,13 @@ export class ScholarshipCardComponent implements OnInit {
       this.handler = this.onVisibilityChange(this.scholarshipCardRef.nativeElement, () => {});
       $(window).on('DOMContentLoaded load resize scroll', this.handler);
       // $(window).on('resize scroll', this.handler);
+    }
+
+    console.log('ngOnInit this.scholarship', this.scholarship.name);
+    console.log('ngOnInit preventSortByDoubleCount',
+      this.scholarshipService.preventSortByDoubleCount);
+    if(this.scholarshipService.preventSortByDoubleCount) {
+      this.preventSortByDoubleCount = true;
     }
   }
 
@@ -220,17 +226,28 @@ export class ScholarshipCardComponent implements OnInit {
 
   onVisibilityChange(el, callback) {
     return () => {
+
+
+
       let visible = this.isElementInViewport(el);
       if (visible != this.old_visible) {
 
-        if (visible && this.isFirstView && !this.scholarshipService.preventViewDoubleCount) {
+        if (this.scholarshipService.preventSortByDoubleCount  && this.preventSortByDoubleCount == null) {
+          this.preventSortByDoubleCount = true;
+        }
 
-          console.log('onVisibilityChange',this.scholarship.name);
-          console.log('onVisibilityChange,el, callback' ,el, callback);
-          console.log('this.scholarshipCardRef.nativeElement',this.scholarshipCardRef.nativeElement);
-          console.log('firstView',this.scholarship.name);
-          this.isFirstView = false;
-          this.sendScholarshipInteraction('view');
+        if (visible && this.isFirstView && !this.scholarshipService.preventViewDoubleCount) {
+          console.log('debug sendScholarshipInteraction',this.scholarship.name);
+          console.log('debug this.preventSortByDoubleCount',this.preventSortByDoubleCount);
+          if (this.preventSortByDoubleCount) {
+            this.preventSortByDoubleCount = false;
+            return;
+          }
+          else {
+            console.log('firstView',this.scholarship.name);
+            this.isFirstView = false;
+            this.sendScholarshipInteraction('view');
+          }
         }
 
         this.old_visible = visible;
@@ -260,6 +277,7 @@ export class ScholarshipCardComponent implements OnInit {
 
   sendScholarshipInteraction(actionType) {
 
+
     if (isNaN( Number.parseInt(this.userId))) {
       return;
     }
@@ -268,14 +286,14 @@ export class ScholarshipCardComponent implements OnInit {
       'value': actionType,
     };
 
-    console.log('sendScholarshipInteraction',actionData, this.userId, this.scholarship.id);
-    this.scholarshipService.sendUserScholarshipInteraction(this.userId,this.scholarship.id,actionData)
-      .subscribe(
-        res => {
-          console.log('res',this.scholarship.name);
-          console.log(res);
-        }
-      );
+    console.log('sendScholarshipInteraction',actionData, this.userId,this.scholarship.name, this.scholarship.id);
+    // this.scholarshipService.sendUserScholarshipInteraction(this.userId,this.scholarship.id,actionData)
+    //   .subscribe(
+    //     res => {
+    //       console.log('res',this.scholarship.name);
+    //       console.log(res);
+    //     }
+    //   );
   }
 
 
