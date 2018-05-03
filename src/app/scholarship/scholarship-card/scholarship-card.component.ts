@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, AfterViewInit} from '@angular/core';
 import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
 import {addToMyScholarshipHelper, UserProfile, updateScholarshipMatchScore} from '../../_models/user-profile';
@@ -20,7 +20,7 @@ import {AuthService} from '../../_services/auth.service';
     ])
   ],
 })
-export class ScholarshipCardComponent implements OnInit {
+export class ScholarshipCardComponent implements OnInit, AfterViewInit {
 
   //todo change to only handle one scholarship
   @Input() scholarship: any;
@@ -66,6 +66,11 @@ export class ScholarshipCardComponent implements OnInit {
       this.scholarshipService.preventViewDoubleCount = false;
     }
 
+
+
+  }
+
+  ngAfterViewInit() {
     if( typeof jQuery !== 'undefined' ) {
       // https://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport/7557433#7557433
       this.handler = this.onVisibilityChange(this.scholarshipCardRef.nativeElement, () => {});
@@ -74,14 +79,8 @@ export class ScholarshipCardComponent implements OnInit {
     }
 
     console.log('ngOnInit this.scholarship', this.scholarship.name);
-    console.log('ngOnInit preventSortByDoubleCount',
-      this.scholarshipService.preventSortByDoubleCount);
-    if(this.scholarshipService.preventSortByDoubleCount) {
-      this.preventSortByDoubleCount = true;
-    }
+    console.log('ngOnInit this.preventSortByDoubleCount',this.preventSortByDoubleCount);
   }
-
-
   addToMyScholarship(item) {
 
     if (this.alreadySaved) {
@@ -232,22 +231,13 @@ export class ScholarshipCardComponent implements OnInit {
       let visible = this.isElementInViewport(el);
       if (visible != this.old_visible) {
 
-        if (this.scholarshipService.preventSortByDoubleCount  && this.preventSortByDoubleCount == null) {
-          this.preventSortByDoubleCount = true;
-        }
-
         if (visible && this.isFirstView && !this.scholarshipService.preventViewDoubleCount) {
           console.log('debug sendScholarshipInteraction',this.scholarship.name);
           console.log('debug this.preventSortByDoubleCount',this.preventSortByDoubleCount);
-          if (this.preventSortByDoubleCount) {
-            this.preventSortByDoubleCount = false;
-            return;
-          }
-          else {
             console.log('firstView',this.scholarship.name);
-            this.isFirstView = false;
+
+            this.sendScholarshipInteraction = this.sendScholarshipInteraction.bind(this);
             this.sendScholarshipInteraction('view');
-          }
         }
 
         this.old_visible = visible;
@@ -277,23 +267,42 @@ export class ScholarshipCardComponent implements OnInit {
 
   sendScholarshipInteraction(actionType) {
 
+    let skipSend = false;
+    console.log('sendScholarshipInteraction()',this.scholarship.name, this.scholarship.id);
+    console.log('this.preventSortByDoubleCount == null',this.preventSortByDoubleCount == null);
+    console.log('this',this);
+    if(this.preventSortByDoubleCount == null && this.scholarshipService.preventSortByDoubleCount) {
+      console.log('sendScholarshipInteraction debug this.preventSortByDoubleCount',this.preventSortByDoubleCount);
+      console.log('sendScholarshipInteraction debug this.scholarshipService.preventSortByDoubleCount',
+        this.scholarshipService.preventSortByDoubleCount);
+      this.preventSortByDoubleCount = true;
+    }
+    if (this.preventSortByDoubleCount) {
+      console.log('sendScholarshipInteraction() IGNORE preventSortByDoubleCount ',this.preventSortByDoubleCount);
+      this.preventSortByDoubleCount = false;
+      skipSend =  true;
+    }
+    this.isFirstView = false;
 
     if (isNaN( Number.parseInt(this.userId))) {
       return;
     }
-    let actionData = {
-      'key': 'type',
-      'value': actionType,
-    };
+    if(!skipSend) {
+      let actionData = {
+        'key': 'type',
+        'value': actionType,
+      };
 
-    console.log('sendScholarshipInteraction',actionData, this.userId,this.scholarship.name, this.scholarship.id);
-    // this.scholarshipService.sendUserScholarshipInteraction(this.userId,this.scholarship.id,actionData)
-    //   .subscribe(
-    //     res => {
-    //       console.log('res',this.scholarship.name);
-    //       console.log(res);
-    //     }
-    //   );
+      console.log('sendScholarshipInteraction',actionData, this.userId,this.scholarship.name, this.scholarship.id);
+      // this.scholarshipService.sendUserScholarshipInteraction(this.userId,this.scholarship.id,actionData)
+      //   .subscribe(
+      //     res => {
+      //       console.log('res',this.scholarship.name);
+      //       console.log(res);
+      //     }
+      //   );
+
+    }
   }
 
 
