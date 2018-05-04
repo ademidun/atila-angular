@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, AfterViewInit} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, AfterViewInit, OnDestroy} from '@angular/core';
 import {MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
 import {addToMyScholarshipHelper, UserProfile, updateScholarshipMatchScore} from '../../_models/user-profile';
@@ -7,6 +7,7 @@ import {UserProfileService} from '../../_services/user-profile.service';
 import { trigger, state, animate, transition, style } from '@angular/animations';
 import {ScholarshipService} from '../../_services/scholarship.service';
 import {AuthService} from '../../_services/auth.service';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-scholarship-card',
@@ -20,7 +21,7 @@ import {AuthService} from '../../_services/auth.service';
     ])
   ],
 })
-export class ScholarshipCardComponent implements OnInit, AfterViewInit {
+export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //todo change to only handle one scholarship
   @Input() scholarship: any;
@@ -35,7 +36,8 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit {
   isFirstView= true;
 
   old_visible: boolean;
-  preventSortByDoubleCount:boolean;
+  userScholarship: any;
+  environment = environment;
   @ViewChild('scholarshipCard') scholarshipCardRef: ElementRef;
   constructor(
     public snackBar: MatSnackBar,
@@ -57,6 +59,16 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit {
           break;
         }
       }
+      if (!environment.production) {
+        this.scholarshipService.getUserScholarship(this.userId,this.scholarship.id)
+          .subscribe(
+            res => {
+              console.log('getUserScholarship',res);
+              this.userScholarship = res.results[0];
+            }
+          )
+      }
+
     }
 
     if ('2019-01-01T00:00:00Z' == this.scholarship.deadline) {
@@ -79,7 +91,12 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit {
     }
 
     console.log('ngOnInit this.scholarship', this.scholarship.name);
-    console.log('ngOnInit this.preventSortByDoubleCount',this.preventSortByDoubleCount);
+  }
+
+  ngOnDestroy() {
+    if( typeof jQuery !== 'undefined' ) {
+      $(window).off('DOMContentLoaded load resize scroll')
+    }
   }
   addToMyScholarship(item) {
 
@@ -233,8 +250,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit {
 
         if (visible && this.isFirstView && !this.scholarshipService.preventViewDoubleCount) {
           console.log('debug sendScholarshipInteraction',this.scholarship.name);
-          console.log('debug this.preventSortByDoubleCount',this.preventSortByDoubleCount);
-            console.log('firstView',this.scholarship.name);
+          console.log('firstView',this.scholarship.name);
 
             this.sendScholarshipInteraction = this.sendScholarshipInteraction.bind(this);
             this.sendScholarshipInteraction('view');
@@ -267,42 +283,32 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit {
 
   sendScholarshipInteraction(actionType) {
 
-    let skipSend = false;
-    console.log('sendScholarshipInteraction()',this.scholarship.name, this.scholarship.id);
-    console.log('this.preventSortByDoubleCount == null',this.preventSortByDoubleCount == null);
-    console.log('this',this);
-    if(this.preventSortByDoubleCount == null && this.scholarshipService.preventSortByDoubleCount) {
-      console.log('sendScholarshipInteraction debug this.preventSortByDoubleCount',this.preventSortByDoubleCount);
-      console.log('sendScholarshipInteraction debug this.scholarshipService.preventSortByDoubleCount',
-        this.scholarshipService.preventSortByDoubleCount);
-      this.preventSortByDoubleCount = true;
-    }
-    if (this.preventSortByDoubleCount) {
-      console.log('sendScholarshipInteraction() IGNORE preventSortByDoubleCount ',this.preventSortByDoubleCount);
-      this.preventSortByDoubleCount = false;
-      skipSend =  true;
-    }
-    this.isFirstView = false;
-
     if (isNaN( Number.parseInt(this.userId))) {
       return;
     }
-    if(!skipSend) {
-      let actionData = {
+    console.log('sendScholarshipInteraction()',this.scholarship.name, this.scholarship.id);
+    if (this.scholarshipService.preventSortByDoubleCount) {
+      console.log('sendScholarshipInteraction() IGNORE preventSortByDoubleCount ',
+        this.scholarshipService.preventSortByDoubleCount);
+        return;
+    }
+
+
+    this.isFirstView = false;
+    let actionData = {
         'key': 'type',
         'value': actionType,
       };
 
-      console.log('sendScholarshipInteraction',actionData, this.userId,this.scholarship.name, this.scholarship.id);
-      // this.scholarshipService.sendUserScholarshipInteraction(this.userId,this.scholarship.id,actionData)
-      //   .subscribe(
-      //     res => {
-      //       console.log('res',this.scholarship.name);
-      //       console.log(res);
-      //     }
-      //   );
+    console.log('sendScholarshipInteraction',actionData, this.userId,this.scholarship.name, this.scholarship.id);
+    this.scholarshipService.sendUserScholarshipInteraction(this.userId,this.scholarship.id,actionData)
+      .subscribe(
+        res => {
+          console.log('res',this.scholarship.name);
+          console.log(res);
+        }
+      );
 
-    }
   }
 
 

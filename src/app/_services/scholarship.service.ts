@@ -75,6 +75,13 @@ export class ScholarshipService {
       .catch(this.handleError);
   }
 
+
+  getUserScholarship(user,scholarship,opts={}) {
+    return this.http.get(`${this.userScholarshipUrl}?user=${user}&scholarship=${scholarship}/`)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   patch(id,data,) {
     return this.http.patch(`${this.scholarshipsUrl}${id}/`,data)
       .map(res => res)

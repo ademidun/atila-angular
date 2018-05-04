@@ -49,6 +49,10 @@
       </a>
     </div>
   </div>
+
+  <div class="card-footer" *ngIf="userScholarship">
+    <small class="text-muted"><pre>{{userScholarship | json}}</pre></small>
+  </div>
   <a *ngIf=scholarship.is_automated [routerLink]="['/scholarship', scholarship.slug]" title="Automated Scholarship"
      style="left: 150px; bottom: 10px" class="btn-floating interactive-btn halfway-fab waves-effect waves-light atila-blue" triggers="mouseenter" placement="bottom"
      [ngbPopover]="automationInfoPopover" popoverTitle="Automated Scholarship"  (click)="clickHandler($event)">
