@@ -20,19 +20,19 @@ export class ForumService {
   list(): Observable<any> {
     return this.http.get(`${this.forumsUrl}`)
       .map(res=><any>res)
-      .catch(err=>err);
+      .catch(err=>Observable.throw(err));
   }
 
   getBySlug(slug: string) {
     return this.http.get(`${this.forumsSlugUrl}?slug=${slug}/`)
       .map(res=><any>res)
-      .catch(err=>err);
+      .catch(err=>Observable.throw(err));
   }
 
   getComments(id: number) {
     return this.http.get(`${this.forumsUrl}${id}/comments/`)
       .map(res=><any>res)
-      .catch(err=>err);
+      .catch(err=>Observable.throw(err));
   }
 
   partialUpdateComments(data): Observable<any> {
@@ -45,7 +45,7 @@ export class ForumService {
   create(data): Observable<any> {
     return this.http.post(`${this.forumsUrl}`, data)
       .map(res=><any>res)
-      .catch(err=>err);
+      .catch(err=>Observable.throw(err));
   }
 
 
