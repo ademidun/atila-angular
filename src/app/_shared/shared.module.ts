@@ -43,6 +43,7 @@ import {EditProfileModalComponent} from '../edit-profile-modal/edit-profile-moda
 import {TableLayoutModule} from '../table-layout/table-layout.module';
 import {CardGenericComponent} from '../card-generic/card-generic.component';
 import { ShareItemComponent } from './share-item/share-item.component';
+import {AtilaPointsPromptDialogComponent} from '../atila-points-prompt-dialog/atila-points-prompt-dialog.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -82,6 +83,7 @@ import { ShareItemComponent } from './share-item/share-item.component';
     SubscriberDialogComponent,
     EditProfileModalComponent,
     CardGenericComponent,
+    AtilaPointsPromptDialogComponent,
     ShareItemComponent],
   exports: [
     SafeHtmlPipe,
@@ -100,6 +102,7 @@ import { ShareItemComponent } from './share-item/share-item.component';
     TableLayoutModule,
     CardGenericComponent,
     ShareItemComponent,
+    AtilaPointsPromptDialogComponent,
     ],
   providers: [
     {

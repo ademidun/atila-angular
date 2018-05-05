@@ -1,12 +1,15 @@
-<h2 mat-dialog-title>You have viewed {{ title || 'N'}} pages this month</h2>
-
-
-<mat-dialog-content>Consider hepling others?</mat-dialog-content>
-<h2 mat-dialog-title>You have viewed {{ title || 'N'}} pages this month</h2>
+<h2 mat-dialog-title>You have viewed {{ viewCount || 'N'}} pages this month</h2>
 
 <h3 mat-dialog-title>Consider Helping Others?</h3>
+
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close>Yes</button>
+
+  <ul>
+    <li><a (click)="linkHandler($event, 'scholarship/add')" routerLink="scholarship/add">Add a Scholarship</a></li>
+    <li><a (click)="linkHandler($event, 'profile/edit')" routerLink="profile/edit">Refer a Friend</a></li>
+    <li><a (click)="linkHandler($event, 'blog/add')" routerLink="blog/add">Write a Blog Post</a></li>
+  </ul>
+
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
   <button mat-button [mat-dialog-close]="true">No, I don't want to help others</button>
 </mat-dialog-actions>

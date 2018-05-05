@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, AfterViewInit} from '@angular/core';
 
 import { Scholarship } from '../../_models/scholarship';
 import { Comment, upVoteComment, downVoteComment } from "../../_models/comment";
@@ -29,7 +29,7 @@ import {AtilaPointsPromptDialogComponent} from '../../atila-points-prompt-dialog
   templateUrl: './scholarship-detail.component.html',
   styleUrls: ['./scholarship-detail.component.scss']
 })
-export class ScholarshipDetailComponent implements OnInit, OnDestroy {
+export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewInit {
 
   scholarship: Scholarship;
   scholarshipComments: Comment[];
@@ -100,10 +100,6 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy {
             slug: `scholarship/${this.scholarship.slug}/`
           });
 
-          let dialogRef = this.dialog.open(AtilaPointsPromptDialogComponent, {
-            width: '300px',
-            data: {'title':this.scholarship.name},
-          });
 
           if ('2019-01-01T00:00:00Z' == this.scholarship.deadline) {
             this.scholarship['metadata']['deadline_tbd'] = 'TBA';
@@ -159,6 +155,22 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
   }
+
+  ngAfterViewInit() {
+
+    console.log('ngAfterViewInit()',this);
+    setTimeout(()=>{
+      if(this.scholarship) {
+        console.log('setTimeout()',this.scholarship.name);
+        let dialogRef = this.dialog.open(AtilaPointsPromptDialogComponent, {
+          width: '300px',
+          data: {'title':this.scholarship.name},
+        });
+      }
+    },5000)
+  }
+
+
 
   ngOnDestroy() {
     this.routerChanges.unsubscribe();
@@ -437,7 +449,7 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy {
     this.subscriber.utm_title =       this.scholarship.name;
 
     let dialogRef = this.dialog.open(SubscriberDialogComponent, {
-      width: '300px',
+      width: '500px',
       data: this.subscriber,
     });
 

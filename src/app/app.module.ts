@@ -93,7 +93,6 @@ import { AtilaPointsPromptDialogComponent } from './atila-points-prompt-dialog/a
     SearchComponent,
     DynamicQuestionGeneralComponent,
     GeneralInfoComponent,
-    AtilaPointsPromptDialogComponent,
   ],
   imports: [
     NgbModule.forRoot(),
