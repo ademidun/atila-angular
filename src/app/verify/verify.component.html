@@ -61,7 +61,7 @@
               </p>
 
               <p *ngIf="!passwordVerificationResponse.isValidToken"> <br>
-                <span style="color: red">Invalid token.</span> <br>
+                <span style="color: red">{{passwordVerificationResponse.message}}</span> <br>
                 Email <a href="mailto:info@atila.ca">info@atila.ca</a> if issue continues.
               </p>
             </div>

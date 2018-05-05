@@ -58,14 +58,13 @@ export class VerifyComponent implements OnInit {
       this.userProfileService.verifyResetPassword(this.model)
         .subscribe(
           res => {
-            this.passwordVerificationResponse = {};
-            this.passwordVerificationResponse.isValidToken = res.isValidToken;
+            this.passwordVerificationResponse = res;
 
           },
           err => {
-            this.passwordVerificationResponse = {};
+            console.log('err',err);
+            this.passwordVerificationResponse = err.error;
 
-            this.passwordVerificationResponse.isValidToken = false;
           }
         )
     }
