@@ -72,6 +72,7 @@ import {SeoService} from './_services/seo.service';
 import {SharedModule} from './_shared/shared.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { GeneralInfoComponent } from './general-info/general-info.component';
+import { AtilaPointsPromptDialogComponent } from './atila-points-prompt-dialog/atila-points-prompt-dialog.component';
 
 @NgModule({
   declarations: [
@@ -92,6 +93,7 @@ import { GeneralInfoComponent } from './general-info/general-info.component';
     SearchComponent,
     DynamicQuestionGeneralComponent,
     GeneralInfoComponent,
+    AtilaPointsPromptDialogComponent,
   ],
   imports: [
     NgbModule.forRoot(),
@@ -158,6 +160,7 @@ import { GeneralInfoComponent } from './general-info/general-info.component';
     SubscriberDialogComponent,
     EditProfileModalComponent,
     AddQuestionModalComponent,
+    AtilaPointsPromptDialogComponent,
   ]
 })
 export class AppModule {

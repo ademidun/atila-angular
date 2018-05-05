@@ -21,6 +21,7 @@ import {SearchService} from '../../_services/search.service';
 import {genericItemTransform} from '../../_shared/utils';
 import {SubscriberDialogComponent} from '../../subscriber-dialog/subscriber-dialog.component';
 import {Subscription} from 'rxjs/Subscription';
+import {AtilaPointsPromptDialogComponent} from '../../atila-points-prompt-dialog/atila-points-prompt-dialog.component';
 
 
 @Component({
@@ -77,6 +78,8 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy {
       }
     });
 
+
+
   }
 
   ngOnInitHelper() {
@@ -95,6 +98,11 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy {
             description: this.scholarship.description,
             image: this.scholarship.img_url,
             slug: `scholarship/${this.scholarship.slug}/`
+          });
+
+          let dialogRef = this.dialog.open(AtilaPointsPromptDialogComponent, {
+            width: '300px',
+            data: {'title':this.scholarship.name},
           });
 
           if ('2019-01-01T00:00:00Z' == this.scholarship.deadline) {
