@@ -87,7 +87,7 @@ export class ForumDetailComponent implements OnInit, OnDestroy {
           });
         }
         catch (err) {
-          console.log('err',err);
+          console.log('getBySlug() err',err);
           this.router.navigate(['/forum']);
         }
         this.forum.starting_comment = null;
@@ -114,6 +114,10 @@ export class ForumDetailComponent implements OnInit, OnDestroy {
           }
         );
         this.getRelatedItems();
+      },
+      err=>{
+          console.log('getBySlug() err',err);
+          this.router.navigate(['/forum']);
       }
     );
 
