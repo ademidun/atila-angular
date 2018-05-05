@@ -32,6 +32,11 @@ export class UserProfileService {
       .catch(err=>Observable.throw(err));
   }
 
+  userProfileRPC(path,data={},opts={}) {
+    return this.http.post(`${this.userProfileEndpoint}${path}/`,data)
+      .map(this.extractData)
+      .catch(err=>Observable.throw(err));
+  }
   createUserAndProfile(data: any) {
 
     return this.http.post(this.userEndpoint, data)
