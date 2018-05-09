@@ -23,21 +23,18 @@ export class AtilaPointsPromptDialogComponent implements OnInit, OnDestroy {
   }
 
   linkHandler(event, path) {
-    console.log('linkHandler  event', event);
 
     try {
       event.preventDefault();
     }
     catch(e){
-      console.log('catch  event.preventDefault() e:', e);
+      // console.log('catch  event.preventDefault() e:', e);
     }
-    console.log('linkHandler  this.dialogRef', this.dialogRef);
     this.router.navigate([path]);
     this.dialogRef.close();
   }
 
   ngOnDestroy (){
-    console.log('ngOnDestroy  this.dialogRef', this.dialogRef);
     this.dialogRef.close();
   }
 

@@ -62,7 +62,6 @@ export class VerifyComponent implements OnInit {
 
           },
           err => {
-            console.log('err',err);
             this.passwordVerificationResponse = err.error;
 
           }

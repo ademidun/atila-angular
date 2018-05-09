@@ -116,7 +116,7 @@ export class AuthService {
     }
 
     catch (err) {
-      console.log('isUserLoggedIn() err',err);
+      // console.log('isUserLoggedIn() err',err);
       return false;
     }
    }

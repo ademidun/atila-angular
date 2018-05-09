@@ -158,16 +158,15 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
 
   ngAfterViewInit() {
 
-    console.log('ngAfterViewInit()',this);
-    setTimeout(()=>{
-      if(this.scholarship) {
-        console.log('setTimeout()',this.scholarship.name);
-        let dialogRef = this.dialog.open(AtilaPointsPromptDialogComponent, {
-          width: '300px',
-          data: {'title':this.scholarship.name},
-        });
-      }
-    },5000)
+    // setTimeout(()=>{
+    //   if(this.scholarship) {
+    //     console.log('setTimeout()',this.scholarship.name);
+    //     let dialogRef = this.dialog.open(AtilaPointsPromptDialogComponent, {
+    //       width: '300px',
+    //       data: {'title':this.scholarship.name},
+    //     });
+    //   }
+    // },5000)
   }
 
 

@@ -63,7 +63,6 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
         this.scholarshipService.getUserScholarship(this.userId,this.scholarship.id)
           .subscribe(
             res => {
-              console.log('getUserScholarship',res);
               this.userScholarship = res.results[0];
             }
           )
@@ -90,7 +89,6 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
       // $(window).on('resize scroll', this.handler);
     }
 
-    console.log('ngOnInit this.scholarship', this.scholarship.name);
   }
 
   ngOnDestroy() {
@@ -235,7 +233,6 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
       scholarship: this.scholarship,
       userProfile: this.userProfile,
     };
-    console.log('clickHandler() emitData', emitData);
     this.scholarshipService.preventViewDoubleCount = true;
     this.handleClick.emit(emitData);
   }
@@ -249,8 +246,6 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
       if (visible != this.old_visible) {
 
         if (visible && this.isFirstView && !this.scholarshipService.preventViewDoubleCount) {
-          console.log('debug sendScholarshipInteraction',this.scholarship.name);
-          console.log('firstView',this.scholarship.name);
 
             this.sendScholarshipInteraction = this.sendScholarshipInteraction.bind(this);
             this.sendScholarshipInteraction('view');
@@ -286,10 +281,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
     if (isNaN( Number.parseInt(this.userId))) {
       return;
     }
-    console.log('sendScholarshipInteraction()',this.scholarship.name, this.scholarship.id);
     if (this.scholarshipService.preventSortByDoubleCount) {
-      console.log('sendScholarshipInteraction() IGNORE preventSortByDoubleCount ',
-        this.scholarshipService.preventSortByDoubleCount);
         return;
     }
 
@@ -300,16 +292,13 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
         'value': actionType,
       };
 
-    console.log('sendScholarshipInteraction',actionData, this.userId,this.scholarship.name, this.scholarship.id);
     this.scholarshipService.sendUserScholarshipInteraction(this.userId,this.scholarship.id,actionData)
       .subscribe(
         res => {
-          console.log('res',this.scholarship.name);
-          console.log(res);
 
           this.userProfileService.userProfileRPC(this.userId+'/refresh-scholarship-cache')
             .subscribe(
-              res => {console.log('res',res)}
+              res => {}
             )
         }
       );
