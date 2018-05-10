@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 deploy () {
 # ng serve --delete-output-path=false  -o
  git add . ;

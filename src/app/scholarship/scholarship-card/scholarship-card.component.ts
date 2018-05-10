@@ -59,7 +59,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
           break;
         }
       }
-      if (!environment.production) {
+      if (!environment.production || this.userProfile.is_atila_admin) {
         this.scholarshipService.getUserScholarship(this.userId,this.scholarship.id)
           .subscribe(
             res => {
@@ -218,6 +218,9 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
 
   clickHandler(event) {
 
+    if(this.metadata['form_data'] && this.metadata['form_data']['view_as_user']) {
+      console.log("Skipping click in view_as_user mode, this.metadata['form_data']", this.metadata['form_data']);
+    }
     let userAnalyticsData = {
       scholarship: this.scholarship.id,
       form_data: this.metadata['form_data'] || null,
@@ -281,6 +284,12 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
     if (isNaN( Number.parseInt(this.userId))) {
       return;
     }
+
+    if(this.metadata['form_data'] && this.metadata['form_data']['view_as_user']) {
+      console.log("Skipping sendScholarshipInteraction in view_as_user mode, this.metadata['form_data']",
+        this.metadata['form_data'],'actionType', actionType);
+    }
+
     if (this.scholarshipService.preventSortByDoubleCount) {
         return;
     }
