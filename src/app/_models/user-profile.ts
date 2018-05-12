@@ -1,6 +1,7 @@
 export class UserProfile {
         constructor(
             public academic_average?: any,
+            public atila_points?: any,
             public activities?: string[],
             public citizenship?: string[],
             public city?: any,

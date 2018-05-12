@@ -532,12 +532,12 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
         .then(res=>{
           diff.metadata['geo_ip'] = res;
           let path = 'scholarships/' + this.scholarship.id + '/edits';
-          diff = this.firebaseService.saveAny_fs(path, diff);
+          this.firebaseService.saveAny_fs(path, diff);
 
         })
         .fail( (jqXHR, textStatus, errorThrown) => {
           diff.metadata['geo_ip'] = textStatus;
-          diff = this.firebaseService.saveAny_fs('scholarship_edits', diff);
+          this.firebaseService.saveAny_fs('scholarship_edits', diff);
         })
         .done(()=> {
 

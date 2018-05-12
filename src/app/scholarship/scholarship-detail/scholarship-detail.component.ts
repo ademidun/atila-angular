@@ -11,6 +11,7 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 import { MatSnackBar } from '@angular/material';
 import { UserProfileService } from '../../_services/user-profile.service';
 
+import {environment} from '../../../environments/environment';
 import { CommentService } from '../../_services/comment.service';
 import { AuthService } from "../../_services/auth.service";
 import {Meta, Title} from '@angular/platform-browser';
@@ -45,6 +46,7 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
   public reviewsLoaded: boolean = false;
   public scholarshipOwner;
   public keyGetter = Object.keys;
+  public environment = environment;
   public alreadySaved: boolean;
   public relatedItems: any = [];
   public subscriber: any = {};
@@ -157,19 +159,51 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
   }
 
   ngAfterViewInit() {
+    setTimeout(()=>{
+      if(this.scholarship) {
 
-    // setTimeout(()=>{
-    //   if(this.scholarship) {
-    //     console.log('setTimeout()',this.scholarship.name);
-    //     let dialogRef = this.dialog.open(AtilaPointsPromptDialogComponent, {
-    //       width: '300px',
-    //       data: {'title':this.scholarship.name},
-    //     });
-    //   }
-    // },5000)
+        console.log('this.checkViewHistory',this.checkViewHistory);
+        this.checkViewHistory();
+        console.log('setTimeout()',this.scholarship.name);
+        let dialogRef = this.dialog.open(AtilaPointsPromptDialogComponent, {
+          width: '300px',
+          data: {'title':this.scholarship.name},
+        });
+      }
+    },5000)
   }
 
 
+
+  checkViewHistory() {
+
+    let viewData = {
+      item_type: 'scholarship',
+      item_id: this.scholarship.id,
+      item_name: this.scholarship.name,
+      timestamp: Date.now(),
+    };
+
+  console.log('checkViewHistory',viewData);
+    return this.firebaseService.getGeoIp()
+      .then(res=>{
+        viewData['geo_ip'] = res;
+        let path = 'user_profiles/' + this.userId + '/view_history';
+        this.firebaseService.saveAny_fs(path, viewData)
+          .then(res => {
+            console.log('save Firebase success', res)
+          })
+          .catch(err => {
+            console.log('save Firebase rejection',err)
+          });
+
+      })
+      .fail( (jqXHR, textStatus, errorThrown) => {
+        if(this.environment.production || this.userProfile.is_atila_admin) {
+          console.log('jqXHR, textStatus, errorThrown',jqXHR, textStatus, errorThrown)
+        }
+      })
+  }
 
   ngOnDestroy() {
     this.routerChanges.unsubscribe();
