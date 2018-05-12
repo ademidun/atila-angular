@@ -59,6 +59,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
           break;
         }
       }
+
       if (!environment.production || this.userProfile.is_atila_admin) {
         this.scholarshipService.getUserScholarship(this.userId,this.scholarship.id)
           .subscribe(
@@ -307,7 +308,11 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
 
           this.userProfileService.userProfileRPC(this.userId+'/refresh-scholarship-cache')
             .subscribe(
-              res => {}
+              res => {
+                if (!this.environment.production) {
+                  console.log('res',res)
+                }
+              }
             )
         }
       );
