@@ -436,7 +436,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
             value: this.scholarship.id,
             operator: '=='
           };
-          this.scholarshipEdits =  this.firebaseService.firestoreQuery(queryParams).valueChanges();
+          this.scholarshipEdits =  this.firebaseService.firestoreQuery(queryParams.path, queryParams).valueChanges();
 
         }
       );

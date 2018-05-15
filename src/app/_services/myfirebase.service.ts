@@ -123,18 +123,22 @@ export class MyFirebaseService {
   }
 
 
-  firestoreQuery(query) {
+  firestoreQuery(path, queryParams=null) {
 
-    let queryPath = query['path'];
     if (!environment.production) {
-      queryPath = 'DEVELOPMENT/data/'+ queryPath
+      path = 'DEVELOPMENT/data/'+ path
     }
     else {
-      queryPath = 'PRODUCTION/data/'+ queryPath
+      path = 'PRODUCTION/data/'+ path
+    }
+    if (queryParams) {
+      return this.fs.collection(path,
+        ref => ref.where(queryParams['field_path'], queryParams['operator'], queryParams['value']) )
+    }
+    else{
+      return this.fs.collection(path)
     }
 
-    return this.fs.collection(queryPath,
-        ref => ref.where(query['field_path'], query['operator'], query['value']) )
   }
 
 

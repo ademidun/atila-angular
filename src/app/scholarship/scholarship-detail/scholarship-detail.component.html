@@ -73,6 +73,12 @@
       <p style="width: 90%">{{scholarship.description}}</p>
       <br>
 
+      <div *ngIf="viewHistory">
+        <div class="card-footer" *ngFor="let viewItem of viewHistory">
+        <small class="text-muted"><pre>{{viewItem | json}}</pre></small>
+      </div>
+      </div>
+
 
 
       <div *ngIf="relatedItems" class="row">

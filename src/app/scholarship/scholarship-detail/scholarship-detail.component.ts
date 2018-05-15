@@ -50,6 +50,7 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
   public alreadySaved: boolean;
   public relatedItems: any = [];
   public subscriber: any = {};
+  public viewHistory: any;
   public isLoggedIn;
   constructor(
     route: ActivatedRoute,
@@ -109,7 +110,13 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
 
           this.titleService.setTitle(this.scholarship.name + ' - Atila');
 
+          setTimeout(()=>{
+            if(this.scholarship) {
+              this.checkViewHistory()
+            }
+          },3000)
           this.getRelatedItems();
+
           //this.updateMeta();
           // Get the user profile of the scholarship owner
           if (this.scholarship.owner){
@@ -159,18 +166,8 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
   }
 
   ngAfterViewInit() {
-    setTimeout(()=>{
-      if(this.scholarship) {
 
-        console.log('this.checkViewHistory',this.checkViewHistory);
-        this.checkViewHistory();
-        console.log('setTimeout()',this.scholarship.name);
-        let dialogRef = this.dialog.open(AtilaPointsPromptDialogComponent, {
-          width: '300px',
-          data: {'title':this.scholarship.name},
-        });
-      }
-    },5000)
+
   }
 
 
@@ -191,7 +188,31 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
         let path = 'user_profiles/' + this.userId + '/view_history';
         this.firebaseService.saveAny_fs(path, viewData)
           .then(res => {
-            console.log('save Firebase success', res)
+            console.log('save Firebase success', res);
+
+             this.firebaseService.firestoreQuery(path).valueChanges().subscribe(
+              viewHistory => {
+                this.viewHistory = viewHistory;
+                console.log('viewHistory subscribe', viewHistory);
+                if (Object.getOwnPropertyNames(viewHistory).length == 0) {
+                  return;
+                }
+                if (!isNaN(viewHistory.length) && viewHistory.length % 2 ==0) {
+                  console.log('viewHistory.length',viewHistory.length);
+
+                      console.log('this.checkViewHistory',this.checkViewHistory);
+                      console.log('setTimeout()',this.scholarship.name);
+                      let dialogRef = this.dialog.open(AtilaPointsPromptDialogComponent, {
+                        width: '500px',
+                        disableClose: true,
+                        data: {'title':this.scholarship.name, userProfile: this.userProfile, viewCount: viewHistory.length},
+                      });
+
+                }
+              }
+            );
+            console.log('viewHistory',this.viewHistory);
+
           })
           .catch(err => {
             console.log('save Firebase rejection',err)

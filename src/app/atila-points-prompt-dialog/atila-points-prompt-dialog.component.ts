@@ -2,6 +2,7 @@ import {Component, Inject, OnInit, OnDestroy} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {ScholarshipDetailComponent} from '../scholarship/scholarship-detail/scholarship-detail.component';
 import {Router} from '@angular/router';
+import {UserProfile} from '../_models/user-profile';
 
 @Component({
   selector: 'app-atila-points-prompt-dialog',
@@ -11,12 +12,14 @@ import {Router} from '@angular/router';
 export class AtilaPointsPromptDialogComponent implements OnInit, OnDestroy {
 
   viewCount: any;
+  userProfile: UserProfile;
 
   constructor(public dialogRef: MatDialogRef<ScholarshipDetailComponent>,
               @Inject(MAT_DIALOG_DATA) public promptData: any,
               public router: Router,) {
 
     this.viewCount =  promptData['viewCount'];
+    this.userProfile =  promptData['userProfile'];
   }
 
   ngOnInit() {
