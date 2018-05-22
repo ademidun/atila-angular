@@ -73,14 +73,6 @@
       <p style="width: 90%">{{scholarship.description}}</p>
       <br>
 
-      <div *ngIf="viewHistory">
-        <div class="card-footer" *ngFor="let viewItem of viewHistory">
-        <small class="text-muted"><pre>{{viewItem | json}}</pre></small>
-      </div>
-      </div>
-
-
-
       <div *ngIf="relatedItems" class="row">
         <div style="width: 100%; margin-left: 5%" class="row"><h5>Related</h5> <span style="font-size: smaller; color: #194F87">Beta</span></div>
         <div  *ngFor="let item of relatedItems; let i = index; first as isFirst;" class="col-md-4">
