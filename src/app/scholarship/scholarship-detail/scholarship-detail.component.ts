@@ -122,11 +122,6 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
 
           this.titleService.setTitle(this.scholarship.name + ' - Atila');
 
-          setTimeout(()=>{
-            if(this.scholarship) {
-              this.checkViewHistory()
-            }
-          },3000);
           this.getRelatedItems();
 
           //this.updateMeta();
@@ -149,6 +144,12 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
               .subscribe(
                 res => {
                   this.userProfile = res;
+
+                  setTimeout(()=>{
+                    if(this.scholarship) {
+                      this.checkViewHistory()
+                    }
+                  },3000);
                   if(this.userProfile && this.userProfile.saved_scholarships) {
 
                     for (let i =0; i<this.userProfile.saved_scholarships.length; i++) {

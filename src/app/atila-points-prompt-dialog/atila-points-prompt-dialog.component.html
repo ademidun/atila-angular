@@ -1,14 +1,28 @@
-<h2 mat-dialog-title>{{userProfile.first_name}}, You have viewed {{ viewCount || 'N'}} pages this month</h2>
+<h2 mat-dialog-title>{{userProfile.first_name}}, You have viewed {{ viewCount || 'N'}} pages.</h2>
+<h2 mat-dialog-title>
+  and You have {{userProfile.atila_points| number:'1.0-0'}} Atila points.
+  <!--<a [routerLink]="" ngbTooltip="Atila points are used to see scholarships, forums, blog posts">-->
+    <!--<i class="material-icons">-->
+      <!--help-->
+    <!--</i>-->
+  <!--</a>-->
+</h2>
 
 <h3 mat-dialog-title>Consider Helping Others?</h3>
 
 <mat-dialog-actions>
 
-  You Can Either
+  You Can Either:
+  <!--<a [routerLink]="" ngbTooltip="Each action below gives you 100 Atila points.">-->
+    <!--<i class="material-icons">-->
+      <!--help-->
+    <!--</i>-->
+  <!--</a>-->
   <ol>
     <li><a (click)="linkHandler($event, 'scholarship/add')" routerLink="scholarship/add">Add a Scholarship</a></li>
     <li><a (click)="linkHandler($event, 'profile/edit')" routerLink="profile/edit">Refer a Friend</a></li>
     <li><a (click)="linkHandler($event, 'blog/add')" routerLink="blog/add">Write a Blog Post</a></li>
+    <!--<li><a (click)="linkHandler($event, 'forum')" routerLink="blog/add">Ask or Answer a forum post</a></li>-->
   </ol>
 
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
