@@ -59,6 +59,7 @@ export class RegisterComponent implements OnInit {
 
   disableRegistrationButton: any;
   differentPassword: boolean;
+  showReferral = false;
   locationPlaceHolder: any;
   autoCompleteFormGroup: FormGroup;
   autoCompleteOptions: any;
@@ -111,7 +112,9 @@ export class RegisterComponent implements OnInit {
       postOperation.subscribe(
         data => {
           this.model = new User(this.model.email, this.model.username, '', '');
-          this.snackBar.open('Registration successful', '', {duration: 3000});
+          console.log('data',data);
+          data.registration_message= data.registration_message || 'Registration successful';
+          this.snackBar.open(data.registration_message, '', {duration: 3000});
 
           this.authService.isLoggedIn = true;
           this.authService.encryptlocalStorage('token', data.token);

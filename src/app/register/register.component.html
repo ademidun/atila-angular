@@ -40,6 +40,14 @@
             </mat-form-field>
             <p *ngIf="differentPassword">Your passwords do not match</p>
           </div>
+        <a (click)="showReferral = !showReferral">Enter Referral Code</a>
+          <div class="row" *ngIf="showReferral">
+            <mat-form-field class="col-sm-12">
+              <input tabindex="1" class="browser-default" matInput id="referred_by" type="text" placeholder="Referred By (Enter Username)"
+                     [(ngModel)]="userProfile.referred_by" name="referred_by">
+            </mat-form-field>
+            <p *ngIf="userProfile.referred_by==model.username">You can not Refer Yourself</p>
+          </div>
 
           <div class="row">
             By clicking register you agree to the <a routerLink="/terms-and-conditions"> Terms and Conditions</a>.
@@ -77,7 +85,7 @@
             <a class="waves-effect waves-light btn left" routerLink="/login">Log In</a>
 
             <button class="waves-effect waves-light btn right btn-submit" (click)="registerUser(registerForm)"
-               [disabled]="disableRegistrationButton">Register</button>
+               [disabled]="disableRegistrationButton || userProfile.referred_by==model.username">Register</button>
             <!--<a tabindex="4" class="waves-effect waves-light btn right" (click)="nextPage()">Next</a>-->
           </div>
       </form>

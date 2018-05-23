@@ -34,6 +34,7 @@ export class UserProfile {
             public postal_code?: string,
             public province?: any,
             public religion?: string[],
+            public referred_by?: string,
             public street_address?: string,
             public scholarships_match_score?: any[],
             public scholarships_not_interested?: any[],

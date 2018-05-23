@@ -185,6 +185,7 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
 
 
 
+  //todo make checkViewHistory() and checkViewHistoryHandler() into helper functions.
   checkViewHistory() {
 
     let viewData = {
@@ -221,11 +222,15 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
         this.viewHistoryChanges = this.firebaseService.firestoreQuery(path).valueChanges().subscribe(
           viewHistory => {
             this.viewHistory = viewHistory;
+            // let showPrompt = viewHistory.length % 2 == 0 && this.userProfile.atila_points < 1 ||
+            //   viewHistory.length > 10 && viewHistory.length % 10 ==0;
+            // let showPrompt = viewHistory.length % 2 == 0 && this.userProfile.atila_points < 1;
+            let showPrompt = viewHistory.length % 2 == 0;
             console.log('viewHistory subscribe', viewHistory);
             if (Object.getOwnPropertyNames(viewHistory).length == 0) {
               return;
             }
-            if (!isNaN(viewHistory.length) && viewHistory.length % 2 ==0) {
+            if (showPrompt) {
               console.log('viewHistory.length',viewHistory.length);
 
               let dialogRef = this.dialog.open(AtilaPointsPromptDialogComponent, {
