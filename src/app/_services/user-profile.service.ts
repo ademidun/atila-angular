@@ -392,11 +392,20 @@ export class UserProfileService implements OnDestroy{
   }
 
   showAtilaPointsPromptDialog(userProfile, viewData, viewHistory) {
-    let showPrompt = viewHistory.length % 2 == 0;
-    console.log('viewHistory subscribe', viewHistory);
-    if (Object.getOwnPropertyNames(viewHistory).length == 0) {
+
+    if (!viewHistory.length || viewHistory.length == 0) {
       return
     }
+
+    let showPrompt = true;
+    if (userProfile.atila_points <1) {
+      showPrompt = viewHistory.length % 5 == 0;
+    }
+
+    else {
+      showPrompt = (userProfile.atila_points / viewHistory.length) <= 8 && viewHistory.length % 5 == 0
+    }
+
     if (showPrompt) {
       console.log('viewHistory.length',viewHistory.length);
 
