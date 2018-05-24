@@ -147,7 +147,14 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
 
                   setTimeout(()=>{
                     if(this.scholarship) {
-                      this.checkViewHistory()
+                      let viewData = {
+                        item_type: 'scholarship',
+                        item_id: this.scholarship.id,
+                        item_name: this.scholarship.name,
+                        timestamp: Date.now(),
+                      };
+                      this.userProfileService.checkViewHistory(this.userProfile, viewData,this.viewHistoryChanges);
+                      // this.checkViewHistory()
                     }
                   },3000);
                   if(this.userProfile && this.userProfile.saved_scholarships) {
