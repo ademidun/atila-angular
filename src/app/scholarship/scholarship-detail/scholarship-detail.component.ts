@@ -51,7 +51,6 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
   public relatedItems: any = [];
   public subscriber: any = {};
   public viewHistory: any;
-  public viewHistoryChanges: Subscription;
   public isLoggedIn;
   public preventNgOnInitDoubleCount = false;
   constructor(
@@ -78,8 +77,9 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
     //reload the url if a new slug is clicked from related items
     this.routerChanges = router.events.subscribe(data=>{
       if(data instanceof ActivationEnd){
-        if (this.viewHistoryChanges) {
-          this.viewHistoryChanges.unsubscribe();
+        console.log('this.viewHistoryChanges',this.userProfileService.viewHistoryChanges);
+        if (this.userProfileService.viewHistoryChanges) {
+          this.userProfileService.viewHistoryChanges.unsubscribe();
         }
         this.scholarshipSlug = route.snapshot.params['slug'];
         this.ngOnInitHelper();
@@ -154,7 +154,7 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
                         timestamp: Date.now(),
                       };
                       console.log('this.userProfileService.checkViewHistory',this.userProfileService.checkViewHistory);
-                      this.userProfileService.checkViewHistory(this.userProfile, viewData,this.viewHistoryChanges);
+                      this.userProfileService.checkViewHistory(this.userProfile, viewData);
                       // console.log('checkViewHistoryResult',checkViewHistoryResult);
                       // checkViewHistoryResult
                       //   .then(res =>{console.log('checkViewHistoryResult res:', res)})
@@ -196,75 +196,12 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
   }
 
 
-
-  //todo make checkViewHistory() and checkViewHistoryHandler() into helper functions.
-  checkViewHistory() {
-
-    let viewData = {
-      item_type: 'scholarship',
-      item_id: this.scholarship.id,
-      item_name: this.scholarship.name,
-      timestamp: Date.now(),
-    };
-
-  console.log('checkViewHistory',viewData);
-    return this.firebaseService.getGeoIp()
-      .then(res=>{
-        viewData['geo_ip'] = res;
-        this.checkViewHistoryHandler(viewData)
-
-
-      })
-      .fail( (jqXHR, textStatus, errorThrown) => {
-        if(this.environment.production || this.userProfile.is_atila_admin) {
-          console.log('jqXHR, textStatus, errorThrown',jqXHR, textStatus, errorThrown)
-        }
-
-        viewData['error'] = JSON.stringify(errorThrown);
-        this.checkViewHistoryHandler(viewData)
-      })
-  }
-
-  checkViewHistoryHandler(viewData){
-    let path = 'user_profiles/' + this.userId + '/view_history';
-    this.firebaseService.saveAny_fs(path, viewData)
-      .then(res => {
-        console.log('save Firebase success', res);
-
-        this.viewHistoryChanges = this.firebaseService.firestoreQuery(path).valueChanges().subscribe(
-          viewHistory => {
-            this.viewHistory = viewHistory;
-            // let showPrompt = viewHistory.length % 2 == 0 && this.userProfile.atila_points < 1 ||
-            //   viewHistory.length > 10 && viewHistory.length % 10 ==0;
-            // let showPrompt = viewHistory.length % 2 == 0 && this.userProfile.atila_points < 1;
-            let showPrompt = viewHistory.length % 2 == 0;
-            console.log('viewHistory subscribe', viewHistory);
-            if (Object.getOwnPropertyNames(viewHistory).length == 0) {
-              return;
-            }
-            if (showPrompt) {
-              console.log('viewHistory.length',viewHistory.length);
-
-              let dialogRef = this.dialog.open(AtilaPointsPromptDialogComponent, {
-                width: '500px',
-                disableClose: true,
-                data: {'title':this.scholarship.name, userProfile: this.userProfile, viewCount: viewHistory.length},
-              });
-
-            }
-          }
-        );
-        console.log('outside valueChanges().subscribe() viewHistory',this.viewHistory);
-      })
-      .catch(err => {
-        console.log('save Firebase rejection',err)
-      });
-  }
-
   ngOnDestroy() {
     console.log('ngOnDestroy');
     this.routerChanges.unsubscribe();
-    this.viewHistoryChanges.unsubscribe();
+    if (this.userProfileService.viewHistoryChanges) {
+      this.userProfileService.viewHistoryChanges.unsubscribe();
+    }
   }
 
   getScholarshipComments(){

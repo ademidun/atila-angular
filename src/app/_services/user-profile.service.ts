@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 
 import {HttpClient, HttpResponse, HttpHeaders, HttpErrorResponse} from '@angular/common/http';
 import { User } from '../_models/user';
@@ -15,8 +15,9 @@ import {DropdownQuestion} from '../_models/question-dropdown';
 import {TextboxQuestion} from '../_models/question-textbox';
 import {MyFirebaseService} from './myfirebase.service';
 import {AtilaPointsPromptDialogComponent} from '../atila-points-prompt-dialog/atila-points-prompt-dialog.component';
+import {Subscription} from 'rxjs/Subscription';
 @Injectable()
-export class UserProfileService {
+export class UserProfileService implements OnDestroy{
 
   constructor(public http: HttpClient,
                 public authService: AuthService,
@@ -27,8 +28,15 @@ export class UserProfileService {
   public userEndpoint = environment.apiUrl + 'users/';
 
   public userProfileEndpoint = environment.apiUrl + 'user-profiles/';
+  public viewHistoryChanges: Subscription;
 
+  ngOnDestroy() {
+    console.log('foo destroy');
 
+    if (this.viewHistoryChanges) {
+      this.viewHistoryChanges.unsubscribe();
+    }
+  }
 
   createUser(user: User) {
 
@@ -340,25 +348,25 @@ export class UserProfileService {
 
 
   //todo make checkViewHistory() and checkViewHistoryHandler() into helper functions.
-  checkViewHistory(userProfile:UserProfile, viewData: any, viewHistoryChanges=null) {
+  checkViewHistory(userProfile:UserProfile, viewData: any) {
 
     console.log('checkViewHistory',viewData);
-    return this.firebaseService.getGeoIp()
+    this.firebaseService.getGeoIp()
       .then(res=>{
         viewData['geo_ip'] = res;
-        return this.checkViewHistoryHandler(userProfile, viewData,viewHistoryChanges)
+        return this.checkViewHistoryHandler(userProfile, viewData)
 
       })
-      .fail( (jqXHR, textStatus, errorThrown) => {
+      .catch( (jqXHR, textStatus, errorThrown) => {
         if(this.environment.production || userProfile.is_atila_admin) {
           console.log('jqXHR, textStatus, errorThrown',jqXHR, textStatus, errorThrown)
         }
         viewData['error'] = JSON.stringify(errorThrown);
-        this.checkViewHistoryHandler(userProfile, viewData, viewHistoryChanges)
+        this.checkViewHistoryHandler(userProfile, viewData)
       })
   }
 
-  checkViewHistoryHandler(userProfile, viewData, viewHistoryChanges){
+  checkViewHistoryHandler(userProfile, viewData){
     let path = 'user_profiles/' + userProfile.user + '/view_history';
 
 
@@ -366,7 +374,9 @@ export class UserProfileService {
     this.firebaseService.saveAny_fs(path, viewData)
       .then(res => {
         console.log('save Firebase success', res);
-        viewHistoryChanges =  this.firebaseService.firestoreQuery(path).valueChanges().subscribe(
+
+
+        this.viewHistoryChanges =  this.firebaseService.firestoreQuery(path).valueChanges().subscribe(
           viewHistory => {
             // let showPrompt = viewHistory.length % 2 == 0 && this.userProfile.atila_points < 1 ||
             //   viewHistory.length > 10 && viewHistory.length % 10 ==0;
@@ -381,7 +391,7 @@ export class UserProfileService {
       });
   }
 
-  showAtilaPointsPromptDialog(userProfile, viewData, viewHistory=null) {
+  showAtilaPointsPromptDialog(userProfile, viewData, viewHistory) {
     let showPrompt = viewHistory.length % 2 == 0;
     console.log('viewHistory subscribe', viewHistory);
     if (Object.getOwnPropertyNames(viewHistory).length == 0) {
