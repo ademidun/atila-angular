@@ -21,9 +21,9 @@ export class UserProfileService {
   constructor(public http: HttpClient,
                 public authService: AuthService,
                 public snackBar: MatSnackBar,
-              public firebaseService: MyFirebaseService,) { }
+              public firebaseService: MyFirebaseService,
+              public dialog: MatDialog,) { }
   public environment = environment;
-  public dialog: MatDialog;
   public userEndpoint = environment.apiUrl + 'users/';
 
   public userProfileEndpoint = environment.apiUrl + 'user-profiles/';
@@ -342,7 +342,6 @@ export class UserProfileService {
   //todo make checkViewHistory() and checkViewHistoryHandler() into helper functions.
   checkViewHistory(userProfile:UserProfile, viewData: any, viewHistoryChanges=null) {
 
-
     console.log('checkViewHistory',viewData);
     return this.firebaseService.getGeoIp()
       .then(res=>{
@@ -355,7 +354,7 @@ export class UserProfileService {
           console.log('jqXHR, textStatus, errorThrown',jqXHR, textStatus, errorThrown)
         }
         viewData['error'] = JSON.stringify(errorThrown);
-        return this.checkViewHistoryHandler(userProfile, viewData, viewHistoryChanges)
+        this.checkViewHistoryHandler(userProfile, viewData, viewHistoryChanges)
       })
   }
 
@@ -363,7 +362,8 @@ export class UserProfileService {
     let path = 'user_profiles/' + userProfile.user + '/view_history';
 
 
-    return this.firebaseService.saveAny_fs(path, viewData)
+    console.log('checkViewHistoryHandler',this.checkViewHistoryHandler);
+    this.firebaseService.saveAny_fs(path, viewData)
       .then(res => {
         console.log('save Firebase success', res);
         viewHistoryChanges =  this.firebaseService.firestoreQuery(path).valueChanges().subscribe(
@@ -371,26 +371,32 @@ export class UserProfileService {
             // let showPrompt = viewHistory.length % 2 == 0 && this.userProfile.atila_points < 1 ||
             //   viewHistory.length > 10 && viewHistory.length % 10 ==0;
             // let showPrompt = viewHistory.length % 2 == 0 && this.userProfile.atila_points < 1;
-            let showPrompt = viewHistory.length % 2 == 0;
-            console.log('viewHistory subscribe', viewHistory);
-            if (Object.getOwnPropertyNames(viewHistory).length == 0) {
-            }
-            if (showPrompt) {
-              console.log('viewHistory.length',viewHistory.length);
-
-              let dialogRef = this.dialog.open(AtilaPointsPromptDialogComponent, {
-                width: '500px',
-                disableClose: true,
-                data: {'title':viewData.name, userProfile: userProfile, viewCount: viewHistory.length},
-              });
-
-            }
-          }
+            this.showAtilaPointsPromptDialog(userProfile,viewData, viewHistory)
+          },
         );
       })
       .catch(err => {
-        console.log('save Firebase rejection',err)
+        console.log('save Firebase rejection',err);
+        this.showAtilaPointsPromptDialog(userProfile,viewData, ['foo','bar']);
       });
+  }
+
+  showAtilaPointsPromptDialog(userProfile, viewData, viewHistory=null) {
+    let showPrompt = viewHistory.length % 2 == 0;
+    console.log('viewHistory subscribe', viewHistory);
+    if (Object.getOwnPropertyNames(viewHistory).length == 0) {
+      return
+    }
+    if (showPrompt) {
+      console.log('viewHistory.length',viewHistory.length);
+
+      let dialogRef = this.dialog.open(AtilaPointsPromptDialogComponent, {
+        width: '500px',
+        disableClose: true,
+        data: {'title':viewData.name, userProfile: userProfile, viewCount: viewHistory.length},
+      });
+
+    }
   }
 
 }

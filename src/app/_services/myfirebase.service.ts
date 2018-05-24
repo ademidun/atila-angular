@@ -108,7 +108,7 @@ export class MyFirebaseService {
     const collection: AngularFirestoreCollection<any> = this.fs.collection(queryPath);
     const id = this.fs.createId();
     data['id'] = id;
-    return collection.doc(id).set(data);
+    return collection.doc(id).set(data).catch(err=>Observable.throw(err));
   }
 
   updateAny_fs(path,id,data,opts={}) {

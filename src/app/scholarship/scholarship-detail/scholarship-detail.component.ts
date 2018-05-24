@@ -153,7 +153,12 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
                         item_name: this.scholarship.name,
                         timestamp: Date.now(),
                       };
+                      console.log('this.userProfileService.checkViewHistory',this.userProfileService.checkViewHistory);
                       this.userProfileService.checkViewHistory(this.userProfile, viewData,this.viewHistoryChanges);
+                      // console.log('checkViewHistoryResult',checkViewHistoryResult);
+                      // checkViewHistoryResult
+                      //   .then(res =>{console.log('checkViewHistoryResult res:', res)})
+                      //   .catch(err =>{console.log('checkViewHistoryResult err:', err)})
                       // this.checkViewHistory()
                     }
                   },3000);
