@@ -41,6 +41,8 @@ export class ForumDetailComponent implements OnInit, OnDestroy {
   subscriber: any = {};
   forumSlug: any = {};
   routerChanges: Subscription;
+  // due to subscribing to url slug changes, ngoninit may be incorrectly called multiple times, this flag prevents false reloading.
+  public preventNgOnInitDoubleCount = false;
   constructor(
     public route: ActivatedRoute,
     public router: Router,
@@ -71,6 +73,15 @@ export class ForumDetailComponent implements OnInit, OnDestroy {
     }
 
   ngOnInitHelper() {
+
+    console.log('ngOnInitHelper() this.preventNgOnInitDoubleCount', this.preventNgOnInitDoubleCount)
+    if (!this.preventNgOnInitDoubleCount) {
+      this.preventNgOnInitDoubleCount = true;
+    }
+    else{
+      this.preventNgOnInitDoubleCount = false;
+      return;
+    }
 
     let defaultProfileImage = 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2Fgeneral-data%2Fdefault-profile-pic.png?alt=media&token=455c59f7-3a05-43f1-a79e-89abff1eae57';
     let atilaImage = 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-gradient-banner-march-14.png?alt=media&token=9d791ba9-18d0-4750-ace8-b390a4e90fdc"';

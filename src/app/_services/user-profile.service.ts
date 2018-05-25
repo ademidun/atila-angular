@@ -380,7 +380,6 @@ export class UserProfileService implements OnDestroy{
       .then(res => {
         console.log('save Firebase success', res);
 
-
         this.viewHistoryChanges =  this.firebaseService.firestoreQuery(path).valueChanges().subscribe(
           viewHistory => {
             // let showPrompt = viewHistory.length % 2 == 0 && this.userProfile.atila_points < 1 ||
