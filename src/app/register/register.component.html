@@ -40,7 +40,7 @@
             </mat-form-field>
             <p *ngIf="differentPassword">Your passwords do not match</p>
           </div>
-        <a (click)="showReferral = !showReferral">Enter Referral Code</a>
+        <a (click)="showReferral = !showReferral" style="margin-left: 0.55rem;">Enter Referral Code</a>
           <div class="row" *ngIf="showReferral">
             <mat-form-field class="col-sm-12">
               <input tabindex="1" class="browser-default" matInput id="referred_by" type="text" placeholder="Referred By (Enter Username)"
@@ -50,7 +50,20 @@
           </div>
 
           <div class="row">
-            By clicking register you agree to the <a routerLink="/terms-and-conditions"> Terms and Conditions</a>.
+
+            <input class="browser-default" id="agree_terms_conditions" type="checkbox" [(ngModel)]="agreeTermsConditions"
+                   name="agree_terms_conditions">
+            <label for="agree_terms_conditions" data-error="Invalid input" style="margin-top:  .75rem; margin-left: 1.25rem;">
+              I agree to the <a routerLink="/terms-and-conditions"> Terms and Conditions</a>.
+            </label>
+
+
+
+            <!--<mat-checkbox [(ngModel)]="agreeTermsConditions" required="required" color="primary">-->
+              <!--I agree to the <a routerLink="/terms-and-conditions"> Terms and Conditions</a>.-->
+            <!--</mat-checkbox>-->
+
+
           </div>
           <div>
             {{isAgreeTerms}}
@@ -85,7 +98,7 @@
             <a class="waves-effect waves-light btn left" routerLink="/login">Log In</a>
 
             <button class="waves-effect waves-light btn right btn-submit" (click)="registerUser(registerForm)"
-               [disabled]="disableRegistrationButton || userProfile.referred_by==model.username">Register</button>
+               [disabled]="disableRegistrationButton || userProfile.referred_by==model.username || !agreeTermsConditions">Register</button>
             <!--<a tabindex="4" class="waves-effect waves-light btn right" (click)="nextPage()">Next</a>-->
           </div>
       </form>

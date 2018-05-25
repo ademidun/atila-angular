@@ -64,6 +64,7 @@ export class RegisterComponent implements OnInit {
   autoCompleteFormGroup: FormGroup;
   autoCompleteOptions: any;
   userProfile: UserProfile;
+  agreeTermsConditions: boolean;
 
   constructor(public router: Router,
               public snackBar: MatSnackBar,
