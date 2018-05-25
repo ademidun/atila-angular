@@ -32,27 +32,27 @@ export class TeamComponent implements OnInit {
       "link_type": "LinkedIn",
       "link_url": "https://ca.linkedin.com/in/matharumanpreet"
     },
-    {
-      "first_name": "Ananya",
-      "position": "Engineering",
-      // "username": "Engineer",
-      "img_url": "https://scontent.fyto1-1.fna.fbcdn.net/v/t1.0-9/22552858_1412415602202113_5425964300103171619_n.jpg?oh=f632de4e6b20a31f55e5130f465e845d&oe=5B08D226",
-      "description_1": "Ananya is currently a master's computer science student at University of Waterloo.",
-      "description_2": "She previously worked at Amazon as a software engineer",
-      "link_type": "LinkedIn",
-      "link_url": "https://ca.linkedin.com/in/ananya-3009"
-    },
-    {
-      "first_name": "Brian",
-      "last_name": "He",
-      "position": "Engineering",
-      "username": "BH",
-      "img_url": "https://scontent.fyto1-1.fna.fbcdn.net/v/t31.0-8/13173392_10208125023714570_1061138361353955966_o.jpg?oh=34d6bfb288dbd700edc5310a4d8e1780&oe=5B05F46E",
-      "description_1": "Brian is studying software engineering and business at Ivey Business School.",
-      "description_2": "In the summer, Brian will be joining facebook as a software engineer.",
-      "link_type": "LinkedIn",
-      "link_url": "https://ca.linkedin.com/in/hebrian"
-    },
+    // {
+    //   "first_name": "Ananya",
+    //   "position": "Engineering",
+    //   // "username": "Engineer",
+    //   "img_url": "https://scontent.fyto1-1.fna.fbcdn.net/v/t1.0-9/22552858_1412415602202113_5425964300103171619_n.jpg?oh=f632de4e6b20a31f55e5130f465e845d&oe=5B08D226",
+    //   "description_1": "Ananya is currently a master's computer science student at University of Waterloo.",
+    //   "description_2": "She previously worked at Amazon as a software engineer",
+    //   "link_type": "LinkedIn",
+    //   "link_url": "https://ca.linkedin.com/in/ananya-3009"
+    // },
+    // {
+    //   "first_name": "Brian",
+    //   "last_name": "He",
+    //   "position": "Engineering",
+    //   "username": "BH",
+    //   "img_url": "https://scontent.fyto1-1.fna.fbcdn.net/v/t31.0-8/13173392_10208125023714570_1061138361353955966_o.jpg?oh=34d6bfb288dbd700edc5310a4d8e1780&oe=5B05F46E",
+    //   "description_1": "Brian is studying software engineering and business at Ivey Business School.",
+    //   "description_2": "In the summer, Brian will be joining facebook as a software engineer.",
+    //   "link_type": "LinkedIn",
+    //   "link_url": "https://ca.linkedin.com/in/hebrian"
+    // },
     {
       "first_name": "Kitan",
       "last_name": "Ademidun",
@@ -75,28 +75,28 @@ export class TeamComponent implements OnInit {
       "link_type": "LinkedIn",
       "link_url": "https://ca.linkedin.com/in/ann-mathulla"
     },
-    {
-      "first_name": "Madalitso",
-      "last_name": "Mchaina",
-      "username": "dill_mchaina",
-      "position": "Engineering",
-      "img_url": "https://scontent.fyto1-1.fna.fbcdn.net/v/t31.0-8/21083563_10154804494487091_9189518977606889948_o.jpg?oh=29e40b71745f5d88498b2b48fb1e0314&oe=5B4DD7ED",
-      "description_1": "Madalitso is currently studying computer engineering and medical biophysics at Western University.",
-      "description_2": "Last summer, he worked as a Biomedical Engineering Research Assistant at CSTAR (Canadian Surgical Technologies & Advanced Robotics) Research Lab.",
-      "link_type": "LinkedIn",
-      "link_url": "https://www.linkedin.com/in/madalitso-mchaina-247598138/"
-    },
-    {
-      "first_name": "Mariam",
-      "last_name": "Walaa",
-      // "username": "Product Manager",
-      "position": "Advisor",
-      "img_url": "https://scontent.fyto1-1.fna.fbcdn.net/v/t1.0-1/28377469_10204156139741793_8293032094223382732_n.jpg?oh=3da6391b71fcc27f64c8c39a3c901901&oe=5B0FC80F",
-      "description_1": "Mariam is currently studying business at Schulich school of Business, York University and is on a year off.",
-      "description_2": "She is also the cofounder of <a  href=\"https://www.linkedin.com/company/nestcanada/\">edNEST</a>, an edtech community in Toronto.",
-      "link_type": "LinkedIn",
-      "link_url": "https://ca.linkedin.com/in/mariamwalaa"
-    }
+    // {
+    //   "first_name": "Madalitso",
+    //   "last_name": "Mchaina",
+    //   "username": "dill_mchaina",
+    //   "position": "Engineering",
+    //   "img_url": "https://scontent.fyto1-1.fna.fbcdn.net/v/t31.0-8/21083563_10154804494487091_9189518977606889948_o.jpg?oh=29e40b71745f5d88498b2b48fb1e0314&oe=5B4DD7ED",
+    //   "description_1": "Madalitso is currently studying computer engineering and medical biophysics at Western University.",
+    //   "description_2": "Last summer, he worked as a Biomedical Engineering Research Assistant at CSTAR (Canadian Surgical Technologies & Advanced Robotics) Research Lab.",
+    //   "link_type": "LinkedIn",
+    //   "link_url": "https://www.linkedin.com/in/madalitso-mchaina-247598138/"
+    // },
+    // {
+    //   "first_name": "Mariam",
+    //   "last_name": "Walaa",
+    //   // "username": "Product Manager",
+    //   "position": "Advisor",
+    //   "img_url": "https://scontent.fyto1-1.fna.fbcdn.net/v/t1.0-1/28377469_10204156139741793_8293032094223382732_n.jpg?oh=3da6391b71fcc27f64c8c39a3c901901&oe=5B0FC80F",
+    //   "description_1": "Mariam is currently studying business at Schulich school of Business, York University and is on a year off.",
+    //   "description_2": "She is also the cofounder of <a  href=\"https://www.linkedin.com/company/nestcanada/\">edNEST</a>, an edtech community in Toronto.",
+    //   "link_type": "LinkedIn",
+    //   "link_url": "https://ca.linkedin.com/in/mariamwalaa"
+    // }
   ];
 
   constructor(seoService: SeoService) {
