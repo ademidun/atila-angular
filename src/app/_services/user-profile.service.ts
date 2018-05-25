@@ -393,9 +393,13 @@ export class UserProfileService implements OnDestroy{
 
   showAtilaPointsPromptDialog(userProfile, viewData, viewHistory) {
 
+    console.log('userProfile.atila_points, viewHistory.length, userProfile.atila_points / viewHistory.length',
+      userProfile.atila_points, viewHistory.length, userProfile.atila_points / viewHistory.length);
+
     if (!viewHistory.length || viewHistory.length == 0) {
       return
     }
+
 
     let showPrompt = true;
     if (userProfile.atila_points <1) {
@@ -406,7 +410,7 @@ export class UserProfileService implements OnDestroy{
       showPrompt = (userProfile.atila_points / viewHistory.length) <= 8 && viewHistory.length % 5 == 0
     }
 
-    if (showPrompt) {
+    if (true) {
       console.log('viewHistory.length',viewHistory.length);
 
       let dialogRef = this.dialog.open(AtilaPointsPromptDialogComponent, {

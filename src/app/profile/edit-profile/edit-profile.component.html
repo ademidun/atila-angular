@@ -20,6 +20,15 @@
           <a [routerLink]="['/profile', userProfile.username]" >View Profile</a>
           </span>
 
+
+          <div *ngIf="showReferralCode" style="font-size: larger">
+            Your Referral code is <code>{{userProfile.username}}</code>
+            <span [ngbPopover]="referralInfoPopover"
+                  triggers="mouseenter" popoverTitle="Refer a Friend">
+            <mat-icon aria-label="Refer a friend. Tell them to enter the code when registering. Get Atila Points!.">help_outline</mat-icon>
+          </span>
+          </div>
+
           <div *ngIf="!environment.production || !userProfile.is_verified">
             <p> <br>
               Your account is <span style="color: red">unverified</span> 😢. <a class="waves-effect waves-light btn btn-link" (click)="verifyAccount()" style="margin-bottom: 3%">Verify Account</a>
@@ -34,6 +43,19 @@
             </p>
           </div>
 
+
+          <div *ngIf="!showReferralCode" style="font-size: larger">
+            Your Referral code is <code>{{userProfile.username}}</code>
+            <span [ngbPopover]="referralInfoPopover"
+                  triggers="mouseenter" popoverTitle="Refer a Friend">
+            <mat-icon aria-label="Refer a friend. Tell them to enter the code when registering. Get Atila Points!.">help_outline</mat-icon>
+          </span>
+          </div>
+
+
+          <ng-template #referralInfoPopover>Refer a friend. Tell them to enter the code when registering.
+            Get
+            <a  routerLink="/blog/atila/what-is-atila" fragment="atila-points">Atila Points 😄!</a></ng-template>
 
           <button class="waves-effect waves-light btn right" (click)="switchPage()" style="margin-left:1%">Next Page</button>
           <div class="row">

@@ -86,6 +86,7 @@ EDUCATION_FIELD = [
   myControl: FormControl = new FormControl();
 
   schoolNames: any;
+  showReferralCode: any;
 
   filteredOptions: Observable<string[]>;
 
@@ -123,11 +124,16 @@ EDUCATION_FIELD = [
         .subscribe(
           data => {
             this.userProfile = data;
+
             let profileTitle = this.userProfile.first_name +' '+ this.userProfile.last_name + "'s Profile";
             this.titleService.setTitle('Atila - ' + profileTitle);
             this.initializeLocations(this.userProfile.city);
 
             this.initializeForm();
+            console.log('this.route',this.route,this.route.url);
+            if (this.route.snapshot.fragment && this.route.snapshot.fragment.includes('referral-code')){
+              this.showReferralCode = true;
+            }
 
           },
           err => {

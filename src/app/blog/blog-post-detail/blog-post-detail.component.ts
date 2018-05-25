@@ -116,6 +116,12 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
           );
 
           this.getRelatedItems();
+          console.log('this.route',this.route,this.route.snapshot);
+          if (this.route.snapshot.fragment){
+            setTimeout(() => {
+              this.scrollToElement('#'+this.route.snapshot.fragment);
+            }, 500);
+          }
 
         },
         err => {
@@ -186,6 +192,16 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
 
   scrollToComments() {
     $("html, body").animate({scrollTop: $('.comment-box').offset().top}, 1000);
+  }
+  scrollToElement(selector) {
+    try{
+      console.log('scrollToElement',this.scrollToElement);
+      $("html, body").animate({scrollTop: $(selector).offset().top}, 1000);
+    }
+    catch(e) {
+      console.log('scrollToElement catch e',e);
+
+    }
   }
 
   trackByFn(index: any, item: any) {

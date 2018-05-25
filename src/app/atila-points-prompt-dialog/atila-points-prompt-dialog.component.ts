@@ -25,7 +25,7 @@ export class AtilaPointsPromptDialogComponent implements OnInit, OnDestroy {
   ngOnInit() {
   }
 
-  linkHandler(event, path) {
+  linkHandler(event, path,opts={}) {
 
     try {
       event.preventDefault();
@@ -33,7 +33,7 @@ export class AtilaPointsPromptDialogComponent implements OnInit, OnDestroy {
     catch(e){
       // console.log('catch  event.preventDefault() e:', e);
     }
-    this.router.navigate([path]);
+    this.router.navigate([path], opts);
     this.dialogRef.close();
   }
 

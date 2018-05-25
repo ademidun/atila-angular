@@ -20,7 +20,7 @@
   <!--</a>-->
   <ol>
     <li><a (click)="linkHandler($event, 'scholarship/add')" routerLink="scholarship/add">Add a Scholarship</a></li>
-    <li><a (click)="linkHandler($event, 'profile/edit')" routerLink="profile/edit">Refer a Friend</a></li>
+    <li><a (click)="linkHandler($event, 'profile/edit', {fragment:'#referral-code'})" routerLink="profile/edit#referral-code">Refer a Friend</a></li>
     <li><a (click)="linkHandler($event, 'blog/add')" routerLink="blog/add">Write a Blog Post</a></li>
     <!--<li><a (click)="linkHandler($event, 'forum')" routerLink="blog/add">Ask or Answer a forum post</a></li>-->
   </ol>
