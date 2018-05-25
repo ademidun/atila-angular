@@ -21,14 +21,6 @@
           </span>
 
 
-          <div *ngIf="showReferralCode" style="font-size: larger">
-            Your Referral code is <code>{{userProfile.username}}</code>
-            <span [ngbPopover]="referralInfoPopover"
-                  triggers="mouseenter" popoverTitle="Refer a Friend">
-            <mat-icon aria-label="Refer a friend. Tell them to enter the code when registering. Get Atila Points!.">help_outline</mat-icon>
-          </span>
-          </div>
-
           <div *ngIf="!environment.production || !userProfile.is_verified">
             <p> <br>
               Your account is <span style="color: red">unverified</span> 😢. <a class="waves-effect waves-light btn btn-link" (click)="verifyAccount()" style="margin-bottom: 3%">Verify Account</a>
@@ -44,7 +36,7 @@
           </div>
 
 
-          <div *ngIf="!showReferralCode" style="font-size: larger">
+          <div style="font-size: larger">
             Your Referral code is <code>{{userProfile.username}}</code>
             <span [ngbPopover]="referralInfoPopover"
                   triggers="mouseenter" popoverTitle="Refer a Friend">
