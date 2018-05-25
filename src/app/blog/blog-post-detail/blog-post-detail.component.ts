@@ -60,6 +60,9 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
 
                 this.routerChanges = router.events.subscribe(data=>{
                   if(data instanceof ActivationEnd){
+                    if (this.userProfileService.viewHistoryChanges) {
+                      this.userProfileService.viewHistoryChanges.unsubscribe();
+                    }
                     this.slugUsername = data.snapshot.params['username'];
                     this.slugTitle = data.snapshot.params['slug'];
                     this.ngOnInitHelper();
@@ -77,6 +80,8 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
           this.blogPost = (<any>res).blog;
 
           //this.updateMeta();
+
+
           try {
             this.seoService.generateTags({
               title: this.blogPost.title,
@@ -94,6 +99,19 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
             this.userProfileService.getById(parseInt(this.userId)).subscribe(
               res => {
                 this.userProfile = res;
+
+                setTimeout(()=>{
+                  if(this.blogPost) {
+                    let viewData = {
+                      item_type: 'blog',
+                      item_id: this.blogPost.id,
+                      item_name: this.blogPost.title,
+                      timestamp: Date.now(),
+                    };
+                    console.log('this.userProfileService.checkViewHistory');
+                    this.userProfileService.checkViewHistory(this.userProfile, viewData);
+                  }
+                },3000);
 
                 if (this.blogPost.up_votes_id.includes(this.userId)) {//if the current user (ID) already liked the video, disable the up_vote_button
                   this.blogPost['alreadyLiked'] = true;
@@ -150,6 +168,9 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.routerChanges.unsubscribe();
+    if (this.userProfileService.viewHistoryChanges) {
+      this.userProfileService.viewHistoryChanges.unsubscribe();
+    }
   }
 
 

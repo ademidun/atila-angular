@@ -349,21 +349,26 @@ export class UserProfileService implements OnDestroy{
 
   //todo make checkViewHistory() and checkViewHistoryHandler() into helper functions.
   checkViewHistory(userProfile:UserProfile, viewData: any) {
+    try {
+      console.log('checkViewHistory',viewData);
+      this.firebaseService.getGeoIp()
+        .then(res=>{
+          viewData['geo_ip'] = res;
+          return this.checkViewHistoryHandler(userProfile, viewData)
 
-    console.log('checkViewHistory',viewData);
-    this.firebaseService.getGeoIp()
-      .then(res=>{
-        viewData['geo_ip'] = res;
-        return this.checkViewHistoryHandler(userProfile, viewData)
+        })
+        .catch( (jqXHR, textStatus, errorThrown) => {
+          if(this.environment.production || userProfile.is_atila_admin) {
+            console.log('jqXHR, textStatus, errorThrown',jqXHR, textStatus, errorThrown)
+          }
+          viewData['error'] = JSON.stringify(errorThrown);
+          this.checkViewHistoryHandler(userProfile, viewData)
+        })
+    }
+    catch(e) {
+      console.log('checkViewHistory e:',e)
+    }
 
-      })
-      .catch( (jqXHR, textStatus, errorThrown) => {
-        if(this.environment.production || userProfile.is_atila_admin) {
-          console.log('jqXHR, textStatus, errorThrown',jqXHR, textStatus, errorThrown)
-        }
-        viewData['error'] = JSON.stringify(errorThrown);
-        this.checkViewHistoryHandler(userProfile, viewData)
-      })
   }
 
   checkViewHistoryHandler(userProfile, viewData){

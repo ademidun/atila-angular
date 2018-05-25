@@ -62,6 +62,9 @@ export class ForumDetailComponent implements OnInit, OnDestroy {
     this.routerChanges = router.events.subscribe(data=>{
       if(data instanceof ActivationEnd){
         this.forumSlug = route.snapshot.params['slug'];
+        if (this.userProfileService.viewHistoryChanges) {
+          this.userProfileService.viewHistoryChanges.unsubscribe();
+        }
         this.ngOnInitHelper();
       }
     });
@@ -90,7 +93,32 @@ export class ForumDetailComponent implements OnInit, OnDestroy {
           console.log('getBySlug() err',err);
           this.router.navigate(['/forum']);
         }
+
+
         this.forum.starting_comment = null;
+        if (!isNaN(this.userId)) {
+
+          this.userProfileService.getById(parseInt(this.userId)).subscribe(
+            res => {
+              this.userProfile = res;
+              setTimeout(()=>{
+                if(this.forum) {
+                  let viewData = {
+                    item_type: 'forum',
+                    item_id: this.forum.id,
+                    item_name: this.forum.title,
+                    timestamp: Date.now(),
+                  };
+                  console.log('this.userProfileService.checkViewHistory');
+                  this.userProfileService.checkViewHistory(this.userProfile, viewData);
+                }
+              },3000);
+
+            }
+          );
+
+          this.userComment = new Comment(this.userId);
+        }
         // this.titleService.setTitle( this.forum.title + ' - Atila Forum');
 
 
@@ -128,6 +156,9 @@ export class ForumDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.routerChanges.unsubscribe();
+    if (this.userProfileService.viewHistoryChanges) {
+      this.userProfileService.viewHistoryChanges.unsubscribe();
+    }
   }
 
   postComment(){
