@@ -198,7 +198,6 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
 
 
   ngOnDestroy() {
-    console.log('ngOnDestroy');
     this.routerChanges.unsubscribe();
     if (this.userProfileService.viewHistoryChanges) {
       this.userProfileService.viewHistoryChanges.unsubscribe();

@@ -1,6 +1,6 @@
 <h2 mat-dialog-title>{{userProfile.first_name}}, You have viewed {{ viewCount || 'N'}} pages.</h2>
 <h2 mat-dialog-title>
-  and You have {{userProfile.atila_points| number:'1.0-0'}} Atila points.
+  and You only have {{userProfile.atila_points| number:'1.0-0'}} Atila points.
   <!--<a [routerLink]="" ngbTooltip="Atila points are used to see scholarships, forums, blog posts">-->
     <!--<i class="material-icons">-->
       <!--help-->
@@ -9,7 +9,7 @@
 </h2>
 <a (click)="linkHandler($event, '/blog/atila/what-is-atila', {fragment:'atila-points'})"  routerLink="/blog/atila/what-is-atila#atila-points">What are Atila Points?</a>
 
-<h3 mat-dialog-title>Consider Helping Others?</h3>
+<h3 mat-dialog-title>Consider Helping Others and get Atila Points?</h3>
 
 <mat-dialog-actions>
 

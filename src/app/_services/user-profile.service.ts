@@ -401,7 +401,9 @@ export class UserProfileService implements OnDestroy{
   }
 
   showAtilaPointsPromptDialog(userProfile, viewData, viewHistory) {
-
+    if (this.viewHistoryChanges) {
+      this.viewHistoryChanges.unsubscribe();
+    }
     console.log('userProfile.atila_points, viewHistory.length, userProfile.atila_points / viewHistory.length',
       userProfile.atila_points, viewHistory.length, userProfile.atila_points / viewHistory.length);
 
@@ -424,7 +426,7 @@ export class UserProfileService implements OnDestroy{
       showPrompt = (userProfile.atila_points / viewHistory.length) <= 10 && viewHistory.length % 5 == 0
     }
 
-    if (true) {
+    if (showPrompt) {
       console.log('viewHistory.length',viewHistory.length);
 
 
@@ -434,9 +436,7 @@ export class UserProfileService implements OnDestroy{
         disableClose: true,
         data: {'title':viewData.name, userProfile: userProfile, viewCount: viewHistory.length},
       });
-      if (this.viewHistoryChanges) {
-        this.viewHistoryChanges.unsubscribe();
-      }
+
 
     }
   }

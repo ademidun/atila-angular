@@ -69,7 +69,7 @@ export class TeamComponent implements OnInit {
       "last_name": "Mathulla",
       "username": "AnnMathulla",
       "position": "Product Manager",
-      "img_url": "https://scontent.fyto1-1.fna.fbcdn.net/v/t1.0-9/15178296_963120957154483_6847353746981618246_n.jpg?oh=d2f678f3ebb0f9c9c85d5851f3ba4a16&oe=5B039270",
+      "img_url": "https://scontent.fyyz1-1.fna.fbcdn.net/v/t1.0-9/15178296_963120957154483_6847353746981618246_n.jpg?_nc_cat=0&oh=1430b348d5c3544ebbcc78104382b4a1&oe=5B7A3970",
       "description_1": "Ann is currently studying business at Smith school of Business, Queen's University. She's also the recipient of the Queen's Chancellor scholarship.",
       "description_2": " Last summer, she worked at Financeit, an edtech startup acquired by Goldman Sachs.",
       "link_type": "LinkedIn",

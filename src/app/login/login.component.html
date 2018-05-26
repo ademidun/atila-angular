@@ -16,10 +16,22 @@
             </mat-form-field>
 
             <div class="col-sm-12 button-container">
-            <button type="submit" class="waves-effect waves-light btn left" (click)="login()">Login</button>
 
-            <a class="waves-effect waves-light btn right" routerLink="/register">Register</a>
+              <span class="hide-on-med-and-up">
+
+                <button type="submit" class="waves-effect waves-light btn left col-sm-12" (click)="login()">Login</button>
+                <a class="waves-effect waves-light btn col-sm-12"  style="margin-top: 3%" routerLink="/register">Register</a>
+              </span>
+
+              <span class="hide-on-small-and-down">
+                <button type="submit" class="waves-effect waves-light btn left" (click)="login()">Login</button>
+                <a class="waves-effect waves-light btn right" routerLink="/register">Register</a>
+              </span>
+
+
+
             </div>
+
 
 
           </div>
