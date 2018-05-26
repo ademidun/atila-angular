@@ -8,6 +8,15 @@ import { environment } from './environments/environment';
 if (environment.production) {
   enableProdMode();
 }
+// if (!environment.production) {
+//   enableProdMode();
+//   console.log('disabling console.log');
+//   window.console.log = function () { };   // disable any console.log debugging statements in production mode
+//   console.log('disabled console.log, this should not print');
+//   // window.console.error = function () { };
+//
+// }
+
 // if(process){
 //   if (process.env.ENV === 'production') {
 //     enableProdMode();
