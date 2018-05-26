@@ -401,18 +401,22 @@ export class UserProfileService implements OnDestroy{
   }
 
   showAtilaPointsPromptDialog(userProfile, viewData, viewHistory) {
-    if (this.viewHistoryChanges) {
-      this.viewHistoryChanges.unsubscribe();
-    }
+
     console.log('userProfile.atila_points, viewHistory.length, userProfile.atila_points / viewHistory.length',
       userProfile.atila_points, viewHistory.length, userProfile.atila_points / viewHistory.length);
 
     if(this.dialog.openDialogs && this.dialog.openDialogs.length > 0) {
       console.log('already open this.dialog.openDialogs',this.dialog.openDialogs);
+      if (this.viewHistoryChanges) {
+        this.viewHistoryChanges.unsubscribe();
+      }
       return
     }
 
     if (!viewHistory.length || viewHistory.length == 0) {
+      if (this.viewHistoryChanges) {
+        this.viewHistoryChanges.unsubscribe();
+      }
       return
     }
 
@@ -438,6 +442,10 @@ export class UserProfileService implements OnDestroy{
       });
 
 
+    }
+
+    if (this.viewHistoryChanges) {
+      this.viewHistoryChanges.unsubscribe();
     }
   }
 

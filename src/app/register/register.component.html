@@ -95,9 +95,8 @@
           </div>
 
           <div class="col-sm-12 button-container">
-            <a class="waves-effect waves-light btn left" routerLink="/login">Log In</a>
 
-            <button class="waves-effect waves-light btn btn-submit show-on-small" (click)="registerUser(registerForm)" style="margin-top: 3%"
+            <button class="waves-effect waves-light btn btn-submit hide-on-med-and-up" (click)="registerUser(registerForm)"
                [disabled]="disableRegistrationButton || userProfile.referred_by==model.username || !agreeTermsConditions">Register</button>
 
             <button class="waves-effect waves-light btn right btn-submit hide-on-small-and-down" (click)="registerUser(registerForm)"
