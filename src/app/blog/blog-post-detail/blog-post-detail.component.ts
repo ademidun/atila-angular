@@ -60,6 +60,8 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
 
                 this.routerChanges = router.events.subscribe(data=>{
                   if(data instanceof ActivationEnd){
+
+
                     if (this.userProfileService.viewHistoryChanges) {
                       this.userProfileService.viewHistoryChanges.unsubscribe();
                     }
@@ -71,6 +73,11 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
               }
 
   ngOnInitHelper() {
+
+    if (this.userProfileService.viewHistoryChanges) {
+      this.userProfileService.viewHistoryChanges.unsubscribe();
+    }
+
     if (!this.slugUsername || !this.slugTitle) {
       return;
     }
@@ -171,6 +178,7 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
     if (this.userProfileService.viewHistoryChanges) {
       this.userProfileService.viewHistoryChanges.unsubscribe();
     }
+
   }
 
 

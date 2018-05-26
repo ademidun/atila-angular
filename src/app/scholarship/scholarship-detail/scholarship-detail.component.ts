@@ -77,7 +77,9 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
     //reload the url if a new slug is clicked from related items
     this.routerChanges = router.events.subscribe(data=>{
       if(data instanceof ActivationEnd){
+
         console.log('this.viewHistoryChanges',this.userProfileService.viewHistoryChanges);
+
         if (this.userProfileService.viewHistoryChanges) {
           this.userProfileService.viewHistoryChanges.unsubscribe();
         }
@@ -93,6 +95,9 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
 
   ngOnInitHelper() {
 
+    if (this.userProfileService.viewHistoryChanges) {
+      this.userProfileService.viewHistoryChanges.unsubscribe();
+    }
     console.log('ngOnInitHelper() this.preventNgOnInitDoubleCount', this.preventNgOnInitDoubleCount)
     if (!this.preventNgOnInitDoubleCount) {
       this.preventNgOnInitDoubleCount = true;
@@ -183,6 +188,7 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
   }
 
   ngOnInit() {
+
   }
 
   ngAfterViewInit() {

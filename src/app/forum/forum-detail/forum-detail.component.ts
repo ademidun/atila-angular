@@ -64,6 +64,7 @@ export class ForumDetailComponent implements OnInit, OnDestroy {
     this.routerChanges = router.events.subscribe(data=>{
       if(data instanceof ActivationEnd){
         this.forumSlug = route.snapshot.params['slug'];
+
         if (this.userProfileService.viewHistoryChanges) {
           this.userProfileService.viewHistoryChanges.unsubscribe();
         }
@@ -74,6 +75,9 @@ export class ForumDetailComponent implements OnInit, OnDestroy {
 
   ngOnInitHelper() {
 
+    if (this.userProfileService.viewHistoryChanges) {
+      this.userProfileService.viewHistoryChanges.unsubscribe();
+    }
     console.log('ngOnInitHelper() this.preventNgOnInitDoubleCount', this.preventNgOnInitDoubleCount)
     if (!this.preventNgOnInitDoubleCount) {
       this.preventNgOnInitDoubleCount = true;

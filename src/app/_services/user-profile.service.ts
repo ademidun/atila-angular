@@ -4,7 +4,7 @@ import {HttpClient, HttpResponse, HttpHeaders, HttpErrorResponse} from '@angular
 import { User } from '../_models/user';
 
 import { Observable } from 'rxjs/Observable';
-
+import 'rxjs/add/operator/takeUntil';
 import { UserProfile } from '../_models/user-profile';
 import { AuthService } from "./auth.service";
 
@@ -16,6 +16,7 @@ import {TextboxQuestion} from '../_models/question-textbox';
 import {MyFirebaseService} from './myfirebase.service';
 import {AtilaPointsPromptDialogComponent} from '../atila-points-prompt-dialog/atila-points-prompt-dialog.component';
 import {Subscription} from 'rxjs/Subscription';
+import {Subject} from 'rxjs/Subject';
 @Injectable()
 export class UserProfileService implements OnDestroy{
 
@@ -29,6 +30,8 @@ export class UserProfileService implements OnDestroy{
 
   public userProfileEndpoint = environment.apiUrl + 'user-profiles/';
   public viewHistoryChanges: Subscription;
+  //https://stackoverflow.com/questions/38008334/angular-rxjs-when-should-i-unsubscribe-from-subscription
+  // public ngUnsubscribe: Subject<any> = new Subject();
 
   ngOnDestroy() {
     console.log('foo destroy');
@@ -36,6 +39,7 @@ export class UserProfileService implements OnDestroy{
     if (this.viewHistoryChanges) {
       this.viewHistoryChanges.unsubscribe();
     }
+
   }
 
   createUser(user: User) {
@@ -380,7 +384,8 @@ export class UserProfileService implements OnDestroy{
       .then(res => {
         console.log('save Firebase success', res);
 
-        this.viewHistoryChanges =  this.firebaseService.firestoreQuery(path).valueChanges().subscribe(
+        this.viewHistoryChanges =  this.firebaseService.firestoreQuery(path).valueChanges()
+          .subscribe(
           viewHistory => {
             // let showPrompt = viewHistory.length % 2 == 0 && this.userProfile.atila_points < 1 ||
             //   viewHistory.length > 10 && viewHistory.length % 10 ==0;
@@ -400,6 +405,11 @@ export class UserProfileService implements OnDestroy{
     console.log('userProfile.atila_points, viewHistory.length, userProfile.atila_points / viewHistory.length',
       userProfile.atila_points, viewHistory.length, userProfile.atila_points / viewHistory.length);
 
+    if(this.dialog.openDialogs && this.dialog.openDialogs.length > 0) {
+      console.log('already open this.dialog.openDialogs',this.dialog.openDialogs);
+      return
+    }
+
     if (!viewHistory.length || viewHistory.length == 0) {
       return
     }
@@ -411,17 +421,22 @@ export class UserProfileService implements OnDestroy{
     }
 
     else {
-      showPrompt = (userProfile.atila_points / viewHistory.length) <= 8 && viewHistory.length % 5 == 0
+      showPrompt = (userProfile.atila_points / viewHistory.length) <= 10 && viewHistory.length % 5 == 0
     }
 
     if (true) {
       console.log('viewHistory.length',viewHistory.length);
+
+
 
       let dialogRef = this.dialog.open(AtilaPointsPromptDialogComponent, {
         width: '500px',
         disableClose: true,
         data: {'title':viewData.name, userProfile: userProfile, viewCount: viewHistory.length},
       });
+      if (this.viewHistoryChanges) {
+        this.viewHistoryChanges.unsubscribe();
+      }
 
     }
   }
