@@ -7,7 +7,7 @@ import {UserProfile} from '../_models/user-profile';
 @Component({
   selector: 'app-atila-points-prompt-dialog',
   templateUrl: './atila-points-prompt-dialog.component.html',
-  styleUrls: ['./atila-points-prompt-dialog.component.scss']
+  styleUrls: ['./atila-points-prompt-dialog.component.scss'],
 })
 export class AtilaPointsPromptDialogComponent implements OnInit, OnDestroy {
 

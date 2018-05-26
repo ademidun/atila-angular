@@ -7,7 +7,31 @@
     <!--</i>-->
   <!--</a>-->
 </h2>
-<a (click)="linkHandler($event, '/blog/atila/what-is-atila', {fragment:'atila-points'})"  routerLink="/blog/atila/what-is-atila#atila-points">What are Atila Points?</a>
+
+<a (click)="linkHandler($event, '/blog/atila/what-is-atila', {fragment:'atila-points'})"  routerLink="/blog/atila/what-is-atila#atila-points"
+   triggers="mouseenter" placement="bottom"
+   [ngbPopover]="atilaPointsInfoPopover" popoverTitle="What are Atila Points?">
+  What are Atila Points? </a>
+
+
+
+<ng-template #atilaPointsInfoPopover>
+
+  <ul class="browser-default" style="font-size: larger">
+    <!--<li>A points system that rewards users for contributing to the site.</li>-->
+    <li>Used to find and apply to scholarships, view blog posts and forum discussions.</li>
+    <li>Earned by adding scholarships, referring a friend or adding a blog post to the site.</li>
+    <li>Encourage users to contribute and give back to the Atila community,in the same way they have benefited from others who have given back.</li>
+    <li>  <a (click)="linkHandler($event, '/blog/atila/what-is-atila', {fragment:'atila-points'})"  routerLink="/blog/atila/what-is-atila#atila-points">
+      Learn More
+    </a></li>
+  </ul>
+
+
+
+
+
+</ng-template>
 
 <h3 mat-dialog-title>Consider Helping Others and get Atila Points?</h3>
 

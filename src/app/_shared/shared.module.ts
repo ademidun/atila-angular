@@ -6,6 +6,7 @@ import {GooglePlaceDirective} from '../_directives/google-place.directive';
 import {SafeResourcePipe} from '../_pipes/safe-resource.pipe';
 import {TruncatePipe} from '../_pipes/truncate.pipe';
 import {CommentComponent} from '../comment/comment.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {MaterializeModule} from 'angular2-materialize';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {
@@ -47,6 +48,7 @@ import {AtilaPointsPromptDialogComponent} from '../atila-points-prompt-dialog/at
 @NgModule({
   imports: [
     CommonModule,
+    NgbModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     FormsModule,
