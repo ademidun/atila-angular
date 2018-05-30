@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { EssayRoutingModule } from './essay-routing.module';
-import { EssayCreateComponent } from './essay-create/essay-create.component';
-import { EssayDetailComponent } from './essay-detail/essay-detail.component';
-import { EssayListComponent } from './essay-list/essay-list.component';
+import {EssayRoutingModule} from './essay-routing.module';
+import {EssayCreateComponent} from './essay-create/essay-create.component';
+import {EssayDetailComponent} from './essay-detail/essay-detail.component';
+import {EssayListComponent} from './essay-list/essay-list.component';
 import {SharedModule} from '../_shared/shared.module';
-import {MatIconModule} from '@angular/material';
+import {MatCardModule, MatIconModule} from '@angular/material';
 
 @NgModule({
   imports: [
@@ -14,7 +14,9 @@ import {MatIconModule} from '@angular/material';
     EssayRoutingModule,
     SharedModule,
     MatIconModule,
+    MatCardModule,
   ],
   declarations: [EssayCreateComponent, EssayDetailComponent, EssayListComponent]
 })
-export class EssayModule { }
+export class EssayModule {
+}

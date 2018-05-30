@@ -7,7 +7,7 @@ import {BlogsListComponent} from './blogs-list/blogs-list.component';
 import {BlogPostCreateComponent} from './blog-post-create/blog-post-create.component';
 
 import {MaterializeModule} from 'angular2-materialize';
-import "materialize-css";
+import 'materialize-css';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
