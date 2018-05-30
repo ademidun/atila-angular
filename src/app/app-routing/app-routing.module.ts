@@ -37,6 +37,10 @@ const routes: Routes = [
     loadChildren: '../blog/blog.module#BlogModule'
   },
   {
+    path: 'essay',
+    loadChildren: '../essay/essay.module#EssayModule'
+  },
+  {
     path: 'forum',
     loadChildren: '../forum/forum.module#ForumModule'
   },
