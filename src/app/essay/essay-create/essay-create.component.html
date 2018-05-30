@@ -1,3 +1,83 @@
-<p>
-  essay-create works!
-</p>
+<div class="container">
+  <div class="col-sm-11">
+    <h3> {{blogPost.title}} </h3>
+    <span *ngIf="!blogPost.published" style=" font-size: medium; font-weight: bold; ">Unpublished</span>
+    <a (click)="scrollToElement('#preview-blog')">Preview <i class="material-icons">remove_red_eye</i></a>
+    <mat-card class="forum-card">
+
+      <mat-card-content>
+        <input id="forum_title" placeholder="Title" [(ngModel)]="blogPost.title" (change)="titleToSlug(blogSlugInput)">
+
+        <a (click)="extraBlogOptions = !extraBlogOptions" style="cursor: pointer; color: #68d5ff">More Settings</a>
+
+        <div [hidden]="!extraBlogOptions">
+
+          <div class="row">
+
+            <div class="col-sm-12">
+              <label>Paste an image url for blog Post Header Image</label>
+              <input [(ngModel)]="blogPost.header_image_url" id="header_image_url" type="text" placeholder="Paste header image url"
+                     #uploadPicInput name="header_image_url">
+            </div>
+            <div class="col-sm-12">
+              <label>Or upload a blog Post Header Image</label>
+              <input id="header_image_url_file" type="file" placeholder="Upload your Header Image"
+                     #uploadPicInput name="header_image_url_file">
+            </div>
+
+            <div *ngIf="uploadProgress" class="col-md-3 col-sm-12 mb-3">
+              Progress: <p style="font-weight: bold">{{uploadProgress | number:'1.0-0'}}%</p>
+              <mat-progress-bar mode="determinate" [value]="uploadProgress"></mat-progress-bar>
+            </div>
+
+            <div class="col-sm-6">
+              <button mat-raised-button class="btn white-text" (click)="uploadPicture(uploadPicInput)">Upload</button>
+            </div>
+
+          </div>
+
+          <span ngbPopover="Write a short preview of your article. Helpful for other readers, social media and search engines."
+                triggers="mouseenter:mouseleave" popoverTitle="Blog Preview">
+            <mat-icon aria-label="Write a short preview of your article. Helpful for other readers, social media and search engines.">help_outline</mat-icon>
+          </span>
+          <textarea id="blog_post_description" class="prefix_input" placeholder="Blog preview"
+                    [(ngModel)]="blogPost.description">
+
+          </textarea>
+          <div>
+            <span style="font-weight: bold" *ngIf="blogPost && blogPost.user && blogPost.user.username; else backupPrefix">
+              atila.ca/blog/{{blogPost.user.username}}/</span>
+            <ng-template #backupPrefix><span style="font-weight: bold" *ngIf="userProfile" id="url_prefix">atila.ca/blog/{{userProfile.username}}/</span></ng-template>
+            <input class="prefix_input" #blogSlugInput type="text" [(ngModel)]="blogPost.slug" placeholder="Blog URL">
+          </div>
+        </div>
+
+      </mat-card-content>
+      <p *ngIf="!isLoggedIn">Please <a routerLink="/login">Log In</a></p>
+      <mat-card-actions>
+        <button mat-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveBlog(blogPost.published)" [disabled]="!isLoggedIn">Save</button>
+      </mat-card-actions>
+
+    </mat-card>
+
+    <!--<div [froalaEditor]="options" [(froalaModel)]="blogPost.body"></div>-->
+    <div  class="wysiywyg-editor">
+      <textarea  id="{{editorId}}"></textarea>
+    </div>
+
+    <p *ngIf="!isLoggedIn">Please <a routerLink="/login">Log In</a></p>
+    <button mat-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveBlog(blogPost.published)" [disabled]="!isLoggedIn">Save</button>
+    <button mat-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveBlog(!blogPost.published)" [disabled]="!isLoggedIn">{{!blogPost.published ? 'Publish' : 'UnPublish'}}</button>
+  </div>
+
+  <br>
+  <div style="margin-top:3%" class="col-sm-12 col-md-10 offset-md-1" id="preview-blog">
+    <h5>Preview</h5>
+    <h3> {{blogPost.title}} </h3>
+    <img *ngIf="blogPost.header_image_url" [src]="blogPost.header_image_url" style="max-height: 100%;max-width: 100%;"/>
+  </div>
+  <div [innerHTML]="blogPost.body | safeHtml" class="col-sm-12 col-md-10 offset-md-1 inner-html"></div>
+  <!--<div [froalaView]="blogPost.body" class="col col-md-8 offset-md-d-2 col-lg-8 offset-lg-2 col-sm-11"></div>-->
+
+</div>
+

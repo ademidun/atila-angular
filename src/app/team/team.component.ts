@@ -26,7 +26,7 @@ export class TeamComponent implements OnInit {
       "last_name": "Singh",
       "username": "matharumanpreet",
       "position": "Engineering",
-      "img_url": "https://scontent.fyto1-1.fna.fbcdn.net/v/t1.0-9/10351170_861597783896802_6247911242716139928_n.jpg?oh=d8b0644e41f299bb309cb7377d974622&oe=5B0A513E",
+      "img_url": "https://scontent.fyyz1-1.fna.fbcdn.net/v/t1.0-9/10351170_861597783896802_6247911242716139928_n.jpg?_nc_cat=0&oh=2d40c6644fd49171777dca2d581f4a27&oe=5B80F83E",
       "description_1": "Manpreet is currently studying computer technology at Seneca College.",
       "description_2": "Prior to Atila, Manpreet worked at RBC as a software developer.",
       "link_type": "LinkedIn",

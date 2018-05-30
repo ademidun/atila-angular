@@ -6,7 +6,8 @@ import { EssayCreateComponent } from './essay-create/essay-create.component';
 import { EssayDetailComponent } from './essay-detail/essay-detail.component';
 import { EssayListComponent } from './essay-list/essay-list.component';
 import {SharedModule} from '../_shared/shared.module';
-import {MatIconModule} from '@angular/material';
+import {MatCardModule, MatIconModule, MatProgressBarModule} from '@angular/material';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -14,6 +15,10 @@ import {MatIconModule} from '@angular/material';
     EssayRoutingModule,
     SharedModule,
     MatIconModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatProgressBarModule,
   ],
   declarations: [EssayCreateComponent, EssayDetailComponent, EssayListComponent]
 })
