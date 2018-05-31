@@ -8,6 +8,7 @@ import {EssayListComponent} from './essay-list/essay-list.component';
 import {SharedModule} from '../_shared/shared.module';
 import {MatCardModule, MatIconModule, MatProgressBarModule} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { EssayService } from '../_services/essay.service';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     FormsModule,
     MatProgressBarModule,
   ],
-  declarations: [EssayCreateComponent, EssayDetailComponent, EssayListComponent]
+  declarations: [EssayCreateComponent, EssayDetailComponent, EssayListComponent],
+  providers: [EssayService]
 })
 export class EssayModule {
 }
