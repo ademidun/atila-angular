@@ -1,5 +1,4 @@
 import { Component, OnInit, AfterViewInit, EventEmitter, OnDestroy, Input,Output, ChangeDetectorRef } from '@angular/core';
-import { BlogPost } from "../../_models/blog-post";
 import { UserProfile } from '../../_models/user-profile';
 
 import { UserProfileService } from '../../_services/user-profile.service';
@@ -32,6 +31,8 @@ import 'tinymce/plugins/autolink';
 import 'tinymce/plugins/code';
 declare var tinymce: any;
 import * as $ from 'jquery';
+import {Essay} from '../../_models/essay';
+import {EssayService} from '../../_services/essay.service';
 
 @Component({
   selector: 'app-essay-create',
@@ -41,10 +42,10 @@ import * as $ from 'jquery';
 export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
 
   editorId = "post-editor";
-  blogPost:BlogPost;
+  essay:Essay;
   userProfile: UserProfile;
   userId: number;
-  extraBlogOptions =false;
+  extraEssayOptions =false;
 
   pictureFile: UploadFile;
   uploadProgress: number;
@@ -56,7 +57,7 @@ export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(public ref:ChangeDetectorRef,
               public userProfileService: UserProfileService,
-              public blogPostService: BlogPostService,
+              public essayService: EssayService,
               public authService: AuthService,
               public router: Router,
               public snackBar: MatSnackBar,
@@ -77,7 +78,7 @@ export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
 
-    let blogId = this.route.snapshot.params['id'];
+    let essayId = this.route.snapshot.params['id'];
 
     if(isNaN(this.userId)){
 
@@ -86,23 +87,23 @@ export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
       });
 
 
-      this.blogPost = new BlogPost(0);
+      this.essay = new Essay(0);
     }
     else{
-      this.blogPost = new BlogPost(this.userId);
+      this.essay = new Essay(this.userId);
     }
-    if(blogId){
+    if(essayId){
       this.editMode = true;
-      this.blogPostService.getById(blogId).subscribe(
+      this.essayService.getById(essayId).subscribe(
         res => {
-          this.blogPost = <any>res;
-          if (this.userId!=this.blogPost.user.id && this.enivronment.adminIds.indexOf(this.userId) < 0) {
+          this.essay = <any>res;
+          if (this.userId!=this.essay.user.id && this.enivronment.adminIds.indexOf(this.userId) < 0) {
             this.router.navigate(['/login']);
           }
           if(this.editor){
             //this.editor.setContent(this.blogPost.body);
             //$('#'+this.editorId).html(this.blogPost.body);
-            tinymce.get(this.editorId).setContent(this.blogPost.body);
+            tinymce.get(this.editorId).setContent(this.essay.body);
           }
         },
         err => this.snackBar.open(err,'',{duration: 3000})
@@ -111,7 +112,7 @@ export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
 
     else{
 
-      this.blogPost.body = `Share your thoughts`;
+      this.essay.body = `Share your thoughts`;
     }
     if (!isNaN(this.userId)){
       this.userProfileService.getById(this.userId).subscribe(
@@ -143,8 +144,8 @@ export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
       },
       init_instance_callback : (editor) => {
 
-        if(this.blogPost.body){ //body may not be loaded from server yet
-          editor.setContent(this.blogPost.body);
+        if(this.essay.body){ //body may not be loaded from server yet
+          editor.setContent(this.essay.body);
         }
         this.editor = editor;
       }
@@ -157,10 +158,10 @@ export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
 
-      this.blogPost.body = content;
+      this.essay.body = content;
 
     }
-    this.blogPost.body = content;
+    this.essay.body = content;
     if (!this.ref['destroyed']) {
       this.ref.detectChanges();
     }
@@ -175,30 +176,30 @@ export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
-  saveBlog(isPublished:boolean){
+  saveEssay(isPublished:boolean){
 
 
     //if the blog has already been published, keep the publication status.
-    this.blogPost.published = isPublished;
+    this.essay.published = isPublished;
 
     let postOperation: Observable<any>;
 
     if(this.editMode){
 
       //change author from dict to ID to match API pattern
-      this.blogPost.user = this.blogPost.user.id;
-      postOperation = this.blogPostService.update(this.blogPost.id,this.blogPost);
+      this.essay.user = this.essay.user.id;
+      postOperation = this.essayService.update(this.essay.id,this.essay);
     }
     else{
 
-      postOperation = this.blogPostService.create(this.blogPost);
+      postOperation = this.essayService.create(this.essay);
       this.editMode = true;
-      this.titleService.setTitle(`Edit Blog Post - ${this.blogPost.title} - Atila`);
+      this.titleService.setTitle(`Edit Essay - ${this.essay.title} - Atila`);
     }
 
     postOperation.subscribe(
       res => {
-        this.blogPost = res
+        this.essay = res
       },
 
       err => {
@@ -209,24 +210,24 @@ export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
       () => {
 
         let snackbarMessage = '';
-        if (this.blogPost.published){
-          snackbarMessage = "Sucessfully Published Blog";
+        if (this.essay.published){
+          snackbarMessage = "Sucessfully Published Essay";
         }
 
 
         else {
-          snackbarMessage = "Sucessfully Saved Blog";
+          snackbarMessage = "Sucessfully Saved Essay";
         }
 
 
-        let snackBarRef = this.snackBar.open(snackbarMessage, 'View Blog', {
+        let snackBarRef = this.snackBar.open(snackbarMessage, 'View Essay', {
           duration: 3000
         });
 
         snackBarRef.onAction().subscribe(
           () => {
-            if (this.blogPost.slug) {
-              this.router.navigate(['blog',this.blogPost.user.username,this.blogPost.slug]);
+            if (this.essay.slug) {
+              this.router.navigate(['essay',this.essay.user.username,this.essay.slug]);
             }
 
           },
@@ -245,7 +246,7 @@ export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
   titleToSlug(slugInput: HTMLInputElement){
 
 
-    this.blogPost.slug = this.convertToSlug(this.blogPost.title);
+    this.essay.slug = this.convertToSlug(this.essay.title);
   }
 
   scrollToElement(elementSelector: string) {
@@ -255,8 +256,8 @@ export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
   uploadPicture(uploadPicInput:HTMLInputElement){
 
 
-    if(!this.blogPost.id){
-      this.snackBar.open("Save Blog Before Uploading Picture", '', {
+    if(!this.essay.id){
+      this.snackBar.open("Save Essay Before Uploading Picture", '', {
         duration: 3000
       });
       return;
@@ -276,14 +277,14 @@ export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
     this.pictureFile.uploadInstructions = {
       type: 'update_model',
       model: "BlogPost",
-      id: this.blogPost.id,
+      id: this.essay.id,
       fieldName: 'header_image_url'
     };
 
 
     // the path where the file should be saved on firebase
-    this.pictureFile.path = "blogs/" + this.blogPost.id+ "/" + 1 + "/";
-    this.pictureFile.path = `blogs/${this.blogPost.id}/header_image_url/`;
+    this.pictureFile.path = "blogs/" + this.essay.id+ "/" + 1 + "/";
+    this.pictureFile.path = `blogs/${this.essay.id}/header_image_url/`;
     this.pictureFile.path = this.pictureFile.path + this.pictureFile.name;
 
     if(!isNaN(this.userId)) {
@@ -307,9 +308,9 @@ export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
             },
             () => {
 
-              this.blogPost.header_image_url = uploadTask.snapshot.downloadURL;
+              this.essay.header_image_url = uploadTask.snapshot.downloadURL;
               this.uploadProgress = null;
-              this.saveBlog(false);
+              this.saveEssay(false);
 
             });
         },
