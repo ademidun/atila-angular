@@ -87,10 +87,10 @@ export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
       });
 
 
-      this.essay = new Essay(0);
+      this.essay = new Essay();
     }
     else{
-      this.essay = new Essay(this.userId);
+      this.essay = new Essay();
     }
     if(essayId){
       this.editMode = true;

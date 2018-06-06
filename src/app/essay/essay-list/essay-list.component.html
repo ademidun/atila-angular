@@ -1,35 +1,25 @@
 
 <div class="container row">
 
-
-  <div class="row">
-
-    <div class="col-sm-12 col-md-8 offset-md-2">
-      <h3>Essays</h3>
-
-
-
-      <div class="row">
-        <div class="col s12 m6">
-          <div class="card">
-            <div class="card-content white-text">
-              <a routerLink="/essay/add">
-                Add an Essay
-                <mat-icon  class="atila-blue" aria-hidden="true" aria-label="Add a Blog Post" md-colors="{color:'primary'}">
-                  add_circle_outline
-                </mat-icon>
-              </a>
-            </div>
-          </div>
-
+  <div class="col-sm-12 col-md-8 offset-md-2">
+      <h3 style="text-align: center;">Essays</h3>
+      <div class="card">
+        <div class="card-content white-text">
+          <a routerLink="/essay/add">
+            Add an Essay
+            <mat-icon  class="atila-blue" aria-hidden="true" aria-label="Add a Blog Post" md-colors="{color:'primary'}">
+              add_circle_outline
+            </mat-icon>
+          </a>
         </div>
       </div>
+    </div>
 
-      <div *ngFor="let essay of essays; let i = index" class="col-sm-12 col-lg-8 offset-lg-2 essay-box" style="font-size: larger">
+  <div *ngFor="let essay of essays; let i = index" class="col-sm-12 col-md-8 offset-md-2" style="font-size: larger">
 
         <div class="card ">
           <div class="card-content ">
-            <span class="card-title"><a routerLink="/essay/{{essay.slug}}">{{essay.title | truncate:140}}</a></span>
+            <span class="card-title"><a routerLink="/essay/{{essay.user.username}}/{{essay.slug}}">{{essay.title | truncate:140}}</a></span>
             <span *ngIf="essay.user"><a routerLink="/profile/{{essay.user.username}}">
           <div class="chip">
             <img [src]="essay.user.profile_pic_url"
@@ -67,26 +57,5 @@
         </div>
 
       </div>
-
-      <div class="row">
-        <div class="col s12 m6">
-          <div class="card b">
-            <div class="card-content ">
-              <span class="card-title">Card Title</span>
-              <p>I am a very simple card. I am good at containing small bits of information.
-                I am convenient because I require little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-              <a href="#">This is a link</a>
-              <a href="#">This is a link</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-    </div>
-
-  </div>
 
 </div>

@@ -9,7 +9,8 @@ import {SharedModule} from '../_shared/shared.module';
 import {MatCardModule, MatIconModule, MatProgressBarModule} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { EssayService } from '../_services/essay.service';
-
+import {MaterializeModule} from 'angular2-materialize';
+import "materialize-css";
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { EssayService } from '../_services/essay.service';
     ReactiveFormsModule,
     FormsModule,
     MatProgressBarModule,
+    MaterializeModule,
   ],
   declarations: [EssayCreateComponent, EssayDetailComponent, EssayListComponent],
   providers: [EssayService]
