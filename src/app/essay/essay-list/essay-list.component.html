@@ -7,6 +7,8 @@
     <div class="col-sm-12 col-md-8 offset-md-2">
       <h3>Essays</h3>
 
+
+
       <div class="row">
         <div class="col s12 m6">
           <div class="card">
@@ -21,6 +23,49 @@
           </div>
 
         </div>
+      </div>
+
+      <div *ngFor="let essay of essays; let i = index" class="col-sm-12 col-lg-8 offset-lg-2 essay-box" style="font-size: larger">
+
+        <div class="card ">
+          <div class="card-content ">
+            <span class="card-title"><a routerLink="/essay/{{essay.slug}}">{{essay.title | truncate:140}}</a></span>
+            <span *ngIf="essay.user"><a routerLink="/profile/{{essay.user.username}}">
+          <div class="chip">
+            <img [src]="essay.user.profile_pic_url"
+                 alt="Authorr">
+            <a routerLink="/profile/{{essay.user.username}}">
+            {{essay.user.first_name}} {{essay.user.last_name}}
+            </a>
+          </div>
+          </a>
+
+          </span>
+            <p *ngIf="essay.description" style="white-space: pre-line">{{essay.description | truncate:280}}</p>
+          </div>
+          <div class="card-action">
+            <a (click)="likeContent(essay, i)" [ngStyle]="{'background-color': essay.alreadyLiked ? '#4080FF' : 'transparent'}"
+               class="btn-floating halfway-fab waves-effect waves-light left interactive-btn" style="left: 15px; bottom: 10px">
+              <mat-icon class="material-icons interactive-icon md-36"  [ngStyle]="{'color': essay.alreadyLiked ? 'white' : '#4080FF'}"
+                        svgIcon="thumb-up-outline"></mat-icon></a>
+            <a *ngIf="essay.user" routerLink="/essay/{{essay.user.username}}/{{essay.slug}}" class="btn-floating halfway-fab waves-effect waves-light left"
+               style="left: 70px; bottom: 10px">
+              <p *ngIf="essay.up_votes_count"  class="btn-text">{{essay.up_votes_count}}</p>
+            </a>
+            <a  routerLink="/essay/{{essay.user.username}}/{{essay.slug}}" class="btn-floating halfway-fab waves-effect waves-light left" style="left: 125px; bottom: 10px">
+              <i class="material-icons md-36">comment</i></a>
+            <a routerLink="/essay/{{essay.slug}}" class="btn-floating halfway-fab waves-effect waves-light left"
+               style="left: 180px; bottom: 10px">
+              <p class="btn-text">{{essay['metadata']['comments_count']}}</p>
+            </a>
+
+            <app-share-item [item]="{title: essay.title,
+                url:'https://atila.ca/essay/'+ essay.user.username +'/'+essay.slug+'/',
+                id: essay.id, source:'essay_list',type:'essay'}" [metadata]="{'shareItemStyle': {'left': '225px','bottom': '10px'} }"></app-share-item>
+
+          </div>
+        </div>
+
       </div>
 
       <div class="row">

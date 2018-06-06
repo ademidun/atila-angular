@@ -13,6 +13,7 @@ export class EssayService {
   public essaysUrl = environment.apiUrl + 'essay/essays/';
 
   public essayUrl = environment.apiUrl + 'essay/';
+  public essayComments = environment.apiUrl + 'essay/essay-comments/';
 
   constructor(public http: HttpClient) { }
 
@@ -56,5 +57,11 @@ export class EssayService {
     return this.http.patch(`${this.essaysUrl}${data.id}/`,data)
       .map(res => res)
       .catch(err => Observable.throw(err));
+  }
+
+  partialUpdateComments(data): Observable<any> {
+    return this.http.patch(`${this.essayComments}${data.id}/`, data)
+      .map(res=><any>res)
+      .catch(err=>Observable.throw(err));
   }
 }

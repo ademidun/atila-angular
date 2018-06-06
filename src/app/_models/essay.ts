@@ -14,8 +14,9 @@ export class Essay {
   down_votes_count?: any;
   metadata?: any;
   up_votes_id?: any[];
+  user?: any;
   down_votes_id?: any[];
-  constructor(public user,) {
+  constructor() {
     //Do we have to manually do this, is there a python-like equivalent of kwargs
     this.title = '';
   }
