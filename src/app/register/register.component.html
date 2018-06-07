@@ -17,15 +17,16 @@
 
             <mat-form-field class="col-sm-12">
               <input tabindex="1" matInput class="browser-default" id="username" type="text"
-                     required [(ngModel)]="model.username" name="username" placeholder="Username" autocomplete="username">
+                     required [(ngModel)]="model.username" name="username" placeholder="Username" autocomplete="username" (change)="checkUsername()">
             </mat-form-field>
           </div>
           <div class="row">
             <mat-form-field class="col-sm-12">
               <input tabindex="2" matInput class="browser-default" id="email" type="email" required
-                     [(ngModel)]="model.email" name="email" placeholder="Email" email autocomplete="username email">
+                     [(ngModel)]="model.email" name="email" placeholder="Email" email autocomplete="username email" (change)="checkUsername()">
             </mat-form-field>
           </div>
+        <p *ngIf="userNameDiagnostic">{{userNameDiagnostic}}</p>
           <div class="row">
             <mat-form-field class="col-sm-12">
               <input tabindex="3" matInput class="browser-default" id="password" type="password" required
@@ -97,10 +98,10 @@
           <div class="col-sm-12 button-container">
 
             <button class="waves-effect waves-light btn btn-submit hide-on-med-and-up" (click)="registerUser(registerForm)"
-               [disabled]="disableRegistrationButton || userProfile.referred_by==model.username || !agreeTermsConditions">Register</button>
+               [disabled]="disableRegistrationButton || userProfile.referred_by==model.username || !agreeTermsConditions || userNameDiagnostic">Register</button>
 
             <button class="waves-effect waves-light btn right btn-submit hide-on-small-and-down" (click)="registerUser(registerForm)"
-               [disabled]="disableRegistrationButton || userProfile.referred_by==model.username || !agreeTermsConditions">Register</button>
+               [disabled]="disableRegistrationButton || userProfile.referred_by==model.username || !agreeTermsConditions || userNameDiagnostic">Register</button>
             <!--<a tabindex="4" class="waves-effect waves-light btn right" (click)="nextPage()">Next</a>-->
           </div>
       </form>

@@ -27,6 +27,7 @@ export class RegisterComponent implements OnInit {
 
 
   registrationResponse: any;
+  userNameDiagnostic: string;
 
   isAgreeTerms: boolean;
 
@@ -181,6 +182,23 @@ export class RegisterComponent implements OnInit {
 
     this.differentPassword = this.model.password != this.model.confirmPassword;
 
+  }
+
+  checkUsername() {
+
+    console.log('this.model.username',this.model.username);
+    console.log('this.model.username.includes(\'@\')',this.model.username.includes('@'));
+    console.log('this.model.username == this.model.email',this.model.username == this.model.email);
+
+    if (this.model.username == this.model.email) {
+      this.userNameDiagnostic = 'Username can not be same as email'
+    }
+    else if (this.model.username.includes('@')) {
+      this.userNameDiagnostic = '@ not allowed in username.'
+    }
+    else{
+      this.userNameDiagnostic = null;
+    }
   }
 
 
