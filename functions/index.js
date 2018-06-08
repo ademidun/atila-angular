@@ -1,10 +1,10 @@
 // The Cloud Functions for Firebase SDK to create Cloud Functions and setup triggers.
 const functions = require('firebase-functions');
-
 // The Firebase Admin SDK to access the Firebase Realtime Database.
 // const admin = require('firebase-admin');
 // admin.initializeApp();
 const nodemailer = require('nodemailer');
+const {sendContactEmail} = require('./email');
 
 
 // exports.sendContactEmail = functions.database.ref('/contact_form/{pushId}/')
@@ -153,3 +153,4 @@ app.get('*', (req, res) => {
 });
 
 exports.rendertron = functions.https.onRequest(app);
+exports.sendContactEmail = sendContactEmail;
