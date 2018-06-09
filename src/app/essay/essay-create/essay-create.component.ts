@@ -4,7 +4,6 @@ import { UserProfile } from '../../_models/user-profile';
 import { UserProfileService } from '../../_services/user-profile.service';
 import { MatSnackBar } from '@angular/material';
 
-import { BlogPostService } from "../../_services/blog-post.service";
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { UploadFile } from '../../_models/upload-file';
@@ -18,7 +17,7 @@ import {Title} from '@angular/platform-browser';
 import {environment} from '../../../environments/environment';
 
 import * as firebase from "firebase";
-// https://go.tinymce.com/blog/angular-2-and-tinymce/
+// https://go.tinymce.com/essay/angular-2-and-tinymce/
 import 'tinymce';
 import 'tinymce/themes/modern';
 import 'tinymce/plugins/table';
@@ -47,7 +46,7 @@ export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
   userId: number;
   extraEssayOptions =false;
 
-  pictureFile: UploadFile;
+  essayFile: UploadFile;
   uploadProgress: number;
   editor: any;
   editMode=false;
@@ -88,10 +87,10 @@ export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
       });
 
 
-      this.essay = new Essay();
+      this.essay = new Essay(0);
     }
     else{
-      this.essay = new Essay();
+      this.essay = new Essay(this.userId);
     }
     if(essayId){
       this.editMode = true;
@@ -102,8 +101,6 @@ export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
             this.router.navigate(['/login']);
           }
           if(this.editor){
-            //this.editor.setContent(this.blogPost.body);
-            //$('#'+this.editorId).html(this.blogPost.body);
             tinymce.get(this.editorId).setContent(this.essay.body);
           }
         },
@@ -200,7 +197,7 @@ export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
   saveEssay(isPublished:boolean){
 
 
-    //if the blog has already been published, keep the publication status.
+    //if the essay has already been published, keep the publication status.
     this.essay.published = isPublished;
 
     let postOperation: Observable<any>;
@@ -224,7 +221,8 @@ export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
       },
 
       err => {
-        this.snackBar.open(err,'', {
+        console.log('essay, err',this.essay, err);
+        this.snackBar.open('Error: '+ JSON.stringify(err.error),'', {
           duration: 5000
         });
       },
@@ -274,7 +272,7 @@ export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
     $("html, body").animate({scrollTop: $(elementSelector).offset().top}, 1000);
   }
 
-  uploadPicture(uploadPicInput:HTMLInputElement){
+  uploadEssay(uploadPicInput:HTMLInputElement){
 
 
     if(!this.essay.id){
@@ -289,29 +287,28 @@ export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
     //create Upload file and configure its properties before uploading.
 
 
-    var uploadPicFile = uploadPicInput.files[0];
+    var uploadEssayFile = uploadPicInput.files[0];
 
 
-    this.pictureFile = new UploadFile(uploadPicFile);
+    this.essayFile = new UploadFile(uploadEssayFile);
 
     // Instructions on how the file should be saved to the database
-    this.pictureFile.uploadInstructions = {
+    this.essayFile.uploadInstructions = {
       type: 'update_model',
-      model: "BlogPost",
+      model: "Essay",
       id: this.essay.id,
       fieldName: 'header_image_url'
     };
 
 
     // the path where the file should be saved on firebase
-    this.pictureFile.path = "blogs/" + this.essay.id+ "/" + 1 + "/";
-    this.pictureFile.path = `blogs/${this.essay.id}/header_image_url/`;
-    this.pictureFile.path = this.pictureFile.path + this.pictureFile.name;
+    this.essayFile.path = `user-profiles/${this.userId}/essays/${this.essay.id}/`;
+    this.essayFile.path = this.essayFile.path + this.essayFile.name;
 
     if(!isNaN(this.userId)) {
-      this.pictureFile.metadata['owner'] = this.userId;
+      this.essayFile.metadata['owner'] = this.userId;
     }
-    this.firebaseService.fileUpload(this.pictureFile)
+    this.firebaseService.fileUpload(this.essayFile)
       .subscribe(
         res => {
 
@@ -329,7 +326,7 @@ export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
             },
             () => {
 
-              this.essay.header_image_url = uploadTask.snapshot.downloadURL;
+              this.essay.essay_source_url = uploadTask.snapshot.downloadURL;
               this.uploadProgress = null;
               this.saveEssay(false);
 

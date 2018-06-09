@@ -31,8 +31,10 @@
             </div>
 
             <div class="col-sm-6">
-              <button mat-raised-button class="btn white-text" (click)="uploadPicture(uploadPicInput)">Upload</button>
+              <button mat-raised-button class="btn white-text" (click)="uploadEssay(uploadPicInput)">Upload</button>
             </div>
+
+            <a *ngIf="essay.essay_source_url" [href]="essay.essay_source_url" target="_blank">View Essay File</a>
 
           </div>
 
@@ -44,7 +46,7 @@
 
           <mat-form-field class="col-sm-12">
             <!-- TODO: Add a Modal or hover info explaining the diff. between Art and STEM -->
-            <mat-select [(ngModel)]="essay.status"  name="status"  id="status" multiple=true required placeholder="Essay Status">
+            <mat-select [(ngModel)]="essay.status"  name="status"  id="status" required placeholder="Essay Status">
               <mat-option *ngFor="let field of ['accepted','declined','waitlisted','pending','other']" [value]="field" ngDefaultControl>{{toTitleCase(field)}} </mat-option>
             </mat-select>
           </mat-form-field>
