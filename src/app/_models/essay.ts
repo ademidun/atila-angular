@@ -12,10 +12,12 @@ export class Essay {
   published?: boolean;
   up_votes_count?: any;
   down_votes_count?: any;
+  down_votes_id?: any[];
   metadata?: any;
   up_votes_id?: any[];
   user?: any;
-  down_votes_id?: any[];
+  status?: string;
+  status_other?: string;
   constructor() {
     //Do we have to manually do this, is there a python-like equivalent of kwargs
     this.title = '';

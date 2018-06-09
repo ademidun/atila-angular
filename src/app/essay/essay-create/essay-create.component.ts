@@ -33,7 +33,7 @@ declare var tinymce: any;
 import * as $ from 'jquery';
 import {Essay} from '../../_models/essay';
 import {EssayService} from '../../_services/essay.service';
-
+import {toTitleCase, cleanHtml} from '../../_shared/utils';
 @Component({
   selector: 'app-essay-create',
   templateUrl: './essay-create.component.html',
@@ -54,6 +54,7 @@ export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
   options: Object;
   isLoggedIn: boolean;
   enivronment = environment;
+  toTitleCase = toTitleCase;
 
   constructor(public ref:ChangeDetectorRef,
               public userProfileService: UserProfileService,
@@ -112,7 +113,8 @@ export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
 
     else{
 
-      this.essay.body = `Share your thoughts`;
+      //todo use an example of one of my uni applications
+      this.essay.body = `Copy and Paste Your Essay Here. Including Questions`;
     }
     if (!isNaN(this.userId)){
       this.userProfileService.getById(this.userId).subscribe(
@@ -133,13 +135,27 @@ export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
       toolbar: 'undo redo | styleselect | bold italic | link image | fontsizeselect | numlist bullist',
       skin_url: '/assets/skins/light',
       height : "500",
-      invalid_elements : 'script',
+      invalid_elements : 'script,style',
       default_link_target: "_blank",
+      invalid_styles: {
+        '*': 'padding background-color', // Global invalid styles
+        // 'a': 'background' // Link specific invalid styles
+      },
       setup: editor => {
         this.editor = editor;
         editor.on('keyup change', (e) => {
           const content = editor.getContent();
           this.onEditorContentChange(e,content, editor);
+        });
+        editor.on('paste', (e) => {
+          console.log('editor.on(\'paste\', (e)',editor, e);
+          setTimeout(() => {
+          let content = editor.getContent();
+          content = cleanHtml(content);
+          this.onEditorContentChange(e,content, editor);
+          editor.setContent(content);
+          }, 300);
+
         });
       },
       init_instance_callback : (editor) => {
@@ -148,7 +164,12 @@ export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
           editor.setContent(this.essay.body);
         }
         this.editor = editor;
-      }
+      },
+      paste_preprocess : (pl, o) => {
+        console.log('paste_preprocess', pl, o);
+        o.content = cleanHtml(o.content);
+        this.essay.body = o.content;
+      },
     });
 
   }
