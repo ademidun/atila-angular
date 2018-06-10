@@ -7,6 +7,7 @@ import {MyFirebaseService} from '../../_services/myfirebase.service';
 import {EssayService} from '../../_services/essay.service';
 import {AuthService} from '../../_services/auth.service';
 import {UserProfileService} from '../../_services/user-profile.service';
+import {SeoService} from '../../_services/seo.service';
 
 @Component({
   selector: 'app-essay-list',
@@ -24,11 +25,18 @@ export class EssayListComponent implements OnInit {
     public essayService: EssayService,
     public userProfileService: UserProfileService,
     public authService: AuthService,
+    public seoService: SeoService,
   ) { }
 
   ngOnInit() {
 
-
+    this.seoService.generateTags({
+      title: "Atila Essays",
+      // description: "Read the university application and scholarship essays used by students at Ivey, Waterloo, Harvard etc.",
+      description: "Read the university application and scholarship essays used by students that helped them get acceptance to top schools and win scholarships.",
+      image: 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-logo-right-way.png?alt=media&token=ec084371-320a-447d-8628-b1e9df0af5b9',
+      slug: `essay/`
+    });
     let userId = parseInt(this.authService.decryptLocalStorage('uid'));
     if (! isNaN(userId)){
       this.userProfileService.getById(userId).subscribe(

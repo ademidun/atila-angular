@@ -5,10 +5,10 @@ import {EssayDetailComponent} from './essay-detail/essay-detail.component';
 import {EssayListComponent} from './essay-list/essay-list.component';
 
 const routes: Routes = [
-  { path: 'add' , component: EssayCreateComponent, data: {title: 'Create Blog Post - Atila'}},
-  { path: 'edit/:id' , component: EssayCreateComponent, data: {title: 'Edit Blog Post - Atila'}},
-  { path: ':username/:slug' , component: EssayDetailComponent, data: {title: 'Blog Post - Atila'}},
-  { path: '' , component: EssayListComponent, data: {title: 'Blogs List - Atila'}},
+  { path: 'add' , component: EssayCreateComponent, data: {title: 'Create Essay - Atila'}},
+  { path: 'edit/:id' , component: EssayCreateComponent, data: {title: 'Edit Essay - Atila'}},
+  { path: ':username/:slug' , component: EssayDetailComponent, data: {title: 'Essay - Atila'}},
+  { path: '' , component: EssayListComponent, data: {title: 'Essays List - Atila'}},
 ];
 
 @NgModule({

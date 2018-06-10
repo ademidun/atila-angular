@@ -96,7 +96,7 @@ export class EssayDetailComponent implements OnInit, OnDestroy {
           this.seoService.generateTags({
             title: this.essay.title,
             description: this.essay.description,
-            image: this.essay.header_image_url,
+            // image: this.essay.header_image_url,
             slug: `blog/${this.essay.user.username}/${this.essay.slug}`
           });
         }
