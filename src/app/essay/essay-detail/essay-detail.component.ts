@@ -87,6 +87,8 @@ export class EssayDetailComponent implements OnInit, OnDestroy {
       res => {
         this.essay = res.essay;
 
+        console.log('this.userProfile, this.essay',this.userProfile, this.essay);
+
         //this.updateMeta();
 
 
@@ -99,6 +101,17 @@ export class EssayDetailComponent implements OnInit, OnDestroy {
           });
         }
         catch (err) {
+        }
+
+        if (!isNaN(this.userId)) {
+
+          this.userProfileService.getById(parseInt(this.userId)).subscribe(
+            res => {
+              this.userProfile = res;
+            }
+          );
+
+          this.userComment = new Comment(this.userId);
         }
 
       },

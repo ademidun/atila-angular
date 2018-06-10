@@ -6,9 +6,9 @@
             </span>
 
     <div class="col-sm-12 col-md-10  offset-md-1">
-      <a *ngIf="userProfile && (userProfile.user==essay.user.id || userProfile.is_atila_admin)" [routerLink]="[ '/blog/edit', essay.id ]">Edit Blog</a>
+      <a *ngIf="userProfile && (userProfile.user==essay.user.id || userProfile.is_atila_admin)" [routerLink]="[ '/essay/edit', essay.id ]">Edit Essay</a>
       <div *ngIf="!essay.published" style="font-weight: bold; "> | Unpublished</div>
-      <img src="{{essay.header_image_url}}" style="max-height: 100%;max-width: 100%" class="center-block"/>
+      <!--<img src="{{essay.header_image_url}}" style="max-height: 100%;max-width: 100%" class="center-block"/>-->
 
       <div class="card">
         <div *ngIf="essay.user" style="margin: 3%">
@@ -22,8 +22,9 @@
             </div>
           </a>
         </div>
-
+        <a class="card-action" *ngIf="essay.essay_source_url" [href]="essay.essay_source_url" target="_blank">View Original Essay</a>
       </div>
+
       <hr>
 
       <blockquote class="essay-content-html">
@@ -33,7 +34,6 @@
       <div class="blog-text inner-html essay-content-html" [innerHTML]="essay.body | safeHtml"></div>
 
     </div>
-
 
     <!-- TODO: Should we ask the user occasionally to subscribe? Even if already logged in? -->
     <span>

@@ -85,7 +85,7 @@
   <div style="margin-top:3%" class="col-sm-12 col-md-10 offset-md-1" id="preview-essay">
     <h5>Preview</h5>
     <h3> {{essay.title}} </h3>
-    <img *ngIf="essay.header_image_url" [src]="essay.header_image_url" style="max-height: 100%;max-width: 100%;"/>
+    <!--<img *ngIf="essay.header_image_url" [src]="essay.header_image_url" style="max-height: 100%;max-width: 100%;"/>-->
   </div>
   <div [innerHTML]="essay.body | safeHtml" class="col-sm-12 col-md-10 offset-md-1 inner-html essay-content-html"></div>
   <!--<div [froalaView]="essay.body" class="col col-md-8 offset-md-d-2 col-lg-8 offset-lg-2 col-sm-11"></div>-->
