@@ -8,7 +8,7 @@ export class Essay {
   essay_source_url?: any;
   body?: any;
   description?:any;
-  contributors: any[];
+  contributors?: any[];
   published?: boolean;
   up_votes_count?: any;
   down_votes_count?: any;
