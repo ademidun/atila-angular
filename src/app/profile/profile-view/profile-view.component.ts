@@ -22,6 +22,7 @@ import {MyFirebaseService} from '../../_services/myfirebase.service';
 import {SCHOOLS_LIST} from '../../_models/constants';
 import {SeoService} from '../../_services/seo.service';
 import {BlogPost} from '../../_models/blog-post';
+import {Essay} from '../../_models/essay';
 
 @Component({
   selector: 'app-profile-view',
@@ -40,6 +41,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
   profile_pic_url;
   SCHOOLS_LIST = SCHOOLS_LIST;
   blogPosts: any[];
+  essays: Essay[];
 
   currentUser:number;
   savedScholarships = [];
@@ -244,6 +246,35 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
     }
 
     return;
+  }
+
+  getContent(options: any ={}) {
+    if (options.contentType='essays') {
+      if(!this.essays){
+        this.userProfileService.getDetail(this.userProfile.user,'essays')
+          .subscribe(
+            res => {
+              this.essays = res.essays;
+
+              this.essays = this.essays.map( essay => {
+                essay = {
+                  title: essay.title,
+                  description: essay.description,
+                  slug: `/essay/${essay.user.username}/${essay.slug}`,
+                  user: essay.user,
+                };
+                return essay;
+              })
+            },
+
+          )
+      }
+
+      return;
+    }
+    else if (options.contentType='essays') {
+
+    }
   }
 
   saveMyAtila(objectType, atilaObject, index?) {

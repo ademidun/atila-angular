@@ -105,6 +105,7 @@ import {AtilaPointsPromptDialogComponent} from '../atila-points-prompt-dialog/at
     CardGenericComponent,
     ShareItemComponent,
     AtilaPointsPromptDialogComponent,
+    MatIconModule,
     ],
   providers: [
     {

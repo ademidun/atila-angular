@@ -62,21 +62,23 @@
     </mat-card>
 
 
-      <div *ngIf="profileOwner && !showPreview">
-
         <nav class="nav-extended">
           <div class="nav-content">
             <ul materialize="tabs" class="tabs tabs-transparent">
-              <li class="tab"><a  href="#test1" [ngClass]="myAtilaMode ? '' : 'active'">
-                Edit Profile</a></li>
-              <li class="tab"><a href="#test2" [ngClass]="myAtilaMode ? 'active' : ''">My Scholarships</a></li>
-              <li (click)="getApplications()" class="tab"><a href="#test3">My Applications</a></li>
-              <li (click)="getBlogs()" class="tab"><a href="#test4">My Blogs</a></li>
+              <div  *ngIf="!(!profileOwner || showPreview)">
+                <li class="tab"><a  href="#edit-profile" [ngClass]="myAtilaMode ? '' : 'active'">
+                  Edit Profile</a></li>
+                <li class="tab"><a href="#my-scholarships" [ngClass]="myAtilaMode ? 'active' : ''">My Scholarships</a></li>
+                <li (click)="getApplications()" class="tab"><a href="#my-applications">My Applications</a></li>
+              </div>
+
+              <li (click)="getBlogs()" class="tab"><a href="#my-blogs" [ngClass]="!profileOwner || showPreview? 'active' : ''">My Blogs</a></li>
+              <li (click)="getContent({contentType: 'essays'})" class="tab"><a href="#my-essays">My Essays</a></li>
             </ul>
           </div>
         </nav>
 
-        <div id="test1" class="col-sm-12">
+        <div id="edit-profile" class="col-sm-12">
           <form *ngIf="profileOwner" #profileForm="ngForm">
             <h4>Edit <span *ngIf="userProfile.first_name">{{userProfile.first_name}}'s</span> Profile</h4>
             <div class="row">
@@ -137,36 +139,36 @@
           </form>
         </div>
 
+        <div  *ngIf="!(!profileOwner || showPreview)">
+          <div id="my-scholarships" class="col-sm-12">
+            <table style="width:100%">
+              <tr style="border-bottom-style: inset">
+                <th>Name</th>
+                <th>Deadline</th>
+                <th>My Notes</th>
+                <th class="hide-on-small-and-down">Save</th>
+              </tr>
 
-        <div id="test2" class="col-sm-12">
-          <table style="width:100%">
-            <tr style="border-bottom-style: inset">
-              <th>Name</th>
-              <th>Deadline</th>
-              <th>My Notes</th>
-              <th class="hide-on-small-and-down">Save</th>
-            </tr>
+              <tr *ngFor="let scholarship of savedScholarships">
+                <td><a [routerLink]="['/scholarship', scholarship.slug]">{{scholarship.name}}</a></td>
+                <td>{{scholarship.deadline | date:'EEEE, MMMM d, y'}}</td>
+                <td><textarea style="height: 6.7rem"  [(ngModel)]="userProfile.saved_scholarships_metadata[scholarship.id]['notes']"
+                              placeholder="e.g. Upload transcript. Share scholarship with Alice."></textarea></td>
+                <td class="hide-on-small-and-down" (click)="saveMyAtila('scholarship',scholarship, i)">
+                  <i class="material-icons " style="color: #039be5">save</i>
+                </td>
+                <span class="hide-on-med-and-up">
 
-            <tr *ngFor="let scholarship of savedScholarships">
-              <td><a [routerLink]="['/scholarship', scholarship.slug]">{{scholarship.name}}</a></td>
-              <td>{{scholarship.deadline | date:'EEEE, MMMM d, y'}}</td>
-              <td><textarea style="height: 6.7rem"  [(ngModel)]="userProfile.saved_scholarships_metadata[scholarship.id]['notes']"
-                            placeholder="e.g. Upload transcript. Share scholarship with Alice."></textarea></td>
-              <td class="hide-on-small-and-down" (click)="saveMyAtila('scholarship',scholarship, i)">
-                <i class="material-icons " style="color: #039be5">save</i>
-              </td>
-              <span class="hide-on-med-and-up">
+                    <br>
+                    <a (click)="saveMyAtila('scholarship',scholarship, i)" class="col-sm-12">
+                      <i class="material-icons ">save</i>
+                    </a>
 
-                  <br>
-                  <a (click)="saveMyAtila('scholarship',scholarship, i)" class="col-sm-12">
-                    <i class="material-icons ">save</i>
-                  </a>
-
-                </span>
-            </tr>
-          </table>
-        </div>
-        <div id="test3" class="col-sm-12">
+                  </span>
+              </tr>
+            </table>
+          </div>
+          <div id="my-applications" class="col-sm-12">
           <table style="width:100%">
             <tr style="border-bottom-style: inset">
               <th>Name</th>
@@ -199,37 +201,22 @@
 
           </table>
         </div>
-
+        </div>
         <!--Blog Results -->
-        <div id="test4" class=" card row">
+        <div id="my-blogs" class=" card row">
           <h4 class="center">{{userProfile.first_name}}'s Blog Posts</h4>
           <div *ngFor=" let blogPost of blogPosts" class="col-sm-12 col-md-6 offset-md-3">
             <app-card-generic [item]="blogPost"></app-card-generic>
         </div>
 
       </div>
+        <div id="my-essays" class=" card row">
+          <h4 class="center">{{userProfile.first_name}}'s Essays</h4>
+          <div *ngFor=" let essay of essays" class="col-sm-12 col-md-6 offset-md-3">
+            <app-card-generic [item]="essay"></app-card-generic>
+        </div>
 
-    <!--<mat-card class="background-card">-->
-      <!--<h3></h3>-->
-      <!--<mat-card-content>-->
-        <!--<p>-->
-          <!--{{userProfile.profile_description}}-->
-        <!--</p>-->
-      <!--</mat-card-content>-->
-    <!--</mat-card>-->
-
-  </div>
-
-      <div  *ngIf="!profileOwner || showPreview">
-    <!--Blog Results -->
-    <div class=" card row">
-      <h4 class="center">{{userProfile.first_name}}'s Blog Posts</h4>
-      <h6 *ngIf="profileOwner" class="center">Note: Unpublished blogs are only visible to you.</h6>
-      <div *ngFor=" let blogPost of blogPosts" class="col-sm-12 col-md-6 offset-md-3">
-        <app-card-generic [item]="blogPost"></app-card-generic>
       </div>
-    </div>
+
+
   </div>
-
-</div>
-

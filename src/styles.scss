@@ -70,3 +70,13 @@ a:not(.btn):hover {
 mat-progress-bar {
   margin: 1% 0;
 }
+
+
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
+  color: #039be5;
+  margin-right: 24px;
+  -webkit-transition: color .3s ease;
+  transition: color .3s ease;
+  text-transform: uppercase;
+}

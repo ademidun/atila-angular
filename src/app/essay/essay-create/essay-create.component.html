@@ -1,0 +1,94 @@
+<div class="container">
+  <div class="col-sm-11">
+    <h3> {{essay.title}} </h3>
+    <span *ngIf="!essay.published" style=" font-size: medium; font-weight: bold; ">Unpublished</span>
+    <a (click)="scrollToElement('#preview-essay')">Preview <i class="material-icons">remove_red_eye</i></a>
+    <div class="card">
+
+      <div class="card-content">
+        <input id="forum_title" placeholder="Title E.g. Ivey Business School AEO University Application 2014" [(ngModel)]="essay.title" (change)="titleToSlug(essaySlugInput)">
+
+        <a (click)="extraEssayOptions = !extraEssayOptions" style="cursor: pointer; color: #68d5ff">{{extraEssayOptions ? 'Hide Settings' : 'More Settings'}}</a>
+
+        <div [hidden]="!extraEssayOptions">
+
+          <div class="row">
+
+            <!--<div class="col-sm-12">-->
+              <!--<label>Paste an image url for essay Post Header Image</label>-->
+              <!--<input [(ngModel)]="essay.header_image_url" id="header_image_url" type="text" placeholder="Paste header image url"-->
+                     <!--#uploadPicInput name="header_image_url">-->
+            <!--</div>-->
+            <div class="col-sm-12">
+              <label>Upload a PDF of your essay</label>
+              <input id="header_image_url_file" type="file" placeholder="Upload your Essay Pdf"
+                     #uploadPicInput name="header_image_url_file">
+            </div>
+
+            <div *ngIf="uploadProgress" class="col-md-3 col-sm-12 mb-3">
+              Progress: <p style="font-weight: bold">{{uploadProgress | number:'1.0-0'}}%</p>
+              <mat-progress-bar mode="determinate" [value]="uploadProgress"></mat-progress-bar>
+            </div>
+
+            <div class="col-sm-6">
+              <button mat-raised-button class="btn white-text" (click)="uploadEssay(uploadPicInput)">Upload</button>
+            </div>
+
+            <a *ngIf="essay.essay_source_url" [href]="essay.essay_source_url" target="_blank">View Essay File</a>
+
+          </div>
+
+          <label>A brief description of the essay. What is this essay for? What were the questions, requirements, etc. ? You can put more details in main post</label>
+          <textarea id="essay_post_description" class="prefix_input" placeholder="My AEO University application for Ivey Business School 2014.
+           I applied to the software engineering and business program."
+                    [(ngModel)]="essay.description">
+          </textarea>
+
+          <mat-form-field class="col-sm-12">
+            <!-- TODO: Add a Modal or hover info explaining the diff. between Art and STEM -->
+            <mat-select [(ngModel)]="essay.status"  name="status"  id="status" required placeholder="Essay Status">
+              <mat-option *ngFor="let field of ['accepted','declined','waitlisted','pending','other']" [value]="field" ngDefaultControl>{{toTitleCase(field)}} </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <input *ngIf="essay.status=='other'" id="status_other" placeholder="Essay Status" [(ngModel)]="essay.status_other"
+                 name="status_other">
+
+          <div>
+            <span style="font-weight: bold" *ngIf="essay && essay.user && essay.user.username; else backupPrefix">
+              atila.ca/essay/{{essay.user.username}}/</span>
+            <ng-template #backupPrefix><span style="font-weight: bold" *ngIf="userProfile" id="url_prefix">atila.ca/essay/{{userProfile.username}}/</span></ng-template>
+            <input class="prefix_input" #essaySlugInput type="text" [(ngModel)]="essay.slug" placeholder="Essay URL">
+          </div>
+        </div>
+
+      </div>
+      <p *ngIf="!isLoggedIn" class="card-action">Please <a routerLink="/login">Log In</a></p>
+      <div class="card-action">
+        <button mat-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveEssay(essay.published)" [disabled]="!isLoggedIn">Save</button>
+      </div>
+
+    </div>
+
+    <!--<div [froalaEditor]="options" [(froalaModel)]="essay.body"></div>-->
+    <div  class="wysiywyg-editor">
+      <textarea  id="{{editorId}}"></textarea>
+    </div>
+    <p *ngIf="!isLoggedIn" class="card-action">Please <a routerLink="/login">Log In</a></p>
+
+    <button mat-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveEssay(essay.published)" [disabled]="!isLoggedIn">Save</button>
+    <button mat-raised-button style="background-color: #184E87;" class="btn white-text" (click)="saveEssay(!essay.published)" [disabled]="!isLoggedIn">{{!essay.published
+      ? 'Publish' : 'UnPublish'}}</button>
+  </div>
+
+  <br>
+  <div style="margin-top:3%" class="col-sm-12 col-md-10 offset-md-1" id="preview-essay">
+    <h5>Preview</h5>
+    <h3> {{essay.title}} </h3>
+    <!--<img *ngIf="essay.header_image_url" [src]="essay.header_image_url" style="max-height: 100%;max-width: 100%;"/>-->
+  </div>
+  <div [innerHTML]="essay.body | safeHtml" class="col-sm-12 col-md-10 offset-md-1 inner-html essay-content-html"></div>
+  <!--<div [froalaView]="essay.body" class="col col-md-8 offset-md-d-2 col-lg-8 offset-lg-2 col-sm-11"></div>-->
+
+</div>
+
