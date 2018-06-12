@@ -101,7 +101,7 @@ export class EssayDetailComponent implements OnInit, OnDestroy {
             title: this.essay.title,
             description: this.essay.description,
             image: essayImageSeo,
-            slug: `blog/${this.essay.user.username}/${this.essay.slug}`
+            slug: `essay/${this.essay.user.username}/${this.essay.slug}`
           });
         }
         catch (err) {
