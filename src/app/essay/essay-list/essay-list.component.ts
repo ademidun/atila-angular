@@ -33,7 +33,7 @@ export class EssayListComponent implements OnInit {
     this.seoService.generateTags({
       title: "Atila Essays",
       // description: "Read the university application and scholarship essays used by students at Ivey, Waterloo, Harvard etc.",
-      description: "Read the university application and scholarship essays used by students that helped them get acceptance to top schools and win scholarships.",
+      description: "Read the university application and scholarship essays used by students to get acceptance to top schools and win scholarships.",
       image: 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-logo-right-way.png?alt=media&token=ec084371-320a-447d-8628-b1e9df0af5b9',
       slug: `essay/`
     });
