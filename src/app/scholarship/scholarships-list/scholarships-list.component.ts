@@ -19,6 +19,7 @@ import {FormGroup} from '@angular/forms';
 
 import {SCHOOLS_LIST, MAJORS_LIST, EDUCATION_FIELDS, EDUCATION_LEVEL} from '../../_models/constants';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import {SeoService} from '../../_services/seo.service';
 @Component({
   selector: 'app-scholarships-list',
   templateUrl: './scholarships-list.component.html',
@@ -76,6 +77,7 @@ export class ScholarshipsListComponent implements OnInit {
     public activatedRoute: ActivatedRoute,
     public router: Router,
     public location: Location,
+    public seoService: SeoService,
   ) { }
 
 
@@ -83,6 +85,13 @@ export class ScholarshipsListComponent implements OnInit {
 
   ngOnInit() {
     this.userId = this.authService.decryptLocalStorage('uid');
+
+    this.seoService.generateTags({
+      title: "Atila Scholarships",
+      description: "Automatically find and apply to scholarships at the click of a button. Learn and share information about education, career and life..",
+      image: "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-gradient-banner-march-14.png?alt=media&token=9d791ba9-18d0-4750-ace8-b390a4e90fdc",
+      slug: `scholarship/`
+    });
 
     if (this.userId && !isNaN(parseInt(this.userId))) {
       this.isLoggedIn = true;

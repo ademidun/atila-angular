@@ -67,6 +67,7 @@ export class UserProfile {
         }
     }
 
+export const DEFAULTPROFILEPICURL = "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2Fgeneral-data%2Fdefault-profile-pic.png?alt=media&token=455c59f7-3a05-43f1-a79e-89abff1eae57"
 export function toTitleCase(str) {
        var i, j, lowers, uppers;
        str = str.replace(/([^\W_]+[^\s-]*) */g, function(txt) {

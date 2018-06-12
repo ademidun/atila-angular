@@ -4,7 +4,7 @@ import {BlogPostService} from "../../_services/blog-post.service";
 import {BlogPost, likeContent} from "../../_models/blog-post";
 import {Comment} from "../../_models/comment";
 
-import {UserProfile} from '../../_models/user-profile';
+import {UserProfile, DEFAULTPROFILEPICURL} from '../../_models/user-profile';
 
 import {UserProfileService} from '../../_services/user-profile.service';
 
@@ -91,12 +91,16 @@ export class EssayDetailComponent implements OnInit, OnDestroy {
 
         //this.updateMeta();
 
+        let essayImageSeo = DEFAULTPROFILEPICURL;
 
+        if (this.essay.user && !this.essay.user.profile_pic_url.includes(DEFAULTPROFILEPICURL)){
+          essayImageSeo = this.essay.user.profile_pic_url;
+        }
         try {
           this.seoService.generateTags({
             title: this.essay.title,
             description: this.essay.description,
-            // image: this.essay.header_image_url,
+            image: essayImageSeo,
             slug: `blog/${this.essay.user.username}/${this.essay.slug}`
           });
         }

@@ -11,6 +11,7 @@ import { AuthService } from "../../_services/auth.service";
 import {MatSnackBar} from '@angular/material';
 import {MyFirebaseService} from '../../_services/myfirebase.service';
 import {Router} from '@angular/router';
+import {SeoService} from '../../_services/seo.service';
 @Component({
   selector: 'app-forums-list',
   templateUrl: './forums-list.component.html',
@@ -30,9 +31,17 @@ export class ForumsListComponent implements OnInit {
     public snackBar: MatSnackBar,
     public firebaseService: MyFirebaseService,
     public router: Router,
+    public seoService: SeoService,
   ) { }
 
   ngOnInit() {
+    this.seoService.generateTags({
+      title: "Atila Forums",
+      description: "Discussions between students on school, career, and life in general.",
+      image: 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-logo-right-way.png?alt=media&token=ec084371-320a-447d-8628-b1e9df0af5b9',
+      slug: `blog/`
+    });
+
     var userId = parseInt(this.authService.decryptLocalStorage('uid'));
     if (! isNaN(userId)){
       this.newForum = new Forum(userId,'');
