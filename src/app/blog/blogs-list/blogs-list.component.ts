@@ -36,7 +36,7 @@ export class BlogsListComponent implements OnInit {
     this.seoService.generateTags({
       title: "Atila Blogs",
       description: "Stories by students on school, career, and life in general.",
-      image: 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-logo-right-way.png?alt=media&token=ec084371-320a-447d-8628-b1e9df0af5b9',
+      image: 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-blog-logo.png?alt=media&token=84980f33-d850-4e94-905e-04ac5195b414',
       slug: `blog/`
     });
 

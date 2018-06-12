@@ -38,7 +38,7 @@ export class ForumsListComponent implements OnInit {
     this.seoService.generateTags({
       title: "Atila Forums",
       description: "Discussions between students on school, career, and life in general.",
-      image: 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-logo-right-way.png?alt=media&token=ec084371-320a-447d-8628-b1e9df0af5b9',
+      image: 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-forums-logo.png?alt=media&token=25390617-bced-4531-a6eb-70103d2ec709',
       slug: `blog/`
     });
 
