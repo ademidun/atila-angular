@@ -6,6 +6,7 @@
       <!-- Show on Desktop  -->
       <ul class="right hide-on-med-and-down">
 
+        <!--Desktop: Not Logged In -->
         <span  *ngIf="!authService.isLoggedIn">
 
 
@@ -65,6 +66,7 @@
 
         </span>
 
+        <!--Desktop: Logged In -->
         <span *ngIf="authService.isLoggedIn">
           <button mat-fab [matMenuTriggerFor]="desktopProfilemenu" class= "right far-right">
 
@@ -181,36 +183,43 @@
 
       </ul>
 
-
-
       <!-- Show on Mobile  -->
-
       <span  class= "hide-on-large-only">
 
         <!--Mobile: Not Logged In -->
         <span *ngIf="!authService.isLoggedIn">
-          <a routerLink="/forum"  style="margin-right: 1%" class="atila-blue">
-
-                  <span>Forums</span>
-
-            </a>
-
-            <a routerLink="/blog" class="atila-blue">
-
-                  <span>Blogs</span>
-
-            </a>
-            <a routerLink="/essay" class="atila-blue">
-
-                  <span>Essays</span>
-
-            </a>
 
 
+          <button mat-fab [matMenuTriggerFor]="featureMenu" class= "left far-left">
+                <mat-icon>menu</mat-icon>
+              </button>
 
+            <mat-menu #featureMenu="matMenu" [overlapTrigger]="false">
+                  <a routerLink="/essay">
+                    <button mat-menu-item>
+                        <span>Essays</span>
+                    </button>
+                  </a>
+                  <a routerLink="/forum">
+                    <button mat-menu-item>
+                      <span>Forums</span>
+                    </button>
+                  </a>
+                  <a routerLink="/blog">
+                    <button mat-menu-item>
+                      <span>Blogs</span>
+                    </button>
+                  </a>
+              </mat-menu>
 
+            <ul>
+              <li class="far-left">
+                <a routerLink="/blog" class="atila-blue">
+                      <span>Blogs</span>
 
-
+                </a>
+              </li>
+            </ul>
 
         <!-- Horizontally the top most div is the right most div.-->
           <a routerLink="/login" class="atila-blue right far-right">
@@ -232,30 +241,40 @@
 
         </span>
 
-          <!-- Mobile: Logged In -->
+        <!-- Mobile: Logged In -->
         <span  *ngIf="authService.isLoggedIn">
-            <ul>
-              <li class="my-offset-ln7">
-                <a routerLink="/forum" class="atila-blue">
+            <button mat-fab [matMenuTriggerFor]="featureMenu" class= "left far-left">
+                <mat-icon>menu</mat-icon>
+              </button>
+
+            <mat-menu #featureMenu="matMenu" [overlapTrigger]="false">
+                  <a routerLink="/essay">
+                    <button mat-menu-item>
+                        <span>Essays</span>
+                    </button>
+                  </a>
+                  <a routerLink="/forum">
+                    <button mat-menu-item>
                       <span>Forums</span>
-                </a>
-              </li>
-              <li class="my-offset-ln7">
+                    </button>
+                  </a>
+                  <a routerLink="/blog">
+                    <button mat-menu-item>
+                      <span>Blogs</span>
+                    </button>
+                  </a>
+              </mat-menu>
+
+            <ul>
+              <li class="far-left">
                 <a routerLink="/blog" class="atila-blue">
                       <span>Blogs</span>
 
                 </a>
               </li>
-              <li class="my-offset-ln7">
-                <a routerLink="/essay" class="atila-blue">
-                      <span>Essays</span>
-
-                </a>
-              </li>
             </ul>
 
-
-              <button mat-fab [matMenuTriggerFor]="profileMenu" class= "right far-right">
+            <button mat-fab [matMenuTriggerFor]="profileMenu" class= "right far-right">
                 <mat-icon>perm_identity</mat-icon>
               </button>
 
@@ -308,9 +327,6 @@
         </span>
 
       </span>
-
-
-
 
     </div>
   </nav>
