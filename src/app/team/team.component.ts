@@ -103,7 +103,7 @@ export class TeamComponent implements OnInit {
 
     let metaTags = {
       title: 'Meet the Atila Team',
-      description: 'Meet the people helping build Atila.',
+      description: 'Ann. Kitan. Manpreet. Tomiwa. Meet the people helping build Atila.',
       image: 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-team-header-2-new.png?alt=media&token=877be9e1-a694-44f8-8b31-f77e0d6958dc',
       slug: 'team',
     };
