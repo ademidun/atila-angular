@@ -21,6 +21,7 @@
         <div class="card ">
           <div class="card-content ">
             <span class="card-title"><a routerLink="/essay/{{essay.user.username}}/{{essay.slug}}">{{essay.title | truncate:140}}</a></span>
+            <span *ngIf="!essay.published" style=" font-size: medium; font-weight: bold; ">Unpublished</span>
             <span *ngIf="essay.user"><a routerLink="/profile/{{essay.user.username}}">
           <div class="chip">
             <img [src]="essay.user.profile_pic_url"
