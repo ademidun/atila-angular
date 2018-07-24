@@ -34,8 +34,6 @@ export class UserProfileService implements OnDestroy{
   // public ngUnsubscribe: Subject<any> = new Subject();
 
   ngOnDestroy() {
-    console.log('foo destroy');
-
     if (this.viewHistoryChanges) {
       this.viewHistoryChanges.unsubscribe();
     }
@@ -354,7 +352,6 @@ export class UserProfileService implements OnDestroy{
   //todo make checkViewHistory() and checkViewHistoryHandler() into helper functions.
   checkViewHistory(userProfile:UserProfile, viewData: any) {
     try {
-      console.log('checkViewHistory',viewData);
       this.firebaseService.getGeoIp()
         .then(res=>{
           viewData['geo_ip'] = res;
@@ -363,7 +360,6 @@ export class UserProfileService implements OnDestroy{
         })
         .catch( (jqXHR, textStatus, errorThrown) => {
           if(this.environment.production || userProfile.is_atila_admin) {
-            console.log('jqXHR, textStatus, errorThrown',jqXHR, textStatus, errorThrown)
           }
           viewData['error'] = JSON.stringify(errorThrown);
           this.checkViewHistoryHandler(userProfile, viewData)
@@ -379,11 +375,8 @@ export class UserProfileService implements OnDestroy{
     let path = 'user_profiles/' + userProfile.user + '/view_history';
 
 
-    console.log('checkViewHistoryHandler',this.checkViewHistoryHandler);
     this.firebaseService.saveAny_fs(path, viewData)
       .then(res => {
-        console.log('save Firebase success', res);
-
         this.viewHistoryChanges =  this.firebaseService.firestoreQuery(path).valueChanges()
           .subscribe(
           viewHistory => {
@@ -402,11 +395,7 @@ export class UserProfileService implements OnDestroy{
 
   showAtilaPointsPromptDialog(userProfile, viewData, viewHistory) {
 
-    console.log('userProfile.atila_points, viewHistory.length, userProfile.atila_points / viewHistory.length',
-      userProfile.atila_points, viewHistory.length, userProfile.atila_points / viewHistory.length);
-
     if(this.dialog.openDialogs && this.dialog.openDialogs.length > 0) {
-      console.log('already open this.dialog.openDialogs',this.dialog.openDialogs);
       if (this.viewHistoryChanges) {
         this.viewHistoryChanges.unsubscribe();
       }
@@ -431,10 +420,6 @@ export class UserProfileService implements OnDestroy{
     }
 
     if (showPrompt) {
-      console.log('viewHistory.length',viewHistory.length);
-
-
-
       let dialogRef = this.dialog.open(AtilaPointsPromptDialogComponent, {
         width: '500px',
         disableClose: true,
