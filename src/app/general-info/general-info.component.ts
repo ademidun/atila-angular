@@ -9,7 +9,9 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class GeneralInfoComponent implements OnInit {
 
-  model: any = {};
+  model: any = {
+    subject: 'Atila Contact Form Request'
+  };
   sendMessageResponse: any;
   internalReferral: any;
 
@@ -185,8 +187,9 @@ export class GeneralInfoComponent implements OnInit {
   }
 
   sendMessage() {
-    this.firebaseService.saveAny('contact_form',this.model)
-      .then(res=> {
+    this.firebaseService.sendUserBankEmail(this.model)
+      .subscribe(res=> {
+        console.log({res});
         this.sendMessageResponse = 'Thank you. You will receive a response within 1 day.'
       } );
   }

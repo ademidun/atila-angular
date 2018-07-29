@@ -16,13 +16,13 @@
             </mat-form-field>
 
             <mat-form-field class="col-sm-12">
-              <input matInput class="browser-default" id="email" [required]="!internalReferral"
-                     [(ngModel)]="model.email" name="email" placeholder="Email" >
+              <input matInput class="browser-default" id="from_email" [required]="!internalReferral"
+                     [(ngModel)]="model.from_email" name="from_email" placeholder="Email" >
             </mat-form-field>
 
             <mat-form-field class="col-sm-12">
-              <textarea matInput class="browser-default" id="message" required
-                        [(ngModel)]="model.message" name="message" placeholder="Message"  style="height: 7em; padding-left: 1%" >
+              <textarea matInput class="browser-default" id="body" required
+                        [(ngModel)]="model.body" name="body" placeholder="Message"  style="height: 7em; padding-left: 1%" >
               </textarea>
             </mat-form-field>
 

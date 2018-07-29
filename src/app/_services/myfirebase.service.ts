@@ -16,6 +16,7 @@ export class MyFirebaseService {
 
   public apiKeyUrl = environment.apiUrl + 'api-keys/';
   public saveFirebaseUrl = environment.apiUrl + 'save-firebase/';
+  public atilaMicroServicesUrl = environment.atilaMicroservicesApiUrl;
   constructor(public http: HttpClient,
               private db: AngularFireDatabase,
               public fs: AngularFirestore,
@@ -170,6 +171,12 @@ export class MyFirebaseService {
 
   public handleError (error: Response | any) {
     return Observable.throw(error);
+  }
+
+  sendUserBankEmail(emailData: any) {
+    return this.http.post(`${this.atilaMicroServicesUrl}/send-email`,emailData)
+      .map(res => res)
+      .catch(err => Observable.throw(err));
   }
 
 
