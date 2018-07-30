@@ -143,3 +143,24 @@ mat-form-field.location-div .mat-input-wrapper {
     margin-left: 5%;
   }
 }
+
+// Blog Post Stylings
+.btn-floating {
+  left: 15px;
+  bottom: 10px;
+  background-color: $my-lighten;
+}
+.interactive-icon {
+  margin-left: 9px;
+  margin-top: 6px;
+
+}
+
+.interactive-btn {
+  border: 1px solid $my-lighten;
+}
+.btn-text {
+  font-size: larger;
+  padding-left: 30%;
+  margin-top: 0;
+}
