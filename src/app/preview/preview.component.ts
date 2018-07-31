@@ -140,9 +140,177 @@ export class PreviewComponent implements OnInit, OnDestroy {
       },
   ]
 
-  forums = [
+    forums = [
+      {
+        "id": 9,
+        "starting_comment": {
+          "title": "Deciding between Kinesiology, Health Studies or Medical Science",
+          "username": "thinkr",
+          "text": "Hi everyone, \r\nI'm a Grade 12 student in the process of deciding on a university program. My current options are Health Studies, Kinesiology, and Medical Science.\r\n\r\n I know that I’m interested in science and the health care field in general, but I don't want to box myself into any specific career at this point in time. I want to explore and do some shadowing before I decide on a professional program (i.e. physical therapy, pharmacy, medicine and dentistry) or other graduate studies.\r\n\r\nI am leaning towards Medical Science, but I'm concerned that if I decide not to do Medicine, I won't have anything to fall back on. That being said, are there any tips or advice anyone has for selecting a program in this beginning stage of my post-secondary pathway?\r\n\r\nI would also appreciate the perspective of individuals currently in these respective fields of study or in their practice. What are three things that you like about the field, and three things you dislike about it?",
+          "up_votes_count": 0,
+          "down_votes_count": 0,
+          "id": 20,
+          "up_votes_id": []
+        },
+        "title": "Deciding between Kinesiology, Health Studies or Medical Science",
+        "slug": "deciding-between-kinesiology-health-studies-or-medical-science",
+        "date_created": "2018-03-14T12:34:38Z",
+        "metadata": {
+          "comments_count": 3
+        },
+        "user": {
+          "first_name": "Paula",
+          "last_name": "M.",
+          "username": "thinkr",
+          "profile_pic_url": "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2Fgeneral-data%2Fdefault-profile-pic.png?alt=media&token=455c59f7-3a05-43f1-a79e-89abff1eae57",
+          "title": "",
+          "post_secondary_school": "",
+          "secondary-school": "",
+          "id": 101
+        }
+      },
+      {
+        "id": 7,
+        "starting_comment": {
+          "title": "Queen's Chancellor Recipient 2016 and Queen's Commerce AMA",
+          "username": "AnnMathulla",
+          "text": "Hi everyone, \r\n\r\nMy name is Ann, and I was fortunate enough to win the Queen's Chancellor Scholarship in 2016. Currently I'm in second year in the Queen's Commerce Program, and next year I will be spending one semester at the National University of Singapore, very excited! \r\n\r\nI know university and scholarship applications can be very stressful (trust me, I've been there!), and I hope that sharing some of my experiences will help you as you navigate your way through this stressful yet exciting time! \r\n\r\nIf you have any questions about Queen's Commerce, the Chancellor's Scholarship or anything else feel free to ask! I'm happy to help in any way that I can :)",
+          "up_votes_count": 0,
+          "down_votes_count": 0,
+          "id": 17,
+          "up_votes_id": []
+        },
+        "title": "Queen's Chancellor Recipient 2016 and Queen's Commerce AMA",
+        "slug": "queens-chancellor-recipient-2016-and-queens-commerce-ama",
+        "date_created": "2018-02-05T01:52:12Z",
+        "metadata": {},
+        "user": {
+          "first_name": "Ann",
+          "last_name": "Mathulla",
+          "username": "AnnMathulla",
+          "profile_pic_url": "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F72%2Fprofile-pictures%2FHead%20Shot.jpg?alt=media&token=65ebd302-8c46-4b7e-b748-e8910c345ce6",
+          "title": "",
+          "post_secondary_school": "Queen's University",
+          "secondary-school": "",
+          "id": 72
+        }
+      },
+      {
+        "id": 5,
+        "starting_comment": {
+          "title": "Should I study Computer Science, Software, or Computer Engineering",
+          "username": "zoginni",
+          "text": "I'm a high school senior looking to study Software engineering, Computer science or Computer engineering. The schools I'm looking at offer SE and CE as a second-year option, which is available after a general first year. My interest lies mostly in software, but I'd also like to learn the hardware side of it computer systems as well. \n\nIf I take CS, on the off chance that I don’t like it, I don’t want to end up in a position where I can only do another math/science major. \n\nWith the general year, however, if I just end up picking software anyways I think I would feel as if I wasted that year when I could have had a year of coding down in CS. With that year of coding, I could be looking at working for a term or I could focus on building my own project portfolio.\n\nSo, in general: If I take general engineering first I may be able to drop into CS, but I would be behind. But if I don’t like CS I can’t go into engineering at all. Which major should I pick if my goal right now is to work in software? ",
+          "up_votes_count": 0,
+          "down_votes_count": 0,
+          "id": 6,
+          "up_votes_id": []
+        },
+        "title": "Should I study Computer Science, Software, or Computer Engineering",
+        "slug": "should-i-study-computer-science-software-or-computer-engineering",
+        "date_created": "2018-01-19T22:13:43.648669Z",
+        "metadata": {
+          "comments_count": 6
+        },
+        "user": {
+          "first_name": "Zion",
+          "last_name": "Oginni",
+          "username": "zoginni",
+          "profile_pic_url": "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F39%2Fprofile-pictures%2FIMG_7111.JPG?alt=media&token=e3088001-19a0-4ebf-8172-80df143d8977",
+          "title": "High School Senior",
+          "post_secondary_school": "Queen's University",
+          "secondary-school": "",
+          "id": 39
+        }
+      },
+    ];
 
-  ]
+    essays = [
+      {
+        "id": 3,
+        "title": "Queen's Commerce and Engineering Application 2014",
+        "slug": "queens-commerce-and-engineering-application-2014",
+        "date_created": "2018-06-13T13:42:09.754931Z",
+        "description": "My applications for both the Queen's Commerce and Engineering program. The first part is for both engineering and Commerce programs. The second part was specifically for the Queen's Commerce program.",
+        "status": "accepted",
+        "status_other": null,
+        "header_image_url": "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/blogs%2Fgeneral%2Fblog-default-image.jpg?alt=media&token=b739ac92-4402-4d89-9c83-40ec9e476146",
+        "essay_source_url": "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fessays%2F3%2FQueens%20PSE%20and%20Commerce%20Application%202014.pdf?alt=media&token=52c7bd24-980a-4df3-854d-45008c4aac30",
+        "published": true,
+        "up_votes_count": 0,
+        "down_votes_count": 0,
+        "up_votes_id": [],
+        "down_votes_id": [],
+        "metadata": {},
+        "user": {
+          "first_name": "Tomiwa",
+          "last_name": "Ademidun",
+          "username": "tomiwa",
+          "profile_pic_url": "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fprofile-pictures%2Ffacebook-profile-picture.jpg?alt=media&token=8754c657-bbdc-4d8e-ae1d-d4047ac09c6d",
+          "title": "Software Engineering Student",
+          "post_secondary_school": "University of Western Ontario",
+          "secondary-school": "",
+          "id": 1
+        },
+        "contributors": []
+      },
+      {
+        "id": 2,
+        "title": "Ivey Business School AEO Application 2014",
+        "slug": "ivey-business-school-aeo-application-2014",
+        "date_created": "2018-06-13T13:33:02.659480Z",
+        "description": "My AEO University application for Ivey Business School 2014.\n           I applied to the software engineering and business dual degree program. Ivey places an emphasis on leadership so I really try to highlight how I demonstrate strong leadership in the examples I give in my essay.",
+        "status": "accepted",
+        "status_other": null,
+        "header_image_url": "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/blogs%2Fgeneral%2Fblog-default-image.jpg?alt=media&token=b739ac92-4402-4d89-9c83-40ec9e476146",
+        "essay_source_url": "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fessays%2F2%2FIvey%20AEO%20Application%202014.pdf?alt=media&token=ee61734a-1667-4b24-8ee1-0ba178247b4b",
+        "published": true,
+        "up_votes_count": 0,
+        "down_votes_count": 0,
+        "up_votes_id": [],
+        "down_votes_id": [],
+        "metadata": {},
+        "user": {
+          "first_name": "Tomiwa",
+          "last_name": "Ademidun",
+          "username": "tomiwa",
+          "profile_pic_url": "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fprofile-pictures%2Ffacebook-profile-picture.jpg?alt=media&token=8754c657-bbdc-4d8e-ae1d-d4047ac09c6d",
+          "title": "Software Engineering Student",
+          "post_secondary_school": "University of Western Ontario",
+          "secondary-school": "",
+          "id": 1
+        },
+        "contributors": []
+      },
+      {
+        "id": 1,
+        "title": "Ivey Business School AEO2 Application 2016",
+        "slug": "ivey-business-school-aeo2-application-2016",
+        "date_created": "2018-06-09T23:09:41.047955Z",
+        "description": "My AEO2 University application for Ivey Business School 2016.\nThis is the application I submitted after my 2nd year of university to keep my spot in the HBA1 as part of the AEO program.\n           I applied to the software engineering and business program. \n\nThe admissions person I talked to mentioned they cared a lot about community involvement and leadership which I tried to highlight in the first 2 examples.",
+        "status": "accepted",
+        "status_other": null,
+        "header_image_url": "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/blogs%2Fgeneral%2Fblog-default-image.jpg?alt=media&token=b739ac92-4402-4d89-9c83-40ec9e476146",
+        "essay_source_url": "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fessays%2F1%2FIvey%20AEO2%20Application.pdf?alt=media&token=a8058c38-6baa-4e64-addf-6c0eb8f56e89",
+        "published": true,
+        "up_votes_count": 0,
+        "down_votes_count": 0,
+        "up_votes_id": [],
+        "down_votes_id": [],
+        "metadata": {},
+        "user": {
+          "first_name": "Tomiwa",
+          "last_name": "Ademidun",
+          "username": "tomiwa",
+          "profile_pic_url": "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fprofile-pictures%2Ffacebook-profile-picture.jpg?alt=media&token=8754c657-bbdc-4d8e-ae1d-d4047ac09c6d",
+          "title": "Software Engineering Student",
+          "post_secondary_school": "University of Western Ontario",
+          "secondary-school": "",
+          "id": 1
+        },
+        "contributors": []
+      }
+    ];
 
     EDUCATION_FIELD = [
        'Arts (Undergrad)',
