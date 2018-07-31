@@ -61,11 +61,136 @@
       </iframe>
     </div>
   </div>
+  <hr/>
 
   <!-- Blog Posts Demo-->
   <div class="container row">
-    <h1 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"> Blog posts </h1>
+    <h1 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"><a routerLink="/blog"> Blog posts </a></h1>
     <h5 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"> Learn from Other student’s stories </h5>
+    <div class="row">
+        <div *ngFor="let blog of blogs; let i = index" class="col-lg-4 blog-box">
+
+          <div class="card">
+            <div class="card-content " style="min-height: 225px">
+              <span class="card-title responsive-height">
+                <a routerLink="/blog/{{blog.user.username}}/{{blog.slug}}">{{blog.title | truncate:75}}</a>
+                <span *ngIf="!blog.published" style=" font-size: medium; font-weight: bold; ">Unpublished</span>
+              </span>
+              <span *ngIf="blog.user">
+                <a routerLink="/profile/{{blog.user.username}}">
+                  <div class="chip">
+                    <img [src]="blog.user.profile_pic_url"
+                         alt="Author">
+                    <a routerLink="/profile/{{blog.user.username}}">
+                    {{blog.user.first_name}} {{blog.user.last_name}}
+                    </a>
+                  </div>
+                </a>
+              </span>
+            </div>
+
+            <div class="card-image">
+              <a routerLink="/blog/{{blog.user.username}}/{{blog.slug}}">
+                <img [src]="blog.header_image_url" style="height: 200px">
+              </a>
+            </div>
+            <div class="card-content " style="min-height: 345px">
+              <p style="font-size: larger">{{blog.description| truncate:280}}</p>
+            </div>
+
+            <div class="card-action">
+              <a (click)="likeContent(blog)" [ngStyle]="{'background-color': blog.alreadyLiked ? '#4080FF' : 'transparent'}"
+                 class="btn-floating halfway-fab waves-effect waves-light left interactive-btn" style="left: 15px; bottom: 10px">
+                <mat-icon class="material-icons interactive-icon md-36"  [ngStyle]="{'color': blog.alreadyLiked ? 'white' : '#4080FF'}"
+                          svgIcon="thumb-up-outline"></mat-icon></a>
+              <a routerLink="/blog/{{blog.user.username}}/{{blog.slug}}" class="btn-floating halfway-fab waves-effect waves-light left"
+                 style="left: 70px; bottom: 10px">
+                <p class="btn-text">{{blog.up_votes_count}}</p>
+              </a>
+              <a  routerLink="/blog/{{blog.user.username}}/{{blog.slug}}" class="btn-floating halfway-fab waves-effect waves-light left" style="left: 125px; bottom: 10px">
+                <i class="material-icons md-36">comment</i></a>
+              <a routerLink="/blog/{{blog.user.username}}/{{blog.slug}}" class="btn-floating halfway-fab waves-effect waves-light left"
+                 style="left: 180px; bottom: 10px">
+                <p class="btn-text">{{blog.metadata['comments_count']}}</p>
+              </a>
+              <app-share-item [item]="{title: blog.title,
+                url:'https://atila.ca/blog/'+blog.user.username+'/'+blog.slug+'/',
+                id: blog.id, source:'blog_list',type:'blog'}" [metadata]="{'shareItemStyle': {'left': '225px','bottom': '10px'} }"></app-share-item>
+
+            </div>
+          </div>
+
+        </div>
+    </div>
+  </div>
+  <hr/>
+
+  <!-- Forum Posts Demo-->
+  <div class="container row">
+    <h1 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"><a routerLink="/forum"> Forums </a></h1>
+    <h5 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"> Ask questions and get answers from other students </h5>
+    <div class="row">
+        <div *ngFor="let blog of blogs; let i = index" class="col-lg-4 blog-box">
+
+          <div class="card">
+            <div class="card-content ">
+              <span class="card-title responsive-height">
+                <a routerLink="/blog/{{blog.user.username}}/{{blog.slug}}">{{blog.title | truncate:75}}</a>
+                <span *ngIf="!blog.published" style=" font-size: medium; font-weight: bold; ">Unpublished</span>
+              </span>
+              <span *ngIf="blog.user">
+                <a routerLink="/profile/{{blog.user.username}}">
+                  <div class="chip">
+                    <img [src]="blog.user.profile_pic_url"
+                         alt="Author">
+                    <a routerLink="/profile/{{blog.user.username}}">
+                    {{blog.user.first_name}} {{blog.user.last_name}}
+                    </a>
+                  </div>
+                </a>
+              </span>
+            </div>
+
+            <div class="card-image">
+              <a routerLink="/blog/{{blog.user.username}}/{{blog.slug}}">
+                <img [src]="blog.header_image_url" style="height: 200px">
+              </a>
+            </div>
+            <div class="card-content ">
+              <p style="font-size: larger">{{blog.description| truncate:280}}</p>
+            </div>
+
+            <div class="card-action">
+              <!--<a (click)="likeContent(blog)" [ngStyle]="{'background-color': blog.alreadyLiked ? '#4080FF' : 'transparent'}"-->
+                 <!--class="btn-floating halfway-fab waves-effect waves-light left interactive-btn" style="left: 15px; bottom: 10px">-->
+                <!--<mat-icon class="material-icons interactive-icon md-36"  [ngStyle]="{'color': blog.alreadyLiked ? 'white' : '#4080FF'}"-->
+                          <!--svgIcon="thumb-up-outline"></mat-icon></a>-->
+              <!--<a routerLink="/blog/{{blog.user.username}}/{{blog.slug}}" class="btn-floating halfway-fab waves-effect waves-light left"-->
+                 <!--style="left: 70px; bottom: 10px">-->
+                <!--<p class="btn-text">{{blog.up_votes_count}}</p>-->
+              <!--</a>-->
+              <a  routerLink="/blog/{{blog.user.username}}/{{blog.slug}}" class="btn-floating halfway-fab waves-effect waves-light left" style="left: 125px; bottom: 10px">
+                <i class="material-icons md-36">comment</i></a>
+              <a routerLink="/blog/{{blog.user.username}}/{{blog.slug}}" class="btn-floating halfway-fab waves-effect waves-light left"
+                 style="left: 180px; bottom: 10px">
+                <p class="btn-text">{{blog.metadata['comments_count']}}</p>
+              </a>
+              <app-share-item [item]="{title: blog.title,
+                url:'https://atila.ca/blog/'+blog.user.username+'/'+blog.slug+'/',
+                id: blog.id, source:'blog_list',type:'blog'}" [metadata]="{'shareItemStyle': {'left': '225px','bottom': '10px'} }"></app-share-item>
+
+            </div>
+          </div>
+
+        </div>
+    </div>
+  </div>
+  <hr/>
+
+  <!-- Essay Posts Demo-->
+  <div class="container row">
+    <h1 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"><a routerLink="/essay"> Essays </a></h1>
+    <h5 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"> Read the essays got students acceptance to top schools and won major scholarships. </h5>
     <div class="row">
         <div *ngFor="let blog of blogs; let i = index" class="col-lg-4 blog-box">
 
@@ -90,7 +215,7 @@
 
             <div class="card-image">
               <a routerLink="/blog/{{blog.user.username}}/{{blog.slug}}">
-                <img [src]="blog.header_image_url">
+                <img [src]="blog.header_image_url" style="height: 200px">
               </a>
             </div>
             <div class="card-content ">
@@ -122,6 +247,7 @@
         </div>
     </div>
   </div>
+  <hr/>
 
   <div class="row center" style="text-align: center; margin-bottom: 1%; margin-top: 1%">
     <p style="font-size: medium" class="col-sm-12 col-md-6">Subscribe to get updates on new <a routerLink="/">scholarships</a>, <a routerLink="/blog" style="text-decoration: underline; color: #68b9ff">blog</a> and
