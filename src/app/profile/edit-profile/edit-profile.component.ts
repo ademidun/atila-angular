@@ -29,7 +29,6 @@ import {
   LANGUAGE,
   MAJORS_LIST,
   RELIGION,
-  SCHOOLS_DICT,
   SCHOOLS_LIST,
   SPORTS
 } from '../../_models/constants';
@@ -119,7 +118,7 @@ export class EditProfileComponent implements OnInit {
               public firebaseService: MyFirebaseService,) {
     this.userName = route.snapshot.params['username'];
 
-    this.schoolNames = SCHOOLS_DICT.map(school => school.name);
+    this.schoolNames = SCHOOLS_LIST;
   }
 
   ngOnInit() {

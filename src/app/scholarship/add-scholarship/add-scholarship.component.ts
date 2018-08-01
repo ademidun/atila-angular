@@ -30,7 +30,7 @@ import 'tinymce/plugins/media';
 import 'tinymce/plugins/autolink';
 import 'tinymce/plugins/code';
 import * as firebase from "firebase";
-import {ACTIVITIES, COUNTRIES, DISABILITY, ETHNICITY, RELIGION, SCHOOLS_DICT, SPORTS} from '../../_models/constants';
+import {ACTIVITIES, COUNTRIES, DISABILITY, ETHNICITY, RELIGION, SPORTS} from '../../_models/constants';
 
 import {SCHOOLS_LIST, MAJORS_LIST, LANGUAGE, FUNDING_TYPES, APPLICATION_FORM_TYPES, APPLICATION_SUBMISSION_TYPES} from '../../_models/constants';
 import {prettifyKeys} from '../../_shared/utils';

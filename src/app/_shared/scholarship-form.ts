@@ -2,7 +2,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
-import {MAJORS_LIST, SCHOOLS_DICT, SCHOOLS_LIST} from '../_models/constants';
+import {MAJORS_LIST, SCHOOLS_LIST} from '../_models/constants';
 
 
 export let scholarshipForm = new FormGroup ({
