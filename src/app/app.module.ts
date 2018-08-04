@@ -73,6 +73,7 @@ import {SharedModule} from './_shared/shared.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { GeneralInfoComponent } from './general-info/general-info.component';
 import { AtilaPointsPromptDialogComponent } from './atila-points-prompt-dialog/atila-points-prompt-dialog.component';
+import {ServiceWorkerModule} from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -98,6 +99,7 @@ import { AtilaPointsPromptDialogComponent } from './atila-points-prompt-dialog/a
     NgbModule.forRoot(),
     SharedModule,
     AngularFireModule.initializeApp(environment.firebase),
+    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
     AngularFireDatabaseModule,
     AppRoutingModule,
     FormsModule,
