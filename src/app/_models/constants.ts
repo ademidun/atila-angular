@@ -595,6 +595,7 @@ export const SCHOOLS_DICT = [
 */
 export const SCHOOLS_LIST = [
   "Acadia University",
+  "Algoma University",
   "Algonquin College",
   "Ashton College",
   "Assumption University",
