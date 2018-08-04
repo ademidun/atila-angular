@@ -37,7 +37,7 @@ if ('serviceWorker' in navigator && environment.production) {
       scope: '/',
     })
       .then(registration => {
-        console.log("Service Worker registration completed ...");
+        console.log("Service Worker registration completed main.ts", registration);
       });
   });
 }
