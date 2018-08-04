@@ -21,7 +21,9 @@
                 <input matInput placeholder="Enter a Search Term" >
               </mat-form-field>
               <div class="col-sm-12">
-                <p style="color: white">Sample Searches: <a routerLink="/search?q=engineering">Engineering</a>, <a>Toronto</a>, <a>Female</a>, <a>Medical Science</a>   </p>
+                <p style="color: white">Sample Searches: <a routerLink="/search" [queryParams]="{q:'engineering'}">Engineering</a>, <a routerLink="/search" [queryParams]="{q:'engineering'}">Toronto</a>,
+                  <a routerLink="/search" [queryParams]="{q:'engineering'}">Female</a>, <a routerLink="/search" [queryParams]="{q:'engineering'}">Medical School</a>,
+                  <a routerLink="/search" [queryParams]="{q:'engineering'}">International Student</a>   </p>
               </div>
             </div>
 
