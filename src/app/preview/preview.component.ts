@@ -41,6 +41,9 @@ export class PreviewResponse {
 })
 export class PreviewComponent implements OnInit, OnDestroy {
 
+
+    searchByLocation =false;
+
     EDUCATION_LEVEL = [
     'Secondary School',
     'University',
