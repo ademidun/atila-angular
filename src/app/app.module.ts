@@ -23,7 +23,7 @@ import {
   MatMenuModule,
   MatProgressBarModule,
   MatProgressSpinnerModule,
-  MatSelectModule,
+  MatSelectModule, MatSlideToggleModule,
   MatSnackBarModule
 } from '@angular/material';
 import {ScholarshipService} from './_services/scholarship.service';
@@ -125,7 +125,8 @@ import {ServiceWorkerModule} from '@angular/service-worker';
     BrowserAnimationsModule,
     MarkdownModule.forRoot(),
     FroalaEditorModule.forRoot(),
-    FroalaViewModule.forRoot()
+    FroalaViewModule.forRoot(),
+    MatSlideToggleModule,
   ],
   providers: [
     ScholarshipService,

@@ -62,10 +62,12 @@ mat-form-field {
   color: white;
 }
 
-:host /deep/ .mat-input-underline {
-  //background-color: white !important;
-  background-color: transparent !important;
-}
+:host /deep/ .white-underline {
+  .mat-input-underline, .mat-form-field-underline  {
+    background-color: white !important;
+    //background-color: transparent !important;
+  }
+} 
 
 :host /deep/ .mat-select-arrow {
   color: white !important;
@@ -93,7 +95,7 @@ mat-form-field.location-div .mat-input-wrapper {
 }
 
 #location {
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid transparent;
   margin-bottom: 0;
 }
 
@@ -173,4 +175,8 @@ mat-form-field.location-div .mat-input-wrapper {
   font-size: larger;
   padding-left: 30%;
   margin-top: 0;
+}
+
+input[_ngcontent-c8]:not([type]) {
+  border-bottom-color: transparent;
 }

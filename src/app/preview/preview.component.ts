@@ -14,12 +14,13 @@ import {UserProfileService} from '../_services/user-profile.service';
 import {MyFirebaseService} from '../_services/myfirebase.service';
 import {NgbPopover} from '@ng-bootstrap/ng-bootstrap';
 import {AuthService} from '../_services/auth.service';
+import {prettifyKeys, toTitleCase} from '../_shared/utils';
 //import {GeocoderAddressComponent} from '@types/googlemaps'
 
 //import 'googlemaps';
 export class PreviewResponse {
 
-
+  previewMode = 'classicFilter';
   constructor(
   public location = {
   city: '',
@@ -41,6 +42,10 @@ export class PreviewResponse {
 })
 export class PreviewComponent implements OnInit, OnDestroy {
 
+
+    prettifyKeys = prettifyKeys;
+    toTitleCase = toTitleCase;
+    previewMode = 'classicFilter';
 
     searchByLocation =false;
 
