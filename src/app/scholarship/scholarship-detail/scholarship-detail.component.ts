@@ -19,7 +19,7 @@ import {MyFirebaseService} from '../../_services/myfirebase.service';
 import {UserProfile, addToMyScholarshipHelper} from '../../_models/user-profile';
 import {SeoService} from '../../_services/seo.service';
 import {SearchService} from '../../_services/search.service';
-import {genericItemTransform} from '../../_shared/utils';
+import {genericItemTransform, IPDATA_KEY} from '../../_shared/utils';
 import {SubscriberDialogComponent} from '../../subscriber-dialog/subscriber-dialog.component';
 import {Subscription} from 'rxjs/Subscription';
 import {AtilaPointsPromptDialogComponent} from '../../atila-points-prompt-dialog/atila-points-prompt-dialog.component';
@@ -490,7 +490,7 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
 
           this.subscriber.dialog_submit_event = result.dialog_submit_event || 'ButtonClick';
 
-          $.getJSON('https://api.ipdata.co',
+          $.getJSON(`https://api.ipdata.co?api-key=${IPDATA_KEY}`,
             data => {
               this.subscriber.geo_ip = data;
 

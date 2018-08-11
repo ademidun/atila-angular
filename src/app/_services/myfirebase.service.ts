@@ -9,6 +9,7 @@ import {environment} from '../../environments/environment';
 import { AngularFireDatabase} from 'angularfire2/database';
 import {AuthService} from './auth.service';
 import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
+import {IPDATA_KEY} from '../_shared/utils';
 
 @Injectable()
 export class MyFirebaseService {
@@ -29,7 +30,7 @@ export class MyFirebaseService {
     if (subscriber) {
 
       subscriber = this.addMetadata(subscriber);
-      return $.getJSON('https://api.ipdata.co',
+      return $.getJSON(`https://api.ipdata.co?api-key=${IPDATA_KEY}`,
         data => {
           subscriber = this.addMetadata(subscriber);
           subscriber.geo_ip = data;
@@ -44,7 +45,7 @@ export class MyFirebaseService {
   }
 
   saveUserAnalytics(user, path?) {
-    return $.getJSON('https://api.ipdata.co',
+    return $.getJSON(`https://api.ipdata.co?api-key=${IPDATA_KEY}`,
       data => {
         user = this.addMetadata(user);
         user.geo_ip = data;
@@ -64,7 +65,7 @@ export class MyFirebaseService {
 
     queryData = this.addMetadata(queryData);
 
-    return $.getJSON('https://api.ipdata.co',
+    return $.getJSON(`https://api.ipdata.co?api-key=${IPDATA_KEY}`,
       data => {
         queryData.geo_ip = data;
         return this.db.list('search_analytics/queries').push(queryData);
@@ -83,7 +84,7 @@ export class MyFirebaseService {
     if(path) {
       data = this.addMetadata(data);
       data.timestamp = new Date().getTime();
-      return $.getJSON('https://api.ipdata.co',
+      return $.getJSON(`https://api.ipdata.co?api-key=${IPDATA_KEY}`,
         res => {
           data.geo_ip = res;
           return this.db.list(path).push(data);
@@ -120,7 +121,7 @@ export class MyFirebaseService {
   }
 
   getGeoIp(opts={}) {
-    return $.getJSON('https://api.ipdata.co')
+    return $.getJSON(`https://api.ipdata.co?api-key=${IPDATA_KEY}`)
   }
 
 

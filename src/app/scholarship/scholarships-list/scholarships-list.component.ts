@@ -10,7 +10,7 @@ import {UserProfile} from '../../_models/user-profile';
 import {SubscriberDialogComponent} from '../../subscriber-dialog/subscriber-dialog.component';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {MyFirebaseService} from '../../_services/myfirebase.service';
-import {prettifyKeys, toTitleCase} from '../../_shared/utils';
+import {IPDATA_KEY, prettifyKeys, toTitleCase} from '../../_shared/utils';
 import { EditProfileModalComponent } from '../../edit-profile-modal/edit-profile-modal.component';
 import {NgbModal, NgbPopover} from '@ng-bootstrap/ng-bootstrap';
 import {environment} from '../../../environments/environment';
@@ -454,7 +454,7 @@ export class ScholarshipsListComponent implements OnInit {
 
           this.subscriber.dialog_submit_event = result.dialog_submit_event || 'ButtonClick';
 
-          $.getJSON('https://api.ipdata.co',
+          $.getJSON(`https://api.ipdata.co?api-key=${IPDATA_KEY}`,
             data => {
               this.subscriber.geo_ip = data;
 

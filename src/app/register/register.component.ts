@@ -14,6 +14,7 @@ import {MAJORS_LIST, SCHOOLS_LIST} from '../_models/constants';
 import {AutoCompleteForm, initializeAutoCompleteOptions} from '../_shared/scholarship-form';
 
 import * as firebase from "firebase";
+import {IPDATA_KEY} from '../_shared/utils';
 
 @Component({
   selector: 'app-register',
@@ -155,7 +156,7 @@ export class RegisterComponent implements OnInit {
 
         },
         () => {
-          $.getJSON('https://api.ipdata.co',
+          $.getJSON(`https://api.ipdata.co?api-key=${IPDATA_KEY}`,
             data => {
               this.userProfile.metadata['registration_location'] = data;
               this.userProfileService.updateHelper(this.userProfile)
