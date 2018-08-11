@@ -12,6 +12,7 @@
     color: #a2ecff;
     //text-decoration: underline;
   }
+  padding-top: 3%;
 }
 .container-fluid {
   padding-left: 0;
@@ -67,7 +68,7 @@ mat-form-field {
     background-color: white !important;
     //background-color: transparent !important;
   }
-} 
+}
 
 :host /deep/ .mat-select-arrow {
   color: white !important;

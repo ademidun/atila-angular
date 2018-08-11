@@ -21,7 +21,7 @@ import {prettifyKeys, toTitleCase} from '../_shared/utils';
 export class PreviewResponse {
 
   public searchString = '';
-  public previewMode = 'classicFilter';
+  public previewMode = 'universalSearch';
   constructor(
   public location = {
   city: '',
