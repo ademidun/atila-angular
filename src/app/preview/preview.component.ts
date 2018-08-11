@@ -20,7 +20,8 @@ import {prettifyKeys, toTitleCase} from '../_shared/utils';
 //import 'googlemaps';
 export class PreviewResponse {
 
-  previewMode = 'classicFilter';
+  public searchString = '';
+  public previewMode = 'classicFilter';
   constructor(
   public location = {
   city: '',
@@ -31,7 +32,9 @@ export class PreviewResponse {
   public education_level :string[],
   public education_field :string[],
   public errors :string,
-    ) { }
+    ) {
+
+  }
 }
 
 
@@ -45,9 +48,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
     prettifyKeys = prettifyKeys;
     toTitleCase = toTitleCase;
-    previewMode = 'classicFilter';
-
-    searchByLocation =false;
 
     EDUCATION_LEVEL = [
     'Secondary School',
@@ -341,6 +341,14 @@ export class PreviewComponent implements OnInit, OnDestroy {
     name: '',
     },[],[],'');
 
+    sampleSearches = [
+      'Engineering',
+      'Toronto',
+      'Female',
+      'Medical School',
+      'International Student',
+    ]
+
     /**
     * If the Google Places API is not working, only ask for city.
     */
@@ -438,24 +446,35 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
   onSubmit(form: NgForm){
 
-
-    if (form.value['education_field'].length==0 && form.value['education_level'].length==0 && form.value['location'] == '') {
-      this.model.errors = 'Please enter at least one field.';
-
-      return;
-    }
-
-    else {
-      delete this.model.errors;
-    }
-
     this.subscriber.action = 'preview_scholarship';
     this.subscriber.preview_choices = this.model;
 
+
     this.firebaseService.saveUserAnalytics(this.subscriber,'preview_scholarship')
       .then(res => {
+        console.log('res')
         },
-        err => {});
+        err => {console.log(err)});
+
+    if (this.model.previewMode == 'universalSearch') {
+      if (!this.model.searchString) {
+        this.model.errors = 'Please enter at least one field.';
+      }
+    }
+
+    else if (this.model.previewMode == 'classicSearch') {
+
+      if (form.value['education_field'].length==0 && form.value['education_level'].length==0 && form.value['location'] == '') {
+        this.model.errors = 'Please enter at least one field.';
+      }
+
+      else {
+        delete this.model.errors;
+      }
+    }
+
+
+
 
     // TODO What's the proper way of saving form values with Google Analytics
 
@@ -464,7 +483,15 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
     this.scholarshipService.setScholarshipPreviewForm(this.model)
       .then(
-      res => this.router.navigate(['scholarship']))  //use promise to ensure that form is saved to Service before navigating away
+      res => {
+        if (this.model.previewMode == 'universalSearch') {
+          this.router.navigate(['scholarship'], { queryParams: { q: this.model.searchString }});
+        }
+        else {
+          this.router.navigate(['scholarship'])
+        }
+
+      })  //use promise to ensure that form is saved to Service before navigating away
 
 }
 

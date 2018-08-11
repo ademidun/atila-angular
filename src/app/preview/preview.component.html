@@ -14,22 +14,30 @@
 
         <h1 style="margin-bottom: 0" class="form-header">Find Your Scholarships</h1>
         <h2 class="form-header" style="margin-bottom: 0;font-size: larger;">Automatically find and apply to scholarships in one click.</h2>
-        <div *ngIf="previewMode=='universalSearch'" style="margin-bottom: -22px; font-size: x-large" class="row preview-questions">
+        <div *ngIf="model.previewMode=='universalSearch'" style="margin-bottom: -22px; font-size: x-large" class="row preview-questions">
 
           <div class="search-box">
             <mat-form-field class="col-sm-12">
-              <input matInput placeholder="Enter a Search Term" >
+              <input style="font-size: 50px" matInput placeholder="Enter a Search Term" [(ngModel)]="model.searchString" name="searchString">
             </mat-form-field>
             <div class="col-sm-12">
-              <p style="color: white">Sample Searches: <a routerLink="/search" [queryParams]="{q:'engineering'}">Engineering</a>, <a routerLink="/search" [queryParams]="{q:'engineering'}">Toronto</a>,
-                <a routerLink="/search" [queryParams]="{q:'engineering'}">Female</a>, <a routerLink="/search" [queryParams]="{q:'engineering'}">Medical School</a>,
-                <a routerLink="/search" [queryParams]="{q:'engineering'}">International Student</a>   </p>
+              <p style="color: white">Sample Searches:
+                <ng-container *ngFor="let searchTerm of sampleSearches; last as isLast">
+                  <a routerLink="/scholarship" [queryParams]="{q:searchTerm.toLowerCase()}"
+                     (click)="$event.preventDefault();
+                      model.searchString=searchTerm.toLowerCase();
+                      onSubmit(previewForm)">
+                    {{searchTerm}}</a>
+                  <ng-container *ngIf="!isLast">,</ng-container>
+                </ng-container>
+
+              </p>
             </div>
           </div>
 
         </div>
 
-        <div *ngIf="previewMode=='classicFilter'" style="margin-bottom: -22px; font-size: x-large" class="row preview-questions">
+        <div *ngIf="model.previewMode=='classicFilter'" style="margin-bottom: -22px; font-size: x-large" class="row preview-questions">
 
           <!-- Try using Google Maps Places Autocomplete API: https://developers.google.com/maps/documentation/javascript/places-autocomplete#address_forms -->
           <!-- https://stackoverflow.com/questions/42341930/google-places-autocomplete-angular2 -->
@@ -53,11 +61,11 @@
 
         </div>
         <br>
-        <mat-slide-toggle (change)="previewMode = previewMode=='classicFilter'? 'universalSearch': 'classicFilter'" checked="true">
+        <mat-slide-toggle (change)="model.previewMode = model.previewMode=='classicFilter'? 'universalSearch': 'classicFilter'" checked="true">
           <span class="white-text">
           Preview Mode:
           <strong>
-            {{toTitleCase(previewMode)}}
+            {{prettifyKeys(model.previewMode)}}
           </strong>
           </span>
         </mat-slide-toggle>
