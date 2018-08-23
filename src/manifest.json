@@ -4,10 +4,10 @@
   "start_url": "index.html",
   "display": "standalone",
   "icons": [{
-    "src": "assets/img/favicon.png",
+    "src": "assets/img/favicon-bg.png",
     "sizes": "512x512",
     "type": "image/png"
   }],
-  "background_color": "#039be5",
+  "background_color": "#194f87",
   "theme_color": "#194f87"
 }
