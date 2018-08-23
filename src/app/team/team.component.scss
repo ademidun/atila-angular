@@ -25,6 +25,10 @@
 }
 */
 
+h1 {
+  margin-bottom: 0;
+  margin-top: 7px;
+}
 :host /deep/ .mat-card-header-text {
   margin: 0 75px !important;
 }
