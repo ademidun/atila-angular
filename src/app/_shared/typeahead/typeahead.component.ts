@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {NgbTypeahead, NgbTypeaheadConfig, NgbTypeaheadSelectItemEvent} from '@ng-bootstrap/ng-bootstrap';
 import 'rxjs/add/operator/map';
@@ -8,7 +8,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import {Subject} from 'rxjs/Subject';
 import {prettifyKeys} from '../utils';
 import {NgStyle} from '@angular/common';
-
+import * as M from 'materialize-css'
 @Component({
   selector: 'app-typeahead',
   templateUrl: './typeahead.component.html',

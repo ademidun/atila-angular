@@ -24,7 +24,7 @@
             <div class="col-sm-12 input-field">
               <app-typeahead [(model)]="model.searchString" [dataset]="MASTER_LIST_EVERYTHING"
                              [inputStyles]="{'font-size':'50px', 'caret-color': 'white', 'color': 'white'}"
-                             [metadata]="{'label':'Enter a Search Term', 'key': 'searchString','disableFocusFirst': true, 'matInput': true, 'noPlaceHolder': true}"
+                             [metadata]="{'placeholder':'Enter a Search Term', 'key': 'searchString','disableFocusFirst': true, 'matInput': true, 'noPlaceHolder': true}"
                              [labelStyles]="{'font-size':'50px', 'caret-color': 'white', 'color': 'white'}"
                               (typeaheadSelectedEvent)="typeaheadEvent($event)">
               </app-typeahead>
