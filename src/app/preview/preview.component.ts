@@ -15,6 +15,7 @@ import {MyFirebaseService} from '../_services/myfirebase.service';
 import {NgbPopover} from '@ng-bootstrap/ng-bootstrap';
 import {AuthService} from '../_services/auth.service';
 import {prettifyKeys, toTitleCase} from '../_shared/utils';
+import {MASTER_LIST_EVERYTHING} from '../_models/constants';
 //import {GeocoderAddressComponent} from '@types/googlemaps'
 
 //import 'googlemaps';
@@ -332,6 +333,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
        'STEM (Grad School)',
        'Other'
    ];
+    MASTER_LIST_EVERYTHING = MASTER_LIST_EVERYTHING.map(item => item.toLowerCase());
 
 
     model = new PreviewResponse({

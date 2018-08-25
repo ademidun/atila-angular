@@ -4,4 +4,4 @@
        (selectItem)="optionSelected($event, item);"
        (focus)="focus$.next($event.target.value)"
        (click)="click$.next($event.target.value)"
-       #instance="ngbTypeahead" #item [ngbTypeahead]="search" />
+       #instance="ngbTypeahead" #item [ngbTypeahead]="search"  name="metadata['key']" [ngStyle]="inputStyles"/>

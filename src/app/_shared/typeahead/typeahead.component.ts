@@ -7,6 +7,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import {Subject} from 'rxjs/Subject';
 import {prettifyKeys} from '../utils';
+import {NgStyle} from '@angular/common';
 
 @Component({
   selector: 'app-typeahead',
@@ -20,6 +21,7 @@ export class TypeaheadComponent implements OnInit {
   @Input() dataset: any[];
   @Input() metadata = {};
   @Input() model: any;
+  @Input() inputStyles: any = {};
   @Output() typeaheadSelectedEvent:EventEmitter<any> = new EventEmitter();
 
   search: any;

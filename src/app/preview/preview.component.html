@@ -20,6 +20,13 @@
             <mat-form-field class="col-sm-12">
               <input style="font-size: 50px; caret-color: white" matInput placeholder="Enter a Search Term" [(ngModel)]="model.searchString" name="searchString" autofocus>
             </mat-form-field>
+
+            <div class="col-sm-12">
+              <app-typeahead [(model)]="model.searchString" [dataset]="MASTER_LIST_EVERYTHING"
+                             [inputStyles]="{'font-size':'50px', 'caret-color': 'white', 'color': 'white'}"
+                             [metadata]="{'placeholder':'Enter a Search Term', 'key': 'searchString'}">
+              </app-typeahead>
+            </div>
             <div class="col-sm-12">
               <p style="color: white">Sample Searches:
                 <ng-container *ngFor="let searchTerm of sampleSearches; last as isLast">
@@ -33,6 +40,7 @@
 
               </p>
             </div>
+
           </div>
 
         </div>

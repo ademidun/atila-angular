@@ -2530,3 +2530,6 @@ export const MAJORS_DICT = [
     "name": "World Religions"
   }
 ];
+
+export const MASTER_LIST_EVERYTHING = MAJORS_LIST.concat(SCHOOLS_LIST).concat(EDUCATION_LEVEL).concat(ETHNICITY).
+concat(EDUCATION_FIELDS).concat(DISABILITY).concat(SPORTS).sort();
