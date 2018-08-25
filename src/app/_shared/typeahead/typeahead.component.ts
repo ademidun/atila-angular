@@ -21,7 +21,9 @@ export class TypeaheadComponent implements OnInit {
   @Input() dataset: any[];
   @Input() metadata = {};
   @Input() model: any;
+  @Output() modelChange:EventEmitter<any> = new EventEmitter();
   @Input() inputStyles: any = {};
+  @Input() labelStyles: any = {};
   @Output() typeaheadSelectedEvent:EventEmitter<any> = new EventEmitter();
 
   search: any;
@@ -31,6 +33,8 @@ export class TypeaheadComponent implements OnInit {
   constructor(public config: NgbTypeaheadConfig,
               public instance: NgbTypeahead,
               ) {
+
+    console.log('TypeaheadComponent', this);
     config.focusFirst = !this.metadata['disableFocusFirst'];
   }
 
@@ -44,7 +48,12 @@ export class TypeaheadComponent implements OnInit {
         .map(term => term.length < 1 ? this.dataset
           : this.filterUserInput(term, this.dataset));
 
-    this.metadata['placeholder'] = this.metadata['placeholder'] || prettifyKeys(this.metadata['key'])
+
+    if (!this.metadata['noPlaceHolder']) {
+      this.metadata['placeholder'] = this.metadata['placeholder'] || prettifyKeys(this.metadata['key'])
+    }
+    console.log('TypeaheadComponent', this);
+
   }
 
   filterUserInput(val: string, dataSet, keepUserInput=true): string[] {

@@ -584,5 +584,10 @@ export class PreviewComponent implements OnInit, OnDestroy {
     }
   }
 
+  typeaheadEvent(event) {
+    console.log({event})
+    if (event.type='searchString')
+    this.model[event.type] = event.event.item;
+  }
 
 }
