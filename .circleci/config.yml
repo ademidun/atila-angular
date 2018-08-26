@@ -42,7 +42,7 @@ jobs:
               - dist
       - run:
           name: Build Angular Project to dist/
-          command: ng build --prod
+          command: npm run build --prod
   deploy-job:
      docker:
        - image: my-image-version-tag
