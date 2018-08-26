@@ -22,6 +22,10 @@ jobs:
               - node_modules
       # Run tests
       - run: npm run test-ci
+      - persist_to_workspace:
+            root: .
+            paths:
+                - .
   build:
     working_directory: ~/project
     docker:
@@ -44,6 +48,10 @@ jobs:
           name: Build Angular Project to dist/
           # https://github.com/angular/angular-cli/issues/5618#issuecomment-348225508
           command: npm run ng-reg-mem -- build --prod
+      - persist_to_workspace:
+            root: .
+            paths:
+                - .
   deploy:
      docker:
        - image: circleci/node:8-browsers
@@ -51,6 +59,15 @@ jobs:
      steps:
      # Log the current branch
        - checkout
+       - attach_workspace:
+           # Must be absolute path or relative path from working_directory
+           at: /tmp
+       - run:
+           name: Show job workspace folder contents
+           command: ls
+       - run:
+           name: Show show workflow folder conents
+           command: ls /tmp
        - run:
            name: Show current branch
            command: echo ${CIRCLE_BRANCH}
