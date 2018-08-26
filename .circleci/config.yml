@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  test-job:
+  test:
     docker:
       - image: circleci/node:8-browsers
     steps:
@@ -22,7 +22,7 @@ jobs:
               - dist
       # Run tests
       - run: npm run test
-  build-job:
+  build:
     working_directory: ~/project
     steps:
       - run:
@@ -54,10 +54,10 @@ jobs:
 
 deploy:
   jobs:
-    - test-job
-    - build-job
+    - test
+    - build
     - deploy-job:
         requires:
-          - test-job
-          - build-job
+          - test
+          - build
 pro-only: true
