@@ -24,6 +24,8 @@ jobs:
       - run: npm run test
   build:
     working_directory: ~/project
+    docker:
+      - image: circleci/node:8-browsers
     steps:
       - run:
           name: Build Angular Project to dist/
