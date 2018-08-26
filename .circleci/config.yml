@@ -69,13 +69,20 @@ jobs:
                     ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN -p staging
                 fi
 
-
-deploy:
-  jobs:
-    - test
-    - build
-    - deploy-job:
-        requires:
-          - test
-          - build
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test
+workflows:
+  version: 2
+  build-test-and-deploy:
+    jobs:
+      - test
+      - build
+      - deploy-job:
+          requires:
+            - test
+            - build
 pro-only: true
