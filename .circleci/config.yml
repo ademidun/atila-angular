@@ -22,10 +22,6 @@ jobs:
               - node_modules
       # Run tests
       - run: npm run test-ci
-      - persist_to_workspace:
-            root: .
-            paths:
-                - .
   build:
     working_directory: ~/project
     docker:
@@ -59,6 +55,9 @@ jobs:
      steps:
      # Log the current branch
        - checkout
+       - run:
+           name: Show workflow folder conents before attaching workspace
+           command: ls /tmp
        - attach_workspace:
            # Must be absolute path or relative path from working_directory
            at: /tmp
@@ -66,7 +65,7 @@ jobs:
            name: Show job workspace folder contents
            command: ls
        - run:
-           name: Show show workflow folder conents
+           name: Show workflow folder conents
            command: ls /tmp
        - run:
            name: Show current branch
