@@ -46,7 +46,7 @@ jobs:
           command: npm run ng-reg-mem -- build --prod
   deploy-job:
      docker:
-       - image: my-image-version-tag
+       - image: circleci/node:8-browsers
      working_directory: ~/project
      steps:
      # Log the current branch
