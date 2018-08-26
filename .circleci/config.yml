@@ -1,0 +1,63 @@
+version: 2
+jobs:
+  test-job:
+    docker:
+      - image: circleci/node:8-browsers
+    steps:
+      # Checkout the code from the branch into the working_directory
+      - checkout
+      - run:
+          name: Show current branch
+          command: echo ${CIRCLE_BRANCH}
+      # https://medium.freecodecamp.org/our-journey-for-using-circleci-2-0-to-build-and-deploy-an-angular-app-to-aws-s3-8e7ea3f51503
+      # Restore local dependencies from cache
+      - restore_cache:
+          keys:
+              - v1-dependencies-{{ checksum "package.json" }}
+              - v1-dependencies-
+      - run: npm install
+      - save_cache:
+          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+              - dist
+      # Run tests
+      - run: npm run test
+  build-job:
+    working_directory: ~/project
+    steps:
+      - run:
+          name: Build Angular Project to dist/
+          command: ng build --prod
+  deploy-job:
+     docker:
+       - image: my-image-version-tag
+     working_directory: ~/project
+     steps:
+     # Log the current branch
+       - run:
+           name: Show current branch
+           command: echo ${CIRCLE_BRANCH}
+       # Restore cache from the build job which contains the
+       # dist folder that needs to be deployed
+       - restore_cache:
+           key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+       - run:
+           name: Deploy Master to Firebase or Other Branch to Staging
+
+           command:
+                if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                    ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
+                else
+                    ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
+                fi
+
+
+deploy:
+  jobs:
+    - test-job
+    - build-job
+    - deploy-job:
+        requires:
+          - test-job
+          - build-job
+pro-only: true
