@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  test-job:
+  test:
     docker:
       - image: circleci/node:8-browsers
     steps:
@@ -22,13 +22,13 @@ jobs:
               - dist
       # Run tests
       - run: npm run test
-  build-job:
+  build:
     working_directory: ~/project
     steps:
       - run:
           name: Build Angular Project to dist/
           command: ng build --prod
-  deploy-job:
+  deploy:
      docker:
        - image: my-image-version-tag
      working_directory: ~/project
@@ -51,13 +51,14 @@ jobs:
                     ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
                 fi
 
-
-deploy:
-  jobs:
-    - test-job
-    - build-job
-    - deploy-job:
-        requires:
-          - test-job
-          - build-job
-pro-only: true
+workflows:
+  version: 2
+  build-test-and-deploy:
+    jobs:
+      - test:
+      - build:
+          requires:
+            - test
+      - deploy:
+          requires:
+            - build
