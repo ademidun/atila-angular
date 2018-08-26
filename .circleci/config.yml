@@ -62,3 +62,4 @@ workflows:
       - deploy:
           requires:
             - build
+pro-only: true
