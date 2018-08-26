@@ -2,6 +2,8 @@
 
 The front-end app used to power [Atila](https://atila.ca).
 
+[![CircleCI](https://circleci.com/gh/ademidun/atila-angular.svg?style=svg&circle-token=6fd580229e65e2f8841944c5143986f3f977ad86)](https://circleci.com/gh/ademidun/atila-angular)
+
 # Getting Started
 
 You may need to set up a separate Django Application using the django-rest framework, the app should be using a PostgreSQL database. 
