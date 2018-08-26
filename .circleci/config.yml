@@ -60,7 +60,7 @@ jobs:
        - run:
            name: Deploy Master to Firebase or Other Branch to Staging
 
-           command:
+           command: |
                 if [ "${CIRCLE_BRANCH}" == "master" ]; then
                     echo 'deploying to prod';
                     ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
