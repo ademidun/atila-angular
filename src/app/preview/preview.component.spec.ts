@@ -1,14 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PreviewComponent } from './preview.component';
+import {SharedModule} from '../_shared/shared.module';
 
-describe('PreviewComponent', () => {
+fdescribe('PreviewComponent', () => {
   let component: PreviewComponent;
   let fixture: ComponentFixture<PreviewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PreviewComponent ]
+      declarations: [ PreviewComponent ],
+      imports: [SharedModule]
     })
     .compileComponents();
   }));
