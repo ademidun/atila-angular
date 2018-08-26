@@ -7,7 +7,7 @@ jobs:
       # Checkout the code from the branch into the working_directory
       - checkout
       - run:
-          name: Show current branch
+          name: Show current branch (test)
           command: echo ${CIRCLE_BRANCH}
       # https://medium.freecodecamp.org/our-journey-for-using-circleci-2-0-to-build-and-deploy-an-angular-app-to-aws-s3-8e7ea3f51503
       # Restore local dependencies from cache
@@ -27,6 +27,19 @@ jobs:
     docker:
       - image: circleci/node:8-browsers
     steps:
+      - checkout
+      - run:
+          name: Show current branch (build)
+          command: echo ${CIRCLE_BRANCH}
+      - restore_cache:
+          keys:
+              - v1-dependencies-{{ checksum "package.json" }}
+              - v1-dependencies-
+      - run: npm install
+      - save_cache:
+          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+              - dist
       - run:
           name: Build Angular Project to dist/
           command: ng build --prod
