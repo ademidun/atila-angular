@@ -17,9 +17,9 @@ jobs:
               - v1-dependencies-
       - run: npm install
       - save_cache:
-          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+          key: v1-dependencies-{{ checksum "package.json" }}
           paths:
-              - dist
+              - node_modules
       # Run tests
       - run: npm run test-ci
   build:
@@ -37,6 +37,10 @@ jobs:
               - v1-dependencies-
       - run: npm install
       - save_cache:
+          key: v1-dependencies-{{ checksum "package.json" }}
+          paths:
+              - node_modules
+      - save_cache:
           key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
           paths:
               - dist
@@ -50,6 +54,7 @@ jobs:
      working_directory: ~/project
      steps:
      # Log the current branch
+       - checkout
        - run:
            name: Show current branch
            command: echo ${CIRCLE_BRANCH}
@@ -60,9 +65,6 @@ jobs:
             - v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
-       - run:
-          command: Installing npm
-          name: npm install
        - run:
            name: Deploy Master to Firebase or Other Branch to Staging
 
@@ -80,10 +82,10 @@ workflows:
   version: 2
   build-test-and-deploy:
     jobs:
-#      - test
+      - test
       - build
       - deploy:
           requires:
-#            - test
+            - test
             - build
 pro-only: true
