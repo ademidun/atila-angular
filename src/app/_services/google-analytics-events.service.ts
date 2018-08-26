@@ -21,3 +21,6 @@ export class GoogleAnalyticsEventsService {
 
   }
 }
+
+export let GoogleAnalyticsEventsServiceStub : Partial<GoogleAnalyticsEventsService> = {
+};

@@ -159,3 +159,7 @@ getBySlug(slug: string) {
 
 
 }
+
+export let ScholarshipServiceStub : Partial<ScholarshipService> = {
+  form_data: {},
+};
