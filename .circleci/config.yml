@@ -62,4 +62,12 @@ workflows:
       - deploy:
           requires:
             - build
-pro-only: true
+
+deploy:
+  jobs:
+    - test
+    - build
+    - deploy:
+        requires:
+          - test
+          - build
