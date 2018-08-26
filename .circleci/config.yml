@@ -49,7 +49,7 @@ jobs:
                 else
                     ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
                 fi
- deploy:
+deploy:
   jobs:
     - test-job
     - build-job
