@@ -43,12 +43,15 @@ jobs:
            key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
        - run:
            name: Deploy Master to Firebase or Other Branch to Staging
-            command:
+
+           command:
                 if [ "${CIRCLE_BRANCH}" == "master" ]; then
                     ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
                 else
                     ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
                 fi
+
+
 deploy:
   jobs:
     - test-job
