@@ -61,8 +61,8 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
        - run:
-          command: Installing npm firebase tools
-          name: npm install --save-dev firebase-tools
+          command: Installing npm
+          name: npm install
        - run:
            name: Deploy Master to Firebase or Other Branch to Staging
 
@@ -75,20 +75,15 @@ jobs:
                     ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN -p staging
                 fi
 
-workflows:
-  version: 2
-  build_and_test:
-    jobs:
-      - build
-      - test
+
 workflows:
   version: 2
   build-test-and-deploy:
     jobs:
-      - test
+#      - test
       - build
       - deploy:
           requires:
-            - test
+#            - test
             - build
 pro-only: true
