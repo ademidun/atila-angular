@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "atila-7"
+    "default": "atila-7",
+    "staging": "atila-7-staging"
   }
 }

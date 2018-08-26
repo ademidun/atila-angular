@@ -11,15 +11,14 @@ jobs:
           command: echo ${CIRCLE_BRANCH}
       # https://medium.freecodecamp.org/our-journey-for-using-circleci-2-0-to-build-and-deploy-an-angular-app-to-aws-s3-8e7ea3f51503
       # Restore local dependencies from cache
+      # todo implement the fancy hashing script mentioned in the link above
       - restore_cache:
-          keys:
-              - v1-dependencies-{{ checksum "package.json" }}
-              - v1-dependencies-
+                      key: dependency-cache-{{ checksum "package.json" }}
       - run: npm install
       - save_cache:
-          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
-          paths:
-              - dist
+                      key: dependency-cache-{{ checksum "package.json" }}
+                      paths:
+                        - node_modules
       # Run tests
       - run: npm run test
   build:
@@ -32,14 +31,12 @@ jobs:
           name: Show current branch (build)
           command: echo ${CIRCLE_BRANCH}
       - restore_cache:
-          keys:
-              - v1-dependencies-{{ checksum "package.json" }}
-              - v1-dependencies-
+                key: dependency-cache-{{ checksum "package.json" }}
       - run: npm install
       - save_cache:
-          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
-          paths:
-              - dist
+                key: dependency-cache-{{ checksum "package.json" }}
+                paths:
+                  - node_modules
       - run:
           name: Build Angular Project to dist/
           command: npm run build --prod
@@ -61,9 +58,11 @@ jobs:
 
            command:
                 if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                    echo 'deploying to prod';
                     ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
                 else
-                    ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
+                    echo 'deploying to staging';
+                    ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN -p staging
                 fi
 
 
