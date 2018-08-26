@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  test:
+  test-job:
     docker:
       - image: circleci/node:8-browsers
     steps:
@@ -22,13 +22,13 @@ jobs:
               - dist
       # Run tests
       - run: npm run test
-  build:
+  build-job:
     working_directory: ~/project
     steps:
       - run:
           name: Build Angular Project to dist/
           command: ng build --prod
-  deploy:
+  deploy-job:
      docker:
        - image: my-image-version-tag
      working_directory: ~/project
@@ -43,31 +43,18 @@ jobs:
            key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
        - run:
            name: Deploy Master to Firebase or Other Branch to Staging
-
-           command:
+            command:
                 if [ "${CIRCLE_BRANCH}" == "master" ]; then
                     ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
                 else
                     ./node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
                 fi
-
-workflows:
-  version: 2
-  build-test-and-deploy:
-    jobs:
-      - test:
-      - build:
-          requires:
-            - test
-      - deploy:
-          requires:
-            - build
-
-deploy:
+ deploy:
   jobs:
-    - test
-    - build
-    - deploy:
+    - test-job
+    - build-job
+    - deploy-job:
         requires:
-          - test
-          - build
+          - test-job
+          - build-job
+pro-only: true
