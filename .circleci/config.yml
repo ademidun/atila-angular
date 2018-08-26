@@ -43,7 +43,7 @@ jobs:
       - run:
           name: Build Angular Project to dist/
           # https://github.com/angular/angular-cli/issues/5618#issuecomment-348225508
-          command: npm run ng-high-mem -- build --prod
+          command: npm run ng-reg-mem -- build --prod
   deploy-job:
      docker:
        - image: my-image-version-tag
