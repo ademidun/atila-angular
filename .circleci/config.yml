@@ -44,10 +44,13 @@ jobs:
           name: Build Angular Project to dist/
           # https://github.com/angular/angular-cli/issues/5618#issuecomment-348225508
           command: npm run ng-reg-mem -- build --prod
+      # https://discuss.circleci.com/t/error-archiving-workspace-files-exit-status-2/14320/9
       - persist_to_workspace:
             root: .
             paths:
-                - .
+                - "*"
+                - node_modules
+                - dist
   deploy:
      docker:
        - image: circleci/node:8-browsers
@@ -56,12 +59,12 @@ jobs:
      # Log the current branch
        - checkout
        # https://discuss.circleci.com/t/applying-workspace-layer-fails/19992
+#       - run:
+#          name: get docker image ca certs
+#          command: sudo apt-get update && sudo apt-get install -y ca-certificates
        - run:
-          name: get docker image ca certs
-          command: sudo apt-get update && sudo apt-get install -y ca-certificates
-       - run:
-           name: Show workflow folder conents before attaching workspace
-           command: ls /tmp
+           name: Show workflow and workspace folder contents before attaching workspace
+           command: ls . && ls /tmp
        - attach_workspace:
            # Must be absolute path or relative path from working_directory
            at: /tmp
