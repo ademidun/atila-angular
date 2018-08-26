@@ -90,11 +90,12 @@ jobs:
            command: |
                 if [ "${CIRCLE_BRANCH}" == "master" ]; then
                     echo 'deploying to prod';
-                    /tmp/node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
+                    /tmp/node_modules/.bin/firebase use default;
                 else
                     echo 'deploying to staging';
-                    /tmp/node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN -p staging
+                    /tmp/node_modules/.bin/firebase use staging;
                 fi
+                /tmp/node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN
 
 
 workflows:
