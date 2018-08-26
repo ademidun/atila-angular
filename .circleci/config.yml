@@ -88,6 +88,7 @@ jobs:
            name: Deploy Master to Firebase or Other Branch to Staging
 
            command: |
+                /tmp/node_modules/.bin/firebase login:ci
                 if [ "${CIRCLE_BRANCH}" == "master" ]; then
                     echo 'deploying to prod';
                     /tmp/node_modules/.bin/firebase use default;
