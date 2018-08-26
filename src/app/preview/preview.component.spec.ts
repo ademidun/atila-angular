@@ -5,11 +5,11 @@ import {AppModule} from '../app.module';
 import {TypeaheadComponent} from '../_shared/typeahead/typeahead.component';
 import {
   MatDialogModule,
-  MatFormFieldModule, MatIconModule, MatOptionModule, MatSelectModule,
+  MatFormFieldModule, MatIconModule, MatInputModule, MatOptionModule, MatSelectModule,
   MatSlideToggleModule
 } from '@angular/material';
 import {RouterModule} from '@angular/router';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule, NgbPopoverConfig, NgbPopoverModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
 import {ShareItemComponent} from '../_shared/share-item/share-item.component';
 import {TruncatePipe} from '../_pipes/truncate.pipe';
@@ -21,6 +21,7 @@ import {
   GoogleAnalyticsEventsServiceStub
 } from '../_services/google-analytics-events.service';
 import {RouterTestingModule} from '@angular/router/testing';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 fdescribe('PreviewComponent', () => {
   let component: PreviewComponent;
@@ -34,18 +35,20 @@ fdescribe('PreviewComponent', () => {
         PreviewComponent,
         TypeaheadComponent,
         ShareItemComponent,
-        TruncatePipe
+        TruncatePipe,
       ],
       imports: [
         MatFormFieldModule,
         MatOptionModule,
         MatSlideToggleModule,
         RouterTestingModule,
-        NgbModule,
+        NgbModule.forRoot(),
         FormsModule,
         MatSelectModule,
         MatIconModule,
         MatDialogModule,
+        MatInputModule,
+        BrowserAnimationsModule,
       ],
       providers: [
         {provide: ScholarshipService, useValue: ScholarshipServiceStub },
