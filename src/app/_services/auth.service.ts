@@ -209,3 +209,7 @@ export function hashFileName(fileName,length=8, appendTimeStamp=true) {
   return result;
 
 }
+
+export let AuthServiceStub : Partial<AuthService> = {
+  loginUrl : environment.apiUrl + 'login/',
+};

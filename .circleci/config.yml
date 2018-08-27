@@ -1,0 +1,121 @@
+version: 2
+
+# The following stanza defines a map named defaults with a variable that may be inserted using the YAML merge (<<: *) key
+# later in the file to save some typing. See http://yaml.org/type/merge.html for details.
+
+defaults: &defaults
+  docker:
+    - image: circleci/node:8-browsers
+
+jobs:
+  test:
+    <<: *defaults
+    steps:
+      # Checkout the code from the branch into the working_directory
+      - checkout
+      - run:
+          name: Show current branch (test)
+          command: echo ${CIRCLE_BRANCH}
+      # https://medium.freecodecamp.org/our-journey-for-using-circleci-2-0-to-build-and-deploy-an-angular-app-to-aws-s3-8e7ea3f51503
+      # Restore local dependencies from cache
+      - restore_cache:
+          keys:
+              - v1-dependencies-{{ checksum "package.json" }}
+              - v1-dependencies-
+      - run: npm install
+      - save_cache:
+          key: v1-dependencies-{{ checksum "package.json" }}
+          paths:
+              - node_modules
+      # Run tests
+      - run: npm run test-ci
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Show current branch (build)
+          command: echo ${CIRCLE_BRANCH}
+      - restore_cache:
+          keys:
+              - v1-dependencies-{{ checksum "package.json" }}
+              - v1-dependencies-
+      - run: npm install
+      - save_cache:
+          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+              - dist
+      - run:
+          name: Build Angular Project to dist/
+          # https://github.com/angular/angular-cli/issues/5618#issuecomment-348225508
+          command: npm run ng-reg-mem -- build --prod
+      - run:
+          name: Show current location
+          command: pwd
+      # https://discuss.circleci.com/t/error-archiving-workspace-files-exit-status-2/14320/9
+      - persist_to_workspace:
+            root: .
+            paths:
+                - "*"
+                - node_modules
+                - dist
+  deploy:
+     <<: *defaults
+     working_directory: /tmp
+     steps:
+       # https://discuss.circleci.com/t/applying-workspace-layer-fails/19992
+#       - run:
+#          name: get docker image ca certs
+#          command: sudo apt-get update && sudo apt-get install -y ca-certificates
+       - run:
+           name: Show workflow and workspace folder contents before attaching workspace
+           command: ls . && ls /tmp
+       - attach_workspace:
+           # Must be absolute path or relative path from working_directory
+           at: /tmp
+       - run:
+           name: Show job workspace folder contents
+           command: ls
+       - run:
+           name: Show workflow folder conents
+           command: ls /tmp
+       - run:
+           name: Show current branch
+           command: echo ${CIRCLE_BRANCH}
+       # Restore cache from the build job which contains the
+       # dist folder that needs to be deployed
+       - restore_cache:
+           keys:
+            - v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+       - run:
+          name: Show what is in folder after restoring cache
+          command: ls . && ls /tmp
+       - run:
+          name: Show current location
+          command: pwd
+       - run:
+           name: Deploy Master to Firebase or Other Branch to Staging
+
+          # todo Consider using filter key to choose deployment environment?
+           command: |
+                if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                    echo 'deploying to prod';
+                    /tmp/node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN -P default --only hosting
+                else
+                    echo 'deploying to staging';
+                    /tmp/node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN -P staging --only hosting
+                fi
+
+workflows:
+  version: 2
+  build-test-and-deploy:
+    jobs:
+      - test
+      - build
+      - deploy:
+          requires:
+            - test
+            - build
+pro-only: true

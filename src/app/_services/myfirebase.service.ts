@@ -254,3 +254,7 @@ export class MyFirebaseService {
   }
 
 }
+
+export let MyFirebaseServiceStub : Partial<MyFirebaseService> = {
+  apiKeyUrl : environment.apiUrl + 'api-keys/',
+};
