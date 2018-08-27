@@ -1,8 +1,16 @@
 version: 2
+
+# The following stanza defines a map named defaults with a variable that may be inserted using the YAML merge (<<: *) key
+# later in the file to save some typing. See http://yaml.org/type/merge.html for details.
+
+defaults: &defaults
+  working_directory: /tmp
+  docker:
+    - image: buildpack-deps:jessie
+
 jobs:
   test:
-    docker:
-      - image: circleci/node:8-browsers
+    <<: *defaults
     steps:
       # Checkout the code from the branch into the working_directory
       - checkout
@@ -23,9 +31,7 @@ jobs:
       # Run tests
       - run: npm run test-ci
   build:
-    working_directory: ~/project
-    docker:
-      - image: circleci/node:8-browsers
+    <<: *defaults
     steps:
       - checkout
       - run:
@@ -52,9 +58,7 @@ jobs:
                 - node_modules
                 - dist
   deploy:
-     docker:
-       - image: circleci/node:8-browsers
-     working_directory: ~/project
+     <<: *defaults
      steps:
      # Log the current branch
        - checkout
@@ -88,8 +92,8 @@ jobs:
           name: Show what is in folder after restoring cache
           command: ls . && ls /tmp
        - run:
-          name: Show what is in the dist folder
-          command: ls dist && ls /tmp/dist && ls
+          name: Show current location
+          command: pwd
        - run:
            name: Deploy Master to Firebase or Other Branch to Staging
 
