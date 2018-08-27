@@ -71,7 +71,7 @@
           </div>
           <div class="row">
             <!--<span *ngIf="true" style="font-size: large; margin-bottom: 1%; color: green">-->
-            <span style="font-size: large; margin-bottom: 1%; color: green">
+            <div *ngIf="registrationResponse" style="font-size: large; margin-bottom: 1%; color: green">
               <!--emoji (putting this here so I can command f to find the emoji.-->
               Registration successful 😄.
               <br>
@@ -99,7 +99,7 @@
               </li>
             </ul>
 
-            </span>
+            </div>
           </div>
 
           <div class="col-sm-12 button-container">
