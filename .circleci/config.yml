@@ -89,7 +89,7 @@ jobs:
           command: ls . && ls /tmp
        - run:
           name: Show what is in the dist folder
-          command: ls dist && ls /tmp/dist
+          command: ls dist && ls /tmp/dist && ls
        - run:
            name: Deploy Master to Firebase or Other Branch to Staging
 
