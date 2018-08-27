@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>{{userProfile.first_name}}, You have viewed {{ viewCount || 'N'}} pages.</h2>
+<h2 mat-dialog-title>{{userProfile.first_name}}, you have viewed {{ viewCount || 'N'}} pages.</h2>
 <h2 mat-dialog-title>
   You only have {{userProfile.atila_points| number:'1.0-0'}} Atila Points.
   <br>
@@ -30,20 +30,18 @@
   </ul>
 
 
-
-
-
 </ng-template>
 
-<h3 mat-dialog-title>Consider Helping Others and get Atila Points?</h3>
+<h3 mat-dialog-title>Consider helping others and get rewarded with Atila Points?</h3>
 
 <mat-dialog-actions>
-
-  You Can Either:
+<div>
+  You can:
+  <br>
   <!--<a [routerLink]="" ngbTooltip="Each action below gives you 100 Atila points.">-->
-    <!--<i class="material-icons">-->
-      <!--help-->
-    <!--</i>-->
+  <!--<i class="material-icons">-->
+  <!--help-->
+  <!--</i>-->
   <!--</a>-->
   <ol>
     <li><a (click)="linkHandler($event, 'scholarship/add')" routerLink="scholarship/add">Add a Scholarship</a></li>
@@ -53,6 +51,8 @@
     <!--<li><a (click)="linkHandler($event, 'forum')" routerLink="blog/add">Ask or Answer a forum post</a></li>-->
   </ol>
   <br>
+
+</div>
 
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
   <div class="col-sm-12">

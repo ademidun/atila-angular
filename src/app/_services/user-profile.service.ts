@@ -395,7 +395,7 @@ export class UserProfileService implements OnDestroy{
 
   showAtilaPointsPromptDialog(userProfile, viewData, viewHistory) {
 
-    if(this.dialog.openDialogs && this.dialog.openDialogs.length > 0) {
+    zif(this.dialog.openDialogs && this.dialog.openDialogs.length > 0) {
       if (this.viewHistoryChanges) {
         this.viewHistoryChanges.unsubscribe();
       }
