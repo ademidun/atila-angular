@@ -5,7 +5,7 @@ version: 2
 
 defaults: &defaults
   docker:
-    - image: buildpack-deps:jessie
+    - image: circleci/node:8-browsers
 
 jobs:
   test:
