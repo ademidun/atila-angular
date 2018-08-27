@@ -71,24 +71,31 @@
           </div>
           <div class="row">
             <!--<span *ngIf="true" style="font-size: large; margin-bottom: 1%; color: green">-->
-            <span *ngIf="registrationResponse" style="font-size: large; margin-bottom: 1%; color: green">
+            <span style="font-size: large; margin-bottom: 1%; color: green">
               <!--emoji (putting this here so I can command f to find the emoji.-->
               Registration successful 😄.
               <br>
               Your verification email has been sent, please check your inbox (or your spam folder 🙄).
 
-            <h4>Next Steps:</h4>
+              <br>
+              <a class=" col-sm-12 col-md-6 waves-effect waves-light btn atila-blue-light-bg" routerLink="/scholarship"
+              style="margin-top: 3%">
+                View My Scholarships!
+              </a>
+            <br>
+            <h4>Other Next Steps:</h4>
             <ul class="browser-default">
-              <li>
-                Visit<a routerLink="/scholarship" [queryParams]="{'utm_campaign':'register_1','utm_source':'atila', 'utm_medium':'registration_form', 'utm_content':'scholarships_list'}"> My Scholarships</a>
-                <br>
-              </li>
               <li>
                 Visit<a routerLink="/blog" [queryParams]="{'utm_campaign':'register_1','utm_source':'atila', 'utm_medium':'registration_form', 'utm_content':'scholarships_list'}"> Blogs</a>
                 <br>
               </li>
               <li>
                 Visit<a routerLink="/forum" [queryParams]="{'utm_campaign':'register_1','utm_source':'atila', 'utm_medium':'registration_form', 'utm_content':'forum'}"> Forums</a>
+              </li>
+              <li>
+                Visit<a routerLink="/essay" [queryParams]="{'utm_campaign':'register_1','utm_source':'atila', 'utm_medium':'registration_form', 'utm_content':'essays'}">
+                Essays</a>
+                <br>
               </li>
             </ul>
 
