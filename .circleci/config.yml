@@ -85,6 +85,12 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
        - run:
+          name: Show what is in folder after restoring cache
+          command: ls . && ls /tmp
+       - run:
+          name: Show what is in the dist folder
+          command: ls dist && ls /tmp/dist
+       - run:
            name: Deploy Master to Firebase or Other Branch to Staging
 
            command: |
