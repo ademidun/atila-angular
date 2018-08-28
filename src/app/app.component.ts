@@ -27,7 +27,6 @@ export class AppComponent implements AfterViewInit, OnInit {
 
   constructor(titleService: Title,
     public router: Router,
-    activatedRoute: ActivatedRoute,
     public swUpdate: SwUpdate,
     public snackBar: MatSnackBar,
     ) {

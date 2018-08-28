@@ -435,3 +435,7 @@ export class UserProfileService implements OnDestroy{
   }
 
 }
+
+export let UserProfileServiceMock : Partial<UserProfileService> = {
+  userEndpoint: '',
+};
