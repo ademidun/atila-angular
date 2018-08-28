@@ -9,6 +9,9 @@ import {
   NavigationError
 } from '@angular/router'
 import { Title } from '@angular/platform-browser';
+import {environment} from '../environments/environment';
+import {SwUpdate} from '@angular/service-worker';
+import {MatSnackBar} from '@angular/material';
 
 // import 'google.analytics'
 declare const ga: any;
@@ -19,12 +22,14 @@ declare const ga: any;
   styleUrls: ['./app.component.scss'],
   providers: []
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements AfterViewInit, OnInit {
   loading: boolean = true;
 
   constructor(titleService: Title,
     public router: Router,
     activatedRoute: ActivatedRoute,
+    public swUpdate: SwUpdate,
+    public snackBar: MatSnackBar,
     ) {
 
     // Set title when route changes
@@ -44,6 +49,27 @@ export class AppComponent implements AfterViewInit {
       }
       window.scrollTo(0, 0)
     });
+  }
+
+  ngOnInit() {
+    if (environment.production) {
+
+      // check service worker to see if new version of app is available
+      if (this.swUpdate.isEnabled) {
+
+        this.swUpdate.available.subscribe(() => {
+
+          const snackBarRef = this.snackBar.open('New version available', 'Load New Version');
+
+          snackBarRef.onAction().subscribe(
+            () => {
+              location.reload();
+            }
+          );
+
+        });
+      }
+    }
   }
 
   ngAfterViewInit(): void {
