@@ -288,15 +288,15 @@
                                 <input class="browser-default" matInput id="scholarship_url" type=url placeholder="Schlarship URL" [(ngModel)]="scholarship.scholarship_url" name="scholarship_url">
                               </mat-form-field>
 
+                              <label for="form_url">To upload a file, see next page</label>
+                              <mat-form-field class="col-sm-12">
+                                <input class="browser-default" matInput id="form_url" type=url placeholder="Application Form URL" [(ngModel)]="scholarship.form_url" name="form_url" (change)="formNeedsParsing()">
+                              </mat-form-field>
+
                               <mat-form-field class="col-sm-12">
                                 <input class="browser-default" matInput id="img_url" type=url placeholder="Scholarship Image URL" [(ngModel)]="scholarship.img_url" name="img_url">
                               </mat-form-field>
 
-
-                              <mat-form-field class="col-sm-12">
-                                <input class="browser-default" matInput id="form_url" type=url placeholder="Application Form URL" [(ngModel)]="scholarship.form_url" name="form_url" (change)="formNeedsParsing()">
-                              </mat-form-field>
-                              <label for="form_url">To upload a file, see next page</label>
 
                             </div>
 
