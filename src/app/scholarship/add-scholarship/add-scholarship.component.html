@@ -270,7 +270,7 @@
 
                             <div class="row">
                               <mat-form-field class="col-sm-12">
-                                <input class="browser-default" matInput id="name" type="text" required placeholder="Scholarship Name" [(ngModel)]="scholarship.name" name="name">
+                                <input class="browser-default" matInput id="name" type="text" required placeholder="Scholarship Name" [(ngModel)]="scholarship.name" name="name" (change)="configureSubmissionInfo()">
                               </mat-form-field>
                             </div>
                             <div class="row">
@@ -419,13 +419,6 @@
                               </mat-select>
                             </mat-form-field>
                             <br>
-                            <mat-form-field class="input-field col-sm-12 ">
-                              <mat-select class="col-sm-12" [(ngModel)]="scholarship.education_field" name="education_field" id="education_field" multiple=true
-                                          placeholder="Education Field">
-                                <mat-option *ngFor="let education_field of EDUCATION_FIELDS" [value]="education_field">{{education_field}} </mat-option>
-                              </mat-select>
-                            </mat-form-field>
-                            <br>
 
                             <div class="row">
                               <div class="col-sm-12 col-md-6" *ngFor="let entry of ['eligible_programs','eligible_schools']">
@@ -458,6 +451,68 @@
                               </div>
 
                             </div>
+
+                            <!--Questions about the application process-->
+                            <fieldset >
+
+                              <div class="row" *ngIf="hideForSimplicity">
+                                <div class="col-sm-12">
+                                  <input class="browser-default" id="is_automated" type="checkbox" [(ngModel)]="scholarship.is_automated" name="is_automated">
+                                  <label for="is_automated" data-error="Invalid input">Can this form be automated by Atila?<a> What is an automatable form?</a></label>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <label for="application_form_type" data-error="Invalid input">What type of form is the application?</label>
+                                <div class="input-field">
+                                  <mat-form-field class="col-sm-12">
+                                    <mat-select class="col-sm-12" [(ngModel)]="scholarship.submission_info.application_form_type" name="application_form_type" id="application_form_type" placeholder="Application Form Type">
+                                      <mat-option *ngFor="let type of APPLICATION_FORM_TYPES" [value]="type">{{type}} </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                </div>
+                              </div>
+
+                              <div class="row">
+                                <label for="submission_type" data-error="Invalid input">How to submit this application?</label>
+                                <div class="input-field">
+                                  <mat-form-field class="col-sm-12">
+                                    <mat-select class="col-sm-12" [(ngModel)]="scholarship.submission_info.submission_type" name="submission_type" id="submission_type" placeholder="Submission Type" (ngModelChange)="configureSubmissionInfo($event)" >
+                                      <mat-option *ngFor="let type of APPLICATION_SUBMISSION_TYPES" [value]="type">{{type}} </mat-option>
+                                    </mat-select>
+                                  </mat-form-field>
+                                </div>
+                              </div>
+
+                              <div class="row" *ngIf="scholarship.submission_info.submission_type=='Other'">
+                                <mat-form-field class="col-sm-12">
+                                  <input class="browser-default" type="text" matInput [(ngModel)]="scholarship.submission_info.submission_type_other" name="submission_type_other" id="submission_type_other" placeholder="Submission Type (Other)" >
+                                </mat-form-field>
+                              </div>
+
+                              <div class="row" *ngIf="scholarship.submission_info.submission_type=='Email'">
+                                <mat-form-field class="col-sm-12">
+                                  <input class="browser-default" type="text" matInput placeholder="What email will this application be sent to?"
+                                         [(ngModel)]="scholarship.submission_info.email_address" name="submission_info_email_address" id="submission_info_email_address">
+                                </mat-form-field>
+
+                                <ng-container *ngIf="hideForSimplicity">
+                                  <div class="col-sm-12">
+                                    <input class="browser-default" id="email_subject_is_custom" type="checkbox" [(ngModel)]="scholarship.submission_info.email_subject_is_custom" name="email_subject_is_custom">
+                                    <label for="email_subject_is_custom" data-error="Invalid input">Use Custom Subject?</label>
+                                  </div>
+                                  <p style="font-size: smaller">
+                                    Default subject is currently selected. Using each applicant's name as seen below:
+                                  </p>
+                                  <mat-form-field class="col-sm-12">
+                                    <label>What is the email subject?</label>
+                                    <input class="browser-default" type="text" matInput [(ngModel)]="scholarship.submission_info.email_subject" [disabled]="!scholarship.submission_info.email_subject_is_custom" name="submission_info_email_subject" id="submission_info_email_subject" placeholder="Submission Info Email Subject" >
+                                  </mat-form-field>
+
+                                </ng-container>
+
+                              </div>
+
+                            </fieldset>
 
 
                           </fieldset>
