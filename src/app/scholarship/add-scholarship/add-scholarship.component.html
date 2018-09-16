@@ -51,9 +51,9 @@
                       </mat-form-field>
                     </div>
 
-                    <p style="margin-bottom:2%" >Who is eligible for this scholarship? What do they need to apply?</p>
+                    <p style="margin-bottom:2%" >Description: Who is eligible for this scholarship? What should they do to apply?</p>
                     <textarea  class="browser-default col-sm-12" matInput id="description" type="text"
-                               required placeholder="E.g. Open to any Canadian or American, high school or university student. Submit a 500 Word essay on plans after graduation"
+                               required placeholder="E.g. Open to any Canadian or American, high school or university student. Submit a 500 Word essay on plans after graduation."
                                [(ngModel)]="scholarship.description" name="description" maxlength="500">
 
                     </textarea>
@@ -274,9 +274,11 @@
                               </mat-form-field>
                             </div>
                             <div class="row">
-                              <label> Who is eligible for this scholarship? What do they have to do to get it (500 words)? You will be able to give more details later.</label><br>
+                              <label>Short Description: Who is eligible for this scholarship? What should they do to apply? You will be able to give more details later.</label><br>
                               <textarea  class="browser-default col-sm-12" matInput id="description" type="text"
-                                         required placeholder="Eligiblility and requirements"  [(ngModel)]="scholarship.description" name="description"></textarea>
+                                         required placeholder="E.g. Any Canadian or American, high school or university student. Submit a 500 Word essay on plans after graduation."
+
+                                         [(ngModel)]="scholarship.description" name="description"></textarea>
                               <!--<span *ngIf="scholarship.description" [ngStyle]="{'color': scholarship.description.length>500? 'red' : 'black'}">-->
                               <span *ngIf="scholarship.description">
                                 {{scholarship.description.length}}/500
@@ -448,17 +450,12 @@
                               <div class="row">
 
                                 <div class="col-sm-12" style="margin-left:  1rem;" *ngFor="let questionKey of ['female_only','international_students_eligible',
-                          'no_essay_required','resume_required','cover_letter_required','transcript_required','enrollment_proof_required']">
+                          'no_essay_required']">
                                   <!--TODO change to dropdown select for all genders?-->
                                   <input class="browser-default" id="{{questionKey}}" type="checkbox" [(ngModel)]="scholarship[questionKey]" name="{{questionKey}}">
                                   <label for="{{questionKey}}" data-error="Invalid input">{{prettifyKeys(questionKey)}}?</label>
                                 </div>
                               </div>
-
-                              <mat-form-field class="col-sm-12">
-                                <input class="browser-default" matInput id="reference_letter_required" type="number" [(ngModel)]="scholarship.reference_letter_required" name="reference_letter_required">
-                                <label for="reference_letter_required" data-error="Invalid input">Number of reference letters required? (Leave as 0 if reference letter is not required.)</label>
-                              </mat-form-field>
 
                             </div>
 
