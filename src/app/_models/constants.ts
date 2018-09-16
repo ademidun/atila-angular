@@ -2076,6 +2076,19 @@ export const AUTOCOMPLETE_DICT = {
   'eligible_programs': LANGUAGE,
 };
 
+export const AUTOCOMPLETE_KEY_LIST = [
+  'activities',
+  'sports',
+  'ethnicity',
+  'religion',
+  'heritage',
+  'disability',
+  'citizenship',
+  'language',
+  'eligible_schools',
+  'eligible_programs',
+]
+
 export const FUNDING_TYPES = [
   'Scholarship',
   'Loan',

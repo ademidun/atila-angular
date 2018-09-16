@@ -1,4 +1,9 @@
-import {APPLICATION_FORM_TYPES, AUTOCOMPLETE_DICT, EDUCATION_FIELDS, EDUCATION_LEVEL, FUNDING_TYPES} from './constants';
+import {
+  ACTIVITIES,
+  APPLICATION_FORM_TYPES, AUTOCOMPLETE_DICT, COUNTRIES, DISABILITY, EDUCATION_FIELDS, EDUCATION_LEVEL, ETHNICITY,
+  FUNDING_TYPES, LANGUAGE,
+  MAJORS_LIST, RELIGION, SCHOOLS_LIST, SPORTS
+} from './constants';
 import {unescape} from 'querystring';
 import {unescapeHtml} from '@angular/platform-browser/src/browser/transfer_state';
 

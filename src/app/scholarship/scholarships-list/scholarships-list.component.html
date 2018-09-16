@@ -116,6 +116,16 @@
             </div>
           </div>
 
+          <div class="center col-sm-8 offset-sm-2 offset-md-2">
+
+            <a *ngIf="scholarship_count!=0" class="waves-effect waves-light btn register-btn" routerLink="/register">Register to See More Scholarships</a>
+            <a *ngIf="scholarship_count==0" class="waves-effect waves-light btn register-btn" routerLink="/register">Register to qualify for more scholarships</a>
+            <!--Remove for now to simiplify-->
+            <a   *ngIf="!isLoggedIn" class=" col-sm-12 col-md-6 waves-effect waves-light btn demo-btn" routerLink="/applications/demo">Try The Live Demo</a>
+
+          </div>
+
+
           <!-- TODO: Should we ask the user occasionally to subscribe? Even if already logged in? -->
           <div *ngIf="!isLoggedIn" class="row center" style="text-align: center;margin-bottom: 0px;">
             <p style="font-size: medium" class="col-sm-6">Subscribe to get updates on new <a routerLink="/">scholarships</a>, <a routerLink="/blog">blogs</a>,
@@ -135,15 +145,6 @@
             </mat-form-field>
             <a class="waves-effect waves-light btn browser-default col-sm-2 register-btn" style="background-color:#4080ff; " (click)="addSubscriber()">Subscribe</a>
 
-
-          </div>
-
-          <div class="center col-sm-8 offset-sm-2 offset-md-2">
-
-            <a *ngIf="scholarship_count!=0" class="waves-effect waves-light btn register-btn" routerLink="/register">Register to See More Scholarships</a>
-            <a *ngIf="scholarship_count==0" class="waves-effect waves-light btn register-btn" routerLink="/register">Register to qualify for more scholarships</a>
-            <!--Remove for now to simiplify-->
-            <a   *ngIf="!isLoggedIn" class=" col-sm-12 col-md-6 waves-effect waves-light btn demo-btn" routerLink="/applications/demo">Try The Live Demo</a>
 
           </div>
 

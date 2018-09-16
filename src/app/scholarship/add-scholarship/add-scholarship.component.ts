@@ -1,6 +1,8 @@
 import {Component, OnInit, AfterViewInit, ChangeDetectorRef, OnDestroy} from '@angular/core';
-import { Scholarship, scholarshipQuickCreate,scholarshipCreationHelper,
-  getScholarshipDiff, cleanHtml } from '../../_models/scholarship';
+import {
+  Scholarship, scholarshipQuickCreate, scholarshipCreationHelper,
+  getScholarshipDiff, cleanHtml
+} from '../../_models/scholarship';
 import { UploadFile } from '../../_models/upload-file';
 import { ScholarshipService } from '../../_services/scholarship.service';
 import { Observable } from 'rxjs/Observable';
@@ -30,9 +32,11 @@ import 'tinymce/plugins/media';
 import 'tinymce/plugins/autolink';
 import 'tinymce/plugins/code';
 import * as firebase from "firebase";
-import {ACTIVITIES, COUNTRIES, DISABILITY, ETHNICITY, RELIGION, SPORTS} from '../../_models/constants';
 
-import {SCHOOLS_LIST, MAJORS_LIST, LANGUAGE, FUNDING_TYPES, APPLICATION_FORM_TYPES, APPLICATION_SUBMISSION_TYPES} from '../../_models/constants';
+import {
+  SCHOOLS_LIST, MAJORS_LIST, LANGUAGE, FUNDING_TYPES, APPLICATION_FORM_TYPES, APPLICATION_SUBMISSION_TYPES,
+  AUTOCOMPLETE_DICT
+} from '../../_models/constants';
 import {prettifyKeys} from '../../_shared/utils';
 import {hasOwnProperty} from 'tslint/lib/utils';
 import {UserProfile} from '../../_models/user-profile';
@@ -68,18 +72,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
     'Other'
   ];
   MAJORS_LIST = MAJORS_LIST;
-  autoCompleteLists = {
-    'eligible_programs': MAJORS_LIST,
-    'eligible_schools': SCHOOLS_LIST,
-    'activities': ACTIVITIES,
-    'sports': SPORTS,
-    'ethnicity': ETHNICITY,
-    'religion': RELIGION,
-    'heritage': COUNTRIES,
-    'disability': DISABILITY,
-    'citizenship': COUNTRIES,
-    'language': LANGUAGE,
-  };
+  autoCompleteLists = AUTOCOMPLETE_DICT
   hideExtraCriteriaInfo: boolean = true;
   stringDict = {
     'city': '',
