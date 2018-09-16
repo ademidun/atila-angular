@@ -345,6 +345,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
     sampleSearches = [
       'Engineering',
+      'Ontario',
       'Toronto',
       'Female',
       'Medical School',

@@ -27,28 +27,6 @@
 
         </div>
 
-        <!-- TODO: Should we ask the user occasionally to subscribe? Even if already logged in? -->
-        <div *ngIf="!isLoggedIn" class="row center" style="text-align: center;margin-bottom: 0px;">
-          <p style="font-size: medium" class="col-sm-6">Subscribe to get updates on new <a routerLink="/">scholarships</a>, <a routerLink="/blog">blogs</a>, and
-            <a routerLink="/forum">forum posts</a>, and new product features.
-
-            <span *ngIf="subscriber.response" style="color: green">
-                  <br>
-                  {{subscriber.response}}
-            </span>
-          </p>
-
-
-          <mat-form-field class="browser-default col-sm-3 ">
-            <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
-            <input matInput type="email" class="form-control" style="padding-bottom: 0; margin-bottom: 0"  name="email" id="emailid"
-                   placeholder="Email Address" email [(ngModel)]="subscriber.email" (keyup.enter)="addSubscriber($event)">
-          </mat-form-field>
-          <a class="waves-effect waves-light btn browser-default col-sm-2 register-btn" style="background-color:#4080ff; " (click)="addSubscriber()">Subscribe</a>
-
-
-        </div>
-
 
         <div class="row filter-div">
 
@@ -100,9 +78,6 @@
 
         <div class="offset-md-2">
 
-          <!--Remove for now to simiplify-->
-          <a   *ngIf="!isLoggedIn" class=" col-sm-12 col-md-6 waves-effect waves-light btn demo-btn" routerLink="/applications/demo">Try The Live Demo</a>
-
           <div class="offset-1">
             <p *ngIf="isLoggedIn && (!userProfile.major || !userProfile.post_secondary_school)">
               Your account is incomplete. School or program information is missing:
@@ -141,10 +116,34 @@
             </div>
           </div>
 
+          <!-- TODO: Should we ask the user occasionally to subscribe? Even if already logged in? -->
+          <div *ngIf="!isLoggedIn" class="row center" style="text-align: center;margin-bottom: 0px;">
+            <p style="font-size: medium" class="col-sm-6">Subscribe to get updates on new <a routerLink="/">scholarships</a>, <a routerLink="/blog">blogs</a>,
+              <a routerLink="/forum">forum posts</a>, <a routerLink="/essay">essays</a>, and new product features.
+
+              <span *ngIf="subscriber.response" style="color: green">
+                  <br>
+                  {{subscriber.response}}
+            </span>
+            </p>
+
+
+            <mat-form-field class="browser-default col-sm-3 ">
+              <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
+              <input matInput type="email" class="form-control" style="padding-bottom: 0; margin-bottom: 0"  name="email" id="emailid"
+                     placeholder="Email Address" email [(ngModel)]="subscriber.email" (keyup.enter)="addSubscriber($event)">
+            </mat-form-field>
+            <a class="waves-effect waves-light btn browser-default col-sm-2 register-btn" style="background-color:#4080ff; " (click)="addSubscriber()">Subscribe</a>
+
+
+          </div>
+
           <div class="center col-sm-8 offset-sm-2 offset-md-2">
 
             <a *ngIf="scholarship_count!=0" class="waves-effect waves-light btn register-btn" routerLink="/register">Register to See More Scholarships</a>
             <a *ngIf="scholarship_count==0" class="waves-effect waves-light btn register-btn" routerLink="/register">Register to qualify for more scholarships</a>
+            <!--Remove for now to simiplify-->
+            <a   *ngIf="!isLoggedIn" class=" col-sm-12 col-md-6 waves-effect waves-light btn demo-btn" routerLink="/applications/demo">Try The Live Demo</a>
 
           </div>
 
