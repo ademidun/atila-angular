@@ -274,9 +274,9 @@
                               </mat-form-field>
                             </div>
                             <div class="row">
-                              <label> Give a short description of the scholarship. You will be able to give more details later.</label><br>
+                              <label> Who is eligible for this scholarship? What do they have to do to get it (500 words)? You will be able to give more details later.</label><br>
                               <textarea  class="browser-default col-sm-12" matInput id="description" type="text"
-                                         required placeholder="Description"  [(ngModel)]="scholarship.description" name="description"></textarea>
+                                         required placeholder="Eligiblility and requirements"  [(ngModel)]="scholarship.description" name="description"></textarea>
                               <!--<span *ngIf="scholarship.description" [ngStyle]="{'color': scholarship.description.length>500? 'red' : 'black'}">-->
                               <span *ngIf="scholarship.description">
                                 {{scholarship.description.length}}/500
@@ -288,7 +288,7 @@
                                 <input class="browser-default" matInput id="scholarship_url" type=url placeholder="Schlarship URL" [(ngModel)]="scholarship.scholarship_url" name="scholarship_url">
                               </mat-form-field>
 
-                              <label for="form_url">To upload a file, see next page</label>
+                              <label for="form_url">To upload an application form file, see next page</label>
                               <mat-form-field class="col-sm-12">
                                 <input class="browser-default" matInput id="form_url" type=url placeholder="Application Form URL" [(ngModel)]="scholarship.form_url" name="form_url" (change)="formNeedsParsing()">
                               </mat-form-field>
@@ -412,7 +412,7 @@
                             </div>
                             <br>
                             <mat-form-field class="input-field col-sm-12 ">
-                              <mat-select [(ngModel)]="scholarship.education_level" name="education_level" id="education_level" multiple=true placeholder="Select Your Education Type">
+                              <mat-select [(ngModel)]="scholarship.education_level" name="education_level" id="education_level" multiple=true placeholder="Select Education Type">
                                 <mat-option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </mat-option>
                               </mat-select>
                             </mat-form-field>
@@ -426,25 +426,39 @@
                             <br>
 
                             <div class="row">
-                              <div class="col-sm-12">
-                                <p> What programs are this scholarship for? (Leave blank for any program)</p>
+                              <div class="col-sm-12 col-md-6" *ngFor="let entry of ['eligible_programs','eligible_schools']">
+
                                 <table>
-                                  <tr  *ngFor="let program of scholarship.eligible_programs; let i = index">
-                                    <td> {{program}} </td>
+                                  <p style="font-weight: bold">{{prettifyKeys(entry)}}: Leave blank for any</p>
+                                  <tr  *ngFor="let item of scholarship[entry]; let i = index" ngDefaultControl>
+                                    <td>{{item}} </td>
                                     <td>
-                                      <a class="waves-effect waves-light btn right" (click)="deleteArrayitem(scholarship.eligible_programs, i)">
+                                      <a class="waves-effect waves-light btn right" (click)="deleteArrayitem( scholarship[entry], i)">
                                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                                       </a>
                                     </td>
                                   </tr>
                                 </table>
-                              </div>
 
-                              <div class="col-sm-12">
-                                <app-typeahead [model]="scholarship.eligible_programs" [dataset]="MAJORS_LIST"
-                                               [metadata]="{'placeholder':'What programs are this scholarship for? (Leave blank for any program)', 'key':'major','tabindex':'9'}">
+                                <app-typeahead [model]="scholarship[entry]" [dataset]="autoCompleteLists[entry]"
+                                               [metadata]="{'placeholder':prettifyKeys(entry), 'key': entry,'col':'col-sm-6'}">
                                 </app-typeahead>
                               </div>
+
+                              <div class="row">
+
+                                <div class="col-sm-12" style="margin-left:  1rem;" *ngFor="let questionKey of ['female_only','international_students_eligible',
+                          'no_essay_required','resume_required','cover_letter_required','transcript_required','enrollment_proof_required']">
+                                  <!--TODO change to dropdown select for all genders?-->
+                                  <input class="browser-default" id="{{questionKey}}" type="checkbox" [(ngModel)]="scholarship[questionKey]" name="{{questionKey}}">
+                                  <label for="{{questionKey}}" data-error="Invalid input">{{prettifyKeys(questionKey)}}?</label>
+                                </div>
+                              </div>
+
+                              <mat-form-field class="col-sm-12">
+                                <input class="browser-default" matInput id="reference_letter_required" type="number" [(ngModel)]="scholarship.reference_letter_required" name="reference_letter_required">
+                                <label for="reference_letter_required" data-error="Invalid input">Number of reference letters required? (Leave as 0 if reference letter is not required.)</label>
+                              </mat-form-field>
 
                             </div>
 

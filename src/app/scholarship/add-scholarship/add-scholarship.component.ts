@@ -69,6 +69,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
   ];
   MAJORS_LIST = MAJORS_LIST;
   autoCompleteLists = {
+    'eligible_programs': MAJORS_LIST,
     'eligible_schools': SCHOOLS_LIST,
     'activities': ACTIVITIES,
     'sports': SPORTS,
