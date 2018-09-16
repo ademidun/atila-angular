@@ -123,7 +123,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
   hideCriteriaInfo =true;
 
-  quickAdd = true;
+  quickAdd = false;
   activeCountry = '';
   activeProvince:any = {};
   scholarshipOwner;
