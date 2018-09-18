@@ -69,6 +69,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
   ];
   MAJORS_LIST = MAJORS_LIST;
   autoCompleteLists = {
+    'eligible_programs': MAJORS_LIST,
     'eligible_schools': SCHOOLS_LIST,
     'activities': ACTIVITIES,
     'sports': SPORTS,
@@ -107,6 +108,10 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
   appFormFile: UploadFile;
   showUploadLoading=false;
   editMode =false;
+  // this variable name is almost a double negative.
+  // think of it this way: divs with ngif="hideForSimplicity"
+  // will not be shown.
+  hideForSimplicity=false;
   suggestionMode =false;
   scholarshipEdits: any;
   locationData = [];
@@ -123,7 +128,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
   hideCriteriaInfo =true;
 
-  quickAdd = true;
+  quickAdd = false;
   activeCountry = '';
   activeProvince:any = {};
   scholarshipOwner;
@@ -883,7 +888,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   configureSubmissionInfo() {
-    if(typeof this.scholarship.submission_info.email_subject_is_custom == 'undefined') {
+    if(!this.scholarship.submission_info.email_subject_is_custom) {
       this.scholarship.submission_info.email_subject_is_custom = false;
       this.scholarship.submission_info.email_subject = `${this.scholarshipOwner.first_name} ${this.scholarshipOwner.last_name}'s ${this.scholarship.name} Application`;
     }
