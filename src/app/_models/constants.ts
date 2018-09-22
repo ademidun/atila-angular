@@ -1800,6 +1800,7 @@ export const ACTIVITIES = [
   "Reading (Process)",
   "Record Collecting",
   "Road Cycling",
+  "Robotics",
   "Rock Balancing",
   "Rock Climbing",
   "Role-Playing Game",
