@@ -1800,6 +1800,7 @@ export const ACTIVITIES = [
   "Reading (Process)",
   "Record Collecting",
   "Road Cycling",
+  "Robotics",
   "Rock Balancing",
   "Rock Climbing",
   "Role-Playing Game",
@@ -2072,8 +2073,8 @@ export const AUTOCOMPLETE_DICT = {
   'disability': DISABILITY,
   'citizenship': COUNTRIES,
   'language': LANGUAGE,
-  'eligible_schools': LANGUAGE,
-  'eligible_programs': LANGUAGE,
+  'eligible_schools': SCHOOLS_LIST,
+  'eligible_programs': MAJORS_LIST,
 };
 
 export const AUTOCOMPLETE_KEY_LIST = [

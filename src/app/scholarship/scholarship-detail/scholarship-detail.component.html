@@ -72,8 +72,9 @@
       <div *ngIf="scholarship.extra_criteria && Object.keys(scholarship.extra_criteria).length>0 || scholarshipAdditionalCriteria.length>0">
         <h3>Other Criteria</h3>
 
+          <!--TODO: How is extra_criteria being generated. How is it different from the autoComplete lists?-->
           <div *ngFor="let key of Object.keys(scholarship.extra_criteria)">
-            <p><strong>{{key}}:</strong>{{scholarship.extra_criteria[key]}}</p>
+            <p><strong>{{prettifyKeys(key)}}:</strong>{{scholarship.extra_criteria[key]}}</p>
           </div>
 
         <div *ngFor="let key of autoCompleteLists">
@@ -81,6 +82,8 @@
             <p><strong>{{prettifyKeys(key)}}:</strong>{{scholarship[key]}}</p>
           </ng-container>
         </div>
+        <p *ngIf="scholarship.female_only"><strong>Female Only</strong></p>
+        <p *ngIf="scholarship.international_students_eligible"><strong>International Students Eligible</strong></p>
 
       </div>
       <br>

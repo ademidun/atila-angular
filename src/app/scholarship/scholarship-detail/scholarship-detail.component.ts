@@ -82,14 +82,11 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
     this.routerChanges = router.events.subscribe(data=>{
       if(data instanceof ActivationEnd){
 
-        console.log('this.viewHistoryChanges',this.userProfileService.viewHistoryChanges);
-
         if (this.userProfileService.viewHistoryChanges) {
           this.userProfileService.viewHistoryChanges.unsubscribe();
         }
         this.scholarshipSlug = route.snapshot.params['slug'];
         this.ngOnInitHelper();
-        console.log('routerChanges',data);
       }
     });
 
@@ -102,7 +99,6 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
     if (this.userProfileService.viewHistoryChanges) {
       this.userProfileService.viewHistoryChanges.unsubscribe();
     }
-    console.log('ngOnInitHelper() this.preventNgOnInitDoubleCount', this.preventNgOnInitDoubleCount)
     if (!this.preventNgOnInitDoubleCount) {
       this.preventNgOnInitDoubleCount = true;
     }
@@ -128,16 +124,12 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
           if ('2019-01-01T00:00:00Z' == this.scholarship.deadline) {
             this.scholarship['metadata']['deadline_tbd'] = 'TBA';
           }
-          console.log('this.scholarship', this.scholarship);
 
           this.autoCompleteLists.forEach(key => {
-            console.log({key})
-            console.log('this.scholarship[key]',this.scholarship[key])
             if (this.scholarship[key].length>0) {
               // https://stackoverflow.com/a/1374131/
               this.scholarshipAdditionalCriteria.push(...this.scholarship[key]);
             }
-            console.log('this.scholarshipAdditionalCriteria',this.scholarshipAdditionalCriteria)
           })
           this.titleService.setTitle(this.scholarship.name + ' - Atila');
 
@@ -172,7 +164,6 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
                         item_name: this.scholarship.name,
                         timestamp: Date.now(),
                       };
-                      console.log('this.userProfileService.checkViewHistory');
                       this.userProfileService.checkViewHistory(this.userProfile, viewData);
                     }
                   },3000);
@@ -453,13 +444,11 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
   }
 
   getRelatedItems() {
-    console.log('getRelatedItems',this.getRelatedItems);
     let queryString= `?type=scholarship&id=${this.scholarship.id}`;
 
     this.searchService.relatedItems(queryString)
       .subscribe( res => {
 
-        console.log('this',this);
         this.relatedItems = res.items.map( item => {
           return genericItemTransform(item);
         });

@@ -36,6 +36,7 @@ export class Scholarship {
               public id?: number,
               public img_url?: any,
               public is_automated?: boolean,
+              public international_students_eligible?: boolean,
               public language?: any,
               public local_form_location?: any,
               public metadata?: any,
