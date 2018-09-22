@@ -52,7 +52,6 @@ export class TypeaheadComponent implements OnInit {
     if (!this.metadata['noPlaceHolder']) {
       this.metadata['placeholder'] = this.metadata['placeholder'] || prettifyKeys(this.metadata['key'])
     }
-    console.log('TypeaheadComponent', this);
 
   }
 

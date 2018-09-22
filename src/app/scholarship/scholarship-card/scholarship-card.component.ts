@@ -311,7 +311,6 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
             .subscribe(
               res => {
                 if (!this.environment.production) {
-                  console.log('res',res)
                 }
               }
             )
