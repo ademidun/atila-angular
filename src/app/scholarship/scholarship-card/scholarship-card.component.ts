@@ -289,6 +289,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
     if(this.metadata['form_data'] && this.metadata['form_data']['view_as_user']) {
       console.log("Skipping sendScholarshipInteraction in view_as_user mode, this.metadata['form_data']",
         this.metadata['form_data'],'actionType', actionType);
+      return;
     }
 
     if (this.scholarshipService.preventSortByDoubleCount) {

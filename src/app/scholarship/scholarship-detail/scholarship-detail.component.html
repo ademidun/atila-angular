@@ -31,25 +31,19 @@
             <a target="_blank" *ngIf="scholarship.form_url" href="{{scholarship.form_url}}"> View Application Form </a>
             <!--<a target="_blank" *ngIf="scholarship.local_form_location.indexOf('scholartree') !== -1;" href="https://scholartree.ca">Source</a> <br>-->
 
-            <div >
+            <div style="margin-bottom: 3%">
               <p>Save for Later</p>
               <!--<button mat-fab  (click)="addToMyScholarships(scholarship)" style="margin-left: -23%">-->
               <button mat-fab  (click)="addToMyScholarships(scholarship)">
                 <mat-icon [ngStyle]="{'color': alreadySaved ? '#4080ff' : ''}"  class="atila-blue" aria-hidden="true" aria-label="Save">bookmark</mat-icon>
               </button>
 
-
               <app-share-item [item]="{title: scholarship.name,
                 url:'https://atila.ca/scholarship/'+scholarship.slug+'/',
-                id: scholarship.id, source:'scholarship_detail',type:'scholarship'}" [metadata]="{'shareItemStyle':{'left': '55px','bottom': '30px', 'zoom':1.4}}"></app-share-item>
+                id: scholarship.id, source:'scholarship_detail',type:'scholarship'}" [metadata]="{'shareItemStyle':{'left': '55px','bottom': '4.5%', 'zoom':1.4}}"></app-share-item>
             </div>
 
-            <p> Something Wrong?
-              <a routerLink="/contact" [queryParams]="{'atila_ref':'scholarship_detail'}">Tell Us</a>
-            </p>
-
           </div>
-
 
 
         <div  class="col-sm-12 col-md-4">
@@ -70,20 +64,32 @@
       </div>
       <br>
       <div class="divider"  id="bootstrap-override"></div>
+
+      <h3>Scholarship Description</h3>
       <p style="width: 90%">{{scholarship.description}}</p>
       <br>
 
-      <div *ngIf="scholarship.extra_criteria"> <span style="font-size: larger">Other Criteria</span>
+      <div *ngIf="scholarship.extra_criteria && Object.keys(scholarship.extra_criteria).length>0 || scholarshipAdditionalCriteria.length>0">
+        <h3>Other Criteria</h3>
 
           <div *ngFor="let key of Object.keys(scholarship.extra_criteria)">
             <p><strong>{{key}}:</strong>{{scholarship.extra_criteria[key]}}</p>
           </div>
 
+        <div *ngFor="let key of autoCompleteLists">
+          <ng-container *ngIf="scholarship[key].length>0">
+            <p><strong>{{prettifyKeys(key)}}:</strong>{{scholarship[key]}}</p>
+          </ng-container>
+        </div>
+
       </div>
       <br>
+      <p> Something Wrong?
+        <a routerLink="/contact" [queryParams]="{'atila_ref':'scholarship_detail'}">Tell Us</a>
+      </p>
 
       <div *ngIf="relatedItems" class="row">
-        <div style="width: 100%; margin-left: 5%" class="row"><h5>Related</h5> <span style="font-size: smaller; color: #194F87">Beta</span></div>
+        <div style="width: 100%; margin-left: 5%"><h5>Related</h5></div>
         <div  *ngFor="let item of relatedItems; let i = index; first as isFirst;" class="col-md-4">
           <div (click)="logRelatedItemClick(item)">
             <!--<app-card-generic class="hide-on-small-and-down" [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'height': '300px', 'overflow-y': 'hidden'}"> </app-card-generic>-->

@@ -1,5 +1,8 @@
 @import '../../../styles';
 
+p {
+  font-size: larger;
+}
 .scholarship-image {
     max-width: 100%;
     display: block;
@@ -104,5 +107,11 @@ button.mat-fab.mat-accent {
 }
 .inner-html {
   overflow-x: scroll;
+  font-size: larger;
+
+  p {
+    font-size: larger;
+  }
+
 }
 

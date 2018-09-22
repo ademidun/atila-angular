@@ -68,6 +68,9 @@ a:not(.btn):hover {
   list-style-type: initial !important;
 }
 
+.inner-html ul:not(.browser-default) {
+  padding-left: 1.2rem;
+}
 .wysiywyg-editor {
   border: 1px solid #039be5;
 }

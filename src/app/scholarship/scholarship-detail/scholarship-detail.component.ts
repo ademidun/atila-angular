@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit, AfterViewInit} from '@angular/core';
 
-import { Scholarship } from '../../_models/scholarship';
+import {Scholarship} from '../../_models/scholarship';
 import { Comment, upVoteComment, downVoteComment } from "../../_models/comment";
 import {ActivatedRoute, ActivationEnd, Router} from '@angular/router';
 import { ScholarshipService } from '../../_services/scholarship.service';
@@ -19,10 +19,11 @@ import {MyFirebaseService} from '../../_services/myfirebase.service';
 import {UserProfile, addToMyScholarshipHelper} from '../../_models/user-profile';
 import {SeoService} from '../../_services/seo.service';
 import {SearchService} from '../../_services/search.service';
-import {genericItemTransform, IPDATA_KEY} from '../../_shared/utils';
+import {genericItemTransform, IPDATA_KEY, prettifyKeys} from '../../_shared/utils';
 import {SubscriberDialogComponent} from '../../subscriber-dialog/subscriber-dialog.component';
 import {Subscription} from 'rxjs/Subscription';
 import {AtilaPointsPromptDialogComponent} from '../../atila-points-prompt-dialog/atila-points-prompt-dialog.component';
+import {AUTOCOMPLETE_DICT, AUTOCOMPLETE_KEY_LIST} from '../../_models/constants';
 
 
 @Component({
@@ -33,6 +34,9 @@ import {AtilaPointsPromptDialogComponent} from '../../atila-points-prompt-dialog
 export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewInit {
 
   scholarship: Scholarship;
+  autoCompleteLists = AUTOCOMPLETE_KEY_LIST;
+  prettifyKeys = prettifyKeys;
+  scholarshipAdditionalCriteria = [];
   scholarshipComments: Comment[];
   userComment: Comment;
   scholarshipSlug: string;
@@ -124,7 +128,17 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
           if ('2019-01-01T00:00:00Z' == this.scholarship.deadline) {
             this.scholarship['metadata']['deadline_tbd'] = 'TBA';
           }
+          console.log('this.scholarship', this.scholarship);
 
+          this.autoCompleteLists.forEach(key => {
+            console.log({key})
+            console.log('this.scholarship[key]',this.scholarship[key])
+            if (this.scholarship[key].length>0) {
+              // https://stackoverflow.com/a/1374131/
+              this.scholarshipAdditionalCriteria.push(...this.scholarship[key]);
+            }
+            console.log('this.scholarshipAdditionalCriteria',this.scholarshipAdditionalCriteria)
+          })
           this.titleService.setTitle(this.scholarship.name + ' - Atila');
 
           this.getRelatedItems();
@@ -445,7 +459,7 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
     this.searchService.relatedItems(queryString)
       .subscribe( res => {
 
-
+        console.log('this',this);
         this.relatedItems = res.items.map( item => {
           return genericItemTransform(item);
         });

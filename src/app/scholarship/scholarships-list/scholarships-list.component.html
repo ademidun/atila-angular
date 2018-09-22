@@ -27,33 +27,11 @@
 
         </div>
 
-        <!-- TODO: Should we ask the user occasionally to subscribe? Even if already logged in? -->
-        <div *ngIf="!isLoggedIn" class="row center" style="text-align: center;margin-bottom: 0px;">
-          <p style="font-size: medium" class="col-sm-6">Subscribe to get updates on new <a routerLink="/">scholarships</a>, <a routerLink="/blog">blogs</a>, and
-            <a routerLink="/forum">forum posts</a>, and new product features.
-
-            <span *ngIf="subscriber.response" style="color: green">
-                  <br>
-                  {{subscriber.response}}
-            </span>
-          </p>
-
-
-          <mat-form-field class="browser-default col-sm-3 ">
-            <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
-            <input matInput type="email" class="form-control" style="padding-bottom: 0; margin-bottom: 0"  name="email" id="emailid"
-                   placeholder="Email Address" email [(ngModel)]="subscriber.email" (keyup.enter)="addSubscriber($event)">
-          </mat-form-field>
-          <a class="waves-effect waves-light btn browser-default col-sm-2 register-btn" style="background-color:#4080ff; " (click)="addSubscriber()">Subscribe</a>
-
-
-        </div>
-
 
         <div class="row filter-div">
 
           <ng-template #tryFilter>
-            <p class="col-sm-12 col-md-6" style="font-size: larger"> <span style="font-weight: bold">New!</span> Filter using your Profile</p>
+            <!--<p class="col-sm-12 col-md-6" style="font-size: larger"> <span style="font-weight: bold">New!</span> Filter using your Profile</p>-->
           </ng-template>
 
           <mat-form-field class="col-sm-6 col-md-3">
@@ -63,6 +41,21 @@
               <mat-option *ngFor="let filterType of ['major','post_secondary_school','city','province','country']" [value]="filterType">{{prettifyKeys(filterType)}} </mat-option>
             </mat-select>
 
+          </mat-form-field>
+          <mat-form-field class="col-sm-6 col-md-3">
+            <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
+            <mat-select  [(ngModel)]="form_data.sort_by"  id="sort_by" name="sort_by" placeholder="Sort By:" (change)="getScholarshipPreview(1,{'change_sort_by':true})">
+              <ng-container  *ngIf="isLoggedIn; else unRegisteredSortOptions" >
+                <mat-option *ngFor="let sortType of ['relevance_new','relevance','deadline','surprise_me','only_automated','currently_open']" [value]="sortType">
+                  {{prettifyKeys(sortType)}}
+                </mat-option>
+              </ng-container>
+
+              <ng-template #unRegisteredSortOptions>
+                <mat-option *ngFor="let sortType of ['relevance','deadline','surprise_me','only_automated','currently_open']" [value]="sortType">{{prettifyKeys(sortType)}} </mat-option>
+              </ng-template>
+
+            </mat-select>
           </mat-form-field>
           <div class="col-sm-6 col-md-3" *ngIf="form_data.filter_by_user">
             <input class="browser-default" id="filter_by_user_show_eligible_only" type="checkbox" [(ngModel)]="form_data.filter_by_user_show_eligible_only" name="filter_by_user_show_eligible_only"  (change)="getScholarshipPreview()">
@@ -85,34 +78,14 @@
 
         <div class="offset-md-2">
 
-          <a class=" col-sm-12 col-md-6 waves-effect waves-light btn demo-btn" routerLink="/applications/demo">Try The Live Demo</a>
-
-          <mat-form-field class="col-sm-6 col-md-3">
-            <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
-            <mat-select  [(ngModel)]="form_data.sort_by"  id="sort_by" name="sort_by" placeholder="Sort By:" (change)="getScholarshipPreview(1,{'change_sort_by':true})">
-              <ng-container  *ngIf="isLoggedIn; else unRegisteredSortOptions" >
-                <mat-option *ngFor="let sortType of ['relevance_new','relevance','deadline','surprise_me','only_automated','currently_open']" [value]="sortType">
-                  {{prettifyKeys(sortType)}}
-                </mat-option>
-              </ng-container>
-
-              <ng-template #unRegisteredSortOptions>
-                <mat-option *ngFor="let sortType of ['relevance','deadline','surprise_me','only_automated','currently_open']" [value]="sortType">{{prettifyKeys(sortType)}} </mat-option>
-              </ng-template>
-
-            </mat-select>
-          </mat-form-field>
           <div class="offset-1">
             <p *ngIf="isLoggedIn && (!userProfile.major || !userProfile.post_secondary_school)">
               Your account is incomplete. School or program information is missing:
               <a (click)="editProfileModal({'forceOpen': true})">Complete Profile</a>
             </p>
 
-            <p>Like Atila? Help others and <a routerLink="/scholarship/add">add a scholarship</a> in less than 15 seconds.</p>
+            <p>Did you find a scholarship? Help others and <a routerLink="/scholarship/add">add a scholarship</a> in less than 15 seconds.</p>
 
-            <p> Something Wrong?
-              <a routerLink="/contact" [queryParams]="{'atila_ref':'scholarships_list'}">Tell Us</a>
-            </p>
           </div>
         </div>
         <br>
@@ -147,6 +120,31 @@
 
             <a *ngIf="scholarship_count!=0" class="waves-effect waves-light btn register-btn" routerLink="/register">Register to See More Scholarships</a>
             <a *ngIf="scholarship_count==0" class="waves-effect waves-light btn register-btn" routerLink="/register">Register to qualify for more scholarships</a>
+            <!--Remove for now to simiplify-->
+            <a   *ngIf="!isLoggedIn" class=" col-sm-12 col-md-6 waves-effect waves-light btn demo-btn" routerLink="/applications/demo">Try The Live Demo</a>
+
+          </div>
+
+
+          <!-- TODO: Should we ask the user occasionally to subscribe? Even if already logged in? -->
+          <div *ngIf="!isLoggedIn" class="row center" style="text-align: center;margin-bottom: 0px;">
+            <p style="font-size: medium" class="col-sm-6">Subscribe to get updates on new <a routerLink="/">scholarships</a>, <a routerLink="/blog">blogs</a>,
+              <a routerLink="/forum">forum posts</a>, <a routerLink="/essay">essays</a>, and new product features.
+
+              <span *ngIf="subscriber.response" style="color: green">
+                  <br>
+                  {{subscriber.response}}
+            </span>
+            </p>
+
+
+            <mat-form-field class="browser-default col-sm-3 ">
+              <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
+              <input matInput type="email" class="form-control" style="padding-bottom: 0; margin-bottom: 0"  name="email" id="emailid"
+                     placeholder="Email Address" email [(ngModel)]="subscriber.email" (keyup.enter)="addSubscriber($event)">
+            </mat-form-field>
+            <a class="waves-effect waves-light btn browser-default col-sm-2 register-btn" style="background-color:#4080ff; " (click)="addSubscriber()">Subscribe</a>
+
 
           </div>
 
@@ -173,6 +171,10 @@
               <p class="text-align-center col-sm-12">Are we missing a scholarship you want? You can easily <a routerLink="/scholarship/add" title="Add Scholarship">Add a Scholarship </a> to Atila or
                 <a href="https://docs.google.com/spreadsheets/d/13YshWzg38Au-tPkGyDfY4hJHGJDWl_7vUpXNXkf5afM/edit?usp=sharing"
                    target="_blank" title="Scholarship Spreadsheet">Tell us the link</a> and we'll automate it for you.</p>
+
+              <p> Something Wrong?
+                <a routerLink="/contact" [queryParams]="{'atila_ref':'scholarships_list'}">Tell Us</a>
+              </p>
 
               <div class="col-sm-12 center">
                 <!--todo fix error with waves-light staying white, looks like be button is disabled-->
