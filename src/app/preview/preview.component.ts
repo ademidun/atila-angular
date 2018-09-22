@@ -348,6 +348,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
       'Ontario',
       'Toronto',
       'Female',
+      'Black',
       'Medical School',
       'International Student',
     ]
