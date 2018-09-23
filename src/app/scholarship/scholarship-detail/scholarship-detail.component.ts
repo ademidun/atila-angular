@@ -24,6 +24,7 @@ import {SubscriberDialogComponent} from '../../subscriber-dialog/subscriber-dial
 import {Subscription} from 'rxjs/Subscription';
 import {AtilaPointsPromptDialogComponent} from '../../atila-points-prompt-dialog/atila-points-prompt-dialog.component';
 import {AUTOCOMPLETE_DICT, AUTOCOMPLETE_KEY_LIST} from '../../_models/constants';
+import {HttpErrorResponse} from '@angular/common/http';
 
 
 @Component({
@@ -52,7 +53,7 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
   public keyGetter = Object.keys;
   public environment = environment;
   public alreadySaved: boolean;
-  public relatedItems: any = [];
+  public relatedItems: Array<any>;
   public subscriber: any = {};
   public viewHistory: any;
   public isLoggedIn;
@@ -183,7 +184,11 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
 
         },
         err => {
-
+            console.log('err',err);
+            console.log('err.toString()',err.toString());
+            if (err instanceof HttpErrorResponse && err.status == 404) {
+                this.scholarship = {name: 'Scholarship Not Found', metadata: {}};
+            }
         },
 
         () => {
