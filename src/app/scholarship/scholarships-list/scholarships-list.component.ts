@@ -135,9 +135,22 @@ export class ScholarshipsListComponent implements OnInit {
       this.scholarshipService.getScholarshipPreviewForm()
       .then(
         res => {
+          console.log('this.activatedRoute.snapshot.queryParams[\'q\']',this.activatedRoute.snapshot.queryParams['q']);
           this.form_data = res;
           if(this.form_data){
             this.form_data['filter_by_user_show_eligible_only']=true;
+          }
+          else {
+            if (this.activatedRoute.snapshot.queryParams['q']) {
+              this.form_data = {
+                previewMode: 'universalSearch',
+                searchString: this.activatedRoute.snapshot.queryParams['q'],
+                previewFormFromUrl: true,
+              }
+            }
+            else {
+              this.form_data = {featuredScholarshipsMode: true};
+            }
           }
         },
 

@@ -16,10 +16,15 @@
 
         <div class="row center container">
 
+          <h1 *ngIf="activatedRoute.snapshot.queryParams['q']" class="registered-title">
+            Scholarships for {{prettifyKeys(activatedRoute.snapshot.queryParams['q'])}}
+          </h1>
           <h4 class="registered-title">
-            <p *ngIf="viewAsUser" style="font-size: larger; color: green">Viewing As: {{viewAsUser.first_name}}</p>
+            <span *ngIf="viewAsUser" style="font-size: larger; color: green">Viewing As: {{viewAsUser.first_name}}</span>
             <span *ngIf="userProfile && !viewAsUser">{{userProfile.first_name}}, </span>You can get
             <strong>{{ scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and up to <strong>{{total_funding}}</strong> in funding</span>.
+            <br>
+            <span *ngIf="form_data && form_data.featuredScholarshipsMode">No Information Submitted. Showing Scholarships Open to all users</span>
           </h4>
 
           <h2 *ngIf="scholarship_count==0" class="scholarship-preview-count"> Unfortunately, you currently qualify for <strong>{{scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and <strong>{{total_funding}}</strong> in funding</span>.
