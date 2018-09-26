@@ -98,8 +98,8 @@ export class ScholarshipsListComponent implements OnInit {
     this.scholarshipQuery = this.activatedRoute.snapshot.queryParams['q']
     if (this.scholarshipQuery) {
       this.titleService.setTitle(`Atila Scholarships for ${this.prettifyKeys(this.scholarshipQuery)}`);
-      seoConfig.title += ` for ${this.prettifyKeys(this.scholarshipQuery)}\``;
-      seoConfig.slug += `?q=${this.prettifyKeys(this.scholarshipQuery)}\``; // todo think of a better slug?
+      seoConfig.title += ` for ${this.prettifyKeys(this.scholarshipQuery)}`;
+      seoConfig.slug += `?q=${this.scholarshipQuery}`; // todo think of a better slug?
       seoConfig.description = seoConfig.description.
       replace('scholarships', `scholarships for ${this.prettifyKeys(this.scholarshipQuery)}`);
       this.seoService.generateTags(seoConfig);
