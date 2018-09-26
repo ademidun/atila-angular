@@ -453,6 +453,30 @@ export class PreviewComponent implements OnInit, OnDestroy {
     this.subscriber.action = 'preview_scholarship';
     this.subscriber.preview_choices = this.model;
 
+    console.log({form});
+    console.log('this.model',this.model);
+
+    if (this.model.previewMode == 'universalSearch') {
+      if (!this.model.searchString) {
+        this.model.errors = 'Please enter a search term.';
+        return
+      }
+      else {
+        delete this.model.errors;
+      }
+    }
+
+    else if (this.model.previewMode == 'classicFilter') {
+
+      if (this.model['education_field'].length==0 && this.model['education_level'].length==0 && this.model['location']['name']=='') {
+        this.model.errors = 'Please enter at least one field.';
+        return
+      }
+
+      else {
+        delete this.model.errors;
+      }
+    }
 
     this.firebaseService.saveUserAnalytics(this.subscriber,'preview_scholarship')
       .then(res => {
@@ -460,22 +484,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
         },
         err => {console.log(err)});
 
-    if (this.model.previewMode == 'universalSearch') {
-      if (!this.model.searchString) {
-        this.model.errors = 'Please enter at least one field.';
-      }
-    }
-
-    else if (this.model.previewMode == 'classicSearch') {
-
-      if (form.value['education_field'].length==0 && form.value['education_level'].length==0 && form.value['location'] == '') {
-        this.model.errors = 'Please enter at least one field.';
-      }
-
-      else {
-        delete this.model.errors;
-      }
-    }
 
 
 

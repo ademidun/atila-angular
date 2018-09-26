@@ -20,6 +20,7 @@ import {FormGroup} from '@angular/forms';
 import {SCHOOLS_LIST, MAJORS_LIST, EDUCATION_FIELDS, EDUCATION_LEVEL} from '../../_models/constants';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import {SeoService} from '../../_services/seo.service';
+import {Title} from '@angular/platform-browser';
 @Component({
   selector: 'app-scholarships-list',
   templateUrl: './scholarships-list.component.html',
@@ -56,6 +57,7 @@ export class ScholarshipsListComponent implements OnInit {
     'province': '',
     'country': '',
   };
+  scholarshipQuery: string;
   EDUCATION_LEVEL = EDUCATION_LEVEL;
 
   EDUCATION_FIELD = EDUCATION_FIELDS;
@@ -78,6 +80,7 @@ export class ScholarshipsListComponent implements OnInit {
     public router: Router,
     public location: Location,
     public seoService: SeoService,
+    public titleService: Title
   ) { }
 
 
@@ -86,12 +89,26 @@ export class ScholarshipsListComponent implements OnInit {
   ngOnInit() {
     this.userId = this.authService.decryptLocalStorage('uid');
 
-    this.seoService.generateTags({
+    let seoConfig = {
       title: "Atila Scholarships",
       description: "Automatically find and apply to scholarships at the click of a button. Learn and share information about education, career and life..",
       image: "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-gradient-banner-march-14.png?alt=media&token=9d791ba9-18d0-4750-ace8-b390a4e90fdc",
       slug: `scholarship/`
-    });
+    }
+    this.scholarshipQuery = this.activatedRoute.snapshot.queryParams['q']
+    if (this.scholarshipQuery) {
+      this.titleService.setTitle(`Atila Scholarships for ${this.prettifyKeys(this.scholarshipQuery)}`);
+      seoConfig.title += ` for ${this.prettifyKeys(this.scholarshipQuery)}\``;
+      seoConfig.slug += `?q=${this.prettifyKeys(this.scholarshipQuery)}\``; // todo think of a better slug?
+      seoConfig.description = seoConfig.description.
+      replace('scholarships', `scholarships for ${this.prettifyKeys(this.scholarshipQuery)}`);
+      this.seoService.generateTags(seoConfig);
+    }
+
+    else {
+      this.seoService.generateTags(seoConfig);
+    }
+
 
     if (this.userId && !isNaN(parseInt(this.userId))) {
       this.isLoggedIn = true;
@@ -135,9 +152,22 @@ export class ScholarshipsListComponent implements OnInit {
       this.scholarshipService.getScholarshipPreviewForm()
       .then(
         res => {
+          console.log('this.activatedRoute.snapshot.queryParams[\'q\']',this.activatedRoute.snapshot.queryParams['q']);
           this.form_data = res;
           if(this.form_data){
             this.form_data['filter_by_user_show_eligible_only']=true;
+          }
+          else {
+            if (this.activatedRoute.snapshot.queryParams['q']) {
+              this.form_data = {
+                previewMode: 'universalSearch',
+                searchString: this.activatedRoute.snapshot.queryParams['q'],
+                previewFormFromUrl: true,
+              }
+            }
+            else {
+              this.form_data = {featuredScholarshipsMode: true};
+            }
           }
         },
 
