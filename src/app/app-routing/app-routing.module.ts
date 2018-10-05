@@ -20,7 +20,7 @@ const routes: Routes = [
   {
     path: '',
     component: PreviewComponent,
-    data: {title: 'Atila | Scholarships Automated. The Right Way'},
+    data: {title: 'Atila | Easily Find and Apply to Scholarships. The Right Way'},
     canActivate: [AuthGuard]
   },
   {path: 'applications/demo', component: AppDetailComponent, data: {title: 'Automation Demo'}},
@@ -31,7 +31,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   //todo redirect scholarships/** to scholarship/**
-  // { path: 'scholarships' , component: ScholarshipsListComponent, data: {title: 'Atila | Scholarships Automated. The Right Way'}},
+  // { path: 'scholarships' , component: ScholarshipsListComponent, data: {title: 'Atila | Easily Find and Apply to Scholarships. The Right Way'}},
   {
     path: 'blog',
     loadChildren: '../blog/blog.module#BlogModule'
@@ -63,7 +63,7 @@ const routes: Routes = [
   {path: 'contact', component: GeneralInfoComponent, data: {title: 'Team - Atila'}},
   {path: 'sitemap', component: GeneralInfoComponent, data: {title: 'SiteMap - Atila'}},
   {path: 'terms-and-conditions', component: TermsConditionsComponent, data: {title: 'Terms and Conditions - Atila'}},
-  {path: '**', component: PreviewComponent, data: {title: 'Atila | Scholarships Automated. The Right Way'}}
+  {path: '**', component: PreviewComponent, data: {title: 'Atila | Easily Find and Apply to Scholarships. The Right Way'}}
 ];
 
 @NgModule({
