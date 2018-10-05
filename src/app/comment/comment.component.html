@@ -4,7 +4,7 @@
     <span class="card-title" *ngIf="!metaData['hideTitle']">{{comment.title | truncate:140}}</span>
     <span *ngIf="comment.user"><a routerLink="/profile/{{comment.user.username}}">
           <div class="chip">
-            <img [src]="comment.user.profile_pic_url"
+            <img style="max-width: 50px" [src]="comment.user.profile_pic_url"
                  alt="Author">
             <a routerLink="/profile/{{comment.user.username}}">
             {{comment.user.first_name}} {{comment.user.last_name}}

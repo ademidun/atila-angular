@@ -24,8 +24,8 @@
             <span *ngIf="!essay.published" style=" font-size: medium; font-weight: bold; ">Unpublished</span>
             <span *ngIf="essay.user"><a routerLink="/profile/{{essay.user.username}}">
           <div class="chip">
-            <img [src]="essay.user.profile_pic_url"
-                 alt="Authorr">
+            <img style="max-width: 50px" [src]="essay.user.profile_pic_url"
+                 alt="Author">
             <a routerLink="/profile/{{essay.user.username}}">
             {{essay.user.first_name}} {{essay.user.last_name}}
             </a>
