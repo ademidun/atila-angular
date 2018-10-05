@@ -2056,8 +2056,8 @@ export const GRADE_LEVELS = [
   'Year 5+ Undergrad',
   'Masters',
   'Phd',
-  'Other'
-]
+  'Other',
+];
 export const EDUCATION_LEVEL = [
   'Secondary School',
   'University',

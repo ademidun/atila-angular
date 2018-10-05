@@ -152,6 +152,18 @@
             </mat-form-field>
           </div>
 
+          <div class="row">
+            <mat-form-field class="col-sm-12">
+              <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
+              <mat-select tabindex="8" [(ngModel)]="userProfile.grade_level"   name="grade_level"  id="grade_level" placeholder="Grade Level" required >
+                <mat-option *ngFor="let level of GRADE_LEVELS" [value]="level">{{level}} </mat-option>
+              </mat-select>
+            </mat-form-field>
+            {{userProfile.grade_level}}
+            <input  placeholder="If Other grade level, enter here"
+                   class="browser-default col-sm-12" id="grade_level_other" [(ngModel)]="userProfile.grade_level" name="grade_level">
+          </div>
+
 
           <br>
 
