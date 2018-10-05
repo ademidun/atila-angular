@@ -295,9 +295,11 @@
           <mat-option *ngFor="let level of GRADE_LEVELS" [value]="level">{{level}} </mat-option>
         </mat-select>
       </mat-form-field>
-      {{userProfile.grade_level}}
-      <input  placeholder="If Other grade level, enter here"
-              class="browser-default col-sm-12" id="grade_level_other" [(ngModel)]="userProfile.grade_level" name="grade_level">
+      <div class="col-sm-12">
+        <input  placeholder="If Other grade level, enter here"
+                class="browser-default" id="grade_level_other" [(ngModel)]="userProfile.grade_level" name="grade_level">
+      </div>
+
     </div>
   <br>
   <div class="row">
