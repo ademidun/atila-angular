@@ -60,18 +60,18 @@
                 [(ngModel)]="userProfile.last_name" name="last_name">
             </mat-form-field>
           </div>
-          <div class="row">
-            <mat-form-field class="col-sm-12">
-              <input class="browser-default" matInput id="street_address" type="text" placeholder="Street Address"
-                [(ngModel)]="userProfile.street_address" name="street_address">
-            </mat-form-field>
-          </div>
-          <div class="row">
-            <mat-form-field class="col-sm-12">
-              <input class="browser-default" matInput id="postal_code" type="text" placeholder="Postal Code"
-                [(ngModel)]="userProfile.postal_code" name="postal_code">
-            </mat-form-field>
-          </div>
+          <!--<div class="row">-->
+            <!--<mat-form-field class="col-sm-12">-->
+              <!--<input class="browser-default" matInput id="street_address" type="text" placeholder="Street Address"-->
+                <!--[(ngModel)]="userProfile.street_address" name="street_address">-->
+            <!--</mat-form-field>-->
+          <!--</div>-->
+          <!--<div class="row">-->
+            <!--<mat-form-field class="col-sm-12">-->
+              <!--<input class="browser-default" matInput id="postal_code" type="text" placeholder="Postal Code"-->
+                <!--[(ngModel)]="userProfile.postal_code" name="postal_code">-->
+            <!--</mat-form-field>-->
+          <!--</div>-->
 
           <!-- fake fields to prevent chrome from autofilling location since we have Google Places Autocomplete -->
           <input autocomplete="false" style="display:none" type="text" name="city" />
