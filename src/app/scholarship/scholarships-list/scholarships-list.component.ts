@@ -91,7 +91,7 @@ export class ScholarshipsListComponent implements OnInit {
 
     let seoConfig = {
       title: "Atila Scholarships",
-      description: "Automatically find and apply to scholarships at the click of a button. Learn and share information about education, career and life..",
+      description: "Easily find and apply to scholarships. Learn and share information about education, career and life..",
       image: "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-gradient-banner-march-14.png?alt=media&token=9d791ba9-18d0-4750-ace8-b390a4e90fdc",
       slug: `scholarship/`
     }
