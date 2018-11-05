@@ -60,18 +60,18 @@
                 [(ngModel)]="userProfile.last_name" name="last_name">
             </mat-form-field>
           </div>
-          <div class="row">
-            <mat-form-field class="col-sm-12">
-              <input class="browser-default" matInput id="street_address" type="text" placeholder="Street Address"
-                [(ngModel)]="userProfile.street_address" name="street_address">
-            </mat-form-field>
-          </div>
-          <div class="row">
-            <mat-form-field class="col-sm-12">
-              <input class="browser-default" matInput id="postal_code" type="text" placeholder="Postal Code"
-                [(ngModel)]="userProfile.postal_code" name="postal_code">
-            </mat-form-field>
-          </div>
+          <!--<div class="row">-->
+            <!--<mat-form-field class="col-sm-12">-->
+              <!--<input class="browser-default" matInput id="street_address" type="text" placeholder="Street Address"-->
+                <!--[(ngModel)]="userProfile.street_address" name="street_address">-->
+            <!--</mat-form-field>-->
+          <!--</div>-->
+          <!--<div class="row">-->
+            <!--<mat-form-field class="col-sm-12">-->
+              <!--<input class="browser-default" matInput id="postal_code" type="text" placeholder="Postal Code"-->
+                <!--[(ngModel)]="userProfile.postal_code" name="postal_code">-->
+            <!--</mat-form-field>-->
+          <!--</div>-->
 
           <!-- fake fields to prevent chrome from autofilling location since we have Google Places Autocomplete -->
           <input autocomplete="false" style="display:none" type="text" name="city" />
@@ -107,12 +107,12 @@
                      [(ngModel)]="locationData.country" name="country" (change)="locationData.country=toTitleCase(locationData.country)" autocomplete="false">
             </mat-form-field>
           </div>
-          <div class="row">
-              <mat-form-field class="col-sm-12">
-                    <input tabindex="2" class="browser-default" matInput id="phone_number" type="number" placeholder="Phone Number"
-                      [(ngModel)]="userProfile.phone_number" name="phone_number">
-                  </mat-form-field>
-            </div>
+          <!--<div class="row">-->
+              <!--<mat-form-field class="col-sm-12">-->
+                    <!--<input tabindex="2" class="browser-default" matInput id="phone_number" type="number" placeholder="Phone Number"-->
+                      <!--[(ngModel)]="userProfile.phone_number" name="phone_number">-->
+                  <!--</mat-form-field>-->
+            <!--</div>-->
           <div class="row">
               <mat-form-field class="col-sm-12">
                   <input class="browser-default" matInput id="email" type="text" placeholder="Email"
@@ -130,19 +130,19 @@
               <div class="col-sm-12">
                 <app-typeahead [model]="userProfile.post_secondary_school" [dataset]="SCHOOLS_LIST"
                                (typeaheadSelectedEvent)="typeaheadEvent($event)"
-                               [metadata]="{'placeholder':'Change Post Secondary School',
+                               [metadata]="{'placeholder':'Post Secondary School',
                                   'key':'post_secondary_school'}">
                 </app-typeahead>
                 </div>
           </div>
-          <div class="row">
-            <mat-form-field class="col-sm-12">
-              <label>Birth Date</label>
-              <br/>
-              <input class="browser-default" matInput id="birth_date" type="date"
-                [(ngModel)]="userProfile.birth_date" name="birth_date">
-            </mat-form-field>
-          </div>
+          <!--<div class="row">-->
+            <!--<mat-form-field class="col-sm-12">-->
+              <!--<label>Birth Date</label>-->
+              <!--<br/>-->
+              <!--<input class="browser-default" matInput id="birth_date" type="date"-->
+                <!--[(ngModel)]="userProfile.birth_date" name="birth_date">-->
+            <!--</mat-form-field>-->
+          <!--</div>-->
           <div class="row">
 
             <mat-form-field class="col-sm-12">
@@ -150,6 +150,19 @@
                 <mat-option *ngFor="let level of EDUCATION_LEVEL" [value]="level">{{level}} </mat-option>
               </mat-select>
             </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-form-field class="col-sm-12">
+              <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
+              <mat-select tabindex="8" [(ngModel)]="userProfile.grade_level"   name="grade_level"  id="grade_level" placeholder="Grade Level" required >
+                <mat-option *ngFor="let level of GRADE_LEVELS" [value]="level">{{level}} </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="col-sm-12">
+              <input  placeholder="If Other grade level, enter here"
+                      class="browser-default" id="grade_level_other" [(ngModel)]="userProfile.grade_level" name="grade_level">
+            </div>
           </div>
 
 

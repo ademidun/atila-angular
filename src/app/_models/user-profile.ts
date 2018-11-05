@@ -21,6 +21,7 @@ export class UserProfile {
             public email?: any,
             public ethnicity?: string[],
             public gender?: any,
+            public grade_level?: string,
             public heritage?: string[],
             public is_atila_admin?:any,
             public is_debug_mode?:boolean,

@@ -26,8 +26,8 @@
               <span *ngIf="blog.user">
                 <a routerLink="/profile/{{blog.user.username}}">
                   <div class="chip">
-                    <img [src]="blog.user.profile_pic_url"
-                         alt="Authorr">
+                    <img style="max-width: 50px" [src]="blog.user.profile_pic_url"
+                         alt="Author">
                     <a routerLink="/profile/{{blog.user.username}}">
                     {{blog.user.first_name}} {{blog.user.last_name}}
                     </a>

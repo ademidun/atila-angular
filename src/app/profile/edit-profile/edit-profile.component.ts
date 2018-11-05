@@ -26,6 +26,7 @@ import {
   COUNTRIES,
   DISABILITY,
   ETHNICITY,
+  GRADE_LEVELS,
   LANGUAGE,
   MAJORS_LIST,
   RELIGION,
@@ -63,6 +64,7 @@ export class EditProfileComponent implements OnInit {
     'Other'
   ];
 
+  GRADE_LEVELS = GRADE_LEVELS;
   userProfile = new UserProfile();
   profileInfo = true;
   documentScholarshipsPercent = 87;

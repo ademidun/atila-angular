@@ -2044,6 +2044,20 @@ export const DISABILITY = [
   "Vision Loss and Blindness"
 ];
 
+export const GRADE_LEVELS = [
+  'Grade 9',
+  'Grade 10',
+  'Grade 11',
+  'Grade 12',
+  'Year 1 Undergrad',
+  'Year 2 Undergrad',
+  'Year 3 Undergrad',
+  'Year 4 Undergrad',
+  'Year 5+ Undergrad',
+  'Masters',
+  'Phd',
+  'Other',
+];
 export const EDUCATION_LEVEL = [
   'Secondary School',
   'University',

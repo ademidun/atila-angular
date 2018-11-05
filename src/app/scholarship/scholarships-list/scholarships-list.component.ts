@@ -17,7 +17,7 @@ import {environment} from '../../../environments/environment';
 import {AutoCompleteForm, initializeAutoCompleteOptions} from '../../_shared/scholarship-form';
 import {FormGroup} from '@angular/forms';
 
-import {SCHOOLS_LIST, MAJORS_LIST, EDUCATION_FIELDS, EDUCATION_LEVEL} from '../../_models/constants';
+import {SCHOOLS_LIST, MAJORS_LIST, EDUCATION_FIELDS, EDUCATION_LEVEL, GRADE_LEVELS} from '../../_models/constants';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import {SeoService} from '../../_services/seo.service';
 import {Title} from '@angular/platform-browser';
@@ -59,6 +59,7 @@ export class ScholarshipsListComponent implements OnInit {
   };
   scholarshipQuery: string;
   EDUCATION_LEVEL = EDUCATION_LEVEL;
+  GRADE_LEVELS = GRADE_LEVELS;
 
   EDUCATION_FIELD = EDUCATION_FIELDS;
   MAJORS_LIST = MAJORS_LIST;

@@ -14,7 +14,7 @@
         <div *ngIf="essay.user" style="margin: 3%">
           <a routerLink="/profile/{{essay.user.username}}">
             <div class="chip">
-              <img [src]="essay.user.profile_pic_url"
+              <img style="max-width: 50px" [src]="essay.user.profile_pic_url"
                    alt="Blog Author">
               <a routerLink="/profile/{{essay.user.username}}">
                 {{essay.user.first_name}} {{essay.user.last_name}}
