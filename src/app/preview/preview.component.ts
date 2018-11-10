@@ -90,6 +90,33 @@ export class PreviewComponent implements OnInit, OnDestroy {
       }
     },
     {
+        "id": 13,
+        "title": "Getting into Medical School Without a Degree, Advice for Pre Med Students, Work Life Balance and Self Care - Emily Chen - Atila TV 001",
+        "slug": "getting-into-medical-school-without-a-degree-advice-for-pre-med-students-work-life-balance-and-self-care-emily-chen-atila-tv-001",
+        "alternate_slugs": [],
+        "dummy_field_detect_migrations_heroku": null,
+        "date_created": "2018-10-25T12:36:58.298444Z",
+        "description": "Emily Chen shares how she got into U of T medical school without a degree, advice for students studying pre med programs and the importance of work life balance and self care.",
+        "header_image_url": "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/blogs%2F13%2Fheader_image_url%2Fpasted%20image%200.png?alt=media&token=82d01850-c040-4c68-8847-1842f54ef75a",
+        "published": true,
+        "up_votes_count": 0,
+        "down_votes_count": 0,
+        "up_votes_id": [],
+        "down_votes_id": [],
+        "metadata": {},
+        "user": {
+          "first_name": "Tomiwa",
+          "last_name": "Ademidun",
+          "username": "tomiwa",
+          "profile_pic_url": "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fprofile-pictures%2Ffacebook-profile-picture.jpg?alt=media&token=8754c657-bbdc-4d8e-ae1d-d4047ac09c6d",
+          "title": "Software Engineering Student",
+          "post_secondary_school": "University of Western Ontario",
+          "secondary-school": "",
+          "id": 1
+        },
+        "contributors": []
+      },
+    {
         "id": 9,
         "title": "Starting A Dating Company While in University",
         "slug": "starting-a-dating-company-while-in-university",
@@ -118,36 +145,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
         },
         "contributors": []
       },
-    {
-        "id": 7,
-        "title": "How to Get a Research Internship and What I Learned Through Research",
-        "slug": "how-to-get-a-research-internship-and-what-i-learned-through-research",
-        "alternate_slugs": [],
-        "dummy_field_detect_migrations_heroku": null,
-        "date_created": "2018-03-25T04:40:37.235094Z",
-        "description": "Last Summer I did a research project with the Electrical and Computer Engineering department on smart building energy consumption. This article will explain how I was able to get a research internship despite my limited initial knowledge and some advice on how you can do the same and a few important lessons I learnt.",
-        "header_image_url": "https://lh4.googleusercontent.com/KNwXlOrE-ehxIfBBi0Dii71VSOdJ44DNZq9z5inZ5LOGIOeXnwNrnkXlom6BL2I0MiUMp1uK0MYp1Ao1PpyGxOyJhVEHhtXITM6hSQxIf5v5FrJXZfXR6MFz_zl5qiwRDOTRq4XE",
-        "published": true,
-        "up_votes_count": 0,
-        "down_votes_count": 0,
-        "up_votes_id": [],
-        "down_votes_id": [],
-        "metadata": {
-          "comments_count": 0,
-        },
-        "user": {
-          "first_name": "Rahim",
-          "last_name": "Shamsy",
-          "username": "rshamsy",
-          "profile_pic_url": "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F116%2Fprofile-pictures%2Frahim-profile-pic.jpg?alt=media&token=f4970d20-c0e2-4728-aa0f-3fea9ba6a656",
-          "title": "",
-          "post_secondary_school": "",
-          "secondary-school": "",
-          "id": 116
-        },
-      "contributors": [],
-      },
-  ]
+  ];
 
     forums = [
       {
