@@ -211,7 +211,7 @@ export class ScholarshipsListComponent implements OnInit {
       }
       if (options['view_as_user']) {
         }
-
+      this.isLoading = true;
       this.scholarshipService.getPaginatedscholarships(this.form_data, page)
       .subscribe(
         res => {
@@ -230,7 +230,9 @@ export class ScholarshipsListComponent implements OnInit {
           this.contentFetched = false;
           this.isLoading = false;
         },
-        () => {},
+        () => {
+          this.isLoading = false;
+          },
       );
     }
   }

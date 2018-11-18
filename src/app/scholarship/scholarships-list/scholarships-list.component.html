@@ -183,18 +183,31 @@
 
               <div class="col-sm-12 center">
                 <!--todo fix error with waves-light staying white, looks like be button is disabled-->
-                <a class="waves-effect btn scholarship-btn" (click)="previousPage()"  [ngClass]="pageNo == 1 ? 'hide' : ''"><i class="fa fa-caret-left" aria-hidden="true"></i>  Previous</a>
-                <button mat-button (click)="nextPage()" disabled="true">
-                  {{pageNo}}
+                <a class="waves-effect btn scholarship-btn" (click)="nextPage()" [ngClass]="pageNo == pageLen ? 'hide' : ''">
+                  Show More
+                </a>
 
-                </button>
-                <mat-form-field>
-                  <mat-select matInput [(ngModel)]="pageNo" (change)="goToPage(pageNo)">
-                    <mat-option *ngFor="let page of pages" [value]="page">{{page}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-
-                <a class="waves-effect btn scholarship-btn" (click)="nextPage()" [ngClass]="pageNo == pageLen ? 'hide' : ''">Next  <i class="fa fa-caret-right" aria-hidden="true"></i></a>
+                <div *ngIf="pageNo == pageLen">
+                  <p style="font-size: x-large;">
+                    All caught up! Check back later for more scholarships.
+                  </p>
+                </div>
+                <!-- Loading progress circle -->
+                <div *ngIf="isLoading" class="preloader-background">
+                  <div class="preloader-wrapper big active">
+                    <div class="spinner-layer spinner-blue-only">
+                      <div class="circle-clipper left">
+                        <div class="circle"></div>
+                      </div>
+                      <div class="gap-patch">
+                        <div class="circle"></div>
+                      </div>
+                      <div class="circle-clipper right">
+                        <div class="circle"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
