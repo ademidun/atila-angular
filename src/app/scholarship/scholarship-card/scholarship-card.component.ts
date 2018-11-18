@@ -244,22 +244,25 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
   onVisibilityChange(el, callback) {
     return () => {
 
-
-
-      let visible = this.isElementInViewport(el);
-      if (visible != this.old_visible) {
-
-        if (visible && this.isFirstView && !this.scholarshipService.preventViewDoubleCount) {
-
-            this.sendScholarshipInteraction = this.sendScholarshipInteraction.bind(this);
-            this.sendScholarshipInteraction('view');
-        }
-
-        this.old_visible = visible;
-        if (typeof callback == 'function') {
-          callback();
-        }
-      }
+      console.log('skipping onVisibilityChange');
+      console.log({el});
+      console.log({callback});
+      // return null;
+      //
+      // let visible = this.isElementInViewport(el);
+      // if (visible != this.old_visible) {
+      //
+      //   if (visible && this.isFirstView && !this.scholarshipService.preventViewDoubleCount) {
+      //
+      //       this.sendScholarshipInteraction = this.sendScholarshipInteraction.bind(this);
+      //       this.sendScholarshipInteraction('view');
+      //   }
+      //
+      //   this.old_visible = visible;
+      //   if (typeof callback == 'function') {
+      //     callback();
+      //   }
+      // }
     }
   }
 

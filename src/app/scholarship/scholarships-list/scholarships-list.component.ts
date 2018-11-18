@@ -37,7 +37,7 @@ export class ScholarshipsListComponent implements OnInit {
   isLoading = true;
   userProfile: UserProfile;
 
-  scholarships: Scholarship[]; //TODO: If i use scholarship[] I can't access property members, why?
+  scholarships: Scholarship[] = []; //TODO: If i use scholarship[] I can't access property members, why?
   scholarship_count: number = 0;
   total_funding: any = 0;
   show_scholarship_funding: boolean = false;
@@ -237,7 +237,9 @@ export class ScholarshipsListComponent implements OnInit {
 
   saveScholarships(res: any){
 
-    this.scholarships = res['data'];
+    this.scholarships.push(...res['data']);
+    console.log({res});
+    console.log(this.scholarships);
     this.scholarship_count = res['length'];
     this.total_funding = res['funding'];
 
@@ -292,7 +294,7 @@ export class ScholarshipsListComponent implements OnInit {
   nextPage() {
     this.pageNo++;
     this.getScholarshipPreview(this.pageNo);
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
   }
 
   previousPage() {
