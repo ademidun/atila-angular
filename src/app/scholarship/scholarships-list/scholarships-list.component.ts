@@ -136,7 +136,7 @@ export class ScholarshipsListComponent implements OnInit {
             'filter_by_user_show_eligible_only': true,
           };
 
-          this.pageNo = this.activatedRoute.snapshot.params['page'] || this.pageNo;
+          // this.pageNo = this.activatedRoute.snapshot.params['page'] || this.pageNo;
           this.getScholarshipPreview(this.pageNo);
         }
       )}

@@ -173,12 +173,10 @@
 
             </div>
             <div class="row nav-buttons">
-              <p class="text-align-center col-sm-12">Are we missing a scholarship you want? You can easily <a routerLink="/scholarship/add" title="Add Scholarship">Add a Scholarship </a> to Atila or
-                <a href="https://docs.google.com/spreadsheets/d/13YshWzg38Au-tPkGyDfY4hJHGJDWl_7vUpXNXkf5afM/edit?usp=sharing"
-                   target="_blank" title="Scholarship Spreadsheet">Tell us the link</a> and we'll automate it for you.</p>
-
-              <p> Something Wrong?
-                <a routerLink="/contact" [queryParams]="{'atila_ref':'scholarships_list'}">Tell Us</a>
+              <p class="col-sm-12 center">
+                You can give back to the Atila community and <a routerLink="/scholarship/add" title="Add Scholarship">Add a Scholarship</a>.
+                <!--or <a href="https://docs.google.com/spreadsheets/d/13YshWzg38Au-tPkGyDfY4hJHGJDWl_7vUpXNXkf5afM/edit?usp=sharing"-->
+                   <!--target="_blank" title="Scholarship Spreadsheet">Tell us the link</a> and we'll automate it for you.-->
               </p>
 
               <div class="col-sm-12 center">
@@ -189,7 +187,7 @@
 
                 <div *ngIf="pageNo == pageLen">
                   <p style="font-size: x-large;">
-                    All caught up! Check back later for more scholarships.
+                    All caught up! 😃 Check back later for more scholarships.
                   </p>
                 </div>
                 <!-- Loading progress circle -->
@@ -209,6 +207,11 @@
                   </div>
                 </div>
               </div>
+
+              <p class="col-sm-12 center">
+                Something Wrong?
+                <a routerLink="/contact" title="Contact" [queryParams]="{'atila_ref':'scholarships_list'}">Tell Us</a>
+              </p>
             </div>
           </div>
         </ng-template>
