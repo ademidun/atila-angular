@@ -88,6 +88,10 @@ export class NavbarComponent implements OnInit {
     localStorage.clear();
   }
 
+  login(event) {
+    event.preventDefault();
+    this.router.navigateByUrl('/login?redirect='+this.router.url);
+  }
   search(query) {
     this.query = null;
     this.router.navigateByUrl(`search?q=${query}&q_source=navbar`);
