@@ -149,19 +149,29 @@
                 <th class="hide-on-small-and-down">Save</th>
               </tr>
 
-              <tr *ngFor="let scholarship of savedScholarships">
+              <tr *ngFor="let scholarship of savedScholarships; index as i;">
                 <td><a [routerLink]="['/scholarship', scholarship.slug]">{{scholarship.name}}</a></td>
                 <td>{{scholarship.deadline | date:'EEEE, MMMM d, y'}}</td>
                 <td><textarea style="height: 6.7rem"  [(ngModel)]="userProfile.saved_scholarships_metadata[scholarship.id]['notes']"
                               placeholder="e.g. Upload transcript. Share scholarship with Alice."></textarea></td>
-                <td class="hide-on-small-and-down" (click)="saveMyAtila('scholarship',scholarship, i)">
-                  <i class="material-icons " style="color: #039be5">save</i>
+                <td class="hide-on-small-and-down">
+                  <a (click)="saveMyAtila('scholarship',scholarship, i)">
+                    <i class="material-icons " style="color: #039be5">save</i>
+                  </a>
+
+                  <a (click)="removeSavedScholarship(i)" class="col-sm-12">
+                    <i class="material-icons ">delete</i>
+                  </a>
+
                 </td>
                 <span class="hide-on-med-and-up">
 
                     <br>
                     <a (click)="saveMyAtila('scholarship',scholarship, i)" class="col-sm-12">
                       <i class="material-icons ">save</i>
+                    </a>
+                    <a (click)="removeSavedScholarship(i)" class="col-sm-12">
+                      <i class="material-icons ">delete</i>
                     </a>
 
                   </span>

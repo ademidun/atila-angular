@@ -313,6 +313,15 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
       )
   }
 
+  removeSavedScholarship(index) {
+
+    console.log('this.savedScholarships',this.savedScholarships);
+
+    this.savedScholarships.splice(index, 1);
+
+    console.log('this.savedScholarships',this.savedScholarships);
+  }
+
 
   typeaheadEvent(event) {
     this.userProfile[event.type] = event.event.item;
