@@ -7,6 +7,8 @@ import { MatSnackBar } from '@angular/material';
 import { NavbarComponent } from '../navbar/navbar.component';
 import {UserProfileService} from '../_services/user-profile.service';
 
+import {Location} from '@angular/common';
+
 export class Credentials {
   username: string;
   password: string
@@ -39,11 +41,16 @@ export class LoginComponent implements OnInit {
     public router: Router,
     public snackBar: MatSnackBar,
     public userProfileService: UserProfileService,
-    public activatedRoute: ActivatedRoute,) { }
+    public activatedRoute: ActivatedRoute,
+    public location: Location) { }
 
   ngOnInit() {
     this.redirectUrl = this.activatedRoute.snapshot.queryParams['redirect'];
-    console.log('this.redirectUrl',this.redirectUrl);
+
+    if (this.redirectUrl) {
+      this.redirectUrl = this.authService.redirectUrl;
+      this.location.replaceState(`/login?redirect=${this.redirectUrl}`);
+    }
   }
 
   login() {
@@ -52,7 +59,8 @@ export class LoginComponent implements OnInit {
     loginOperation = this.authService.login(this.credentials);
     loginOperation.subscribe(
         data => {
-          this.router.navigate([this.redirectUrl || "/scholarship"]);
+          this.router.navigateByUrl(this.redirectUrl || "/scholarship",  {
+            preserveQueryParams: true, preserveFragment: true, });
         },
         err => {
           this.snackBar.open("Incorrect login credentials", '', {
