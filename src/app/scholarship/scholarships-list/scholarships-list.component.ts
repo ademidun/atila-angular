@@ -37,7 +37,7 @@ export class ScholarshipsListComponent implements OnInit {
   isLoading = true;
   userProfile: UserProfile;
 
-  scholarships: Scholarship[]; //TODO: If i use scholarship[] I can't access property members, why?
+  scholarships: Scholarship[] = []; //TODO: If i use scholarship[] I can't access property members, why?
   scholarship_count: number = 0;
   total_funding: any = 0;
   show_scholarship_funding: boolean = false;
@@ -136,7 +136,7 @@ export class ScholarshipsListComponent implements OnInit {
             'filter_by_user_show_eligible_only': true,
           };
 
-          this.pageNo = this.activatedRoute.snapshot.params['page'] || this.pageNo;
+          // this.pageNo = this.activatedRoute.snapshot.params['page'] || this.pageNo;
           this.getScholarshipPreview(this.pageNo);
         }
       )}
@@ -211,7 +211,7 @@ export class ScholarshipsListComponent implements OnInit {
       }
       if (options['view_as_user']) {
         }
-
+      this.isLoading = true;
       this.scholarshipService.getPaginatedscholarships(this.form_data, page)
       .subscribe(
         res => {
@@ -230,14 +230,18 @@ export class ScholarshipsListComponent implements OnInit {
           this.contentFetched = false;
           this.isLoading = false;
         },
-        () => {},
+        () => {
+          this.isLoading = false;
+          },
       );
     }
   }
 
   saveScholarships(res: any){
 
-    this.scholarships = res['data'];
+    this.scholarships.push(...res['data']);
+    console.log({res});
+    console.log(this.scholarships);
     this.scholarship_count = res['length'];
     this.total_funding = res['funding'];
 
@@ -292,7 +296,7 @@ export class ScholarshipsListComponent implements OnInit {
   nextPage() {
     this.pageNo++;
     this.getScholarshipPreview(this.pageNo);
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
   }
 
   previousPage() {
