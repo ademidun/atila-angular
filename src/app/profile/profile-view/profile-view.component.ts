@@ -317,9 +317,20 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
 
     console.log('this.savedScholarships',this.savedScholarships);
 
-    this.savedScholarships.splice(index, 1);
+    this.userProfileService.removeSavedScholarship(this.userProfile.user, this.savedScholarships[index].id)
+      .subscribe(
+        res => {
+          this.savedScholarships.splice(index, 1);
+          console.log('this.savedScholarships',this.savedScholarships);
 
-    console.log('this.savedScholarships',this.savedScholarships);
+          this.showSnackBar("Succesfully Updated Your Profile",'', 3000);
+
+        }
+      )
+
+
+
+
   }
 
 

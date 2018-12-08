@@ -137,6 +137,12 @@ export class UserProfileService implements OnDestroy{
       .catch(err=>Observable.throw(err));
   }
 
+  removeSavedScholarship(userId, scholarshipId) {
+    return this.http.get(`${this.userProfileEndpoint}${userId}/remove-saved-scholarship/?scholarship=${scholarshipId}/`)
+      .map(res=>res)
+      .catch(err => Observable.throw(err));
+  }
+
   refreshVerificationToken(username: string): Observable<any>{
 
   return this.http.get(`${this.userProfileEndpoint}refresh-verification-token/?username=${username}`)
