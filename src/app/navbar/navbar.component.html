@@ -62,7 +62,9 @@
             </a>
           </li>
 
-          <li><a class="atila-blue" routerLink="/login">Log In</a></li>
+          <li>
+            <a class="atila-blue" [href]="'/login'+'?redirect='+encodeURIComponent(router.url) " (click)="login($event)">Log In</a>
+          </li>
 
         </span>
 

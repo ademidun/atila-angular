@@ -45,6 +45,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
 
   currentUser:number;
   savedScholarships = [];
+  excludeExpiredToggle=true;
 
   myAtilaMode: boolean;
   constructor(
@@ -89,20 +90,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
 
         this.getBlogs();
         if(this.profileOwner) {
-          this.userProfileService.getRouteDetail(this.userProfile.user,'scholarships').subscribe(
-            res => {
-              this.savedScholarships = res['scholarships'];
-
-              this.savedScholarships.forEach(scholarship => {
-                if (!this.userProfile.saved_scholarships_metadata[scholarship.id]) {
-                  this.userProfile.saved_scholarships_metadata[scholarship.id] = {'notes':''};
-                }
-              });
-
-
-            },
-            error2 => {},
-          );
+          this.getScholarships();
           if (this.router.url.indexOf('my-atila') !== -1) {
             this.myAtilaMode = true;
           }
@@ -248,6 +236,25 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
     return;
   }
 
+  getScholarships(options?: {excludeExpired: true}) {
+
+    let scholarshipPath = options['excludeExpired'] ? 'scholarships/?exclude_expired='+true : 'scholarships';
+    this.userProfileService.getRouteDetail(this.userProfile.user, scholarshipPath).subscribe(
+      res => {
+        this.savedScholarships = res['scholarships'];
+
+        this.savedScholarships.forEach(scholarship => {
+          if (!this.userProfile.saved_scholarships_metadata[scholarship.id]) {
+            this.userProfile.saved_scholarships_metadata[scholarship.id] = {'notes':''};
+          }
+        });
+
+
+      },
+      error2 => {},
+    );
+  }
+
   getContent(options: any ={}) {
     if (options.contentType='essays') {
       if(!this.essays){
@@ -311,6 +318,26 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
 
         }
       )
+  }
+
+  removeSavedScholarship(index) {
+
+    console.log('this.savedScholarships',this.savedScholarships);
+
+    this.userProfileService.removeSavedScholarship(this.userProfile.user, this.savedScholarships[index].id)
+      .subscribe(
+        res => {
+          this.savedScholarships.splice(index, 1);
+          console.log('this.savedScholarships',this.savedScholarships);
+
+          this.showSnackBar("Succesfully Updated Your Profile",'', 3000);
+
+        }
+      )
+
+
+
+
   }
 
 

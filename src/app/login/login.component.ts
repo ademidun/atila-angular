@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { AuthService } from "../_services/auth.service";
-import {Router, RouterModule} from '@angular/router';
+import {ActivatedRoute, Router, RouterModule} from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { MatSnackBar } from '@angular/material';
 import { NavbarComponent } from '../navbar/navbar.component';
 import {UserProfileService} from '../_services/user-profile.service';
+
+import {Location} from '@angular/common';
 
 export class Credentials {
   username: string;
@@ -30,14 +32,25 @@ export class LoginComponent implements OnInit {
 
   isLoading =false;
   forgotPassword = false;
-  resetResponse = ' '; //true, but don't show up as text
+  resetResponse = ' ';
+
+  redirectUrl = null;
+  //true, but don't show up as text
   constructor(
     public authService: AuthService,
     public router: Router,
     public snackBar: MatSnackBar,
-    public userProfileService: UserProfileService) { }
+    public userProfileService: UserProfileService,
+    public activatedRoute: ActivatedRoute,
+    public location: Location) { }
 
   ngOnInit() {
+    this.redirectUrl = this.activatedRoute.snapshot.queryParams['redirect'];
+
+    if (this.redirectUrl) {
+      this.redirectUrl = this.authService.redirectUrl;
+      this.location.replaceState(`/login?redirect=${this.redirectUrl}`);
+    }
   }
 
   login() {
@@ -46,7 +59,8 @@ export class LoginComponent implements OnInit {
     loginOperation = this.authService.login(this.credentials);
     loginOperation.subscribe(
         data => {
-          this.router.navigate(["/scholarship"]);
+          this.router.navigateByUrl(this.redirectUrl || "/scholarship",  {
+            preserveQueryParams: true, preserveFragment: true, });
         },
         err => {
           this.snackBar.open("Incorrect login credentials", '', {

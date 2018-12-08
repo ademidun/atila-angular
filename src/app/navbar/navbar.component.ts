@@ -23,7 +23,7 @@ export class NavbarComponent implements OnInit {
   };
 
   userId: any;
-
+  encodeURIComponent = encodeURIComponent;
   public query: any;
   constructor(
     public userProfileService: UserProfileService,
@@ -79,7 +79,7 @@ export class NavbarComponent implements OnInit {
     snackBarRef.onAction().subscribe(
       () => {
 
-        this.router.navigate(['login']);
+        this.login();
       },
       err =>  {}
     )
@@ -88,9 +88,18 @@ export class NavbarComponent implements OnInit {
     localStorage.clear();
   }
 
+  login(event?) {
+    if (event) {
+      event.preventDefault();
+    }
+
+    this.router.navigateByUrl('/login?redirect='+this.router.url, {
+      preserveQueryParams: true, preserveFragment: true, queryParamsHandling: 'merge'});
+    this.authService.redirectUrl = this.router.url;
+  }
   search(query) {
     this.query = null;
-    this.router.navigateByUrl(`search?q=${query}&q_source=navbar`);
+    this.router.navigateByUrl(`search?q=${query}&q_source=navbar`, {preserveQueryParams: true, preserveFragment: true});
 
   }
 

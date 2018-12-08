@@ -22,6 +22,7 @@ export class AuthService {
   public usernameUrl = environment.apiUrl + 'user-name/';
   public apiKeyUrl = environment.apiUrl + 'api-keys/';
   public authUrl = environment.apiUrl + 'auth/';
+  public redirectUrl = null;
   public  isLoggedIn: boolean = false; //should this be public or protected?
   public secretKey:string;
   token: string;
