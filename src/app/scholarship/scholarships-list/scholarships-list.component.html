@@ -21,23 +21,30 @@
           </h1>
           <h4 class="registered-title">
             <span *ngIf="viewAsUser" style="font-size: larger; color: green">Viewing As: {{viewAsUser.first_name}}</span>
-            <span *ngIf="userProfile && !viewAsUser">{{userProfile.first_name}}, </span>You can get
-            <strong>{{ scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and up to <strong>{{total_funding}}</strong> in funding</span>.
+            <ng-container *ngIf="userProfile && !viewAsUser">{{userProfile.first_name}}, </ng-container>
+            <ng-container *ngIf="scholarship_count>0; else zeroScholarshipCount">
+              You can get
+              <strong>{{ scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and up to <strong>{{total_funding}}</strong> in funding.</span>
+            </ng-container>
+
+            <ng-template #zeroScholarshipCount class="scholarship-preview-count">
+              Unfortunately, you currently qualify for <strong>{{scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding">
+              and <strong>{{total_funding}}</strong> in funding</span>.
+              <br>
+              <div style="font-size: smaller; margin-top: 1%">
+                Try <a routerLink="/search">search</a> to find more scholarships.
+              </div>
+            </ng-template>
+
             <br>
             <span *ngIf="form_data && form_data.featuredScholarshipsMode">No Information Submitted. Showing Scholarships Open to all users</span>
           </h4>
-
-          <h2 *ngIf="scholarship_count==0" class="scholarship-preview-count"> Unfortunately, you currently qualify for <strong>{{scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and <strong>{{total_funding}}</strong> in funding</span>.
-          Try another search.</h2>
 
         </div>
 
 
         <div class="row filter-div">
 
-          <ng-template #tryFilter>
-            <!--<p class="col-sm-12 col-md-6" style="font-size: larger"> <span style="font-weight: bold">New!</span> Filter using your Profile</p>-->
-          </ng-template>
 
           <mat-form-field class="col-sm-6 col-md-3">
             <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
@@ -70,6 +77,11 @@
             <span style="font-weight: bold">{{transformFilterDisplay(form_data.filter_by_user) | json}}</span>
             <span *ngIf="!isLoggedIn">(<a routerLink="/login">Login</a> to use your actual {{prettifyKeys(form_data.filter_by_user)}})</span>
           </p>
+
+          <ng-template #tryFilter>
+            <p class="col-sm-12 col-md-6" style="font-size: larger" *ngIf="form_data.filter_by_user && !userProfile['form_data.filter_by_user']"> Your {{form_data.filter_by_user}} is blank.
+              <a routerLink="/profile/edit">Edit your Profile</a> to add it now.</p>
+          </ng-template>
 
 
         </div>
