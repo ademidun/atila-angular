@@ -1,4 +1,5 @@
 export const environment = {
+  name: 'prod',
   production: true,
   testUserId: 70,
   testAppId: 35,
