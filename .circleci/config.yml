@@ -51,10 +51,10 @@ jobs:
           command: |
                    if [ "${CIRCLE_BRANCH}" == "master" ]; then
                        echo 'building for prod';
-                       npm run ng-reg-mem -- build --target=prod
+                       npm run ng-reg-mem -- build --target=production
                    else
                        echo 'building for staging';
-                       npm run ng-reg-mem -- build --target=prod --env=staging
+                       npm run ng-reg-mem -- build --target=production --env=staging
                    fi
       - run:
           name: Show current location
