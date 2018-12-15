@@ -73,7 +73,7 @@
             <input class="browser-default" id="filter_by_user_show_eligible_only" type="checkbox" [(ngModel)]="form_data.filter_by_user_show_eligible_only" name="filter_by_user_show_eligible_only"  (change)="getScholarshipPreview()">
             <label for="filter_by_user_show_eligible_only" data-error="Invalid input">Only Show Eligible Scholarships?</label>
           </div>
-          <p *ngIf="transformFilterDisplay(form_data.filter_by_user); else tryFilter" class="col-sm-12 col-md-6"> Showing Scholarships for:
+          <p *ngIf="transformFilterDisplay(form_data.filter_by_user) && transformFilterDisplay(form_data.filter_by_user).length != 0; else tryFilter" class="col-sm-12 col-md-6"> Showing Scholarships for:
             <span style="font-weight: bold">{{transformFilterDisplay(form_data.filter_by_user) | json}}</span>
             <span *ngIf="!isLoggedIn">(<a routerLink="/login">Login</a> to use your actual {{prettifyKeys(form_data.filter_by_user)}})</span>
           </p>
@@ -193,11 +193,12 @@
 
               <div class="col-sm-12 center">
                 <!--todo fix error with waves-light staying white, looks like be button is disabled-->
-                <a class="waves-effect btn scholarship-btn" (click)="nextPage()" [ngClass]="pageNo == pageLen ? 'hide' : ''">
+                <a class="waves-effect btn scholarship-btn" (click)="nextPage()"
+                   *ngIf="scholarship_count>0 && pageNo<pageLen">
                   Show More
                 </a>
 
-                <div *ngIf="pageNo == pageLen">
+                <div *ngIf="pageNo <= pageLen">
                   <p style="font-size: x-large;">
                     All caught up! 😃 Check back later for more scholarships.
                   </p>

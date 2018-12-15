@@ -196,6 +196,10 @@ export class ScholarshipsListComponent implements OnInit {
       if (this.form_data.filter_by_user) {
 
         const filterValue = this.transformFilterDisplay(this.form_data.filter_by_user);
+
+        console.log('transformFilterDisplay(form_data.filter_by_user)',
+          this.transformFilterDisplay(this.form_data.filter_by_user));
+
         this.form_data.filter_by_user_data = [{
           filter_type: this.form_data.filter_by_user,
           filter_value: Array.isArray(filterValue) ? filterValue : [filterValue]
