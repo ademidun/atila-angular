@@ -48,7 +48,14 @@ jobs:
       - run:
           name: Build Angular Project to dist/
           # https://github.com/angular/angular-cli/issues/5618#issuecomment-348225508
-          command: npm run ng-reg-mem -- build --prod
+          command: |
+                   if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                       echo 'building for prod';
+                       npm run ng-reg-mem -- build --prod
+                   else
+                       echo 'building for staging';
+                       npm run ng-reg-mem -- build --env=staging
+                   fi
       - run:
           name: Show current location
           command: pwd
