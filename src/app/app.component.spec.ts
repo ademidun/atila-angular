@@ -87,6 +87,7 @@ fdescribe('AppComponent', () => {
           expect(environment.apiUrl).toEqual('https://atila-7.herokuapp.com/api/');
           break;
         default:
+          console.log('No Environment found');
           expect(environment.name).toBeTruthy('Environment variable should have a name');
       }
 

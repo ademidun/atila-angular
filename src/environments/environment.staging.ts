@@ -1,4 +1,4 @@
-import {environment as prodEnvironment} from '../environments/environment.prod';
+import {environment as prodEnvironment} from './environment.prod';
 
 const stagingEnvironment =  prodEnvironment;
 
