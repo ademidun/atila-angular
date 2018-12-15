@@ -50,7 +50,7 @@
             <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
             <mat-select  [(ngModel)]="form_data.filter_by_user"  id="filter_by_user" name="filter_by_user" placeholder="Filter By:" (change)="getScholarshipPreview()">
               <mat-option>None</mat-option>
-              <mat-option *ngFor="let filterType of ['major','post_secondary_school','city','province','country']" [value]="filterType">{{prettifyKeys(filterType)}} </mat-option>
+              <mat-option *ngFor="let filterType of filterTypes" [value]="filterType">{{prettifyKeys(filterType)}} </mat-option>
             </mat-select>
 
           </mat-form-field>

@@ -17,7 +17,7 @@ import {environment} from '../../../environments/environment';
 import {AutoCompleteForm, initializeAutoCompleteOptions} from '../../_shared/scholarship-form';
 import {FormGroup} from '@angular/forms';
 
-import {EDUCATION_FIELDS, EDUCATION_LEVEL, GRADE_LEVELS, MAJORS_LIST, SCHOOLS_LIST} from '../../_models/constants';
+import {EDUCATION_FIELDS, EDUCATION_LEVEL, FILTER_TYPES, GRADE_LEVELS, MAJORS_LIST, SCHOOLS_LIST} from '../../_models/constants';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import {SeoService} from '../../_services/seo.service';
 import {Title} from '@angular/platform-browser';
@@ -61,7 +61,7 @@ export class ScholarshipsListComponent implements OnInit {
   scholarshipQuery: string;
   EDUCATION_LEVEL = EDUCATION_LEVEL;
   GRADE_LEVELS = GRADE_LEVELS;
-
+  filterTypes = FILTER_TYPES;
   EDUCATION_FIELD = EDUCATION_FIELDS;
   MAJORS_LIST = MAJORS_LIST;
   SCHOOLS_LIST = SCHOOLS_LIST;
@@ -194,9 +194,11 @@ export class ScholarshipsListComponent implements OnInit {
     if (this.form_data) {
 
       if (this.form_data.filter_by_user) {
+
+        const filterValue = this.transformFilterDisplay(this.form_data.filter_by_user);
         this.form_data.filter_by_user_data = [{
           filter_type: this.form_data.filter_by_user,
-          filter_value: [this.transformFilterDisplay(this.form_data.filter_by_user)]
+          filter_value: Array.isArray(filterValue) ? filterValue : [filterValue]
         }]
       }
 
