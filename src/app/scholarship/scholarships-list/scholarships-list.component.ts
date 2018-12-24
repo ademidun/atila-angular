@@ -634,12 +634,15 @@ export class ScholarshipsListComponent implements OnInit {
           switch (filter_type) {
             case 'city':
               filterValue = 'Toronto';
+              break;
 
             case 'province':
               filterValue = 'Ontario';
+              break
 
             case 'country':
               filterValue = 'Canada';
+              break;
           }
         }
         filterValue = this.form_data.location[filter_type];
@@ -652,39 +655,54 @@ export class ScholarshipsListComponent implements OnInit {
         // amongst students or has the most scholarships
         case 'major':
           filterValue =  'Engineering';
+          break;
         case 'post_secondary_school':
           filterValue =  'University of Western Ontario';
+          break;
         case 'ethnicity':
           filterValue =  'Asian/East-Asian';
+          break;
         case 'heritage':
           filterValue =  'India';
+          break;
         case 'citizenship':
           filterValue =  'Canada';
+          break;
         case 'religion':
           filterValue =  'Christianity';
+          break;
         case 'activities':
           filterValue =  'Drawing';
+          break;
         case 'sports':
           filterValue =  'Soccer';
+          break;
         case 'disability':
           filterValue =  'Autism';
+          break;
         case 'language':
           filterValue =  'French';
+          break;
         case 'eligible_schools':
           filterValue =  [
             'Ivey Business School',
             'University of Waterloo',
             'DeGroote School of Medicine'
           ];
+          break;
         case 'eligible_programs':
           filterValue =  [
             'Health Sciences',
             'Computer Engineering',
             'Biomedical Engineering'
           ];
+          break;
         default:
           filterValue = null;
+          break;
       }
+      console.log({filter_type});
+      console.log({filterValue});
 
       return filterValue
     }
