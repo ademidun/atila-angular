@@ -613,6 +613,7 @@ export class ScholarshipsListComponent implements OnInit {
   }
 
   transformFilterDisplay(filter_type) {
+    let filterValue;
 
     if (this.userProfile) {
 
@@ -622,66 +623,70 @@ export class ScholarshipsListComponent implements OnInit {
       }
 
       if (['city', 'province', 'country'].indexOf(filter_type) > -1) {
-        return filterProfile[filter_type][0]['name']
+        filterValue = filterProfile[filter_type][0]['name']
       }
-      return filterProfile[filter_type];
+      filterValue = filterProfile[filter_type];
+
     }
     else {
       if (['city', 'province', 'country'].indexOf(filter_type) > -1) {
         if (!this.form_data.location[filter_type]) {
           switch (filter_type) {
             case 'city':
-              return 'Toronto';
+              filterValue = 'Toronto';
 
             case 'province':
-              return 'Ontario';
+              filterValue = 'Ontario';
 
             case 'country':
-              return 'Canada';
+              filterValue = 'Canada';
           }
         }
-        return this.form_data.location[filter_type];
+        filterValue = this.form_data.location[filter_type];
       }
+
 
       switch(filter_type) {
 
         // todo: pick default categories based on what is most popular
         // amongst students or has the most scholarships
         case 'major':
-          return 'Engineering';
+          filterValue =  'Engineering';
         case 'post_secondary_school':
-          return 'University of Western Ontario';
+          filterValue =  'University of Western Ontario';
         case 'ethnicity':
-          return 'Asian/East-Asian';
+          filterValue =  'Asian/East-Asian';
         case 'heritage':
-          return 'India';
+          filterValue =  'India';
         case 'citizenship':
-          return 'Canada';
+          filterValue =  'Canada';
         case 'religion':
-          return 'Christianity';
+          filterValue =  'Christianity';
         case 'activities':
-          return 'Drawing';
+          filterValue =  'Drawing';
         case 'sports':
-          return 'Soccer';
+          filterValue =  'Soccer';
         case 'disability':
-          return 'Learning Disability';
+          filterValue =  'Autism';
         case 'language':
-          return 'French';
+          filterValue =  'French';
         case 'eligible_schools':
-          return [
+          filterValue =  [
             'Ivey Business School',
             'University of Waterloo',
             'DeGroote School of Medicine'
           ];
         case 'eligible_programs':
-          return [
+          filterValue =  [
             'Health Sciences',
             'Computer Engineering',
             'Biomedical Engineering'
           ];
         default:
-          return
+          filterValue = null;
       }
+
+      return filterValue
     }
 
   }
