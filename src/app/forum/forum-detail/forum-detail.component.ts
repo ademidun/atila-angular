@@ -78,7 +78,6 @@ export class ForumDetailComponent implements OnInit, OnDestroy {
     if (this.userProfileService.viewHistoryChanges) {
       this.userProfileService.viewHistoryChanges.unsubscribe();
     }
-    console.log('ngOnInitHelper() this.preventNgOnInitDoubleCount', this.preventNgOnInitDoubleCount)
     if (!this.preventNgOnInitDoubleCount) {
       this.preventNgOnInitDoubleCount = true;
     }
