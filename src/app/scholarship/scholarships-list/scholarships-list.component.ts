@@ -1,26 +1,27 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { ScholarshipService } from "../../_services/scholarship.service";
-import { UserProfileService } from '../../_services/user-profile.service';
+import {ScholarshipService} from '../../_services/scholarship.service';
+import {UserProfileService} from '../../_services/user-profile.service';
 
-import { Scholarship } from '../../_models/scholarship';
+import {Scholarship} from '../../_models/scholarship';
 
 import {ActivatedRoute, Router,} from '@angular/router';
-import { AuthService } from "../../_services/auth.service";
+import {AuthService} from '../../_services/auth.service';
 import {UserProfile} from '../../_models/user-profile';
 import {SubscriberDialogComponent} from '../../subscriber-dialog/subscriber-dialog.component';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {MyFirebaseService} from '../../_services/myfirebase.service';
 import {IPDATA_KEY, prettifyKeys, toTitleCase} from '../../_shared/utils';
-import { EditProfileModalComponent } from '../../edit-profile-modal/edit-profile-modal.component';
-import {NgbModal, NgbPopover} from '@ng-bootstrap/ng-bootstrap';
+import {EditProfileModalComponent} from '../../edit-profile-modal/edit-profile-modal.component';
+import {NgbPopover} from '@ng-bootstrap/ng-bootstrap';
 import {environment} from '../../../environments/environment';
 import {AutoCompleteForm, initializeAutoCompleteOptions} from '../../_shared/scholarship-form';
 import {FormGroup} from '@angular/forms';
 
-import {SCHOOLS_LIST, MAJORS_LIST, EDUCATION_FIELDS, EDUCATION_LEVEL, GRADE_LEVELS} from '../../_models/constants';
+import {EDUCATION_FIELDS, EDUCATION_LEVEL, FILTER_TYPES, GRADE_LEVELS, MAJORS_LIST, SCHOOLS_LIST} from '../../_models/constants';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import {SeoService} from '../../_services/seo.service';
 import {Title} from '@angular/platform-browser';
+
 @Component({
   selector: 'app-scholarships-list',
   templateUrl: './scholarships-list.component.html',
@@ -60,7 +61,7 @@ export class ScholarshipsListComponent implements OnInit {
   scholarshipQuery: string;
   EDUCATION_LEVEL = EDUCATION_LEVEL;
   GRADE_LEVELS = GRADE_LEVELS;
-
+  filterTypes = FILTER_TYPES;
   EDUCATION_FIELD = EDUCATION_FIELDS;
   MAJORS_LIST = MAJORS_LIST;
   SCHOOLS_LIST = SCHOOLS_LIST;
@@ -70,6 +71,7 @@ export class ScholarshipsListComponent implements OnInit {
   };
 
   @ViewChild('trySearch') public popover: NgbPopover;
+
   constructor(
     public scholarshipService: ScholarshipService,
     public userProfileService: UserProfileService,
@@ -82,18 +84,17 @@ export class ScholarshipsListComponent implements OnInit {
     public location: Location,
     public seoService: SeoService,
     public titleService: Title
-  ) { }
-
-
+  ) {
+  }
 
 
   ngOnInit() {
     this.userId = this.authService.decryptLocalStorage('uid');
 
     let seoConfig = {
-      title: "Atila Scholarships",
-      description: "Easily find and apply to scholarships. Learn and share information about education, career and life..",
-      image: "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-gradient-banner-march-14.png?alt=media&token=9d791ba9-18d0-4750-ace8-b390a4e90fdc",
+      title: 'Atila Scholarships',
+      description: 'Easily find and apply to scholarships. Learn and share information about education, career and life..',
+      image: 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-gradient-banner-march-14.png?alt=media&token=9d791ba9-18d0-4750-ace8-b390a4e90fdc',
       slug: `scholarship/`
     }
     this.scholarshipQuery = this.activatedRoute.snapshot.queryParams['q']
@@ -101,8 +102,7 @@ export class ScholarshipsListComponent implements OnInit {
       this.titleService.setTitle(`Atila Scholarships for ${this.prettifyKeys(this.scholarshipQuery)}`);
       seoConfig.title += ` for ${this.prettifyKeys(this.scholarshipQuery)}`;
       seoConfig.slug += `?q=${this.scholarshipQuery}`; // todo think of a better slug?
-      seoConfig.description = seoConfig.description.
-      replace('scholarships', `scholarships for ${this.prettifyKeys(this.scholarshipQuery)}`);
+      seoConfig.description = seoConfig.description.replace('scholarships', `scholarships for ${this.prettifyKeys(this.scholarshipQuery)}`);
       this.seoService.generateTags(seoConfig);
     }
 
@@ -114,32 +114,33 @@ export class ScholarshipsListComponent implements OnInit {
     if (this.userId && !isNaN(parseInt(this.userId))) {
       this.isLoggedIn = true;
       this.userProfileService.getById(parseInt(this.userId))
-      .subscribe(
-        data => {
-          let tempCity = [];
-          this.userProfile = data;
+        .subscribe(
+          data => {
+            let tempCity = [];
+            this.userProfile = data;
 
-          if (this.userProfile.metadata['incomplete_profile']) {
+            if (this.userProfile.metadata['incomplete_profile']) {
 
-            this.inCompleteProfile = true;
-            this.isLoading = false;
-            this.initCompleteProfileForm();
+              this.inCompleteProfile = true;
+              this.isLoading = false;
+              this.initCompleteProfileForm();
 
-            return;
+              return;
+            }
+            tempCity.push(data.city);
+            this.form_data = {
+              'city': data.city,
+              'education_level': data.education_level,
+              'education_field': data.education_field,
+              'sort_by': 'relevance_new',
+              'filter_by_user_show_eligible_only': true,
+            };
+
+            // this.pageNo = this.activatedRoute.snapshot.params['page'] || this.pageNo;
+            this.getScholarshipPreview(this.pageNo);
           }
-          tempCity.push(data.city);
-          this.form_data = {
-            'city': data.city,
-            'education_level': data.education_level,
-            'education_field': data.education_field,
-            'sort_by': 'relevance_new',
-            'filter_by_user_show_eligible_only': true,
-          };
-
-          // this.pageNo = this.activatedRoute.snapshot.params['page'] || this.pageNo;
-          this.getScholarshipPreview(this.pageNo);
-        }
-      )}
+        )
+    }
 
     else {
       this.isLoggedIn = false;
@@ -151,48 +152,61 @@ export class ScholarshipsListComponent implements OnInit {
       // }, 1000);
 
       this.scholarshipService.getScholarshipPreviewForm()
-      .then(
-        res => {
-          console.log('this.activatedRoute.snapshot.queryParams[\'q\']',this.activatedRoute.snapshot.queryParams['q']);
-          this.form_data = res;
-          if(this.form_data){
-            this.form_data['filter_by_user_show_eligible_only']=true;
-          }
-          else {
-            if (this.activatedRoute.snapshot.queryParams['q']) {
-              this.form_data = {
-                previewMode: 'universalSearch',
-                searchString: this.activatedRoute.snapshot.queryParams['q'],
-                previewFormFromUrl: true,
-              }
+        .then(
+          res => {
+            console.log('this.activatedRoute.snapshot.queryParams[\'q\']', this.activatedRoute.snapshot.queryParams['q']);
+            this.form_data = res;
+            if (this.form_data) {
+              this.form_data['filter_by_user_show_eligible_only'] = true;
             }
             else {
-              this.form_data = {featuredScholarshipsMode: true};
+              if (this.activatedRoute.snapshot.queryParams['q']) {
+                this.form_data = {
+                  previewMode: 'universalSearch',
+                  searchString: this.activatedRoute.snapshot.queryParams['q'],
+                  previewFormFromUrl: true,
+                }
+              }
+              else {
+                this.form_data = {featuredScholarshipsMode: true};
+              }
             }
-          }
-        },
-
-      )
-      .then(
-        res => this.getScholarshipPreview(),
-      )
+          },
+        )
+        .then(
+          res => this.getScholarshipPreview(),
+        )
     }
 
 
   }
 
-  getScholarshipPreview(page: number = 1,options:any = {}){
+  getScholarshipPreview(page: number = 1, options: any = {}) {
+
+    if (page == 1) {
+      // clear scholarships list if on first page
+      this.scholarships = [];
+    }
 
     if (options['view_as_user']) {
-      this.form_data.view_as_user = options['view_as_user']==''? null : options['view_as_user'];
+      this.form_data.view_as_user = options['view_as_user'] == '' ? null : options['view_as_user'];
     }
-    if (this.form_data ) {
+    if (this.form_data) {
 
-      if(this.form_data.filter_by_user) {
-        this.form_data.filter_by_user_data = [{filter_type: this.form_data.filter_by_user, filter_value: [this.transformFilterDisplay(this.form_data.filter_by_user)]}]
+      if (this.form_data.filter_by_user) {
+
+        const filterValue = this.transformFilterDisplay(this.form_data.filter_by_user);
+
+        console.log('transformFilterDisplay(form_data.filter_by_user)',
+          this.transformFilterDisplay(this.form_data.filter_by_user));
+
+        this.form_data.filter_by_user_data = [{
+          filter_type: this.form_data.filter_by_user,
+          filter_value: Array.isArray(filterValue) ? filterValue : [filterValue]
+        }]
       }
 
-      if(this.isLoggedIn) {
+      if (this.isLoggedIn) {
         const url = this
           .router
           .createUrlTree([{page: page}], {relativeTo: this.activatedRoute})
@@ -210,34 +224,34 @@ export class ScholarshipsListComponent implements OnInit {
         this.form_data['sort_by'] = this.isLoggedIn ? 'relevance_new' : 'relevance';
       }
       if (options['view_as_user']) {
-        }
+      }
       this.isLoading = true;
       this.scholarshipService.getPaginatedscholarships(this.form_data, page)
-      .subscribe(
-        res => {
+        .subscribe(
+          res => {
 
-          if(options['change_sort_by']) {
-            this.scholarshipService.preventSortByDoubleCount=true;
-          }
-          this.saveScholarships(res);
-          this.contentFetched = true;
-          this.isLoading = false;
+            if (options['change_sort_by']) {
+              this.scholarshipService.preventSortByDoubleCount = true;
+            }
+            this.saveScholarships(res);
+            this.contentFetched = true;
+            this.isLoading = false;
 
 
-        },
-        error => {
-
-          this.contentFetched = false;
-          this.isLoading = false;
-        },
-        () => {
-          this.isLoading = false;
           },
-      );
+          error => {
+
+            this.contentFetched = false;
+            this.isLoading = false;
+          },
+          () => {
+            this.isLoading = false;
+          },
+        );
     }
   }
 
-  saveScholarships(res: any){
+  saveScholarships(res: any) {
 
     this.scholarships.push(...res['data']);
     console.log({res});
@@ -245,15 +259,15 @@ export class ScholarshipsListComponent implements OnInit {
     this.scholarship_count = res['length'];
     this.total_funding = res['funding'];
 
-    if (this.total_funding){
+    if (this.total_funding) {
       this.show_scholarship_funding = true;
     }
 
-    if(this.form_data.filter_by_user) {
+    if (this.form_data.filter_by_user) {
 
       let resultsPreview = [];
 
-      for (let i = 0; i < Math.min(5,this.scholarships.length); i++) {
+      for (let i = 0; i < Math.min(5, this.scholarships.length); i++) {
         resultsPreview.push({id: this.scholarships[i]['id'], name: this.scholarships[i]['name']})
       }
       let filterByUserResult = {
@@ -262,17 +276,17 @@ export class ScholarshipsListComponent implements OnInit {
         total_funding: this.total_funding,
         results_preview: resultsPreview
       };
-      this.firebaseService.saveUserAnalytics(filterByUserResult,'filter_by_user_results')
+      this.firebaseService.saveUserAnalytics(filterByUserResult, 'filter_by_user_results')
     }
 
     this.viewAsUser = res['view_as_user'];
 
 
     if (this.viewAsUser) {
-      }
+    }
 
     if (res['view_as_user_error']) {
-      this.snackBar.open(res['view_as_user_error'],'',{duration:3000})
+      this.snackBar.open(res['view_as_user_error'], '', {duration: 3000})
     }
 
     this.pageLen = Math.ceil(this.scholarship_count / this.paginationLen);
@@ -284,15 +298,16 @@ export class ScholarshipsListComponent implements OnInit {
   }
 
   prettifyKeys(str) {
-    if (str == 'only_automated'){
+    if (str == 'only_automated') {
       return 'Is Automated';
     }
-    if (str == 'relevance_new'){
+    if (str == 'relevance_new') {
       return 'Relevance + New';
     }
 
     return toTitleCase(prettifyKeys(str));
   }
+
   nextPage() {
     this.pageNo++;
     this.getScholarshipPreview(this.pageNo);
@@ -309,25 +324,25 @@ export class ScholarshipsListComponent implements OnInit {
     this.getScholarshipPreview(pageNo);
     // todo, why isn't window.scrollTo(0, 0); working?
     window.scrollTo(0, 0);
-    $("html, body").animate({scrollTop: $('.nav-wrapper').offset().top}, 500);
+    $('html, body').animate({scrollTop: $('.nav-wrapper').offset().top}, 500);
 
   }
 
 
   // todo move this to a seperate function as it will rarely be called
-  saveUser(userForm, options = {}){
+  saveUser(userForm, options = {}) {
 
 
     if (userForm.valid) {
       if (!this.userProfile.major || this.userProfile.eligible_schools.length < 1) {
-        this.snackBar.open("Enter school or program information.",'', {duration: 3000});
+        this.snackBar.open('Enter school or program information.', '', {duration: 3000});
       }
 
       if (!this.userProfile.post_secondary_school) {
         this.userProfile.post_secondary_school = this.userProfile.eligible_schools[0];
       }
       delete this.userProfile.metadata['incomplete_profile'];
-      this.userProfile.metadata['stale_cache'] =  true;
+      this.userProfile.metadata['stale_cache'] = true;
 
 
       let sendData = {
@@ -338,9 +353,9 @@ export class ScholarshipsListComponent implements OnInit {
         .subscribe(
           data => {
 
-            this.snackBar.open("Successfully Updated Your Profile.",'', {duration: 3000});
+            this.snackBar.open('Successfully Updated Your Profile.', '', {duration: 3000});
 
-            if(options['updateUser']) {
+            if (options['updateUser']) {
               this.userProfile = data;
             }
 
@@ -355,13 +370,13 @@ export class ScholarshipsListComponent implements OnInit {
             };
 
             this.getScholarshipPreview(this.pageNo);
-            },
-            err => {
-              this.snackBar.open('Profile updated unsuccessfully - ' + err.error? err.error: err,'', {duration: 3000});
-            }
-          )
+          },
+          err => {
+            this.snackBar.open('Profile updated unsuccessfully - ' + err.error ? err.error : err, '', {duration: 3000});
+          }
+        )
     } else {
-      this.snackBar.open("Form is not valid",'', {duration: 3000});
+      this.snackBar.open('Form is not valid', '', {duration: 3000});
     }
   }
 
@@ -376,19 +391,19 @@ export class ScholarshipsListComponent implements OnInit {
       if (!this.userProfile.preferences['edit_profile_reminder']) {
         this.userProfile.preferences['edit_profile_reminder'] = {};
         let reminderTime = new Date().getTime();
-        this.userProfile.preferences['edit_profile_reminder']['last_reminder'] = 	reminderTime;
+        this.userProfile.preferences['edit_profile_reminder']['last_reminder'] = reminderTime;
         this.userProfile.preferences['edit_profile_reminder']['reminders'] = [];
         this.userProfile.preferences['edit_profile_reminder']['reminders'].push(reminderTime);
       }
 
 
-      else if (this.userProfile.preferences['edit_profile_reminder']['last_reminder']){
+      else if (this.userProfile.preferences['edit_profile_reminder']['last_reminder']) {
 
         let lastReminder = parseInt(this.userProfile.preferences['edit_profile_reminder']['last_reminder']);
 
         let difference = new Date().getTime() - lastReminder;
-        let daysDifference = Math.floor(difference/1000/60/60/24);
-        if ( daysDifference < 3) {
+        let daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
+        if (daysDifference < 3) {
           return
         }
 
@@ -396,9 +411,9 @@ export class ScholarshipsListComponent implements OnInit {
 
 
       let reminderTime = new Date().getTime();
-      this.userProfile.preferences['edit_profile_reminder']['last_reminder'] = 	reminderTime;
+      this.userProfile.preferences['edit_profile_reminder']['last_reminder'] = reminderTime;
 
-      if (!Array.isArray(this.userProfile.preferences['edit_profile_reminder']['reminders'])){
+      if (!Array.isArray(this.userProfile.preferences['edit_profile_reminder']['reminders'])) {
         this.userProfile.preferences['edit_profile_reminder']['reminders'] = [];
       }
 
@@ -424,22 +439,22 @@ export class ScholarshipsListComponent implements OnInit {
     });
   }
 
-  toggleSearchModal(data?:any){
+  toggleSearchModal(data?: any) {
 
-    if(this){
+    if (this) {
       return;
     }
-    if(data && data['toggle']) {
+    if (data && data['toggle']) {
       const isOpen = this.popover.isOpen();
-      if(isOpen){
+      if (isOpen) {
         this.popover.close()
       }
-      else{
+      else {
         this.popover.open()
       }
       return;
     }
-    if(this.userProfile) {
+    if (this.userProfile) {
       if (!this.userProfile.preferences['try_search_reminder']) {
         this.userProfile.preferences['try_search_reminder'] = new Date().getTime();
         this.userProfileService.updateHelper(this.userProfile).subscribe();
@@ -450,10 +465,10 @@ export class ScholarshipsListComponent implements OnInit {
     }
 
     const isOpen = this.popover.isOpen();
-    if(isOpen){
+    if (isOpen) {
       this.popover.close()
     }
-    else{
+    else {
       this.popover.open()
     }
   }
@@ -462,8 +477,8 @@ export class ScholarshipsListComponent implements OnInit {
   addSubscriber(event?: KeyboardEvent) {
 
 
-    if(!this.subscriber.email) {
-      this.subscriber.response ='Please enter email.';
+    if (!this.subscriber.email) {
+      this.subscriber.response = 'Please enter email.';
       return;
     }
     // In case we want to see if people are more likely to submit by typing Enter or clicking.
@@ -474,7 +489,7 @@ export class ScholarshipsListComponent implements OnInit {
       this.subscriber.dialog_open_event = 'ButtonClick';
     }
 
-    this.subscriber.utm_source =       'scholarships_list';
+    this.subscriber.utm_source = 'scholarships_list';
 
     let dialogRef = this.dialog.open(SubscriberDialogComponent, {
       width: '300px',
@@ -485,7 +500,7 @@ export class ScholarshipsListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
       result => {
         this.subscriber = result;
-        if(this.subscriber) {
+        if (this.subscriber) {
 
           this.subscriber.dialog_submit_event = result.dialog_submit_event || 'ButtonClick';
 
@@ -495,14 +510,14 @@ export class ScholarshipsListComponent implements OnInit {
 
               this.firebaseService.addSubscriber(this.subscriber)
                 .then(res => {
-                    this.subscriber.response ='Successfully subscribed to Atila 😄.';
+                    this.subscriber.response = 'Successfully subscribed to Atila 😄.';
                   },
-                  err => this.subscriber.response ='Subscription error.');
+                  err => this.subscriber.response = 'Subscription error.');
             });
         }
         else {
-         this.subscriber = {};
-          this.subscriber.response ='Please enter subscription information 😄.';
+          this.subscriber = {};
+          this.subscriber.response = 'Please enter subscription information 😄.';
         }
 
 
@@ -510,7 +525,7 @@ export class ScholarshipsListComponent implements OnInit {
   }
 
   saveUserAnalytics(path, userData) {
-    this.firebaseService.saveUserAnalytics(userData,path);
+    this.firebaseService.saveUserAnalytics(userData, path);
   }
 
 
@@ -519,10 +534,10 @@ export class ScholarshipsListComponent implements OnInit {
     this.autoCompleteFormGroup = AutoCompleteForm();
     this.autoCompleteOptions = initializeAutoCompleteOptions(this.autoCompleteFormGroup);
 
-    if(this.userProfile.city.length>0){
-      this.locationData.city= this.userProfile.city[0].name;
-      this.locationData.country=this.userProfile.city[0].country;
-      this.locationData.province=this.userProfile.city[0].province;
+    if (this.userProfile.city.length > 0) {
+      this.locationData.city = this.userProfile.city[0].name;
+      this.locationData.country = this.userProfile.city[0].country;
+      this.locationData.province = this.userProfile.city[0].province;
     }
   }
 
@@ -541,7 +556,7 @@ export class ScholarshipsListComponent implements OnInit {
    * https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform
    * https://stackoverflow.com/questions/42341930/google-places-autocomplete-angular2
    */
-  placeAutoComplete(placeResult:any, autoCompleteOptions?: any){ //Assign types to the parameters place result is a PlaceResult Type, see documentation
+  placeAutoComplete(placeResult: any, autoCompleteOptions?: any) { //Assign types to the parameters place result is a PlaceResult Type, see documentation
     this.predictLocation(placeResult, autoCompleteOptions);
 
   }
@@ -552,11 +567,11 @@ export class ScholarshipsListComponent implements OnInit {
    * @param placeResult
    * @param options
    */
-  predictLocation(placeResult, options= {}){
+  predictLocation(placeResult, options = {}) {
 
     options['object_key'] = options['object_key'] || 'locationData';
 
-    var addressComponents = placeResult.address_components ;
+    var addressComponents = placeResult.address_components;
 
     var keys = ['city', 'province', 'country'];
 
@@ -564,15 +579,15 @@ export class ScholarshipsListComponent implements OnInit {
 
 
     addressComponents.forEach((element, i, arr) => {
-      if(element.types[0]=='locality' || element.types[0]=='administrative_area_level_3' ||  element.types[0]=='postal_town'||  element.types[0]=='sublocality_level_1'){
+      if (element.types[0] == 'locality' || element.types[0] == 'administrative_area_level_3' || element.types[0] == 'postal_town' || element.types[0] == 'sublocality_level_1') {
         this[options['object_key']].city = element.long_name;
       }
 
-      if(element.types[0]=='administrative_area_level_1'){
+      if (element.types[0] == 'administrative_area_level_1') {
         this[options['object_key']].province = element.long_name;
       }
 
-      if(element.types[0]=='country'){
+      if (element.types[0] == 'country') {
         this[options['object_key']][element.types[0]] = element.long_name;
       }
     });
@@ -590,7 +605,7 @@ export class ScholarshipsListComponent implements OnInit {
    */
   keyDownHandler(event: Event) {
 
-    if((<KeyboardEvent>event).keyCode == 13) {
+    if ((<KeyboardEvent>event).keyCode == 13) {
 
       event.preventDefault();
     }
@@ -606,13 +621,13 @@ export class ScholarshipsListComponent implements OnInit {
         filterProfile = this.viewAsUser;
       }
 
-      if (['city','province','country'].indexOf(filter_type) > -1) {
+      if (['city', 'province', 'country'].indexOf(filter_type) > -1) {
         return filterProfile[filter_type][0]['name']
       }
       return filterProfile[filter_type];
     }
     else {
-      if (['city','province','country'].indexOf(filter_type) > -1) {
+      if (['city', 'province', 'country'].indexOf(filter_type) > -1) {
         if (!this.form_data.location[filter_type]) {
           switch (filter_type) {
             case 'city':
@@ -641,8 +656,6 @@ export class ScholarshipsListComponent implements OnInit {
 
 
   }
-
-
 
 
 }

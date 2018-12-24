@@ -2065,6 +2065,24 @@ export const EDUCATION_LEVEL = [
   'Workplace or Apprenticeship',
 ];
 
+export const FILTER_TYPES = [
+  'major',
+  'post_secondary_school',
+  'ethnicity',
+  'city',
+  'country',
+  'heritage',
+  'citizenship',
+  'religion',
+  'activities',
+  'sports',
+  'disability',
+  'language',
+  'eligible_schools',
+  'eligible_programs',
+  'province',
+]
+
 export const EDUCATION_FIELDS = [
   'Arts (Undergrad)',
   'STEM (Undergrad)',

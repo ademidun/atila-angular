@@ -17,6 +17,7 @@ import {SwUpdate} from '@angular/service-worker';
 import {UserProfileService, UserProfileServiceMock} from './_services/user-profile.service';
 import {MyFirebaseService, MyFirebaseServiceStub} from './_services/myfirebase.service';
 import {AuthService, AuthServiceStub} from './_services/auth.service';
+import {environment} from '../environments/environment';
 
 // https://stackoverflow.com/a/43941412/
 
@@ -68,6 +69,29 @@ fdescribe('AppComponent', () => {
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
+
+    it('should use the correct environment.apiUrl based on the current environment', () => {
+
+      console.log('environment.name', environment.name);
+
+      switch (environment.name) {
+        case 'dev':
+          expect(environment.apiUrl).toEqual('http://127.0.0.1:8000/api/');
+          break;
+        case 'staging':
+          console.log('This is Staging');
+          expect(environment.apiUrl).toEqual('https://atila-7-staging.herokuapp.com/api/');
+          break;
+        case 'prod':
+          console.log('This is dev');
+          expect(environment.apiUrl).toEqual('https://atila-7.herokuapp.com/api/');
+          break;
+        default:
+          console.log('No Environment found');
+          expect(environment.name).toBeTruthy('Environment variable should have a name');
+      }
+
+    });
 
   // it(`should have as title 'app'`, async(() => {
   //   const fixture = TestBed.createComponent(AppComponent);
