@@ -73,9 +73,9 @@
         <h3>Other Criteria</h3>
 
           <!--TODO: How is extra_criteria being generated. How is it different from the autoComplete lists?-->
-          <div *ngFor="let key of Object.keys(scholarship.extra_criteria)">
-            <p><strong>{{prettifyKeys(key)}}:</strong>{{scholarship.extra_criteria[key]}}</p>
-          </div>
+          <!--<div *ngFor="let key of Object.keys(scholarship.extra_criteria)">-->
+            <!--<p><strong>{{prettifyKeys(key)}}:</strong>{{scholarship.extra_criteria[key]}}</p>-->
+          <!--</div>-->
 
         <div *ngFor="let key of autoCompleteLists">
           <ng-container *ngIf="scholarship[key].length>0">

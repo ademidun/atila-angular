@@ -15,6 +15,7 @@ export class ScholarshipEditSuggestionComponent implements OnInit {
 
   @Input() edit: ScholarshipEdit;
   @Input() userProfile: UserProfile;
+  @Input() scholarship: Scholarship;
   @Input() metadata: any={};
   Object = Object;
 
@@ -25,6 +26,7 @@ export class ScholarshipEditSuggestionComponent implements OnInit {
               public route: ActivatedRoute,) {
   }
   ngOnInit() {
+    console.log(this.scholarship);
   }
 
   saveEdit() {
@@ -45,7 +47,8 @@ export class ScholarshipEditSuggestionComponent implements OnInit {
     }
     else if (!this.metadata['isOwner']) {
 
-      let snackBarRef = this.snackBar.open("Must be scholarship creator",'Add Scholarship',{duration: 4000});
+      console.log(this.scholarship);
+      let snackBarRef = this.snackBar.open("You don't have permission to Change Edit Status.",'Add a Scholarship',{duration: 4000});
       snackBarRef.onAction().subscribe(
         () => {
           this.router.navigate(['/scholarship/add']);
