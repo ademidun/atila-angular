@@ -642,11 +642,45 @@ export class ScholarshipsListComponent implements OnInit {
         }
         return this.form_data.location[filter_type];
       }
-      if (filter_type == 'post_secondary_school') {
-        return 'University of Western Ontario';
-      }
-      if (filter_type == 'major') {
-        return 'Engineering';
+
+      switch(filter_type) {
+
+        // todo: pick default categories based on what is most popular
+        // amongst students or has the most scholarships
+        case 'major':
+          return 'Engineering';
+        case 'post_secondary_school':
+          return 'University of Western Ontario';
+        case 'ethnicity':
+          return 'Asian/East-Asian';
+        case 'heritage':
+          return 'India';
+        case 'citizenship':
+          return 'Canada';
+        case 'religion':
+          return 'Christianity';
+        case 'activities':
+          return 'Drawing';
+        case 'sports':
+          return 'Soccer';
+        case 'disability':
+          return 'Learning Disability';
+        case 'language':
+          return 'French';
+        case 'eligible_schools':
+          return [
+            'Ivey Business School',
+            'University of Waterloo',
+            'DeGroote School of Medicine'
+          ];
+        case 'eligible_programs':
+          return [
+            'Health Sciences',
+            'Computer Engineering',
+            'Biomedical Engineering'
+          ];
+        default:
+          return
       }
     }
 
