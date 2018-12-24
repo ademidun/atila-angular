@@ -322,13 +322,10 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
 
   removeSavedScholarship(index) {
 
-    console.log('this.savedScholarships',this.savedScholarships);
-
     this.userProfileService.removeSavedScholarship(this.userProfile.user, this.savedScholarships[index].id)
       .subscribe(
         res => {
           this.savedScholarships.splice(index, 1);
-          console.log('this.savedScholarships',this.savedScholarships);
 
           this.showSnackBar("Succesfully Updated Your Profile",'', 3000);
 

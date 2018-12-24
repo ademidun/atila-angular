@@ -34,7 +34,6 @@ export class TypeaheadComponent implements OnInit {
               public instance: NgbTypeahead,
               ) {
 
-    console.log('TypeaheadComponent', this);
     config.focusFirst = !this.metadata['disableFocusFirst'];
   }
 

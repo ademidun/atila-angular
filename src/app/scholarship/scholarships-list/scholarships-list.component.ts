@@ -701,8 +701,6 @@ export class ScholarshipsListComponent implements OnInit {
           filterValue = null;
           break;
       }
-      console.log({filter_type});
-      console.log({filterValue});
 
       return filterValue
     }

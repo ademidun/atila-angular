@@ -451,9 +451,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
     this.subscriber.action = 'preview_scholarship';
     this.subscriber.preview_choices = this.model;
 
-    console.log({form});
-    console.log('this.model',this.model);
-
     if (this.model.previewMode == 'universalSearch') {
       if (!this.model.searchString) {
         this.model.errors = 'Please enter a search term.';
@@ -478,7 +475,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
     this.firebaseService.saveUserAnalytics(this.subscriber,'preview_scholarship')
       .then(res => {
-        console.log('res')
         },
         err => {console.log(err)});
 
@@ -593,7 +589,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
   }
 
   typeaheadEvent(event) {
-    console.log({event})
     if (event.type='searchString')
     this.model[event.type] = event.event.item;
   }
