@@ -78,7 +78,6 @@ export class ForumDetailComponent implements OnInit, OnDestroy {
     if (this.userProfileService.viewHistoryChanges) {
       this.userProfileService.viewHistoryChanges.unsubscribe();
     }
-    console.log('ngOnInitHelper() this.preventNgOnInitDoubleCount', this.preventNgOnInitDoubleCount)
     if (!this.preventNgOnInitDoubleCount) {
       this.preventNgOnInitDoubleCount = true;
     }
@@ -124,7 +123,6 @@ export class ForumDetailComponent implements OnInit, OnDestroy {
                     item_name: this.forum.title,
                     timestamp: Date.now(),
                   };
-                  console.log('this.userProfileService.checkViewHistory');
                   this.userProfileService.checkViewHistory(this.userProfile, viewData);
                 }
               },3000);

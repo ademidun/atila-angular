@@ -432,7 +432,9 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
             path: 'scholarships/' + this.scholarship.id + '/edits',
             field_path: 'scholarship',
             value: this.scholarship.id,
-            operator: '=='
+            operator: '==',
+            orderByField: 'timestamp',
+            orderByDirection: 'desc'
           };
           this.scholarshipEdits =  this.firebaseService.firestoreQuery(queryParams.path, queryParams).valueChanges();
 

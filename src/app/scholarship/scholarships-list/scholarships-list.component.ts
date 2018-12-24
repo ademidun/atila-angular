@@ -154,7 +154,6 @@ export class ScholarshipsListComponent implements OnInit {
       this.scholarshipService.getScholarshipPreviewForm()
         .then(
           res => {
-            console.log('this.activatedRoute.snapshot.queryParams[\'q\']', this.activatedRoute.snapshot.queryParams['q']);
             this.form_data = res;
             if (this.form_data) {
               this.form_data['filter_by_user_show_eligible_only'] = true;
@@ -613,6 +612,7 @@ export class ScholarshipsListComponent implements OnInit {
   }
 
   transformFilterDisplay(filter_type) {
+    let filterValue;
 
     if (this.userProfile) {
 
@@ -622,32 +622,86 @@ export class ScholarshipsListComponent implements OnInit {
       }
 
       if (['city', 'province', 'country'].indexOf(filter_type) > -1) {
-        return filterProfile[filter_type][0]['name']
+        filterValue = filterProfile[filter_type][0]['name']
       }
-      return filterProfile[filter_type];
+      filterValue = filterProfile[filter_type];
+
     }
     else {
       if (['city', 'province', 'country'].indexOf(filter_type) > -1) {
         if (!this.form_data.location[filter_type]) {
           switch (filter_type) {
             case 'city':
-              return 'Toronto';
+              filterValue = 'Toronto';
+              break;
 
             case 'province':
-              return 'Ontario';
+              filterValue = 'Ontario';
+              break
 
             case 'country':
-              return 'Canada';
+              filterValue = 'Canada';
+              break;
           }
         }
-        return this.form_data.location[filter_type];
+        filterValue = this.form_data.location[filter_type];
       }
-      if (filter_type == 'post_secondary_school') {
-        return 'University of Western Ontario';
+
+
+      switch(filter_type) {
+
+        // todo: pick default categories based on what is most popular
+        // amongst students or has the most scholarships
+        case 'major':
+          filterValue =  'Engineering';
+          break;
+        case 'post_secondary_school':
+          filterValue =  'University of Western Ontario';
+          break;
+        case 'ethnicity':
+          filterValue =  'Asian/East-Asian';
+          break;
+        case 'heritage':
+          filterValue =  'India';
+          break;
+        case 'citizenship':
+          filterValue =  'Canada';
+          break;
+        case 'religion':
+          filterValue =  'Christianity';
+          break;
+        case 'activities':
+          filterValue =  'Drawing';
+          break;
+        case 'sports':
+          filterValue =  'Soccer';
+          break;
+        case 'disability':
+          filterValue =  'Autism';
+          break;
+        case 'language':
+          filterValue =  'French';
+          break;
+        case 'eligible_schools':
+          filterValue =  [
+            'Ivey Business School',
+            'University of Waterloo',
+            'DeGroote School of Medicine'
+          ];
+          break;
+        case 'eligible_programs':
+          filterValue =  [
+            'Health Sciences',
+            'Computer Engineering',
+            'Biomedical Engineering'
+          ];
+          break;
+        default:
+          filterValue = null;
+          break;
       }
-      if (filter_type == 'major') {
-        return 'Engineering';
-      }
+
+      return filterValue
     }
 
   }

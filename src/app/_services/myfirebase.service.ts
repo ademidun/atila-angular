@@ -134,8 +134,20 @@ export class MyFirebaseService {
       path = 'PRODUCTION/data/'+ path
     }
     if (queryParams) {
-      return this.fs.collection(path,
-        ref => ref.where(queryParams['field_path'], queryParams['operator'], queryParams['value']) )
+
+      if (queryParams['orderByField']) {
+        return this.fs.collection(path,
+          ref => ref.where(
+            queryParams['field_path'], queryParams['operator'], queryParams['value']).
+          orderBy(queryParams['orderByField'], queryParams['orderByDirection'])
+        )
+      }
+      else {
+        return this.fs.collection(path,
+          ref => ref.where(
+            queryParams['field_path'], queryParams['operator'], queryParams['value'])
+        )
+      }
     }
     else{
       return this.fs.collection(path)

@@ -2072,16 +2072,16 @@ export const FILTER_TYPES = [
   'city',
   'country',
   'heritage',
-  'citizenship',
   'religion',
+  'eligible_schools',
+  'eligible_programs',
+  'citizenship',
   'activities',
   'sports',
   'disability',
   'language',
-  'eligible_schools',
-  'eligible_programs',
   'province',
-]
+];
 
 export const EDUCATION_FIELDS = [
   'Arts (Undergrad)',

@@ -115,7 +115,6 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
                       item_name: this.blogPost.title,
                       timestamp: Date.now(),
                     };
-                    console.log('this.userProfileService.checkViewHistory');
                     this.userProfileService.checkViewHistory(this.userProfile, viewData);
                   }
                 },3000);
@@ -141,7 +140,6 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
           );
 
           this.getRelatedItems();
-          console.log('this.route',this.route,this.route.snapshot);
           if (this.route.snapshot.fragment){
             setTimeout(() => {
               this.scrollToElement('#'+this.route.snapshot.fragment);

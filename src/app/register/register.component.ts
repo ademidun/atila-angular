@@ -115,7 +115,6 @@ export class RegisterComponent implements OnInit {
       postOperation.subscribe(
         data => {
           this.model = new User(this.model.email, this.model.username, '', '');
-          console.log('data',data);
           data.registration_message= data.registration_message || 'Registration successful';
           this.snackBar.open(data.registration_message, '', {duration: 3000});
 
@@ -186,10 +185,6 @@ export class RegisterComponent implements OnInit {
   }
 
   checkUsername() {
-
-    console.log('this.model.username',this.model.username);
-    console.log('this.model.username.includes(\'@\')',this.model.username.includes('@'));
-    console.log('this.model.username == this.model.email',this.model.username == this.model.email);
 
     if (this.model.username == this.model.email) {
       this.userNameDiagnostic = 'Username can not be same as email'

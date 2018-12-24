@@ -747,7 +747,9 @@
 
                         <div class="col col-sm-12" *ngFor="let edit of scholarshipEdits | async">
 
-                          <app-scholarship-edit-suggestion [edit]="edit" [metadata]="{isOwner: isOwner}" [userProfile]="userProfile">
+                          <app-scholarship-edit-suggestion
+                            [scholarship]="scholarship"
+                            [edit]="edit" [metadata]="{isOwner: isOwner}" [userProfile]="userProfile">
 
                           </app-scholarship-edit-suggestion>
                           <hr>
