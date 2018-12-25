@@ -196,9 +196,6 @@ export class ScholarshipsListComponent implements OnInit {
 
         const filterValue = this.transformFilterDisplay(this.form_data.filter_by_user);
 
-        console.log('transformFilterDisplay(form_data.filter_by_user)',
-          this.transformFilterDisplay(this.form_data.filter_by_user));
-
         this.form_data.filter_by_user_data = [{
           filter_type: this.form_data.filter_by_user,
           filter_value: Array.isArray(filterValue) ? filterValue : [filterValue]
@@ -253,8 +250,6 @@ export class ScholarshipsListComponent implements OnInit {
   saveScholarships(res: any) {
 
     this.scholarships.push(...res['data']);
-    console.log({res});
-    console.log(this.scholarships);
     this.scholarship_count = res['length'];
     this.total_funding = res['funding'];
 
