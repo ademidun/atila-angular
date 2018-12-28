@@ -125,6 +125,9 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
           if ('2019-01-01T00:00:00Z' == this.scholarship.deadline) {
             this.scholarship['metadata']['deadline_tbd'] = 'TBA';
           }
+          else if (this.scholarship['metadata']['deadline_tbd']) {
+            delete this.scholarship['metadata']['deadline_tbd'];
+          }
 
           this.autoCompleteLists.forEach(key => {
             if (this.scholarship[key].length>0) {

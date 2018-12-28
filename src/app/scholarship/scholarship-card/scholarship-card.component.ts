@@ -74,6 +74,9 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
     if ('2019-01-01T00:00:00Z' == this.scholarship.deadline) {
       this.scholarship['metadata']['deadline_tbd'] = 'TBA';
     }
+    else if (this.scholarship['metadata']['deadline_tbd']) {
+      delete this.scholarship['metadata']['deadline_tbd'];
+    }
     if (this.scholarshipService.preventViewDoubleCount){
       this.scholarshipService.preventViewDoubleCount = false;
     }

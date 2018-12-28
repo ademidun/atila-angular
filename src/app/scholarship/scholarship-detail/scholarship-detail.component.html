@@ -12,7 +12,7 @@
             <ng-template #hasDeadline><strong>Deadline:</strong>
               <span *ngIf="!scholarship['metadata']['deadline_tbd']">
                 {{scholarship.deadline | date:'longDate'}}</span>
-              <span  *ngIf="scholarship['metadata']['deadline_tbd']">TBA</span>
+              <span  *ngIf="this.scholarship['metadata']['deadline_tbd']">TBA</span>
             </ng-template>
 
             <strong>
