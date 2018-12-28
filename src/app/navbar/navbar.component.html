@@ -224,7 +224,7 @@
             </ul>
 
         <!-- Horizontally the top most div is the right most div.-->
-          <a routerLink="/login" class="atila-blue right far-right">
+          <a [href]="'/login'+'?redirect='+encodeURIComponent(router.url) " (click)="login($event)" class="atila-blue right far-right">
             <button mat-fab class= "left far-left">
               Login
             </button>
