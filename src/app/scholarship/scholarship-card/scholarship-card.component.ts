@@ -71,12 +71,22 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
 
     }
 
-    if ('2019-01-01T00:00:00Z' == this.scholarship.deadline) {
+    if ('2022-01-01T00:00:00Z' == this.scholarship.deadline) {
       this.scholarship['metadata']['deadline_tbd'] = 'TBA';
     }
     else if (this.scholarship['metadata']['deadline_tbd']) {
       delete this.scholarship['metadata']['deadline_tbd'];
     }
+
+    let today: Date|String = new Date();
+    today = today.toISOString();
+    if (this.scholarship.open_date < today) {
+      this.scholarship['metadata']['open_date_tbd'] = 'TBA';
+    }
+    else if (this.scholarship['metadata']['open_date_tbd']) {
+      delete this.scholarship['metadata']['open_date_tbd'];
+    }
+
     if (this.scholarshipService.preventViewDoubleCount){
       this.scholarshipService.preventViewDoubleCount = false;
     }

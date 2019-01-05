@@ -6,11 +6,17 @@
     <div class="card-subtitle text-muted">
       <div *ngIf="scholarship.extra_questions && !scholarship.extra_questions.funding_amount_varies">{{scholarship.funding_amount | currency:'USD':'symbol':'1.0-0'}}</div>
       <div *ngIf="scholarship.extra_questions && scholarship.extra_questions.funding_amount_varies" class="card-text">Amount Varies</div>
-      <div *ngIf="scholarship.metadata['not_open_yet'];else hasDeadline">Opens: {{scholarship.open_date | date:'mediumDate' }}
-        <i class="material-icons" placement="bottom" ngbTooltip="Save Scholarship to get notified when it opens.">info_outline</i></div>
+      <div *ngIf="scholarship.metadata['not_open_yet'];else hasDeadline">
+        Opens: {{scholarship['metadata']['open_date_tbd'] ? 'TBA': scholarship.open_date | date:'mediumDate' }}
+        <!--<i class="material-icons" placement="bottom" ngbTooltip="Save Scholarship to get notified when it opens.">info_outline</i>-->
+      </div>
       <ng-template #hasDeadline>
-        <div *ngIf="scholarship.deadline && !this.scholarship['metadata']['deadline_tbd']">Deadline: {{ scholarship.deadline | date:'mediumDate' }}</div>
-        <div *ngIf="scholarship.deadline && this.scholarship['metadata']['deadline_tbd']">Deadline: {{scholarship.metadata.deadline_tbd}}</div>
+        <div *ngIf="scholarship.deadline">
+          Deadline: {{ scholarship['metadata']['deadline_tbd'] ? 'TBA' : scholarship.deadline | date:'mediumDate' }}
+          <!--todo: add push notifications for upcoming scholarships-->
+          <!--<i *ngIf="scholarship['metadata']['deadline_tbd']" class="material-icons" placement="bottom"
+             ngbTooltip="Save Scholarship to get notified when deadline is upcoming.">info_outline</i>-->
+        </div>
       </ng-template>
     </div>
 
