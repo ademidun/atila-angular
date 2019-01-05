@@ -1,7 +1,13 @@
 <div class="card horizontal" [id]="'scholarship-card-'+scholarship.id" [@hideCard]="hideCard" #scholarshipCard>
   <div class="card-action">
-    <a [routerLink]="['/scholarship', scholarship.slug]" class="card-title" (click)="clickHandler($event)">
-      {{scholarship.name | truncate:40}}</a>
+    <a [routerLink]="['/scholarship', scholarship.slug]"
+       [title]="scholarship.name"
+       class="card-title" (click)="clickHandler($event)">
+      <span class="hide-on-small-and-down">{{scholarship.name | truncate:140}}</span>
+      <span class="hide-on-med-and-up">{{scholarship.name | truncate:70}}</span>
+
+
+    </a>
 
     <div class="card-subtitle text-muted">
       <div *ngIf="scholarship.extra_questions && !scholarship.extra_questions.funding_amount_varies">{{scholarship.funding_amount | currency:'USD':'symbol':'1.0-0'}}</div>
