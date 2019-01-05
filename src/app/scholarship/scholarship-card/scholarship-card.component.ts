@@ -247,9 +247,9 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
   onVisibilityChange(el, callback) {
     return () => {
 
-      console.log('skipping onVisibilityChange');
-      console.log({el});
-      console.log({callback});
+      // console.log('skipping onVisibilityChange');
+      // console.log({el});
+      // console.log({callback});
       // return null;
       //
       // let visible = this.isElementInViewport(el);
