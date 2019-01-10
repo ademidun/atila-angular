@@ -559,7 +559,9 @@
                             <div class="col-sm-12 col-md-6" *ngFor="let entry of Object.keys(autoCompleteLists)">
 
                               <table>
-                                <p style="font-weight: bold">{{prettifyKeys(entry)}}</p>
+                                <p style="font-weight: bold">
+                                  {{prettifyKeys(entry)}} {{entry == 'citizenship' ? 'or permanent residency': ''}}
+                                </p>
                                 <tr  *ngFor="let item of scholarship[entry]; let i = index" ngDefaultControl>
                                   <td>{{item}} </td>
                                   <td>

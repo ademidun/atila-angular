@@ -76,7 +76,9 @@
 
         <div *ngFor="let key of autoCompleteLists">
           <ng-container *ngIf="scholarship[key].length>0">
-            <p><strong>{{prettifyKeys(key)}}:</strong>{{scholarship[key]}}</p>
+            <p>
+              <strong>{{prettifyKeys(key)}} {{key == 'citizenship' ? 'or permanent residency': ''}}:</strong>
+              {{scholarship[key]}}</p>
           </ng-container>
         </div>
         <p *ngIf="scholarship.female_only"><strong>Female Only</strong></p>
