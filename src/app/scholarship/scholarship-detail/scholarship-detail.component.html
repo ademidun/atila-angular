@@ -84,9 +84,6 @@
 
       </div>
       <br>
-      <p> Something Wrong?
-        <a routerLink="/contact" [queryParams]="{'atila_ref':'scholarship_detail'}">Tell Us</a>
-      </p>
 
       <div *ngIf="relatedItems" class="row">
         <div style="width: 100%; margin-left: 5%"><h5>Related</h5></div>
@@ -130,6 +127,10 @@
       <div class="inner-html" [innerHTML]="scholarship.criteria_info | safeHtml"></div>
 
     </div>
+
+    <p> Something Wrong?
+      <a routerLink="/contact" [queryParams]="{'atila_ref':'scholarship_detail'}">Tell Us</a>
+    </p>
 
   </div>
 
