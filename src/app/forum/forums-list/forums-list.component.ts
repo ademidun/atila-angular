@@ -127,6 +127,9 @@ export class ForumsListComponent implements OnInit {
       },
 
       err => {
+        this.snackBar.open(err.error? JSON.stringify(err.error): JSON.stringify(err),'', {
+          duration: 3000
+        });
 
       },
       () => {

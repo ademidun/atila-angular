@@ -615,10 +615,10 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
             },
             err => {
-              this.scholarshipErrors = JSON.stringify(err.error);
+              this.scholarshipErrors = err.error? JSON.stringify(err.error): JSON.stringify(err);
 
               this.firebaseService.saveAny('error_logs/scholarships',err);
-              this.snackBar.open("Error - " + this.scholarshipErrors, '', {
+              this.snackBar.open(err.error? JSON.stringify(err.error): JSON.stringify(err),'', {
                 duration: 3000
               });
             }

@@ -221,7 +221,7 @@ export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
 
       err => {
         console.log('essay, err',this.essay, err);
-        this.snackBar.open('Error: '+ JSON.stringify(err.error),'', {
+        this.snackBar.open(err.error? JSON.stringify(err.error): JSON.stringify(err),'', {
           duration: 5000
         });
       },

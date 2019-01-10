@@ -202,7 +202,9 @@ export class ForumDetailComponent implements OnInit, OnDestroy {
       },
 
       err =>{
-
+        this.snackBar.open(err.error? JSON.stringify(err.error): JSON.stringify(err),'', {
+          duration: 3000
+        });
       }
 
     )
