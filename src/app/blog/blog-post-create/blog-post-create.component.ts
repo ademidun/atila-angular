@@ -201,7 +201,7 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
       },
 
       err => {
-        this.snackBar.open(err,'', {
+        this.snackBar.open(err.error? JSON.stringify(err.error): JSON.stringify(err),'', {
           duration: 5000
         });
       },
