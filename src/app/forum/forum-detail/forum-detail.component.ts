@@ -179,14 +179,15 @@ export class ForumDetailComponent implements OnInit, OnDestroy {
     //prevent ScholarshipComments from tracking the changes to UserComment;
     // TODO: Consider using deepcopy of comment
     if( !this.authService.isUserLoggedIn()){
-      this.snackBar.open("Please Login", 'Log In', {
+      let snackBarRef = this.snackBar.open("Please Login", 'Log In', {
         duration: 3000
       });
 
       snackBarRef.onAction().subscribe(
         () => {
 
-          this.router.navigate(['login']);
+          this.router.navigateByUrl('/login?redirect='+this.router.url, {      preserveQueryParams: true, preserveFragment: true, queryParamsHandling: 'merge'});
+          this.authService.redirectUrl = this.router.url;
         },
         err =>  {}
       )

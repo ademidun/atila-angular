@@ -193,8 +193,9 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
       snackBarRef.onAction().subscribe(
         () => {
 
-          this.router.navigate(['login']);
-        },
+          this.router.navigateByUrl('/login?redirect='+this.router.url, {      preserveQueryParams: true, preserveFragment: true, queryParamsHandling: 'merge'});
+          this.authService.redirectUrl = this.router.url;
+          },
         err =>  {}
       )
       return;
