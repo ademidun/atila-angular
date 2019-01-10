@@ -81,7 +81,17 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
     if(isNaN(this.userId)){
 
       setTimeout( () => {
-        this.snackBar.open('Please Log In','',{duration: 3000});
+        let snackBarRef = this.snackBar.open('Please Log In','Log In', {
+          duration: 3000
+        });
+
+        snackBarRef.onAction().subscribe(
+          () => {
+
+            this.router.navigate(['login']);
+          },
+          err =>  {}
+        )
       });
 
 

@@ -31,9 +31,17 @@ export function likeContent(content: BlogPost, userProfile?,blogService?: BlogPo
   if (!userProfile) {
 
 
-    snackBar.open("Please log in to like.", '', {
+    let snackBarRef = snackBar.open("Please log in to like.", 'Log In', {
       duration: 3000
     });
+
+    snackBarRef.onAction().subscribe(
+      () => {
+
+        this.router.navigate(['login']);
+      },
+      err =>  {}
+    )
 
     return content;
   }

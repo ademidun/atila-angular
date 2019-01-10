@@ -46,7 +46,7 @@ export class CommentComponent implements OnInit {
   likeComment() {
 
     if (!this.userId || isNaN(this.userId)) {
-      let snackBarRef = this.snackBar.open("Please log in to like.", '', {
+      let snackBarRef = this.snackBar.open("Please log in to like.", 'Log in', {
         duration: 3000
       });
 

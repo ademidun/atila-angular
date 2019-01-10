@@ -186,9 +186,17 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
     // TODO: Consider using deepcopy of comment
 
     if (!this.authService.isUserLoggedIn()) {
-      this.snackBar.open("Please Login In", '', {
+      let snackBarRef = this.snackBar.open("Please Login In", 'Log In', {
         duration: 3000
       });
+
+      snackBarRef.onAction().subscribe(
+        () => {
+
+          this.router.navigate(['login']);
+        },
+        err =>  {}
+      )
       return;
 
     }

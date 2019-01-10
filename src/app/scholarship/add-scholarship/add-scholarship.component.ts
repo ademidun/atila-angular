@@ -171,9 +171,17 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
 
     if(isNaN(this.userId)){
-      this.snackBar.open("Please Log In", '', {
+      let snackBarRef = this.snackBar.open("Please Log In", 'Log In', {
         duration: 3000
       });
+
+      snackBarRef.onAction().subscribe(
+        () => {
+
+          this.router.navigate(['login']);
+        },
+        err =>  {}
+      )
     }
 
     if(this.scholarshipSlug){
@@ -562,9 +570,17 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
     else if (metadata && metadata['quickAdd']) {
       if(isNaN(this.userId)){
-        this.snackBar.open("Please Log In", '', {
+        let snackBarRef = this.snackBar.open("Please Log In", 'Log In', {
           duration: 3000
         });
+
+        snackBarRef.onAction().subscribe(
+          () => {
+
+            this.router.navigate(['login']);
+          },
+          err =>  {}
+        )
         return;
       }
 

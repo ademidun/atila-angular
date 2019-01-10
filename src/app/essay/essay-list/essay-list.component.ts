@@ -87,7 +87,7 @@ export class EssayListComponent implements OnInit {
   likeContent(content: Essay, index?) {
 
     if (!this.userProfile) {
-      let snackBarRef = this.snackBar.open("Please log in to like.", '', {
+      let snackBarRef = this.snackBar.open("Please log in to like.", 'Log In', {
         duration: 3000
       });
 

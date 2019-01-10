@@ -144,7 +144,7 @@ export class ForumsListComponent implements OnInit {
   likeContent(content: Forum, index?) {
 
     if (!this.userProfile) {
-      let snackBarRef = this.snackBar.open("Please log in to like.", '', {
+      let snackBarRef = this.snackBar.open("Please log in to like.", 'Log In', {
         duration: 3000
       });
 
