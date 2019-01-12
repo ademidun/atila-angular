@@ -87,14 +87,15 @@ export class EssayListComponent implements OnInit {
   likeContent(content: Essay, index?) {
 
     if (!this.userProfile) {
-      let snackBarRef = this.snackBar.open("Please log in to like.", '', {
+      let snackBarRef = this.snackBar.open("Please log in to like.", 'Log In', {
         duration: 3000
       });
 
       snackBarRef.onAction().subscribe(
         () => {
 
-          this.router.navigate(['login']);
+          this.router.navigateByUrl('/login?redirect='+this.router.url, {      preserveQueryParams: true, preserveFragment: true, queryParamsHandling: 'merge'});
+          this.authService.redirectUrl = this.router.url;
         },
         err =>  {}
       );

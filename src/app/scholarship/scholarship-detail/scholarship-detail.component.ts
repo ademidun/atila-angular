@@ -253,6 +253,9 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
       },
 
       err =>{
+        this.snackBar.open(err.error? JSON.stringify(err.error): JSON.stringify(err),'', {
+          duration: 3000
+        });
       }
 
     );

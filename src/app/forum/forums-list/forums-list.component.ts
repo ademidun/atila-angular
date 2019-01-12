@@ -105,7 +105,8 @@ export class ForumsListComponent implements OnInit {
       snackBarRef.onAction().subscribe(
         () => {
 
-          this.router.navigate(['login']);
+          this.router.navigateByUrl('/login?redirect='+this.router.url, {      preserveQueryParams: true, preserveFragment: true, queryParamsHandling: 'merge'});
+          this.authService.redirectUrl = this.router.url;
         },
         err =>  {}
       )
@@ -127,6 +128,9 @@ export class ForumsListComponent implements OnInit {
       },
 
       err => {
+        this.snackBar.open(err.error? JSON.stringify(err.error): JSON.stringify(err),'', {
+          duration: 3000
+        });
 
       },
       () => {
@@ -141,14 +145,15 @@ export class ForumsListComponent implements OnInit {
   likeContent(content: Forum, index?) {
 
     if (!this.userProfile) {
-      let snackBarRef = this.snackBar.open("Please log in to like.", '', {
+      let snackBarRef = this.snackBar.open("Please log in to like.", 'Log In', {
         duration: 3000
       });
 
       snackBarRef.onAction().subscribe(
         () => {
 
-          this.router.navigate(['login']);
+          this.router.navigateByUrl('/login?redirect='+this.router.url, {      preserveQueryParams: true, preserveFragment: true, queryParamsHandling: 'merge'});
+          this.authService.redirectUrl = this.router.url;
         },
         err =>  {}
       );

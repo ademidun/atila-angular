@@ -83,7 +83,18 @@ export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
     if(isNaN(this.userId)){
 
       setTimeout( () => {
-        this.snackBar.open('Please Log In','',{duration: 3000});
+       let snackBarRef = this.snackBar.open('Please Log In','Log In', {
+          duration: 3000
+        });
+
+        snackBarRef.onAction().subscribe(
+          () => {
+
+            this.router.navigateByUrl('/login?redirect='+this.router.url, {      preserveQueryParams: true, preserveFragment: true, queryParamsHandling: 'merge'});
+            this.authService.redirectUrl = this.router.url;
+          },
+          err =>  {}
+        )
       });
 
 
@@ -221,7 +232,7 @@ export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
 
       err => {
         console.log('essay, err',this.essay, err);
-        this.snackBar.open('Error: '+ JSON.stringify(err.error),'', {
+        this.snackBar.open(err.error? JSON.stringify(err.error): JSON.stringify(err),'', {
           duration: 5000
         });
       },

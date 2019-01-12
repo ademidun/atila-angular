@@ -171,9 +171,18 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
 
     if(isNaN(this.userId)){
-      this.snackBar.open("Please Log In", '', {
+      let snackBarRef = this.snackBar.open("Please Log In", 'Log In', {
         duration: 3000
       });
+
+      snackBarRef.onAction().subscribe(
+        () => {
+
+          this.router.navigateByUrl('/login?redirect='+this.router.url, {      preserveQueryParams: true, preserveFragment: true, queryParamsHandling: 'merge'});
+          this.authService.redirectUrl = this.router.url;
+        },
+        err =>  {}
+      )
     }
 
     if(this.scholarshipSlug){
@@ -562,9 +571,18 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
     else if (metadata && metadata['quickAdd']) {
       if(isNaN(this.userId)){
-        this.snackBar.open("Please Log In", '', {
+        let snackBarRef = this.snackBar.open("Please Log In", 'Log In', {
           duration: 3000
         });
+
+        snackBarRef.onAction().subscribe(
+          () => {
+
+            this.router.navigateByUrl('/login?redirect='+this.router.url, {      preserveQueryParams: true, preserveFragment: true, queryParamsHandling: 'merge'});
+            this.authService.redirectUrl = this.router.url;
+          },
+          err =>  {}
+        )
         return;
       }
 
@@ -615,10 +633,10 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
             },
             err => {
-              this.scholarshipErrors = JSON.stringify(err.error);
+              this.scholarshipErrors = err.error? JSON.stringify(err.error): JSON.stringify(err);
 
               this.firebaseService.saveAny('error_logs/scholarships',err);
-              this.snackBar.open("Error - " + this.scholarshipErrors, '', {
+              this.snackBar.open(err.error? JSON.stringify(err.error): JSON.stringify(err),'', {
                 duration: 3000
               });
             }

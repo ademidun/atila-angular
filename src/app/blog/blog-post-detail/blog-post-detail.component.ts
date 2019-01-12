@@ -186,9 +186,18 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
     // TODO: Consider using deepcopy of comment
 
     if (!this.authService.isUserLoggedIn()) {
-      this.snackBar.open("Please Login In", '', {
+      let snackBarRef = this.snackBar.open("Please Login In", 'Log In', {
         duration: 3000
       });
+
+      snackBarRef.onAction().subscribe(
+        () => {
+
+          this.router.navigateByUrl('/login?redirect='+this.router.url, {      preserveQueryParams: true, preserveFragment: true, queryParamsHandling: 'merge'});
+          this.authService.redirectUrl = this.router.url;
+          },
+        err =>  {}
+      )
       return;
 
     }
@@ -209,7 +218,9 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
       },
 
       err => {
-
+        this.snackBar.open(err.error? JSON.stringify(err.error): JSON.stringify(err),'', {
+          duration: 3000
+        });
       }
     )
 
