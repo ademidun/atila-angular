@@ -31,18 +31,6 @@
             <a target="_blank" *ngIf="scholarship.form_url" href="{{scholarship.form_url}}"> View Application Form </a>
             <!--<a target="_blank" *ngIf="scholarship.local_form_location.indexOf('scholartree') !== -1;" href="https://scholartree.ca">Source</a> <br>-->
 
-            <div style="margin-bottom: 1%">
-              <p>Save for Later</p>
-              <!--<button mat-fab  (click)="addToMyScholarships(scholarship)" style="margin-left: -23%">-->
-              <button mat-fab  (click)="addToMyScholarships(scholarship)">
-                <mat-icon [ngStyle]="{'color': alreadySaved ? '#4080ff' : ''}"  class="atila-blue" aria-hidden="true" aria-label="Save">bookmark</mat-icon>
-              </button>
-
-              <app-share-item [item]="{title: scholarship.name,
-                url:'https://atila.ca/scholarship/'+scholarship.slug+'/',
-                id: scholarship.id, source:'scholarship_detail',type:'scholarship'}" [metadata]="{'shareItemStyle':{'left': '55px','bottom': '4.5%', 'zoom':1.4}}"></app-share-item>
-            </div>
-
           </div>
 
       <div  class="col-sm-12 col-md-4">
@@ -53,10 +41,28 @@
           <!--</span>-->
 
           <span *ngIf="scholarship">
-            <p>Request Automation and we'll automate the scholarship for you.</p>
             <button mat-raised-button (click)="requestAutomation()"
-                    style="background-color: #4080ff; min-height: 60px" class="white-text">Request Automation</button>
+                    style="background-color: #4080ff; min-height: 60px" class="white-text" placement="bottom"
+                    ngbTooltip="Request for this scholarship's application process to be automated.">
+              Request Automation
+            </button>
+            <i class="material-icons" placement="bottom"
+               ngbTooltip="Request for this scholarship's application process to be automated.">info_outline</i>
           </span>
+
+          <div style="margin-top: 10%">
+          <!--<button mat-fab  (click)="addToMyScholarships(scholarship)" style="margin-left: -23%">-->
+          <button mat-fab  (click)="addToMyScholarships(scholarship)" placement="bottom"
+                  ngbTooltip="Save Scholarship">
+            <mat-icon [ngStyle]="{'color': alreadySaved ? '#4080ff' : ''}"  class="atila-blue" aria-hidden="true" aria-label="Save">bookmark</mat-icon>
+          </button>
+
+          <app-share-item placement="right"
+                          ngbTooltip="Share Scholarship"
+                          [item]="{title: scholarship.name,
+                url:'https://atila.ca/scholarship/'+scholarship.slug+'/',
+                id: scholarship.id, source:'scholarship_detail',type:'scholarship'}" [metadata]="{'shareItemStyle':{'left': '55px','bottom': '27px', 'zoom':1.4}}"></app-share-item>
+        </div>
 
         </div>
 
