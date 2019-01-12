@@ -1,11 +1,11 @@
-<div class="container" *ngIf="scholarship">
+<div class="container" *ngIf="scholarship" style="margin-top: 3%">
     <div class="row">
       <div class="col-sm-12">
         <img class="scholarship-image" [src]="scholarship.img_url" />
       </div>
     </div>
-    <div class="row">
-      <h3 style="width: 100%; text-align: center">{{scholarship.name}}</h3>
+    <div class="row" style="margin-top: -1%">
+      <h3 style="width: 100%; text-align: center; margin-top: 0">{{scholarship.name}}</h3>
 
       <div class="date-created col col-sm-12 col-md-8">
             <span *ngIf="scholarship.metadata['not_open_yet'];else hasDeadline"><strong>Opens:</strong> {{scholarship.open_date | date:'mediumDate' }}</span>
@@ -31,7 +31,7 @@
             <a target="_blank" *ngIf="scholarship.form_url" href="{{scholarship.form_url}}"> View Application Form </a>
             <!--<a target="_blank" *ngIf="scholarship.local_form_location.indexOf('scholartree') !== -1;" href="https://scholartree.ca">Source</a> <br>-->
 
-            <div style="margin-bottom: 3%">
+            <div style="margin-bottom: 1%">
               <p>Save for Later</p>
               <!--<button mat-fab  (click)="addToMyScholarships(scholarship)" style="margin-left: -23%">-->
               <button mat-fab  (click)="addToMyScholarships(scholarship)">
@@ -62,7 +62,7 @@
 
 
       <div class="col-sm-12">
-        <h3>Scholarship Description</h3>
+        <h3 style="margin-top: 1%">Scholarship Description</h3>
         <p style="width: 90%">{{scholarship.description}}</p>
       </div>
 
