@@ -113,17 +113,8 @@ export class PreviewComponent implements OnInit, OnDestroy {
       'contributors': []
     },
     {
+      'id': 14,
       'title': 'From Medical School Rejection Twice to Google and Pinterest Software Engineer: Ruth Grace Wong – Atila TV Episode 2',
-      'user': {
-        'first_name': 'Tomiwa',
-        'last_name': 'Ademidun',
-        'username': 'tomiwa',
-        'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fprofile-pictures%2Ffacebook-profile-picture.jpg?alt=media&token=8754c657-bbdc-4d8e-ae1d-d4047ac09c6d',
-        'title': 'Software Engineering Student',
-        'post_secondary_school': 'University of Western Ontario',
-        'secondary-school': '',
-        'id': 1
-      },
       'slug': 'from-medical-school-rejection-twice-to-google-and-pinterest-software-engineer-ruth-grace-wong-atila-tv-episode-2',
       'description': 'Ruth Grace Wong talks about her path from getting rejected from medical school twice, to  a Master’s in computational biochemistry to working as a software engineer at Google and Pinterest.',
       'header_image_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/blogs%2F14%2Fheader_image_url%2Fatila-tv-003-ruth-grace-wong-coverphoto.png?alt=media&token=4db8d0d7-3a09-4ce8-970f-34312d7652ce',
@@ -141,7 +132,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
         'title': 'Software Engineering Student',
         'post_secondary_school': 'University of Western Ontario',
         'secondary-school': '',
-        'id': 1
       },
       'contributors': [],
       'id': 14
