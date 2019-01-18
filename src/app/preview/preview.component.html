@@ -28,7 +28,7 @@
             <div class="col-sm-12 input-field">
               <app-typeahead [(model)]="model.searchString" [dataset]="MASTER_LIST_EVERYTHING"
                              [inputStyles]="{'font-size':'50px', 'caret-color': 'white', 'color': 'white'}"
-                             [metadata]="{'placeholder':'Enter a Search Term', 'key': 'searchString','disableFocusFirst': true, 'matInput': true, 'noPlaceHolder': true}"
+                             [metadata]="{'placeholder':'Enter a search term', 'key': 'searchString','disableFocusFirst': true, 'matInput': true, 'noPlaceHolder': true}"
                              [labelStyles]="{'font-size':'50px', 'caret-color': 'white', 'color': 'white'}"
                               (typeaheadSelectedEvent)="typeaheadEvent($event)">
               </app-typeahead>
@@ -75,14 +75,14 @@
 
         </div>
         <br>
-        <mat-slide-toggle (change)="model.previewMode = model.previewMode=='classicFilter'? 'universalSearch': 'classicFilter'" checked="true">
-          <span class="white-text">
-          Preview Mode:
-          <strong>
-            {{prettifyKeys(model.previewMode)}}
-          </strong>
-          </span>
-        </mat-slide-toggle>
+        <!--<mat-slide-toggle (change)="model.previewMode = model.previewMode=='classicFilter'? 'universalSearch': 'classicFilter'" checked="true">-->
+          <!--<span class="white-text">-->
+          <!--Preview Mode:-->
+          <!--<strong>-->
+            <!--{{prettifyKeys(model.previewMode)}}-->
+          <!--</strong>-->
+          <!--</span>-->
+        <!--</mat-slide-toggle>-->
 
         <div class="" style="text-align: center;">
           <button class=" col-sm-8 offset-sm-2 waves-effect waves-light btn scholarship-btn" type="submit">Get My Scholarships</button>
@@ -97,7 +97,7 @@
   <!-- Blog Posts Demo-->
   <div class="container row">
     <h1 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"><a routerLink="/blog"> Blog posts </a></h1>
-    <h5 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"> Learn from Other student’s stories </h5>
+    <h5 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"> Learn from other students' stories </h5>
     <div class="row">
       <div *ngFor="let blog of blogs; let i = index" class="col-lg-4 blog-box">
 

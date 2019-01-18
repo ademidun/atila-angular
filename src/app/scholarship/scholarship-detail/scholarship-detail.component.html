@@ -61,7 +61,7 @@
                           ngbTooltip="Share Scholarship"
                           [item]="{title: scholarship.name,
                 url:'https://atila.ca/scholarship/'+scholarship.slug+'/',
-                id: scholarship.id, source:'scholarship_detail',type:'scholarship'}" [metadata]="{'shareItemStyle':{'left': '55px','bottom': '27px', 'zoom':1.4}}"></app-share-item>
+                id: scholarship.id, source:'scholarship_detail',type:'scholarship'}" [metadata]="{'shareItemStyle':{'left': '55px','bottom': '0px', 'zoom':1.4}}"></app-share-item>
         </div>
 
         </div>
@@ -69,7 +69,7 @@
 
       <div class="col-sm-12">
         <h3 style="margin-top: 1%">Scholarship Description</h3>
-        <p style="width: 90%">{{scholarship.description}}</p>
+        <p style="width: 90%; white-space: pre-line">{{scholarship.description}}</p>
       </div>
 
       <div *ngIf="scholarship.extra_criteria && Object.keys(scholarship.extra_criteria).length>0 || scholarshipAdditionalCriteria.length>0">
