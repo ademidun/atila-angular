@@ -134,7 +134,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
         'secondary-school': '',
       },
       'contributors': [],
-      'id': 14
     },
   ];
 
