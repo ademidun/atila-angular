@@ -45,7 +45,6 @@ export class EssayListComponent implements OnInit {
 
           this.essayService.list().subscribe(
             res => {
-              console.log('res',res);
               this.essays = res.results;
 
               this.essays.forEach(essay => {
@@ -72,7 +71,6 @@ export class EssayListComponent implements OnInit {
     else {
       this.essayService.list().subscribe(
         res => {
-          console.log('res',res);
           this.essays = res.results;
           this.isLoading = false;
         },
