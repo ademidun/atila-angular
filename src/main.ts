@@ -30,14 +30,11 @@ platformBrowserDynamic().bootstrapModule(AppModule);
 // https://juristr.com/blog/2018/01/ng-app-runtime-config/
 
 if ('serviceWorker' in navigator && environment.production) {
-  console.log("Service Worker in main.ts");
   window.addEventListener('load', () => {
-    console.log("on page Load Service Worker in main.ts");
     navigator.serviceWorker.register('/ngsw-worker.js', {
       scope: '/',
     })
       .then(registration => {
-        console.log("Service Worker registration completed main.ts", registration);
       });
   });
 }

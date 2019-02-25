@@ -136,7 +136,6 @@ export class EditProfileComponent implements OnInit {
             this.initializeLocations(this.userProfile.city);
 
             this.initializeForm();
-            console.log('this.route', this.route, this.route.url);
             if (this.route.snapshot.fragment && this.route.snapshot.fragment.includes('referral-code')) {
               this.showReferralCode = true;
             }

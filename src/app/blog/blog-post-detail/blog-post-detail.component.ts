@@ -233,11 +233,10 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
   }
   scrollToElement(selector) {
     try{
-      console.log('scrollToElement',this.scrollToElement);
       $("html, body").animate({scrollTop: $(selector).offset().top}, 1000);
     }
     catch(e) {
-      console.log('scrollToElement catch e',e);
+      // console.log('scrollToElement catch e',e);
 
     }
   }

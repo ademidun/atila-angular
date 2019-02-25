@@ -372,7 +372,7 @@ export class UserProfileService implements OnDestroy{
         })
     }
     catch(e) {
-      console.log('checkViewHistory e:',e)
+      // console.log('checkViewHistory e:',e)
     }
 
   }
