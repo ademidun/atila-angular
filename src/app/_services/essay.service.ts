@@ -23,8 +23,9 @@ export class EssayService {
       .catch(err => Observable.throw(err));
   }
 
-  getBySlug(username:string, slug: string) {
-    return this.http.get(`${this.essayUrl}essay/${username}/${slug}/`)
+  getBySlug(username: string, slug: string) {
+    return this.http.get(`https://api.myjson.com/bins/txcb2`) // uncomment this line to use a mocked API call
+    // return this.http.get(`${this.essayUrl}essay/${username}/${slug}/`)
       .map(res => res)
       .catch(err => Observable.throw(err));
   }

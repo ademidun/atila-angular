@@ -1,8 +1,8 @@
 <div class="container row">
   <ng-container *ngIf="essay">
 
-    <div class="col-sm-12">
-      <h3 style="text-align: center; "> {{essay.title}} </h3>
+    <div class="col-sm-12 center">
+      <h1 class="atila-font"> {{essay.title}} </h1>
     </div>
 
   <div class="col-sm-12 col-md-10  offset-md-1">
@@ -21,25 +21,31 @@
               </a>
             </div>
           </a>
+            <p class="text-muted" style="margin-bottom: .1%" *ngIf="essay.user.title">
+              {{essay.user.title}}
+            </p>
+            <p class="text-muted" style="margin-bottom: .1%" *ngIf="essay.user.post_secondary_school || essay.user.secondary_school">
+              {{essay.user.post_secondary_school || essay.user.secondary_school}}
+            </p>
         </div>
         <a class="card-action" *ngIf="essay.essay_source_url" [href]="essay.essay_source_url" target="_blank">View Original Essay</a>
       </div>
 
       <hr>
 
-      <h4>About This Essay</h4>
-      <blockquote class="essay-content-html" style="font-style: italic">
+      <h4 class="atila-font" style="font-size: 2.28rem; font-weight: 400">About This Essay</h4>
+      <blockquote class="atila-font" style="font-style: italic">
         {{essay.description}}
       </blockquote>
       <!--<div [froalaView]="essay.body" ></div>-->
-      <div class="blog-text inner-html essay-content-html" [innerHTML]="essay.body | safeHtml"></div>
+      <div class="inner-html atila-font" [innerHTML]="essay.body | safeHtml"></div>
 
     </div>
 
   </ng-container>
 
   <!-- Loading progress bar -->
-  <div class="col-sm-12 ng-star-inserted"
+  <div *ngIf="!essay" class="col-sm-12 ng-star-inserted"
        style="margin-top: 5%;margin-bottom: 5%;">
     <h3 class="center">
       Loading Essay...

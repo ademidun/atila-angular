@@ -1,9 +1,9 @@
 <div class="container">
     <div *ngIf="blogPost">
 
-            <span class="col-sm-12">
+            <div class="col-sm-12">
               <h3 style="text-align: center; "> {{blogPost.title}} </h3>
-            </span>
+            </div>
 
             <div class="col-sm-12 col-md-10  offset-md-1">
                 <a *ngIf="userProfile && (userProfile.user==blogPost.user.id || userProfile.is_atila_admin)" [routerLink]="[ '/blog/edit', blogPost.id ]">Edit Blog</a>

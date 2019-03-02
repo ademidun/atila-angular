@@ -71,58 +71,55 @@ export class EssayDetailComponent implements OnInit, OnDestroy {
       return;
     }
     let slugCopy = {username: this.slugUsername, title: this.slugTitle};
-    // this.essayService.getBySlug(this.slugUsername, this.slugTitle).subscribe(
-    //   res => {
-    //     this.essay = res.essay;
-    //
-    //     console.log('this.userProfile, this.essay', this.userProfile, this.essay);
-    //
-    //     //this.updateMeta();
-    //
-    //     let essayImageSeo = 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-essays-logo.png?alt=media&token=c4eb9b0a-f17a-4cb6-a80d-d6d839956a24';
-    //
-    //     if (this.essay.user && !this.essay.user.profile_pic_url.includes(DEFAULTPROFILEPICURL)) {
-    //       essayImageSeo = this.essay.user.profile_pic_url;
-    //     }
-    //     try {
-    //       this.seoService.generateTags({
-    //         title: `${this.essay.title} - ${this.essay.user.first_name} ${this.essay.user.last_name}`,
-    //         description: this.essay.description,
-    //         image: essayImageSeo,
-    //         slug: `essay/${this.essay.user.username}/${this.essay.slug}`
-    //       });
-    //     }
-    //     catch (err) {
-    //     }
-    //
-    //     if (!isNaN(this.userId)) {
-    //
-    //       this.userProfileService.getById(parseInt(this.userId)).subscribe(
-    //         res => {
-    //           this.userProfile = res;
-    //         }
-    //       );
-    //
-    //       this.userComment = new Comment(this.userId);
-    //     }
-    //
-    //   },
-    //   err => {
-    //     let snackBarRef = this.snackBar.open('Blog Post Not Found.', 'Try User\'s Blogs', {
-    //       duration: 5000
-    //     });
-    //
-    //     // this.slugUsername keeps appearing as undefined
-    //     snackBarRef.onAction().subscribe(
-    //       () => {
-    //         this.router.navigate(['blog', slugCopy.username]);
-    //       });
-    //
-    //     setTimeout(() => {
-    //       this.router.navigate(['blog', slugCopy.username]);
-    //     }, 500);
-    //   }
-    // );
+    this.essayService.getBySlug(this.slugUsername, this.slugTitle).subscribe(
+      res => {
+        this.essay = res.essay;
+        //this.updateMeta();
+
+        let essayImageSeo = 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-essays-logo.png?alt=media&token=c4eb9b0a-f17a-4cb6-a80d-d6d839956a24';
+
+        if (this.essay.user && !this.essay.user.profile_pic_url.includes(DEFAULTPROFILEPICURL)) {
+          essayImageSeo = this.essay.user.profile_pic_url;
+        }
+        try {
+          this.seoService.generateTags({
+            title: `${this.essay.title} - ${this.essay.user.first_name} ${this.essay.user.last_name}`,
+            description: this.essay.description,
+            image: essayImageSeo,
+            slug: `essay/${this.essay.user.username}/${this.essay.slug}`
+          });
+        }
+        catch (err) {
+        }
+
+        if (!isNaN(this.userId)) {
+
+          this.userProfileService.getById(parseInt(this.userId)).subscribe(
+            resUser => {
+              this.userProfile = resUser;
+            }
+          );
+
+          this.userComment = new Comment(this.userId);
+        }
+
+      },
+      err => {
+        const snackBarRef = this.snackBar.open('Essay Not Found.', 'Try User\'s profile', {
+          duration: 5000
+        });
+
+        // this.slugUsername keeps appearing as undefined
+        snackBarRef.onAction().subscribe(
+          () => {
+            this.router.navigate(['profile', slugCopy.username]);
+          });
+
+        setTimeout(() => {
+          this.router.navigate(['profile', slugCopy.username]);
+        }, 500);
+      }
+    );
 
   }
 
