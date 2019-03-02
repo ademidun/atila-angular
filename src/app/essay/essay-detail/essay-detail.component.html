@@ -1,11 +1,11 @@
-<div class="container">
-  <div *ngIf="essay">
+<div class="container row">
+  <ng-container *ngIf="essay">
 
-            <span class="col-sm-12">
-              <h3 style="text-align: center; "> {{essay.title}} </h3>
-            </span>
+    <div class="col-sm-12">
+      <h3 style="text-align: center; "> {{essay.title}} </h3>
+    </div>
 
-    <div class="col-sm-12 col-md-10  offset-md-1">
+  <div class="col-sm-12 col-md-10  offset-md-1">
       <a *ngIf="userProfile && (userProfile.user==essay.user.id || userProfile.is_atila_admin)" [routerLink]="[ '/essay/edit', essay.id ]">Edit Essay</a>
       <div *ngIf="!essay.published" style="font-weight: bold; "> | Unpublished</div>
       <!--<img src="{{essay.header_image_url}}" style="max-height: 100%;max-width: 100%" class="center-block"/>-->
@@ -36,80 +36,15 @@
 
     </div>
 
-    <!-- TODO: Should we ask the user occasionally to subscribe? Even if already logged in? -->
-    <span>
-      <!--<div *ngIf="!isLoggedIn" class="row center" style="text-align: center;margin-bottom: 0px;">-->
-        <!--<p style="font-size: medium" class="col-sm-6">Subscribe to get updates on new <a routerLink="/blog">blogs</a>,-->
-          <!--<a routerLink="/forum">forum posts</a>, <a routerLink="/">scholarships</a> and new product features.-->
-  <!---->
-          <!--<span *ngIf="subscriber.response" style="color: green">-->
-                    <!--<br>-->
-                    <!--{{subscriber.response}}-->
-              <!--</span>-->
-        <!--</p>-->
-  <!---->
-  <!---->
-        <!--<mat-form-field class="browser-default col-sm-3 ">-->
-          <!--&lt;!&ndash; <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> &ndash;&gt;-->
-          <!--<input matInput type="email" class="form-control" style="padding-bottom: 0; margin-bottom: 0"  name="email" id="emailid"-->
-                 <!--placeholder="Email Address" email [(ngModel)]="subscriber.email" (keyup.enter)="addSubscriber($event)">-->
-        <!--</mat-form-field>-->
-        <!--<a class="waves-effect waves-light btn browser-default col-sm-2 register-btn" style="background-color:#4080ff; " (click)="addSubscriber()">Subscribe</a>-->
-  <!---->
-  <!---->
-      <!--</div>-->
-  <!---->
-      <!--<div *ngIf="relatedItems" class="row">-->
-        <!--<div style="width: 100%; margin-left: 5%" class="row"><h5>Related</h5> <span style="font-size: smaller; color: #194F87">Beta</span></div>-->
-        <!--<div  *ngFor="let item of relatedItems; let i = index; first as isFirst;" class="col-md-4">-->
-          <!--<div (click)="logRelatedItemClick(item)">-->
-            <!--<app-card-generic class="hide-on-small-and-down" [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'height': '300px', 'overflow-y': 'hidden'}"> </app-card-generic>-->
-            <!--<app-card-generic class="hide-on-med-and-up" [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'max-height': '300px', 'overflow-y': 'hidden'}"> </app-card-generic>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
-  <!---->
-      <!--<div class="col-sm-11 comment-box">-->
-        <!--<h5 > Comments </h5>-->
-  <!---->
-        <!--<mat-card *ngIf="userComment" class="comment-card">-->
-  <!---->
-          <!--<mat-card-content>-->
-            <!--<input id="blog_post_title" placeholder="Title (optional)" [(ngModel)]="userComment.title">-->
-            <!--<textarea style="height: 5rem" id="blog_post_comment_text" placeholder="What do you think?" [(ngModel)]="userComment.text">-->
-                          <!--</textarea>-->
-          <!--</mat-card-content>-->
-  <!---->
-          <!--<mat-card-actions>-->
-            <!--<button mat-raised-button style="background-color: #4080ff;" class="btn white-text" (click)="postComment()">Post</button>-->
-          <!--</mat-card-actions>-->
-  <!---->
-        <!--</mat-card>-->
-  <!---->
-        <!--<div  *ngFor="let comment of comments; i as index; first as isFirst; trackBy:trackByFn" class="comments">-->
-          <!--<app-comment  [comment]="comment" commentType="Forum"> </app-comment>-->
-        <!--</div>-->
-  <!---->
-      <!--</div>-->
-    </span>
+  </ng-container>
 
-
+  <!-- Loading progress bar -->
+  <div class="col-sm-12 ng-star-inserted"
+       style="margin-top: 5%;margin-bottom: 5%;">
+    <h3 class="center">
+      Loading Essay...
+    </h3>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   </div>
 
-  <!-- Loading progress circle -->
-  <div *ngIf="!essay" class="preloader-background">
-    <div class="preloader-wrapper big active">
-      <div class="spinner-layer spinner-blue-only">
-        <div class="circle-clipper left">
-          <div class="circle"></div>
-        </div>
-        <div class="gap-patch">
-          <div class="circle"></div>
-        </div>
-        <div class="circle-clipper right">
-          <div class="circle"></div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
