@@ -20,3 +20,29 @@ input.prefix_input{
   line-height: 23px;
 }
 
+.blog-text.inner-html {
+  box-sizing: border-box;
+  color: rgba(0, 0, 0, 0.75);
+  font-family: Georgia,"Times New Roman",Times,serif;
+  font-size: 20px;
+  font-variant-ligatures: common-ligatures;
+  line-height: 35px;
+}
+
+:host ::ng-deep .blog-text.inner-html p, p {
+  margin-top: 25px;
+}
+:host ::ng-deep .blog-text.inner-html li, li {
+  margin-top: 15px;
+  margin-left: 15px;
+}
+h1.blog-title  {
+  text-align: center;
+  font-family: Palatino,Georgia,Cambria,"Times New Roman",Times,serif;
+  font-style: normal;
+  font-weight: 100;
+  line-height: 1.25;
+  letter-spacing: 0;
+  font-size: 2.5rem;
+}
+

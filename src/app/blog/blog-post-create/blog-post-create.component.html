@@ -1,6 +1,6 @@
 <div class="container">
     <div class="col-sm-11">
-      <h3> {{blogPost.title}} </h3>
+      <h1 class="blog-title">{{blogPost.title}}</h1>
       <span *ngIf="!blogPost.published" style=" font-size: medium; font-weight: bold; ">Unpublished</span>
       <a (click)="scrollToElement('#preview-blog')">Preview <i class="material-icons">remove_red_eye</i></a>
       <mat-card class="forum-card">
@@ -73,10 +73,10 @@
     <br>
     <div style="margin-top:3%" class="col-sm-12 col-md-10 offset-md-1" id="preview-blog">
       <h5>Preview</h5>
-      <h3> {{blogPost.title}} </h3>
+      <h1 class="blog-title">{{blogPost.title}}</h1>
       <img *ngIf="blogPost.header_image_url" [src]="blogPost.header_image_url" style="max-height: 100%;max-width: 100%;"/>
     </div>
-    <div [innerHTML]="blogPost.body | safeHtml" class="col-sm-12 col-md-10 offset-md-1 inner-html"></div>
+    <div [innerHTML]="blogPost.body | safeHtml" class="col-sm-12 col-md-10 offset-md-1 inner-html blog-text"></div>
     <!--<div [froalaView]="blogPost.body" class="col col-md-8 offset-md-d-2 col-lg-8 offset-lg-2 col-sm-11"></div>-->
 
 </div>
