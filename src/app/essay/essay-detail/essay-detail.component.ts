@@ -1,25 +1,17 @@
-import {Component, NgZone, OnDestroy, OnInit} from '@angular/core';
-import {BlogPostService} from "../../_services/blog-post.service";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Comment} from '../../_models/comment';
 
-import {BlogPost, likeContent} from "../../_models/blog-post";
-import {Comment} from "../../_models/comment";
-
-import {UserProfile, DEFAULTPROFILEPICURL} from '../../_models/user-profile';
+import {DEFAULTPROFILEPICURL, UserProfile} from '../../_models/user-profile';
 
 import {UserProfileService} from '../../_services/user-profile.service';
-
-import {CommentService} from '../../_services/comment.service';
 
 import {ActivatedRoute, ActivationEnd, Router} from '@angular/router';
 import {Title} from '@angular/platform-browser';
 
-import {AuthService} from "../../_services/auth.service";
+import {AuthService} from '../../_services/auth.service';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {MyFirebaseService} from '../../_services/myfirebase.service';
 import {SeoService} from '../../_services/seo.service';
-import {SearchService} from '../../_services/search.service';
-import {genericItemTransform} from '../../_shared/utils';
-import {SubscriberDialogComponent} from '../../subscriber-dialog/subscriber-dialog.component';
 import {Subscription} from 'rxjs/Subscription';
 import {EssayService} from '../../_services/essay.service';
 import {Essay} from '../../_models/essay';
@@ -44,23 +36,19 @@ export class EssayDetailComponent implements OnInit, OnDestroy {
   routerChanges: Subscription;
 
   constructor(public route: ActivatedRoute,
-    public router: Router,
-    public _ngZone: NgZone,
-    public userProfileService: UserProfileService,
-    public titleService: Title,
-    public commentService: CommentService,
-    public essayService: EssayService,
-    public snackBar: MatSnackBar,
-    public authService: AuthService,
-    public firebaseService: MyFirebaseService,
-    public seoService: SeoService,
-    public dialog: MatDialog,
-    public searchService: SearchService,)
-  {
+              public router: Router,
+              public userProfileService: UserProfileService,
+              public titleService: Title,
+              public essayService: EssayService,
+              public snackBar: MatSnackBar,
+              public authService: AuthService,
+              public firebaseService: MyFirebaseService,
+              public seoService: SeoService,
+              public dialog: MatDialog) {
     this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
 
-    this.routerChanges = router.events.subscribe(data=>{
-      if(data instanceof ActivationEnd){
+    this.routerChanges = router.events.subscribe(data => {
+      if (data instanceof ActivationEnd) {
 
 
         if (this.userProfileService.viewHistoryChanges) {
@@ -82,18 +70,15 @@ export class EssayDetailComponent implements OnInit, OnDestroy {
     if (!this.slugUsername || !this.slugTitle) {
       return;
     }
-    let slugCopy = {username:this.slugUsername, title:this.slugTitle};
+    let slugCopy = {username: this.slugUsername, title: this.slugTitle};
     this.essayService.getBySlug(this.slugUsername, this.slugTitle).subscribe(
       res => {
         this.essay = res.essay;
-
-        console.log('this.userProfile, this.essay',this.userProfile, this.essay);
-
         //this.updateMeta();
 
         let essayImageSeo = 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-essays-logo.png?alt=media&token=c4eb9b0a-f17a-4cb6-a80d-d6d839956a24';
 
-        if (this.essay.user && !this.essay.user.profile_pic_url.includes(DEFAULTPROFILEPICURL)){
+        if (this.essay.user && !this.essay.user.profile_pic_url.includes(DEFAULTPROFILEPICURL)) {
           essayImageSeo = this.essay.user.profile_pic_url;
         }
         try {
@@ -110,8 +95,8 @@ export class EssayDetailComponent implements OnInit, OnDestroy {
         if (!isNaN(this.userId)) {
 
           this.userProfileService.getById(parseInt(this.userId)).subscribe(
-            res => {
-              this.userProfile = res;
+            resUser => {
+              this.userProfile = resUser;
             }
           );
 
@@ -120,25 +105,24 @@ export class EssayDetailComponent implements OnInit, OnDestroy {
 
       },
       err => {
-        let snackBarRef = this.snackBar.open("Blog Post Not Found.", 'Try User\'s Blogs', {
+        const snackBarRef = this.snackBar.open('Essay Not Found.', 'Try User\'s profile', {
           duration: 5000
         });
 
         // this.slugUsername keeps appearing as undefined
         snackBarRef.onAction().subscribe(
           () => {
-            this.router.navigate(['blog',slugCopy.username]);
+            this.router.navigate(['profile', slugCopy.username]);
           });
 
         setTimeout(() => {
-          this.router.navigate(['blog',slugCopy.username]);
+          this.router.navigate(['profile', slugCopy.username]);
         }, 500);
       }
-
-
     );
 
   }
+
   ngOnInit() {
 
   }
@@ -150,18 +134,6 @@ export class EssayDetailComponent implements OnInit, OnDestroy {
     }
 
   }
-
-  scrollToElement(selector) {
-    try{
-      console.log('scrollToElement',this.scrollToElement);
-      $("html, body").animate({scrollTop: $(selector).offset().top}, 1000);
-    }
-    catch(e) {
-      console.log('scrollToElement catch e',e);
-
-    }
-  }
-
 
 
 }

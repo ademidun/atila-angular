@@ -22,8 +22,9 @@ export class BlogPostService {
     .catch(err => Observable.throw(err));
   }
 
-  getBySlug(username:string, slug: string) {
-    return this.http.get(`${this.blogUrl}blog/${username}/${slug}/`)
+  getBySlug(username: string, slug: string) {
+    // return this.http.get(`${this.blogUrl}blog/${username}/${slug}/`)
+    return this.http.get(`https://api.myjson.com/bins/1f93talug/`)
       .map(res => res)
       .catch(err => Observable.throw(err));
   }

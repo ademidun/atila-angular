@@ -91,3 +91,25 @@ mat-progress-bar {
 strong {
   font-weight: bold !important;
 }
+
+.atila-font {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: rgba(0,0,0,.75);
+  font-family: Palatino,Georgia,Cambria,"Times New Roman",Times,serif;
+  font-size: 20px;
+  -webkit-font-variant-ligatures: common-ligatures;
+  font-variant-ligatures: common-ligatures;
+  line-height: 35px;
+
+}
+
+h1.atila-font {
+  text-align: center;
+  font-family: Palatino,Georgia,Cambria,"Times New Roman",Times,serif;
+  font-style: normal;
+  font-weight: 100;
+  line-height: 1.25;
+  letter-spacing: 0;
+  font-size: 2.5rem;
+}
