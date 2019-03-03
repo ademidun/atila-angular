@@ -2,7 +2,7 @@ const functions = require('firebase-functions');
 const admin = require("firebase-admin");
 admin.initializeApp();
 
-exports.fcmSend = functions.database.ref('/messages/{userId}/{messageId}').onCreate(event => {
+exports.fcmSend = functions.database.ref('/notificationMessages/{userId}/{messageId}').onCreate(event => {
 
 
   const message = event.after.val()
@@ -12,11 +12,11 @@ exports.fcmSend = functions.database.ref('/messages/{userId}/{messageId}').onCre
     notification: {
       title: message.title,
       body: message.body,
-      icon: "https://placeimg.com/250/250/people"
+      icon: "https://i.imgur.com/BxROXu1.png"
     }
   };
 
-
+  console.log({event});
   admin.database()
     .ref(`/fcmTokens/${userId}`)
     .once('value')

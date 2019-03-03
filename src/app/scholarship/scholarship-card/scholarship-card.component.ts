@@ -229,21 +229,24 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
         this.userProfile.metadata.allowNotifySavedScholarships = result.notifyUser;
 
         this.userProfileService.updateHelper(this.userProfile).subscribe();
+
       });
 
     }
 
-    if (this.userProfile.metadata['allowNotifySavedScholarships']) {
-      // Add push notification for this scholarship
-      this.notificationService.getPermission().then( () => {
-        const messageData = {
-          title: `${this.scholarship.name} is due in 24 hours`,
-          body: `A scholarship you saved is due on: ${this.scholarship.deadline}. Submit your Application!`
-        };
-        this.notificationService.pushMessage(messageData);
-      },
-    )
-      ;
+    else {
+      if (this.userProfile.metadata['allowNotifySavedScholarships']) {
+        // Add push notification for this scholarship
+        this.notificationService.getPermission().then( () => {
+            const messageData = {
+              title: `${this.scholarship.name} is due in 24 hours`,
+              body: `A scholarship you saved is due on: ${this.scholarship.deadline}. Submit your Application!`
+            };
+            this.notificationService.pushMessage(messageData);
+          },
+        )
+        ;
+      }
     }
 
   }

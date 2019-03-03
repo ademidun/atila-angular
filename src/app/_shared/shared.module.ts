@@ -45,6 +45,7 @@ import {TableLayoutModule} from '../table-layout/table-layout.module';
 import {CardGenericComponent} from '../card-generic/card-generic.component';
 import { ShareItemComponent } from './share-item/share-item.component';
 import {AtilaPointsPromptDialogComponent} from '../atila-points-prompt-dialog/atila-points-prompt-dialog.component';
+import {AngularFireAuthModule} from 'angularfire2/auth';
 @NgModule({
   imports: [
     CommonModule,
@@ -71,7 +72,8 @@ import {AtilaPointsPromptDialogComponent} from '../atila-points-prompt-dialog/at
     HttpClientModule,
     MaterializeModule,
     NgbTypeaheadModule,
-    TableLayoutModule
+    TableLayoutModule,
+    AngularFireAuthModule
   ],
   declarations: [
     SafeHtmlPipe,
