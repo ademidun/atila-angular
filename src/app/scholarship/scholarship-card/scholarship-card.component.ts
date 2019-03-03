@@ -4,10 +4,12 @@ import {Router} from '@angular/router';
 import {addToMyScholarshipHelper, UserProfile, updateScholarshipMatchScore} from '../../_models/user-profile';
 import {MyFirebaseService} from '../../_services/myfirebase.service';
 import {UserProfileService} from '../../_services/user-profile.service';
-import { trigger, state, animate, transition, style } from '@angular/animations';
+import {trigger, state, animate, transition, style} from '@angular/animations';
 import {ScholarshipService} from '../../_services/scholarship.service';
 import {AuthService} from '../../_services/auth.service';
 import {environment} from '../../../environments/environment';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Scholarship} from '../../_models/scholarship';
 
 @Component({
   selector: 'app-scholarship-card',
@@ -15,8 +17,8 @@ import {environment} from '../../../environments/environment';
   styleUrls: ['./scholarship-card.component.scss'],
   animations: [
     trigger('hideCard', [
-      state('true', style({ opacity: 0, transform: 'scale(0.0)'  })),
-      state('false' , style({ opacity: 1, transform: 'scale(1.0)' })),
+      state('true', style({opacity: 0, transform: 'scale(0.0)'})),
+      state('false', style({opacity: 1, transform: 'scale(1.0)'})),
       transition('* => *', animate('.5s ease-in'))
     ])
   ],
@@ -27,33 +29,36 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
   @Input() scholarship: any;
   @Input() userProfile: UserProfile;
   @Input() metadata: any = {};
-  @Output() handleClick:EventEmitter<any> = new EventEmitter();
+  @Output() handleClick: EventEmitter<any> = new EventEmitter();
   alreadySaved: boolean;
   userAnalytics: any = {};
   hideCard: boolean;
   handler: any;
   userId: any;
-  isFirstView= true;
+  isFirstView = true;
 
   old_visible: boolean;
   userScholarship: any;
   environment = environment;
   @ViewChild('scholarshipCard') scholarshipCardRef: ElementRef;
+
   constructor(
     public snackBar: MatSnackBar,
     public router: Router,
     public firebaseService: MyFirebaseService,
     public userProfileService: UserProfileService,
     public scholarshipService: ScholarshipService,
-    public authService: AuthService,) { }
+    public authService: AuthService,
+    public modalService: NgbModal ) {
+  }
 
   ngOnInit() {
 
     this.userId = this.authService.decryptLocalStorage('uid');
 
-    if(this.userProfile && this.userProfile.saved_scholarships) {
+    if (this.userProfile && this.userProfile.saved_scholarships) {
 
-      for (let i =0; i<this.userProfile.saved_scholarships.length; i++) {
+      for (let i = 0; i < this.userProfile.saved_scholarships.length; i++) {
         if (this.userProfile.saved_scholarships[i] == this.scholarship.id) {
           this.alreadySaved = true;
           break;
@@ -61,7 +66,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
       }
 
       if (!environment.production || this.userProfile.is_atila_admin) {
-        this.scholarshipService.getUserScholarship(this.userId,this.scholarship.id)
+        this.scholarshipService.getUserScholarship(this.userId, this.scholarship.id)
           .subscribe(
             res => {
               this.userScholarship = res.results[0];
@@ -78,7 +83,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
       delete this.scholarship['metadata']['deadline_tbd'];
     }
 
-    let today: Date|String = new Date();
+    let today: Date | String = new Date();
     today = today.toISOString();
     if (this.scholarship.open_date < today) {
       this.scholarship['metadata']['open_date_tbd'] = 'TBA';
@@ -87,18 +92,18 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
       delete this.scholarship['metadata']['open_date_tbd'];
     }
 
-    if (this.scholarshipService.preventViewDoubleCount){
+    if (this.scholarshipService.preventViewDoubleCount) {
       this.scholarshipService.preventViewDoubleCount = false;
     }
-
 
 
   }
 
   ngAfterViewInit() {
-    if( typeof jQuery !== 'undefined' ) {
+    if (typeof jQuery !== 'undefined') {
       // https://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport/7557433#7557433
-      this.handler = this.onVisibilityChange(this.scholarshipCardRef.nativeElement, () => {});
+      this.handler = this.onVisibilityChange(this.scholarshipCardRef.nativeElement, () => {
+      });
       $(window).on('DOMContentLoaded load resize scroll', this.handler);
       // $(window).on('resize scroll', this.handler);
     }
@@ -106,14 +111,15 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   ngOnDestroy() {
-    if( typeof jQuery !== 'undefined' ) {
+    if (typeof jQuery !== 'undefined') {
       $(window).off('DOMContentLoaded load resize scroll')
     }
   }
+
   addToMyScholarship(item) {
 
     if (this.alreadySaved) {
-      this.snackBar.open("Already Saved", '', {
+      this.snackBar.open('Already Saved', '', {
         duration: 5000
       });
       return;
@@ -121,10 +127,10 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
     this.logShareType('save_my_scholarships');
     if (this.userProfile) {
 
-      let saveResult = addToMyScholarshipHelper(this.userProfile,this.scholarship);
+      let saveResult = addToMyScholarshipHelper(this.userProfile, this.scholarship);
 
-      if(!saveResult[1]) {
-        this.snackBar.open("Already Saved", '', {
+      if (!saveResult[1]) {
+        this.snackBar.open('Already Saved', '', {
           duration: 3000
         });
 
@@ -133,24 +139,29 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
       }
       else {
         this.userProfile = saveResult[0];
+
         this.userProfileService.updateHelper(this.userProfile).subscribe(
-            res => {
-              let snackBarRef = this.snackBar.open("Saved to My Scholarships", 'My Scholarships', {
-                duration: 5000
-              });
-              snackBarRef.onAction().subscribe(
-                () => {
-                  this.router.navigate(['profile',this.userProfile.username,'my-atila']);
-                },
-              )},
-            err=> {},
-          );
+          res => {
+            let snackBarRef = this.snackBar.open('Saved to My Scholarships', 'My Scholarships', {
+              duration: 5000
+            });
+            snackBarRef.onAction().subscribe(
+              () => {
+                this.router.navigate(['profile', this.userProfile.username, 'my-atila']);
+              },
+            );
+
+            this.userProfileService.notifySavedScholarship(this.userProfile, this.scholarship, this.modalService);
+          },
+          err => {
+          },
+        );
       }
 
     }
 
     else {
-      let snackBarRef = this.snackBar.open("Register to Save", 'Register', {
+      let snackBarRef = this.snackBar.open('Register to Save', 'Register', {
         duration: 5000
       });
 
@@ -163,39 +174,55 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
     }
 
 
-    }
+  }
 
   logShareType(sharingType) {
     this.userAnalytics.share_type = sharingType;
     this.userAnalytics.schoarship_id = this.scholarship.id;
 
 
-    if(this.userProfile) {
+    if (this.userProfile) {
       this.userAnalytics.user_id = this.userProfile.user;
 
     }
-    this.firebaseService.saveUserAnalytics(this.userAnalytics,'scholarship_sharing');
+    this.firebaseService.saveUserAnalytics(this.userAnalytics, 'scholarship_sharing');
   }
 
   webShare() {
     // if(this.userProfile && (this.userProfile.user == 4 || this.userProfile.user == 1)) {
 
-      if ((<any>navigator).share) {
-        (<any>navigator).share({
-          title: 'Scholarship From Atila - '+ this.scholarship.name,
-          text: 'Have you seen this scholarship from Atila: https://atila.ca/scholarship/'+this.scholarship.slug,
-          url: 'https://atila.ca/scholarship/'+this.scholarship.slug,
+    if ((<any>navigator).share) {
+      (<any>navigator).share({
+        title: 'Scholarship From Atila - ' + this.scholarship.name,
+        text: 'Have you seen this scholarship from Atila: https://atila.ca/scholarship/' + this.scholarship.slug,
+        url: 'https://atila.ca/scholarship/' + this.scholarship.slug,
+      })
+        .then(() => {
         })
-          .then(() => {})
-          .catch((error) => {});
-      }
+        .catch((error) => {
+        });
+    }
 
   }
 
+  // todo: refactor to remove duplication in scholarships list
+  notifySavedScholarship(userProfile: UserProfile, scholarship: Scholarship | any, modalService) {
+    if (!userProfile.metadata['haveAskedIfNotifySavedScholarship'] && !userProfile.metadata['dontAskAgainNotifySavedScholarship']) {
+      // Ask user if we can notify them when their saved scholarships are due
+    }
+
+    if (userProfile.metadata['allowNotifySavedScholarships']) {
+      // Add push notification for this scholarship
+    }
+
+  }
+
+
+
   logNotInterested() {
 
-    setTimeout( (args) => {
-      $('#scholarship-card-'+this.scholarship.id).css('display', 'none');
+    setTimeout((args) => {
+      $('#scholarship-card-' + this.scholarship.id).css('display', 'none');
     }, 700);
 
     this.userAnalytics.schoarship_id = this.scholarship.id;
@@ -205,7 +232,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
     if (this.metadata['form_data']) {
       this.userAnalytics.form_data = this.metadata['form_data'];
     }
-    this.firebaseService.saveUserAnalytics(this.userAnalytics,'scholarships/not_interested/'+this.scholarship.id);
+    this.firebaseService.saveUserAnalytics(this.userAnalytics, 'scholarships/not_interested/' + this.scholarship.id);
 
     if (this.userProfile) {
 
@@ -213,7 +240,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
 
       this.userProfile.metadata['stale_cache'] = true;
 
-      this.userProfile = updateScholarshipMatchScore(this.userProfile,{'not_interested': true});
+      this.userProfile = updateScholarshipMatchScore(this.userProfile, {'not_interested': true});
 
       let scholarships_not_interested = {
         scholarships_not_interested: this.userProfile.scholarships_not_interested,
@@ -221,7 +248,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
       };
       this.userProfileService.patch(this.userProfile.user, scholarships_not_interested).subscribe(
         res => {
-          this.snackBar.open("Changes Saved.", '', {
+          this.snackBar.open('Changes Saved.', '', {
             duration: 5000
           });
 
@@ -232,15 +259,15 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
 
   clickHandler(event) {
 
-    if(this.metadata['form_data'] && this.metadata['form_data']['view_as_user']) {
-      console.log("Skipping click in view_as_user mode, this.metadata['form_data']", this.metadata['form_data']);
+    if (this.metadata['form_data'] && this.metadata['form_data']['view_as_user']) {
+      console.log('Skipping click in view_as_user mode, this.metadata[\'form_data\']', this.metadata['form_data']);
     }
     let userAnalyticsData = {
       scholarship: this.scholarship.id,
       form_data: this.metadata['form_data'] || null,
       page_no: this.metadata['page_no'] || null
     };
-    this.firebaseService.saveUserAnalytics(userAnalyticsData,'scholarships_list_click');
+    this.firebaseService.saveUserAnalytics(userAnalyticsData, 'scholarships_list_click');
     this.sendScholarshipInteraction('click');
 
     let emitData = {
@@ -279,10 +306,10 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
     }
   }
 
-  isElementInViewport (el) {
+  isElementInViewport(el) {
 
     //special bonus for those using jQuery
-    if (typeof jQuery === "function" && el instanceof jQuery) {
+    if (typeof jQuery === 'function' && el instanceof jQuery) {
       el = el[0];
     }
 
@@ -298,32 +325,32 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
 
   sendScholarshipInteraction(actionType) {
 
-    if (isNaN( Number.parseInt(this.userId))) {
+    if (isNaN(Number.parseInt(this.userId))) {
       return;
     }
 
-    if(this.metadata['form_data'] && this.metadata['form_data']['view_as_user']) {
-      console.log("Skipping sendScholarshipInteraction in view_as_user mode, this.metadata['form_data']",
-        this.metadata['form_data'],'actionType', actionType);
+    if (this.metadata['form_data'] && this.metadata['form_data']['view_as_user']) {
+      console.log('Skipping sendScholarshipInteraction in view_as_user mode, this.metadata[\'form_data\']',
+        this.metadata['form_data'], 'actionType', actionType);
       return;
     }
 
     if (this.scholarshipService.preventSortByDoubleCount) {
-        return;
+      return;
     }
 
 
     this.isFirstView = false;
     let actionData = {
-        'key': 'type',
-        'value': actionType,
-      };
+      'key': 'type',
+      'value': actionType,
+    };
 
-    this.scholarshipService.sendUserScholarshipInteraction(this.userId,this.scholarship.id,actionData)
+    this.scholarshipService.sendUserScholarshipInteraction(this.userId, this.scholarship.id, actionData)
       .subscribe(
         res => {
 
-          this.userProfileService.userProfileRPC(this.userId+'/refresh-scholarship-cache')
+          this.userProfileService.userProfileRPC(this.userId + '/refresh-scholarship-cache')
             .subscribe(
               res => {
                 if (!this.environment.production) {
@@ -336,8 +363,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
   }
 
 
-
-  }
+}
 
 
 
