@@ -456,20 +456,12 @@
 </div>
 
 <!-- Loading progress circle -->
-<div *ngIf="isLoading" class="preloader-background">
-  <div class="preloader-wrapper big active">
-    <div class="spinner-layer spinner-blue-only">
-      <div class="circle-clipper left">
-        <div class="circle"></div>
-      </div>
-      <div class="gap-patch">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-clipper right">
-        <div class="circle"></div>
-      </div>
-    </div>
-  </div>
+<div *ngIf="isLoading" class="col-sm-12 ng-star-inserted"
+     style="margin-top: 5%;margin-bottom: 5%;">
+  <h3 class="center">
+    Loading Scholarships...
+  </h3>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
 
 <ng-template *ngIf="contentFetched && scholarship_count==0">
