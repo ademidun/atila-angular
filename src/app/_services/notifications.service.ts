@@ -26,7 +26,7 @@ export class NotificationsService {
   }
 
   getPermission() {
-    this.messaging.requestPermission()
+    return this.messaging.requestPermission()
       .then(() => {
         console.log('Notification permission granted.');
         return this.messaging.getToken()
@@ -45,6 +45,18 @@ export class NotificationsService {
       console.log('Message received. ', payload);
       this.currentMessage.next(payload)
     });
+
+  }
+
+  pushMessage(messageData) {
+
+    this.afAuth.authState.take(1).subscribe(user => {
+      if (!user) {
+        return;
+      }
+
+      return this.db.list(`notificationMessages/${user.uid}`).push(messageData);
+    })
 
   }
 }

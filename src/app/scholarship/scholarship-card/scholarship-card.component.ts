@@ -12,6 +12,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Scholarship} from '../../_models/scholarship';
 import {NotificationDialogComponent} from '../../notification-dialog/notification-dialog.component';
 import {SwPush} from '@angular/service-worker';
+import {NotificationsService} from '../../_services/notifications.service';
 
 @Component({
   selector: 'app-scholarship-card',
@@ -28,7 +29,7 @@ import {SwPush} from '@angular/service-worker';
 export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   //todo change to only handle one scholarship
-  @Input() scholarship: any;
+  @Input() scholarship: Scholarship | any;
   @Input() userProfile: UserProfile;
   @Input() metadata: any = {};
   @Output() handleClick: EventEmitter<any> = new EventEmitter();
@@ -53,7 +54,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
     public scholarshipService: ScholarshipService,
     public authService: AuthService,
     public notificationDialog: MatDialog,
-    private swPush: SwPush,) {
+    public notificationService: NotificationsService) {
   }
 
   ngOnInit() {
@@ -234,13 +235,15 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
 
     if (this.userProfile.metadata['allowNotifySavedScholarships']) {
       // Add push notification for this scholarship
-      this.swPush.requestSubscription({
-        serverPublicKey: this.VAPID_PUBLIC_KEY
-      })
-        .then(sub =>
-          this.userProfileService.pushSavedScholarshipNotification(sub, this.userProfile, this.scholarship).subscribe(),
-        )
-        .catch(err => console.error('Could not subscribe to notifications', err));
+      this.notificationService.getPermission().then( () => {
+        const messageData = {
+          title: `${this.scholarship.name} is due in 24 hours`,
+          body: `A scholarship you saved is due on: ${this.scholarship.deadline}. Submit your Application!`
+        };
+        this.notificationService.pushMessage(messageData);
+      },
+    )
+      ;
     }
 
   }
