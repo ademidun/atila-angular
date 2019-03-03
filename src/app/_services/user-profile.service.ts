@@ -444,6 +444,9 @@ export class UserProfileService implements OnDestroy {
     }
   }
 
+  pushSavedScholarshipNotification(subscriber, userProfile: UserProfile, scholarship: Scholarship | any) {
+
+  }
 }
 
 export let UserProfileServiceMock: Partial<UserProfileService> = {

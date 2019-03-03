@@ -12,9 +12,6 @@ export class NotificationDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<NotificationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {}
 
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
 
   ngOnInit() {
   }

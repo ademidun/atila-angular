@@ -11,6 +11,7 @@ import {environment} from '../../../environments/environment';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Scholarship} from '../../_models/scholarship';
 import {NotificationDialogComponent} from '../../notification-dialog/notification-dialog.component';
+import {SwPush} from '@angular/service-worker';
 
 @Component({
   selector: 'app-scholarship-card',
@@ -41,6 +42,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
   old_visible: boolean;
   userScholarship: any;
   environment = environment;
+  readonly VAPID_PUBLIC_KEY = 'BAjiETJuDgtXH6aRXgeCZgK8vurMT7AbFmPPhz1ybyfcDmfGFFydSXkYDC359HIXUmWw8w79-miI6NtmbfodiVI';
   @ViewChild('scholarshipCard') scholarshipCardRef: ElementRef;
 
   constructor(
@@ -50,7 +52,8 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
     public userProfileService: UserProfileService,
     public scholarshipService: ScholarshipService,
     public authService: AuthService,
-    public notificationDialog: MatDialog) {
+    public notificationDialog: MatDialog,
+    private swPush: SwPush,) {
   }
 
   ngOnInit() {
@@ -211,6 +214,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
       // Ask user if we can notify them when their saved scholarships are due
       const dialogRef = this.notificationDialog.open(NotificationDialogComponent, {
         width: '250px',
+        height: '200px',
         data: {
           notificationText: 'Remind me before my saved scholarships are due',
           userProfile: this.userProfile
@@ -219,13 +223,24 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
 
       dialogRef.afterClosed().subscribe(result => {
         console.log(`The dialog was closed`, result);
-        this.userProfile = result.userProfile;
+        this.userProfile.metadata.haveAskedIfNotifySavedScholarship = true;
+        this.userProfile.metadata.dontAskAgainNotifySavedScholarship = result.dontAskAgain;
+        this.userProfile.metadata.allowNotifySavedScholarships = result.notifyUser;
+
+        this.userProfileService.updateHelper(this.userProfile).subscribe();
       });
 
     }
 
     if (this.userProfile.metadata['allowNotifySavedScholarships']) {
       // Add push notification for this scholarship
+      this.swPush.requestSubscription({
+        serverPublicKey: this.VAPID_PUBLIC_KEY
+      })
+        .then(sub =>
+          this.userProfileService.pushSavedScholarshipNotification(sub, this.userProfile, this.scholarship).subscribe(),
+        )
+        .catch(err => console.error('Could not subscribe to notifications', err));
     }
 
   }
