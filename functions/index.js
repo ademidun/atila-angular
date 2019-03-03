@@ -5,6 +5,7 @@ const functions = require('firebase-functions');
 // admin.initializeApp();
 const nodemailer = require('nodemailer');
 const {sendContactEmail} = require('./email');
+const {fcmSend} = require('./pushNotifications');
 
 
 // exports.sendContactEmail = functions.database.ref('/contact_form/{pushId}/')
@@ -154,3 +155,4 @@ app.get('*', (req, res) => {
 
 exports.rendertron = functions.https.onRequest(app);
 exports.sendContactEmail = sendContactEmail;
+exports.fcmSend = fcmSend;

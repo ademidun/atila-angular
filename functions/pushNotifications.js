@@ -32,3 +32,7 @@ exports.fcmSend = functions.database.ref('/messages/{userId}/{messageId}').onCre
     });
 
 });
+
+module.exports = {
+  fcmSend: exports.fcmSend,
+}
