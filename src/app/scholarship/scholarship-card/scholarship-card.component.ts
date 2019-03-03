@@ -1,5 +1,5 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, AfterViewInit, OnDestroy} from '@angular/core';
-import {MatSnackBar} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import {Router} from '@angular/router';
 import {addToMyScholarshipHelper, UserProfile, updateScholarshipMatchScore} from '../../_models/user-profile';
 import {MyFirebaseService} from '../../_services/myfirebase.service';
@@ -10,6 +10,7 @@ import {AuthService} from '../../_services/auth.service';
 import {environment} from '../../../environments/environment';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Scholarship} from '../../_models/scholarship';
+import {NotificationDialogComponent} from '../../notification-dialog/notification-dialog.component';
 
 @Component({
   selector: 'app-scholarship-card',
@@ -49,7 +50,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
     public userProfileService: UserProfileService,
     public scholarshipService: ScholarshipService,
     public authService: AuthService,
-    public modalService: NgbModal ) {
+    public notificationDialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -150,8 +151,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
                 this.router.navigate(['profile', this.userProfile.username, 'my-atila']);
               },
             );
-
-            this.userProfileService.notifySavedScholarship(this.userProfile, this.scholarship, this.modalService);
+            this.notifySavedScholarship();
           },
           err => {
           },
@@ -206,17 +206,29 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   // todo: refactor to remove duplication in scholarships list
-  notifySavedScholarship(userProfile: UserProfile, scholarship: Scholarship | any, modalService) {
-    if (!userProfile.metadata['haveAskedIfNotifySavedScholarship'] && !userProfile.metadata['dontAskAgainNotifySavedScholarship']) {
+  notifySavedScholarship() {
+    if (!this.userProfile.metadata['haveAskedIfNotifySavedScholarship'] && !this.userProfile.metadata['dontAskAgainNotifySavedScholarship']) {
       // Ask user if we can notify them when their saved scholarships are due
+      const dialogRef = this.notificationDialog.open(NotificationDialogComponent, {
+        width: '250px',
+        data: {
+          notificationText: 'Remind me before my saved scholarships are due',
+          userProfile: this.userProfile
+        }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`The dialog was closed`, result);
+        this.userProfile = result.userProfile;
+      });
+
     }
 
-    if (userProfile.metadata['allowNotifySavedScholarships']) {
+    if (this.userProfile.metadata['allowNotifySavedScholarships']) {
       // Add push notification for this scholarship
     }
 
   }
-
 
 
   logNotInterested() {

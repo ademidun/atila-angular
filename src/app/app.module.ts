@@ -74,7 +74,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { GeneralInfoComponent } from './general-info/general-info.component';
 import { AtilaPointsPromptDialogComponent } from './atila-points-prompt-dialog/atila-points-prompt-dialog.component';
 import {ServiceWorkerModule} from '@angular/service-worker';
-import { NotificationDialogComponent } from './notification-dialog/notification-dialog.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +94,6 @@ import { NotificationDialogComponent } from './notification-dialog/notification-
     SearchComponent,
     DynamicQuestionGeneralComponent,
     GeneralInfoComponent,
-    NotificationDialogComponent,
   ],
   imports: [
     NgbModule.forRoot(),

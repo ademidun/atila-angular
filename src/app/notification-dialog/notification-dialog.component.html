@@ -1,3 +1,15 @@
-<p>
-  notification-dialog works!
-</p>
+<div>
+
+  <div mat-dialog-content>
+    <p>Remind me before my saved scholarships are due?</p>
+      <mat-checkbox name="dontAskAgainNotifySavedScholarship"
+                    [(ngModel)]="data.userProfile.metadata.dontAskAgainNotifySavedScholarship">
+        Don't ask again
+      </mat-checkbox>
+
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="{userProfile: data.userProfile, notifyUser: false}">No Thanks</button>
+    <button mat-button [mat-dialog-close]="{userProfile: data.userProfile, notifyUser: true}" cdkFocusInitial>Ok</button>
+  </div>
+</div>
