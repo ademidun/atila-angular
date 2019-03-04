@@ -20,12 +20,15 @@ exports.fcmSend = functions.database.ref('/notificationMessages/{userId}/{messag
     }
   };
 
+  console.log({payload});
 
-  admin.database()
+
+  return admin.database()
     .ref(`/fcmTokens/${userId}`)
     .once('value')
     .then(token => token.val() )
     .then(userFcmToken => {
+      console.log({userFcmToken});
       return admin.messaging().sendToDevice(userFcmToken, payload)
     })
     .then(res => {
