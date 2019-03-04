@@ -7,3 +7,6 @@ firebase.initializeApp({
 });
 
 const messaging = firebase.messaging();
+console.log('firebase-messaging-sw.js');
+messaging.usePublicVapidKey("BAjiETJuDgtXH6aRXgeCZgK8vurMT7AbFmPPhz1ybyfcDmfGFFydSXkYDC359HIXUmWw8w79-miI6NtmbfodiVI");
+console.log({messaging});
