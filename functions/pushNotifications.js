@@ -15,7 +15,8 @@ exports.fcmSend = functions.database.ref('/notificationMessages/{userId}/{messag
     notification:  { // type: NotificationMessagePayload
       title: message.title,
       body: message.body,
-      icon: "https://i.imgur.com/BxROXu1.png"
+      icon: "https://i.imgur.com/BxROXu1.png",
+      clickAction: message.clickAction,
     }
   };
 
