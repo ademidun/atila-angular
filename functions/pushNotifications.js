@@ -4,6 +4,9 @@ admin.initializeApp();
 
 exports.fcmSend = functions.database.ref('/notificationMessages/{userId}/{messageId}').onCreate(event => {
 
+  console.log({event});
+  console.log('event.after',event.after());
+  console.log('event.params',event.params);
 
   const message = event.after.val()
   const userId  = event.params.userId
@@ -16,7 +19,7 @@ exports.fcmSend = functions.database.ref('/notificationMessages/{userId}/{messag
     }
   };
 
-  console.log({event});
+
   admin.database()
     .ref(`/fcmTokens/${userId}`)
     .once('value')
