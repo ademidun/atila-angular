@@ -70,7 +70,6 @@ import {NotificationDialogComponent} from '../notification-dialog/notification-d
     MatTabsModule,
     MatSlideToggleModule
   ],
-  providers: [DatePipe],
   declarations: [
     AddScholarshipComponent,
     ScholarshipDetailComponent,
