@@ -2,14 +2,14 @@ const functions = require('firebase-functions');
 const admin = require("firebase-admin");
 admin.initializeApp();
 
-exports.fcmSend = functions.database.ref('/notificationMessages/{userId}/{messageId}').onCreate(event => {
+exports.fcmSend = functions.database.ref('/notificationMessages/{userId}/{messageId}').onCreate((snapshot, context) => {
 
-  console.log({event});
-  console.log('event.after',event.after());
-  console.log('event.params',event.params);
+  console.log( {snapshot});
+  console.log( snapshot.val());
+  console.log('context.params',context.params);
 
-  const message = event.after.val()
-  const userId  = event.params.userId
+  const message =  snapshot.val();
+  const userId  = context.params.userId;
 
   const payload = {
     notification: {
