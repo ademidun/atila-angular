@@ -12,7 +12,7 @@ exports.fcmSend = functions.database.ref('/notificationMessages/{userId}/{messag
   const userId  = context.params.userId;
 
   const payload = {
-    notification: {
+    notification:  { // type: NotificationMessagePayload
       title: message.title,
       body: message.body,
       icon: "https://i.imgur.com/BxROXu1.png"

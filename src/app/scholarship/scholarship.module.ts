@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 
 import { ScholarshipRoutingModule } from './scholarship-routing.module';
 import {environment} from '../../environments/environment';
@@ -70,6 +70,7 @@ import {NotificationDialogComponent} from '../notification-dialog/notification-d
     MatTabsModule,
     MatSlideToggleModule
   ],
+  providers: [DatePipe],
   declarations: [
     AddScholarshipComponent,
     ScholarshipDetailComponent,

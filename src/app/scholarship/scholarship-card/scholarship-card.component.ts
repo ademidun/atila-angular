@@ -232,20 +232,10 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
 
       });
 
-    }
-
-    else {
+    } else {
       if (this.userProfile.metadata['allowNotifySavedScholarships']) {
         // Add push notification for this scholarship
-        this.notificationService.getPermission().then( () => {
-            const messageData = {
-              title: `${this.scholarship.name} is due in 24 hours`,
-              body: `A scholarship you saved is due on: ${this.scholarship.deadline}. Submit your Application!`
-            };
-            this.notificationService.pushMessage(messageData);
-          },
-        )
-        ;
+        this.notificationService.createScholarshipNotifications(this.userProfile, this.scholarship)
       }
     }
 
