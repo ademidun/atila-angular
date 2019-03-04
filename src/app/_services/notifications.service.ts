@@ -79,7 +79,7 @@ export class NotificationsService {
         const messageData = { // type NotificationMessagePayloadv
           title: `${scholarship.name} is due in 7 days on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}`,
           body: `The ${scholarship.name} you saved is due on: ${scholarship.deadline}. Submit your Application!`,
-          clickAction: `https://atila.ca/scholarship/${scholarship.slug}`,
+          clickAction: `https://atila.ca/scholarship/${scholarship.slug}?utm_source=push_notification`,
           sendDate: sendDate,
         };
 
