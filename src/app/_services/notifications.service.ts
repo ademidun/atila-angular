@@ -21,8 +21,20 @@ export class NotificationsService {
   constructor(
     public db: AngularFireDatabase,
     public afAuth: AngularFireAuth,
-    public datePipe: DatePipe ) {
+    public datePipe: DatePipe) {
     // this.messaging.usePublicVapidKey('BAjiETJuDgtXH6aRXgeCZgK8vurMT7AbFmPPhz1ybyfcDmfGFFydSXkYDC359HIXUmWw8w79-miI6NtmbfodiVI');
+
+    navigator.serviceWorker.getRegistration('/firebase-messaging-sw.js')
+      .then( (registration) => {
+      if (registration) {
+        console.log({registration});
+        firebase.messaging().useServiceWorker(registration);
+      }
+    }).catch(err => {
+      console.log('failed in firebase.messaging().useServiceWorker(registration)');
+      console.log({err});
+    });
+
   }
 
 
