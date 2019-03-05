@@ -203,6 +203,15 @@ async defer></script>
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('/ngsw-worker.js')
         .then(function(registration) {
+          console.log('index.html ngsw-worker.js ',registration );
+        })
+        .catch(function(err) {
+          console.log({err})
+        });
+      navigator.serviceWorker.register('/firebase-messaging-sw.js')
+        .then(function(registration) {
+          console.log('index.html firebase-messaging-sw.js ',registration );
+
         })
         .catch(function(err) {
         });

@@ -22,6 +22,7 @@ export class NotificationsService {
     public db: AngularFireDatabase,
     public afAuth: AngularFireAuth,
     public datePipe: DatePipe ) {
+    // this.messaging.usePublicVapidKey('BAjiETJuDgtXH6aRXgeCZgK8vurMT7AbFmPPhz1ybyfcDmfGFFydSXkYDC359HIXUmWw8w79-miI6NtmbfodiVI');
   }
 
 

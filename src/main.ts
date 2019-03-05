@@ -8,6 +8,10 @@ import { environment } from './environments/environment';
 if (environment.production) {
   enableProdMode();
 }
+import * as firebase from 'firebase';
+firebase.initializeApp({
+  'messagingSenderId': '148649271725'
+});
 // if (!environment.production) {
 //   enableProdMode();
 //   console.log('disabling console.log');
@@ -35,6 +39,19 @@ if ('serviceWorker' in navigator && environment.production) {
       scope: '/',
     })
       .then(registration => {
+        console.log('main.ts ngsw-worker.js ', registration )
+
+      }).catch(function(err) {
+      console.log({err})
+    });
+    navigator.serviceWorker.register('/firebase-messaging-sw.js')
+      .then(function(registration) {
+        console.log('main.ts firebase-messaging-sw.js ', registration );
+
+        firebase.messaging().useServiceWorker(registration);
+      })
+      .catch(function(err) {
+        console.log({err})
       });
   });
 }
