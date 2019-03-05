@@ -40,7 +40,11 @@ export class NotificationsService {
       console.log('serviceWorker.getRegistrations()');
       console.log({registrations});
 
-      for (const registration in registrations) {
+      for (let i = 0; i < registrations.length; i++) {
+
+        const registration = registrations[i];
+        console.log('registration.scope', registration.scope);
+        console.log({registration})
         if (registration.scope.includes('firebase-cloud-messaging-push-scope')) {
           console.log('registration.scope: ', registration.scope);
           firebase.messaging().useServiceWorker(registration);
