@@ -199,6 +199,7 @@ async defer></script>
 </body>
 
 <script>
+  import * as firebase from 'firebase';
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('/ngsw-worker.js')
@@ -211,7 +212,7 @@ async defer></script>
       navigator.serviceWorker.register('/firebase-messaging-sw.js')
         .then(function(registration) {
           console.log('index.html firebase-messaging-sw.js ',registration );
-
+          firebase.messaging().useServiceWorker(registration);
         })
         .catch(function(err) {
         });
