@@ -1,17 +1,14 @@
-import { enableProdMode } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import {enableProdMode} from '@angular/core';
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 
-import { AppModule } from './app/app.module';
-import { environment } from './environments/environment';
+import {AppModule} from './app/app.module';
+import {environment} from './environments/environment';
 // git add . && git commit -m "fixed bugs in google analytics code" && git push && ng build --prod && firebase deploy
 
 if (environment.production) {
   enableProdMode();
 }
 import * as firebase from 'firebase';
-firebase.initializeApp({
-  'messagingSenderId': '148649271725'
-});
 // if (!environment.production) {
 //   enableProdMode();
 //   console.log('disabling console.log');
@@ -39,18 +36,23 @@ if ('serviceWorker' in navigator && environment.production) {
       scope: '/',
     })
       .then(registration => {
-        console.log('main.ts ngsw-worker.js ', registration )
+        console.log('main.ts ngsw-worker.js ', registration)
 
-      }).catch(function(err) {
+      }).catch(function (err) {
       console.log({err})
     });
     navigator.serviceWorker.register('/firebase-messaging-sw.js')
-      .then(function(registration) {
-        console.log('main.ts firebase-messaging-sw.js ', registration );
+      .then(function (registration) {
+        console.log('main.ts firebase-messaging-sw.js ', registration);
         console.log({firebase});
+
+        firebase.initializeApp({
+          'messagingSenderId': '148649271725'
+        });
+
         firebase.messaging().useServiceWorker(registration);
       })
-      .catch(function(err) {
+      .catch(function (err) {
         console.log({err})
       });
   });
