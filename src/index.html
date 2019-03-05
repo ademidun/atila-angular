@@ -215,6 +215,7 @@ async defer></script>
       navigator.serviceWorker.register('/firebase-messaging-sw.js')
         .then(function(registration) {
           console.log('index.html firebase-messaging-sw.js ',registration );
+          console.log({firebase});
           firebase.messaging().useServiceWorker(registration);
         })
         .catch(function(err) {

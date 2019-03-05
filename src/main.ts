@@ -47,7 +47,7 @@ if ('serviceWorker' in navigator && environment.production) {
     navigator.serviceWorker.register('/firebase-messaging-sw.js')
       .then(function(registration) {
         console.log('main.ts firebase-messaging-sw.js ', registration );
-
+        console.log({firebase});
         firebase.messaging().useServiceWorker(registration);
       })
       .catch(function(err) {
