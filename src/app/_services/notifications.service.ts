@@ -25,23 +25,32 @@ export class NotificationsService {
     // this.messaging.usePublicVapidKey('BAjiETJuDgtXH6aRXgeCZgK8vurMT7AbFmPPhz1ybyfcDmfGFFydSXkYDC359HIXUmWw8w79-miI6NtmbfodiVI');
 
     navigator.serviceWorker.getRegistration('/firebase-messaging-sw.js')
-      .then( (registration) => {
-      if (registration) {
-        console.log({registration});
-        firebase.messaging().useServiceWorker(registration);
-      }
-    }).catch(err => {
+      .then((registration) => {
+        if (registration) {
+          console.log('serviceWorker.getRegistration(\'/firebase-messaging-sw.js\')');
+          console.log({registration});
+          // firebase.messaging().useServiceWorker(registration);
+        }
+      }).catch(err => {
       console.log('failed in firebase.messaging().useServiceWorker(registration)');
       console.log({err});
     });
 
-    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+    navigator.serviceWorker.getRegistrations().then(function (registrations) {
       console.log('serviceWorker.getRegistrations()');
       console.log({registrations});
+
+      for (const registration in registrations) {
+        if (registration.scope.includes('firebase-cloud-messaging-push-scope')) {
+          console.log('registration.scope: ', registration.scope);
+          firebase.messaging().useServiceWorker(registration);
+        }
+      }
     }).catch(err => {
       console.log('failed in firebase.messaging().getRegistrations()');
       console.log({err});
-    });;
+    });
+    ;
 
   }
 
