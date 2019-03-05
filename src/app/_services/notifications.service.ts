@@ -126,6 +126,9 @@ export class NotificationsService {
 
         this.pushMessage(messageData2);
       },
-    );
+    )
+      .catch((err) => {
+        console.log('Unable to createScholarshipNotifications()', err);
+      });
   }
 }
