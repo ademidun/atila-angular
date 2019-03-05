@@ -46,10 +46,6 @@ if ('serviceWorker' in navigator && environment.production) {
         console.log('main.ts firebase-messaging-sw.js ', registration);
         console.log({firebase});
 
-        firebase.initializeApp({
-          'messagingSenderId': '148649271725'
-        });
-
         firebase.messaging().useServiceWorker(registration);
       })
       .catch(function (err) {

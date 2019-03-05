@@ -38,7 +38,10 @@ export class NotificationsService {
     navigator.serviceWorker.getRegistrations().then(function(registrations) {
       console.log('serviceWorker.getRegistrations()');
       console.log({registrations});
-    });
+    }).catch(err => {
+      console.log('failed in firebase.messaging().getRegistrations()');
+      console.log({err});
+    });;
 
   }
 
