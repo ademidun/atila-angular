@@ -35,6 +35,11 @@ export class NotificationsService {
       console.log({err});
     });
 
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+      console.log('serviceWorker.getRegistrations()');
+      console.log({registrations});
+    });
+
   }
 
 
