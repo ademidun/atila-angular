@@ -200,6 +200,9 @@ async defer></script>
 
 <script>
   import * as firebase from 'firebase';
+  firebase.initializeApp({
+    'messagingSenderId': '148649271725'
+  });
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('/ngsw-worker.js')
