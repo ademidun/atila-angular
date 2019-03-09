@@ -9,6 +9,7 @@ import * as admin from 'firebase-admin';
 import {Scholarship} from '../_models/scholarship';
 import {UserProfile} from '../_models/user-profile';
 import {DatePipe} from '@angular/common';
+import {SwPush} from '@angular/service-worker';
 
 // import NotificationMessagePayload = admin.messaging.NotificationMessagePayload;
 
@@ -18,13 +19,12 @@ export class NotificationsService {
   messaging = firebase.messaging();
   currentMessage = new BehaviorSubject(null);
 
+  readonly VAPID_PUBLIC_KEY = 'BAjiETJuDgtXH6aRXgeCZgK8vurMT7AbFmPPhz1ybyfcDmfGFFydSXkYDC359HIXUmWw8w79-miI6NtmbfodiVI';
   constructor(
     public db: AngularFireDatabase,
     public afAuth: AngularFireAuth,
-    public datePipe: DatePipe) {
-    // this.messaging.usePublicVapidKey('BAjiETJuDgtXH6aRXgeCZgK8vurMT7AbFmPPhz1ybyfcDmfGFFydSXkYDC359HIXUmWw8w79-miI6NtmbfodiVI');
-
-
+    public datePipe: DatePipe,
+    public swPush: SwPush) {
   }
 
 
@@ -38,18 +38,9 @@ export class NotificationsService {
   }
 
   getPermission() {
-    return this.messaging.requestPermission()
-      .then(() => {
-        console.log('Notification permission granted.');
-        return this.messaging.getToken()
-      })
-      .then(token => {
-        console.log(token)
-        this.updateToken(token)
-      })
-      .catch((err) => {
-        console.log('Unable to get permission to notify.', err);
-      });
+    return this.swPush.requestSubscription({
+      serverPublicKey: this.VAPID_PUBLIC_KEY
+    })
   }
 
   receiveMessage() {
@@ -73,8 +64,9 @@ export class NotificationsService {
   }
 
   createScholarshipNotifications(userProfile: UserProfile, scholarship: Scholarship) {
-    this.getPermission().then(() => {
+    this.getPermission().then((sub: PushSubscription) => {
 
+        console.log({sub});
         let sendDate: Date | number = new Date(scholarship.deadline);
 
         sendDate.setDate(sendDate.getDate() - 7);
