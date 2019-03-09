@@ -11,7 +11,6 @@ import {environment} from '../../../environments/environment';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Scholarship} from '../../_models/scholarship';
 import {NotificationDialogComponent} from '../../notification-dialog/notification-dialog.component';
-import {SwPush} from '@angular/service-worker';
 import {NotificationsService} from '../../_services/notifications.service';
 
 @Component({
