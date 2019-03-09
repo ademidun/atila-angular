@@ -6,6 +6,7 @@
     "ng": "ng",
     "start": "webpack-dev-server --port=4200",
     "start:server": "ng build --prod && cd dist && http-server -c-1 -P http://localhost:9000 .",
+    "start:devserver": "npm run ng-high-mem -- build --prod && cd dist && http-server -p 8080 -c-1 .",
     "build": "webpack",
     "ng-high-mem": "node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng",
     "ng-reg-mem": "node ./node_modules/@angular/cli/bin/ng",
