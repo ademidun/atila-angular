@@ -210,7 +210,16 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
 
   // todo: refactor to remove duplication in scholarships list
   notifySavedScholarship() {
-    if (!this.userProfile.metadata['haveAskedIfNotifySavedScholarship'] && !this.userProfile.metadata['dontAskAgainNotifySavedScholarship']) {
+    // todo: add test for notifySaved Scholarship
+    // Ask user for permission to notify them if:
+    // 1.We have not asked them before
+    // OR
+    // 2.user has not allowed us to notify them
+    // AND
+    // 3.user has not told us to stop asking them
+    if (!this.userProfile.metadata['haveAskedIfNotifySavedScholarship'] ||
+      !this.userProfile.metadata['allowNotifySavedScholarships']
+      && !this.userProfile.metadata['dontAskAgainNotifySavedScholarship']) {
       // Ask user if we can notify them when their saved scholarships are due
       const dialogRef = this.notificationDialog.open(NotificationDialogComponent, {
         width: '250px',
@@ -227,15 +236,47 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
         this.userProfile.metadata.dontAskAgainNotifySavedScholarship = result.dontAskAgain;
         this.userProfile.metadata.allowNotifySavedScholarships = result.notifyUser;
 
-        this.userProfileService.updateHelper(this.userProfile).subscribe();
+        this.userProfileService.updateHelper(this.userProfile).subscribe(userProfileResponse => {
+          console.log({userProfileResponse});
+          if (this.userProfile.metadata['allowNotifySavedScholarships']) {
+            // Add push notification for this scholarship
+            this.notificationService.createScholarshipNotifications(this.userProfile, this.scholarship)
+              .then(observableResult => {
+                  observableResult.subscribe(
+                    res => {
+                      console.log({res})
+                    },
+                    err => {
+                      console.log({err})
+                    },
+                    () => {
+                      console.log('finished')
+                    })
+                }
+              )
+          }
+        });
 
       });
 
-    } else {
-      if (this.userProfile.metadata['allowNotifySavedScholarships']) {
-        // Add push notification for this scholarship
-        this.notificationService.createScholarshipNotifications(this.userProfile, this.scholarship)
-      }
+    }
+
+    if (this.userProfile.metadata['allowNotifySavedScholarships']) {
+      // Add push notification for this scholarship
+      this.notificationService.createScholarshipNotifications(this.userProfile, this.scholarship)
+        .then(observableResult => {
+            observableResult.subscribe(
+              res => {
+                console.log({res})
+              },
+              err => {
+                console.log({err})
+              },
+              () => {
+                console.log('finished')
+              })
+          }
+        )
     }
 
   }

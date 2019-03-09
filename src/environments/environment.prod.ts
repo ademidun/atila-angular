@@ -6,6 +6,7 @@ export const environment = {
   adminIds: [1],
   apiUrl: 'https://atila-7.herokuapp.com/api/',
   atilaMicroservicesApiUrl: 'https://w142p4uzua.execute-api.us-east-1.amazonaws.com/dev/',
+  atilaMicroservicesApiUrlNode: 'http://localhost:9000/',
   firebase : {
     apiKey: "AIzaSyDs2UY2qe7SJyGGPqKt32zutqWwB-SfANE",
     authDomain: "atila-7.firebaseapp.com",

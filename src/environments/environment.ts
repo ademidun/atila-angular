@@ -8,6 +8,7 @@ export const environment = {
   production: false,
   apiUrl: 'http://127.0.0.1:8000/api/',
   atilaMicroservicesApiUrl: 'http://localhost:5000/',
+  atilaMicroservicesApiUrlNode: 'http://localhost:9000/',
   testUserId: 52,
   testAppId: 37,
   adminIds: [4],
