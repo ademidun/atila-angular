@@ -12,6 +12,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Scholarship} from '../../_models/scholarship';
 import {NotificationDialogComponent} from '../../notification-dialog/notification-dialog.component';
 import {NotificationsService} from '../../_services/notifications.service';
+import * as $ from "jquery";
 
 @Component({
   selector: 'app-scholarship-card',
@@ -221,20 +222,24 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
       !this.userProfile.metadata['allowNotifySavedScholarships']
       && !this.userProfile.metadata['dontAskAgainNotifySavedScholarship']) {
       // Ask user if we can notify them when their saved scholarships are due
+      $('#dimScreen').css('display', 'block');
       const dialogRef = this.notificationDialog.open(NotificationDialogComponent, {
-        width: '250px',
-        height: '200px',
+        width: '350px',
+        height: '350px',
         data: {
           notificationText: 'Remind me before my saved scholarships are due',
           userProfile: this.userProfile
-        }
+        },
       });
 
       dialogRef.afterClosed().subscribe(result => {
+        $('#dimScreen').css('display', 'none');
         console.log(`The dialog was closed`, result);
-        this.userProfile.metadata.haveAskedIfNotifySavedScholarship = true;
-        this.userProfile.metadata.dontAskAgainNotifySavedScholarship = result.dontAskAgain;
-        this.userProfile.metadata.allowNotifySavedScholarships = result.notifyUser;
+        this.userProfile.metadata.haveAskedIfNotifySavedScholarship = !!result;
+        if (result) {
+          this.userProfile.metadata.dontAskAgainNotifySavedScholarship = result.dontAskAgain;
+          this.userProfile.metadata.allowNotifySavedScholarships = result.notifyUser;
+        }
 
         this.userProfileService.updateHelper(this.userProfile).subscribe(userProfileResponse => {
           console.log({userProfileResponse});
