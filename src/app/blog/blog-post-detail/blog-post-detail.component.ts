@@ -84,7 +84,8 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
       let slugCopy = {username:this.slugUsername, title:this.slugTitle};
       this.blogPostService.getBySlug(this.slugUsername, this.slugTitle).subscribe(
         res => {
-          this.blogPost = (<any>res).blog;
+          // this.blogPost = (<any>res).blog;
+          this.blogPost = (<any>res);
 
           //this.updateMeta();
 

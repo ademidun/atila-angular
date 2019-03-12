@@ -24,13 +24,13 @@ export class EssayService {
   }
 
   getBySlug(username:string, slug: string) {
-    return this.http.get(`${this.essayUrl}essay/${username}/${slug}/`)
+    return this.http.get(`https://api.myjson.com/bins/9sage?fbclid=IwAR2IbklPZVm8QdizAC0-__X0suI6MN1HfrWuvcflWIAVzYldeORj-xHuNQg`)
       .map(res => res)
       .catch(err => Observable.throw(err));
   }
 
   getById(id:number){
-    return this.http.get(`${this.essaysUrl}${id}/`)
+    return this.http.get(`https://api.myjson.com/bins/9sage?fbclid=IwAR2IbklPZVm8QdizAC0-__X0suI6MN1HfrWuvcflWIAVzYldeORj-xHuNQg`)
       .map(res => res)
       .catch(err => Observable.throw(err));
   }
