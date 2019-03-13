@@ -27,7 +27,7 @@ export class SearchService {
   }
 
   relatedItems(queryString, metaData?) {
-    return this.http.get(this.searchUrl + 'related-items/'+queryString)
+    return this.http.get('https://api.myjson.com/bins/134krm')
       .map(res=>res)
       .catch(err=>Observable.throw(err))
   }

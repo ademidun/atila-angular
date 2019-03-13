@@ -104,8 +104,12 @@ export class EssayDetailComponent implements OnInit, OnDestroy {
             slug: `essay/${this.essay.user.username}/${this.essay.slug}`
           });
         }
+
         catch (err) {
+
         }
+
+        this.getRelatedItems();
 
         if (!isNaN(this.userId)) {
 
@@ -129,6 +133,8 @@ export class EssayDetailComponent implements OnInit, OnDestroy {
           () => {
             this.router.navigate(['blog',slugCopy.username]);
           });
+
+
 
         setTimeout(() => {
           this.router.navigate(['blog',slugCopy.username]);
@@ -160,6 +166,21 @@ export class EssayDetailComponent implements OnInit, OnDestroy {
       console.log('scrollToElement catch e',e);
 
     }
+  }
+
+  getRelatedItems() {
+    let queryString= `?type=essay&id=${this.essay.id}`;
+
+    this.searchService.relatedItems(queryString)
+      .subscribe( res => {
+        this.relatedItems = res.items.map( item => {
+          return genericItemTransform(item);
+        });
+
+        this.relatedItems = this.relatedItems.slice(0,3);
+
+
+      });
   }
 
 

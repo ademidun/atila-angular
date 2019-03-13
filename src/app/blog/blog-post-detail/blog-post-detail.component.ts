@@ -141,6 +141,7 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
           );
 
           this.getRelatedItems();
+
           if (this.route.snapshot.fragment){
             setTimeout(() => {
               this.scrollToElement('#'+this.route.snapshot.fragment);

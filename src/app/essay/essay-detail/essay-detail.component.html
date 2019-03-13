@@ -3,11 +3,11 @@
 
     <div *ngIf="essay">
 
-              <span class="col s8"><!--col-sm-12-->
+              <span class="col s12 m8"><!--col-sm-12-->
                 <h3 style="text-align: center; "> {{essay.title}} </h3>
               </span>
 
-      <div class="col s8"><!--col-sm-12 col-md-10  offset-md-1-->
+      <div class="col s12 m8"><!--col-sm-12 col-md-10  offset-md-1-->
         <a *ngIf="userProfile && (userProfile.user==essay.user.id || userProfile.is_atila_admin)" [routerLink]="[ '/essay/edit', essay.id ]">Edit Essay</a>
         <div *ngIf="!essay.published" style="font-weight: bold; "> | Unpublished</div>
         <!--<img src="{{essay.header_image_url}}" style="max-height: 100%;max-width: 100%" class="center-block"/>-->
@@ -39,9 +39,9 @@
       </div>
 
       <!-- Side Widget -->
-      <div class="col-md-4 offset-8">
+      <div class="col s12 m4 offset-8"> <!--col-md-4 offset-8-->
 
-        <div class="card my-4">
+        <!--<div class="card my-4">
           <h5 class="card-header">Search</h5>
           <div class="card-body">
             <div class="input-group">
@@ -52,16 +52,25 @@
             </div>
           </div>
         </div>
-
-
+-->
         <div class="card my-4">
-          <h5 class="card-header">Side Widget</h5>
+
+          <div *ngIf="relatedItems" class="row">
+            <div style="width: 100%; margin-left: 5%" class="row"><h5>Related</h5> <span style="font-size: smaller; color: #194F87">Beta</span></div>
+            <div  *ngFor="let item of relatedItems; let i = index; first as isFirst;" class="col-md-12">
+              <div (click)="logRelatedItemClick(item)">
+                <app-card-generic class="hide-on-small-and-down" [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'height': '300px', 'overflow-y': 'hidden'}"> </app-card-generic>
+                <app-card-generic class="hide-on-med-and-up" [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'max-height': '300px', 'overflow-y': 'hidden'}"> </app-card-generic>
+              </div>
+            </div>
+          </div>
+          <!--<h5 class="card-header">Side Widget</h5>
           <div class="card-body">
             You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
-          </div>
+          </div>-->
         </div>
 
-        <div class="card my-4">
+        <!--<div class="card my-4">
           <h5 class="card-header">Categories</h5>
           <div class="card-body">
             <div class="row">
@@ -93,7 +102,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div>-->
 
 
       </div>
