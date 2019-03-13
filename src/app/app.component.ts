@@ -8,9 +8,9 @@ import {
   NavigationCancel,
   NavigationError
 } from '@angular/router'
-import { Title } from '@angular/platform-browser';
+import {Title} from '@angular/platform-browser';
 import {environment} from '../environments/environment';
-import {SwUpdate} from '@angular/service-worker';
+import {SwPush, SwUpdate} from '@angular/service-worker';
 import {MatSnackBar} from '@angular/material';
 
 // import 'google.analytics'
@@ -26,10 +26,11 @@ export class AppComponent implements AfterViewInit, OnInit {
   loading: boolean = true;
 
   constructor(titleService: Title,
-    public router: Router,
-    public swUpdate: SwUpdate,
-    public snackBar: MatSnackBar,
-    ) {
+              public router: Router,
+              public swUpdate: SwUpdate,
+              public snackBar: MatSnackBar,
+              public swPush: SwPush
+  ) {
 
     // Set title when route changes
     router.events.subscribe(event => {
@@ -68,6 +69,18 @@ export class AppComponent implements AfterViewInit, OnInit {
 
         });
       }
+
+      // check serviceworker to see if new push notification was sent
+      if (this.swPush.isEnabled) {
+
+        this.swPush.messages.subscribe(res => {
+
+          console.log('this.swPush.messages.subscribe()');
+          console.log({res});
+
+        });
+
+      }
     }
   }
 
@@ -77,13 +90,14 @@ export class AppComponent implements AfterViewInit, OnInit {
     this.router.events.subscribe(event => {
       // I check for isPlatformBrowser here because I'm using Angular Universal, you may not need it
       //if (event instanceof NavigationEnd && isPlatformBrowser(this.platformId))
-      if (event instanceof NavigationEnd ) {
+      if (event instanceof NavigationEnd) {
         ga('set', 'page', event.urlAfterRedirects);
         ga('send', 'pageview');
 
       }
     });
   }
+
   // collect that title data properties from all child routes
   // there might be a better way but this worked for me
   getTitle(state, parent) {
