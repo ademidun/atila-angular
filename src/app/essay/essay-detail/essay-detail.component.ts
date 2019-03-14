@@ -157,6 +157,17 @@ export class EssayDetailComponent implements OnInit, OnDestroy {
 
   }
 
+
+  logRelatedItemClick(item) {
+    let itemCopy: any = {};
+    itemCopy.item_type = item.type;
+    itemCopy.title = item.title;
+    itemCopy.item_id= item.id;
+    itemCopy.share_source= 'blog_detail';
+    this.firebaseService.saveUserAnalytics(itemCopy,'related_item_click');
+
+  }
+
   scrollToElement(selector) {
     try{
       console.log('scrollToElement',this.scrollToElement);

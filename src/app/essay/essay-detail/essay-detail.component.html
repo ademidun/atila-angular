@@ -57,7 +57,7 @@
 
           <div *ngIf="relatedItems" class="row">
             <div style="width: 100%; margin-left: 5%" class="row"><h5>Related</h5> <span style="font-size: smaller; color: #194F87">Beta</span></div>
-            <div  *ngFor="let item of relatedItems; let i = index; first as isFirst;" class="col-md-12">
+            <div  *ngFor="let item of relatedItems; let i = index; first as isFirst;" class="col-sm-4 col-md-12 ">
               <div (click)="logRelatedItemClick(item)">
                 <app-card-generic class="hide-on-small-and-down" [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'height': '300px', 'overflow-y': 'hidden'}"> </app-card-generic>
                 <app-card-generic class="hide-on-med-and-up" [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'max-height': '300px', 'overflow-y': 'hidden'}"> </app-card-generic>

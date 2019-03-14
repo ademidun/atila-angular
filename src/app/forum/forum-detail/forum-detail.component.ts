@@ -100,7 +100,7 @@ export class ForumDetailComponent implements OnInit, OnDestroy {
             title: this.forum.title,
             description: this.forum.starting_comment.text,
             image:  !this.forum.user.profile_pic_url || this.forum.user.profile_pic_url == defaultProfileImage ? atilaImage :this.forum.user.profile_pic_url,
-            slug: `forum/${this.forum.slug}/`
+            slug: `https://api.myjson.com/bins/cqr66`
           });
         }
         catch (err) {
@@ -147,7 +147,7 @@ export class ForumDetailComponent implements OnInit, OnDestroy {
 
             this.forumMetaData['shareItem'] = {
               title : this.forum.starting_comment.title,
-              url : `https://atila.ca/forum/${this.forum.slug}/`,
+              url : `https://api.myjson.com/bins/8kpxq?fbclid=IwAR1UoRKR1lqdeA2ET5L9_tvfsRsnD61LSRt9olkViT8pEI2jcLRJbP2VDvk`,
               id : this.forum.id,
               type : 'forum',
               source : 'forum_detail',
