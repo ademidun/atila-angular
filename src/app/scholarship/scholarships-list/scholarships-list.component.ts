@@ -40,6 +40,7 @@ export class ScholarshipsListComponent implements OnInit {
 
   scholarships: Scholarship[] = []; //TODO: If i use scholarship[] I can't access property members, why?
   scholarship_count: number = 0;
+  scholarshipError: any = null;
   total_funding: any = 0;
   show_scholarship_funding: boolean = false;
   viewAsMode: boolean;
@@ -235,10 +236,15 @@ export class ScholarshipsListComponent implements OnInit {
 
 
           },
-          error => {
+          err => {
 
             this.contentFetched = false;
             this.isLoading = false;
+            console.warn({err});
+            this.scholarshipError = {
+              error: err
+            }
+            console.log('this.scholarshipError', this.scholarshipError);
           },
           () => {
             this.isLoading = false;
