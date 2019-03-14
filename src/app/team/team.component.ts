@@ -22,13 +22,13 @@ export class TeamComponent implements OnInit {
       'link_url': 'http://tomiwa.ca'
     },
     {
-      'first_name': 'Lea',
+      'first_name': 'Lea\n',
       'last_name': 'Handal',
       'username': 'lhandal',
       'position': 'Marketing',
-      'img_url': '../../assets/img/team/lhandal.jpg',
-      'description_1': 'Manpreet is currently studying computer technology at Seneca College.',
-      'description_2': 'Prior to Atila, Manpreet worked at RBC as a software developer.',
+      'img_url': '../../assets/img/team/lea.jpg',
+      'description_1': 'Lea is currently studying business and consumer behavior at Western University.',
+      'description_2': 'For fun, she likes taking pcitures with Canada Goose.',
       // "link_type": "LinkedIn",
       // "link_url": "https://ca.linkedin.com/in/matharumanpreet"
     },
@@ -49,19 +49,19 @@ export class TeamComponent implements OnInit {
       'username': 'auroritam',
       'position': 'Marketing',
       'img_url': '../../assets/img/team/aurorita.jpg',
-      'description_1': 'Manpreet is currently studying computer technology at Seneca College.',
-      'description_2': 'Prior to Atila, Manpreet worked at RBC as a software developer.',
+      'description_1': 'Aurorita is currently studying FIMS and MIT at Western University.',
+      'description_2': 'In her free time she enjoys long walks on the beach.',
       'link_type': 'LinkedIn',
       'link_url': 'https://ca.linkedin.com/in/matharumanpreet'
     },
     {
       'first_name': 'Jotham',
-      'last_name': 'D\'ailly',
+      'last_name': 'd\'Ailly',
       'username': 'jotham',
       'position': 'Engineering',
       'img_url': '../../assets/img/team/jotham.jpg',
-      'description_1': 'Manpreet is currently studying computer technology at Seneca College.',
-      'description_2': 'Prior to Atila, Manpreet worked at RBC as a software developer.',
+      'description_1': 'Jotham is currently studying software engineering at Western University. ',
+      'description_2': 'He will be joining Fast enterprises this summer as a software development intern. In his free time he enjoys swimming.',
       'link_type': 'LinkedIn',
       'link_url': 'https://ca.linkedin.com/in/matharumanpreet'
     },
