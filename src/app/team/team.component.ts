@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import {SeoService} from '../_services/seo.service';
 
@@ -11,48 +11,59 @@ export class TeamComponent implements OnInit {
 
   teamData: any[] = [
     {
-      "first_name": "Tomiwa",
-      "last_name": "Ademidun",
-      "username": "tomiwa",
-      "position": "Founder",
-      "img_url": '../../assets/img/team/tomiwa.jpeg',
-      "description_1": "Tomiwa is currently taking a year off a dual degree in software engineering and business at Ivey Business School in Canada to start Atila.",
-      "description_2": "He enjoys playing soccer and is a big Arsenal F.C. fan.",
-      "link_type": "Website",
-      "link_url": "http://tomiwa.ca"
+      'first_name': 'Tomiwa',
+      'last_name': 'Ademidun',
+      'username': 'tomiwa',
+      'position': 'Founder',
+      'img_url': '../../assets/img/team/tomiwa.jpg',
+      'description_1': 'Tomiwa is currently taking a year off a dual degree in software engineering and business at Ivey Business School in Canada to start Atila.',
+      'description_2': 'He enjoys playing soccer and is a big Arsenal F.C. fan.',
+      'link_type': 'Website',
+      'link_url': 'http://tomiwa.ca'
     },
     {
-      "first_name": "Manpreet",
-      "last_name": "Singh",
-      "username": "matharumanpreet",
-      "position": "Engineering",
-      "img_url": '../../assets/img/team/matharumanpreet.jpeg',
-      "description_1": "Manpreet is currently studying computer technology at Seneca College.",
-      "description_2": "Prior to Atila, Manpreet worked at RBC as a software developer.",
-      "link_type": "LinkedIn",
-      "link_url": "https://ca.linkedin.com/in/matharumanpreet"
+      'first_name': 'Lea\n',
+      'last_name': 'Handal',
+      'username': 'lhandal',
+      'position': 'Marketing',
+      'img_url': '../../assets/img/team/lea.jpg',
+      'description_1': 'Lea is currently studying business and consumer behavior at Western University.',
+      'description_2': 'For fun, she likes taking pcitures with Canada Goose.',
+      // "link_type": "LinkedIn",
+      // "link_url": "https://ca.linkedin.com/in/matharumanpreet"
     },
     {
-      "first_name": "Kitan",
-      "last_name": "Ademidun",
-      "position": "Engineering + Marketing",
-      "username": "orekitan",
-      "img_url": '../../assets/img/team/orekitan.jpeg',
-      "description_1": "Kitan is currently studying software engineering and is in the AEO program at Ivey Business School",
-      "description_2": "Prior to Atila she worked at AXA Mansard, a Nigerian insurance company.",
-      "link_type": "LinkedIn",
-      "link_url": "https://www.linkedin.com/in/kitan-ademidun-881330149/"
+      'first_name': 'Valentine',
+      'last_name': 'Kuznetcov',
+      'username': 'valentine',
+      'position': 'Engineering',
+      'img_url': '../../assets/img/team/valentine.jpg',
+      'description_1': 'Valentin studied at the Ivey Business School at Western University.',
+      'description_2': 'He is currently the CFO of in-lite Outdoor Lighting NA.',
+      'link_type': 'LinkedIn',
+      'link_url': 'https://ca.linkedin.com/in/matharumanpreet'
     },
     {
-      "first_name": "Ann",
-      "last_name": "Mathulla",
-      "username": "AnnMathulla",
-      "position": "Product Manager",
-      "img_url": '../../assets/img/team/AnnMathulla.jpeg',
-      "description_1": "Ann is currently studying business at Smith school of Business, Queen's University. She's also the recipient of the Queen's Chancellor scholarship.",
-      "description_2": " Last summer, she worked at Financeit, an edtech startup acquired by Goldman Sachs.",
-      "link_type": "LinkedIn",
-      "link_url": "https://ca.linkedin.com/in/ann-mathulla"
+      'first_name': 'Aurorita',
+      'last_name': 'Mahbub',
+      'username': 'auroritam',
+      'position': 'Marketing',
+      'img_url': '../../assets/img/team/aurorita.jpg',
+      'description_1': 'Aurorita is currently studying FIMS and MIT at Western University.',
+      'description_2': 'In her free time she enjoys long walks on the beach.',
+      'link_type': 'LinkedIn',
+      'link_url': 'https://ca.linkedin.com/in/matharumanpreet'
+    },
+    {
+      'first_name': 'Jotham',
+      'last_name': 'd\'Ailly',
+      'username': 'jotham',
+      'position': 'Engineering',
+      'img_url': '../../assets/img/team/jotham.jpg',
+      'description_1': 'Jotham is currently studying software engineering at Western University. ',
+      'description_2': 'He will be joining Fast enterprises this summer as a software development intern. In his free time he enjoys swimming.',
+      'link_type': 'LinkedIn',
+      'link_url': 'https://ca.linkedin.com/in/matharumanpreet'
     },
   ];
 
