@@ -24,13 +24,13 @@ export class ForumService {
   }
 
   getBySlug(slug: string) {
-    return this.http.get(`https://api.myjson.com/bins/cqr66`)
+    return this.http.get(`${this.forumsSlugUrl}?slug=${slug}/`)
       .map(res=><any>res)
       .catch(err=>Observable.throw(err));
   }
 
   getComments(id: number) {
-    return this.http.get(`https://api.myjson.com/bins/8kpxq?fbclid=IwAR1UoRKR1lqdeA2ET5L9_tvfsRsnD61LSRt9olkViT8pEI2jcLRJbP2VDvk`)
+    return this.http.get(`${this.forumsUrl}${id}/comments/`)
       .map(res=><any>res)
       .catch(err=>Observable.throw(err));
   }

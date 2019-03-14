@@ -23,13 +23,13 @@ export class BlogPostService {
   }
 
   getBySlug(username:string, slug: string) {
-    return this.http.get(` https://api.myjson.com/bins/1f93ta`)
+    return this.http.get(`${this.blogUrl}blog/${username}/${slug}/`)
       .map(res => res)
       .catch(err => Observable.throw(err));
   }
 
   getById(id:number){
-    return this.http.get(`https://api.myjson.com/bins/1f93ta`)
+    return this.http.get(`${this.blogsUrl}${id}/`)
     .map(res => res)
     .catch(err => Observable.throw(err));
   }
