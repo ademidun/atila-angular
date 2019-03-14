@@ -1,4 +1,4 @@
-import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import * as $ from 'jquery';
 
@@ -7,7 +7,7 @@ import * as $ from 'jquery';
   templateUrl: './notification-dialog.component.html',
   styleUrls: ['./notification-dialog.component.scss']
 })
-export class NotificationDialogComponent implements OnInit, OnDestroy {
+export class NotificationDialogComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     public dialogRef: MatDialogRef<NotificationDialogComponent>,
@@ -15,8 +15,14 @@ export class NotificationDialogComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log('NotificationDialogComponent ngOnInit()');
-    $('#dimScreen').css('display', 'block');
+  }
+
+  ngAfterViewInit() {
+
+    setTimeout(() => {
+      console.log('setTimeout() NotificationDialogComponent ngAfterViewInit()');
+      $('#dimScreen').css('display', 'block');
+    }, 500);
   }
 
   ngOnDestroy() {
