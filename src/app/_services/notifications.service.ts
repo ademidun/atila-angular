@@ -83,14 +83,23 @@ export class NotificationsService {
 
     const messageData = {
       title: `${scholarship.name} is due in 7 days on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}`,
-      body: `The ${scholarship.name} you saved is due on: ${scholarship.deadline}. Submit your Application!`,
+      body: `The ${scholarship.name} you saved is due on: ${this.datePipe.transform(scholarship.deadline, 'fullDate')}.
+       Submit your Application!`,
       clickAction: `https://atila.ca/scholarship/${scholarship.slug}?utm_source=push_notification`,
       // todo: user scholarship.img_url, for now use Atila Logo to build brand awareness
-      // image: scholarship.img_url,
-      // icon: 'https://s3-us-west-2.amazonaws.com/anchor-generated-image-bank/production/podcast_uploaded400/1148013/1148013-1541382931259-c18599ece7ee7.jpg',
-      // badge: 'https://s3-us-west-2.amazonaws.com/anchor-generated-image-bank/production/podcast_uploaded400/1148013/1148013-1541382931259-c18599ece7ee7.jpg',
-      // sendDate: sendDate,
+      image: 'https://storage.googleapis.com/atila-7.appspot.com/public/atila-logo-right-way-circle-transparent.png',
+      icon: 'https://storage.googleapis.com/atila-7.appspot.com/public/atila-logo-right-way-circle-transparent.png',
+      badge: 'https://storage.googleapis.com/atila-7.appspot.com/public/atila-logo-right-way-circle-transparent.png',
+      sendDate: sendDate,
     };
+
+    messageData['actions'] = [
+      {
+        action: 'view', title: 'View Scholarship',
+        icon: 'https://storage.googleapis.com/atila-7.appspot.com/public/atila-logo-right-way-circle-transparent.png'
+      },
+    ];
+
 
     return messageData;
   }

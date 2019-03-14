@@ -12,7 +12,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Scholarship} from '../../_models/scholarship';
 import {NotificationDialogComponent} from '../../notification-dialog/notification-dialog.component';
 import {NotificationsService} from '../../_services/notifications.service';
-import * as $ from "jquery";
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-scholarship-card',
@@ -132,7 +132,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
     this.logShareType('save_my_scholarships');
     if (this.userProfile) {
 
-      let saveResult = addToMyScholarshipHelper(this.userProfile, this.scholarship);
+      const saveResult = addToMyScholarshipHelper(this.userProfile, this.scholarship);
 
       if (!saveResult[1]) {
         this.snackBar.open('Already Saved', '', {
@@ -140,14 +140,16 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
         });
 
         this.alreadySaved = true;
+        if (this.userProfile.is_atila_admin) { // todo: remove this before-merge-master
+          this.notifySavedScholarship();
+        }
         return;
-      }
-      else {
+      } else {
         this.userProfile = saveResult[0];
 
         this.userProfileService.updateHelper(this.userProfile).subscribe(
           res => {
-            let snackBarRef = this.snackBar.open('Saved to My Scholarships', 'My Scholarships', {
+            const snackBarRef = this.snackBar.open('Saved to My Scholarships', 'My Scholarships', {
               duration: 5000
             });
             snackBarRef.onAction().subscribe(
@@ -244,21 +246,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
         this.userProfileService.updateHelper(this.userProfile).subscribe(userProfileResponse => {
           console.log({userProfileResponse});
           if (this.userProfile.metadata['allowNotifySavedScholarships']) {
-            // Add push notification for this scholarship
-            this.notificationService.createScholarshipNotifications(this.userProfile, this.scholarship)
-              .then(observableResult => {
-                  observableResult.subscribe(
-                    res => {
-                      console.log({res})
-                    },
-                    err => {
-                      console.log({err})
-                    },
-                    () => {
-                      console.log('finished')
-                    })
-                }
-              )
+            this.createScholarshipNotificationsHandler();
           }
         });
 
@@ -268,24 +256,28 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
 
     if (this.userProfile.metadata['allowNotifySavedScholarships']) {
       // Add push notification for this scholarship
-      this.notificationService.createScholarshipNotifications(this.userProfile, this.scholarship)
-        .then(observableResult => {
-            observableResult.subscribe(
-              res => {
-                console.log({res})
-              },
-              err => {
-                console.log({err})
-              },
-              () => {
-                console.log('finished')
-              })
-          }
-        )
+      this.createScholarshipNotificationsHandler();
     }
 
   }
 
+
+  createScholarshipNotificationsHandler() {
+    this.notificationService.createScholarshipNotifications(this.userProfile, this.scholarship)
+      .then(observableResult => {
+          observableResult.subscribe(
+            res => {
+              console.log({res})
+            },
+            err => {
+              console.log({err})
+            },
+            () => {
+              console.log('finished')
+            })
+        }
+      )
+  }
 
   logNotInterested() {
 
