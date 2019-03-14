@@ -240,11 +240,9 @@ export class ScholarshipsListComponent implements OnInit {
 
             this.contentFetched = false;
             this.isLoading = false;
-            console.warn({err});
             this.scholarshipError = {
               error: err
             }
-            console.log('this.scholarshipError', this.scholarshipError);
           },
           () => {
             this.isLoading = false;

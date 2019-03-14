@@ -34,19 +34,15 @@ export class NotificationsService {
 
   pushMessages(messagesList) {
 
-    return this.http.post(`${environment.atilaMicroservicesApiUrlNode}subscriptions/`, messagesList);
+    return this.http.post(`${environment.atilaMicroservicesApiUrlNode}notifications/push-subscriptions/`, messagesList);
 
   }
 
   createScholarshipNotifications(userProfile: UserProfile, scholarship: Scholarship) {
 
-    // darken the background when asking for permission
-    $('#dimScreen').css('display', 'block');
     return this.getPermission().then((sub: PushSubscription) => {
 
         $('#dimScreen').css('display', 'none');
-        console.log({sub});
-
         const notificationMessage = this.createScholarshipNotificationMessage(userProfile, scholarship);
 
         const fullMessagePayload = {...sub, ...notificationMessage};
@@ -55,16 +51,13 @@ export class NotificationsService {
         fullMessagePayload['_sub'] = sub;
         fullMessagePayload['_notificationMessage'] = notificationMessage;
 
+        console.log({fullMessagePayload});
         return this.pushMessages([fullMessagePayload])
           .map(res => res)
           .catch(err => Observable.throw(err));
       },
     )
       .catch((err: DOMException) => {
-        $('#dimScreen').css('display', 'none');
-        console.log('Unable to createScholarshipNotifications()', err);
-        console.log('Unable to createScholarshipNotifications()', err.message);
-        console.log('Unable to createScholarshipNotifications()', err.name);
         return Observable.throw({
           message: 'Unable to createScholarshipNotifications()',
           error: {

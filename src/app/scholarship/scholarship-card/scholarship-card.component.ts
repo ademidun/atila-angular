@@ -124,8 +124,11 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
   addToMyScholarship(item) {
 
     if (this.alreadySaved) {
+      if (this.userProfile.is_atila_admin) { // todo: remove this before-merge-master
+        this.notifySavedScholarship();
+      }
       this.snackBar.open('Already Saved', '', {
-        duration: 5000
+        duration: 3000
       });
       return;
     }
@@ -222,9 +225,9 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
     // 3.user has not told us to stop asking them
     if (!this.userProfile.metadata['haveAskedIfNotifySavedScholarship'] ||
       !this.userProfile.metadata['allowNotifySavedScholarships']
-      && !this.userProfile.metadata['dontAskAgainNotifySavedScholarship']) {
+      && !this.userProfile.metadata['dontAskAgainNotifySavedScholarship']
+      || this.userProfile.is_atila_admin) { // todo: remove before merge-master-branch
       // Ask user if we can notify them when their saved scholarships are due
-      $('#dimScreen').css('display', 'block');
       const dialogRef = this.notificationDialog.open(NotificationDialogComponent, {
         width: '350px',
         height: '350px',
@@ -235,7 +238,6 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        $('#dimScreen').css('display', 'none');
         console.log(`The dialog was closed`, result);
         this.userProfile.metadata.haveAskedIfNotifySavedScholarship = !!result;
         if (result) {
