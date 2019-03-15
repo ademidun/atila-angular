@@ -8,7 +8,6 @@ import {trigger, state, animate, transition, style} from '@angular/animations';
 import {ScholarshipService} from '../../_services/scholarship.service';
 import {AuthService} from '../../_services/auth.service';
 import {environment} from '../../../environments/environment';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {Scholarship} from '../../_models/scholarship';
 import {NotificationDialogComponent} from '../../notification-dialog/notification-dialog.component';
 import {NotificationsService} from '../../_services/notifications.service';
@@ -28,7 +27,7 @@ import * as $ from 'jquery';
 })
 export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  //todo change to only handle one scholarship
+  // todo change to only handle one scholarship
   @Input() scholarship: Scholarship | any;
   @Input() userProfile: UserProfile;
   @Input() metadata: any = {};
@@ -83,8 +82,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
 
     if ('2022-01-01T00:00:00Z' == this.scholarship.deadline) {
       this.scholarship['metadata']['deadline_tbd'] = 'TBA';
-    }
-    else if (this.scholarship['metadata']['deadline_tbd']) {
+    } else if (this.scholarship['metadata']['deadline_tbd']) {
       delete this.scholarship['metadata']['deadline_tbd'];
     }
 
@@ -92,8 +90,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
     today = today.toISOString();
     if (this.scholarship.open_date < today) {
       this.scholarship['metadata']['open_date_tbd'] = 'TBA';
-    }
-    else if (this.scholarship['metadata']['open_date_tbd']) {
+    } else if (this.scholarship['metadata']['open_date_tbd']) {
       delete this.scholarship['metadata']['open_date_tbd'];
     }
 
@@ -167,10 +164,8 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
         );
       }
 
-    }
-
-    else {
-      let snackBarRef = this.snackBar.open('Register to Save', 'Register', {
+    }else {
+      const snackBarRef = this.snackBar.open('Register to Save', 'Register', {
         duration: 5000
       });
 
@@ -257,7 +252,6 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     if (this.userProfile.metadata['allowNotifySavedScholarships']) {
-      // Add push notification for this scholarship
       this.createScholarshipNotificationsHandler();
     }
 
@@ -304,7 +298,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
 
       this.userProfile = updateScholarshipMatchScore(this.userProfile, {'not_interested': true});
 
-      let scholarships_not_interested = {
+      const scholarships_not_interested = {
         scholarships_not_interested: this.userProfile.scholarships_not_interested,
         scholarships_match_score: this.userProfile.scholarships_match_score,
       };
@@ -324,7 +318,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
     if (this.metadata['form_data'] && this.metadata['form_data']['view_as_user']) {
       console.log('Skipping click in view_as_user mode, this.metadata[\'form_data\']', this.metadata['form_data']);
     }
-    let userAnalyticsData = {
+    const userAnalyticsData = {
       scholarship: this.scholarship.id,
       form_data: this.metadata['form_data'] || null,
       page_no: this.metadata['page_no'] || null
@@ -332,7 +326,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
     this.firebaseService.saveUserAnalytics(userAnalyticsData, 'scholarships_list_click');
     this.sendScholarshipInteraction('click');
 
-    let emitData = {
+    const emitData = {
       event: event,
       type: 'scholarship',
       action: 'click',
@@ -351,7 +345,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
       // console.log({callback});
       // return null;
       //
-      // let visible = this.isElementInViewport(el);
+      // const visible = this.isElementInViewport(el);
       // if (visible != this.old_visible) {
       //
       //   if (visible && this.isFirstView && !this.scholarshipService.preventViewDoubleCount) {
@@ -370,12 +364,12 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
 
   isElementInViewport(el) {
 
-    //special bonus for those using jQuery
+    // special bonus for those using jQuery
     if (typeof jQuery === 'function' && el instanceof jQuery) {
       el = el[0];
     }
 
-    var rect = el.getBoundingClientRect();
+    const rect = el.getBoundingClientRect();
 
     return (
       rect.top >= 0 &&
@@ -403,7 +397,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
 
 
     this.isFirstView = false;
-    let actionData = {
+    const actionData = {
       'key': 'type',
       'value': actionType,
     };
@@ -414,7 +408,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
 
           this.userProfileService.userProfileRPC(this.userId + '/refresh-scholarship-cache')
             .subscribe(
-              res => {
+              res2 => {
                 if (!this.environment.production) {
                 }
               }
