@@ -1,11 +1,11 @@
 <div class="container">
     <div *ngIf="blogPost">
 
-            <div class="col-sm-12">
+      <div class="col-sm-12">
               <h1 style="text-align: center; " class="blog-title"> {{blogPost.title}} </h1>
             </div>
 
-            <div class="col-sm-12 col-md-10  offset-md-1">
+      <div class="col-sm-12 col-md-10  offset-md-1">
                 <a *ngIf="userProfile && (userProfile.user==blogPost.user.id || userProfile.is_atila_admin)" [routerLink]="[ '/blog/edit', blogPost.id ]">Edit Blog</a>
                 <div *ngIf="!blogPost.published" style="font-weight: bold; "> | Unpublished</div>
                 <img src="{{blogPost.header_image_url}}" style="max-height: 100%;max-width: 100%" class="center-block"/>
@@ -53,6 +53,68 @@
               <div class="blog-text inner-html" [innerHTML]="blogPost.body | safeHtml"></div>
 
             </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-4">
+
+        <!-- Search Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Search</h5>
+          <div class="card-body">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search for...">
+              <span class="input-group-btn">
+                <button class="btn btn-secondary" type="button">Go!</button>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Categories Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Categories</h5>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="#">Web Design</a>
+                  </li>
+                  <li>
+                    <a href="#">HTML</a>
+                  </li>
+                  <li>
+                    <a href="#">Freebies</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-lg-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="#">JavaScript</a>
+                  </li>
+                  <li>
+                    <a href="#">CSS</a>
+                  </li>
+                  <li>
+                    <a href="#">Tutorials</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side Widget -->
+        <div class="card my-4">
+          <h5 class="card-header">Side Widget</h5>
+          <div class="card-body">
+            You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+          </div>
+        </div>
+
+      </div>
+      <!--END Sidebar Widgets Column-->
 
 
       <!-- TODO: Should we ask the user occasionally to subscribe? Even if already logged in? -->
