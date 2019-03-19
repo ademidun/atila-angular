@@ -1,14 +1,14 @@
 <div class="container">
-    <div *ngIf="blogPost">
+    <div *ngIf="blogPost" class="row">
 
       <div class="col-sm-12">
               <h1 style="text-align: center; " class="blog-title"> {{blogPost.title}} </h1>
             </div>
 
-      <div class="col-sm-12 col-md-10  offset-md-1">
+      <div class="col-sm-12 col-md-8">
                 <a *ngIf="userProfile && (userProfile.user==blogPost.user.id || userProfile.is_atila_admin)" [routerLink]="[ '/blog/edit', blogPost.id ]">Edit Blog</a>
                 <div *ngIf="!blogPost.published" style="font-weight: bold; "> | Unpublished</div>
-                <img src="{{blogPost.header_image_url}}" style="max-height: 100%;max-width: 100%" class="center-block"/>
+                <img src="{{blogPost.header_image_url}}" style="max-height: 100%;max-width: 100%" class="center-block my-2"/>
 
               <div class="card">
                   <div *ngIf="blogPost.user" style="margin: 3%">
@@ -57,7 +57,8 @@
       <!-- Sidebar Widgets Column -->
       <div class="col-md-4">
 
-        <!-- Search Widget -->
+
+        <!-- Search Widget
         <div class="card my-4">
           <h5 class="card-header">Search</h5>
           <div class="card-body">
@@ -70,7 +71,7 @@
           </div>
         </div>
 
-        <!-- Categories Widget -->
+        &lt;!&ndash; Categories Widget &ndash;&gt;
         <div class="card my-4">
           <h5 class="card-header">Categories</h5>
           <div class="card-body">
@@ -103,7 +104,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div>-->
 
         <!-- Side Widget -->
         <div class="card my-4">
