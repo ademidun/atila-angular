@@ -8,7 +8,7 @@
       <div class="col-sm-12 col-md-8">
                 <a *ngIf="userProfile && (userProfile.user==blogPost.user.id || userProfile.is_atila_admin)" [routerLink]="[ '/blog/edit', blogPost.id ]">Edit Blog</a>
                 <div *ngIf="!blogPost.published" style="font-weight: bold; "> | Unpublished</div>
-                <img src="{{blogPost.header_image_url}}" style="max-height: 100%;max-width: 100%" class="center-block my-2"/>
+                <img src="{{blogPost.header_image_url}}" style="max-height: 100%;max-width: 100%" class="center-block my-4"/>
 
               <div class="card">
                   <div *ngIf="blogPost.user" style="margin: 3%">
@@ -108,9 +108,14 @@
 
         <!-- Side Widget -->
         <div class="card my-4">
-          <h5 class="card-header">Side Widget</h5>
+          <h5 class="card-header">Related</h5>
           <div class="card-body">
-            You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+            <div  *ngFor="let item of relatedItems; let i = index; first as isFirst;">
+              <div (click)="logRelatedItemClick(item)">
+                <app-card-generic class="hide-on-small-and-down" [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'height': '300px', 'overflow-y': 'hidden'}"> </app-card-generic>
+                <app-card-generic class="hide-on-med-and-up" [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'max-height': '300px', 'overflow-y': 'hidden'}"> </app-card-generic>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -148,7 +153,7 @@
             <app-card-generic class="hide-on-med-and-up" [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'max-height': '300px', 'overflow-y': 'hidden'}"> </app-card-generic>
           </div>
         </div>
-    </div>
+      </div>
 
       <div class="col-sm-11 comment-box">
         <h5 > Comments </h5>
