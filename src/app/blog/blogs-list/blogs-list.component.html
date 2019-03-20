@@ -20,7 +20,10 @@
           <div class="card">
             <div class="card-content ">
               <span class="card-title responsive-height">
-                <a routerLink="/blog/{{blog.user.username}}/{{blog.slug}}">{{blog.title | truncate:75}}</a>
+                <a routerLink="/blog/{{blog.user.username}}/{{blog.slug}}"
+                   [title]="blog.title" (mouseenter) ="titleMaxLength=blog.title.length"  (mouseleave)="titleMaxLength=100">
+                  {{blog.title | truncate:titleMaxLength}}
+                </a>
                 <span *ngIf="!blog.published" style=" font-size: medium; font-weight: bold; ">Unpublished</span>
               </span>
               <span *ngIf="blog.user">
@@ -70,19 +73,5 @@
         </div>
 
       <!-- Loading progress circle -->
-      <div *ngIf="!blogs " class="preloader-background">
-        <div class="preloader-wrapper big active">
-          <div class="spinner-layer spinner-blue-only">
-            <div class="circle-clipper left">
-              <div class="circle"></div>
-            </div>
-            <div class="gap-patch">
-              <div class="circle"></div>
-            </div>
-            <div class="circle-clipper right">
-              <div class="circle"></div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <mat-spinner *ngIf="!blogs"></mat-spinner>
     </div>
