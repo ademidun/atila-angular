@@ -123,11 +123,18 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
     if (this.alreadySaved) {
       if (this.userProfile.is_atila_admin) { // todo: remove this before-merge-master
         this.notifySavedScholarship();
+        this.snackBar.open('Already Saved but allow it for admin mandem ', '', {
+          duration: 3000
+        });
+        return;
       }
-      this.snackBar.open('Already Saved', '', {
-        duration: 3000
-      });
-      return;
+      else {
+        this.snackBar.open('Already Saved', '', {
+          duration: 3000
+        });
+        return;
+      }
+
     }
     this.logShareType('save_my_scholarships');
     if (this.userProfile) {
@@ -142,6 +149,9 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
         this.alreadySaved = true;
         if (this.userProfile.is_atila_admin) { // todo: remove this before-merge-master
           this.notifySavedScholarship();
+          this.snackBar.open('Already Saved but allow it for admin mandem again doe', '', {
+            duration: 3000
+          });
         }
         return;
       } else {
@@ -164,7 +174,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
         );
       }
 
-    }else {
+    } else {
       const snackBarRef = this.snackBar.open('Register to Save', 'Register', {
         duration: 5000
       });
@@ -218,6 +228,12 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
     // 2.user has not allowed us to notify them
     // AND
     // 3.user has not told us to stop asking them
+
+    if (!this.userProfile.is_debug_mode && !this.userProfile.is_atila_admin) {
+      // todo: remove before merge-master allow non admin or debug users to test notifications
+      return;
+    }
+
     if (!this.userProfile.metadata['haveAskedIfNotifySavedScholarship'] ||
       !this.userProfile.metadata['allowNotifySavedScholarships']
       && !this.userProfile.metadata['dontAskAgainNotifySavedScholarship']
