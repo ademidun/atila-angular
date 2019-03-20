@@ -1,7 +1,10 @@
-
 <div class="card" [ngStyle]="cardStyle">
   <div class="card-title card-header"  [ngStyle]="{'max-height': item.image && !previewDescription ? '175px' : null}">
-    <a [routerLink]="item.slug"> {{item.title}}</a>
+    <a *ngIf="item.title" [routerLink]="item.slug" [title]="item.title" (mouseenter) ="titleMaxLength=item.title.length"  (mouseleave)="titleMaxLength=100">
+
+      {{previewDescription? item.title : item.title | truncate:titleMaxLength }}
+
+    </a>
     <p *ngIf="item.type" class="card-subtitle text-muted " style="font-size: small;">
       {{toTitleCase(item.type)}}
     </p>
@@ -17,6 +20,5 @@
       {{item.description | truncate:280}}
     </p>
   </div>
+<a (click)="togglePreview()" class="card-footer">Preview</a>
 </div>
-<a (click)="togglePreview()"
-   >Preview</a>

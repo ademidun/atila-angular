@@ -24,7 +24,7 @@ export class TeamComponent implements OnInit {
     {
       'first_name': 'Lea\n',
       'last_name': 'Handal',
-      'username': 'lhandal',
+      // 'username': 'lhandal',
       'position': 'Marketing',
       'img_url': '../../assets/img/team/lea.jpg',
       'description_1': 'Lea is currently studying business and consumer behavior at Western University.',
@@ -35,13 +35,13 @@ export class TeamComponent implements OnInit {
     {
       'first_name': 'Valentine',
       'last_name': 'Kuznetcov',
-      'username': 'valentine',
+      // 'username': 'valentine',
       'position': 'Engineering',
       'img_url': '../../assets/img/team/valentine.jpg',
       'description_1': 'Valentin studied at the Ivey Business School at Western University.',
       'description_2': 'He is currently the CFO of in-lite Outdoor Lighting NA.',
       'link_type': 'LinkedIn',
-      'link_url': 'https://ca.linkedin.com/in/matharumanpreet'
+      'link_url': 'https://www.linkedin.com/in/valentin-kuznetcov/'
     },
     {
       'first_name': 'Aurorita',
@@ -57,13 +57,13 @@ export class TeamComponent implements OnInit {
     {
       'first_name': 'Jotham',
       'last_name': 'd\'Ailly',
-      'username': 'jotham',
+      // 'username': 'jotham',
       'position': 'Engineering',
       'img_url': '../../assets/img/team/jotham.jpg',
       'description_1': 'Jotham is currently studying software engineering at Western University. ',
       'description_2': 'He will be joining Fast enterprises this summer as a software development intern. In his free time he enjoys swimming.',
       'link_type': 'LinkedIn',
-      'link_url': 'https://ca.linkedin.com/in/matharumanpreet'
+      'link_url': 'https://www.linkedin.com/in/jotham-d-ailly-788715117/'
     },
   ];
 
