@@ -71,7 +71,7 @@ import {AtilaPointsPromptDialogComponent} from '../atila-points-prompt-dialog/at
     HttpClientModule,
     MaterializeModule,
     NgbTypeaheadModule,
-    TableLayoutModule
+    TableLayoutModule,
   ],
   declarations: [
     SafeHtmlPipe,
