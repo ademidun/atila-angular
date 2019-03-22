@@ -23,6 +23,7 @@ export class BlogsListComponent implements OnInit {
   blogComment:Comment;
   userProfile: UserProfile;
   isLoading= true;
+  titleMaxLength = 75;
   constructor(
     public blogService: BlogPostService,
     public userProfileService: UserProfileService,
