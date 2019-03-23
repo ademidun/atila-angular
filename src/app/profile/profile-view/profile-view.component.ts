@@ -238,14 +238,14 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
 
   getScholarships(options?: {excludeExpired: true}) {
 
-    let scholarshipPath = options['excludeExpired'] ? 'scholarships/?exclude_expired='+true : 'scholarships';
+    const scholarshipPath = options && options['excludeExpired'] ? 'scholarships/?exclude_expired=' + true : 'scholarships';
     this.userProfileService.getRouteDetail(this.userProfile.user, scholarshipPath).subscribe(
       res => {
         this.savedScholarships = res['scholarships'];
 
         this.savedScholarships.forEach(scholarship => {
           if (!this.userProfile.saved_scholarships_metadata[scholarship.id]) {
-            this.userProfile.saved_scholarships_metadata[scholarship.id] = {'notes':''};
+            this.userProfile.saved_scholarships_metadata[scholarship.id] = {'notes': ''};
           }
         });
 

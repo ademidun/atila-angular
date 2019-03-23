@@ -165,6 +165,11 @@ async defer></script>
     Sorry, but app is not available without javascript
   </h3>
 </noscript>
+
+<div id="dimScreen">
+  <!--Use this whenever you want to cover the screen e.g. for a user prompt-->
+</div>
+
   <app-root>
 
 
@@ -198,15 +203,30 @@ async defer></script>
 </body>
 
 <script>
+  /*
+  import * as firebase from 'firebase';
+  firebase.initializeApp({
+    'messagingSenderId': '148649271725'
+  });
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('/ngsw-worker.js')
         .then(function(registration) {
+          console.log('index.html ngsw-worker.js ',registration );
+        })
+        .catch(function(err) {
+          console.log({err})
+        });
+      navigator.serviceWorker.register('/firebase-messaging-sw.js')
+        .then(function(registration) {
+          console.log('index.html firebase-messaging-sw.js ',registration );
+          console.log({firebase});
+          firebase.messaging().useServiceWorker(registration);
         })
         .catch(function(err) {
         });
     });
   }
-
+  */
 </script>
 </html>

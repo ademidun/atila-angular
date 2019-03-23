@@ -17,3 +17,11 @@ Here are some tutorials to get you started:
 [Techie Diaries Tutorial](https://www.techiediaries.com/django-rest-framework-angular-2/)
 
 
+## Firebase Cloud Functions
+
+This app also utilizes some cloud functions for various backend tasks.
+
+They can be found in the [functions folder](https://github.com/ademidun/atila-angular/tree/master/functions).
+
+To deploy:
+`firebase deploy --only functions:fcmSend`

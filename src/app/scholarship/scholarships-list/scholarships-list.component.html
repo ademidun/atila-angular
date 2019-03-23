@@ -16,8 +16,8 @@
 
         <div class="center container">
 
-          <h1 *ngIf="activatedRoute.snapshot.queryParams['q']" class="registered-title">
-            Scholarships for {{prettifyKeys(activatedRoute.snapshot.queryParams['q'])}}
+          <h1 *ngIf="scholarshipQuery" class="registered-title">
+            Scholarships for {{prettifyKeys(scholarshipQuery)}}
           </h1>
           <h4 class="registered-title">
             <span *ngIf="viewAsUser" style="font-size: larger; color: green">Viewing As: {{viewAsUser.first_name}}</span>
@@ -126,10 +126,10 @@
 
           <div class="row">
             <div *ngFor="let scholarship of scholarships;  let i=index" class="col-sm-12 col-md-10  offset-md-1" style="margin-bottom: -5%">
-              <ng-template [ngIf]="i<3">
+              <ng-container [ngIf]="i<3">
                 <app-scholarship-card [scholarship]="scholarship" [userProfile]="userProfile"
                                       [metadata]="{'form_data':form_data}"></app-scholarship-card>
-              </ng-template>
+              </ng-container>
             </div>
           </div>
 
@@ -456,30 +456,38 @@
 </div>
 
 <!-- Loading progress circle -->
-<div *ngIf="isLoading" class="preloader-background">
-  <div class="preloader-wrapper big active">
-    <div class="spinner-layer spinner-blue-only">
-      <div class="circle-clipper left">
-        <div class="circle"></div>
-      </div>
-      <div class="gap-patch">
-        <div class="circle"></div>
-      </div>
-      <div class="circle-clipper right">
-        <div class="circle"></div>
-      </div>
-    </div>
-  </div>
+<div *ngIf="isLoading" class="col-sm-12 ng-star-inserted"
+     style="margin-top: 5%;margin-bottom: 5%;">
+  <h3 class="center">
+    Loading Scholarships...
+  </h3>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
 
-<ng-template *ngIf="contentFetched && scholarship_count==0">
+<ng-container *ngIf="contentFetched && scholarship_count==0">
   <div class="container">
     <h2 class="scholarship-preview-count my-dark-blue-text">No available scholarships for the specified profile.</h2>
     <!--TODO: Add page for scholarship advice-->
 
     <h4 class="scholarship-preview-count my-dark-blue-text"><a routerLink="/register">Learn how to qualify for more scholarships.</a></h4>
   </div>
-</ng-template>
+</ng-container>
+
+<div *ngIf="scholarshipError" class="col-sm-12 ng-star-inserted"
+     style="margin-top: 5%;margin-bottom: 5%;">
+  <h1 class="center" style="font-size: 2.9rem">
+    Uh oh. Error getting Scholarships
+    <ng-container *ngIf="scholarshipQuery">for <strong>{{prettifyKeys(scholarshipQuery)}}</strong></ng-container>😕
+    <br>
+    Please try again Later.
+  </h1>
+  <h4 class="center" *ngIf="scholarshipQuery">
+    <strong>Tip:</strong> Try Searching for<a routerLink="/search" [queryParams]="{'q':scholarshipQuery}">
+    {{prettifyKeys(scholarshipQuery)}}</a>
+  </h4>
+  <h4 class="center"><a routerLink="/contact">Contact us</a> if you have questions
+  </h4>
+</div>
 
 
 

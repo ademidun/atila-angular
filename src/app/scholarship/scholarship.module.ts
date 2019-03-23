@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 
 import { ScholarshipRoutingModule } from './scholarship-routing.module';
 import {environment} from '../../environments/environment';
@@ -39,6 +39,7 @@ import {ScholarshipsListComponent} from './scholarships-list/scholarships-list.c
 import {SubscriberDialogComponent} from '../subscriber-dialog/subscriber-dialog.component';
 import {EditProfileModalComponent} from '../edit-profile-modal/edit-profile-modal.component';
 import { ScholarshipEditSuggestionComponent } from './scholarship-edit-suggestion/scholarship-edit-suggestion.component';
+import {NotificationDialogComponent} from '../notification-dialog/notification-dialog.component';
 
 @NgModule({
   imports: [
@@ -75,11 +76,13 @@ import { ScholarshipEditSuggestionComponent } from './scholarship-edit-suggestio
     ScholarshipCardComponent,
     ScholarshipsListComponent,
     ScholarshipEditSuggestionComponent,
+    NotificationDialogComponent,
   ],
   entryComponents: [
     SubscriberDialogComponent,
     EditProfileModalComponent,
     AddQuestionModalComponent,
+    NotificationDialogComponent,
   ]
 })
 export class ScholarshipModule { }

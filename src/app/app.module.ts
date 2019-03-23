@@ -62,7 +62,7 @@ import {TermsConditionsComponent} from './terms-conditions/terms-conditions.comp
 import {SearchComponent} from './search/search.component';
 import {SearchService} from './_services/search.service';
 import {DynamicQuestionGeneralComponent} from './dynamic-question-general/dynamic-question-general.component';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import {MaterializeModule} from 'angular2-materialize';
 import "materialize-css";
 import {MarkdownModule} from 'ngx-markdown';
@@ -74,6 +74,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { GeneralInfoComponent } from './general-info/general-info.component';
 import { AtilaPointsPromptDialogComponent } from './atila-points-prompt-dialog/atila-points-prompt-dialog.component';
 import {ServiceWorkerModule} from '@angular/service-worker';
+import {NotificationsService} from './_services/notifications.service';
+import {AngularFireAuthModule} from 'angularfire2/auth';
 
 @NgModule({
   declarations: [
@@ -99,7 +101,8 @@ import {ServiceWorkerModule} from '@angular/service-worker';
     NgbModule.forRoot(),
     SharedModule,
     AngularFireModule.initializeApp(environment.firebase),
-    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
+    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: true}),
+    // ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
     AngularFireDatabaseModule,
     AppRoutingModule,
     FormsModule,
@@ -126,7 +129,7 @@ import {ServiceWorkerModule} from '@angular/service-worker';
     MarkdownModule.forRoot(),
     FroalaEditorModule.forRoot(),
     FroalaViewModule.forRoot(),
-    MatSlideToggleModule,
+    MatSlideToggleModule
   ],
   providers: [
     ScholarshipService,
@@ -144,6 +147,7 @@ import {ServiceWorkerModule} from '@angular/service-worker';
     GoogleAnalyticsEventsService,
     SearchService,
     SeoService,
+    DatePipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
@@ -154,6 +158,7 @@ import {ServiceWorkerModule} from '@angular/service-worker';
       useClass: UnAuthorizedInterceptor,
       multi: true,
     },
+    NotificationsService
   ],
   bootstrap: [
     AppComponent

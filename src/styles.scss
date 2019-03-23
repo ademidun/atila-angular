@@ -113,3 +113,24 @@ h1.atila-font {
   letter-spacing: 0;
   font-size: 2.5rem;
 }
+
+:host/deep/ .mat-checkbox-input{
+  background-color: $primary;
+}
+
+#dimScreen
+{
+  position:fixed;
+  padding:0;
+  margin:0;
+
+  top:0;
+  left:0;
+
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.87);
+  display: none;
+
+  z-index: 10;
+}

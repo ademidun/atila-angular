@@ -13,7 +13,7 @@ import {
 } from '@angular/material';
 import {Component} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {SwUpdate} from '@angular/service-worker';
+import {SwPush, SwUpdate} from '@angular/service-worker';
 import {UserProfileService, UserProfileServiceMock} from './_services/user-profile.service';
 import {MyFirebaseService, MyFirebaseServiceStub} from './_services/myfirebase.service';
 import {AuthService, AuthServiceStub} from './_services/auth.service';
@@ -32,6 +32,7 @@ fdescribe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
   let SwUpdateMock: Partial<SwUpdate> = {isEnabled: false};
+  let SwPushMock: Partial<SwPush> = {isEnabled: false};
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -52,6 +53,7 @@ fdescribe('AppComponent', () => {
       ],
       providers: [
         {provide: SwUpdate, useValue: SwUpdateMock},
+        {provide: SwPush, useValue: SwPushMock},
         {provide: UserProfileService, useValue: UserProfileServiceMock},
         {provide: MyFirebaseService, useValue: MyFirebaseServiceStub},
         {provide: AuthService, useValue: AuthServiceStub},
