@@ -113,25 +113,54 @@ export class PreviewComponent implements OnInit, OnDestroy {
       'contributors': []
     },
     {
-      "title": "Bain Consulting, RBC Investment Banking, Ivey Business School and Why he declined Goldman Sachs: Paul Okundaye — Atila TV 006",
-      "user": {
-        "first_name": "Tomiwa",
-        "last_name": "Ademidun",
-        "username": "tomiwa",
-        "profile_pic_url": "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fprofile-pictures%2Ffacebook-profile-picture.jpg?alt=media&token=8754c657-bbdc-4d8e-ae1d-d4047ac09c6d",
-        "title": "Software Engineering Student",
-        "post_secondary_school": "University of Western Ontario",
-        "secondary-school": "",
-        "id": 1
+      'title': 'Bain Consulting, RBC Investment Banking, Ivey Business School and Why he declined Goldman Sachs: Paul Okundaye — Atila TV 006',
+      'user': {
+        'first_name': 'Tomiwa',
+        'last_name': 'Ademidun',
+        'username': 'tomiwa',
+        'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fprofile-pictures%2Ffacebook-profile-picture.jpg?alt=media&token=8754c657-bbdc-4d8e-ae1d-d4047ac09c6d',
+        'title': 'Software Engineering Student',
+        'post_secondary_school': 'University of Western Ontario',
+        'secondary-school': '',
+        'id': 1
       },
-      "slug": "bain-consulting-rbc-investment-banking-ivey-business-school-and-why-he-declined-goldman-sachs-paul-okundaye-atila-tv-006",
-      "description": null,
-      "header_image_url": "https://cdn-images-1.medium.com/max/1600/0*h479gzY6kiJje0AH",
-      "id": 19
+      'metadata': {
+        'comments_count': 1
+      },
+      'slug': 'bain-consulting-rbc-investment-banking-ivey-business-school-and-why-he-declined-goldman-sachs-paul-okundaye-atila-tv-006',
+      'description': null,
+      'header_image_url': 'https://cdn-images-1.medium.com/max/1600/0*h479gzY6kiJje0AH',
+      'id': 19
     },
   ];
 
   forums = [
+    {
+      'id': 7,
+      'starting_comment': {
+        'title': 'Queen\'s Chancellor Recipient 2016 and Queen\'s Commerce AMA',
+        'username': 'AnnMathulla',
+        'text': 'Hi everyone, \r\n\r\nMy name is Ann, and I was fortunate enough to win the Queen\'s Chancellor Scholarship in 2016. Currently I\'m in second year in the Queen\'s Commerce Program, and next year I will be spending one semester at the National University of Singapore, very excited! \r\n\r\nI know university and scholarship applications can be very stressful (trust me, I\'ve been there!), and I hope that sharing some of my experiences will help you as you navigate your way through this stressful yet exciting time! \r\n\r\nIf you have any questions about Queen\'s Commerce, the Chancellor\'s Scholarship or anything else feel free to ask! I\'m happy to help in any way that I can :)',
+        'up_votes_count': 0,
+        'down_votes_count': 0,
+        'id': 17,
+        'up_votes_id': []
+      },
+      'title': 'Queen\'s Chancellor Recipient 2016 and Queen\'s Commerce AMA',
+      'slug': 'queens-chancellor-recipient-2016-and-queens-commerce-ama',
+      'date_created': '2018-02-05T01:52:12Z',
+      'metadata': {},
+      'user': {
+        'first_name': 'Ann',
+        'last_name': 'Mathulla',
+        'username': 'AnnMathulla',
+        'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F72%2Fprofile-pictures%2FHead%20Shot.jpg?alt=media&token=65ebd302-8c46-4b7e-b748-e8910c345ce6',
+        'title': '',
+        'post_secondary_school': 'Queen\'s University',
+        'secondary-school': '',
+        'id': 72
+      }
+    },
     {
       'id': 9,
       'starting_comment': {
@@ -158,32 +187,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
         'post_secondary_school': '',
         'secondary-school': '',
         'id': 101
-      }
-    },
-    {
-      'id': 7,
-      'starting_comment': {
-        'title': 'Queen\'s Chancellor Recipient 2016 and Queen\'s Commerce AMA',
-        'username': 'AnnMathulla',
-        'text': 'Hi everyone, \r\n\r\nMy name is Ann, and I was fortunate enough to win the Queen\'s Chancellor Scholarship in 2016. Currently I\'m in second year in the Queen\'s Commerce Program, and next year I will be spending one semester at the National University of Singapore, very excited! \r\n\r\nI know university and scholarship applications can be very stressful (trust me, I\'ve been there!), and I hope that sharing some of my experiences will help you as you navigate your way through this stressful yet exciting time! \r\n\r\nIf you have any questions about Queen\'s Commerce, the Chancellor\'s Scholarship or anything else feel free to ask! I\'m happy to help in any way that I can :)',
-        'up_votes_count': 0,
-        'down_votes_count': 0,
-        'id': 17,
-        'up_votes_id': []
-      },
-      'title': 'Queen\'s Chancellor Recipient 2016 and Queen\'s Commerce AMA',
-      'slug': 'queens-chancellor-recipient-2016-and-queens-commerce-ama',
-      'date_created': '2018-02-05T01:52:12Z',
-      'metadata': {},
-      'user': {
-        'first_name': 'Ann',
-        'last_name': 'Mathulla',
-        'username': 'AnnMathulla',
-        'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F72%2Fprofile-pictures%2FHead%20Shot.jpg?alt=media&token=65ebd302-8c46-4b7e-b748-e8910c345ce6',
-        'title': '',
-        'post_secondary_school': 'Queen\'s University',
-        'secondary-school': '',
-        'id': 72
       }
     },
     {
@@ -218,32 +221,33 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
   essays = [
     {
-      "id": 5,
-      "title": "Next36 Application 2018",
-      "slug": "next36-application-2018",
-      "date_created": "2019-03-27T15:04:15Z",
-      "description": "My application for the Next36, an accelerator for young entrepreneurs in Canada. Me and my startup, The Path were selected to participate in the program.",
-      "status": "accepted",
-      "status_other": "",
-      "header_image_url": "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/blogs%2Fgeneral%2Fblog-default-image.jpg?alt=media&token=b739ac92-4402-4d89-9c83-40ec9e476146",
-      "essay_source_url": "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fessays%2F5%2FNext%2036%20App.pdf?alt=media&token=0a2a07ae-05f2-4ee9-ae5c-5b31044489fe",
-      "published": true,
-      "up_votes_count": 0,
-      "down_votes_count": 0,
-      "up_votes_id": [],
-      "down_votes_id": [],
-      "metadata": {},
-      "user": {
-        "first_name": "Trevor",
-        "last_name": "Sookraj",
-        "username": "trevorsookraj",
-        "profile_pic_url": "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F629%2Fprofile-pictures%2Ftrevor-sookraj.jpg?alt=media&token=ebf88b32-8a18-4bd5-83e6-d33fcf112a9d",
-        "title": "",
-        "post_secondary_school": "",
-        "secondary-school": "",
-        "id": 629
+      'id': 5,
+      'title': 'Next36 Application 2018',
+      'slug': 'next36-application-2018',
+      'date_created': '2019-03-27T15:04:15Z',
+      'description': 'My application for the Next36, an accelerator for young entrepreneurs in Canada. Me and my startup, ' +
+      'The Path were selected to participate in the program.',
+      'status': 'accepted',
+      'status_other': '',
+      'header_image_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/blogs%2Fgeneral%2Fblog-default-image.jpg?alt=media&token=b739ac92-4402-4d89-9c83-40ec9e476146',
+      'essay_source_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fessays%2F5%2FNext%2036%20App.pdf?alt=media&token=0a2a07ae-05f2-4ee9-ae5c-5b31044489fe',
+      'published': true,
+      'up_votes_count': 0,
+      'down_votes_count': 0,
+      'up_votes_id': [],
+      'down_votes_id': [],
+      'metadata': {},
+      'user': {
+        'first_name': 'Trevor',
+        'last_name': 'Sookraj',
+        'username': 'trevorsookraj',
+        'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F629%2Fprofile-pictures%2Ftrevor-sookraj.jpg?alt=media&token=ebf88b32-8a18-4bd5-83e6-d33fcf112a9d',
+        'title': '',
+        'post_secondary_school': '',
+        'secondary-school': '',
+        'id': 629
       },
-      "contributors": []
+      'contributors': []
     },
     {
       'id': 2,
@@ -274,32 +278,32 @@ export class PreviewComponent implements OnInit, OnDestroy {
       'contributors': []
     },
     {
-      "id": 7,
-      "title": "LORAN SCHOLARS PROGRAM Application 2014",
-      "slug": "loran-scholars-program-application-2014-",
-      "date_created": "2019-03-27T16:11:50Z",
-      "description": "My application for the 2014 Loran Scholars program. I was not selected for this award.",
-      "status": "declined",
-      "status_other": "",
-      "header_image_url": "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/blogs%2Fgeneral%2Fblog-default-image.jpg?alt=media&token=b739ac92-4402-4d89-9c83-40ec9e476146",
-      "essay_source_url": "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fessays%2F7%2FLoran%20Application.pdf.pdf?alt=media&token=3a5f73fd-9259-429b-a981-fffc8f3df03f",
-      "published": true,
-      "up_votes_count": 0,
-      "down_votes_count": 0,
-      "up_votes_id": [],
-      "down_votes_id": [],
-      "metadata": {},
-      "user": {
-        "first_name": "Paul",
-        "last_name": "Okundaye",
-        "username": "OkPaul",
-        "profile_pic_url": "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F626%2Fprofile-pictures%2Fpaul-profile-picture.png?alt=media&token=60650357-56f2-4a97-8416-08b08fbbc4aa",
-        "title": "",
-        "post_secondary_school": "",
-        "secondary-school": "",
-        "id": 626
+      'id': 7,
+      'title': 'LORAN SCHOLARS PROGRAM Application 2014',
+      'slug': 'loran-scholars-program-application-2014-',
+      'date_created': '2019-03-27T16:11:50Z',
+      'description': 'My application for the 2014 Loran Scholars program. I was not selected for this award.',
+      'status': 'declined',
+      'status_other': '',
+      'header_image_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/blogs%2Fgeneral%2Fblog-default-image.jpg?alt=media&token=b739ac92-4402-4d89-9c83-40ec9e476146',
+      'essay_source_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fessays%2F7%2FLoran%20Application.pdf.pdf?alt=media&token=3a5f73fd-9259-429b-a981-fffc8f3df03f',
+      'published': true,
+      'up_votes_count': 0,
+      'down_votes_count': 0,
+      'up_votes_id': [],
+      'down_votes_id': [],
+      'metadata': {},
+      'user': {
+        'first_name': 'Paul',
+        'last_name': 'Okundaye',
+        'username': 'OkPaul',
+        'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F626%2Fprofile-pictures%2Fpaul-profile-picture.png?alt=media&token=60650357-56f2-4a97-8416-08b08fbbc4aa',
+        'title': '',
+        'post_secondary_school': '',
+        'secondary-school': '',
+        'id': 626
       },
-      "contributors": []
+      'contributors': []
     }
   ];
 
