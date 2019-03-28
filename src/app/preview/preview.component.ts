@@ -113,27 +113,21 @@ export class PreviewComponent implements OnInit, OnDestroy {
       'contributors': []
     },
     {
-      'id': 14,
-      'title': 'From Medical School Rejection Twice to Google and Pinterest Software Engineer: Ruth Grace Wong – Atila TV Episode 2',
-      'slug': 'from-medical-school-rejection-twice-to-google-and-pinterest-software-engineer-ruth-grace-wong-atila-tv-episode-2',
-      'description': 'Ruth Grace Wong talks about her path from getting rejected from medical school twice, to  a Master’s in computational biochemistry to working as a software engineer at Google and Pinterest.',
-      'header_image_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/blogs%2F14%2Fheader_image_url%2Fatila-tv-003-ruth-grace-wong-coverphoto.png?alt=media&token=4db8d0d7-3a09-4ce8-970f-34312d7652ce',
-      'published': true,
-      'up_votes_count': 0,
-      'down_votes_count': 0,
-      'up_votes_id': [],
-      'down_votes_id': [],
-      'metadata': {},
-      'user': {
-        'first_name': 'Tomiwa',
-        'last_name': 'Ademidun',
-        'username': 'tomiwa',
-        'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fprofile-pictures%2Ffacebook-profile-picture.jpg?alt=media&token=8754c657-bbdc-4d8e-ae1d-d4047ac09c6d',
-        'title': 'Software Engineering Student',
-        'post_secondary_school': 'University of Western Ontario',
-        'secondary-school': '',
+      "title": "Bain Consulting, RBC Investment Banking, Ivey Business School and Why he declined Goldman Sachs: Paul Okundaye — Atila TV 006",
+      "user": {
+        "first_name": "Tomiwa",
+        "last_name": "Ademidun",
+        "username": "tomiwa",
+        "profile_pic_url": "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fprofile-pictures%2Ffacebook-profile-picture.jpg?alt=media&token=8754c657-bbdc-4d8e-ae1d-d4047ac09c6d",
+        "title": "Software Engineering Student",
+        "post_secondary_school": "University of Western Ontario",
+        "secondary-school": "",
+        "id": 1
       },
-      'contributors': [],
+      "slug": "bain-consulting-rbc-investment-banking-ivey-business-school-and-why-he-declined-goldman-sachs-paul-okundaye-atila-tv-006",
+      "description": null,
+      "header_image_url": "https://cdn-images-1.medium.com/max/1600/0*h479gzY6kiJje0AH",
+      "id": 19
     },
   ];
 
@@ -224,32 +218,32 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
   essays = [
     {
-      'id': 3,
-      'title': 'Queen\'s Commerce and Engineering Application 2014',
-      'slug': 'queens-commerce-and-engineering-application-2014',
-      'date_created': '2018-06-13T13:42:09.754931Z',
-      'description': 'My applications for both the Queen\'s Commerce and Engineering program. The first part is for both engineering and Commerce programs. The second part was specifically for the Queen\'s Commerce program.',
-      'status': 'accepted',
-      'status_other': null,
-      'header_image_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/blogs%2Fgeneral%2Fblog-default-image.jpg?alt=media&token=b739ac92-4402-4d89-9c83-40ec9e476146',
-      'essay_source_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fessays%2F3%2FQueens%20PSE%20and%20Commerce%20Application%202014.pdf?alt=media&token=52c7bd24-980a-4df3-854d-45008c4aac30',
-      'published': true,
-      'up_votes_count': 0,
-      'down_votes_count': 0,
-      'up_votes_id': [],
-      'down_votes_id': [],
-      'metadata': {},
-      'user': {
-        'first_name': 'Tomiwa',
-        'last_name': 'Ademidun',
-        'username': 'tomiwa',
-        'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fprofile-pictures%2Ffacebook-profile-picture.jpg?alt=media&token=8754c657-bbdc-4d8e-ae1d-d4047ac09c6d',
-        'title': 'Software Engineering Student',
-        'post_secondary_school': 'University of Western Ontario',
-        'secondary-school': '',
-        'id': 1
+      "id": 5,
+      "title": "Next36 Application 2018",
+      "slug": "next36-application-2018",
+      "date_created": "2019-03-27T15:04:15Z",
+      "description": "My application for the Next36, an accelerator for young entrepreneurs in Canada. Me and my startup, The Path were selected to participate in the program.",
+      "status": "accepted",
+      "status_other": "",
+      "header_image_url": "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/blogs%2Fgeneral%2Fblog-default-image.jpg?alt=media&token=b739ac92-4402-4d89-9c83-40ec9e476146",
+      "essay_source_url": "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fessays%2F5%2FNext%2036%20App.pdf?alt=media&token=0a2a07ae-05f2-4ee9-ae5c-5b31044489fe",
+      "published": true,
+      "up_votes_count": 0,
+      "down_votes_count": 0,
+      "up_votes_id": [],
+      "down_votes_id": [],
+      "metadata": {},
+      "user": {
+        "first_name": "Trevor",
+        "last_name": "Sookraj",
+        "username": "trevorsookraj",
+        "profile_pic_url": "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F629%2Fprofile-pictures%2Ftrevor-sookraj.jpg?alt=media&token=ebf88b32-8a18-4bd5-83e6-d33fcf112a9d",
+        "title": "",
+        "post_secondary_school": "",
+        "secondary-school": "",
+        "id": 629
       },
-      'contributors': []
+      "contributors": []
     },
     {
       'id': 2,
@@ -280,32 +274,32 @@ export class PreviewComponent implements OnInit, OnDestroy {
       'contributors': []
     },
     {
-      'id': 1,
-      'title': 'Ivey Business School AEO2 Application 2016',
-      'slug': 'ivey-business-school-aeo2-application-2016',
-      'date_created': '2018-06-09T23:09:41.047955Z',
-      'description': 'My AEO2 University application for Ivey Business School 2016.\nThis is the application I submitted after my 2nd year of university to keep my spot in the HBA1 as part of the AEO program.\n           I applied to the software engineering and business program. \n\nThe admissions person I talked to mentioned they cared a lot about community involvement and leadership which I tried to highlight in the first 2 examples.',
-      'status': 'accepted',
-      'status_other': null,
-      'header_image_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/blogs%2Fgeneral%2Fblog-default-image.jpg?alt=media&token=b739ac92-4402-4d89-9c83-40ec9e476146',
-      'essay_source_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fessays%2F1%2FIvey%20AEO2%20Application.pdf?alt=media&token=a8058c38-6baa-4e64-addf-6c0eb8f56e89',
-      'published': true,
-      'up_votes_count': 0,
-      'down_votes_count': 0,
-      'up_votes_id': [],
-      'down_votes_id': [],
-      'metadata': {},
-      'user': {
-        'first_name': 'Tomiwa',
-        'last_name': 'Ademidun',
-        'username': 'tomiwa',
-        'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fprofile-pictures%2Ffacebook-profile-picture.jpg?alt=media&token=8754c657-bbdc-4d8e-ae1d-d4047ac09c6d',
-        'title': 'Software Engineering Student',
-        'post_secondary_school': 'University of Western Ontario',
-        'secondary-school': '',
-        'id': 1
+      "id": 7,
+      "title": "LORAN SCHOLARS PROGRAM Application 2014",
+      "slug": "loran-scholars-program-application-2014-",
+      "date_created": "2019-03-27T16:11:50Z",
+      "description": "My application for the 2014 Loran Scholars program. I was not selected for this award.",
+      "status": "declined",
+      "status_other": "",
+      "header_image_url": "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/blogs%2Fgeneral%2Fblog-default-image.jpg?alt=media&token=b739ac92-4402-4d89-9c83-40ec9e476146",
+      "essay_source_url": "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fessays%2F7%2FLoran%20Application.pdf.pdf?alt=media&token=3a5f73fd-9259-429b-a981-fffc8f3df03f",
+      "published": true,
+      "up_votes_count": 0,
+      "down_votes_count": 0,
+      "up_votes_id": [],
+      "down_votes_id": [],
+      "metadata": {},
+      "user": {
+        "first_name": "Paul",
+        "last_name": "Okundaye",
+        "username": "OkPaul",
+        "profile_pic_url": "https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F626%2Fprofile-pictures%2Fpaul-profile-picture.png?alt=media&token=60650357-56f2-4a97-8416-08b08fbbc4aa",
+        "title": "",
+        "post_secondary_school": "",
+        "secondary-school": "",
+        "id": 626
       },
-      'contributors': []
+      "contributors": []
     }
   ];
 
