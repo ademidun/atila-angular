@@ -136,7 +136,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
         'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fprofile-pictures%2Ffacebook-profile-picture.jpg?alt=media&token=8754c657-bbdc-4d8e-ae1d-d4047ac09c6d',
         'title': 'Software Engineering Student',
         'post_secondary_school': 'University of Western Ontario',
-        'secondary-school': '''',
+        'secondary-school': '',
         'id': 1
       },
       'contributors': []
