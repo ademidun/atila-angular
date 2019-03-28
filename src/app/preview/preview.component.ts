@@ -113,7 +113,22 @@ export class PreviewComponent implements OnInit, OnDestroy {
       'contributors': []
     },
     {
+      'id': 19,
       'title': 'Bain Consulting, RBC Investment Banking, Ivey Business School and Why he declined Goldman Sachs: Paul Okundaye — Atila TV 006',
+      'slug': 'bain-consulting-rbc-investment-banking-ivey-business-school-and-why-he-declined-goldman-sachs-paul-okundaye-atila-tv-006',
+      'alternate_slugs': [],
+      'date_created': '2019-03-21T14:22:30.682253Z',
+      'description': 'Paul is an incoming management consultant at Bain and Company.' +
+      ' Before that he was an investment banking summer analyst at RBC after declining an interview at Goldman Sachs and founder of ' +
+      'a food delivery company called Dine Easy. ' +
+      'He is currently in his final year in the honours business program at the Ivey Business School.',
+      'header_image_url': 'https://cdn-images-1.medium.com/max/1600/0*h479gzY6kiJje0AH',
+      'published': true,
+      'up_votes_count': 0,
+      'down_votes_count': 0,
+      'up_votes_id': [],
+      'down_votes_id': [],
+      'metadata': {},
       'user': {
         'first_name': 'Tomiwa',
         'last_name': 'Ademidun',
@@ -121,16 +136,10 @@ export class PreviewComponent implements OnInit, OnDestroy {
         'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fprofile-pictures%2Ffacebook-profile-picture.jpg?alt=media&token=8754c657-bbdc-4d8e-ae1d-d4047ac09c6d',
         'title': 'Software Engineering Student',
         'post_secondary_school': 'University of Western Ontario',
-        'secondary-school': '',
+        'secondary-school': '''',
         'id': 1
       },
-      'metadata': {
-        'comments_count': 1
-      },
-      'slug': 'bain-consulting-rbc-investment-banking-ivey-business-school-and-why-he-declined-goldman-sachs-paul-okundaye-atila-tv-006',
-      'description': null,
-      'header_image_url': 'https://cdn-images-1.medium.com/max/1600/0*h479gzY6kiJje0AH',
-      'id': 19
+      'contributors': []
     },
   ];
 
