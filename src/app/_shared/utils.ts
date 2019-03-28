@@ -89,7 +89,7 @@ export function genericItemTransform (item) {
 export function cleanHtml(rawHtml: string) {
 
   // https://stackoverflow.com/questions/19356398/remove-style-attribute-on-style-tag#19564598
-  console.log('rawHtml',rawHtml);
+  // console.log('rawHtml', rawHtml);
   rawHtml = rawHtml.replace(/(<[^>]+) style=".*?"/gi, '$1');
 
   rawHtml = rawHtml.replace(/(<[^>]+) class=".*?"/gi, '$1');
