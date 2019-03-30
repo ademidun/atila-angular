@@ -3,9 +3,17 @@
 
 (function () {
   'use strict';
-  self.addEventListener('notificationClick', (event) => {
-    event.notification.close();
-    console.log('notification details: ', event.notification);
-    console.log('notification event: ', {event});
-  });
+  console.log('sw-notification-reminder', self);
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+      document.querySelector('#status').textContent = 'ServiceWorkerRegistrations found.';
+    });
+
+    self.addEventListener('notificationClick', (event) => {
+      event.notification.close();
+      console.log('notification details: ', event.notification);
+      console.log('notification event: ', {event});
+    });
+  }
 }());
