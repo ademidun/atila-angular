@@ -2,4 +2,4 @@
 // http://jakubcodes.pl/2018/06/13/enhancing-angular-ngsw/
 
 importScripts('./ngsw-worker.js');
-importScripts('./sw-custom.js');
+importScripts('./sw-notification-reminder.js');

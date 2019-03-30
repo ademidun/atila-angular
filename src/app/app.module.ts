@@ -102,6 +102,7 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
     SharedModule,
     AngularFireModule.initializeApp(environment.firebase),
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: true}),
+    ServiceWorkerModule.register('/sw-master.js', {enabled: true}),
     // ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
     AngularFireDatabaseModule,
     AppRoutingModule,

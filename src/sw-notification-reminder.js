@@ -1,4 +1,4 @@
-// sw-custom.js – a file containing a event listener
+// sw-notification-reminder.js – a file containing a event listener
 // http://jakubcodes.pl/2018/06/13/enhancing-angular-ngsw/
 
 (function () {
