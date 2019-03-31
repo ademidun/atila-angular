@@ -7,7 +7,11 @@
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.getRegistrations().then(function(registrations) {
-      document.querySelector('#status').textContent = 'ServiceWorkerRegistrations found.';
+
+      for(let registration of registrations) {
+        console.log({registration});
+      }
+
     });
 
     self.addEventListener('notificationClick', (event) => {

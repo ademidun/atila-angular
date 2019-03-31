@@ -11,8 +11,8 @@
       "assets": [
         "assets",
         "favicon.ico",
-        "src/sw-master.js",
-        "src/sw-notification-reminder.js",
+        "sw-master.js",
+        "sw-notification-reminder.js",
         "manifest.json"
       ],
       "index": "index.html",
