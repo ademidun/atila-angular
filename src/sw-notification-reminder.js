@@ -14,8 +14,8 @@
 
     });
 
-    self.addEventListener('notificationClick', (event) => {
-      event.notification.close();
+    self.addEventListener('notificationclick', (event) => {
+      // event.notification.close();
       console.log('notification details: ', event.notification);
       console.log('notification event: ', {event});
     });
