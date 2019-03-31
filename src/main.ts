@@ -59,7 +59,7 @@ if ('serviceWorker' in navigator && environment.production) {
 
         self.addEventListener('notificationclick', (event) => {
           // event.notification.close();
-          console.log('notification details: ', event.notification);
+          // console.log('notification details: ', event.notification);
           console.log('notification event: ', {event});
         });
 
