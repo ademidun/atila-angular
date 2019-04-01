@@ -3,3 +3,5 @@
 
 importScripts('./ngsw-worker.js');
 importScripts('./sw-notification-reminder.js');
+
+console.log('sw-master.js');

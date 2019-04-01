@@ -5,19 +5,9 @@
   'use strict';
   console.log('sw-notification-reminder', self);
 
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-
-      for(let registration of registrations) {
-        console.log({registration});
-      }
-
-    });
-
-    self.addEventListener('notificationclick', (event) => {
-      // event.notification.close();
-      console.log('notification details: ', event.notification);
-      console.log('notification event: ', {event});
-    });
-  }
+  self.addEventListener('notificationclick', (event) => {
+    // event.notification.close();
+    console.log('notification event: ', {event});
+    console.log('notification details: ', event.notification);
+  });
 }());
