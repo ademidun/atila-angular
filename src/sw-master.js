@@ -4,4 +4,4 @@
 importScripts('./ngsw-worker.js');
 importScripts('./sw-notification-reminder.js');
 
-console.log('sw-master.js 1554579534201');
+console.log('sw-master.js 1554579534201 why not registering?');
