@@ -8,6 +8,9 @@
     <p *ngIf="item.type" class="card-subtitle text-muted " style="font-size: small;">
       {{toTitleCase(item.type)}}
     </p>
+    <p *ngIf="item.status" class="card-subtitle text-muted bold mt-1" style="font-size: small;">
+      Status: {{toTitleCase(item.status)}}
+    </p>
   </div>
   <div class="card-image" *ngIf="item.image && !previewDescription">
     <a [routerLink]="item.slug">

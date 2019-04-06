@@ -269,6 +269,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
                   description: essay.description,
                   slug: `/essay/${essay.user.username}/${essay.slug}`,
                   user: essay.user,
+                  status: essay.status,
                 };
                 return essay;
               })

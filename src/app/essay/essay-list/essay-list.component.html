@@ -22,6 +22,9 @@
           <div class="card-content ">
             <span class="card-title"><a routerLink="/essay/{{essay.user.username}}/{{essay.slug}}">{{essay.title | truncate:140}}</a></span>
             <span *ngIf="!essay.published" style=" font-size: medium; font-weight: bold; ">Unpublished</span>
+            <p *ngIf="essay.status" class="card-subtitle text-muted bold mb-1" style="font-size: small;">
+              Status: {{toTitleCase(essay.status)}}
+            </p>
             <span *ngIf="essay.user"><a routerLink="/profile/{{essay.user.username}}">
           <div class="chip">
             <img style="max-width: 50px" [src]="essay.user.profile_pic_url"

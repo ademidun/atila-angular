@@ -15,7 +15,9 @@ export class CardGenericComponent implements OnInit {
   previewDescription: boolean;
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.item);
+  }
 
   togglePreview() {
     this.previewDescription=!this.previewDescription;

@@ -11,7 +11,10 @@
       <!--<img src="{{essay.header_image_url}}" style="max-height: 100%;max-width: 100%" class="center-block"/>-->
 
       <div class="card">
-        <div *ngIf="essay.user" style="margin: 3%">
+        <p *ngIf="essay.status" class="card-subtitle text-muted bold m-3" style="font-size: small;">
+          Status: {{toTitleCase(essay.status)}}
+        </p>
+        <div *ngIf="essay.user" class="m-3">
           <a routerLink="/profile/{{essay.user.username}}">
             <div class="chip">
               <img style="max-width: 50px" [src]="essay.user.profile_pic_url"
