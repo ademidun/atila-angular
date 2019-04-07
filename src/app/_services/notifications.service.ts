@@ -88,7 +88,7 @@ export class NotificationsService {
 
     messageData['actions'] = [
       {
-        action: `scholarship/${scholarship.slug}`,
+        action: `scholarship/${scholarship.slug}?utm_campaign=push-notification`,
         title: 'View Scholarship',
         icon: 'https://storage.googleapis.com/atila-7.appspot.com/public/atila-logo-right-way-circle-transparent.png'
       },
