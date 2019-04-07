@@ -8,6 +8,7 @@ import {EssayService} from '../../_services/essay.service';
 import {AuthService} from '../../_services/auth.service';
 import {UserProfileService} from '../../_services/user-profile.service';
 import {SeoService} from '../../_services/seo.service';
+import {toTitleCase} from '../../_shared/utils';
 
 @Component({
   selector: 'app-essay-list',
@@ -147,4 +148,7 @@ export class EssayListComponent implements OnInit {
 
   }
 
+  toTitleCase(str) {
+    return toTitleCase(str);
+  }
 }

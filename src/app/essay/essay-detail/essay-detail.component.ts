@@ -15,6 +15,7 @@ import {SeoService} from '../../_services/seo.service';
 import {Subscription} from 'rxjs/Subscription';
 import {EssayService} from '../../_services/essay.service';
 import {Essay} from '../../_models/essay';
+import {toTitleCase} from '../../_shared/utils';
 
 @Component({
   selector: 'app-essay-detail',
@@ -133,6 +134,10 @@ export class EssayDetailComponent implements OnInit, OnDestroy {
       this.userProfileService.viewHistoryChanges.unsubscribe();
     }
 
+  }
+
+  toTitleCase(str) {
+    return toTitleCase(str);
   }
 
 

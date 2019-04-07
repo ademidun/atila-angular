@@ -38,8 +38,35 @@ if ('serviceWorker' in navigator && environment.production) {
       .then(registration => {
         console.log('main.ts ngsw-worker.js ', registration)
 
-      }).catch(function (err) {
-      console.log({err})
-    });
+      })
+      .catch(function (err) {
+        console.log({err})
+      });
+
+    navigator.serviceWorker.register('/sw-master.js', {
+      scope: '/',
+    })
+      .then(registration => {
+        console.log('main.ts sw-master.js ', registration);
+
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+
+          for (const registration2 of registrations) {
+            console.log({registration2});
+          }
+
+        });
+
+        self.addEventListener('notificationclick', (event) => {
+          // event.notification.close();
+          // console.log('notification details: ', event.notification);
+          console.log('notification event: ', {event});
+        });
+
+      })
+      .catch(function (err) {
+        console.log({err})
+      });
+
   });
 }
