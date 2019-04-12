@@ -10,6 +10,7 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs/Observable';
 import * as $ from 'jquery';
+import {ScholarshipService} from './scholarship.service';
 
 @Injectable()
 export class NotificationsService {
@@ -97,3 +98,6 @@ export class NotificationsService {
     return messageData;
   }
 }
+
+export let NotificationsServiceStub : Partial<NotificationsService> = {
+};
