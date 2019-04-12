@@ -216,3 +216,20 @@ export function cleanHtml(rawHtml: string) {
   return rawHtml
 }
 
+export function createTestScholarship() {
+  const scholarship = new Scholarship();
+
+  scholarship.name = 'Test Scholarship Name Title';
+  scholarship.slug = convertToSlug(scholarship.name);
+  scholarship.deadline = new Date().toISOString();
+
+  return scholarship
+}
+
+export function convertToSlug(text) {
+  return text
+    .toLowerCase()
+    .replace(/[^\w ]+/g, '')
+    .replace(/ +/g, '-')
+    ;
+}
