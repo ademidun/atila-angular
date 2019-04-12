@@ -12,6 +12,7 @@ import {UserProfile} from '../_models/user-profile';
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December'
 ];
+// const datePipe = new DatePipe();
 fdescribe('NotificationsService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -20,7 +21,7 @@ fdescribe('NotificationsService', () => {
         {provide: DatePipe, useValue: DatePipe},
         {provide: SwPush, useValue: SwPush},
         {provide: HttpClient, useValue: HttpClient},
-      ]
+      ],
     });
   });
 
@@ -29,16 +30,13 @@ fdescribe('NotificationsService', () => {
   }));
 
   it('should create a notification with the scholarship name and deadline',
-    inject([NotificationsService, DatePipe],
-      (service: NotificationsService, datePipe: DatePipe) => {
+    inject([NotificationsService],
+      (service: NotificationsService) => {
+        service.datePipe = new DatePipe('en-US');
         const userProfile = new UserProfile();
         const scholarship = createTestScholarship();
-        const datePipe2 = new DatePipe('en-US');
-        // 'getting Datepipe error', 'TypeError: datePipe.transform is not a function'
-        console.log(datePipe);
-        console.log(datePipe2);
 
-        const deadline = datePipe2.transform(scholarship.deadline, 'fullDate');
+        const deadline = service.datePipe.transform(scholarship.deadline, 'fullDate');
         const createdNotification = service.createScholarshipNotificationMessage(userProfile, scholarship);
 
         expect(createdNotification.title).toContain(scholarship.name, 'Scholarship name not in notification');
