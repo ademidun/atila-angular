@@ -6,10 +6,10 @@ import {MyFirebaseService, MyFirebaseServiceStub} from '../../_services/myfireba
 import {AuthService, AuthServiceStub} from '../../_services/auth.service';
 import {UserProfileService, UserProfileServiceMock} from '../../_services/user-profile.service';
 import {NotificationsService, NotificationsServiceStub} from '../../_services/notifications.service';
-import {MatIconModule} from '@angular/material';
-import {RouterModule} from '@angular/router';
+import {MatDialogModule, MatIconModule, MatSnackBarModule} from '@angular/material';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {TruncatePipe} from '../../_pipes/truncate.pipe';
+import {RouterTestingModule} from '@angular/router/testing';
 
 fdescribe('ScholarshipCardComponent', () => {
   let component: ScholarshipCardComponent;
@@ -17,19 +17,21 @@ fdescribe('ScholarshipCardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ScholarshipCardComponent ],
+      declarations: [ ScholarshipCardComponent,  TruncatePipe],
       providers: [
         {provide: ScholarshipService, useValue: ScholarshipServiceStub },
         {provide: UserProfileService, useValue: UserProfileServiceMock },
         {provide: AuthService, useValue: AuthServiceStub },
         {provide: NotificationsService, useValue: NotificationsServiceStub },
         {provide: MyFirebaseService, useValue: MyFirebaseServiceStub },
-        {provide: TruncatePipe, useValue: TruncatePipe},
       ],
       imports: [
-        RouterModule,
+        RouterTestingModule,
         MatIconModule,
-        NgbModule
+        NgbModule,
+        MatSnackBarModule,
+        MatDialogModule,
+        NgbModule.forRoot(),
       ]
     })
     .compileComponents();
