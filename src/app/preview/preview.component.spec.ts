@@ -5,7 +5,7 @@ import {AppModule} from '../app.module';
 import {TypeaheadComponent} from '../_shared/typeahead/typeahead.component';
 import {
   MatDialogModule,
-  MatFormFieldModule, MatIconModule, MatInputModule, MatOptionModule, MatSelectModule,
+  MatFormFieldModule, MatIcon, MatIconModule, MatInputModule, MatOptionModule, MatSelectModule,
   MatSlideToggleModule
 } from '@angular/material';
 import {RouterModule} from '@angular/router';
@@ -22,6 +22,7 @@ import {
 } from '../_services/google-analytics-events.service';
 import {RouterTestingModule} from '@angular/router/testing';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MockMatIconComponent} from '../_shared/test-helpers';
 
 fdescribe('PreviewComponent', () => {
   let component: PreviewComponent;
@@ -57,6 +58,16 @@ fdescribe('PreviewComponent', () => {
         {provide: GoogleAnalyticsEventsService, useValue: GoogleAnalyticsEventsServiceStub },
       ]
     })
+    .overrideModule(MatIconModule, {
+        remove: {
+          declarations: [MatIcon],
+          exports: [MatIcon]
+        },
+        add: {
+          declarations: [MockMatIconComponent],
+          exports: [MockMatIconComponent]
+        }
+      })
     .compileComponents();
   }));
 

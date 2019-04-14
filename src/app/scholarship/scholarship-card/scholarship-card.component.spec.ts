@@ -13,21 +13,8 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {createTestScholarship} from '../../_models/scholarship';
 import {createTestUserProfile, UserProfile} from '../../_models/user-profile';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {Component, Input} from '@angular/core';
+import {MockMatIconComponent} from '../../_shared/test-helpers';
 
-
-@Component({
-  selector: 'mat-icon',
-  template: '<span></span>'
-})
-class MockMatIconComponent {
-  @Input() svgIcon: any;
-  @Input() fontSet: any;
-  @Input() fontIcon: any;
-
-  selector: 'mat-icon';
-  template: '<span></span>'
-}
 
 fdescribe('ScholarshipCardComponent', () => {
   let component: ScholarshipCardComponent;
@@ -53,6 +40,7 @@ fdescribe('ScholarshipCardComponent', () => {
         BrowserAnimationsModule
       ]
     })
+      // todo make override module into a helper method for all configureTestingModule
       .overrideModule(MatIconModule, {
         remove: {
           declarations: [MatIcon],
