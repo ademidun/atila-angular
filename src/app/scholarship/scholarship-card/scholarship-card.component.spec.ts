@@ -11,7 +11,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {TruncatePipe} from '../../_pipes/truncate.pipe';
 import {RouterTestingModule} from '@angular/router/testing';
 import {createTestScholarship} from '../../_models/scholarship';
-import {UserProfile} from '../../_models/user-profile';
+import {createTestUserProfile, UserProfile} from '../../_models/user-profile';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 fdescribe('ScholarshipCardComponent', () => {
@@ -45,7 +45,7 @@ fdescribe('ScholarshipCardComponent', () => {
     fixture = TestBed.createComponent(ScholarshipCardComponent);
     component = fixture.componentInstance;
 
-    const userProfile = new UserProfile();
+    const userProfile = createTestUserProfile();
     const scholarship = createTestScholarship();
     component.userProfile = userProfile;
     component.scholarship = scholarship;
@@ -60,17 +60,30 @@ fdescribe('ScholarshipCardComponent', () => {
 
   it('should call addToMyScholarship', async(() => {
     spyOn(component, 'addToMyScholarship');
-    spyOn(component, 'logShareType');
+    // todo check that other functions are called as well
 
-    const button = fixture.debugElement.nativeElement.querySelector('#save-scholarship');
+    const button = fixture.debugElement.nativeElement.querySelector('.save-scholarship');
 
-    console.log({button});
     expect(button).toBeTruthy('No Button with Save Scholarship title attribute');
 
     button.click();
 
     fixture.whenStable().then(() => {
       expect(component.addToMyScholarship).toHaveBeenCalled();
+      // expect(component.logShareType).toHaveBeenCalled();
+    });
+  }));
+
+  it('should call logShareType', async(() => {
+    spyOn(component, 'logShareType');
+
+    const button = fixture.debugElement.nativeElement.querySelector('.save-scholarship');
+
+    expect(button).toBeTruthy('No Button with Save Scholarship title attribute');
+
+    button.click();
+
+    fixture.whenStable().then(() => {
       expect(component.logShareType).toHaveBeenCalled();
     });
   }));

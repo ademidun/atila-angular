@@ -119,7 +119,6 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   addToMyScholarship(item) {
-      console.log('addToMyScholarship');
     this.logShareType('save_my_scholarships');
     if (this.alreadySaved) {
       if (this.userProfile.is_atila_admin) { // todo: remove this before-merge-master
@@ -138,6 +137,9 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
 
     }
     if (this.userProfile) {
+
+      console.log('this.userProfile', this.userProfile);
+      console.log('this.scholarship', this.scholarship);
 
       const saveResult = addToMyScholarshipHelper(this.userProfile, this.scholarship);
 
@@ -192,7 +194,6 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
 
   logShareType(sharingType) {
 
-    console.log('logShareType', {sharingType});
     this.userAnalytics.share_type = sharingType;
     this.userAnalytics.schoarship_id = this.scholarship.id;
 

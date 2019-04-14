@@ -5,6 +5,7 @@ import {User} from '../_models/user';
 
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/takeUntil';
+import 'rxjs/add/observable/of';
 import {UserProfile} from '../_models/user-profile';
 import {AuthService} from './auth.service';
 
@@ -451,4 +452,7 @@ export class UserProfileService implements OnDestroy {
 
 export let UserProfileServiceMock: Partial<UserProfileService> = {
   userEndpoint: '',
+  updateHelper: userProfile => {
+    return Observable.of(new HttpResponse({ status: 200, body: userProfile }));
+  }
 };

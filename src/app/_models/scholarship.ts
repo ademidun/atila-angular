@@ -220,6 +220,8 @@ export function createTestScholarship() {
   const scholarship = new Scholarship();
 
   scholarship.name = 'Test Scholarship Name Title';
+  scholarship.description= 'This is just a scholarship that we created for testing purposes';
+  scholarship.funding_amount = 1;
   scholarship.slug = convertToSlug(scholarship.name);
   scholarship.deadline = new Date().toISOString();
   scholarship.img_url = 'https://cdn-images-1.medium.com/max/1200/1*WsXC2qnQf8OlhNunq3Lrcg.png';

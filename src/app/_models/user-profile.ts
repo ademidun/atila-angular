@@ -101,6 +101,10 @@ export function toTitleCase(str) {
 
 export function addToMyScholarshipHelper(userProfile, item) {
 
+          if(!userProfile.saved_scholarships) {
+            userProfile.saved_scholarships = [];
+            userProfile.saved_scholarships_metadata = {};
+          }
 
          for (let i =0; i<userProfile.saved_scholarships.length; i++) {
            if (userProfile.saved_scholarships[i] == item.id) {
@@ -108,13 +112,9 @@ export function addToMyScholarshipHelper(userProfile, item) {
            }
          }
 
-         if(!userProfile.saved_scholarships) {
-           userProfile.saved_scholarships = [];
-           userProfile.saved_scholarships_metadata = {};
-         }
 
-         userProfile.saved_scholarships.push(item.id,);
-         userProfile.saved_scholarships_metadata[item.id] = {notes: ""};
+         userProfile.saved_scholarships.push(item.id);
+         userProfile.saved_scholarships_metadata[item.id] = {notes: ''};
 
          return [userProfile, true];
 
@@ -138,8 +138,6 @@ export function updateScholarshipMatchScore(userProfile: UserProfile, opts={}) {
 
 export function createTestUserProfile() {
   const userprofile = new UserProfile();
-
-  userprofile.saved_scholarships = [];
 
   return userprofile
 }
