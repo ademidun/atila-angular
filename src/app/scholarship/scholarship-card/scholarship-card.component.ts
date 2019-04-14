@@ -138,9 +138,6 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
     }
     if (this.userProfile) {
 
-      console.log('this.userProfile', this.userProfile);
-      console.log('this.scholarship', this.scholarship);
-
       const saveResult = addToMyScholarshipHelper(this.userProfile, this.scholarship);
 
       if (!saveResult[1]) {

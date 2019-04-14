@@ -6,13 +6,28 @@ import {MyFirebaseService, MyFirebaseServiceStub} from '../../_services/myfireba
 import {AuthService, AuthServiceStub} from '../../_services/auth.service';
 import {UserProfileService, UserProfileServiceMock} from '../../_services/user-profile.service';
 import {NotificationsService, NotificationsServiceStub} from '../../_services/notifications.service';
-import {MatDialogModule, MatIconModule, MatSnackBarModule} from '@angular/material';
+import {MatDialogModule, MatIcon, MatIconModule, MatSnackBarModule} from '@angular/material';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {TruncatePipe} from '../../_pipes/truncate.pipe';
 import {RouterTestingModule} from '@angular/router/testing';
 import {createTestScholarship} from '../../_models/scholarship';
 import {createTestUserProfile, UserProfile} from '../../_models/user-profile';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {Component, Input} from '@angular/core';
+
+
+@Component({
+  selector: 'mat-icon',
+  template: '<span></span>'
+})
+class MockMatIconComponent {
+  @Input() svgIcon: any;
+  @Input() fontSet: any;
+  @Input() fontIcon: any;
+
+  selector: 'mat-icon';
+  template: '<span></span>'
+}
 
 fdescribe('ScholarshipCardComponent', () => {
   let component: ScholarshipCardComponent;
@@ -38,6 +53,16 @@ fdescribe('ScholarshipCardComponent', () => {
         BrowserAnimationsModule
       ]
     })
+      .overrideModule(MatIconModule, {
+        remove: {
+          declarations: [MatIcon],
+          exports: [MatIcon]
+        },
+        add: {
+          declarations: [MockMatIconComponent],
+          exports: [MockMatIconComponent]
+        }
+      })
       .compileComponents();
   }));
 
