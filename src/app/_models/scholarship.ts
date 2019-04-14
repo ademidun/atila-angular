@@ -222,6 +222,8 @@ export function createTestScholarship() {
   scholarship.name = 'Test Scholarship Name Title';
   scholarship.slug = convertToSlug(scholarship.name);
   scholarship.deadline = new Date().toISOString();
+  scholarship.img_url = 'https://cdn-images-1.medium.com/max/1200/1*WsXC2qnQf8OlhNunq3Lrcg.png';
+  scholarship.metadata = {};
 
   return scholarship
 }

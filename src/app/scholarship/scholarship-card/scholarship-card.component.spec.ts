@@ -10,6 +10,9 @@ import {MatDialogModule, MatIconModule, MatSnackBarModule} from '@angular/materi
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {TruncatePipe} from '../../_pipes/truncate.pipe';
 import {RouterTestingModule} from '@angular/router/testing';
+import {createTestScholarship} from '../../_models/scholarship';
+import {UserProfile} from '../../_models/user-profile';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 fdescribe('ScholarshipCardComponent', () => {
   let component: ScholarshipCardComponent;
@@ -32,6 +35,7 @@ fdescribe('ScholarshipCardComponent', () => {
         MatSnackBarModule,
         MatDialogModule,
         NgbModule.forRoot(),
+        BrowserAnimationsModule
       ]
     })
     .compileComponents();
@@ -40,10 +44,17 @@ fdescribe('ScholarshipCardComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ScholarshipCardComponent);
     component = fixture.componentInstance;
+
+    const userProfile = new UserProfile();
+    const scholarship = createTestScholarship();
+    component.userProfile = userProfile;
+    component.scholarship = scholarship;
+
     fixture.detectChanges();
   });
 
   it('should be created', () => {
+
     expect(component).toBeTruthy();
   });
 });

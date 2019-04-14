@@ -1,3 +1,5 @@
+import {convertToSlug, Scholarship} from './scholarship';
+
 export class UserProfile {
         constructor(
             public academic_average?: any,
@@ -132,4 +134,12 @@ export function updateScholarshipMatchScore(userProfile: UserProfile, opts={}) {
   return userProfile;
 
 
+}
+
+export function createTestUserProfile() {
+  const userprofile = new UserProfile();
+
+  userprofile.saved_scholarships = [];
+
+  return userprofile
 }
