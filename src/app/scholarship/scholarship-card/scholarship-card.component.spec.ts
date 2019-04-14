@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ScholarshipCardComponent } from './scholarship-card.component';
+import {ScholarshipCardComponent} from './scholarship-card.component';
 import {ScholarshipService, ScholarshipServiceStub} from '../../_services/scholarship.service';
 import {MyFirebaseService, MyFirebaseServiceStub} from '../../_services/myfirebase.service';
 import {AuthService, AuthServiceStub} from '../../_services/auth.service';
@@ -20,13 +20,13 @@ fdescribe('ScholarshipCardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ScholarshipCardComponent,  TruncatePipe],
+      declarations: [ScholarshipCardComponent, TruncatePipe],
       providers: [
-        {provide: ScholarshipService, useValue: ScholarshipServiceStub },
-        {provide: UserProfileService, useValue: UserProfileServiceMock },
-        {provide: AuthService, useValue: AuthServiceStub },
-        {provide: NotificationsService, useValue: NotificationsServiceStub },
-        {provide: MyFirebaseService, useValue: MyFirebaseServiceStub },
+        {provide: ScholarshipService, useValue: ScholarshipServiceStub},
+        {provide: UserProfileService, useValue: UserProfileServiceMock},
+        {provide: AuthService, useValue: AuthServiceStub},
+        {provide: NotificationsService, useValue: NotificationsServiceStub},
+        {provide: MyFirebaseService, useValue: MyFirebaseServiceStub},
       ],
       imports: [
         RouterTestingModule,
@@ -38,7 +38,7 @@ fdescribe('ScholarshipCardComponent', () => {
         BrowserAnimationsModule
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -57,4 +57,21 @@ fdescribe('ScholarshipCardComponent', () => {
 
     expect(component).toBeTruthy();
   });
+
+  it('should call addToMyScholarship', async(() => {
+    spyOn(component, 'addToMyScholarship');
+    spyOn(component, 'logShareType');
+
+    const button = fixture.debugElement.nativeElement.querySelector('#save-scholarship');
+
+    console.log({button});
+    expect(button).toBeTruthy('No Button with Save Scholarship title attribute');
+
+    button.click();
+
+    fixture.whenStable().then(() => {
+      expect(component.addToMyScholarship).toHaveBeenCalled();
+      expect(component.logShareType).toHaveBeenCalled();
+    });
+  }));
 });
