@@ -40,7 +40,7 @@ fdescribe('ScholarshipCardComponent', () => {
         BrowserAnimationsModule
       ]
     })
-      // todo make override module into a helper method for all configureTestingModule
+    // todo make override module into a helper method for all configureTestingModule
       .overrideModule(MatIconModule, {
         remove: {
           declarations: [MatIcon],
@@ -98,6 +98,39 @@ fdescribe('ScholarshipCardComponent', () => {
 
     fixture.whenStable().then(() => {
       expect(component.logShareType).toHaveBeenCalled();
+    });
+  }));
+
+  it('should call notifySavedScholarship ', async(() => {
+    spyOn(component, 'logShareType');
+
+    const button = fixture.debugElement.nativeElement.querySelector('.save-scholarship');
+
+    expect(button).toBeTruthy('No Button with Save Scholarship title attribute');
+
+    button.click();
+
+    fixture.whenStable().then(() => {
+      expect(component.logShareType).toHaveBeenCalled();
+    });
+  }));
+
+  it('should not call notifySavedScholarship if already saved', async(() => {
+    spyOn(component, 'notifySavedScholarship');
+
+    const button = fixture.debugElement.nativeElement.querySelector('.save-scholarship');
+
+    expect(button).toBeTruthy('No Button with Save Scholarship title attribute');
+
+    button.click();
+
+    fixture.whenStable().then(() => {
+      button.click();
+      fixture.whenStable().then(() => {
+        expect(component.notifySavedScholarship).not.toHaveBeenCalled();
+
+      });
+
     });
   }));
 });
