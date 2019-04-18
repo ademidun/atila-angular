@@ -174,9 +174,9 @@ export function getScholarshipDiff(oldScholarship: Scholarship, newScholarship: 
         newCriteria = newCriteria.replace(/(\n|\s)/gm, '');
 
 
-        let txt = document.createElement("textarea");
+        let txt = document.createElement('textarea');
         txt.innerHTML = newCriteria;
-        newCriteria =  txt.value;
+        newCriteria = txt.value;
 
         if (oldCriteria.toString().length == newCriteria.toString().length) {
           continue;
@@ -199,7 +199,6 @@ export function getScholarshipDiff(oldScholarship: Scholarship, newScholarship: 
   }
 
 
-
   return changes;
 
 }
@@ -216,11 +215,11 @@ export function cleanHtml(rawHtml: string) {
   return rawHtml
 }
 
-export function createTestScholarship() {
+export function createTestScholarship(scholarshipName = '') {
   const scholarship = new Scholarship();
 
-  scholarship.name = 'Test Scholarship Name Title';
-  scholarship.description= 'This is just a scholarship that we created for testing purposes';
+  scholarship.name = scholarshipName || 'Test Scholarship Name Title';
+  scholarship.description = 'This is just a scholarship that we created for testing purposes';
   scholarship.funding_amount = 1;
   scholarship.slug = convertToSlug(scholarship.name);
   scholarship.deadline = new Date().toISOString();
