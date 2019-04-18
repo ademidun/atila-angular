@@ -46,7 +46,7 @@ export class MyFirebaseService {
 
   }
 
-  saveUserAnalytics(user, path?): jqXHR | Promise<any> {
+  saveUserAnalytics(user, path?) {
     return $.getJSON(`https://api.ipdata.co?api-key=${IPDATA_KEY}`,
       data => {
         user = this.addMetadata(user);
