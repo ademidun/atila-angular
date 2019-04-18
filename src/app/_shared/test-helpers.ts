@@ -16,19 +16,6 @@ export class MatIconStubComponent {
   template: '<span></span>'
 }
 
-@NgModule({
-  declarations: [
-    MatIconStubComponent,
-    ScholarshipCardStubComponent,
-    TypeaheadStubComponent,
-    NavbarStubComponent,
-  ],
-})
-export class MockTestingModule {
-  constructor() {
-  }
-}
-
 @Component({
   selector: 'app-scholarship-card',
   template: '<p>ScholarshipCardStubComponent</p>'
@@ -59,4 +46,17 @@ export class TypeaheadStubComponent {
   template: '<p>Mock Navbar Component</p>'
 })
 export class NavbarStubComponent {
+}
+
+@NgModule({
+  declarations: [
+    MatIconStubComponent,
+    ScholarshipCardStubComponent,
+    TypeaheadStubComponent,
+    NavbarStubComponent,
+  ],
+})
+export class MockTestingModule {
+  constructor() {
+  }
 }
