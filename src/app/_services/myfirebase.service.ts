@@ -1,15 +1,16 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import {HttpClient, HttpResponse} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
 
-import { UploadFile } from '../_models/upload-file';
-import * as firebase from "firebase";
+import {UploadFile} from '../_models/upload-file';
+import * as firebase from 'firebase';
 import {environment} from '../../environments/environment';
-import { AngularFireDatabase} from 'angularfire2/database';
+import {AngularFireDatabase} from 'angularfire2/database';
 import {AuthService} from './auth.service';
 import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
-import {IPDATA_KEY} from '../_shared/utils';
+import {ajax_response_stub, IPDATA_KEY} from '../_shared/utils';
+import jqXHR = JQuery.jqXHR;
 
 @Injectable()
 export class MyFirebaseService {
@@ -18,6 +19,7 @@ export class MyFirebaseService {
   public apiKeyUrl = environment.apiUrl + 'api-keys/';
   public saveFirebaseUrl = environment.apiUrl + 'save-firebase/';
   public atilaMicroServicesUrl = environment.atilaMicroservicesApiUrl;
+
   constructor(public http: HttpClient,
               private db: AngularFireDatabase,
               public fs: AngularFirestore,
@@ -44,12 +46,12 @@ export class MyFirebaseService {
 
   }
 
-  saveUserAnalytics(user, path?) {
+  saveUserAnalytics(user, path?): jqXHR | Promise<any> {
     return $.getJSON(`https://api.ipdata.co?api-key=${IPDATA_KEY}`,
       data => {
         user = this.addMetadata(user);
         user.geo_ip = data;
-        const customPath = path ? 'user_analytics/'+ path  : 'user_analytics/general';
+        const customPath = path ? 'user_analytics/' + path : 'user_analytics/general';
 
         return this.db.list(customPath).push(user);
 
@@ -81,7 +83,7 @@ export class MyFirebaseService {
     data = JSON.stringify(data);
     data = JSON.parse(data);
 
-    if(path) {
+    if (path) {
       data = this.addMetadata(data);
       data.timestamp = new Date().getTime();
       return $.getJSON(`https://api.ipdata.co?api-key=${IPDATA_KEY}`,
@@ -90,19 +92,19 @@ export class MyFirebaseService {
           return this.db.list(path).push(data);
         })
         .fail((jqXHR, textStatus) => {
-        return this.db.list(path).push(data);
+          return this.db.list(path).push(data);
         });
     }
   }
 
-  saveAny_fs(path, data, opts={}) {
+  saveAny_fs(path, data, opts = {}) {
 
     let queryPath = path;
     if (!environment.production) {
-      queryPath = 'DEVELOPMENT/data/'+ queryPath
+      queryPath = 'DEVELOPMENT/data/' + queryPath
     }
     else {
-      queryPath = 'PRODUCTION/data/'+ queryPath
+      queryPath = 'PRODUCTION/data/' + queryPath
     }
 
     data['firebase_path'] = queryPath;
@@ -110,36 +112,35 @@ export class MyFirebaseService {
     const collection: AngularFirestoreCollection<any> = this.fs.collection(queryPath);
     const id = this.fs.createId();
     data['id'] = id;
-    return collection.doc(id).set(data).catch(err=>Observable.throw(err));
+    return collection.doc(id).set(data).catch(err => Observable.throw(err));
   }
 
-  updateAny_fs(path,id,data,opts={}) {
+  updateAny_fs(path, id, data, opts = {}) {
 
     this.fs.collection(path).doc(id).set(data);
     return id;
 
   }
 
-  getGeoIp(opts={}) {
+  getGeoIp(opts = {}) {
     return $.getJSON(`https://api.ipdata.co?api-key=${IPDATA_KEY}`)
   }
 
 
-  firestoreQuery(path, queryParams=null) {
+  firestoreQuery(path, queryParams = null) {
 
     if (!environment.production) {
-      path = 'DEVELOPMENT/data/'+ path
+      path = 'DEVELOPMENT/data/' + path
     }
     else {
-      path = 'PRODUCTION/data/'+ path
+      path = 'PRODUCTION/data/' + path
     }
     if (queryParams) {
 
       if (queryParams['orderByField']) {
         return this.fs.collection(path,
           ref => ref.where(
-            queryParams['field_path'], queryParams['operator'], queryParams['value']).
-          orderBy(queryParams['orderByField'], queryParams['orderByDirection'])
+            queryParams['field_path'], queryParams['operator'], queryParams['value']).orderBy(queryParams['orderByField'], queryParams['orderByDirection'])
         )
       }
       else {
@@ -149,18 +150,18 @@ export class MyFirebaseService {
         )
       }
     }
-    else{
+    else {
       return this.fs.collection(path)
     }
 
   }
 
 
-  getAPIKey(apiKey: any){
+  getAPIKey(apiKey: any) {
     apiKey = apiKey.toString();
     return this.http.get(`${this.apiKeyUrl}?api-key-name=${apiKey}`)
-    .map(this.extractData)
-    .catch(this.handleError);
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 
   addMetadata(data) {
@@ -182,12 +183,12 @@ export class MyFirebaseService {
 
   }
 
-  public handleError (error: Response | any) {
+  public handleError(error: Response | any) {
     return Observable.throw(error);
   }
 
   sendUserBankEmail(emailData: any) {
-    return this.http.post(`${this.atilaMicroServicesUrl}/send-email`,emailData)
+    return this.http.post(`${this.atilaMicroServicesUrl}/send-email`, emailData)
       .map(res => res)
       .catch(err => Observable.throw(err));
   }
@@ -197,8 +198,7 @@ export class MyFirebaseService {
   // toodo show snackbar error handler if upload fails
 
   //TODO refactor so user gets automatically resigned in to server without forcing re-signing in.
-  fileUpload(uploadFile: UploadFile, options={}){
-
+  fileUpload(uploadFile: UploadFile, options = {}) {
 
 
     if (!firebase.apps.length) {
@@ -211,7 +211,7 @@ export class MyFirebaseService {
 
     } else {
       // User is logged in to Atila but not Firebase
-      if(this.authService.isLoggedIn && !options['demoMode'] ) {
+      if (this.authService.isLoggedIn && !options['demoMode']) {
         return Observable.throw('Session Expired. Please log in again.')
       }
     }
@@ -225,14 +225,14 @@ export class MyFirebaseService {
     }
 
 
-    return this.authService.getAPIKey("FIREBASE_CONFIG_KEYS")
+    return this.authService.getAPIKey('FIREBASE_CONFIG_KEYS')
       .map(res => {
         return this.uploadFileFirebase(res, uploadFile)
       })
-      .catch(err=>Observable.throw(err))
+      .catch(err => Observable.throw(err))
   }
 
-  uploadFileFirebase(res: Response, uploadFile: UploadFile){
+  uploadFileFirebase(res: Response, uploadFile: UploadFile) {
 
 
     let config;
@@ -258,8 +258,6 @@ export class MyFirebaseService {
     };
 
 
-
-
     return uploadRef.put(uploadFile.file, metadata);
 
 
@@ -267,6 +265,6 @@ export class MyFirebaseService {
 
 }
 
-export let MyFirebaseServiceStub : Partial<MyFirebaseService> = {
-  apiKeyUrl : environment.apiUrl + 'api-keys/',
+export let MyFirebaseServiceStub: Partial<MyFirebaseService> = {
+  apiKeyUrl: environment.apiUrl + 'api-keys/',
 };

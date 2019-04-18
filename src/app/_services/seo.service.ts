@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 import {Meta, Title} from '@angular/platform-browser';
 
@@ -11,7 +11,8 @@ import {MyFirebaseService} from './myfirebase.service';
 export class SeoService {
 
   constructor(private meta: Meta,
-              public titleService: Title) { }
+              public titleService: Title) {
+  }
 
   generateTags(config) {
     /*
@@ -27,24 +28,24 @@ export class SeoService {
     */
 
     config.title = config.title + ' - Atila';
-    this.titleService.setTitle( config.title);
-    if (config.image)  {
-      this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
+    this.titleService.setTitle(config.title);
+    if (config.image) {
+      this.meta.updateTag({name: 'twitter:card', content: 'summary_large_image'});
     }
     else {
-      this.meta.updateTag({ name: 'twitter:card', content: 'summary' });
+      this.meta.updateTag({name: 'twitter:card', content: 'summary'});
     }
-    this.meta.updateTag({ name: 'twitter:site', content: '@atilatech' });
-    this.meta.updateTag({ name: 'twitter:title', content: config.title });
-    this.meta.updateTag({ name: 'twitter:description', content: config.description });
-    this.meta.updateTag({ name: 'twitter:image', content: config.image });
+    this.meta.updateTag({name: 'twitter:site', content: '@atilatech'});
+    this.meta.updateTag({name: 'twitter:title', content: config.title});
+    this.meta.updateTag({name: 'twitter:description', content: config.description});
+    this.meta.updateTag({name: 'twitter:image', content: config.image});
 
-    this.meta.updateTag({ property: 'og:type', content: 'article' });
-    this.meta.updateTag({ property: 'og:site_name', content: 'Atila' });
-    this.meta.updateTag({ property: 'og:title', content: config.title });
-    this.meta.updateTag({ property: 'og:description', content: config.description });
-    this.meta.updateTag({ property: 'og:image', content: config.image });
-    this.meta.updateTag({ property: 'og:url', content: `https://atila.ca/${config.slug}` });
+    this.meta.updateTag({property: 'og:type', content: 'article'});
+    this.meta.updateTag({property: 'og:site_name', content: 'Atila'});
+    this.meta.updateTag({property: 'og:title', content: config.title});
+    this.meta.updateTag({property: 'og:description', content: config.description});
+    this.meta.updateTag({property: 'og:image', content: config.image});
+    this.meta.updateTag({property: 'og:url', content: `https://atila.ca/${config.slug}`});
 
     // ['name','description','image'].forEach(tag => {
     //   this.meta.removeTag(tag)
@@ -52,25 +53,26 @@ export class SeoService {
 
     try {
       if ($) {
-        $('meta[itemprop="name"]').attr('content',config.title);
-        $('meta[itemprop="description"]').attr('content',config.description);
-        $('meta[name="Description"]').attr('content',config.description);
-        $('meta[name="description"]').attr('content',config.description);
-        $('meta[itemprop="image"]').attr('content',config.image);
+        $('meta[itemprop="name"]').attr('content', config.title);
+        $('meta[itemprop="description"]').attr('content', config.description);
+        $('meta[name="Description"]').attr('content', config.description);
+        $('meta[name="description"]').attr('content', config.description);
+        $('meta[itemprop="image"]').attr('content', config.image);
       }
     }
     catch (e) {
-      this.meta.updateTag({ itemprop: 'name', content: config.title });
-      this.meta.updateTag({ itemprop: 'description', content: config.description });
-      this.meta.updateTag({ name: 'description', content: config.description });
-      this.meta.updateTag({ name: 'Description', content: config.title });
-      this.meta.updateTag({ itemprop: 'image', content: config.image });
+      this.meta.updateTag({itemprop: 'name', content: config.title});
+      this.meta.updateTag({itemprop: 'description', content: config.description});
+      this.meta.updateTag({name: 'description', content: config.description});
+      this.meta.updateTag({name: 'Description', content: config.title});
+      this.meta.updateTag({itemprop: 'image', content: config.image});
     }
-
 
 
   }
 }
 
 export let seoServiceStub: Partial<SeoService> = {
+  generateTags(config) {
+  }
 };

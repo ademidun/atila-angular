@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ScholarshipsListComponent} from './scholarships-list.component';
-import {UserProfileService, UserProfileServiceMock} from '../../_services/user-profile.service';
+import {UserProfileService, userProfileServiceStub} from '../../_services/user-profile.service';
 import {MyFirebaseService, MyFirebaseServiceStub} from '../../_services/myfirebase.service';
 import {
   MatDialogModule,
@@ -15,7 +15,7 @@ import {
 } from '@angular/material';
 import {NotificationsService, NotificationsServiceStub} from '../../_services/notifications.service';
 import {AuthService, AuthServiceStub} from '../../_services/auth.service';
-import {ScholarshipService, ScholarshipServiceStub} from '../../_services/scholarship.service';
+import {ScholarshipService, scholarshipServiceStub} from '../../_services/scholarship.service';
 import {RouterTestingModule} from '@angular/router/testing';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatIconStubComponent, ScholarshipCardStubComponent, TypeaheadStubComponent} from '../../_shared/test-helpers';
@@ -23,6 +23,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
 import {APP_BASE_HREF} from '@angular/common';
 import {SeoService, seoServiceStub} from '../../_services/seo.service';
+import {Router} from '@angular/router';
 
 fdescribe('ScholarshipsListComponent', () => {
   let component: ScholarshipsListComponent;
@@ -35,8 +36,8 @@ fdescribe('ScholarshipsListComponent', () => {
         ScholarshipCardStubComponent,
         TypeaheadStubComponent],
       providers: [
-        {provide: ScholarshipService, useValue: ScholarshipServiceStub},
-        {provide: UserProfileService, useValue: UserProfileServiceMock},
+        {provide: ScholarshipService, useValue: scholarshipServiceStub},
+        {provide: UserProfileService, useValue: userProfileServiceStub},
         {provide: AuthService, useValue: AuthServiceStub},
         {provide: NotificationsService, useValue: NotificationsServiceStub},
         {provide: MyFirebaseService, useValue: MyFirebaseServiceStub},
@@ -80,6 +81,7 @@ fdescribe('ScholarshipsListComponent', () => {
   });
 
   it('should be created', () => {
+
     expect(component).toBeTruthy();
   });
 });

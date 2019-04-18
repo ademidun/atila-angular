@@ -1,7 +1,7 @@
 import {TestBed, inject} from '@angular/core/testing';
 
 import {NotificationsService} from './notifications.service';
-import {ScholarshipService, ScholarshipServiceStub} from './scholarship.service';
+import {ScholarshipService, scholarshipServiceStub} from './scholarship.service';
 import {AngularFireDatabase} from 'angularfire2/database';
 import {SwPush} from '@angular/service-worker';
 import {DatePipe} from '@angular/common';

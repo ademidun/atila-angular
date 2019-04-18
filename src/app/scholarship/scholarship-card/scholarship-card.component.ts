@@ -187,6 +187,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
       this.userAnalytics.user_id = this.userProfile.user;
 
     }
+    console.log('this.firebaseService.saveUserAnalytics');
     this.firebaseService.saveUserAnalytics(this.userAnalytics, 'scholarship_sharing');
   }
 

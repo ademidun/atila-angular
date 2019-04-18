@@ -1,10 +1,10 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ScholarshipCardComponent} from './scholarship-card.component';
-import {ScholarshipService, ScholarshipServiceStub} from '../../_services/scholarship.service';
+import {ScholarshipService, scholarshipServiceStub} from '../../_services/scholarship.service';
 import {MyFirebaseService, MyFirebaseServiceStub} from '../../_services/myfirebase.service';
 import {AuthService, AuthServiceStub} from '../../_services/auth.service';
-import {UserProfileService, UserProfileServiceMock} from '../../_services/user-profile.service';
+import {UserProfileService, userProfileServiceStub} from '../../_services/user-profile.service';
 import {NotificationsService, NotificationsServiceStub} from '../../_services/notifications.service';
 import {MatDialogModule, MatIcon, MatIconModule, MatSnackBarModule} from '@angular/material';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -24,8 +24,8 @@ fdescribe('ScholarshipCardComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ScholarshipCardComponent, TruncatePipe],
       providers: [
-        {provide: ScholarshipService, useValue: ScholarshipServiceStub},
-        {provide: UserProfileService, useValue: UserProfileServiceMock},
+        {provide: ScholarshipService, useValue: scholarshipServiceStub},
+        {provide: UserProfileService, useValue: userProfileServiceStub},
         {provide: AuthService, useValue: AuthServiceStub},
         {provide: NotificationsService, useValue: NotificationsServiceStub},
         {provide: MyFirebaseService, useValue: MyFirebaseServiceStub},
@@ -66,10 +66,10 @@ fdescribe('ScholarshipCardComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should be created', () => {
+  it('should be created', async (() => {
 
     expect(component).toBeTruthy();
-  });
+  }));
 
   it('should call addToMyScholarship', async(() => {
     spyOn(component, 'addToMyScholarship');

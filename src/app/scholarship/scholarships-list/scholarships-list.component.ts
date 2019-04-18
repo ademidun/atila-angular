@@ -120,6 +120,9 @@ export class ScholarshipsListComponent implements OnInit {
             let tempCity = [];
             this.userProfile = data;
 
+            console.log({data});
+            console.log('this.userProfile', this.userProfile);
+
             if (this.userProfile.metadata['incomplete_profile']) {
 
               this.inCompleteProfile = true;

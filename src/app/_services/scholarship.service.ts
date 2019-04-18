@@ -160,6 +160,9 @@ getBySlug(slug: string) {
 
 }
 
-export let ScholarshipServiceStub : Partial<ScholarshipService> = {
+export let scholarshipServiceStub: Partial<ScholarshipService> = {
   form_data: {},
+  getScholarshipPreviewForm(): Promise<any> {
+    return Promise.resolve(this.form_data);
+  }
 };
