@@ -22,7 +22,7 @@ import {
 } from '../_services/google-analytics-events.service';
 import {RouterTestingModule} from '@angular/router/testing';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MockMatIconComponent} from '../_shared/test-helpers';
+import {MatIconStubComponent} from '../_shared/test-helpers';
 
 fdescribe('PreviewComponent', () => {
   let component: PreviewComponent;
@@ -64,8 +64,8 @@ fdescribe('PreviewComponent', () => {
           exports: [MatIcon]
         },
         add: {
-          declarations: [MockMatIconComponent],
-          exports: [MockMatIconComponent]
+          declarations: [MatIconStubComponent],
+          exports: [MatIconStubComponent]
         }
       })
     .compileComponents();

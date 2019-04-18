@@ -13,7 +13,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {createTestScholarship} from '../../_models/scholarship';
 import {createTestUserProfile, UserProfile} from '../../_models/user-profile';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MockMatIconComponent} from '../../_shared/test-helpers';
+import {MatIconStubComponent} from '../../_shared/test-helpers';
 
 
 fdescribe('ScholarshipCardComponent', () => {
@@ -47,8 +47,8 @@ fdescribe('ScholarshipCardComponent', () => {
           exports: [MatIcon]
         },
         add: {
-          declarations: [MockMatIconComponent],
-          exports: [MockMatIconComponent]
+          declarations: [MatIconStubComponent],
+          exports: [MatIconStubComponent]
         }
       })
       .compileComponents();

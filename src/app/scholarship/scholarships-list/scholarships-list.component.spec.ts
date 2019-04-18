@@ -1,16 +1,28 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ScholarshipsListComponent } from './scholarships-list.component';
+import {ScholarshipsListComponent} from './scholarships-list.component';
 import {UserProfileService, UserProfileServiceMock} from '../../_services/user-profile.service';
 import {MyFirebaseService, MyFirebaseServiceStub} from '../../_services/myfirebase.service';
-import {MatDialogModule, MatIcon, MatIconModule, MatSnackBarModule} from '@angular/material';
+import {
+  MatDialogModule,
+  MatFormFieldModule,
+  MatIcon,
+  MatIconModule,
+  MatOptionModule,
+  MatProgressBarModule,
+  MatSelectModule,
+  MatSnackBarModule
+} from '@angular/material';
 import {NotificationsService, NotificationsServiceStub} from '../../_services/notifications.service';
 import {AuthService, AuthServiceStub} from '../../_services/auth.service';
 import {ScholarshipService, ScholarshipServiceStub} from '../../_services/scholarship.service';
 import {RouterTestingModule} from '@angular/router/testing';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MockMatIconComponent} from '../../_shared/test-helpers';
+import {MatIconStubComponent, ScholarshipCardStubComponent, TypeaheadStubComponent} from '../../_shared/test-helpers';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {FormsModule} from '@angular/forms';
+import {APP_BASE_HREF} from '@angular/common';
+import {SeoService, seoServiceStub} from '../../_services/seo.service';
 
 fdescribe('ScholarshipsListComponent', () => {
   let component: ScholarshipsListComponent;
@@ -18,19 +30,31 @@ fdescribe('ScholarshipsListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ScholarshipsListComponent ],
+      declarations: [
+        ScholarshipsListComponent,
+        ScholarshipCardStubComponent,
+        TypeaheadStubComponent],
       providers: [
         {provide: ScholarshipService, useValue: ScholarshipServiceStub},
         {provide: UserProfileService, useValue: UserProfileServiceMock},
         {provide: AuthService, useValue: AuthServiceStub},
         {provide: NotificationsService, useValue: NotificationsServiceStub},
         {provide: MyFirebaseService, useValue: MyFirebaseServiceStub},
+        {provide: SeoService, useValue: seoServiceStub},
+        {provide: APP_BASE_HREF, useValue : '/' }
       ],
       imports: [
+        // todo: instead of importing all these modules manually, can we
+        // just import shared module?
         RouterTestingModule,
         MatIconModule,
         MatSnackBarModule,
+        MatOptionModule,
+        MatSelectModule,
+        MatFormFieldModule,
         MatDialogModule,
+        FormsModule,
+        MatProgressBarModule,
         NgbModule.forRoot(),
         BrowserAnimationsModule
       ]
@@ -42,8 +66,8 @@ fdescribe('ScholarshipsListComponent', () => {
           exports: [MatIcon]
         },
         add: {
-          declarations: [MockMatIconComponent],
-          exports: [MockMatIconComponent]
+          declarations: [MatIconStubComponent],
+          exports: [MatIconStubComponent]
         }
       })
       .compileComponents();

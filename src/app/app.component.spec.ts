@@ -4,30 +4,23 @@ import {AppComponent} from './app.component';
 import {FooterComponent} from './footer/footer.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {
-  MatFormFieldModule, MatIcon,
+  MatFormFieldModule,
+  MatIcon,
   MatIconModule,
   MatInputModule,
   MatMenuModule,
   MatProgressBarModule,
   MatSnackBarModule
 } from '@angular/material';
-import {Component} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {SwPush, SwUpdate} from '@angular/service-worker';
 import {UserProfileService, UserProfileServiceMock} from './_services/user-profile.service';
 import {MyFirebaseService, MyFirebaseServiceStub} from './_services/myfirebase.service';
 import {AuthService, AuthServiceStub} from './_services/auth.service';
 import {environment} from '../environments/environment';
-import {MockMatIconComponent} from './_shared/test-helpers';
+import {NavbarStubComponent, MatIconStubComponent} from './_shared/test-helpers';
 
 // https://stackoverflow.com/a/43941412/
-
-@Component({
-  selector: 'app-navbar',
-  template: '<p>Mock Navbar Component</p>'
-})
-class NavbarMockComponent {
-}
 
 fdescribe('AppComponent', () => {
   let component: AppComponent;
@@ -39,7 +32,7 @@ fdescribe('AppComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        NavbarMockComponent,
+        NavbarStubComponent,
         FooterComponent
       ],
       imports: [
@@ -67,8 +60,8 @@ fdescribe('AppComponent', () => {
           exports: [MatIcon]
         },
         add: {
-          declarations: [MockMatIconComponent],
-          exports: [MockMatIconComponent]
+          declarations: [MatIconStubComponent],
+          exports: [MatIconStubComponent]
         }
       }).compileComponents();
   }));

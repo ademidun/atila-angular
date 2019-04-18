@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import {Meta, Title} from '@angular/platform-browser';
 
 import * as $ from 'jquery';
+import {environment} from '../../environments/environment';
+import {MyFirebaseService} from './myfirebase.service';
 
 // https://angularfirebase.com/lessons/seo-angular-part-1-rendertron-meta-tags/#Setting-Social-Media-Meta-Tags-in-Angular
 @Injectable()
@@ -16,7 +18,8 @@ export class SeoService {
     // default values
     config = {
       title: 'Atila | Easily Find and Apply to Scholarships. The Right Way.',
-      description: 'Easily find and apply to scholarships. Learn and share information about education, career and life.',
+      description: 'Easily find and apply to scholarships.
+      Learn and share information about education, career and life.',
       image: 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-gradient-banner-march-14.png?alt=media&token=9d791ba9-18d0-4750-ace8-b390a4e90fdc',
       slug: '',
     };
@@ -68,3 +71,6 @@ export class SeoService {
 
   }
 }
+
+export let seoServiceStub: Partial<SeoService> = {
+};
