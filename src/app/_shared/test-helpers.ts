@@ -19,6 +19,9 @@ export class MatIconStubComponent {
 @NgModule({
   declarations: [
     MatIconStubComponent,
+    ScholarshipCardStubComponent,
+    TypeaheadStubComponent,
+    NavbarStubComponent,
   ],
 })
 export class MockTestingModule {
