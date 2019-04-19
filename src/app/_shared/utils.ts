@@ -99,3 +99,9 @@ export function cleanHtml(rawHtml: string) {
 }
 
 export const IPDATA_KEY ='335beb2ad17cc12676f2792328a5a770c47b89d6768daf9ec2c4d866';
+
+
+export function ajax_response_stub(response) {
+  const deferred = $.Deferred().resolve(response);
+  return deferred.promise();
+}

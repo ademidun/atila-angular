@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
 
-import {Scholarship, ScholarshipEdit} from "../_models/scholarship";
+import {createTestScholarship, Scholarship, ScholarshipEdit} from '../_models/scholarship';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -9,6 +9,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import {environment} from '../../environments/environment';
 import {MyFirebaseService} from './myfirebase.service';
+import {createTestUserProfile} from '../_models/user-profile';
 @Injectable()
 export class ScholarshipService {
 
@@ -160,6 +161,20 @@ getBySlug(slug: string) {
 
 }
 
-export let ScholarshipServiceStub : Partial<ScholarshipService> = {
+export let scholarshipServiceStub: Partial<ScholarshipService> = {
   form_data: {},
+  getScholarshipPreviewForm(): Promise<any> {
+    return Promise.resolve(this.form_data);
+  },
+  getPaginatedscholarships(form_data, page): Observable<Scholarship[]> | Observable<any> {
+
+    const scholarships = [
+      createTestScholarship('Test Scholarship 1'),
+      createTestScholarship('Test Scholarship 2')
+    ];
+    return Observable.of({
+      data: scholarships,
+      length: scholarships.length
+    });
+  }
 };

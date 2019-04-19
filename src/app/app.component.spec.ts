@@ -5,28 +5,22 @@ import {FooterComponent} from './footer/footer.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {
   MatFormFieldModule,
+  MatIcon,
   MatIconModule,
   MatInputModule,
   MatMenuModule,
   MatProgressBarModule,
   MatSnackBarModule
 } from '@angular/material';
-import {Component} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {SwPush, SwUpdate} from '@angular/service-worker';
-import {UserProfileService, UserProfileServiceMock} from './_services/user-profile.service';
+import {UserProfileService, userProfileServiceStub} from './_services/user-profile.service';
 import {MyFirebaseService, MyFirebaseServiceStub} from './_services/myfirebase.service';
 import {AuthService, AuthServiceStub} from './_services/auth.service';
 import {environment} from '../environments/environment';
+import {NavbarStubComponent, MatIconStubComponent} from './_shared/test-helpers';
 
 // https://stackoverflow.com/a/43941412/
-
-@Component({
-  selector: 'app-navbar',
-  template: '<p>Mock Navbar Component</p>'
-})
-class NavbarMockComponent {
-}
 
 fdescribe('AppComponent', () => {
   let component: AppComponent;
@@ -38,7 +32,7 @@ fdescribe('AppComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         AppComponent,
-        NavbarMockComponent,
+        NavbarStubComponent,
         FooterComponent
       ],
       imports: [
@@ -54,12 +48,22 @@ fdescribe('AppComponent', () => {
       providers: [
         {provide: SwUpdate, useValue: SwUpdateMock},
         {provide: SwPush, useValue: SwPushMock},
-        {provide: UserProfileService, useValue: UserProfileServiceMock},
+        {provide: UserProfileService, useValue: userProfileServiceStub},
         {provide: MyFirebaseService, useValue: MyFirebaseServiceStub},
         {provide: AuthService, useValue: AuthServiceStub},
       ]
       // schemas: [NO_ERRORS_SCHEMA]
-    }).compileComponents();
+    })
+      .overrideModule(MatIconModule, {
+        remove: {
+          declarations: [MatIcon],
+          exports: [MatIcon]
+        },
+        add: {
+          declarations: [MatIconStubComponent],
+          exports: [MatIconStubComponent]
+        }
+      }).compileComponents();
   }));
 
   beforeEach(() => {

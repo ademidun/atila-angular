@@ -1,19 +1,20 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
-import { HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
 
-import { Router } from '@angular/router'
-import { Observable } from 'rxjs/Observable';
-import * as CryptoJS from "crypto-js";
+import {Router} from '@angular/router'
+import {Observable} from 'rxjs/Observable';
+import * as CryptoJS from 'crypto-js';
 //import * as crypto from "crypto";
 
-import * as firebase from "firebase";
+import * as firebase from 'firebase';
 //ES6 style imports
 //https://stackoverflow.com/questions/39415661/what-does-resolves-to-a-non-module-entity-and-cannot-be-imported-using-this
 
-import { map, filter, catchError, timeout, flatMap } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material';
+import {map, filter, catchError, timeout, flatMap} from 'rxjs/operators';
+import {MatSnackBar} from '@angular/material';
 import {environment} from '../../environments/environment';
+
 @Injectable()
 export class AuthService {
 
@@ -23,16 +24,17 @@ export class AuthService {
   public apiKeyUrl = environment.apiUrl + 'api-keys/';
   public authUrl = environment.apiUrl + 'auth/';
   public redirectUrl = null;
-  public  isLoggedIn: boolean = false; //should this be public or protected?
-  public secretKey:string;
+  public isLoggedIn: boolean = false; //should this be public or protected?
+  public secretKey: string;
   token: string;
+
   constructor(public http: HttpClient,
               public snackBar: MatSnackBar,
               public router: Router,) {
     this.token = localStorage.token;
 
     this.initializeSecretKey();
-   }
+  }
 
 
   logout() {
@@ -42,115 +44,115 @@ export class AuthService {
     // there should always be a secret key available even after you clear local storage
     this.initializeSecretKey(true);
     this.isLoggedIn = false;
-    firebase.auth().signOut().then(function() {
+    firebase.auth().signOut().then(function () {
       // Sign-out successful.
-    }).catch(function(error) {
+    }).catch(function (error) {
       // An error happened.
     });
   }
 
   login(credentials: any) {
     return this.http.post(this.loginUrl, credentials)
-       .map(res=>{
+      .map(res => {
 
-           let data: any = res;
+        let data: any = res;
 
-           this.encryptlocalStorage('token', data.token);
-           this.encryptlocalStorage('firebase_token', data.firebase_token);
+        this.encryptlocalStorage('token', data.token);
+        this.encryptlocalStorage('firebase_token', data.firebase_token);
 
 
-           // this.cookieService.putObject('userId', data.id);
-           this.encryptlocalStorage('uid',data.id);
-           this.isLoggedIn = true;
-           try {
-             firebase.auth().signInWithCustomToken(data.firebase_token)
-               .then(res2 => {
+        // this.cookieService.putObject('userId', data.id);
+        this.encryptlocalStorage('uid', data.id);
+        this.isLoggedIn = true;
+        try {
+          firebase.auth().signInWithCustomToken(data.firebase_token)
+            .then(res2 => {
 
-               })
-               .catch(error => {
-                 // Handle Errors here.
+            })
+            .catch(error => {
+              // Handle Errors here.
 
-               });
-           }
-           catch (err) {
+            });
+        }
+        catch (err) {
 
-           }
-           return res;
-       })
-       .catch(this.handleError);
-   }
+        }
+        return res;
+      })
+      .catch(this.handleError);
+  }
 
-   //https://stackoverflow.com/questions/35739791/encrypting-the-client-side-local-storage-data-using-angularjs
-   /**
-    * Encrypt a certain value berfore placing it in Local storage pseudocode = localstorage.setItem(key, encrypy(secretKey, value))
-    * @param key
-    * @param value
-    */
-   public encryptlocalStorage(key:string, value: any){
-     //base64 values must be converted to string first, before they can be saved
-      this.initializeSecretKey();
+  //https://stackoverflow.com/questions/35739791/encrypting-the-client-side-local-storage-data-using-angularjs
+  /**
+   * Encrypt a certain value berfore placing it in Local storage pseudocode = localstorage.setItem(key, encrypy(secretKey, value))
+   * @param key
+   * @param value
+   */
+  public encryptlocalStorage(key: string, value: any) {
+    //base64 values must be converted to string first, before they can be saved
+    this.initializeSecretKey();
 
-      var encryptedData = CryptoJS.AES.encrypt(value.toString(),this.secretKey).toString();
-      localStorage.setItem(key,encryptedData);
+    var encryptedData = CryptoJS.AES.encrypt(value.toString(), this.secretKey).toString();
+    localStorage.setItem(key, encryptedData);
 
-     this.decryptLocalStorage(key);
+    this.decryptLocalStorage(key);
 
+  }
+
+  public decryptLocalStorage(key: string) {
+
+    let encryptedData = localStorage.getItem(key);
+
+    let decryptedValue = '';
+    if (encryptedData) {
+      decryptedValue = CryptoJS.AES.decrypt(encryptedData, this.secretKey).toString(CryptoJS.enc.Utf8);
+      return decryptedValue;
     }
 
-   public decryptLocalStorage(key:string){
-
-      let encryptedData = localStorage.getItem(key);
-
-      let decryptedValue = '';
-      if (encryptedData){
-        decryptedValue = CryptoJS.AES.decrypt(encryptedData, this.secretKey).toString(CryptoJS.enc.Utf8);
-        return decryptedValue;
-      }
-
-        return null;
-   }
+    return null;
+  }
 
 
-   isUserLoggedIn(): boolean {
+  isUserLoggedIn(): boolean {
     try {
-      return ! isNaN(parseInt(this.decryptLocalStorage('uid')));
+      return !isNaN(parseInt(this.decryptLocalStorage('uid')));
     }
 
     catch (err) {
       return false;
     }
-   }
+  }
 
-    public getToken(): string {
-      return localStorage.getItem('token');
-    }
+  public getToken(): string {
+    return localStorage.getItem('token');
+  }
 
-    getUser(userId: any){
-      return this.http.get(`${this.usernameUrl}?user-id=${userId}/`)
+  getUser(userId: any) {
+    return this.http.get(`${this.usernameUrl}?user-id=${userId}/`)
       .map(this.extractData)
       .catch(this.handleError);
-    }
+  }
 
 
-    getAPIKey(apiKey: any){
+  getAPIKey(apiKey: any) {
 
-      return this.http.get(`${this.apiKeyUrl}?api-key-name=${apiKey}`)
+    return this.http.get(`${this.apiKeyUrl}?api-key-name=${apiKey}`)
       .map(this.extractData)
       .catch(this.handleError);
-    }
+  }
 
-    public extractData(res: Response) {
-      return res;
+  public extractData(res: Response) {
+    return res;
 
-    }
+  }
 
-    public handleError (error: Response | any) {
-      // In a real world app, you might use a remote logging infrastructure
-      return Observable.throw(error);
-    }
+  public handleError(error: Response | any) {
+    // In a real world app, you might use a remote logging infrastructure
+    return Observable.throw(error);
+  }
 
-   randomString(length) {
-     var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  randomString(length) {
+    var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     var result = '';
     for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
     return result;
@@ -159,11 +161,11 @@ export class AuthService {
   /**
    * Always have a randomly generated key available for encrypting local storage values. Maintain the keys between browser refresh.
    */
-  initializeSecretKey(forceInsert=false){
+  initializeSecretKey(forceInsert = false) {
 
     if (forceInsert || !localStorage.getItem('xkcd')) {
       this.secretKey = this.randomString(16);
-      this.secretKey = CryptoJS.AES.encrypt(this.secretKey,'dante').toString();
+      this.secretKey = CryptoJS.AES.encrypt(this.secretKey, 'dante').toString();
       localStorage.setItem('xkcd', this.secretKey);
     }
 
@@ -173,12 +175,12 @@ export class AuthService {
 
   }
 
-  hashFileName(fileName,length=8, appendTimeStamp=true) {
+  hashFileName(fileName, length = 8, appendTimeStamp = true) {
     var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     var result = '';
     for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
 
-    result = appendTimeStamp? result + '-' +Date.now().toString() + '-' +fileName : result + '-' +fileName;
+    result = appendTimeStamp ? result + '-' + Date.now().toString() + '-' + fileName : result + '-' + fileName;
 
     return result;
 
@@ -187,7 +189,7 @@ export class AuthService {
 }
 
 
-export function handleError (error: Response | any) {
+export function handleError(error: Response | any) {
 
   return Observable.throw(error);
 }
@@ -200,17 +202,25 @@ export function extractData(res: Response | any) {
 
 }
 
-export function hashFileName(fileName,length=8, appendTimeStamp=true) {
+export function hashFileName(fileName, length = 8, appendTimeStamp = true) {
   var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
   var result = '';
   for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
 
-  result = appendTimeStamp? result + '-' +Date.now().toString() + '-' +fileName : result + '-' +fileName;
+  result = appendTimeStamp ? result + '-' + Date.now().toString() + '-' + fileName : result + '-' + fileName;
 
   return result;
 
 }
 
-export let AuthServiceStub : Partial<AuthService> = {
-  loginUrl : environment.apiUrl + 'login/',
+export let AuthServiceStub: Partial<AuthService> = {
+  loginUrl: environment.apiUrl + 'login/',
+
+  decryptLocalStorage: key => {
+    const localStorageTestDict = {
+      'uid': 0
+    };
+
+    return localStorageTestDict[key]
+  }
 };

@@ -5,7 +5,8 @@ import {User} from '../_models/user';
 
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/takeUntil';
-import {UserProfile} from '../_models/user-profile';
+import 'rxjs/add/observable/of';
+import {createTestUserProfile, UserProfile} from '../_models/user-profile';
 import {AuthService} from './auth.service';
 
 import {MatDialog, MatSnackBar} from '@angular/material';
@@ -18,6 +19,7 @@ import {AtilaPointsPromptDialogComponent} from '../atila-points-prompt-dialog/at
 import {Subscription} from 'rxjs/Subscription';
 import {Subject} from 'rxjs/Subject';
 import {Scholarship} from '../_models/scholarship';
+import {ScholarshipService} from './scholarship.service';
 
 @Injectable()
 export class UserProfileService implements OnDestroy {
@@ -33,6 +35,7 @@ export class UserProfileService implements OnDestroy {
               public firebaseService: MyFirebaseService,
               public dialog: MatDialog,) {
   }
+
   //https://stackoverflow.com/questions/38008334/angular-rxjs-when-should-i-unsubscribe-from-subscription
   // public ngUnsubscribe: Subject<any> = new Subject();
 
@@ -449,6 +452,14 @@ export class UserProfileService implements OnDestroy {
   }
 }
 
-export let UserProfileServiceMock: Partial<UserProfileService> = {
+export let userProfileServiceStub: Partial<UserProfileService> = {
   userEndpoint: '',
+  updateHelper: userProfile => {
+    return Observable.of(userProfile);
+  },
+  getById(id: number) {
+    const userProfile = createTestUserProfile();
+    return Observable.of(userProfile);
+  }
+
 };

@@ -119,33 +119,15 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   addToMyScholarship(item) {
+    console.log('this.userProfile', this.userProfile);
 
-    if (this.alreadySaved) {
-      if (this.userProfile.is_atila_admin) { // todo: remove this before-merge-master
-        this.notifySavedScholarship();
-        this.snackBar.open('Already Saved but allow it for admin mandem ', '', {
-          duration: 3000
-        });
-        return;
-      }
-      else {
-        this.snackBar.open('Already Saved', '', {
-          duration: 3000
-        });
-        return;
-      }
-
-    }
     this.logShareType('save_my_scholarships');
     if (this.userProfile) {
 
       const saveResult = addToMyScholarshipHelper(this.userProfile, this.scholarship);
 
-      if (!saveResult[1]) {
-        this.snackBar.open('Already Saved', '', {
-          duration: 3000
-        });
-
+      if (!saveResult[1]) { // saveResult[1] returns false if this item already exists
+        console.log('already saved');
         this.alreadySaved = true;
         if (this.userProfile.is_atila_admin) { // todo: remove this before-merge-master
           this.notifySavedScholarship();
@@ -153,6 +135,11 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
             duration: 3000
           });
         }
+        else {
+            this.snackBar.open('Already Saved', '', {
+              duration: 3000
+            });
+          }
         return;
       } else {
         this.userProfile = saveResult[0];
@@ -191,6 +178,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   logShareType(sharingType) {
+
     this.userAnalytics.share_type = sharingType;
     this.userAnalytics.schoarship_id = this.scholarship.id;
 
@@ -199,6 +187,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
       this.userAnalytics.user_id = this.userProfile.user;
 
     }
+    console.log('this.firebaseService.saveUserAnalytics');
     this.firebaseService.saveUserAnalytics(this.userAnalytics, 'scholarship_sharing');
   }
 
@@ -265,10 +254,6 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
 
       });
 
-    }
-
-    if (this.userProfile.metadata['allowNotifySavedScholarships']) {
-      this.createScholarshipNotificationsHandler();
     }
 
   }

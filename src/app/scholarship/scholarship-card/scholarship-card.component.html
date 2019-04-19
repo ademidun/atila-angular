@@ -37,7 +37,9 @@
       <p> {{scholarship.description | truncate:250}}</p>
     </div>
   </div>
-  <a ngbTooltip="Save Scholarship" class="btn-floating interactive-btn halfway-fab waves-effect waves-light atila-blue"title="Save Scholarship"
+  <a ngbTooltip="Save Scholarship"
+     class="btn-floating interactive-btn halfway-fab waves-effect waves-light atila-blue save-scholarship"
+     title="Save Scholarship"
      (click)="addToMyScholarship(scholarship)" [ngStyle]="{'background-color': alreadySaved ? '#4080ff' : 'gray'}" style="left: 15px; bottom: 10px">
     <i class="material-icons">bookmark</i>
   </a>
