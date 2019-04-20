@@ -64,6 +64,7 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
     public titleService: Title,) {
 
       this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
+      console.log('this.userId', this.userId);
       // this.options = {
       //     placeholder: "Share your thoughts",
       //     events : {
@@ -110,6 +111,8 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
           if (this.userId!=this.blogPost.user.id && this.enivronment.adminIds.indexOf(this.userId) < 0) {
             this.router.navigate(['/login']);
           }
+
+          this.titleService.setTitle(`Edit Blog: ${this.blogPost.title} | Atila`);
           if(this.editor){
             //this.editor.setContent(this.blogPost.body);
             //$('#'+this.editorId).html(this.blogPost.body);
@@ -199,16 +202,15 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
       //change author from dict to ID to match API pattern
       this.blogPost.user = this.blogPost.user.id;
       postOperation = this.blogPostService.update(this.blogPost.id,this.blogPost);
-    }
-    else{
+    }else{
 
       postOperation = this.blogPostService.create(this.blogPost);
-      this.titleService.setTitle(`Edit Blog Post - ${this.blogPost.title} - Atila`);
     }
 
     postOperation.subscribe(
       res => {
-        this.blogPost = res
+        this.blogPost = res;
+        this.titleService.setTitle(`Edit Blog: ${this.blogPost.title} | Atila`);
         this.editMode = true;
       },
 

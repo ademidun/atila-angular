@@ -16,7 +16,6 @@ export class CardGenericComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    console.log(this.item);
   }
 
   togglePreview() {
