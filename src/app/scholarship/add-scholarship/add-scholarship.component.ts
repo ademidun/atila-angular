@@ -485,6 +485,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
   saveScholarship(scholarshipForm: NgForm, metadata?: any) {
 
+    console.log('saveScholarship() this', this);
 
     if (this.scholarship.deadline) {
       try{
@@ -500,102 +501,6 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
         }
       }
     }
-
-    if(this.editMode && this.suggestionMode){
-
-      let changes = getScholarshipDiff(this.originalScholarship, this.scholarship);
-
-      if (Object.keys(changes).length === 0) {
-        this.snackBar.open("No changes made.", '', {
-          duration: 3000
-        });
-        return;
-      }
-      let diff = {
-        scholarship: this.scholarship.id,
-        timestamp: Date.now(),
-        changes: changes,
-        metadata: {},
-        status: 'PENDING',
-      };
-
-
-      if (!isNaN(this.userId)) {
-        diff['user_id'] = this.userId;
-        diff['user'] = {
-          username: this.userProfile.username,
-          profile_pic_url: this.userProfile.profile_pic_url,
-          id: this.userProfile.user,
-        };
-      }
-      else {
-        diff['user_id'] = 0;
-        diff['user'] = {
-          username: 'guest',
-          profile_pic_url: 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2Fgeneral-data%2Fdefault-profile-pic.png?alt=media&token=455c59f7-3a05-43f1-a79e-89abff1eae57',
-          id: 0,
-        };
-      }
-
-      return this.firebaseService.getGeoIp()
-        .then(res=>{
-          diff.metadata['geo_ip'] = res;
-          let path = 'scholarships/' + this.scholarship.id + '/edits';
-          this.firebaseService.saveAny_fs(path, diff);
-
-        })
-        .fail( (jqXHR, textStatus, errorThrown) => {
-          diff.metadata['geo_ip'] = textStatus;
-          this.firebaseService.saveAny_fs('scholarship_edits', diff);
-        })
-        .done(()=> {
-
-
-          this.scholarshipService.createEdit(diff,{'translateEdit': true}).subscribe(
-            res => {
-
-              if (this.isOwner) {
-                this.loadScholarshipDatabase();
-              }
-              },
-            err => {
-              }
-          );
-          this.snackBar.open("Thanks! Changes Saved. Sent to Scholarship creator for Review", '', {
-            duration: 5000
-          });
-          return;
-
-        })
-    }
-
-    else if (metadata && metadata['quickAdd']) {
-      if(isNaN(this.userId)){
-        let snackBarRef = this.snackBar.open("Please Log In", 'Log In', {
-          duration: 3000
-        });
-
-        snackBarRef.onAction().subscribe(
-          () => {
-
-            this.router.navigateByUrl('/login?redirect='+this.router.url, {      preserveQueryParams: true, preserveFragment: true, queryParamsHandling: 'merge'});
-            this.authService.redirectUrl = this.router.url;
-          },
-          err =>  {}
-        )
-        return;
-      }
-
-      if (!this.scholarship.description && !this.scholarship.criteria_info) {
-        this.snackBar.open("Please Enter a Scholarship Description", '', {
-          duration: 3000
-        });
-        return;
-      }
-
-      this.scholarship = scholarshipQuickCreate(this.scholarship);
-    }
-
     else if (!this.editMode) {
       this.scholarship = scholarshipCreationHelper(this.scholarship);
     }
@@ -612,16 +517,16 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
         'locationData': this.locationList,
       };
 
-
-      if(this.editMode){
+      console.log({sendData});
+      if(this.editMode) {
 
         this.scholarshipService.updateAny(sendData)
           .subscribe(
-            res =>{
-
+            res => {
+              console.log({res});
               this.loadScholarshipDatabase();
 
-              let snackBarRef = this.snackBar.open("Scholarship Succesfully Saved", 'View Scholarship', {
+              const snackBarRef = this.snackBar.open("Scholarship Succesfully Saved", 'View Scholarship', {
                 duration: 3000
               });
 
@@ -633,6 +538,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
             },
             err => {
+              console.log({err});
               this.scholarshipErrors = err.error? JSON.stringify(err.error): JSON.stringify(err);
 
               this.firebaseService.saveAny('error_logs/scholarships',err);

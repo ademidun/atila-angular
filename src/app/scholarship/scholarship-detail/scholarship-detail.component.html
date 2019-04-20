@@ -87,8 +87,21 @@
               {{scholarship[key]}}</p>
           </ng-container>
         </div>
+
+        <div *ngFor="let locationType of ['city', 'province', 'country']">
+          <ng-container *ngIf="scholarship[locationType].length>0">
+            <p>
+              <strong>{{prettifyKeys(locationType)}}:</strong>
+                <ng-container *ngFor="let locationString of scholarship[locationType]; let isLast = last">
+                 {{locationString.name}}{{!isLast ? ',' : ''}}
+                </ng-container>
+
+            </p>
+          </ng-container>
+        </div>
         <p *ngIf="scholarship.female_only"><strong>Female Only</strong></p>
         <p *ngIf="scholarship.international_students_eligible"><strong>International Students Eligible</strong></p>
+
 
       </div>
       <br>
