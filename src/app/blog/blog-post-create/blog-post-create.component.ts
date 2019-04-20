@@ -203,13 +203,13 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
     else{
 
       postOperation = this.blogPostService.create(this.blogPost);
-      this.editMode = true;
       this.titleService.setTitle(`Edit Blog Post - ${this.blogPost.title} - Atila`);
     }
 
     postOperation.subscribe(
       res => {
         this.blogPost = res
+        this.editMode = true;
       },
 
       err => {
