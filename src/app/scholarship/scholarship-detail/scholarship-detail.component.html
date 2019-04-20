@@ -72,13 +72,14 @@
         <p style="width: 90%; white-space: pre-line">{{scholarship.description}}</p>
       </div>
 
-      <div *ngIf="scholarship.extra_criteria && Object.keys(scholarship.extra_criteria).length>0 || scholarshipAdditionalCriteria.length>0">
+      <div class="other-criteria">
+
         <h3>Other Criteria</h3>
 
-          <!--TODO: How is extra_criteria being generated. How is it different from the autoComplete lists?-->
-          <!--<div *ngFor="let key of Object.keys(scholarship.extra_criteria)">-->
-            <!--<p><strong>{{prettifyKeys(key)}}:</strong>{{scholarship.extra_criteria[key]}}</p>-->
-          <!--</div>-->
+        <!--TODO: How is extra_criteria being generated. How is it different from the autoComplete lists?-->
+        <!--<div *ngFor="let key of Object.keys(scholarship.extra_criteria)">-->
+        <!--<p><strong>{{prettifyKeys(key)}}:</strong>{{scholarship.extra_criteria[key]}}</p>-->
+        <!--</div>-->
 
         <div *ngFor="let key of autoCompleteLists">
           <ng-container *ngIf="scholarship[key].length>0">
@@ -92,9 +93,9 @@
           <ng-container *ngIf="scholarship[locationType].length>0">
             <p>
               <strong>{{prettifyKeys(locationType)}}:</strong>
-                <ng-container *ngFor="let locationString of scholarship[locationType]; let isLast = last">
-                 {{locationString.name}}{{!isLast ? ',' : ''}}
-                </ng-container>
+              <ng-container *ngFor="let locationString of scholarship[locationType]; let isLast = last">
+                {{locationString.name}}{{!isLast ? ',' : ''}}
+              </ng-container>
 
             </p>
           </ng-container>
@@ -102,9 +103,8 @@
         <p *ngIf="scholarship.female_only"><strong>Female Only</strong></p>
         <p *ngIf="scholarship.international_students_eligible"><strong>International Students Eligible</strong></p>
 
-
+        <br>
       </div>
-      <br>
 
       <div *ngIf="relatedItems" class="row">
         <div style="width: 100%; margin-left: 5%"><h5>Related</h5></div>

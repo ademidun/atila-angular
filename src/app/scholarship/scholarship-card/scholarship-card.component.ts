@@ -12,6 +12,7 @@ import {Scholarship} from '../../_models/scholarship';
 import {NotificationDialogComponent} from '../../notification-dialog/notification-dialog.component';
 import {NotificationsService} from '../../_services/notifications.service';
 import * as $ from 'jquery';
+import {prettifyKeys} from '../../_shared/utils';
 
 @Component({
   selector: 'app-scholarship-card',
@@ -38,6 +39,8 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
   handler: any;
   userId: any;
   isFirstView = true;
+  showMore = false;
+  prettifyKeys = prettifyKeys;
 
   old_visible: boolean;
   userScholarship: any;
