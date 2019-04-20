@@ -96,12 +96,15 @@
         <div class="offset-md-2">
 
           <div class="offset-1">
+            <strong>
+
             <p *ngIf="isLoggedIn && (!userProfile.major || !userProfile.post_secondary_school)">
               Your account is incomplete. School or program information is missing:
               <a (click)="editProfileModal({'forceOpen': true})">Complete Profile</a>
             </p>
-
-            <p>Did you find a scholarship? Help others and <a routerLink="/scholarship/add">add a scholarship</a> in less than 15 seconds.</p>
+            </strong>
+            <!---->
+            <!--<p>Did you find a scholarship? Help others and <a routerLink="/scholarship/add">add a scholarship</a> in less than 15 seconds.</p>-->
 
           </div>
         </div>
@@ -165,11 +168,11 @@
 
           </div>
 
-          <div class="row center">
-            <p class="text-align-center offset-md-2">Are we missing a scholarship you want? You can easily <a routerLink="/scholarship/add" title="Add Scholarship">Add a Scholarship </a> to Atila or
-              <a href="https://docs.google.com/spreadsheets/d/13YshWzg38Au-tPkGyDfY4hJHGJDWl_7vUpXNXkf5afM/edit?usp=sharing"
-                 target="_blank" title="Scholarship Spreadsheet">Tell us the link</a> and we'll automate it for you.</p>
-          </div>
+          <!--<div class="row center">-->
+            <!--<p class="text-align-center offset-md-2">Are we missing a scholarship you want? You can easily <a routerLink="/scholarship/add" title="Add Scholarship">Add a Scholarship </a> to Atila or-->
+              <!--<a href="https://docs.google.com/spreadsheets/d/13YshWzg38Au-tPkGyDfY4hJHGJDWl_7vUpXNXkf5afM/edit?usp=sharing"-->
+                 <!--target="_blank" title="Scholarship Spreadsheet">Tell us the link</a> and we'll automate it for you.</p>-->
+          <!--</div>-->
         </div>
 
 
@@ -185,11 +188,11 @@
 
             </div>
             <div class="row nav-buttons">
-              <p class="col-sm-12 center">
-                You can give back to the Atila community and <a routerLink="/scholarship/add" title="Add Scholarship">Add a Scholarship</a>.
-                <!--or <a href="https://docs.google.com/spreadsheets/d/13YshWzg38Au-tPkGyDfY4hJHGJDWl_7vUpXNXkf5afM/edit?usp=sharing"-->
-                   <!--target="_blank" title="Scholarship Spreadsheet">Tell us the link</a> and we'll automate it for you.-->
-              </p>
+              <!--<p class="col-sm-12 center">-->
+                <!--You can give back to the Atila community and <a routerLink="/scholarship/add" title="Add Scholarship">Add a Scholarship</a>.-->
+                <!--&lt;!&ndash;or <a href="https://docs.google.com/spreadsheets/d/13YshWzg38Au-tPkGyDfY4hJHGJDWl_7vUpXNXkf5afM/edit?usp=sharing"&ndash;&gt;-->
+                   <!--&lt;!&ndash;target="_blank" title="Scholarship Spreadsheet">Tell us the link</a> and we'll automate it for you.&ndash;&gt;-->
+              <!--</p>-->
 
               <div class="col-sm-12 center">
                 <!--todo fix error with waves-light staying white, looks like be button is disabled-->
