@@ -122,7 +122,6 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   addToMyScholarship(item) {
-    console.log('this.userProfile', this.userProfile);
 
     this.logShareType('save_my_scholarships');
     if (this.userProfile) {
@@ -130,7 +129,6 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
       const saveResult = addToMyScholarshipHelper(this.userProfile, this.scholarship);
 
       if (!saveResult[1]) { // saveResult[1] returns false if this item already exists
-        console.log('already saved');
         this.alreadySaved = true;
         if (this.userProfile.is_atila_admin) { // todo: remove this before-merge-master
           this.notifySavedScholarship();

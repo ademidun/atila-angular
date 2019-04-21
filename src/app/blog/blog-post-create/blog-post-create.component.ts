@@ -64,15 +64,6 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
     public titleService: Title,) {
 
       this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
-      console.log('this.userId', this.userId);
-      // this.options = {
-      //     placeholder: "Share your thoughts",
-      //     events : {
-      //       'froalaEditor.focus' : function(e, editor) {
-      //       }
-      //     },
-      //   heightMin: 200,
-      //   }
     }
 
   ngOnInit() {

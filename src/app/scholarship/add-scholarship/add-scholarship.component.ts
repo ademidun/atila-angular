@@ -485,7 +485,6 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
 
   saveScholarship(scholarshipForm: NgForm, metadata?: any) {
 
-    console.log('saveScholarship() this', this);
 
     if (this.scholarship.deadline) {
       try{
@@ -517,13 +516,11 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
         'locationData': this.locationList,
       };
 
-      console.log({sendData});
       if(this.editMode) {
 
         this.scholarshipService.updateAny(sendData)
           .subscribe(
             res => {
-              console.log({res});
               this.loadScholarshipDatabase();
 
               const snackBarRef = this.snackBar.open("Scholarship Succesfully Saved", 'View Scholarship', {
