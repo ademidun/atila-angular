@@ -122,7 +122,7 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
           });
 
 
-          if ('2019-01-01T00:00:00Z' == this.scholarship.deadline) {
+          if (this.scholarship.deadline.includes('2022-01-01')) {
             this.scholarship['metadata']['deadline_tbd'] = 'TBA';
           }
           else if (this.scholarship['metadata']['deadline_tbd']) {

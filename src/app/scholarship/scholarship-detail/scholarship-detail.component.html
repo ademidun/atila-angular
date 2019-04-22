@@ -8,12 +8,14 @@
       <h3 style="width: 100%; text-align: center; margin-top: 0">{{scholarship.name}}</h3>
 
       <div class="date-created col col-sm-12 col-md-8">
-            <span *ngIf="scholarship.metadata['not_open_yet'];else hasDeadline"><strong>Opens:</strong> {{scholarship.open_date | date:'mediumDate' }}</span>
-            <ng-template #hasDeadline><strong>Deadline:</strong>
-              <span *ngIf="!scholarship['metadata']['deadline_tbd']">
-                {{scholarship.deadline | date:'longDate'}}</span>
-              <span  *ngIf="this.scholarship['metadata']['deadline_tbd']">TBA</span>
-            </ng-template>
+        <ng-container *ngIf="scholarship.open_date && (scholarship.open_date > scholarship.deadline || scholarship['metadata']['deadline_tbd']);else hasDeadline">
+          <strong>Opens:</strong> {{scholarship.open_date | date:'mediumDate' }}
+        </ng-container>
+        <ng-template #hasDeadline><strong>Deadline:</strong>
+          <span *ngIf="!scholarship['metadata']['deadline_tbd']">
+            {{scholarship.deadline | date:'longDate'}}</span>
+          <span  *ngIf="this.scholarship['metadata']['deadline_tbd']">TBA</span>
+        </ng-template>
 
             <strong>
             <p *ngIf="scholarship.funding_amount > 0">Amount: {{scholarship.funding_amount | currency:'USD':'symbol':'1.0-0'}}</p>
