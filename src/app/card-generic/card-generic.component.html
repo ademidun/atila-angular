@@ -20,7 +20,7 @@
   </div>
   <div class="my-card-content" *ngIf="!metadata.hideDescription || previewDescription">
     <p class="card-text" *ngIf="item.description">
-      {{item.description | truncate:280}}
+      {{item.description | truncate: previewDescription ? item.description.length : 280}}
     </p>
   </div>
 <a (click)="togglePreview()" class="card-footer">Preview</a>
