@@ -55,27 +55,18 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
   isLoggedIn: boolean;
   enivronment = environment;
 
-  constructor(public ref: ChangeDetectorRef,
-              public userProfileService: UserProfileService,
-              public blogPostService: BlogPostService,
-              public authService: AuthService,
-              public router: Router,
-              public snackBar: MatSnackBar,
-              public route: ActivatedRoute,
-              public firebaseService: MyFirebaseService,
-              public titleService: Title,) {
+  constructor(public ref:ChangeDetectorRef,
+    public userProfileService: UserProfileService,
+    public blogPostService: BlogPostService,
+    public authService: AuthService,
+    public router: Router,
+    public snackBar: MatSnackBar,
+    public route: ActivatedRoute,
+    public firebaseService: MyFirebaseService,
+    public titleService: Title,) {
 
-    this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
-    console.log('this.userId', this.userId);
-    // this.options = {
-    //     placeholder: "Share your thoughts",
-    //     events : {
-    //       'froalaEditor.focus' : function(e, editor) {
-    //       }
-    //     },
-    //   heightMin: 200,
-    //   }
-  }
+      this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
+    }
 
   ngOnInit() {
 
