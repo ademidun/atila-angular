@@ -74,6 +74,8 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
 
   ngOnInitHelper() {
 
+    console.log('this.userId', this.userId);
+
     if (this.userProfileService.viewHistoryChanges) {
       this.userProfileService.viewHistoryChanges.unsubscribe();
     }
@@ -86,7 +88,7 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
       res => {
         this.blogPost = (<any>res).blog;
 
-        //this.updateMeta();
+        // this.updateMeta();
 
 
         try {
@@ -96,16 +98,17 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
             image: this.blogPost.header_image_url,
             slug: `blog/${this.blogPost.user.username}/${this.blogPost.slug}`
           });
-        }
-        catch (err) {
+        } catch (err) {
         }
 
         // this.titleService.setTitle(this.blogPost.title + ' - Atila');
+
+        console.log('after blogPostService.getBySlug() this.userId', this.userId);
         if (!isNaN(this.userId)) {
 
           this.userProfileService.getById(parseInt(this.userId)).subscribe(
-            res => {
-              this.userProfile = res;
+            resUserProfile => {
+              this.userProfile = resUserProfile;
 
               setTimeout(() => {
                 if (this.blogPost) {
@@ -122,6 +125,10 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
               if (this.blogPost.up_votes_id.includes(this.userId)) {//if the current user (ID) already liked the video, disable the up_vote_button
                 this.blogPost['alreadyLiked'] = true;
               }
+
+
+              console.log('this.userProfile', this.userProfile);
+              console.log('this.blogPost', this.blogPost);
 
             }
           );
@@ -148,7 +155,7 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
 
       },
       err => {
-        let snackBarRef = this.snackBar.open('Blog Post Not Found.', 'Try User\'s Blogs', {
+        const snackBarRef = this.snackBar.open('Blog Post Not Found.', 'Try User\'s Blogs', {
           duration: 5000
         });
 
