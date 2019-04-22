@@ -41,11 +41,14 @@ export function genericItemTransform (item) {
     if (item.hasOwnProperty('deadline')) {
       item.type = 'scholarship'
     }
-    else if (item.hasOwnProperty('starting_comment')){
+    else if (item.hasOwnProperty('starting_comment')) {
       item.type = 'forum'
     }
     else if (item.hasOwnProperty('header_image_url')) {
       item.type = 'blog'
+    }
+    else if (item.hasOwnProperty('essay_source_url')) {
+      item.type = 'essay'
     }
 
     switch(item.type) {
@@ -56,6 +59,15 @@ export function genericItemTransform (item) {
           id: item.id,
           slug: `/scholarship/${item.slug}/`,
           image: item.img_url,
+          type: item.type,
+        };
+        break;
+      case 'essay':
+        item = {
+          title: item.title,
+          description: item.description,
+          id: item.id,
+          slug: `/essay/${item.user.username}/${item.slug}/`,
           type: item.type,
         };
         break;
