@@ -5,7 +5,7 @@
               <h1 style="text-align: center; " class="blog-title"> {{blogPost.title}} </h1>
             </div>
 
-      <div class="col-sm-12 col-md-8">
+      <div class="col-sm-12 col-md-8 content-container">
                 <a *ngIf="userProfile && (userProfile.user==blogPost.user.id || userProfile.is_atila_admin)" [routerLink]="[ '/blog/edit', blogPost.id ]">Edit Blog</a>
                 <div *ngIf="!blogPost.published" style="font-weight: bold; "> | Unpublished</div>
                 <img src="{{blogPost.header_image_url}}" style="max-height: 100%;max-width: 100%" class="center-block my-4"/>
