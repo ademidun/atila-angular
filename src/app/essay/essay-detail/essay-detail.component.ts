@@ -15,7 +15,8 @@ import {SeoService} from '../../_services/seo.service';
 import {Subscription} from 'rxjs/Subscription';
 import {EssayService} from '../../_services/essay.service';
 import {Essay} from '../../_models/essay';
-import {toTitleCase} from '../../_shared/utils';
+import {genericItemTransform, toTitleCase} from '../../_shared/utils';
+import {SearchService} from '../../_services/search.service';
 
 @Component({
   selector: 'app-essay-detail',
@@ -25,7 +26,6 @@ import {toTitleCase} from '../../_shared/utils';
 export class EssayDetailComponent implements OnInit, OnDestroy {
 
   comments: Comment[];
-  //commentType ="Forum";
   essay: Essay;
   userComment: Comment;
   userProfile: UserProfile;
@@ -35,6 +35,7 @@ export class EssayDetailComponent implements OnInit, OnDestroy {
   slugUsername: any = {};
   slugTitle: any = {};
   routerChanges: Subscription;
+  private isLoadingRelatedItems: boolean;
 
   constructor(public route: ActivatedRoute,
               public router: Router,
@@ -45,8 +46,9 @@ export class EssayDetailComponent implements OnInit, OnDestroy {
               public authService: AuthService,
               public firebaseService: MyFirebaseService,
               public seoService: SeoService,
-              public dialog: MatDialog) {
-    this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
+              public dialog: MatDialog,
+              public searchService: SearchService,) {
+    this.userId = parseInt(this.authService.decryptLocalStorage('uid'), 10);
 
     this.routerChanges = router.events.subscribe(data => {
       if (data instanceof ActivationEnd) {
@@ -71,13 +73,14 @@ export class EssayDetailComponent implements OnInit, OnDestroy {
     if (!this.slugUsername || !this.slugTitle) {
       return;
     }
-    let slugCopy = {username: this.slugUsername, title: this.slugTitle};
+    const slugCopy = {username: this.slugUsername, title: this.slugTitle};
     this.essayService.getBySlug(this.slugUsername, this.slugTitle).subscribe(
       res => {
         this.essay = res.essay;
-        //this.updateMeta();
+        this.getRelatedItems();
 
-        let essayImageSeo = 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-essays-logo.png?alt=media&token=c4eb9b0a-f17a-4cb6-a80d-d6d839956a24';
+        let essayImageSeo = 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/' +
+          'public%2Fatila-essays-logo.png?alt=media&token=c4eb9b0a-f17a-4cb6-a80d-d6d839956a24';
 
         if (this.essay.user && !this.essay.user.profile_pic_url.includes(DEFAULTPROFILEPICURL)) {
           essayImageSeo = this.essay.user.profile_pic_url;
@@ -89,13 +92,12 @@ export class EssayDetailComponent implements OnInit, OnDestroy {
             image: essayImageSeo,
             slug: `essay/${this.essay.user.username}/${this.essay.slug}`
           });
-        }
-        catch (err) {
+        } catch (err) {
         }
 
         if (!isNaN(this.userId)) {
 
-          this.userProfileService.getById(parseInt(this.userId)).subscribe(
+          this.userProfileService.getById(this.userId).subscribe(
             resUser => {
               this.userProfile = resUser;
             }
@@ -140,5 +142,32 @@ export class EssayDetailComponent implements OnInit, OnDestroy {
     return toTitleCase(str);
   }
 
+  getRelatedItems() {
+    const queryString = `?type=essay&id=${this.essay.id}`;
+    this.isLoadingRelatedItems = true;
+    this.searchService.relatedItems(queryString)
+      .subscribe(res => {
+          this.relatedItems = res.items.map(item => {
+            return genericItemTransform(item);
+          });
+          this.relatedItems = this.relatedItems.slice(0, 3);
+        },
+        err => {
+          this.isLoadingRelatedItems = false;
+        },
+        () => {
+          this.isLoadingRelatedItems = false;
+        });
+  }
+
+  logRelatedItemClick(item) {
+    const itemCopy: any = {};
+    itemCopy.item_type = item.type;
+    itemCopy.title = item.title;
+    itemCopy.item_id = item.id;
+    itemCopy.share_source = 'blog_detail';
+    this.firebaseService.saveUserAnalytics(itemCopy, 'related_item_click');
+
+  }
 
 }

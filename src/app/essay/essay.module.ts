@@ -7,7 +7,7 @@ import {EssayDetailComponent} from './essay-detail/essay-detail.component';
 import {EssayListComponent} from './essay-list/essay-list.component';
 import {SharedModule} from '../_shared/shared.module';
 import {
-  MatCardModule, MatFormFieldModule, MatIconModule, MatOptionModule, MatProgressBarModule,
+  MatCardModule, MatFormFieldModule, MatIconModule, MatOptionModule, MatProgressBarModule, MatProgressSpinnerModule,
   MatSelectModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -28,7 +28,8 @@ import "materialize-css";
     MaterializeModule,
     MatOptionModule,
     MatSelectModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatProgressSpinnerModule,
   ],
   declarations: [EssayCreateComponent, EssayDetailComponent, EssayListComponent],
   providers: [EssayService]

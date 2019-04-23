@@ -36,8 +36,6 @@ if ('serviceWorker' in navigator && environment.production) {
       scope: '/',
     })
       .then(registration => {
-        // console.log('main.ts ngsw-worker.js ', registration)
-
       })
       .catch(function (err) {
         console.log({err})
@@ -47,8 +45,6 @@ if ('serviceWorker' in navigator && environment.production) {
       scope: '/',
     })
       .then(registration => {
-        // console.log('main.ts sw-master.js ', registration);
-
         navigator.serviceWorker.getRegistrations().then(function(registrations) {
 
           for (const registration2 of registrations) {

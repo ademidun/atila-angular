@@ -12,8 +12,8 @@
     <div class="card-subtitle text-muted">
       <div *ngIf="scholarship.extra_questions && !scholarship.extra_questions.funding_amount_varies">{{scholarship.funding_amount | currency:'USD':'symbol':'1.0-0'}}</div>
       <div *ngIf="scholarship.extra_questions && scholarship.extra_questions.funding_amount_varies" class="card-text">Amount Varies</div>
-      <div *ngIf="scholarship.metadata['not_open_yet'];else hasDeadline">
-        Opens: {{scholarship['metadata']['open_date_tbd'] ? 'TBA': scholarship.open_date | date:'mediumDate' }}
+      <div *ngIf="scholarship.open_date && (scholarship.open_date > scholarship.deadline || scholarship['metadata']['deadline_tbd']);else hasDeadline">
+        Opens: {{scholarship.open_date | date:'mediumDate'}}
         <!--<i class="material-icons" placement="bottom" ngbTooltip="Save Scholarship to get notified when it opens.">info_outline</i>-->
       </div>
       <ng-template #hasDeadline>

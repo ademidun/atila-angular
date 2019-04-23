@@ -1,5 +1,5 @@
 <div class="card" [ngStyle]="cardStyle">
-  <div class="card-title card-header"  [ngStyle]="{'max-height': item.image && !previewDescription ? '250px' : null}">
+  <div class="card-title card-header"  [ngStyle]="{'max-height': item.image && !previewDescription ? '280px' : null}">
     <a *ngIf="item.title" [routerLink]="item.slug" [title]="item.title" (mouseenter) ="titleMaxLength=item.title.length"  (mouseleave)="titleMaxLength=100">
 
       {{previewDescription? item.title : item.title | truncate:titleMaxLength }}
@@ -12,12 +12,19 @@
       Status: {{toTitleCase(item.status)}}
     </p>
   </div>
-  <div class="card-image" *ngIf="item.image && !previewDescription">
+  <div class="card-image" *ngIf="item.image && !previewDescription && item.type !='essay'">
     <a [routerLink]="item.slug">
       <img [src]="item.image" >
     </a>
-
   </div>
+  <a [routerLink]="item.slug" *ngIf="item.type=='essay'" class="m-3">
+  <div class="chip">
+    <img style="max-width: 50px" [src]="item.user.profile_pic_url">
+    <a routerLink="/profile/{{item.user.username}}">
+      {{item.user.first_name}} {{item.user.last_name}}
+    </a>
+  </div>
+  </a>
   <div class="my-card-content" *ngIf="!metadata.hideDescription || previewDescription">
     <p class="card-text" *ngIf="item.description">
       {{item.description | truncate: previewDescription ? item.description.length : 280}}

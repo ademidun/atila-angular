@@ -49,6 +49,76 @@
       </div>
     </div>
 
+  <!--Blog Results -->
+  <div class=" card row">
+    <h4>Blogs</h4>
+
+    <div class="row">
+      <div *ngFor=" let blogPost of searchResults.blogPosts" class="col-sm-12 col-md-10">
+        <div class="card small">
+          <div class="card-title">
+            <a (click)="saveQueryClick(blogPost,'blog')" routerLink="/blog/{{blogPost.user.username}}/{{blogPost.slug}}"> {{blogPost.title}}</a>
+          </div>
+          <div class="card-image">
+            <a (click)="saveQueryClick(blogPost,'blog')" routerLink="/blog/{{blogPost.user.username}}/{{blogPost.slug}}">
+              <img [src]="blogPost.header_image_url" >
+            </a>
+
+          </div>
+          <div class="card-content">
+            <p class="card-text" *ngIf="blogPost.description">
+              {{((blogPost.description.length>140)? (blogPost.description | slice:0:140)+'...':(blogPost.description) )}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row center"  *ngIf="!isLoggedIn && searchResults.blogPosts" >
+      <p>Some results may be omitted, <a routerLink="/register">register</a>  to see all results</p>
+      <a class="waves-effect waves-light btn scholarship-btn" routerLink="/register">Register</a>
+    </div>
+
+    <div class="row center"  *ngIf="isLoggedIn && searchResults.metadata && searchResults.metadata.blogPosts && searchResults.metadata.blogPosts.omit_results">
+      <p>There are more results, try a more specific search.</p>
+    </div>
+
+  </div>
+
+  <!--Essay Results -->
+  <div class=" card row">
+    <h4>Essay</h4>
+
+    <div class="row">
+      <div *ngFor=" let essay of searchResults.essays" class="col-sm-12 col-md-10">
+        <div class="card small">
+          <div class="card-title">
+            <a (click)="saveQueryClick(essay,'essay')" routerLink="/essay/{{essay.user.username}}/{{essay.slug}}"> {{essay.title}}</a>
+          </div>
+          <div class="card-image">
+            <a (click)="saveQueryClick(essay,'essay')" routerLink="/essay/{{essay.user.username}}/{{essay.slug}}">
+              <img [src]="essay.user.profile_pic_url" style="max-width: 150px; max-height: 150px">
+            </a>
+          <div class="card-content">
+            <p class="card-text" *ngIf="essay.description">
+              {{((essay.description.length>140)? (essay.description | slice:0:140)+'...':(essay.description) )}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row center"  *ngIf="!isLoggedIn && searchResults.blogPosts" >
+      <p>Some results may be omitted, <a routerLink="/register">register</a>  to see all results</p>
+      <a class="waves-effect waves-light btn scholarship-btn" routerLink="/register">Register</a>
+    </div>
+
+    <div class="row center"  *ngIf="isLoggedIn && searchResults.metadata && searchResults.metadata.blogPosts && searchResults.metadata.blogPosts.omit_results">
+      <p>There are more results, try a more specific search.</p>
+    </div>
+
+  </div>
+
     <!--Forum Results -->
     <div class=" card row">
     <h4>Forums</h4>
@@ -77,41 +147,5 @@
       <p>There are more results, try a more specific search.</p>
     </div>
   </div>
-
-    <!--Blog Results -->
-    <div class=" card row">
-      <h4>Blogs</h4>
-
-      <div class="row">
-        <div *ngFor=" let blogPost of searchResults.blogPosts" class="col-sm-12 col-md-10">
-          <div class="card small">
-            <div class="card-title">
-              <a (click)="saveQueryClick(blogPost,'blog')" routerLink="/blog/{{blogPost.user.username}}/{{blogPost.slug}}"> {{blogPost.title}}</a>
-            </div>
-            <div class="card-image">
-              <a (click)="saveQueryClick(blogPost,'blog')" routerLink="/blog/{{blogPost.user.username}}/{{blogPost.slug}}">
-                <img [src]="blogPost.header_image_url" >
-              </a>
-
-            </div>
-            <div class="card-content">
-              <p class="card-text" *ngIf="blogPost.description">
-                {{((blogPost.description.length>140)? (blogPost.description | slice:0:140)+'...':(blogPost.description) )}}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row center"  *ngIf="!isLoggedIn && searchResults.blogPosts" >
-        <p>Some results may be omitted, <a routerLink="/register">register</a>  to see all results</p>
-        <a class="waves-effect waves-light btn scholarship-btn" routerLink="/register">Register</a>
-      </div>
-
-      <div class="row center"  *ngIf="isLoggedIn && searchResults.metadata && searchResults.metadata.blogPosts && searchResults.metadata.blogPosts.omit_results">
-        <p>There are more results, try a more specific search.</p>
-      </div>
-
-    </div>
 
 </div>
