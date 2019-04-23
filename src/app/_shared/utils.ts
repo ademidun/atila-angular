@@ -70,6 +70,7 @@ export function genericItemTransform (item) {
           slug: `/essay/${item.user.username}/${item.slug}/`,
           image: `${item.user.profile_pic_url}`,
           type: item.type,
+          user: item.user,
         };
         break;
       case 'blog':
