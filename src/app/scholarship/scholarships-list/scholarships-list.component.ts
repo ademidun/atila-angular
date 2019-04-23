@@ -185,7 +185,7 @@ export class ScholarshipsListComponent implements OnInit {
   }
 
   getScholarshipPreview(page: number = 1, options: any = {}) {
-
+    console.log('form_data', this.form_data);
     if (page == 1) {
       // clear scholarships list if on first page
       this.scholarships = [];
@@ -625,8 +625,10 @@ export class ScholarshipsListComponent implements OnInit {
 
       if (['city', 'province', 'country'].indexOf(filter_type) > -1) {
         filterValue = filterProfile[filter_type][0]['name']
+      } else {
+        filterValue = filterProfile[filter_type];
       }
-      filterValue = filterProfile[filter_type];
+
 
     }
     else {
@@ -648,7 +650,6 @@ export class ScholarshipsListComponent implements OnInit {
         }
         filterValue = this.form_data.location[filter_type];
       }
-
 
       switch(filter_type) {
 
@@ -703,9 +704,9 @@ export class ScholarshipsListComponent implements OnInit {
           break;
       }
 
-      return filterValue
     }
 
+      return filterValue
   }
 
   handleScholarshipClick(event: any) {

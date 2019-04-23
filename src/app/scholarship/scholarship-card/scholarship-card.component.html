@@ -34,7 +34,41 @@
       </a>
     </div>
     <div class="card-content col-sm-8" >
-      <p> {{scholarship.description | truncate:250}}</p>
+      <p> {{scholarship.description | truncate:showMore?scholarship.description.length:240}}</p>
+      <a (click)="showMore=!showMore">Show {{showMore? 'Less':'More'}}</a>
+    </div>
+    <div class="other-criteria" *ngIf="showMore">
+
+      <h5>Other Criteria</h5>
+
+      <!--TODO: How is extra_criteria being generated. How is it different from the autoComplete lists?-->
+      <!--<div *ngFor="let key of Object.keys(scholarship.extra_criteria)">-->
+      <!--<p><strong>{{prettifyKeys(key)}}:</strong>{{scholarship.extra_criteria[key]}}</p>-->
+      <!--</div>-->
+
+      <div *ngFor="let key of autoCompleteLists">
+        <ng-container *ngIf="scholarship[key].length>0">
+          <p>
+            <strong>{{prettifyKeys(key)}} {{key == 'citizenship' ? 'or permanent residency': ''}}:</strong>
+            {{scholarship[key]}}</p>
+        </ng-container>
+      </div>
+
+      <div *ngFor="let locationType of ['city', 'province', 'country']">
+        <ng-container *ngIf="scholarship[locationType].length>0">
+          <p>
+            <strong>{{prettifyKeys(locationType)}}:</strong>
+            <ng-container *ngFor="let locationString of scholarship[locationType]; let isLast = last">
+              {{locationString.name}}{{!isLast ? ',' : ''}}
+            </ng-container>
+
+          </p>
+        </ng-container>
+      </div>
+      <p *ngIf="scholarship.female_only"><strong>Female Only</strong></p>
+      <p *ngIf="scholarship.international_students_eligible"><strong>International Students Eligible</strong></p>
+
+      <br>
     </div>
   </div>
   <a ngbTooltip="Save Scholarship"

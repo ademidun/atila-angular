@@ -36,7 +36,6 @@ if ('serviceWorker' in navigator && environment.production) {
       scope: '/',
     })
       .then(registration => {
-
       })
       .catch(function (err) {
         console.log({err})

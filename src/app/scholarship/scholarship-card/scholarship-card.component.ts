@@ -12,6 +12,7 @@ import {Scholarship} from '../../_models/scholarship';
 import {NotificationDialogComponent} from '../../notification-dialog/notification-dialog.component';
 import {NotificationsService} from '../../_services/notifications.service';
 import * as $ from 'jquery';
+import {prettifyKeys} from '../../_shared/utils';
 
 @Component({
   selector: 'app-scholarship-card',
@@ -38,6 +39,8 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
   handler: any;
   userId: any;
   isFirstView = true;
+  showMore = false;
+  prettifyKeys = prettifyKeys;
 
   old_visible: boolean;
   userScholarship: any;
@@ -119,7 +122,6 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
   }
 
   addToMyScholarship(item) {
-    console.log('this.userProfile', this.userProfile);
 
     this.logShareType('save_my_scholarships');
     if (this.userProfile) {
@@ -127,7 +129,6 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
       const saveResult = addToMyScholarshipHelper(this.userProfile, this.scholarship);
 
       if (!saveResult[1]) { // saveResult[1] returns false if this item already exists
-        console.log('already saved');
         this.alreadySaved = true;
         if (this.userProfile.is_atila_admin) { // todo: remove this before-merge-master
           this.notifySavedScholarship();
