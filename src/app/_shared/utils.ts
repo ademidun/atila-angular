@@ -68,6 +68,7 @@ export function genericItemTransform (item) {
           description: item.description,
           id: item.id,
           slug: `/essay/${item.user.username}/${item.slug}/`,
+          image: `${item.user.profile_pic_url}`,
           type: item.type,
         };
         break;

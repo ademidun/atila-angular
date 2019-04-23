@@ -12,12 +12,20 @@
       Status: {{toTitleCase(item.status)}}
     </p>
   </div>
-  <div class="card-image" *ngIf="item.image && !previewDescription">
+  <div class="card-image" *ngIf="item.image && !previewDescription && item.type !='essay'">
     <a [routerLink]="item.slug">
       <img [src]="item.image" >
     </a>
-
   </div>
+  <a [routerLink]="item.slug" *ngIf="item.type=='essay'" class="m-3">
+  <div class="chip">
+    <img style="max-width: 50px" [src]="item.slug"
+         alt="Blog Author">
+    <!--<a routerLink="/profile/{{essay.user.username}}">-->
+      <!--{{essay.user.first_name}} {{essay.user.last_name}}-->
+    <!--</a>-->
+  </div>
+  </a>
   <div class="my-card-content" *ngIf="!metadata.hideDescription || previewDescription">
     <p class="card-text" *ngIf="item.description">
       {{item.description | truncate: previewDescription ? item.description.length : 280}}
