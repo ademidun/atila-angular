@@ -95,6 +95,10 @@
           <div class="card-title">
             <a (click)="saveQueryClick(essay,'essay')" routerLink="/essay/{{essay.user.username}}/{{essay.slug}}"> {{essay.title}}</a>
           </div>
+          <div class="card-image">
+            <a (click)="saveQueryClick(essay,'essay')" routerLink="/essay/{{essay.user.username}}/{{essay.slug}}">
+              <img [src]="essay.user.profile_pic_url" style="max-width: 150px; max-height: 150px">
+            </a>
           <div class="card-content">
             <p class="card-text" *ngIf="essay.description">
               {{((essay.description.length>140)? (essay.description | slice:0:140)+'...':(essay.description) )}}
