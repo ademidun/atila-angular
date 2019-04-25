@@ -32,7 +32,11 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
   // todo change to only handle one scholarship
   @Input() scholarship: Scholarship | any;
   @Input() userProfile: UserProfile;
-  @Input() metadata: any = {};
+  @Input() metadata: any = {
+    viewAsUser: '',
+    page_no: '',
+    form_data: '',
+  };
   @Output() handleClick: EventEmitter<any> = new EventEmitter();
   alreadySaved: boolean;
   userAnalytics: any = {};
@@ -75,7 +79,12 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
       }
 
       if (!environment.production || this.userProfile.is_atila_admin) {
-        this.scholarshipService.getUserScholarship(this.userId, this.scholarship.id)
+        let userScholarshipUserId = this.userId;
+
+        if (this.metadata.viewAsUser) {
+          userScholarshipUserId = this.metadata.viewAsUser.user;
+        }
+        this.scholarshipService.getUserScholarship(userScholarshipUserId, this.scholarship.id)
           .subscribe(
             res => {
               this.userScholarship = res.results[0];
@@ -139,10 +148,10 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
           });
         }
         else {
-            this.snackBar.open('Already Saved', '', {
-              duration: 3000
-            });
-          }
+          this.snackBar.open('Already Saved', '', {
+            duration: 3000
+          });
+        }
         return;
       } else {
         this.userProfile = saveResult[0];
