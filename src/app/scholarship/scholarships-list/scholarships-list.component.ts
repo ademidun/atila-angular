@@ -39,7 +39,7 @@ export class ScholarshipsListComponent implements OnInit {
   userProfile: UserProfile;
 
   scholarships: Scholarship[] = []; //TODO: If i use scholarship[] I can't access property members, why?
-  scholarship_count: number = 0;
+  total_scholarship_count: number = 0;
   scholarshipError: any = null;
   total_funding: any = 0;
   show_scholarship_funding: boolean = false;
@@ -253,7 +253,7 @@ export class ScholarshipsListComponent implements OnInit {
   saveScholarships(res: any) {
 
     this.scholarships.push(...res['data']);
-    this.scholarship_count = res['length'];
+    this.total_scholarship_count = res['length'];
     this.total_funding = res['funding'];
 
     if (this.total_funding) {
@@ -269,7 +269,7 @@ export class ScholarshipsListComponent implements OnInit {
       }
       let filterByUserResult = {
         form_data: this.form_data,
-        scholarship_count: this.scholarship_count,
+        scholarship_count: this.total_scholarship_count,
         total_funding: this.total_funding,
         results_preview: resultsPreview
       };
@@ -286,7 +286,7 @@ export class ScholarshipsListComponent implements OnInit {
       this.snackBar.open(res['view_as_user_error'], '', {duration: 3000})
     }
 
-    this.pageLen = Math.ceil(this.scholarship_count / this.paginationLen);
+    this.pageLen = Math.ceil(this.total_scholarship_count / this.paginationLen);
 
     this.pages = [];
     for (let i = 1; i <= this.pageLen; i++) {

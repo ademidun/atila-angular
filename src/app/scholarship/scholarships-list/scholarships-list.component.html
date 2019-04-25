@@ -22,13 +22,13 @@
           <h4 class="registered-title">
             <span *ngIf="viewAsUser" style="font-size: larger; color: green">Viewing As: {{viewAsUser.first_name}}</span>
             <ng-container *ngIf="userProfile && !viewAsUser">{{userProfile.first_name}}, </ng-container>
-            <ng-container *ngIf="scholarship_count>0; else zeroScholarshipCount">
+            <ng-container *ngIf="total_scholarship_count>0; else zeroScholarshipCount">
               You can get
-              <strong>{{ scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and up to <strong>{{total_funding}}</strong> in funding.</span>
+              <strong>{{ total_scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and up to <strong>{{total_funding}}</strong> in funding.</span>
             </ng-container>
 
             <ng-template #zeroScholarshipCount class="scholarship-preview-count">
-              Unfortunately, you currently qualify for <strong>{{scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding">
+              Unfortunately, you currently qualify for <strong>{{total_scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding">
               and <strong>{{total_funding}}</strong> in funding</span>.
               <br>
               <div style="font-size: smaller; margin-top: 1%">
@@ -141,8 +141,8 @@
 
           <div class="center col-sm-8 offset-sm-2 offset-md-2">
 
-            <a *ngIf="scholarship_count!=0" class="waves-effect waves-light btn register-btn" routerLink="/register">Register to See More Scholarships</a>
-            <a *ngIf="scholarship_count==0" class="waves-effect waves-light btn register-btn" routerLink="/register">Register to qualify for more scholarships</a>
+            <a *ngIf="total_scholarship_count!=0" class="waves-effect waves-light btn register-btn" routerLink="/register">Register to See More Scholarships</a>
+            <a *ngIf="total_scholarship_count==0" class="waves-effect waves-light btn register-btn" routerLink="/register">Register to qualify for more scholarships</a>
             <!--Remove for now to simiplify-->
             <a   *ngIf="!isLoggedIn" class=" col-sm-12 col-md-6 waves-effect waves-light btn demo-btn" routerLink="/applications/demo">Try The Live Demo</a>
 
@@ -200,11 +200,11 @@
               <div class="col-sm-12 center">
                 <!--todo fix error with waves-light staying white, looks like be button is disabled-->
                 <a class="waves-effect btn scholarship-btn" (click)="nextPage()"
-                   *ngIf="scholarship_count>0 && pageNo<pageLen">
+                   *ngIf="total_scholarship_count>0 && pageNo<pageLen">
                   Show More
                 </a>
 
-                <div *ngIf="pageNo <= pageLen">
+                <div *ngIf="scholarships.length >= total_scholarship_count">
                   <p style="font-size: x-large;">
                     All caught up! 😃 Check back later for more scholarships.
                   </p>
@@ -470,7 +470,7 @@
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
 
-<ng-container *ngIf="contentFetched && scholarship_count==0">
+<ng-container *ngIf="contentFetched && total_scholarship_count==0">
   <div class="container">
     <h2 class="scholarship-preview-count my-dark-blue-text">No available scholarships for the specified profile.</h2>
     <!--TODO: Add page for scholarship advice-->
