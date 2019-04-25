@@ -120,9 +120,6 @@ export class ScholarshipsListComponent implements OnInit {
             let tempCity = [];
             this.userProfile = data;
 
-            console.log({data});
-            console.log('this.userProfile', this.userProfile);
-
             if (this.userProfile.metadata['incomplete_profile']) {
 
               this.inCompleteProfile = true;
@@ -185,7 +182,6 @@ export class ScholarshipsListComponent implements OnInit {
   }
 
   getScholarshipPreview(page: number = 1, options: any = {}) {
-    console.log('form_data', this.form_data);
     if (page == 1) {
       // clear scholarships list if on first page
       this.scholarships = [];

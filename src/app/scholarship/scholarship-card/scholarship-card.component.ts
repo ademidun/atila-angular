@@ -190,7 +190,6 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
       this.userAnalytics.user_id = this.userProfile.user;
 
     }
-    console.log('this.firebaseService.saveUserAnalytics');
     this.firebaseService.saveUserAnalytics(this.userAnalytics, 'scholarship_sharing');
   }
 
@@ -241,7 +240,6 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        console.log(`The dialog was closed`, result);
         this.userProfile.metadata.haveAskedIfNotifySavedScholarship = !!result;
         if (result) {
           this.userProfile.metadata.dontAskAgainNotifySavedScholarship = result.dontAskAgain;
@@ -249,7 +247,6 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
         }
 
         this.userProfileService.updateHelper(this.userProfile).subscribe(userProfileResponse => {
-          console.log({userProfileResponse});
           if (this.userProfile.metadata['allowNotifySavedScholarships']) {
             this.createScholarshipNotificationsHandler();
           }

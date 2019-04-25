@@ -189,7 +189,6 @@ export class GeneralInfoComponent implements OnInit {
   sendMessage() {
     this.firebaseService.sendUserBankEmail(this.model)
       .subscribe(res=> {
-        console.log({res});
         this.sendMessageResponse = 'Thank you. You will receive a response within 1 day.'
       } );
   }

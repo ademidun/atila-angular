@@ -189,8 +189,6 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
 
   saveBlog(isPublished: boolean) {
 
-    console.log('this.blogPost', this.blogPost);
-
     // if the blog has already been published, keep the publication status.
     this.blogPost.published = isPublished;
 
@@ -202,9 +200,6 @@ export class BlogPostCreateComponent implements OnInit, AfterViewInit, OnDestroy
 
       const blogToSave = Object.assign({},this.blogPost);
       blogToSave.user = this.blogPost.user.id;
-
-      console.log('blogToSave', blogToSave);
-      console.log('this.blogPost', this.blogPost);
       postOperation = this.blogPostService.update(blogToSave.id, blogToSave);
     } else {
 
