@@ -47,8 +47,8 @@ export class ScholarshipsListComponent implements OnInit {
   environment = environment;
 
   pageNo: number = 1;
-  paginationLen: number = 12;
-  pageLen: number;
+  paginationLen: number = 8; // number of items the API returns in a single result
+  pageLen: number; // the total number of pages (total results)/(results per API call)
   pages = [1];
   subscriber: any = {};
   autoCompleteFormGroup: FormGroup;
@@ -256,6 +256,14 @@ export class ScholarshipsListComponent implements OnInit {
     this.total_scholarship_count = res['length'];
     this.total_funding = res['funding'];
 
+
+    this.pageLen = Math.ceil(this.total_scholarship_count / this.paginationLen);
+
+    this.pages = [];
+    for (let i = 1; i <= this.pageLen; i++) {
+      this.pages.push(i);
+    }
+
     if (this.total_funding) {
       this.show_scholarship_funding = true;
     }
@@ -286,12 +294,6 @@ export class ScholarshipsListComponent implements OnInit {
       this.snackBar.open(res['view_as_user_error'], '', {duration: 3000})
     }
 
-    this.pageLen = Math.ceil(this.total_scholarship_count / this.paginationLen);
-
-    this.pages = [];
-    for (let i = 1; i <= this.pageLen; i++) {
-      this.pages.push(i);
-    }
   }
 
   prettifyKeys(str) {
