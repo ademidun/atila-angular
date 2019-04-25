@@ -2578,4 +2578,4 @@ export const MAJORS_DICT = [
 ];
 
 export const MASTER_LIST_EVERYTHING = MAJORS_LIST.concat(SCHOOLS_LIST).concat(EDUCATION_LEVEL).concat(ETHNICITY).
-concat(EDUCATION_FIELDS).concat(DISABILITY).concat(SPORTS).sort();
+concat(EDUCATION_FIELDS).concat(DISABILITY).concat(SPORTS).concat(ACTIVITIES).concat(RELIGION).concat(LANGUAGE).sort();
