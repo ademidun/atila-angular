@@ -13,6 +13,7 @@ import {NotificationDialogComponent} from '../../notification-dialog/notificatio
 import {NotificationsService} from '../../_services/notifications.service';
 import * as $ from 'jquery';
 import {prettifyKeys} from '../../_shared/utils';
+import {AUTOCOMPLETE_KEY_LIST} from '../../_models/constants';
 
 @Component({
   selector: 'app-scholarship-card',
@@ -41,6 +42,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
   isFirstView = true;
   showMore = false;
   prettifyKeys = prettifyKeys;
+  autoCompleteLists = AUTOCOMPLETE_KEY_LIST;
 
   old_visible: boolean;
   userScholarship: any;
