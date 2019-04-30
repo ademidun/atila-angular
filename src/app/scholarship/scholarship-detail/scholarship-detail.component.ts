@@ -47,6 +47,7 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
   userProfile: UserProfile;
   Object = Object;
   routerChanges: Subscription;
+  isLoadingRelatedItems: boolean;
   public reviews: any[];
   public reviewsLoaded: boolean = false;
   public scholarshipOwner;
@@ -455,8 +456,8 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
   }
 
   getRelatedItems() {
-    let queryString= `?type=scholarship&id=${this.scholarship.id}`;
-
+    const queryString= `?type=scholarship&id=${this.scholarship.id}`;
+    this.isLoadingRelatedItems = true;
     this.searchService.relatedItems(queryString)
       .subscribe( res => {
 
@@ -465,9 +466,13 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
         });
 
         this.relatedItems = this.relatedItems.slice(0,3);
+        this.isLoadingRelatedItems = false;
 
 
-      });
+      },
+        err => {
+          this.isLoadingRelatedItems = false;
+        });
   }
 
 
