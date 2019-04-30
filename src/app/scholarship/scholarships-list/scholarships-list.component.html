@@ -115,7 +115,16 @@
 
         <div class="offset-md-2" *ngIf="userProfile && userProfile.is_atila_admin">
 
-          <a class=" col-sm-12 col-md-6 waves-effect waves-light btn demo-btn" (click)="pageNo=1;getScholarshipPreview(pageNo,{'view_as_user':viewAs.value})">View As</a>
+          <a class=" col-sm-12 col-md-6 waves-effect waves-light btn demo-btn"
+             (click)="pageNo=1;getScholarshipPreview(pageNo,{'view_as_user':viewAs.value})">
+            View As
+          </a>
+
+
+          <a class=" col-sm-12 col-md-6 waves-effect waves-light btn demo-btn"
+             (click)="refreshScholarshipCache()">
+            Refresh Cache
+          </a>
 
           <mat-form-field class="col-sm-12 col-md-6">
             <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->

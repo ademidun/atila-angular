@@ -419,8 +419,6 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
           this.userProfileService.userProfileRPC(this.userId + '/refresh-scholarship-cache')
             .subscribe(
               res2 => {
-                if (!this.environment.production) {
-                }
               }
             )
         }

@@ -288,6 +288,7 @@ export class ScholarshipsListComponent implements OnInit {
 
 
     if (this.viewAsUser) {
+      console.log('this.viewAsUser', this.viewAsUser);
     }
 
     if (res['view_as_user_error']) {
@@ -712,5 +713,14 @@ export class ScholarshipsListComponent implements OnInit {
 
   }
 
+  refreshScholarshipCache() {
 
+    console.log('refreshScholarshipCache() this.viewAsUser', this.viewAsUser);
+    this.userProfileService.userProfileRPC(`${this.viewAsUser.user || this.userId}/refresh-scholarship-cache`)
+      .subscribe(
+        res2 => {
+          console.log({res2});
+        }
+      )
+  }
 }
