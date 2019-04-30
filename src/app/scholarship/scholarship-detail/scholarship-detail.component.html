@@ -1,4 +1,4 @@
-<div class="container" *ngIf="scholarship" style="margin-top: 3%">
+<div class="container" *ngIf="scholarship" style="margin-top: 3%; min-width: 85%">
 
 
   <div class="row">
@@ -46,16 +46,16 @@
           <!--</span>-->
 
           <!--<span *ngIf="scholarship">-->
-            <!--<button mat-raised-button (click)="requestAutomation()"-->
-                    <!--style="background-color: #4080ff; min-height: 60px" class="white-text" placement="bottom"-->
-                    <!--ngbTooltip="Request for this scholarship's application process to be automated.">-->
-              <!--Request Automation-->
-            <!--</button>-->
-            <!--<i class="material-icons" placement="bottom"-->
-               <!--ngbTooltip="Request for this scholarship's application process to be automated.">info_outline</i>-->
+          <!--<button mat-raised-button (click)="requestAutomation()"-->
+          <!--style="background-color: #4080ff; min-height: 60px" class="white-text" placement="bottom"-->
+          <!--ngbTooltip="Request for this scholarship's application process to be automated.">-->
+          <!--Request Automation-->
+          <!--</button>-->
+          <!--<i class="material-icons" placement="bottom"-->
+          <!--ngbTooltip="Request for this scholarship's application process to be automated.">info_outline</i>-->
           <!--</span>-->
 
-          <div style="margin-top: 10%">
+          <div>
             <!--<button mat-fab  (click)="addToMyScholarships(scholarship)" style="margin-left: -23%">-->
             <button mat-fab  (click)="addToMyScholarships(scholarship)" placement="bottom"
                     ngbTooltip="Save Scholarship">
@@ -66,7 +66,8 @@
                             ngbTooltip="Share Scholarship"
                             [item]="{title: scholarship.name,
                 url:'https://atila.ca/scholarship/'+scholarship.slug+'/',
-                id: scholarship.id, source:'scholarship_detail',type:'scholarship'}" [metadata]="{'shareItemStyle':{'left': '55px','bottom': '0px', 'zoom':1.4}}"></app-share-item>
+                id: scholarship.id, source:'scholarship_detail',type:'scholarship'}"
+                            [metadata]="{'shareItemStyle':{'left': '65px','bottom': '70px', 'zoom':1.4}}"></app-share-item>
           </div>
 
         </div>
@@ -111,27 +112,27 @@
           <br>
         </div>
 
-        <!-- TODO: Should we ask the user occasionally to subscribe? Even if already logged in? -->
-        <div *ngIf="!isLoggedIn" class="row center" style="text-align: center;margin-bottom: 0px;">
-          <p style="font-size: medium" class="col-sm-6">Subscribe to get updates on new <a routerLink="/blog" style="text-decoration: underline; color: #68b9ff">blogs</a>
-            <a routerLink="/forum" style="text-decoration: underline; color: #68b9ff">forum posts</a>, <a routerLink="/">scholarships</a> and new product features.
+        <!--&lt;!&ndash; TODO: Should we ask the user occasionally to subscribe? Even if already logged in? &ndash;&gt;-->
+        <!--<div *ngIf="!isLoggedIn" class="row center" style="text-align: center;margin-bottom: 0px;">-->
+          <!--<p style="font-size: medium" class="col-sm-6">Subscribe to get updates on new <a routerLink="/blog" style="text-decoration: underline; color: #68b9ff">blogs</a>-->
+            <!--<a routerLink="/forum" style="text-decoration: underline; color: #68b9ff">forum posts</a>, <a routerLink="/">scholarships</a> and new product features.-->
 
-            <span *ngIf="subscriber.response" style="color: green">
-                  <br>
-                  {{subscriber.response}}
-            </span>
-          </p>
-
-
-          <mat-form-field class="browser-default col-sm-3 ">
-            <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
-            <input matInput type="email" class="form-control" style="padding-bottom: 0; margin-bottom: 0"  name="email" id="emailid"
-                   placeholder="Email Address" email [(ngModel)]="subscriber.email" (keyup.enter)="addSubscriber($event)">
-          </mat-form-field>
-          <a class="waves-effect waves-light btn browser-default col-sm-2 register-btn" style="background-color:#4080ff; " (click)="addSubscriber()">Subscribe</a>
+            <!--<span *ngIf="subscriber.response" style="color: green">-->
+                  <!--<br>-->
+                  <!--{{subscriber.response}}-->
+            <!--</span>-->
+          <!--</p>-->
 
 
-        </div>
+          <!--<mat-form-field class="browser-default col-sm-3 ">-->
+            <!--&lt;!&ndash; <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> &ndash;&gt;-->
+            <!--<input matInput type="email" class="form-control" style="padding-bottom: 0; margin-bottom: 0"  name="email" id="emailid"-->
+                   <!--placeholder="Email Address" email [(ngModel)]="subscriber.email" (keyup.enter)="addSubscriber($event)">-->
+          <!--</mat-form-field>-->
+          <!--<a class="waves-effect waves-light btn browser-default col-sm-2 register-btn" style="background-color:#4080ff; " (click)="addSubscriber()">Subscribe</a>-->
+
+
+        <!--</div>-->
 
 
       </div>
@@ -160,7 +161,10 @@
         <div class="card-body">
           <div  *ngFor="let item of relatedItems; let i = index; first as isFirst;">
             <div (click)="logRelatedItemClick(item)">
-              <app-card-generic [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'max-height': '450px', 'overflow-y': 'hidden'}"> </app-card-generic>
+              <app-card-generic [item]="item" [metadata]="{hideDescription: item.image}"
+                                [titleMaxLength]="60"
+                                [cardStyle]="{'max-height': '450px', 'overflow-y': 'hidden'}"
+                                [imageStyle]="{'max-height': '250px', 'overflow-y': 'hidden'}"> </app-card-generic>
             </div>
           </div>
 
@@ -185,34 +189,38 @@
       <div (click)="logRelatedItemClick(item)">
         <!--<app-card-generic class="hide-on-small-and-down" [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'height': '300px', 'overflow-y': 'hidden'}"> </app-card-generic>-->
         <!--<app-card-generic class="hide-on-med-and-up" [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'max-height': '300px', 'overflow-y': 'hidden'}"> </app-card-generic>-->
-        <app-card-generic [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'max-height': '200px', 'overflow-y': 'hidden'}"> </app-card-generic>
+        <app-card-generic [item]="item" [metadata]="{hideDescription: item.image}"
+                          [titleMaxLength]="60"
+                          [cardStyle]="{'height': '400px', 'overflow-y': 'hidden'}"
+                          [imageStyle]="{'max-height': '240px', 'overflow-y': 'hidden'}">
+        </app-card-generic>
       </div>
     </div>
   </div>
 
   <div class="row">
-      <div class="col-sm-12 forum-box">
-          <h5 > Comments </h5>
+    <div class="col-sm-12 forum-box">
+      <h5 > Comments </h5>
 
-                  <mat-card class="comment-card" *ngIf="userComment" >
+      <mat-card class="comment-card" *ngIf="userComment" >
 
-                    <mat-card-content>
-                        <input id="comment_title" placeholder="Title" [(ngModel)]="userComment.title">
-                        <textarea style="height: 5rem" id="comment_title" placeholder="What do you think?" [(ngModel)]="userComment.text">
+        <mat-card-content>
+          <input id="comment_title" placeholder="Title" [(ngModel)]="userComment.title">
+          <textarea style="height: 5rem" id="comment_title" placeholder="What do you think?" [(ngModel)]="userComment.text">
                         </textarea>
-                    </mat-card-content>
+        </mat-card-content>
 
-                    <mat-card-actions>
-                        <button mat-raised-button style="background-color: #184E87;" class="btn white-text" (click)="postComment()">Post</button>
-                    </mat-card-actions>
+        <mat-card-actions>
+          <button mat-raised-button style="background-color: #184E87;" class="btn white-text" (click)="postComment()">Post</button>
+        </mat-card-actions>
 
-                  </mat-card>
+      </mat-card>
 
-                  <div  *ngFor="let comment of scholarshipComments; i as index; first as isFirst; trackBy:trackByFn" class="forum-comments">
-                      <app-comment  [comment]="comment" commentType="Forum"> </app-comment>
-                  </div>
-
+      <div  *ngFor="let comment of scholarshipComments; i as index; first as isFirst; trackBy:trackByFn" class="forum-comments">
+        <app-comment  [comment]="comment" commentType="Forum"> </app-comment>
       </div>
+
+    </div>
   </div>
 
 
