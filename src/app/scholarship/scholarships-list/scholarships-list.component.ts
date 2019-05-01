@@ -651,49 +651,49 @@ export class ScholarshipsListComponent implements OnInit {
         filterValue = this.form_data.location[filter_type];
       }
 
-      switch(filter_type) {
+      switch (filter_type) {
 
         // todo: pick default categories based on what is most popular
         // amongst students or has the most scholarships
         case 'major':
-          filterValue =  'Engineering';
+          filterValue = 'Engineering';
           break;
         case 'post_secondary_school':
-          filterValue =  'University of Western Ontario';
+          filterValue = 'University of Western Ontario';
           break;
         case 'ethnicity':
-          filterValue =  'Asian/East-Asian';
+          filterValue = 'Asian/East-Asian';
           break;
         case 'heritage':
-          filterValue =  'India';
+          filterValue = 'India';
           break;
         case 'citizenship':
-          filterValue =  'Canada';
+          filterValue = 'Canada';
           break;
         case 'religion':
-          filterValue =  'Christianity';
+          filterValue = 'Christianity';
           break;
         case 'activities':
-          filterValue =  'Drawing';
+          filterValue = 'Drawing';
           break;
         case 'sports':
-          filterValue =  'Soccer';
+          filterValue = 'Soccer';
           break;
         case 'disability':
-          filterValue =  'Autism';
+          filterValue = 'Autism';
           break;
         case 'language':
-          filterValue =  'French';
+          filterValue = 'French';
           break;
         case 'eligible_schools':
-          filterValue =  [
+          filterValue = [
             'Ivey Business School',
             'University of Waterloo',
             'DeGroote School of Medicine'
           ];
           break;
         case 'eligible_programs':
-          filterValue =  [
+          filterValue = [
             'Health Sciences',
             'Computer Engineering',
             'Biomedical Engineering'
@@ -706,7 +706,7 @@ export class ScholarshipsListComponent implements OnInit {
 
     }
 
-      return filterValue
+    return filterValue
   }
 
   handleScholarshipClick(event: any) {
@@ -716,11 +716,22 @@ export class ScholarshipsListComponent implements OnInit {
 
   refreshScholarshipCache() {
 
-    console.log('refreshScholarshipCache() this.viewAsUser', this.viewAsUser);
-    this.userProfileService.userProfileRPC(`${this.viewAsUser.user || this.userId}/refresh-scholarship-cache`)
+    console.log('refreshScholarshipCache() this.viewAsUser, this.userId)', this.viewAsUser, this.userId);
+    let userIdForCache = this.viewAsUser;
+
+    if (this.viewAsUser && this.viewAsUser.user) {
+      userIdForCache = this.viewAsUser.user;
+      console.log('${this.viewAsUser.user || this.userId', this.viewAsUser.user || this.userId);
+    }
+    else {
+      userIdForCache = this.userId;
+    }
+
+    this.userProfileService.userProfileRPC(`${userIdForCache}/refresh-scholarship-cache`)
       .subscribe(
         res2 => {
           console.log({res2});
+          this.getScholarshipPreview();
         }
       )
   }
