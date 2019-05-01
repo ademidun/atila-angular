@@ -96,20 +96,18 @@
         <!--</div>-->
         <br>
 
-        <div class="offset-md-2">
+        <div class="center col-sm-12 col-md-8 offset-md-2">
 
-          <div class="offset-1">
             <strong>
 
-            <p *ngIf="isLoggedIn && (!userProfile.major || !userProfile.post_secondary_school)">
-              Your account is incomplete. School or program information is missing:
+            <h4 *ngIf="isLoggedIn && (!userProfile.major || !userProfile.post_secondary_school)">
+              Your account is incomplete 😢. School or program information is missing:
               <a (click)="editProfileModal({'forceOpen': true})">Complete Profile</a>
-            </p>
+            </h4>
             </strong>
             <!---->
             <!--<p>Did you find a scholarship? Help others and <a routerLink="/scholarship/add">add a scholarship</a> in less than 15 seconds.</p>-->
 
-          </div>
         </div>
         <br>
 
