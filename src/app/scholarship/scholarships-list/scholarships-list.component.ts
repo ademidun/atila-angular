@@ -435,7 +435,7 @@ export class ScholarshipsListComponent implements OnInit {
       this.userProfile.metadata['stale_cache'] = true;
       this.userProfileService.updateHelper(this.userProfile)
         .subscribe(res => {
-          // this.getScholarshipPreview();
+          this.getScholarshipPreview();
         });
     });
   }
