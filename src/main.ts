@@ -48,7 +48,7 @@ if ('serviceWorker' in navigator && environment.production) {
         navigator.serviceWorker.getRegistrations().then(function(registrations) {
 
           for (const registration2 of registrations) {
-            console.log({registration2});
+            // console.log({registration2});
           }
 
         });
