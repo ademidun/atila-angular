@@ -1,5 +1,6 @@
 <div [ngbPopover]="popContent" popoverTitle="Try Search" #trySearch="ngbPopover"
-     placement="bottom" triggers="manual" class="popover-anchor" style="width: 100%">
+     placement="bottom" triggers="manual" class="popover-anchor" style="width: 100%"
+     xmlns="http://www.w3.org/1999/html">
 </div>
 
 <ng-template #popContent >Try
@@ -22,13 +23,13 @@
           <h4 class="registered-title">
             <span *ngIf="viewAsUser" style="font-size: larger; color: green">Viewing As: {{viewAsUser.first_name}}</span>
             <ng-container *ngIf="userProfile && !viewAsUser">{{userProfile.first_name}}, </ng-container>
-            <ng-container *ngIf="scholarship_count>0; else zeroScholarshipCount">
+            <ng-container *ngIf="total_scholarship_count>0; else zeroScholarshipCount">
               You can get
-              <strong>{{ scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and up to <strong>{{total_funding}}</strong> in funding.</span>
+              <strong>{{ total_scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding"> and up to <strong>{{total_funding}}</strong> in funding.</span>
             </ng-container>
 
             <ng-template #zeroScholarshipCount class="scholarship-preview-count">
-              Unfortunately, you currently qualify for <strong>{{scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding">
+              Unfortunately, you currently qualify for <strong>{{total_scholarship_count}}</strong> scholarships<span *ngIf="show_scholarship_funding">
               and <strong>{{total_funding}}</strong> in funding</span>.
               <br>
               <div style="font-size: smaller; margin-top: 1%">
@@ -96,34 +97,51 @@
         <!--</div>-->
         <br>
 
-        <div class="offset-md-2">
+        <div class="center col-sm-12 col-md-8 offset-md-2">
 
-          <div class="offset-1">
             <strong>
 
-            <p *ngIf="isLoggedIn && (!userProfile.major || !userProfile.post_secondary_school)">
-              Your account is incomplete. School or program information is missing:
+            <h4 *ngIf="isLoggedIn && (!userProfile.major || !userProfile.post_secondary_school)">
+              Your account is incomplete 😢. School or program information is missing:
               <a (click)="editProfileModal({'forceOpen': true})">Complete Profile</a>
-            </p>
+            </h4>
             </strong>
             <!---->
             <!--<p>Did you find a scholarship? Help others and <a routerLink="/scholarship/add">add a scholarship</a> in less than 15 seconds.</p>-->
 
-          </div>
         </div>
         <br>
 
         <div class="offset-md-2" *ngIf="userProfile && userProfile.is_atila_admin">
 
-          <a class=" col-sm-12 col-md-6 waves-effect waves-light btn demo-btn" (click)="getScholarshipPreview(pageNo,{'view_as_user':viewAs.value})">View As</a>
+          <a class=" col-sm-12 col-md-6 waves-effect waves-light btn demo-btn"
+             (click)="pageNo=1;getScholarshipPreview(pageNo,{'view_as_user':viewAs.value})">
+            View As
+          </a>
+
+
+          <a class=" col-sm-12 col-md-6 waves-effect waves-light btn demo-btn"
+             (click)="refreshScholarshipCache()">
+            Refresh Cache
+          </a>
 
           <mat-form-field class="col-sm-12 col-md-6">
             <!--use tabIndex to allow location data to be populated if Tab is pressed on Google Autocomplete-->
             <input #viewAs matInput class="form-control" style="padding-bottom: 0; margin-bottom: 0"  name="view_as" id="view_as"
-                   placeholder="View As..." (keyup.enter)="getScholarshipPreview(pageNo,{'view_as_user':viewAs.value})">
+                   placeholder="View As..." (keyup.enter)="pageNo=1;getScholarshipPreview(pageNo,{'view_as_user':viewAs.value})">
           </mat-form-field>
 
           <p *ngIf="viewAsUser">Viewing As: {{viewAsUser.first_name}}</p>
+
+          <ng-container *ngIf="viewAsUser">
+            <small class="text-muted"><pre style="max-height: 350px">{{viewAsUser | json}}</pre></small>
+            <p>
+              major: {{viewAsUser.major}} <br/>
+              post_secondary_school: {{viewAsUser.post_secondary_school}} <br/>
+              eligible_schools: {{viewAsUser.eligible_schools}} <br/>
+              eligible_programs: {{viewAsUser.eligible_programs}} <br/>
+            </p>
+          </ng-container>
         </div>
         <br>
 
@@ -141,8 +159,8 @@
 
           <div class="center col-sm-8 offset-sm-2 offset-md-2">
 
-            <a *ngIf="scholarship_count!=0" class="waves-effect waves-light btn register-btn" routerLink="/register">Register to See More Scholarships</a>
-            <a *ngIf="scholarship_count==0" class="waves-effect waves-light btn register-btn" routerLink="/register">Register to qualify for more scholarships</a>
+            <a *ngIf="total_scholarship_count!=0" class="waves-effect waves-light btn register-btn" routerLink="/register">Register to See More Scholarships</a>
+            <a *ngIf="total_scholarship_count==0" class="waves-effect waves-light btn register-btn" routerLink="/register">Register to qualify for more scholarships</a>
             <!--Remove for now to simiplify-->
             <a   *ngIf="!isLoggedIn" class=" col-sm-12 col-md-6 waves-effect waves-light btn demo-btn" routerLink="/applications/demo">Try The Live Demo</a>
 
@@ -186,7 +204,7 @@
 
               <div *ngFor="let scholarship of scholarships;  let i=index" class="col-sm-12 col-md-10 offset-md-1" style="margin-bottom: -5%">
                 <app-scholarship-card [scholarship]="scholarship" [userProfile]="userProfile"
-                                      [metadata]="{'form_data':form_data,'page_no':pageNo}" (handleClick)="handleScholarshipClick($event)"></app-scholarship-card>
+                                      [metadata]="{'form_data':form_data,'page_no':pageNo, viewAsUser: viewAsUser}" (handleClick)="handleScholarshipClick($event)"></app-scholarship-card>
               </div>
 
             </div>
@@ -198,17 +216,7 @@
               <!--</p>-->
 
               <div class="col-sm-12 center">
-                <!--todo fix error with waves-light staying white, looks like be button is disabled-->
-                <a class="waves-effect btn scholarship-btn" (click)="nextPage()"
-                   *ngIf="scholarship_count>0 && pageNo<pageLen">
-                  Show More
-                </a>
 
-                <div *ngIf="pageNo <= pageLen">
-                  <p style="font-size: x-large;">
-                    All caught up! 😃 Check back later for more scholarships.
-                  </p>
-                </div>
                 <!-- Loading progress circle -->
                 <div *ngIf="isLoading" class="preloader-background">
                   <div class="preloader-wrapper big active">
@@ -224,6 +232,18 @@
                       </div>
                     </div>
                   </div>
+                </div>
+
+                <!--todo fix error with waves-light staying white, looks like be button is disabled-->
+                <a class="waves-effect btn scholarship-btn" (click)="nextPage()"
+                   *ngIf="total_scholarship_count>0 && pageNo<pageLen">
+                  Show More
+                </a>
+
+                <div *ngIf="scholarships.length >= total_scholarship_count">
+                  <p style="font-size: x-large;">
+                    All caught up! 😃 Check back later for more scholarships.
+                  </p>
                 </div>
               </div>
 
@@ -470,7 +490,7 @@
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
 
-<ng-container *ngIf="contentFetched && scholarship_count==0">
+<ng-container *ngIf="contentFetched && total_scholarship_count==0">
   <div class="container">
     <h2 class="scholarship-preview-count my-dark-blue-text">No available scholarships for the specified profile.</h2>
     <!--TODO: Add page for scholarship advice-->

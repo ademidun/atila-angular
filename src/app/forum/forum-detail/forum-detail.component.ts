@@ -104,7 +104,6 @@ export class ForumDetailComponent implements OnInit, OnDestroy {
           });
         }
         catch (err) {
-          console.log('getBySlug() err',err);
           this.router.navigate(['/forum']);
         }
 

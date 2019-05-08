@@ -39,7 +39,7 @@ export class ScholarshipsListComponent implements OnInit {
   userProfile: UserProfile;
 
   scholarships: Scholarship[] = []; //TODO: If i use scholarship[] I can't access property members, why?
-  scholarship_count: number = 0;
+  total_scholarship_count: number = 0;
   scholarshipError: any = null;
   total_funding: any = 0;
   show_scholarship_funding: boolean = false;
@@ -47,8 +47,8 @@ export class ScholarshipsListComponent implements OnInit {
   environment = environment;
 
   pageNo: number = 1;
-  paginationLen: number = 12;
-  pageLen: number;
+  paginationLen: number = 8; // number of items the API returns in a single result
+  pageLen: number; // the total number of pages (total results)/(results per API call)
   pages = [1];
   subscriber: any = {};
   autoCompleteFormGroup: FormGroup;
@@ -120,9 +120,6 @@ export class ScholarshipsListComponent implements OnInit {
             let tempCity = [];
             this.userProfile = data;
 
-            console.log({data});
-            console.log('this.userProfile', this.userProfile);
-
             if (this.userProfile.metadata['incomplete_profile']) {
 
               this.inCompleteProfile = true;
@@ -185,7 +182,6 @@ export class ScholarshipsListComponent implements OnInit {
   }
 
   getScholarshipPreview(page: number = 1, options: any = {}) {
-    console.log('form_data', this.form_data);
     if (page == 1) {
       // clear scholarships list if on first page
       this.scholarships = [];
@@ -257,8 +253,16 @@ export class ScholarshipsListComponent implements OnInit {
   saveScholarships(res: any) {
 
     this.scholarships.push(...res['data']);
-    this.scholarship_count = res['length'];
+    this.total_scholarship_count = res['length'];
     this.total_funding = res['funding'];
+
+
+    this.pageLen = Math.ceil(this.total_scholarship_count / this.paginationLen);
+
+    this.pages = [];
+    for (let i = 1; i <= this.pageLen; i++) {
+      this.pages.push(i);
+    }
 
     if (this.total_funding) {
       this.show_scholarship_funding = true;
@@ -273,7 +277,7 @@ export class ScholarshipsListComponent implements OnInit {
       }
       let filterByUserResult = {
         form_data: this.form_data,
-        scholarship_count: this.scholarship_count,
+        scholarship_count: this.total_scholarship_count,
         total_funding: this.total_funding,
         results_preview: resultsPreview
       };
@@ -284,18 +288,13 @@ export class ScholarshipsListComponent implements OnInit {
 
 
     if (this.viewAsUser) {
+      console.log('this.viewAsUser', this.viewAsUser);
     }
 
     if (res['view_as_user_error']) {
       this.snackBar.open(res['view_as_user_error'], '', {duration: 3000})
     }
 
-    this.pageLen = Math.ceil(this.scholarship_count / this.paginationLen);
-
-    this.pages = [];
-    for (let i = 1; i <= this.pageLen; i++) {
-      this.pages.push(i);
-    }
   }
 
   prettifyKeys(str) {
@@ -436,6 +435,7 @@ export class ScholarshipsListComponent implements OnInit {
       this.userProfile.metadata['stale_cache'] = true;
       this.userProfileService.updateHelper(this.userProfile)
         .subscribe(res => {
+          this.getScholarshipPreview();
         });
     });
   }
@@ -651,49 +651,49 @@ export class ScholarshipsListComponent implements OnInit {
         filterValue = this.form_data.location[filter_type];
       }
 
-      switch(filter_type) {
+      switch (filter_type) {
 
         // todo: pick default categories based on what is most popular
         // amongst students or has the most scholarships
         case 'major':
-          filterValue =  'Engineering';
+          filterValue = 'Engineering';
           break;
         case 'post_secondary_school':
-          filterValue =  'University of Western Ontario';
+          filterValue = 'University of Western Ontario';
           break;
         case 'ethnicity':
-          filterValue =  'Asian/East-Asian';
+          filterValue = 'Asian/East-Asian';
           break;
         case 'heritage':
-          filterValue =  'India';
+          filterValue = 'India';
           break;
         case 'citizenship':
-          filterValue =  'Canada';
+          filterValue = 'Canada';
           break;
         case 'religion':
-          filterValue =  'Christianity';
+          filterValue = 'Christianity';
           break;
         case 'activities':
-          filterValue =  'Drawing';
+          filterValue = 'Drawing';
           break;
         case 'sports':
-          filterValue =  'Soccer';
+          filterValue = 'Soccer';
           break;
         case 'disability':
-          filterValue =  'Autism';
+          filterValue = 'Autism';
           break;
         case 'language':
-          filterValue =  'French';
+          filterValue = 'French';
           break;
         case 'eligible_schools':
-          filterValue =  [
+          filterValue = [
             'Ivey Business School',
             'University of Waterloo',
             'DeGroote School of Medicine'
           ];
           break;
         case 'eligible_programs':
-          filterValue =  [
+          filterValue = [
             'Health Sciences',
             'Computer Engineering',
             'Biomedical Engineering'
@@ -706,7 +706,7 @@ export class ScholarshipsListComponent implements OnInit {
 
     }
 
-      return filterValue
+    return filterValue
   }
 
   handleScholarshipClick(event: any) {
@@ -714,5 +714,25 @@ export class ScholarshipsListComponent implements OnInit {
 
   }
 
+  refreshScholarshipCache() {
 
+    console.log('refreshScholarshipCache() this.viewAsUser, this.userId)', this.viewAsUser, this.userId);
+    let userIdForCache = this.viewAsUser;
+
+    if (this.viewAsUser && this.viewAsUser.user) {
+      userIdForCache = this.viewAsUser.user;
+      console.log('${this.viewAsUser.user || this.userId', this.viewAsUser.user || this.userId);
+    }
+    else {
+      userIdForCache = this.userId;
+    }
+
+    this.userProfileService.userProfileRPC(`${userIdForCache}/refresh-scholarship-cache`)
+      .subscribe(
+        res2 => {
+          console.log({res2});
+          this.getScholarshipPreview();
+        }
+      )
+  }
 }

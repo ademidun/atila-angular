@@ -10,7 +10,8 @@ export class CardGenericComponent implements OnInit {
   @Input() item: any;
   @Input() metadata: any = {};
   @Input() cardStyle: any = {};
-  titleMaxLength = 100;
+  @Input() imageStyle: any = {};
+  @Input() titleMaxLength = 100;
 
   previewDescription: boolean;
   constructor() {}

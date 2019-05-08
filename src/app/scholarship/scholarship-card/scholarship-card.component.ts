@@ -13,6 +13,7 @@ import {NotificationDialogComponent} from '../../notification-dialog/notificatio
 import {NotificationsService} from '../../_services/notifications.service';
 import * as $ from 'jquery';
 import {prettifyKeys} from '../../_shared/utils';
+import {AUTOCOMPLETE_KEY_LIST} from '../../_models/constants';
 
 @Component({
   selector: 'app-scholarship-card',
@@ -31,7 +32,11 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
   // todo change to only handle one scholarship
   @Input() scholarship: Scholarship | any;
   @Input() userProfile: UserProfile;
-  @Input() metadata: any = {};
+  @Input() metadata: any = {
+    viewAsUser: '',
+    page_no: '',
+    form_data: '',
+  };
   @Output() handleClick: EventEmitter<any> = new EventEmitter();
   alreadySaved: boolean;
   userAnalytics: any = {};
@@ -41,6 +46,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
   isFirstView = true;
   showMore = false;
   prettifyKeys = prettifyKeys;
+  autoCompleteLists = AUTOCOMPLETE_KEY_LIST;
 
   old_visible: boolean;
   userScholarship: any;
@@ -73,7 +79,12 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
       }
 
       if (!environment.production || this.userProfile.is_atila_admin) {
-        this.scholarshipService.getUserScholarship(this.userId, this.scholarship.id)
+        let userScholarshipUserId = this.userId;
+
+        if (this.metadata.viewAsUser) {
+          userScholarshipUserId = this.metadata.viewAsUser.user;
+        }
+        this.scholarshipService.getUserScholarship(userScholarshipUserId, this.scholarship.id)
           .subscribe(
             res => {
               this.userScholarship = res.results[0];
@@ -137,10 +148,10 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
           });
         }
         else {
-            this.snackBar.open('Already Saved', '', {
-              duration: 3000
-            });
-          }
+          this.snackBar.open('Already Saved', '', {
+            duration: 3000
+          });
+        }
         return;
       } else {
         this.userProfile = saveResult[0];
@@ -188,7 +199,6 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
       this.userAnalytics.user_id = this.userProfile.user;
 
     }
-    console.log('this.firebaseService.saveUserAnalytics');
     this.firebaseService.saveUserAnalytics(this.userAnalytics, 'scholarship_sharing');
   }
 
@@ -239,7 +249,6 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        console.log(`The dialog was closed`, result);
         this.userProfile.metadata.haveAskedIfNotifySavedScholarship = !!result;
         if (result) {
           this.userProfile.metadata.dontAskAgainNotifySavedScholarship = result.dontAskAgain;
@@ -247,7 +256,6 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
         }
 
         this.userProfileService.updateHelper(this.userProfile).subscribe(userProfileResponse => {
-          console.log({userProfileResponse});
           if (this.userProfile.metadata['allowNotifySavedScholarships']) {
             this.createScholarshipNotificationsHandler();
           }
@@ -411,8 +419,6 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
           this.userProfileService.userProfileRPC(this.userId + '/refresh-scholarship-cache')
             .subscribe(
               res2 => {
-                if (!this.environment.production) {
-                }
               }
             )
         }

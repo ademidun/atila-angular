@@ -47,7 +47,6 @@ export class ScholarshipEditSuggestionComponent implements OnInit {
     }
     else if (!this.metadata['isOwner']) {
 
-      console.log(this.scholarship);
       let snackBarRef = this.snackBar.open("You don't have permission to Change Edit Status.",'Add a Scholarship',{duration: 4000});
       snackBarRef.onAction().subscribe(
         () => {

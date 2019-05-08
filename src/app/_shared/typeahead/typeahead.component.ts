@@ -44,8 +44,8 @@ export class TypeaheadComponent implements OnInit {
         .distinctUntilChanged()
         .merge(this.focus$)
         .merge(this.click$.filter(() => !this.instance.isPopupOpen()))
-        .map(term => term.length < 1 ? this.dataset
-          : this.filterUserInput(term, this.dataset));
+        .map(term => (term.length < 1 ? this.dataset
+          : this.filterUserInput(term, this.dataset)).slice(0,10));
 
 
     if (!this.metadata['noPlaceHolder']) {
