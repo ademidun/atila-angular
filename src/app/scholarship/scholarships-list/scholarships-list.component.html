@@ -134,7 +134,7 @@
           <p *ngIf="viewAsUser">Viewing As: {{viewAsUser.first_name}}</p>
 
           <ng-container *ngIf="viewAsUser">
-            <small class="text-muted"><pre>{{viewAsUser | json}}</pre></small>
+            <small class="text-muted"><pre style="max-height: 350px">{{viewAsUser | json}}</pre></small>
             <p>
               major: {{viewAsUser.major}} <br/>
               post_secondary_school: {{viewAsUser.post_secondary_school}} <br/>
