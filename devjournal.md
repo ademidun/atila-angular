@@ -1,6 +1,6 @@
 # Dev Journal
 
-Keep track of differnt things I've done
+Keep track of different things I've done
 
 ## May 1 2019
 

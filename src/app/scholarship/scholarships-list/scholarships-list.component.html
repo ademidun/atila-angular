@@ -1,5 +1,6 @@
 <div [ngbPopover]="popContent" popoverTitle="Try Search" #trySearch="ngbPopover"
-     placement="bottom" triggers="manual" class="popover-anchor" style="width: 100%">
+     placement="bottom" triggers="manual" class="popover-anchor" style="width: 100%"
+     xmlns="http://www.w3.org/1999/html">
 </div>
 
 <ng-template #popContent >Try
@@ -131,6 +132,16 @@
           </mat-form-field>
 
           <p *ngIf="viewAsUser">Viewing As: {{viewAsUser.first_name}}</p>
+
+          <ng-container *ngIf="viewAsUser">
+            <small class="text-muted"><pre>{{viewAsUser | json}}</pre></small>
+            <p>
+              major: {{viewAsUser.major}} <br/>
+              post_secondary_school: {{viewAsUser.post_secondary_school}} <br/>
+              eligible_schools: {{viewAsUser.eligible_schools}} <br/>
+              eligible_programs: {{viewAsUser.eligible_programs}} <br/>
+            </p>
+          </ng-container>
         </div>
         <br>
 
