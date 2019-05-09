@@ -29,3 +29,8 @@ https://devcenter.heroku.com/articles/add-ons#sharing-an-add-on-between-apps
 
 ### TODO:
 Noticed that Heroku Postgres is also sharing its database with staging. We should consider changing this.
+
+## May 8 2019
+**Landing page, screenshots and gif**
+- Creating Screenshot/Gif to explain how Atila works on Landing page
+- Use this resource to get gifs for mobile stuff: https://mobilemoxie.com/tools/mobile-page-test/
