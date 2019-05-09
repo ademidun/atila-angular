@@ -334,19 +334,26 @@ export class ScholarshipsListComponent implements OnInit {
 
 
     if (userForm.valid) {
-      if (!this.userProfile.major || this.userProfile.eligible_schools.length < 1) {
-        this.snackBar.open('Enter school or program information.', '', {duration: 3000});
+      if (this.userProfile.eligible_programs.length < 1 || this.userProfile.eligible_schools.length < 1) {
+        this.snackBar.open('Please enter School and Program information.', '', {duration: 3000});
         return;
+      }
+
+      if (!this.userProfile.major) {
+        this.userProfile.major = this.userProfile.eligible_programs[0];
+        this.userProfile.eligible_programs.splice(0,1);
       }
 
       if (!this.userProfile.post_secondary_school) {
         this.userProfile.post_secondary_school = this.userProfile.eligible_schools[0];
+        this.userProfile.eligible_schools.splice(0,1);
       }
+
       delete this.userProfile.metadata['incomplete_profile'];
       this.userProfile.metadata['stale_cache'] = true;
 
 
-      let sendData = {
+      const sendData = {
         userProfile: this.userProfile,
         locationData: this.locationData,
       };

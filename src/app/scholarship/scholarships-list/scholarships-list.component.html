@@ -369,25 +369,11 @@
 
       <div class="row">
         <div class="col-sm-12">
-
-          <p> What is your major?
-            <br>
-
-            <strong>{{userProfile.major}}</strong>
+          <p>
+            What Programs are you interested in?
+          <br>
+            e.g. Engineering, Health Science, Electrician, Law, Political Science
           </p>
-        </div>
-        <div class="col-sm-12">
-          <app-typeahead [model]="userProfile.major" [dataset]="MAJORS_LIST"
-                         (typeaheadSelectedEvent)="typeaheadEvent($event)"
-                         [metadata]="{'placeholder':'Major e.g. Engineering, Biology, Business, Electrician, Political Science',
-                                  'key':'major','tabindex':'9'}">
-          </app-typeahead>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-sm-12">
-          <p> What Other programs are you interested in?</p>
           <table>
             <tr  *ngFor="let program of userProfile.eligible_programs; let i = index">
               <td> {{program}} </td>
@@ -402,7 +388,8 @@
 
         <div class="col-sm-12">
           <app-typeahead [model]="userProfile.eligible_programs" [dataset]="MAJORS_LIST"
-                         [metadata]="{'placeholder':'What Other programs are you interested in?', 'key':'major','tabindex':'9'}">
+                         [metadata]="{'placeholder':'What programs are you interested in?'+
+                          'e.g. Engineering, Health Science, Electrician, Law, Political Science', 'key':'major','tabindex':'9'}">
           </app-typeahead>
         </div>
 
