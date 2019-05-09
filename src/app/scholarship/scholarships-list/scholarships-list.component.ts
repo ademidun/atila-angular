@@ -336,6 +336,7 @@ export class ScholarshipsListComponent implements OnInit {
     if (userForm.valid) {
       if (!this.userProfile.major || this.userProfile.eligible_schools.length < 1) {
         this.snackBar.open('Enter school or program information.', '', {duration: 3000});
+        return;
       }
 
       if (!this.userProfile.post_secondary_school) {
