@@ -120,6 +120,10 @@ mat-form-field.location-div .mat-input-wrapper {
   margin-top: 5.7%;
 }
 
+.landing-page-gif {
+  object-fit: cover;
+}
+
 .videowrapper {
   float: none;
   clear: both;
@@ -150,10 +154,6 @@ mat-form-field.location-div .mat-input-wrapper {
     margin-left: 41.666667%;
   }
 
-  .landing-page-gif {
-    height: auto;
-    width: '-webkit-fill-available';
-  }
 }
 
 @media (max-width: 576px){
