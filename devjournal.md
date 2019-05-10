@@ -30,7 +30,9 @@ https://devcenter.heroku.com/articles/add-ons#sharing-an-add-on-between-apps
 ### TODO:
 Noticed that Heroku Postgres is also sharing its database with staging. We should consider changing this.
 
-## May 8 2019
+## May 8 2019 
 **Landing page, screenshots and gif**
 - Creating Screenshot/Gif to explain how Atila works on Landing page
 - Use this resource to get gifs for mobile stuff: https://mobilemoxie.com/tools/mobile-page-test/
+-  May 10 2019 UPDATE: dont use mobile moxie use Chrome devtools and show device frame works better
+- Use ezGif to convert MP4 screen shots to gif and optimize and you can select `optimize for static background` checkbox: https://ezgif.com/video-to-gif/
