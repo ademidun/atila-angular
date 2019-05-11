@@ -40,20 +40,20 @@
 
         <div  class="col-sm-12 col-md-4">
 
-          <!--<span *ngIf="scholarship.is_automated">-->
-          <!--<button mat-raised-button (click)="getOrCreateApp()"-->
-          <!--style="background-color: #4080ff; min-height: 60px; min-width: 200px" class="white-text">Apply now</button>-->
-          <!--</span>-->
+          <span *ngIf="userProfile && userProfile.is_atila_admin && scholarship.is_automated">
+          <button mat-raised-button (click)="getOrCreateApp()"
+          style="background-color: #4080ff; min-height: 60px; min-width: 200px" class="white-text">Apply now</button>
+          </span>
 
-          <!--<span *ngIf="scholarship">-->
-          <!--<button mat-raised-button (click)="requestAutomation()"-->
-          <!--style="background-color: #4080ff; min-height: 60px" class="white-text" placement="bottom"-->
-          <!--ngbTooltip="Request for this scholarship's application process to be automated.">-->
-          <!--Request Automation-->
-          <!--</button>-->
-          <!--<i class="material-icons" placement="bottom"-->
-          <!--ngbTooltip="Request for this scholarship's application process to be automated.">info_outline</i>-->
-          <!--</span>-->
+          <span *ngIf="scholarship">
+          <button mat-raised-button (click)="requestAutomation()"
+          style="background-color: #4080ff; min-height: 60px" class="white-text" placement="bottom"
+          ngbTooltip="Request for this scholarship's application process to be automated.">
+          Request Automation
+          </button>
+          <i class="material-icons" placement="bottom"
+          ngbTooltip="Request for this scholarship's application process to be automated.">info_outline</i>
+          </span>
 
           <div>
             <!--<button mat-fab  (click)="addToMyScholarships(scholarship)" style="margin-left: -23%">-->
