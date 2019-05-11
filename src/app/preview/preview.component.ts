@@ -352,22 +352,18 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
     const self = this;
 
-    setTimeout(() => {
+    $(function () {
 
-      $(function () {
-        $('iframe.lazy-load-element').attr('src', '//www.youtube.com/embed/c_K4342WMwQ?cc_load_policy=1');
+      for (let i = 0; i < self.lazyLoadGifIds.length; i++) {
 
-        for (let i = 0; i < self.lazyLoadGifIds.length; i++) {
+        const gifFileName = self.lazyLoadGifIds[i].replace('#', '').replace('-gif','.gif')
+        const gifFilePath = `../../assets/img/landing-page/${gifFileName}`;
+        $(self.lazyLoadGifIds[i]).attr('src', gifFilePath);
+      }
 
-          const gifFileName = self.lazyLoadGifIds[i].replace('#', '').replace('-gif','.gif')
-          const gifFilePath = `../../assets/img/landing-page/${gifFileName}`;
-          $(self.lazyLoadGifIds[i]).attr('src', gifFilePath);
-        }
+      $('iframe.lazy-load-element').attr('src', '//www.youtube.com/embed/c_K4342WMwQ?cc_load_policy=1');
 
-      });
-
-    }, 3000);
-
+    });
 
     this.blogs = this.blogs.map(item => {
       return genericItemTransform(item);
