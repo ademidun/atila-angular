@@ -27,8 +27,6 @@ export class CardGenericComponent implements OnInit {
     const defaultTitleStyle = {'max-height': this.item.image && !this.previewDescription ? '280px' : null}
 
     this.cardTitleStyle = {...this.cardTitleStyle, ...defaultTitleStyle};
-    console.log('this.item.title', this.item.title);
-    console.log('this.previewDescriptionLength', this.previewDescriptionLength);
   }
 
   togglePreview() {

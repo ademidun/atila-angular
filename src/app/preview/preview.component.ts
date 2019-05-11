@@ -374,8 +374,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
       return genericItemTransform(item);
     });
 
-    console.log('this.blogs', this.blogs);
-
   }
 
   ngOnDestroy() {
