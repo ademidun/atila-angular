@@ -27,7 +27,7 @@ export class ScholarshipCardStubComponent {
   @Output() handleClick: EventEmitter<any> = new EventEmitter();
 }
 
-@OComponent({
+@Component({
   selector: 'app-typeahead',
   template: '<p>TypeaheadStubComponent</p>'
 })
