@@ -10,12 +10,14 @@ export class CardGenericComponent implements OnInit {
   @Input() item: any;
   @Input() metadata: {
     showImageInPreviewMode: false,
+    showEssayImage: false,
     hideDescription: boolean,
   };
   @Input() cardStyle: any = {};
   @Input() cardTitleStyle: any = {};
   @Input() imageStyle: any = {};
   @Input() titleMaxLength = 100;
+  @Input() previewDescriptionLength = 280;
 
   previewDescription: boolean;
   constructor() {}
@@ -25,6 +27,8 @@ export class CardGenericComponent implements OnInit {
     const defaultTitleStyle = {'max-height': this.item.image && !this.previewDescription ? '280px' : null}
 
     this.cardTitleStyle = {...this.cardTitleStyle, ...defaultTitleStyle};
+    console.log('this.item.title', this.item.title);
+    console.log('this.previewDescriptionLength', this.previewDescriptionLength);
   }
 
   togglePreview() {

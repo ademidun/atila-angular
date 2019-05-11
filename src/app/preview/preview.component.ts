@@ -219,7 +219,8 @@ export class PreviewComponent implements OnInit, OnDestroy {
         'first_name': 'Zion',
         'last_name': 'Oginni',
         'username': 'zoginni',
-        'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F39%2Fprofile-pictures%2FIMG_7111.JPG?alt=media&token=e3088001-19a0-4ebf-8172-80df143d8977',
+        'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/' +
+        'user-profiles%2F39%2Fprofile-pictures%2FIMG_7111.JPG?alt=media&token=e3088001-19a0-4ebf-8172-80df143d8977',
         'title': 'High School Senior',
         'post_secondary_school': 'Queen\'s University',
         'secondary-school': '',
@@ -229,6 +230,27 @@ export class PreviewComponent implements OnInit, OnDestroy {
   ];
 
   essays = [
+    {
+      'title': 'Ivey AEO2 Activity Report 2017',
+      'user': {
+        'first_name': 'Carol',
+        'last_name': 'Li',
+        'username': 'carolli',
+        'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/' +
+        'user-profiles%2F633%2Fprofile-pictures%2Fcarol-li.jpg?alt=media&token=c773b2f0-1275-4ec6-b4f0-e13388aa47c8',
+        'title': '',
+        'post_secondary_school': 'Ivey Business School',
+        'secondary-school': '',
+        'id': 633
+      },
+      'slug': 'ivey-aeo2-activity-report-2017',
+      'description': 'My AEO2 activity report for Ivey Business School. ' +
+      'This is a report of extra curricular activities I participated in while in university in the AEO program ' +
+      'as part of my progression requirements for starting the HBA program in 3rd year.',
+      'id': 8,
+      'essay_source_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/' +
+      'user-profiles%2F1%2Fessays%2F8%2FIvey%20AEO2%20Activity%20Report.pdf?alt=media&token=84488d88-074e-46a1-8d07-a15b386ac059'
+    },
     {
       'id': 5,
       'title': 'Next36 Application 2018',
@@ -258,23 +280,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
       'contributors': []
     },
     {
-      'title': 'Ivey AEO2 Activity Report 2017',
-      'user': {
-        'first_name': 'Carol',
-        'last_name': 'Li',
-        'username': 'carolli',
-        'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F633%2Fprofile-pictures%2Fcarol-li.jpg?alt=media&token=c773b2f0-1275-4ec6-b4f0-e13388aa47c8',
-        'title': '',
-        'post_secondary_school': 'Ivey Business School',
-        'secondary-school': '',
-        'id': 633
-      },
-      'slug': 'ivey-aeo2-activity-report-2017',
-      'description': 'My AEO2 activity report for Ivey Business School. This is a report of extra curricular activities I participated in while in university in the AEO program as part of my progression requirements for starting the HBA program in 3rd year.',
-      'id': 8,
-      'essay_source_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fessays%2F8%2FIvey%20AEO2%20Activity%20Report.pdf?alt=media&token=84488d88-074e-46a1-8d07-a15b386ac059'
-    },
-    {
       'id': 7,
       'title': 'LORAN SCHOLARS PROGRAM Application 2014',
       'slug': 'loran-scholars-program-application-2014-',
@@ -282,7 +287,8 @@ export class PreviewComponent implements OnInit, OnDestroy {
       'description': 'My application for the 2014 Loran Scholars program. I was not selected for this award.',
       'status': 'declined',
       'status_other': '',
-      'essay_source_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fessays%2F7%2FLoran%20Application.pdf.pdf?alt=media&token=3a5f73fd-9259-429b-a981-fffc8f3df03f',
+      'essay_source_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/' +
+      'user-profiles%2F1%2Fessays%2F7%2FLoran%20Application.pdf.pdf?alt=media&token=3a5f73fd-9259-429b-a981-fffc8f3df03f',
       'published': true,
       'up_votes_count': 0,
       'down_votes_count': 0,
@@ -293,7 +299,8 @@ export class PreviewComponent implements OnInit, OnDestroy {
         'first_name': 'Paul',
         'last_name': 'Okundaye',
         'username': 'OkPaul',
-        'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F626%2Fprofile-pictures%2Fpaul-profile-picture.png?alt=media&token=60650357-56f2-4a97-8416-08b08fbbc4aa',
+        'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/' +
+        'user-profiles%2F626%2Fprofile-pictures%2Fpaul-profile-picture.png?alt=media&token=60650357-56f2-4a97-8416-08b08fbbc4aa',
         'title': '',
         'post_secondary_school': '',
         'secondary-school': '',
