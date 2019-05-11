@@ -225,15 +225,21 @@
         <!--Blog Results -->
         <div id="my-blogs" class=" card row">
           <h4 class="center">{{userProfile.first_name}}'s Blog Posts</h4>
-          <div *ngFor=" let blogPost of blogPosts" class="col-sm-12 col-md-6 offset-md-3">
-            <app-card-generic [item]="blogPost"></app-card-generic>
+          <div *ngFor=" let blog of blogs" class="col-sm-12 col-md-6 offset-md-3">
+            <app-card-generic [item]="blog"
+                              [metadata]="{hideDescription: blog.image,showImageInPreviewMode: true}">
+
+            </app-card-generic>
         </div>
 
       </div>
         <div id="my-essays" class=" card row">
           <h4 class="center">{{userProfile.first_name}}'s Essays</h4>
           <div *ngFor=" let essay of essays" class="col-sm-12 col-md-6 offset-md-3">
-            <app-card-generic [item]="essay"></app-card-generic>
+            <app-card-generic [item]="essay"
+                              [metadata]="{hideDescription: false}">
+
+            </app-card-generic>
         </div>
 
       </div>

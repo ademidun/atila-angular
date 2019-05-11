@@ -41,7 +41,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
   userApplications: any;
   profile_pic_url;
   SCHOOLS_LIST = SCHOOLS_LIST;
-  blogPosts: any[];
+  blogs: any[];
   essays: Essay[];
 
   currentUser:number;
@@ -213,13 +213,13 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
 
   getBlogs(options?: {}) {
 
-    if(!this.blogPosts){
+    if(!this.blogs){
       this.userProfileService.getDetail(this.userProfile.user,'blogs')
         .subscribe(
           res => {
-            this.blogPosts = res.blogs;
+            this.blogs = res.blogs;
 
-            this.blogPosts = this.blogPosts.map( item => { return genericItemTransform(item); });
+            this.blogs = this.blogs.map(item => genericItemTransform(item));
           },
 
         )
@@ -255,7 +255,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
             res => {
               this.essays = res.essays;
 
-              this.essays = this.essays.map( item => { return genericItemTransform(item); });
+              this.essays = this.essays.map( item => genericItemTransform(item));
             },
 
           )

@@ -57,7 +57,7 @@
     <h4>Blogs</h4>
 
     <div class="row">
-      <div *ngFor=" let blogPost of searchResults.blogPosts" class="col-sm-12 col-md-10">
+      <div *ngFor=" let blogPost of searchResults.blogs" class="col-sm-12 col-md-10">
         <div class="card small">
           <div class="card-title">
             <a (click)="saveQueryClick(blogPost,'blog')" routerLink="/blog/{{blogPost.user.username}}/{{blogPost.slug}}"> {{blogPost.title}}</a>
@@ -77,12 +77,12 @@
       </div>
     </div>
 
-    <div class="row center"  *ngIf="!isLoggedIn && searchResults.blogPosts" >
+    <div class="row center"  *ngIf="!isLoggedIn && searchResults.blogs" >
       <p>Some results may be omitted, <a routerLink="/register">register</a>  to see all results</p>
       <a class="waves-effect waves-light btn scholarship-btn" routerLink="/register">Register</a>
     </div>
 
-    <div class="row center"  *ngIf="isLoggedIn && searchResults.metadata && searchResults.metadata.blogPosts && searchResults.metadata.blogPosts.omit_results">
+    <div class="row center"  *ngIf="isLoggedIn && searchResults.metadata && searchResults.metadata.blogs && searchResults.metadata.blogs.omit_results">
       <p>There are more results, try a more specific search.</p>
     </div>
 
