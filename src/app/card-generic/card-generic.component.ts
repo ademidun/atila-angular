@@ -13,6 +13,7 @@ export class CardGenericComponent implements OnInit {
     hideDescription: boolean,
   };
   @Input() cardStyle: any = {};
+  @Input() cardTitleStyle: any = {};
   @Input() imageStyle: any = {};
   @Input() titleMaxLength = 100;
 
@@ -20,6 +21,10 @@ export class CardGenericComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
+
+    const defaultTitleStyle = {'max-height': this.item.image && !this.previewDescription ? '280px' : null}
+
+    this.cardTitleStyle = {...this.cardTitleStyle, ...defaultTitleStyle};
   }
 
   togglePreview() {

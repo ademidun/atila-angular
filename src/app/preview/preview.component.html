@@ -188,7 +188,8 @@
     <div class="row">
       <div  *ngFor="let blog of blogs; let i = index; first as isFirst;" class="col-md-4">
           <app-card-generic [item]="blog" [metadata]="{hideDescription: blog.image, showImageInPreviewMode: true}"
-                            [cardStyle]="{'height': '450px', 'overflow-y': 'hidden'}"> </app-card-generic>
+                            [cardStyle]="{'height': '475px', 'overflow-y': 'hidden'}"
+                            [cardTitleStyle]="{height: '275px'}"> </app-card-generic>
       </div>
     </div>
   </div>
@@ -201,7 +202,7 @@
     <div class="row">
       <div  *ngFor="let essay of essays; let i = index; first as isFirst;" class="col-md-4">
         <app-card-generic [item]="essay" [metadata]="{hideDescription: essay.image, showImageInPreviewMode: true}"
-                          [cardStyle]="{'height': '275px', 'overflow-y': 'hidden'}"> </app-card-generic>
+                          [cardStyle]="{'height': '275px', 'overflow-y': 'hidden'}" [titleMaxLength]="'35'" [cardTitleStyle]="{height: '100px'}"> </app-card-generic>
       </div>
     </div>
   </div>

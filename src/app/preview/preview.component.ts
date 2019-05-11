@@ -258,31 +258,21 @@ export class PreviewComponent implements OnInit, OnDestroy {
       'contributors': []
     },
     {
-      'id': 2,
-      'title': 'Ivey Business School AEO Application 2014',
-      'slug': 'ivey-business-school-aeo-application-2014',
-      'date_created': '2018-06-13T13:33:02.659480Z',
-      'description': 'My AEO University application for Ivey Business School 2014.\n           I applied to the software engineering and business dual degree program. Ivey places an emphasis on leadership so I really try to highlight how I demonstrate strong leadership in the examples I give in my essay.',
-      'status': 'accepted',
-      'status_other': null,
-      'essay_source_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fessays%2F2%2FIvey%20AEO%20Application%202014.pdf?alt=media&token=ee61734a-1667-4b24-8ee1-0ba178247b4b',
-      'published': true,
-      'up_votes_count': 0,
-      'down_votes_count': 0,
-      'up_votes_id': [],
-      'down_votes_id': [],
-      'metadata': {},
+      'title': 'Ivey AEO2 Activity Report 2017',
       'user': {
-        'first_name': 'Tomiwa',
-        'last_name': 'Ademidun',
-        'username': 'tomiwa',
-        'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fprofile-pictures%2Ffacebook-profile-picture.jpg?alt=media&token=8754c657-bbdc-4d8e-ae1d-d4047ac09c6d',
-        'title': 'Software Engineering Student',
-        'post_secondary_school': 'University of Western Ontario',
+        'first_name': 'Carol',
+        'last_name': 'Li',
+        'username': 'carolli',
+        'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F633%2Fprofile-pictures%2Fcarol-li.jpg?alt=media&token=c773b2f0-1275-4ec6-b4f0-e13388aa47c8',
+        'title': '',
+        'post_secondary_school': 'Ivey Business School',
         'secondary-school': '',
-        'id': 1
+        'id': 633
       },
-      'contributors': []
+      'slug': 'ivey-aeo2-activity-report-2017',
+      'description': 'My AEO2 activity report for Ivey Business School. This is a report of extra curricular activities I participated in while in university in the AEO program as part of my progression requirements for starting the HBA program in 3rd year.',
+      'id': 8,
+      'essay_source_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fessays%2F8%2FIvey%20AEO2%20Activity%20Report.pdf?alt=media&token=84488d88-074e-46a1-8d07-a15b386ac059'
     },
     {
       'id': 7,
