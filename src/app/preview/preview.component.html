@@ -194,87 +194,14 @@
   </div>
   <hr/>
 
-  <!-- Forum Posts Demo-->
-  <div class="container row">
-    <h1 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"><a routerLink="/forum"> Forums </a></h1>
-    <h5 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"> Ask questions and get answers from other students </h5>
-    <div class="row">
-      <div *ngFor="let forum of forums; let i = index" class="col-lg-4 forum-box" style="font-size: larger">
-
-        <div class="card ">
-          <div class="card-content " style="min-height: 513px">
-            <span class="card-title"><a routerLink="/forum/{{forum.slug}}">{{forum.title | truncate:140}}</a></span>
-            <span *ngIf="forum.user"><a routerLink="/profile/{{forum.user.username}}">
-          <div class="chip">
-            <img style="max-width: 50px" [src]="forum.user.profile_pic_url"
-                 alt="Authorr">
-            <a routerLink="/profile/{{forum.user.username}}">
-            {{forum.user.first_name}} {{forum.user.last_name}}
-            </a>
-          </div>
-          </a>
-
-          </span>
-            <p *ngIf="forum.starting_comment" style="white-space: pre-line">{{forum.starting_comment.text | truncate:280}}</p>
-          </div>
-          <div class="card-action">
-            <a  routerLink="/forum/{{forum.slug}}" class="btn-floating halfway-fab waves-effect waves-light left" style="left: 125px; bottom: 10px">
-              <i class="material-icons md-36">comment</i></a>
-            <a routerLink="/forum/{{forum.slug}}" class="btn-floating halfway-fab waves-effect waves-light left"
-               style="left: 180px; bottom: 10px">
-              <p class="btn-text">{{forum['metadata']['comments_count']}}</p>
-            </a>
-            <app-share-item [item]="{title: forum.title,
-                url:'https://atila.ca/forum/'+forum.slug+'/',
-                id: forum.id, source:'forum_list',type:'forum'}" [metadata]="{'shareItemStyle': {'left': '225px','bottom': '10px'} }"></app-share-item>
-
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-  <hr/>
-
   <!-- Essay Posts Demo-->
   <div class="container row">
     <h1 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"><a routerLink="/essay"> Essays </a></h1>
     <h5 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"> Read the essays that got students acceptance to top schools and win major scholarships. </h5>
     <div class="row">
-      <div *ngFor="let essay of essays; let i = index" class="col-lg-4 " style="font-size: larger">
-
-        <div class="card ">
-          <div class="card-content " style="min-height: 430px">
-            <span class="card-title"><a routerLink="/essay/{{essay.user.username}}/{{essay.slug}}">{{essay.title | truncate:140}}</a></span>
-            <span *ngIf="!essay.published" style=" font-size: medium; font-weight: bold; ">Unpublished</span>
-            <span *ngIf="essay.user"><a routerLink="/profile/{{essay.user.username}}">
-          <div class="chip">
-            <img style="max-width: 50px" [src]="essay.user.profile_pic_url"
-                 alt="Authorr">
-            <a routerLink="/profile/{{essay.user.username}}">
-            {{essay.user.first_name}} {{essay.user.last_name}}
-            </a>
-          </div>
-          </a>
-
-          </span>
-            <p *ngIf="essay.description" style="white-space: pre-line">{{essay.description | truncate:280}}</p>
-          </div>
-          <div class="card-action">
-            <a  routerLink="/essay/{{essay.user.username}}/{{essay.slug}}" class="btn-floating halfway-fab waves-effect waves-light left" style="left: 125px; bottom: 10px">
-              <i class="material-icons md-36">comment</i></a>
-            <a routerLink="/essay/{{essay.slug}}" class="btn-floating halfway-fab waves-effect waves-light left"
-               style="left: 180px; bottom: 10px">
-              <p class="btn-text">{{essay['metadata']['comments_count']}}</p>
-            </a>
-
-            <app-share-item [item]="{title: essay.title,
-                url:'https://atila.ca/essay/'+ essay.user.username +'/'+essay.slug+'/',
-                id: essay.id, source:'essay_list',type:'essay'}" [metadata]="{'shareItemStyle': {'left': '225px','bottom': '10px'} }"></app-share-item>
-
-          </div>
-        </div>
-
+      <div  *ngFor="let essay of essays; let i = index; first as isFirst;" class="col-md-4">
+        <app-card-generic [item]="essay" [metadata]="{hideDescription: essay.image, showImageInPreviewMode: true}"
+                          > </app-card-generic>
       </div>
     </div>
   </div>
@@ -312,4 +239,3 @@
 
   </div>
 </div>
-

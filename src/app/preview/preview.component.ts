@@ -238,7 +238,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
       'The Path were selected to participate in the program.',
       'status': 'accepted',
       'status_other': '',
-      'header_image_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/blogs%2Fgeneral%2Fblog-default-image.jpg?alt=media&token=b739ac92-4402-4d89-9c83-40ec9e476146',
       'essay_source_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fessays%2F5%2FNext%2036%20App.pdf?alt=media&token=0a2a07ae-05f2-4ee9-ae5c-5b31044489fe',
       'published': true,
       'up_votes_count': 0,
@@ -266,7 +265,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
       'description': 'My AEO University application for Ivey Business School 2014.\n           I applied to the software engineering and business dual degree program. Ivey places an emphasis on leadership so I really try to highlight how I demonstrate strong leadership in the examples I give in my essay.',
       'status': 'accepted',
       'status_other': null,
-      'header_image_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/blogs%2Fgeneral%2Fblog-default-image.jpg?alt=media&token=b739ac92-4402-4d89-9c83-40ec9e476146',
       'essay_source_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fessays%2F2%2FIvey%20AEO%20Application%202014.pdf?alt=media&token=ee61734a-1667-4b24-8ee1-0ba178247b4b',
       'published': true,
       'up_votes_count': 0,
@@ -294,7 +292,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
       'description': 'My application for the 2014 Loran Scholars program. I was not selected for this award.',
       'status': 'declined',
       'status_other': '',
-      'header_image_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/blogs%2Fgeneral%2Fblog-default-image.jpg?alt=media&token=b739ac92-4402-4d89-9c83-40ec9e476146',
       'essay_source_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fessays%2F7%2FLoran%20Application.pdf.pdf?alt=media&token=3a5f73fd-9259-429b-a981-fffc8f3df03f',
       'published': true,
       'up_votes_count': 0,
@@ -373,6 +370,10 @@ export class PreviewComponent implements OnInit, OnDestroy {
     });
 
     this.blogs = this.blogs.map(item => {
+      return genericItemTransform(item);
+    });
+
+    this.essays = this.essays.map(item => {
       return genericItemTransform(item);
     });
 
