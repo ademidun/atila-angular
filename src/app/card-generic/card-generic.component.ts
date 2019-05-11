@@ -8,15 +8,25 @@ import {toTitleCase} from '../_shared/utils';
 export class CardGenericComponent implements OnInit {
 
   @Input() item: any;
-  @Input() metadata: any = {};
+  @Input() metadata: {
+    showImageInPreviewMode: false,
+    showEssayImage: false,
+    hideDescription: boolean,
+  };
   @Input() cardStyle: any = {};
+  @Input() cardTitleStyle: any = {};
   @Input() imageStyle: any = {};
   @Input() titleMaxLength = 100;
+  @Input() previewDescriptionLength = 280;
 
   previewDescription: boolean;
   constructor() {}
 
   ngOnInit() {
+
+    const defaultTitleStyle = {'max-height': this.item.image && !this.previewDescription ? '280px' : null}
+
+    this.cardTitleStyle = {...this.cardTitleStyle, ...defaultTitleStyle};
   }
 
   togglePreview() {

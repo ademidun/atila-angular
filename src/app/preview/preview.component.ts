@@ -10,7 +10,7 @@ import {SubscriberDialogComponent} from '../subscriber-dialog/subscriber-dialog.
 import {MyFirebaseService} from '../_services/myfirebase.service';
 import {NgbPopover} from '@ng-bootstrap/ng-bootstrap';
 import {AuthService} from '../_services/auth.service';
-import {prettifyKeys, toTitleCase} from '../_shared/utils';
+import {genericItemTransform, prettifyKeys, toTitleCase} from '../_shared/utils';
 import {MASTER_LIST_EVERYTHING} from '../_models/constants';
 //import {GeocoderAddressComponent} from '@types/googlemaps'
 
@@ -56,36 +56,22 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
   blogs = [
     {
-      'id': 9,
-      'title': 'How I got interviews at Google, Facebook and Bridgewater',
-      'slug': 'how-i-got-interviews-at-google-facebook-and-bridgewater',
-      'alternate_slugs': [
-        'got-interviews-google-facebook-bridgewater'
-      ],
-      'dummy_field_detect_migrations_heroku': null,
-      'date_created': '2018-03-27T13:17:20Z',
-      'description': 'Last summer, I decided that I wanted to work at a top tech company such as Google or Bridgewater. Problem. I didn\'t go to a target school, my grades were just okay and I had little work experience. If I wanted to get a chance at these companies I would have to get creative.',
-      'header_image_url': 'https://lh6.googleusercontent.com/U1oHmeuzUcMbPLHFhpDHc_8KsFWq7IX_jE6kUBl1svTSnffIukAjJ0QDgfXJCdZ_rONXiZzhtNnz3CrFMDEnrIrMc5MpnWcSuUfEURbNRFM9lxYPN6qDMSMHPqC02h9o0pO9UlUP',
-      'published': true,
-      'up_votes_count': 0,
-      'down_votes_count': 0,
-      'up_votes_id': [],
-      'down_votes_id': [],
-      'user': {
-        'first_name': 'Tomiwa',
-        'last_name': 'Ademidun',
-        'username': 'tomiwa',
-        'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fprofile-pictures%2Ffacebook-profile-picture.jpg?alt=media&token=8754c657-bbdc-4d8e-ae1d-d4047ac09c6d',
-        'title': 'Software Engineering Student',
-        'post_secondary_school': '',
-        'secondary-school': '',
-        'id': 4
-      },
-      'contributors': [],
-      'metadata': {
-        'comments_count': 1
-      }
+    'title': 'How to Get a Summer Internship',
+    'user': {
+      'first_name': 'Trevor',
+      'last_name': 'Sookraj',
+      'username': 'trevorsookraj',
+      'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F629%2Fprofile-pictures%2Ftrevor-sookraj.jpg?alt=media&token=ebf88b32-8a18-4bd5-83e6-d33fcf112a9d',
+      'title': '',
+      'post_secondary_school': 'Western University',
+      'secondary-school': '',
+      'id': 629
     },
+    'slug': 'how-to-get-a-summer-internship',
+    'description': 'Students generally have limited work experience, so it may seem impossible to get an internship. Through this process, I faced a few obstacles to getting an internship and learned how to overcome them. Here is what I learned',
+    'header_image_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/blogs%2F20%2Fheader_image_url%2Fshopify-internship.jpg?alt=media&token=f391b5d5-c55e-4424-a870-98786189e9d6',
+    'id': 20
+  },
     {
       'id': 13,
       'title': 'Getting into Medical School Without a Degree, Advice for Pre Med Students, Work Life Balance and Self Care - Emily Chen - Atila TV 001',
@@ -219,7 +205,8 @@ export class PreviewComponent implements OnInit, OnDestroy {
         'first_name': 'Zion',
         'last_name': 'Oginni',
         'username': 'zoginni',
-        'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F39%2Fprofile-pictures%2FIMG_7111.JPG?alt=media&token=e3088001-19a0-4ebf-8172-80df143d8977',
+        'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/' +
+        'user-profiles%2F39%2Fprofile-pictures%2FIMG_7111.JPG?alt=media&token=e3088001-19a0-4ebf-8172-80df143d8977',
         'title': 'High School Senior',
         'post_secondary_school': 'Queen\'s University',
         'secondary-school': '',
@@ -230,6 +217,27 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
   essays = [
     {
+      'title': 'Ivey AEO2 Activity Report 2017',
+      'user': {
+        'first_name': 'Carol',
+        'last_name': 'Li',
+        'username': 'carolli',
+        'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/' +
+        'user-profiles%2F633%2Fprofile-pictures%2Fcarol-li.jpg?alt=media&token=c773b2f0-1275-4ec6-b4f0-e13388aa47c8',
+        'title': '',
+        'post_secondary_school': 'Ivey Business School',
+        'secondary-school': '',
+        'id': 633
+      },
+      'slug': 'ivey-aeo2-activity-report-2017',
+      'description': 'My AEO2 activity report for Ivey Business School. ' +
+      'This is a report of extra curricular activities I participated in while in university in the AEO program ' +
+      'as part of my progression requirements for starting the HBA program in 3rd year.',
+      'id': 8,
+      'essay_source_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/' +
+      'user-profiles%2F1%2Fessays%2F8%2FIvey%20AEO2%20Activity%20Report.pdf?alt=media&token=84488d88-074e-46a1-8d07-a15b386ac059'
+    },
+    {
       'id': 5,
       'title': 'Next36 Application 2018',
       'slug': 'next36-application-2018',
@@ -238,7 +246,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
       'The Path were selected to participate in the program.',
       'status': 'accepted',
       'status_other': '',
-      'header_image_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/blogs%2Fgeneral%2Fblog-default-image.jpg?alt=media&token=b739ac92-4402-4d89-9c83-40ec9e476146',
       'essay_source_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fessays%2F5%2FNext%2036%20App.pdf?alt=media&token=0a2a07ae-05f2-4ee9-ae5c-5b31044489fe',
       'published': true,
       'up_votes_count': 0,
@@ -259,34 +266,6 @@ export class PreviewComponent implements OnInit, OnDestroy {
       'contributors': []
     },
     {
-      'id': 2,
-      'title': 'Ivey Business School AEO Application 2014',
-      'slug': 'ivey-business-school-aeo-application-2014',
-      'date_created': '2018-06-13T13:33:02.659480Z',
-      'description': 'My AEO University application for Ivey Business School 2014.\n           I applied to the software engineering and business dual degree program. Ivey places an emphasis on leadership so I really try to highlight how I demonstrate strong leadership in the examples I give in my essay.',
-      'status': 'accepted',
-      'status_other': null,
-      'header_image_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/blogs%2Fgeneral%2Fblog-default-image.jpg?alt=media&token=b739ac92-4402-4d89-9c83-40ec9e476146',
-      'essay_source_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fessays%2F2%2FIvey%20AEO%20Application%202014.pdf?alt=media&token=ee61734a-1667-4b24-8ee1-0ba178247b4b',
-      'published': true,
-      'up_votes_count': 0,
-      'down_votes_count': 0,
-      'up_votes_id': [],
-      'down_votes_id': [],
-      'metadata': {},
-      'user': {
-        'first_name': 'Tomiwa',
-        'last_name': 'Ademidun',
-        'username': 'tomiwa',
-        'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fprofile-pictures%2Ffacebook-profile-picture.jpg?alt=media&token=8754c657-bbdc-4d8e-ae1d-d4047ac09c6d',
-        'title': 'Software Engineering Student',
-        'post_secondary_school': 'University of Western Ontario',
-        'secondary-school': '',
-        'id': 1
-      },
-      'contributors': []
-    },
-    {
       'id': 7,
       'title': 'LORAN SCHOLARS PROGRAM Application 2014',
       'slug': 'loran-scholars-program-application-2014-',
@@ -294,8 +273,8 @@ export class PreviewComponent implements OnInit, OnDestroy {
       'description': 'My application for the 2014 Loran Scholars program. I was not selected for this award.',
       'status': 'declined',
       'status_other': '',
-      'header_image_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/blogs%2Fgeneral%2Fblog-default-image.jpg?alt=media&token=b739ac92-4402-4d89-9c83-40ec9e476146',
-      'essay_source_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fessays%2F7%2FLoran%20Application.pdf.pdf?alt=media&token=3a5f73fd-9259-429b-a981-fffc8f3df03f',
+      'essay_source_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/' +
+      'user-profiles%2F1%2Fessays%2F7%2FLoran%20Application.pdf.pdf?alt=media&token=3a5f73fd-9259-429b-a981-fffc8f3df03f',
       'published': true,
       'up_votes_count': 0,
       'down_votes_count': 0,
@@ -306,7 +285,8 @@ export class PreviewComponent implements OnInit, OnDestroy {
         'first_name': 'Paul',
         'last_name': 'Okundaye',
         'username': 'OkPaul',
-        'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F626%2Fprofile-pictures%2Fpaul-profile-picture.png?alt=media&token=60650357-56f2-4a97-8416-08b08fbbc4aa',
+        'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/' +
+        'user-profiles%2F626%2Fprofile-pictures%2Fpaul-profile-picture.png?alt=media&token=60650357-56f2-4a97-8416-08b08fbbc4aa',
         'title': '',
         'post_secondary_school': '',
         'secondary-school': '',
@@ -353,6 +333,8 @@ export class PreviewComponent implements OnInit, OnDestroy {
    */
   public locationPlaceHolder = 'City, Province or Country';
   public subscriber: any = {};
+
+  lazyLoadGifIds = ['#registration-gif', '#create-profile-gif', '#view-scholarships-gif'];
   @ViewChild('trySearch') public popover: NgbPopover;
 
   constructor(
@@ -368,8 +350,31 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    $(function () {
-      $('iframe.lazy-load-element').attr('src', '//www.youtube.com/embed/c_K4342WMwQ?cc_load_policy=1');
+    const self = this;
+
+    setTimeout(() => {
+
+      $(function () {
+        $('iframe.lazy-load-element').attr('src', '//www.youtube.com/embed/c_K4342WMwQ?cc_load_policy=1');
+
+        for (let i = 0; i < self.lazyLoadGifIds.length; i++) {
+
+          const gifFileName = self.lazyLoadGifIds[i].replace('#', '').replace('-gif','.gif')
+          const gifFilePath = `../../assets/img/landing-page/${gifFileName}`;
+          $(self.lazyLoadGifIds[i]).attr('src', gifFilePath);
+        }
+
+      });
+
+    }, 3000);
+
+
+    this.blogs = this.blogs.map(item => {
+      return genericItemTransform(item);
+    });
+
+    this.essays = this.essays.map(item => {
+      return genericItemTransform(item);
     });
 
   }
@@ -399,9 +404,9 @@ export class PreviewComponent implements OnInit, OnDestroy {
    * @param placeResult
    */
   predictLocation(location, placeResult) {
-    var addressComponents = placeResult.address_components;
+    const addressComponents = placeResult.address_components;
 
-    var keys = ['city', 'province', 'country'];
+    const keys = ['city', 'province', 'country'];
 
     //TODO: Find a more elegant solution for this.
 
@@ -516,7 +521,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
 
     this.subscriber.utm_source = 'preview_scholarships';
-    let dialogRef = this.dialog.open(SubscriberDialogComponent, {
+    const dialogRef = this.dialog.open(SubscriberDialogComponent, {
       width: '300px',
       data: this.subscriber,
     });

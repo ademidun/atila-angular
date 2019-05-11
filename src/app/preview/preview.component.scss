@@ -120,6 +120,11 @@ mat-form-field.location-div .mat-input-wrapper {
   margin-top: 5.7%;
 }
 
+.landing-page-gif {
+  object-fit: contain;
+  margin: 3% 0;
+}
+
 .videowrapper {
   float: none;
   clear: both;
@@ -149,11 +154,19 @@ mat-form-field.location-div .mat-input-wrapper {
   .offset-md-5 {
     margin-left: 41.666667%;
   }
+
 }
 
 @media (max-width: 576px){
   .subscribe-btn {
     margin-left: 5%;
+  }
+  .landing-page-gif.landing-page-gif-mobile {
+    object-fit: contain;
+  }
+  .landing-page-gif.landing-page-gif-desktop {
+    object-fit: contain;
+    height: 245px;
   }
 }
 
@@ -180,4 +193,10 @@ mat-form-field.location-div .mat-input-wrapper {
 
 input[_ngcontent-c8]:not([type]) {
   border-bottom-color: transparent;
+}
+
+@media only screen and (min-width: 993px) {
+  .container {
+    width: 85%;
+  }
 }

@@ -7,10 +7,7 @@
       <ul class="right hide-on-med-and-down">
 
         <!--Desktop: Not Logged In -->
-        <span  *ngIf="!authService.isLoggedIn">
-
-
-
+        <ng-container  *ngIf="!authService.isLoggedIn">
           <li>
               <mat-form-field class="">
               <input matInput class="browser-default"  type="text"
@@ -45,14 +42,11 @@
             </a>
           </li>
 
-          <li>
-            <a routerLink="/forum" title="Forums">
-
-                <!--<mat-icon  class="atila-blue" aria-hidden="true" md-colors="{color:'$my-lighten'}">forum</mat-icon>-->
-                Forum
-
-            </a>
-          </li>
+          <!--<li>-->
+            <!--<a routerLink="/forum" title="Forums">-->
+                <!--Forum-->
+            <!--</a>-->
+          <!--</li>-->
           <li>
             <a routerLink="/essay" title="Essays">
 
@@ -66,7 +60,7 @@
             <a class="atila-blue" [href]="'/login'+'?redirect='+encodeURIComponent(router.url) " (click)="login($event)">Log In</a>
           </li>
 
-        </span>
+        </ng-container>
 
         <!--Desktop: Logged In -->
         <span *ngIf="authService.isLoggedIn">
@@ -133,14 +127,11 @@
 
               <li>
 
-              <li>
-                  <a routerLink="/forum" title="Forums">
-
-                        <!--<mat-icon  class="atila-blue" aria-hidden="true" md-colors="{color:'$my-lighten'}">forum</mat-icon>-->
-                    Forum
-
-                  </a>
-                </li>
+              <!--<li>-->
+                  <!--<a routerLink="/forum" title="Forums">-->
+                    <!--Forum-->
+                  <!--</a>-->
+              <!--</li>-->
 
           <li>
             <a routerLink="/essay" title="Essays">
@@ -202,11 +193,11 @@
                         <span>Essays</span>
                     </button>
                   </a>
-                  <a routerLink="/forum">
-                    <button mat-menu-item>
-                      <span>Forums</span>
-                    </button>
-                  </a>
+                  <!--<a routerLink="/forum">-->
+                    <!--<button mat-menu-item>-->
+                      <!--<span>Forums</span>-->
+                    <!--</button>-->
+                  <!--</a>-->
                   <a routerLink="/blog">
                     <button mat-menu-item>
                       <span>Blogs</span>
@@ -255,11 +246,11 @@
                         <span>Essays</span>
                     </button>
                   </a>
-                  <a routerLink="/forum">
-                    <button mat-menu-item>
-                      <span>Forums</span>
-                    </button>
-                  </a>
+                  <!--<a routerLink="/forum">-->
+                    <!--<button mat-menu-item>-->
+                      <!--<span>Forums</span>-->
+                    <!--</button>-->
+                  <!--</a>-->
                   <a routerLink="/blog">
                     <button mat-menu-item>
                       <span>Blogs</span>
