@@ -8,10 +8,10 @@ import {toTitleCase} from '../_shared/utils';
 export class CardGenericComponent implements OnInit {
 
   @Input() item: any;
-  @Input() metadata: {
+  @Input() metadata = {
     showImageInPreviewMode: false,
     showEssayImage: false,
-    hideDescription: boolean,
+    hideDescription: false,
   };
   @Input() cardStyle: any = {};
   @Input() cardTitleStyle: any = {};

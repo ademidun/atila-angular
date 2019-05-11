@@ -12,7 +12,7 @@
       Status: {{toTitleCase(item.status)}}
     </p>
   </div>
-    <div class="chip m-3" *ngIf="item.type == 'essay'" style="width: 200px;">
+    <div class="chip m-3" *ngIf="['essay','blog'].includes(item.type)" style="width: 200px;">
       <img style="max-width: 50px" [src]="item.user.profile_pic_url">
       <a routerLink="/profile/{{item.user.username}}">
         {{item.user.first_name}} {{item.user.last_name}}
@@ -31,5 +31,5 @@
       {{item.description | truncate: previewDescription ? item.description.length : previewDescriptionLength}}
     </p>
   </div>
-<a (click)="togglePreview()" class="card-footer"> {{previewDescription ? 'Hide': null}}Preview</a>
+<a (click)="togglePreview()" class="card-footer"> {{previewDescription ? 'Hide': null}} Preview</a>
 </div>

@@ -26,6 +26,7 @@ export class Scholarship {
               public eligible_schools?: any,
               public enrollment_proof_required?: any,
               public ethnicity?: string[],
+              public essay_set?: any[],
               public extra_questions?: any,
               public extra_criteria?: any,
               public female_only?: boolean,

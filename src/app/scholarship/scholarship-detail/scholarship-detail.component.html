@@ -40,20 +40,20 @@
 
         <div  class="col-sm-12 col-md-4">
 
-          <!--<span *ngIf="scholarship.is_automated">-->
-          <!--<button mat-raised-button (click)="getOrCreateApp()"-->
-          <!--style="background-color: #4080ff; min-height: 60px; min-width: 200px" class="white-text">Apply now</button>-->
-          <!--</span>-->
+          <span *ngIf="userProfile && userProfile.is_atila_admin && scholarship.is_automated">
+          <button mat-raised-button (click)="getOrCreateApp()"
+          style="background-color: #4080ff; min-height: 60px; min-width: 200px" class="white-text">Apply now</button>
+          </span>
 
-          <!--<span *ngIf="scholarship">-->
-          <!--<button mat-raised-button (click)="requestAutomation()"-->
-          <!--style="background-color: #4080ff; min-height: 60px" class="white-text" placement="bottom"-->
-          <!--ngbTooltip="Request for this scholarship's application process to be automated.">-->
-          <!--Request Automation-->
-          <!--</button>-->
-          <!--<i class="material-icons" placement="bottom"-->
-          <!--ngbTooltip="Request for this scholarship's application process to be automated.">info_outline</i>-->
-          <!--</span>-->
+          <span *ngIf="scholarship">
+          <button mat-raised-button (click)="requestAutomation()"
+          style="background-color: #4080ff; min-height: 60px" class="white-text" placement="bottom"
+          ngbTooltip="Request for this scholarship's application process to be automated.">
+          Request Automation
+          </button>
+          <i class="material-icons" placement="bottom"
+          ngbTooltip="Request for this scholarship's application process to be automated.">info_outline</i>
+          </span>
 
           <div>
             <!--<button mat-fab  (click)="addToMyScholarships(scholarship)" style="margin-left: -23%">-->
@@ -157,7 +157,7 @@
 
       <!-- Side Widget -->
       <div class="card my-4">
-        <h5 class="card-header">Related<sup style="font-size: small;top: -1em;">Beta</sup></h5>
+        <h5>Related<sup style="font-size: small;top: -1em;">Beta</sup></h5>
         <div class="card-body">
           <div  *ngFor="let item of relatedItems; let i = index; first as isFirst;">
             <div (click)="logRelatedItemClick(item)">
@@ -165,6 +165,20 @@
                                 [titleMaxLength]="60"
                                 [cardStyle]="{'max-height': '450px', 'overflow-y': 'hidden'}"
                                 [imageStyle]="{'max-height': '250px', 'overflow-y': 'hidden'}"> </app-card-generic>
+            </div>
+          </div>
+
+          <hr/>
+
+          <div *ngIf="scholarship.essay_set && scholarship.essay_set.length>0" class="row">
+            <h5>Related Essays<sup style="font-size: small;top: -1em;">Beta</sup></h5>
+            <div  *ngFor="let item of scholarship.essay_set ; let i = index; first as isFirst;">
+              <div (click)="logRelatedItemClick(item)">
+                <app-card-generic [item]="item" [metadata]="{hideDescription: item.image}"
+                                  [titleMaxLength]="60"
+                                  [cardStyle]="{'max-height': '450px', 'overflow-y': 'hidden'}"
+                                  [imageStyle]="{'max-height': '250px', 'overflow-y': 'hidden'}"> </app-card-generic>
+              </div>
             </div>
           </div>
 
@@ -196,6 +210,24 @@
         </app-card-generic>
       </div>
     </div>
+    <hr/>
+  </div>
+
+  <div *ngIf="scholarship.essay_set && scholarship.essay_set.length>0" class="row">
+    <div style="width: 100%; margin-left: 5%"><h5>Related Essays</h5></div>
+    <div  *ngFor="let item of scholarship.essay_set; let i = index; first as isFirst;" class="col-md-4">
+      <div (click)="logRelatedItemClick(item)">
+        <!--<app-card-generic class="hide-on-small-and-down" [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'height': '300px', 'overflow-y': 'hidden'}"> </app-card-generic>-->
+        <!--<app-card-generic class="hide-on-med-and-up" [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'max-height': '300px', 'overflow-y': 'hidden'}"> </app-card-generic>-->
+        <app-card-generic [item]="item"
+                          [metadata]="{hideDescription: false}"
+                          [titleMaxLength]="60"
+                          [cardStyle]="{'height': '350px', 'overflow-y': 'hidden'}"
+                          [imageStyle]="{'max-height': '240px', 'overflow-y': 'hidden'}">
+        </app-card-generic>
+      </div>
+    </div>
+    <hr/>
   </div>
 
   <div class="row">

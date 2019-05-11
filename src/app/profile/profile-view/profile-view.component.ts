@@ -23,6 +23,7 @@ import {SCHOOLS_LIST} from '../../_models/constants';
 import {SeoService} from '../../_services/seo.service';
 import {BlogPost} from '../../_models/blog-post';
 import {Essay} from '../../_models/essay';
+import {genericItemTransform} from '../../_shared/utils';
 
 @Component({
   selector: 'app-profile-view',
@@ -40,7 +41,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
   userApplications: any;
   profile_pic_url;
   SCHOOLS_LIST = SCHOOLS_LIST;
-  blogPosts: any[];
+  blogs: any[];
   essays: Essay[];
 
   currentUser:number;
@@ -212,22 +213,13 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
 
   getBlogs(options?: {}) {
 
-    if(!this.blogPosts){
+    if(!this.blogs){
       this.userProfileService.getDetail(this.userProfile.user,'blogs')
         .subscribe(
           res => {
-            this.blogPosts = res.blogs;
+            this.blogs = res.blogs;
 
-            this.blogPosts = this.blogPosts.map( blog => {
-              blog = {
-                title: blog.title,
-                description: blog.description,
-                slug: `/blog/${blog.user.username}/${blog.slug}`,
-                image: blog.header_image_url,
-                user: blog.user,
-              };
-              return blog;
-            })
+            this.blogs = this.blogs.map(item => genericItemTransform(item));
           },
 
         )
@@ -263,16 +255,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
             res => {
               this.essays = res.essays;
 
-              this.essays = this.essays.map( essay => {
-                essay = {
-                  title: essay.title,
-                  description: essay.description,
-                  slug: `/essay/${essay.user.username}/${essay.slug}`,
-                  user: essay.user,
-                  status: essay.status,
-                };
-                return essay;
-              })
+              this.essays = this.essays.map( item => genericItemTransform(item));
             },
 
           )

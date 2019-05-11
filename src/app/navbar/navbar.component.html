@@ -9,14 +9,17 @@
         <!--Desktop: Not Logged In -->
         <ng-container  *ngIf="!authService.isLoggedIn">
           <li>
-              <mat-form-field class="">
-              <input matInput class="browser-default"  type="text"
-                      [(ngModel)]="query" name="search" placeholder="Enter to search" (keyup.enter)="search(query)">
-              </mat-form-field>
+            <app-typeahead [(model)]="query" [dataset]="MASTER_LIST_EVERYTHING"
+                           [maxResultsToDisplay]="5"
+                           [showLabel]="false"
+                           [metadata]="{placeholder:'Enter to search', key: 'searchString',
+                           disableFocusFirst: true, matInput: true, noPlaceHolder: true}"
+                           (typeaheadSelectedEvent)="search($event.event.item)">
+            </app-typeahead>
             </li>
 
           <li>
-            <a routerLink="/search" title="Search">
+            <a (click)="search(query)" title="Search">
               <button mat-fab >
                 <mat-icon  class="atila-blue" aria-hidden="true" aria-label="See Blogs" md-colors="{color:'$my-lighten'}">search</mat-icon>
               </button>
@@ -102,10 +105,14 @@
               </mat-menu>
 
             <li>
-              <mat-form-field >
-              <input matInput class="browser-default"  type="text"
-                      [(ngModel)]="query" name="search" placeholder="Enter to search" (keyup.enter)="search(query)">
-              </mat-form-field>
+
+            <app-typeahead [(model)]="query" [dataset]="MASTER_LIST_EVERYTHING"
+                           [maxResultsToDisplay]="5"
+                           [showLabel]="false"
+                           [metadata]="{placeholder:'Enter to search', key: 'searchString',
+                           disableFocusFirst: true, matInput: true, noPlaceHolder: true}"
+                           (typeaheadSelectedEvent)="search($event.event.item)">
+            </app-typeahead>
             </li>
 
             <li>
@@ -226,10 +233,14 @@
           </button>
         </a>
           <span class="hide-on-small-and-down">
-            <mat-form-field style="width: 15%" >
-                <input matInput class="browser-default"  type="text"
-                       [(ngModel)]="query" name="search" placeholder="Search" (keyup.enter)="search(query)">
-            </mat-form-field>
+
+        <app-typeahead [(model)]="query" [dataset]="MASTER_LIST_EVERYTHING"
+                       [maxResultsToDisplay]="5"
+                       [showLabel]="false"
+                       [metadata]="{placeholder:'Enter to search', key: 'searchString',
+                           disableFocusFirst: true, matInput: true, noPlaceHolder: true}"
+                       (typeaheadSelectedEvent)="search($event.event.item)">
+            </app-typeahead>
           </span>
 
         </span>
@@ -304,10 +315,13 @@
 
 
           <span class="hide-on-small-and-down">
-            <mat-form-field style="width: 15%" >
-                <input matInput class="browser-default"  type="text"
-                       [(ngModel)]="query" name="search" placeholder="Search" (keyup.enter)="search(query)">
-            </mat-form-field>
+            <app-typeahead [(model)]="query" [dataset]="MASTER_LIST_EVERYTHING"
+                           [maxResultsToDisplay]="5"
+                           [showLabel]="false"
+                           [metadata]="{placeholder:'Enter to search', key: 'searchString',
+                           disableFocusFirst: true, matInput: true, noPlaceHolder: true}"
+                           (typeaheadSelectedEvent)="search($event.event.item)">
+            </app-typeahead>
           </span>
 
 
