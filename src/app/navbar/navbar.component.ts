@@ -102,7 +102,10 @@ export class NavbarComponent implements OnInit {
   search(query) {
     this.query = query;
 
-    this.router.navigateByUrl(`search?q=${query}&q_source=navbar`, {preserveQueryParams: true, preserveFragment: true});
+    this.router.navigateByUrl(`search?q=${query}&q_source=navbar`, {preserveQueryParams: true, preserveFragment: true})
+      .then((res)=> {
+        this.query = null;
+      });
 
   }
 

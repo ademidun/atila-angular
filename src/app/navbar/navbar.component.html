@@ -9,7 +9,6 @@
         <!--Desktop: Not Logged In -->
         <ng-container  *ngIf="!authService.isLoggedIn">
           <li>
-
             <app-typeahead [(model)]="query" [dataset]="MASTER_LIST_EVERYTHING"
                            [maxResultsToDisplay]="5"
                            [metadata]="{placeholder:'Enter to search', key: 'searchString',
@@ -105,10 +104,13 @@
               </mat-menu>
 
             <li>
-              <mat-form-field >
-              <input matInput class="browser-default"  type="text"
-                      [(ngModel)]="query" name="search" placeholder="Enter to search" (keyup.enter)="search(query)">
-              </mat-form-field>
+
+            <app-typeahead [(model)]="query" [dataset]="MASTER_LIST_EVERYTHING"
+                           [maxResultsToDisplay]="5"
+                           [metadata]="{placeholder:'Enter to search', key: 'searchString',
+                           disableFocusFirst: true, matInput: true, noPlaceHolder: true, showLabel: false}"
+                           (typeaheadSelectedEvent)="search($event.event.item)">
+            </app-typeahead>
             </li>
 
             <li>
@@ -234,10 +236,6 @@
                        [metadata]="{'placeholder':'Enter to search', 'key': 'searchString','disableFocusFirst': true, 'matInput': true, 'noPlaceHolder': true}"
                        (typeaheadSelectedEvent)="search($event)">
         </app-typeahead>
-            <mat-form-field style="width: 15%" >
-                <input matInput class="browser-default"  type="text"
-                       [(ngModel)]="query" name="search" placeholder="Search" (keyup.enter)="search(query)">
-            </mat-form-field>
           </span>
 
         </span>
@@ -312,10 +310,12 @@
 
 
           <span class="hide-on-small-and-down">
-            <mat-form-field style="width: 15%" >
-                <input matInput class="browser-default"  type="text"
-                       [(ngModel)]="query" name="search" placeholder="Search" (keyup.enter)="search(query)">
-            </mat-form-field>
+            <app-typeahead [(model)]="query" [dataset]="MASTER_LIST_EVERYTHING"
+                           [maxResultsToDisplay]="5"
+                           [metadata]="{placeholder:'Enter to search', key: 'searchString',
+                           disableFocusFirst: true, matInput: true, noPlaceHolder: true, showLabel: false}"
+                           (typeaheadSelectedEvent)="search($event.event.item)">
+            </app-typeahead>
           </span>
 
 
