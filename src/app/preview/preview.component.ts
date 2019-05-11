@@ -109,21 +109,17 @@ export class PreviewComponent implements OnInit, OnDestroy {
       'a food delivery company called Dine Easy. ' +
       'He is currently in his final year in the honours business program at the Ivey Business School.',
       'header_image_url': 'https://cdn-images-1.medium.com/max/1600/0*h479gzY6kiJje0AH',
-      'published': true,
-      'up_votes_count': 0,
-      'down_votes_count': 0,
-      'up_votes_id': [],
-      'down_votes_id': [],
-      'metadata': {},
       'user': {
-        'first_name': 'Tomiwa',
-        'last_name': 'Ademidun',
-        'username': 'tomiwa',
-        'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fprofile-pictures%2Ffacebook-profile-picture.jpg?alt=media&token=8754c657-bbdc-4d8e-ae1d-d4047ac09c6d',
-        'title': 'Software Engineering Student',
-        'post_secondary_school': 'University of Western Ontario',
-        'secondary-school': '',
-        'id': 1
+        'user': 608,
+        'first_name': 'Aurorita',
+        'last_name': 'Mahbub',
+        'username': 'auroritam',
+        'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F608%2Fprofile-pictures%2FIMG_3146.jpg?alt=media&token=9086848b-ec09-4b39-ad7a-58893519bcbf',
+        'title': '',
+        'profile_description': '',
+        'secondary_school': '',
+        'post_secondary_school': '',
+        'public_metadata': {}
       },
       'contributors': []
     },

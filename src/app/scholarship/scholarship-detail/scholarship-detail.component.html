@@ -198,6 +198,21 @@
     </div>
   </div>
 
+  <div *ngIf="scholarship.essay_set && scholarship.essay_set.length>0" class="row">
+    <div style="width: 100%; margin-left: 5%"><h5>Related Essays</h5></div>
+    <div  *ngFor="let item of scholarship.essay_set; let i = index; first as isFirst;" class="col-md-4">
+      <div (click)="logRelatedItemClick(item)">
+        <!--<app-card-generic class="hide-on-small-and-down" [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'height': '300px', 'overflow-y': 'hidden'}"> </app-card-generic>-->
+        <!--<app-card-generic class="hide-on-med-and-up" [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'max-height': '300px', 'overflow-y': 'hidden'}"> </app-card-generic>-->
+        <app-card-generic [item]="item" [metadata]="{hideDescription: item.image}"
+                          [titleMaxLength]="60"
+                          [cardStyle]="{'height': '400px', 'overflow-y': 'hidden'}"
+                          [imageStyle]="{'max-height': '240px', 'overflow-y': 'hidden'}">
+        </app-card-generic>
+      </div>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-sm-12 forum-box">
       <h5 > Comments </h5>

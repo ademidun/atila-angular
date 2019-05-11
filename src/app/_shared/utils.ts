@@ -81,6 +81,7 @@ export function genericItemTransform (item) {
           id: item.id,
           slug: `/blog/${item.user.username}/${item.slug}/`,
           type: item.type,
+          user: item.user,
         };
         break;
       case 'forum':
