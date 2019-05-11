@@ -11,6 +11,7 @@
           <li>
 
             <app-typeahead [(model)]="query" [dataset]="MASTER_LIST_EVERYTHING"
+                           [maxResultsToDisplay]="5"
                            [metadata]="{placeholder:'Enter to search', key: 'searchString',
                            disableFocusFirst: true, matInput: true, noPlaceHolder: true, showLabel: false}"
                            (typeaheadSelectedEvent)="search($event.event.item)">

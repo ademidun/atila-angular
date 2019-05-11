@@ -25,6 +25,7 @@ export class TypeaheadComponent implements OnInit {
   @Input() inputStyles: any = {};
   @Input() labelStyles: any = {};
   @Input() showLabel: true;
+  @Input() maxResultsToDisplay: 10;
   @Output() typeaheadSelectedEvent:EventEmitter<any> = new EventEmitter();
 
   search: any;
@@ -46,7 +47,7 @@ export class TypeaheadComponent implements OnInit {
         .merge(this.focus$)
         .merge(this.click$.filter(() => !this.instance.isPopupOpen()))
         .map(term => (term.length < 1 ? this.dataset
-          : this.filterUserInput(term, this.dataset)).slice(0,10));
+          : this.filterUserInput(term, this.dataset)).slice(0,this.maxResultsToDisplay));
 
 
     if (!this.metadata['noPlaceHolder']) {
