@@ -23,6 +23,7 @@ import {
 import {RouterTestingModule} from '@angular/router/testing';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatIconStubComponent} from '../_shared/test-helpers';
+import {CardGenericComponent} from '../card-generic/card-generic.component';
 
 fdescribe('PreviewComponent', () => {
   let component: PreviewComponent;
@@ -36,6 +37,7 @@ fdescribe('PreviewComponent', () => {
         PreviewComponent,
         TypeaheadComponent,
         ShareItemComponent,
+        CardGenericComponent,
         TruncatePipe,
       ],
       imports: [
