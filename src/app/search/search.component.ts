@@ -7,6 +7,8 @@ import {UserProfileService} from '../_services/user-profile.service';
 import {MatSnackBar} from '@angular/material';
 import {UserProfile, addToMyScholarshipHelper} from '../_models/user-profile';
 import {genericItemTransform} from '../_shared/utils';
+import {MASTER_LIST_EVERYTHING} from '../_models/constants';
+import {Title} from '@angular/platform-browser';
 
 
 @Component({
@@ -23,6 +25,7 @@ export class SearchComponent implements OnInit {
   essays = [];
   searchResults: any = {};
   userProfile: UserProfile;
+  MASTER_LIST_EVERYTHING = MASTER_LIST_EVERYTHING.map(item => item.toLowerCase());
 
 
   constructor(
@@ -33,6 +36,7 @@ export class SearchComponent implements OnInit {
     public authService: AuthService,
     public firebaseService: MyFirebaseService,
     public userProfileService: UserProfileService,
+    public titleService: Title,
   ) { }
 
   ngOnInit() {
@@ -48,6 +52,8 @@ export class SearchComponent implements OnInit {
     const queryOptions = this.route.snapshot.queryParams;
 
     if (this.query) {
+
+      this.titleService.setTitle(`${this.query} - Atila Search`);
       this.search(this.query, queryOptions)
     }
 
@@ -55,6 +61,16 @@ export class SearchComponent implements OnInit {
   }
 
   search(query, queryOptions?) {
+    console.log({ query });
+
+    if (query.event) {
+      query = query.event.item;
+      this.query = query;
+
+      this.titleService.setTitle(`${this.query} - Atila Search`);
+    }
+
+    console.log({ query });
 
     this.isSearching = true;
 

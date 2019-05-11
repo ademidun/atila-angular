@@ -1,9 +1,11 @@
 <div class="container">
     <div class=" card row">
-      <mat-form-field class="col-sm-8">
-      <input tabindex="1" matInput class="browser-default" id="search" type="text"
-             required [(ngModel)]="query" name="search" placeholder="Enter to search" (keyup.enter)="search(query, {q:query,q_source:'keyup_enter'})">
-      </mat-form-field>
+      <div class="col-sm-8">
+      <app-typeahead [(model)]="query" [dataset]="MASTER_LIST_EVERYTHING"
+                     [metadata]="{'placeholder':'Enter to search', 'key': 'searchString','disableFocusFirst': true, 'matInput': true, 'noPlaceHolder': true}"
+                     (typeaheadSelectedEvent)="search($event)">
+      </app-typeahead>
+      </div>
 
       <a tabindex="2"  class="waves-effect waves-light btn col-sm-3" (click)="search(query, {q:query,q_source:'button_click'})">
         <i class="material-icons automate-tag">search</i>
