@@ -60,7 +60,7 @@ export class SearchComponent implements OnInit {
 
   }
 
-  search(query, queryOptions?) {
+  search(query, queryOptions = {}) {
     console.log({ query });
 
     if (query.event) {
@@ -76,7 +76,8 @@ export class SearchComponent implements OnInit {
 
 
     const queryMetaData = {
-      query: queryOptions,
+      query: query,
+      queryOptions: queryOptions,
       user_id: null,
     };
 
