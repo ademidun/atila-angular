@@ -333,6 +333,8 @@ export class PreviewComponent implements OnInit, OnDestroy {
    */
   public locationPlaceHolder = 'City, Province or Country';
   public subscriber: any = {};
+
+  lazyLoadGifIds = ['#registration-gif', '#create-profile-gif', '#view-scholarships-gif'];
   @ViewChild('trySearch') public popover: NgbPopover;
 
   constructor(
@@ -348,9 +350,24 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    $(function () {
-      $('iframe.lazy-load-element').attr('src', '//www.youtube.com/embed/c_K4342WMwQ?cc_load_policy=1');
-    });
+    const self = this;
+
+    setTimeout(() => {
+
+      $(function () {
+        $('iframe.lazy-load-element').attr('src', '//www.youtube.com/embed/c_K4342WMwQ?cc_load_policy=1');
+
+        for (let i = 0; i < self.lazyLoadGifIds.length; i++) {
+
+          const gifFileName = self.lazyLoadGifIds[i].replace('#', '').replace('-gif','.gif')
+          const gifFilePath = `../../assets/img/landing-page/${gifFileName}`;
+          $(self.lazyLoadGifIds[i]).attr('src', gifFilePath);
+        }
+
+      });
+
+    }, 3000);
+
 
     this.blogs = this.blogs.map(item => {
       return genericItemTransform(item);
