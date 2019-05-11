@@ -12,7 +12,7 @@
       Status: {{toTitleCase(item.status)}}
     </p>
   </div>
-    <div class="chip m-3" *ngIf="item.type == 'essay'" style="width: 150px;">
+    <div class="chip m-3" *ngIf="item.type == 'essay'" style="width: 200px;">
       <img style="max-width: 50px" [src]="item.user.profile_pic_url">
       <a routerLink="/profile/{{item.user.username}}">
         {{item.user.first_name}} {{item.user.last_name}}

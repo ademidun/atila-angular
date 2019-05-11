@@ -90,37 +90,21 @@
     <h4>Essay</h4>
 
     <div class="row">
-      <div *ngFor=" let essay of searchResults.essays" class="col-sm-12 col-md-10">
-        <div class="card small">
-          <div class="card-title">
-            <a (click)="saveQueryClick(essay,'essay')" routerLink="/essay/{{essay.user.username}}/{{essay.slug}}"> {{essay.title}}</a>
-          </div>
-          <div class="card-image">
-            <a (click)="saveQueryClick(essay,'essay')" routerLink="/essay/{{essay.user.username}}/{{essay.slug}}">
-              <img [src]="essay.user.profile_pic_url" style="max-width: 150px; max-height: 150px">
-            </a>
-          <div class="card-content">
-            <p class="card-text" *ngIf="essay.description">
-              {{((essay.description.length>140)? (essay.description | slice:0:140)+'...':(essay.description) )}}
-            </p>
-          </div>
-        </div>
+      <div  *ngFor="let essay of essays; let i = index; first as isFirst;" class="col-md-12">
+        <!--<ng-container (click)="saveQueryClick(essay,'essay')" [routerLink]="essay.slug">-->
+        <app-card-generic [item]="essay"
+                          [metadata]="{hideDescription: false, showImageInPreviewMode: true,showEssayImage: true}"
+                          [imageStyle]="{'max-height': '200px', width: 'auto', 'margin-left': '20%'}"
+                          [cardStyle]="{'height': '550px', 'overflow-y': 'hidden'}"
+                          [cardTitleStyle]="{height: '100px'}"> </app-card-generic>
+        <!--</ng-container>-->
       </div>
-    </div>
-
-    <div class="row center"  *ngIf="!isLoggedIn && searchResults.blogPosts" >
-      <p>Some results may be omitted, <a routerLink="/register">register</a>  to see all results</p>
-      <a class="waves-effect waves-light btn scholarship-btn" routerLink="/register">Register</a>
-    </div>
-
-    <div class="row center"  *ngIf="isLoggedIn && searchResults.metadata && searchResults.metadata.blogPosts && searchResults.metadata.blogPosts.omit_results">
-      <p>There are more results, try a more specific search.</p>
     </div>
 
   </div>
 
-    <!--Forum Results -->
-    <div class=" card row">
+  <!--Forum Results -->
+  <div class=" card row">
     <h4>Forums</h4>
 
     <div class="row">

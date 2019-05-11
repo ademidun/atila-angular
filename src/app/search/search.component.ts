@@ -6,6 +6,7 @@ import {MyFirebaseService} from '../_services/myfirebase.service';
 import {UserProfileService} from '../_services/user-profile.service';
 import {MatSnackBar} from '@angular/material';
 import {UserProfile, addToMyScholarshipHelper} from '../_models/user-profile';
+import {genericItemTransform} from '../_shared/utils';
 
 
 @Component({
@@ -17,9 +18,9 @@ export class SearchComponent implements OnInit {
 
   query: any;
   userId: any;
-  isLoggedIn: boolean = false;
+  isLoggedIn = false;
   isSearching: boolean;
-
+  essays = [];
   searchResults: any = {};
   userProfile: UserProfile;
 
@@ -39,12 +40,12 @@ export class SearchComponent implements OnInit {
     this.query = this.route.snapshot.queryParams['q'];
 
 
-    this.userId = parseInt(this.authService.decryptLocalStorage('uid'));
+    this.userId = parseInt(this.authService.decryptLocalStorage('uid'), 10);
 
     if (!isNaN(this.userId)) {
       this.isLoggedIn = true;
     }
-    let queryOptions = this.route.snapshot.queryParams;
+    const queryOptions = this.route.snapshot.queryParams;
 
     if (this.query) {
       this.search(this.query, queryOptions)
@@ -58,7 +59,7 @@ export class SearchComponent implements OnInit {
     this.isSearching = true;
 
 
-    let queryMetaData = {
+    const queryMetaData = {
       query: queryOptions,
       user_id: null,
     };
@@ -69,7 +70,7 @@ export class SearchComponent implements OnInit {
       queryMetaData.user_id = this.userId
     }
 
-    let queryString= `?q=${query}`;
+    const queryString= `?q=${query}`;
 
     this.searchService.search(queryString, queryMetaData)
       .subscribe(
@@ -78,13 +79,17 @@ export class SearchComponent implements OnInit {
           this.isSearching = false;
 
 
-          //Call customizeResults() twice, since search results and user data may return at different times.
+          // Call customizeResults() twice, since search results and user data may return at different times.
+
+          this.essays = this.searchResults.essays.map(item => {
+            return genericItemTransform(item);
+          });
 
           if (!this.userProfile && !isNaN(this.userId)) {
             this.userProfileService.getById(this.userId)
               .subscribe(
-                res => {
-                  this.userProfile = res;
+                res2 => {
+                  this.userProfile = res2;
                   this.customizeResults();
                 },
               );
@@ -94,7 +99,7 @@ export class SearchComponent implements OnInit {
           }
         } ,
 
-        err=>{
+        err => {
           this.isSearching = false;
         },
       )
@@ -122,7 +127,7 @@ export class SearchComponent implements OnInit {
 
   }
   saveQueryClick(clickObject,objectType) {
-    let clickData:any = {
+    const clickData:any = {
       title: clickObject.title || clickObject.name,
       object_id: clickObject.id,
       object_type: objectType,
@@ -137,7 +142,7 @@ export class SearchComponent implements OnInit {
 
   addToMyScholarships(scholarship) {
 
-    let userAnalytics:any = {};
+    const userAnalytics:any = {};
 
     userAnalytics.share_type = 'save_scholarship';
     userAnalytics.share_source = 'search';
@@ -151,7 +156,7 @@ export class SearchComponent implements OnInit {
     }
 
     if (!this.userProfile) {
-      let snackBarRef = this.snackBar.open("Register to Save", 'Register', {
+      const snackBarRef = this.snackBar.open('Register to Save', 'Register', {
         duration: 5000
       });
 
@@ -164,10 +169,10 @@ export class SearchComponent implements OnInit {
       return;
     }
 
-    let saveResult = addToMyScholarshipHelper(this.userProfile,scholarship);
+    const saveResult = addToMyScholarshipHelper(this.userProfile,scholarship);
 
     if(!saveResult[1]) {
-      this.snackBar.open("Already Saved", '', {
+      this.snackBar.open('Already Saved', '', {
         duration: 5000
       });
       return;
@@ -178,7 +183,7 @@ export class SearchComponent implements OnInit {
       this.userProfileService.updateHelper(this.userProfile)
         .subscribe(
           res => {
-            let snackBarRef = this.snackBar.open("Saved to My Scholarships", 'My Scholarships', {
+            const snackBarRef = this.snackBar.open('Saved to My Scholarships', 'My Scholarships', {
               duration: 5000
             });
 
