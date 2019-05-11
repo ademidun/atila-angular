@@ -11,8 +11,9 @@
           <li>
             <app-typeahead [(model)]="query" [dataset]="MASTER_LIST_EVERYTHING"
                            [maxResultsToDisplay]="5"
+                           [showLabel]="false"
                            [metadata]="{placeholder:'Enter to search', key: 'searchString',
-                           disableFocusFirst: true, matInput: true, noPlaceHolder: true, showLabel: false}"
+                           disableFocusFirst: true, matInput: true, noPlaceHolder: true}"
                            (typeaheadSelectedEvent)="search($event.event.item)">
             </app-typeahead>
             </li>
@@ -107,8 +108,9 @@
 
             <app-typeahead [(model)]="query" [dataset]="MASTER_LIST_EVERYTHING"
                            [maxResultsToDisplay]="5"
+                           [showLabel]="false"
                            [metadata]="{placeholder:'Enter to search', key: 'searchString',
-                           disableFocusFirst: true, matInput: true, noPlaceHolder: true, showLabel: false}"
+                           disableFocusFirst: true, matInput: true, noPlaceHolder: true}"
                            (typeaheadSelectedEvent)="search($event.event.item)">
             </app-typeahead>
             </li>
@@ -234,8 +236,9 @@
 
         <app-typeahead [(model)]="query" [dataset]="MASTER_LIST_EVERYTHING"
                        [maxResultsToDisplay]="5"
+                       [showLabel]="false"
                        [metadata]="{placeholder:'Enter to search', key: 'searchString',
-                           disableFocusFirst: true, matInput: true, noPlaceHolder: true, showLabel: false}"
+                           disableFocusFirst: true, matInput: true, noPlaceHolder: true}"
                        (typeaheadSelectedEvent)="search($event.event.item)">
             </app-typeahead>
           </span>
@@ -314,8 +317,9 @@
           <span class="hide-on-small-and-down">
             <app-typeahead [(model)]="query" [dataset]="MASTER_LIST_EVERYTHING"
                            [maxResultsToDisplay]="5"
+                           [showLabel]="false"
                            [metadata]="{placeholder:'Enter to search', key: 'searchString',
-                           disableFocusFirst: true, matInput: true, noPlaceHolder: true, showLabel: false}"
+                           disableFocusFirst: true, matInput: true, noPlaceHolder: true}"
                            (typeaheadSelectedEvent)="search($event.event.item)">
             </app-typeahead>
           </span>
