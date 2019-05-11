@@ -4,7 +4,7 @@
 
 </label>
 <input [tabindex]="metadata['tabindex']" id="typeahead-config" type="text" class="form-control"
-       [placeholder]="metadata['noPlaceholder'] ? null : metadata['placeholder']"
+       [placeholder]="metadata['placeholder'] || ''"
        (selectItem)="optionSelected($event, item);"
        (focus)="focus$.next($event.target.value)"
        (click)="click$.next($event.target.value)"

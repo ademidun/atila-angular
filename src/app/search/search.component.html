@@ -3,7 +3,7 @@
       <div class="col-sm-8">
       <app-typeahead [(model)]="query" [dataset]="MASTER_LIST_EVERYTHING"
                      [metadata]="{placeholder:query||'Enter to search', key: 'searchString',
-                     matInput: true, noPlaceHolder: true}"
+                     matInput: true}"
                      (typeaheadSelectedEvent)="search($event)">
       </app-typeahead>
       </div>

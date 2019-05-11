@@ -100,12 +100,10 @@ export class NavbarComponent implements OnInit {
     this.authService.redirectUrl = this.router.url;
   }
   search(query) {
-    this.query = query;
+    this.query = null; // reset the query value after the query has been submitted
 
-    this.router.navigateByUrl(`search?q=${query}&q_source=navbar`, {preserveQueryParams: true, preserveFragment: true})
-      .then((res)=> {
-        this.query = null;
-      });
+    query = query ? `?q=${query}&q_source=navbar` : '?q_source=navbar';
+    this.router.navigateByUrl(`search${query}`, {preserveQueryParams: true, preserveFragment: true});
 
   }
 
