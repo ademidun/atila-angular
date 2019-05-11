@@ -1022,7 +1022,7 @@ export const COUNTRIES = [
   'Zimbabwe'
 ];
 export const LANGUAGE = [
-  'Abkhazian',// commented out Abkhazian so it doesn't show up in master list before accounting and acadia university
+  // 'Abkhazian',// commented out Abkhazian so it doesn't show up in master list before accounting and acadia university
   'Achinese',
   'Acoli',
   'Adangme',

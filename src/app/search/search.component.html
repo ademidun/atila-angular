@@ -2,7 +2,8 @@
     <div class=" card row">
       <div class="col-sm-8">
       <app-typeahead [(model)]="query" [dataset]="MASTER_LIST_EVERYTHING"
-                     [metadata]="{'placeholder':'Enter to search', 'key': 'searchString','disableFocusFirst': true, 'matInput': true, 'noPlaceHolder': true}"
+                     [metadata]="{placeholder:query||'Enter to search', key: 'searchString',
+                     matInput: true, noPlaceHolder: true}"
                      (typeaheadSelectedEvent)="search($event)">
       </app-typeahead>
       </div>
