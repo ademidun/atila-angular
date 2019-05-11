@@ -10,7 +10,7 @@ import {SubscriberDialogComponent} from '../subscriber-dialog/subscriber-dialog.
 import {MyFirebaseService} from '../_services/myfirebase.service';
 import {NgbPopover} from '@ng-bootstrap/ng-bootstrap';
 import {AuthService} from '../_services/auth.service';
-import {prettifyKeys, toTitleCase} from '../_shared/utils';
+import {genericItemTransform, prettifyKeys, toTitleCase} from '../_shared/utils';
 import {MASTER_LIST_EVERYTHING} from '../_models/constants';
 //import {GeocoderAddressComponent} from '@types/googlemaps'
 
@@ -372,6 +372,12 @@ export class PreviewComponent implements OnInit, OnDestroy {
       $('iframe.lazy-load-element').attr('src', '//www.youtube.com/embed/c_K4342WMwQ?cc_load_policy=1');
     });
 
+    this.blogs = this.blogs.map(item => {
+      return genericItemTransform(item);
+    });
+
+    console.log('this.blogs', this.blogs);
+
   }
 
   ngOnDestroy() {
@@ -399,9 +405,9 @@ export class PreviewComponent implements OnInit, OnDestroy {
    * @param placeResult
    */
   predictLocation(location, placeResult) {
-    var addressComponents = placeResult.address_components;
+    const addressComponents = placeResult.address_components;
 
-    var keys = ['city', 'province', 'country'];
+    const keys = ['city', 'province', 'country'];
 
     //TODO: Find a more elegant solution for this.
 
@@ -516,7 +522,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
 
     this.subscriber.utm_source = 'preview_scholarships';
-    let dialogRef = this.dialog.open(SubscriberDialogComponent, {
+    const dialogRef = this.dialog.open(SubscriberDialogComponent, {
       width: '300px',
       data: this.subscriber,
     });

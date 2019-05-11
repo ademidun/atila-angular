@@ -12,7 +12,7 @@
       Status: {{toTitleCase(item.status)}}
     </p>
   </div>
-  <div class="card-image" *ngIf="item.image && !previewDescription && item.type !='essay'">
+  <div class="card-image" *ngIf="item.image && item.type !='essay' && (!previewDescription||metadata.showImageInPreviewMode)">
     <a [routerLink]="item.slug">
       <img [src]="item.image" [ngStyle]="imageStyle">
     </a>
