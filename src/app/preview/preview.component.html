@@ -201,7 +201,7 @@
     <div class="row">
       <div  *ngFor="let essay of essays; let i = index; first as isFirst;" class="col-md-4">
         <app-card-generic [item]="essay" [metadata]="{hideDescription: essay.image, showImageInPreviewMode: true}"
-                          > </app-card-generic>
+                          [cardStyle]="{'height': '275px', 'overflow-y': 'hidden'}"> </app-card-generic>
       </div>
     </div>
   </div>
