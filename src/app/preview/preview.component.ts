@@ -365,9 +365,10 @@ export class PreviewComponent implements OnInit, OnDestroy {
       return genericItemTransform(item);
     });
 
-    this.essays = this.essays.map(item => {
+
+    /*this.essays = this.essays.map(item => {
       return genericItemTransform(item);
-    });
+    });*/
 
   }
 

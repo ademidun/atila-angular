@@ -23,6 +23,7 @@ import {SCHOOLS_LIST} from '../../_models/constants';
 import {SeoService} from '../../_services/seo.service';
 import {BlogPost} from '../../_models/blog-post';
 import {Essay} from '../../_models/essay';
+import {genericItemTransform} from '../../_shared/utils';
 
 @Component({
   selector: 'app-profile-view',
@@ -218,16 +219,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
           res => {
             this.blogPosts = res.blogs;
 
-            this.blogPosts = this.blogPosts.map( blog => {
-              blog = {
-                title: blog.title,
-                description: blog.description,
-                slug: `/blog/${blog.user.username}/${blog.slug}`,
-                image: blog.header_image_url,
-                user: blog.user,
-              };
-              return blog;
-            })
+            this.blogPosts = this.blogPosts.map( item => { return genericItemTransform(item); });
           },
 
         )
@@ -263,16 +255,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
             res => {
               this.essays = res.essays;
 
-              this.essays = this.essays.map( essay => {
-                essay = {
-                  title: essay.title,
-                  description: essay.description,
-                  slug: `/essay/${essay.user.username}/${essay.slug}`,
-                  user: essay.user,
-                  status: essay.status,
-                };
-                return essay;
-              })
+              this.essays = this.essays.map( item => { return genericItemTransform(item); });
             },
 
           )
