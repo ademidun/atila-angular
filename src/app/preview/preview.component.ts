@@ -56,36 +56,22 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
   blogs = [
     {
-      'id': 9,
-      'title': 'How I got interviews at Google, Facebook and Bridgewater',
-      'slug': 'how-i-got-interviews-at-google-facebook-and-bridgewater',
-      'alternate_slugs': [
-        'got-interviews-google-facebook-bridgewater'
-      ],
-      'dummy_field_detect_migrations_heroku': null,
-      'date_created': '2018-03-27T13:17:20Z',
-      'description': 'Last summer, I decided that I wanted to work at a top tech company such as Google or Bridgewater. Problem. I didn\'t go to a target school, my grades were just okay and I had little work experience. If I wanted to get a chance at these companies I would have to get creative.',
-      'header_image_url': 'https://lh6.googleusercontent.com/U1oHmeuzUcMbPLHFhpDHc_8KsFWq7IX_jE6kUBl1svTSnffIukAjJ0QDgfXJCdZ_rONXiZzhtNnz3CrFMDEnrIrMc5MpnWcSuUfEURbNRFM9lxYPN6qDMSMHPqC02h9o0pO9UlUP',
-      'published': true,
-      'up_votes_count': 0,
-      'down_votes_count': 0,
-      'up_votes_id': [],
-      'down_votes_id': [],
-      'user': {
-        'first_name': 'Tomiwa',
-        'last_name': 'Ademidun',
-        'username': 'tomiwa',
-        'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F1%2Fprofile-pictures%2Ffacebook-profile-picture.jpg?alt=media&token=8754c657-bbdc-4d8e-ae1d-d4047ac09c6d',
-        'title': 'Software Engineering Student',
-        'post_secondary_school': '',
-        'secondary-school': '',
-        'id': 4
-      },
-      'contributors': [],
-      'metadata': {
-        'comments_count': 1
-      }
+    'title': 'How to Get a Summer Internship',
+    'user': {
+      'first_name': 'Trevor',
+      'last_name': 'Sookraj',
+      'username': 'trevorsookraj',
+      'profile_pic_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2F629%2Fprofile-pictures%2Ftrevor-sookraj.jpg?alt=media&token=ebf88b32-8a18-4bd5-83e6-d33fcf112a9d',
+      'title': '',
+      'post_secondary_school': 'Western University',
+      'secondary-school': '',
+      'id': 629
     },
+    'slug': 'how-to-get-a-summer-internship',
+    'description': 'Students generally have limited work experience, so it may seem impossible to get an internship. Through this process, I faced a few obstacles to getting an internship and learned how to overcome them. Here is what I learned',
+    'header_image_url': 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/blogs%2F20%2Fheader_image_url%2Fshopify-internship.jpg?alt=media&token=f391b5d5-c55e-4424-a870-98786189e9d6',
+    'id': 20
+  },
     {
       'id': 13,
       'title': 'Getting into Medical School Without a Degree, Advice for Pre Med Students, Work Life Balance and Self Care - Emily Chen - Atila TV 001',
