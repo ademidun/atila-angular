@@ -112,7 +112,7 @@
           <div class="card-body">
             <div  *ngFor="let item of relatedItems; let i = index; first as isFirst;">
               <div (click)="logRelatedItemClick(item)">
-                <app-card-generic [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'max-height': '450px', 'overflow-y': 'hidden'}"> </app-card-generic>
+                <app-card-generic [item]="item" [metadata]="{hideDescription: true}" [cardStyle]="{'max-height': '275px', 'overflow-y': 'hidden'}"> </app-card-generic>
                 <!--<app-card-generic class="hide-on-small-and-down" [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'height': '400px', 'overflow-y': 'hidden'}"> </app-card-generic>-->
                 <!--<app-card-generic class="hide-on-med-and-up" [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'max-height': '300px', 'overflow-y': 'hidden'}"> </app-card-generic>-->
               </div>
@@ -159,7 +159,7 @@
         </div>
         <div  *ngFor="let item of relatedItems; let i = index; first as isFirst;" class="col-md-4">
           <div (click)="logRelatedItemClick(item)">
-            <app-card-generic [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'height': '450px', 'overflow-y': 'hidden'}"> </app-card-generic>
+            <app-card-generic [item]="item" [metadata]="{hideDescription: true}" [cardStyle]="{'height': '275px', 'overflow-y': 'hidden'}"> </app-card-generic>
           </div>
         </div>
       </div>
