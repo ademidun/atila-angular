@@ -122,7 +122,7 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
             slug: `scholarship/${this.scholarship.slug}/`
           });
 
-          this.scholarship.essay_set = this.scholarship.essay_set.map( item => { genericItemTransform(item); });
+          this.scholarship.essay_set = this.scholarship.essay_set.map( item => genericItemTransform(item));
 
           if (this.scholarship.deadline.includes('2022-01-01')) {
             this.scholarship['metadata']['deadline_tbd'] = 'TBA';
