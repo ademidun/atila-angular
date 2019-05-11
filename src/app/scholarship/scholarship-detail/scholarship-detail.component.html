@@ -55,7 +55,7 @@
           ngbTooltip="Request for this scholarship's application process to be automated.">info_outline</i>
           </span>
 
-          <div>
+          <div style="margin-top: 3%">
             <!--<button mat-fab  (click)="addToMyScholarships(scholarship)" style="margin-left: -23%">-->
             <button mat-fab  (click)="addToMyScholarships(scholarship)" placement="bottom"
                     ngbTooltip="Save Scholarship">
@@ -67,7 +67,7 @@
                             [item]="{title: scholarship.name,
                 url:'https://atila.ca/scholarship/'+scholarship.slug+'/',
                 id: scholarship.id, source:'scholarship_detail',type:'scholarship'}"
-                            [metadata]="{'shareItemStyle':{'left': '65px','bottom': '65%', 'zoom':1.4}}"></app-share-item>
+                            [metadata]="{'shareItemStyle':{'left': '65px','bottom': '20%', 'zoom':1.4}}"></app-share-item>
           </div>
 
         </div>
