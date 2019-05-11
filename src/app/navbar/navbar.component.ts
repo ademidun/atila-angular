@@ -8,6 +8,7 @@ import { MatSnackBar} from '@angular/material';
 import { Router } from '@angular/router';
 import {environment} from '../../environments/environment';
 import {MyFirebaseService} from '../_services/myfirebase.service';
+import {MASTER_LIST_EVERYTHING} from '../_models/constants';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -16,6 +17,7 @@ import {MyFirebaseService} from '../_services/myfirebase.service';
 export class NavbarComponent implements OnInit {
   public isLoggedIn: boolean = false;
   public userProfile: UserProfile;
+  MASTER_LIST_EVERYTHING = MASTER_LIST_EVERYTHING.map(item => item.toLowerCase());
 
   public user = {
     username: '',
@@ -98,7 +100,8 @@ export class NavbarComponent implements OnInit {
     this.authService.redirectUrl = this.router.url;
   }
   search(query) {
-    this.query = null;
+    this.query = query;
+
     this.router.navigateByUrl(`search?q=${query}&q_source=navbar`, {preserveQueryParams: true, preserveFragment: true});
 
   }

@@ -24,6 +24,7 @@ export class TypeaheadComponent implements OnInit {
   @Output() modelChange:EventEmitter<any> = new EventEmitter();
   @Input() inputStyles: any = {};
   @Input() labelStyles: any = {};
+  @Input() showLabel: true;
   @Output() typeaheadSelectedEvent:EventEmitter<any> = new EventEmitter();
 
   search: any;

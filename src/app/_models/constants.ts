@@ -1022,7 +1022,7 @@ export const COUNTRIES = [
   "Zimbabwe"
 ];
 export const LANGUAGE = [
-  "Abkhazian",
+  "Abkhazian",// commented out Abkhazian so it doesn't show up in master list before accounting and acadia university
   "Achinese",
   "Acoli",
   "Adangme",
@@ -1643,7 +1643,7 @@ export const RELIGION = [
 
 ];
 export const ACTIVITIES = [
-  "3D Printing",
+  // "3D Printing", // commented out 3d printing so it doens't show up in master list before accounting and acadia university
   "Acting",
   "Action Figure",
   "Aircraft Spotting",
