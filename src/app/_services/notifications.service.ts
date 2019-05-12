@@ -77,7 +77,7 @@ export class NotificationsService {
 
     const messageData = {
       title: `${scholarship.name} is due in 7 days on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}`,
-      body: `The ${scholarship.name} you saved is due on: ${this.datePipe.transform(scholarship.deadline, 'fullDate')}.
+      body: `Scholarship due on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}: ${scholarship.name}.
        Submit your Application!`,
       clickAction: `https://atila.ca/scholarship/${scholarship.slug}?utm_source=push_notification`,
       // todo: user scholarship.img_url, for now use Atila Logo to build brand awareness
