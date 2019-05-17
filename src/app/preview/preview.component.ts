@@ -330,7 +330,8 @@ export class PreviewComponent implements OnInit, OnDestroy {
   public locationPlaceHolder = 'City, Province or Country';
   public subscriber: any = {};
 
-  lazyLoadGifIds = ['#registration-gif', '#create-profile-gif', '#view-scholarships-gif', '#view-essays-gif'];
+  lazyLoadGifIds = ['#registration-gif', '#create-profile-gif', '#view-scholarships-gif',
+    'scholarship-notifications-gif','#view-essays-gif', '#application-automation-gif'];
   @ViewChild('trySearch') public popover: NgbPopover;
 
   constructor(
