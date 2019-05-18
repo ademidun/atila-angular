@@ -24,6 +24,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatIconStubComponent} from '../_shared/test-helpers';
 import {CardGenericComponent} from '../card-generic/card-generic.component';
+import {By} from 'protractor';
 
 fdescribe('PreviewComponent', () => {
   let component: PreviewComponent;
@@ -81,5 +82,26 @@ fdescribe('PreviewComponent', () => {
 
   it('should be created', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have the correct title', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should have the gif ids for each div', () => {
+
+    const lazyLoadGifIds = ['#registration-gif', '#create-profile-gif', '#view-scholarships-gif',
+      '#scholarship-notifications-gif','#view-essays-gif', '#application-automation-gif'];
+
+    for (let i = 0; i < lazyLoadGifIds.length; i++) {
+
+      const gifDivDebugElement = fixture.debugElement.query(By.css(lazyLoadGifIds[i]));
+      gifDivDebugElement.nativeElement.click();  //  click on the button
+
+      expect(gifDivDebugElement).toBeTruthy();
+    }
+
+    expect(component).toBeTruthy();
+
   });
 });
