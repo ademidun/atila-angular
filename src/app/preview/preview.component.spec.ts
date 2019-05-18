@@ -89,18 +89,18 @@ fdescribe('PreviewComponent', () => {
     expect(compiled.querySelector('h1').textContent).toContain('Find Your Scholarships');
   }));
 
-  it('should have all gif divs stored in PreviewComponent.lazyLoadGifIds', () => {
+  it('should have all gif images stored in PreviewComponent.lazyLoadGifIds', () => {
 
     const compiled = fixture.debugElement.nativeElement;
     const lazyLoadedGifComponents = compiled.querySelectorAll('[id$="-gif"]'); // find all elements with id attribute ending in "-gif"
 
     for (let i = 0; i < lazyLoadedGifComponents.length; i++) {
-      expect(component.lazyLoadGifIds).toContain(lazyLoadedGifComponents[i].id)
+      expect(component.lazyLoadGifIds).toContain('#'+lazyLoadedGifComponents[i].id)
     }
 
   });
 
-  it('should have the gif ids for each gif div', () => {
+  it('should have the gif ids for each gif image', () => {
 
     const lazyLoadGifIds = ['#registration-gif', '#create-profile-gif', '#view-scholarships-gif',
       '#scholarship-notifications-gif','#view-essays-gif', '#application-automation-gif'];
@@ -112,6 +112,34 @@ fdescribe('PreviewComponent', () => {
 
       expect(lazyLoadedGifComponent).toBeTruthy()
     }
+
+  });
+
+  it('should have each gif image existing in file directory', done => {
+
+    const lazyLoadGifIds = ['#registration-gif', '#create-profile-gif', '#view-scholarships-gif',
+      '#scholarship-notifications-gif','#view-essays-gif', '#application-automation-gif'];
+
+    // wait for a short time to make sure image is requested
+    setTimeout(() => {
+      for (let i = 0; i < lazyLoadGifIds.length; i++) {
+
+        const compiled = fixture.debugElement.nativeElement;
+        const lazyLoadedGifImage = compiled.querySelector(lazyLoadGifIds[i]);
+
+        console.log(lazyLoadedGifImage.id);
+        console.log('lazyLoadedGifImage.onerror', lazyLoadedGifImage.onerror);
+
+        lazyLoadedGifImage.onerror = function() {
+          console.log('lazyLoadedGifImage.onerror FOUND', lazyLoadedGifImage);
+        };
+
+        expect(lazyLoadedGifImage.onerror).toBeNull('Expected onerror for this image to be null');
+
+      }
+      done();
+    }, 2000);
+
 
   });
 
