@@ -84,24 +84,35 @@ fdescribe('PreviewComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have the correct title', () => {
-    expect(component).toBeTruthy();
+  it('should render title in a h1 tag', async(() => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h1').textContent).toContain('Find Your Scholarships');
+  }));
+
+  it('should have all gif divs stored in PreviewComponent.lazyLoadGifIds', () => {
+
+    const compiled = fixture.debugElement.nativeElement;
+    const lazyLoadedGifComponents = compiled.querySelectorAll('[id$="-gif"]'); // find all elements with id attribute ending in "-gif"
+
+    for (let i = 0; i < lazyLoadedGifComponents.length; i++) {
+      expect(component.lazyLoadGifIds).toContain(lazyLoadedGifComponents[i].id)
+    }
+
   });
 
-  it('should have the gif ids for each div', () => {
+  it('should have the gif ids for each gif div', () => {
 
     const lazyLoadGifIds = ['#registration-gif', '#create-profile-gif', '#view-scholarships-gif',
       '#scholarship-notifications-gif','#view-essays-gif', '#application-automation-gif'];
 
     for (let i = 0; i < lazyLoadGifIds.length; i++) {
 
-      const gifDivDebugElement = fixture.debugElement.query(By.css(lazyLoadGifIds[i]));
-      gifDivDebugElement.nativeElement.click();  //  click on the button
+      const compiled = fixture.debugElement.nativeElement;
+      const lazyLoadedGifComponent = compiled.querySelector(lazyLoadGifIds[i]);
 
-      expect(gifDivDebugElement).toBeTruthy();
+      expect(lazyLoadedGifComponent).toBeTruthy()
     }
 
-    expect(component).toBeTruthy();
-
   });
+
 });
