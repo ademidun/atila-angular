@@ -331,7 +331,7 @@ export class PreviewComponent implements OnInit, OnDestroy {
   public subscriber: any = {};
 
   lazyLoadGifIds = ['#registration-gif', '#create-profile-gif', '#view-scholarships-gif',
-    'scholarship-notifications-gif','#view-essays-gif', '#application-automation-gif'];
+    '#scholarship-notifications-gif','#view-essays-gif', '#application-automation-gif'];
   @ViewChild('trySearch') public popover: NgbPopover;
 
   constructor(
