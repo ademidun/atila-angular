@@ -24,6 +24,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatIconStubComponent} from '../_shared/test-helpers';
 import {CardGenericComponent} from '../card-generic/card-generic.component';
+import {By} from 'protractor';
 
 fdescribe('PreviewComponent', () => {
   let component: PreviewComponent;
@@ -82,4 +83,62 @@ fdescribe('PreviewComponent', () => {
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render title in a h1 tag', async(() => {
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h1').textContent).toContain('Find Your Scholarships');
+  }));
+
+  it('should have all gif images stored in PreviewComponent.lazyLoadGifIds', () => {
+
+    const compiled = fixture.debugElement.nativeElement;
+    const lazyLoadedGifComponents = compiled.querySelectorAll('[id$="-gif"]'); // find all elements with id attribute ending in "-gif"
+
+    for (let i = 0; i < lazyLoadedGifComponents.length; i++) {
+      expect(component.lazyLoadGifIds).toContain('#'+lazyLoadedGifComponents[i].id)
+    }
+
+  });
+
+  it('should have the gif ids for each gif image', () => {
+
+    const lazyLoadGifIds = ['#registration-gif', '#create-profile-gif', '#view-scholarships-gif',
+      '#scholarship-notifications-gif','#view-essays-gif', '#application-automation-gif'];
+
+    for (let i = 0; i < lazyLoadGifIds.length; i++) {
+
+      const compiled = fixture.debugElement.nativeElement;
+      const lazyLoadedGifComponent = compiled.querySelector(lazyLoadGifIds[i]);
+
+      expect(lazyLoadedGifComponent).toBeTruthy()
+    }
+
+  });
+
+
+  /*
+  it('should have each gif image existing in file directory', done => {
+
+    const lazyLoadGifIds = ['#registration-gif', '#create-profile-gif', '#view-scholarships-gif',
+      '#scholarship-notifications-gif','#view-essays-gif', '#application-automation-gif'];
+
+
+    // wait for a short time to make sure image is requested
+    setTimeout(() => {
+      for (let i = 0; i < lazyLoadGifIds.length; i++) {
+
+        const compiled = fixture.debugElement.nativeElement;
+        const lazyLoadedGifImage = compiled.querySelector(lazyLoadGifIds[i]);
+
+        expect(lazyLoadedGifImage.onerror).toBeNull('Expected onerror for this image to be null');
+
+      }
+      done();
+    }, 2000);
+
+
+  });
+
+  */
+
 });
