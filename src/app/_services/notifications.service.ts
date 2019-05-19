@@ -45,24 +45,40 @@ export class NotificationsService {
 
         $('#dimScreen').css('display', 'none');
 
-        const notificationConfig = { notificationType: 'push', sendDate: 0};
-        let sendDate: Date | number = new Date(scholarship.deadline);
+        // todo notificationOptions will be based on userProfile preferences
+        const notificationOptions = {
+          'email': [7], // each array element represents the number of days before the scholarship deadline a notification should be sent
+          'push': [7]
+        };
 
-        sendDate.setDate(sendDate.getDate() - 7);
-        sendDate = sendDate.getTime();
+        const fullMessagePayloads = [];
 
-        notificationConfig.sendDate = sendDate;
+        for (const notificationType of Object.keys(notificationOptions)) {
+          if (!notificationOptions.hasOwnProperty(notificationType)) {
+            continue;
+          }
+          for (const i = 0; i < notificationOptions[notificationType].length; i++) {
+            const daysBeforeDeadline = notificationOptions[notificationType][i];
 
-        const notificationMessage = this.createScholarshipNotificationMessage(userProfile, scholarship, notificationConfig);
+            let sendDate: Date | number = new Date(scholarship.deadline);
 
-        const fullMessagePayload = {...sub, ...notificationMessage};
+            sendDate.setDate(sendDate.getDate() - daysBeforeDeadline);
+            sendDate = sendDate.getTime();
 
-        fullMessagePayload['endpoint'] = sub.endpoint;
-        fullMessagePayload['_sub'] = sub;
-        fullMessagePayload['_notificationMessage'] = notificationMessage;
+            const notificationConfig = { notificationType: notificationType, sendDate: sendDate};
+            const notificationMessage = this.createScholarshipNotificationMessage(userProfile, scholarship, notificationConfig);
+            const fullMessagePayload = {...sub, ...notificationMessage};
 
-        console.log({fullMessagePayload});
-        return this.pushMessages([fullMessagePayload])
+            fullMessagePayload['endpoint'] = sub.endpoint;
+            fullMessagePayload['_sub'] = sub;
+            fullMessagePayload['_notificationMessage'] = notificationMessage;
+            fullMessagePayloads.push(fullMessagePayload);
+
+          }
+        }
+
+        console.log({fullMessagePayloads});
+        return this.pushMessages(fullMessagePayloads)
           .map(res => res)
           .catch(err => Observable.throw(err));
       },
@@ -82,12 +98,14 @@ export class NotificationsService {
                                        notificationConfig:
                                          { sendDate: number, notificationType: string} = {sendDate: 0, notificationType:''}) {
 
+    const urlAnalyticsSuffix = `?utm_source=${notificationConfig.notificationType}
+      &utm_medium=${notificationConfig.notificationType}&utm_campaign=scholarship-due-remind`;
     const messageData = {
       title: `${userProfile.first_name}, ${scholarship.name} is due in 7 days
        on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}`,
       body: `Scholarship due on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}: ${scholarship.name}.
        Submit your Application!`,
-      clickAction: `https://atila.ca/scholarship/${scholarship.slug}?utm_source=push_notification`,
+      clickAction: `https://atila.ca/scholarship/${scholarship.slug}/${urlAnalyticsSuffix}`,
       // todo: user scholarship.img_url, for now use Atila Logo to build brand awareness
       image: 'https://storage.googleapis.com/atila-7.appspot.com/public/atila-logo-right-way-circle-transparent.png',
       icon: 'https://storage.googleapis.com/atila-7.appspot.com/public/atila-logo-right-way-circle-transparent.png',
@@ -98,7 +116,7 @@ export class NotificationsService {
 
     messageData['actions'] = [
       {
-        action: `scholarship/${scholarship.slug}?utm_campaign=push-notification`,
+        action: `scholarship/${scholarship.slug}/${urlAnalyticsSuffix}`,
         title: 'View Scholarship',
         icon: 'https://storage.googleapis.com/atila-7.appspot.com/public/atila-logo-right-way-circle-transparent.png'
       },
