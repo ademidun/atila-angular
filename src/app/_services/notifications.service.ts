@@ -79,7 +79,8 @@ export class NotificationsService {
   }
 
   createScholarshipNotificationMessage(userProfile: UserProfile, scholarship: Scholarship,
-                                       notificationConfig: { sendDate: number, notificationType: string} = {}) {
+                                       notificationConfig:
+                                         { sendDate: number, notificationType: string} = {sendDate: 0, notificationType:''}) {
 
     const messageData = {
       title: `${userProfile.first_name}, ${scholarship.name} is due in 7 days
