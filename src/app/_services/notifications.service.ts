@@ -44,7 +44,16 @@ export class NotificationsService {
     return this.getPermission().then((sub: PushSubscription) => {
 
         $('#dimScreen').css('display', 'none');
-        const notificationMessage = this.createScholarshipNotificationMessage(userProfile, scholarship);
+
+        const notificationConfig = { notificationType: 'push', sendDate: 0};
+        let sendDate: Date | number = new Date(scholarship.deadline);
+
+        sendDate.setDate(sendDate.getDate() - 7);
+        sendDate = sendDate.getTime();
+
+        notificationConfig.sendDate = sendDate;
+
+        const notificationMessage = this.createScholarshipNotificationMessage(userProfile, scholarship, notificationConfig);
 
         const fullMessagePayload = {...sub, ...notificationMessage};
 
@@ -69,14 +78,12 @@ export class NotificationsService {
       });
   }
 
-  createScholarshipNotificationMessage(userProfile: UserProfile, scholarship: Scholarship) {
-    let sendDate: Date | number = new Date(scholarship.deadline);
-
-    sendDate.setDate(sendDate.getDate() - 7);
-    sendDate = sendDate.getTime();
+  createScholarshipNotificationMessage(userProfile: UserProfile, scholarship: Scholarship,
+                                       notificationConfig: { sendDate: number, notificationType: string} = {}) {
 
     const messageData = {
-      title: `${scholarship.name} is due in 7 days on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}`,
+      title: `${userProfile.first_name}, ${scholarship.name} is due in 7 days
+       on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}`,
       body: `Scholarship due on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}: ${scholarship.name}.
        Submit your Application!`,
       clickAction: `https://atila.ca/scholarship/${scholarship.slug}?utm_source=push_notification`,
@@ -84,7 +91,8 @@ export class NotificationsService {
       image: 'https://storage.googleapis.com/atila-7.appspot.com/public/atila-logo-right-way-circle-transparent.png',
       icon: 'https://storage.googleapis.com/atila-7.appspot.com/public/atila-logo-right-way-circle-transparent.png',
       badge: 'https://storage.googleapis.com/atila-7.appspot.com/public/atila-logo-right-way-circle-transparent.png',
-      sendDate: sendDate,
+      sendDate: notificationConfig.sendDate || 0,
+      notificationType: notificationConfig.notificationType || 'push',
     };
 
     messageData['actions'] = [
@@ -100,5 +108,5 @@ export class NotificationsService {
   }
 }
 
-export let NotificationsServiceStub : Partial<NotificationsService> = {
+export let NotificationsServiceStub: Partial<NotificationsService> = {
 };
