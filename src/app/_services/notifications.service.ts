@@ -25,6 +25,8 @@ export class NotificationsService {
   }
 
   getPermission() {
+    console.log('this.swPush', this.swPush);
+
     if (this.swPush.isEnabled) {
       return this.swPush.requestSubscription({
         serverPublicKey: this.VAPID_PUBLIC_KEY
@@ -41,14 +43,23 @@ export class NotificationsService {
 
   createScholarshipNotifications(userProfile: UserProfile, scholarship: Scholarship) {
 
-    return this.getPermission().then((sub: PushSubscription) => {
+    let getPermissionPromise: Promise<PushSubscription | any> = this.getPermission();
+
+    if (environment.name === 'dev') { // todo: remove before merge-master
+      getPermissionPromise = Promise.resolve({sub: 'test'});
+    }
+
+    return getPermissionPromise
+      .then((sub: PushSubscription|any) => {
+
+      console.log({ sub });
 
         $('#dimScreen').css('display', 'none');
 
         // todo notificationOptions will be based on userProfile preferences
         const notificationOptions = {
-          'email': [7], // each array element represents the number of days before the scholarship deadline a notification should be sent
-          'push': [7]
+          'email': [7, 1], // each array element represents the number of days before the scholarship deadline a notification should be sent
+          'push': [7, 1]
         };
 
         const fullMessagePayloads = [];
@@ -57,7 +68,7 @@ export class NotificationsService {
           if (!notificationOptions.hasOwnProperty(notificationType)) {
             continue;
           }
-          for (const i = 0; i < notificationOptions[notificationType].length; i++) {
+          for (let i = 0; i < notificationOptions[notificationType].length; i++) {
             const daysBeforeDeadline = notificationOptions[notificationType][i];
 
             let sendDate: Date | number = new Date(scholarship.deadline);
@@ -81,9 +92,9 @@ export class NotificationsService {
         return this.pushMessages(fullMessagePayloads)
           .map(res => res)
           .catch(err => Observable.throw(err));
-      },
-    )
+      })
       .catch((err: DOMException) => {
+        console.log({ err });
         return Observable.throw({
           message: 'Unable to createScholarshipNotifications()',
           error: {
