@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, tick} from '@angular/core/testing';
 
 import { SearchComponent } from './search.component';
 import {UserProfileService, userProfileServiceStub} from '../_services/user-profile.service';
@@ -23,10 +23,14 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {CardGenericComponent} from '../card-generic/card-generic.component';
 import {TruncatePipe} from '../_pipes/truncate.pipe';
 import {SearchService, SearchServiceStub} from '../_services/search.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 
 fdescribe('SearchComponent', () => {
   let component: SearchComponent;
   let fixture: ComponentFixture<SearchComponent>;
+
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -41,12 +45,18 @@ fdescribe('SearchComponent', () => {
         {provide: MyFirebaseService, useValue: MyFirebaseServiceStub},
         {provide: SeoService, useValue: seoServiceStub},
         {provide: SearchService, useValue: SearchServiceStub},
-        {provide: APP_BASE_HREF, useValue : '/' }
+        {provide: APP_BASE_HREF, useValue : '/' },
+        { provide: ActivatedRoute,
+          useValue: {
+            snapshot: {
+              queryParams: Observable.of({q: 'ivey business school'})
+            }
+          } },
       ],
       imports: [
         // todo: instead of importing all these modules manually, can we
         // just import shared module?
-        RouterTestingModule,
+        RouterTestingModule.withRoutes([]),
         MatIconModule,
         MatSnackBarModule,
         MatOptionModule,
@@ -82,5 +92,16 @@ fdescribe('SearchComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should call Search', async(() => {
+
+    const router = TestBed.get(Router);
+    console.log({ router });
+
+    spyOn(component, 'search');
+
+    expect(component.search).not.toHaveBeenCalled();
+
+  }));
 });
 

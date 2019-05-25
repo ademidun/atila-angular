@@ -1,4 +1,8 @@
 <div class="container">
+  <div class="center search-title" *ngIf="query">
+    <h1>Results for {{query}}</h1>
+  </div>
+
     <div class=" card row">
       <div class="col-sm-8">
       <app-typeahead [(model)]="query" [dataset]="MASTER_LIST_EVERYTHING"

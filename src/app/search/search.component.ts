@@ -43,7 +43,6 @@ export class SearchComponent implements OnInit {
 
     this.query = this.route.snapshot.queryParams['q'];
 
-
     this.userId = parseInt(this.authService.decryptLocalStorage('uid'), 10);
 
     if (!isNaN(this.userId)) {
@@ -57,10 +56,11 @@ export class SearchComponent implements OnInit {
       this.search(this.query, queryOptions)
     }
 
-
   }
 
   search(query, queryOptions = {}) {
+
+    console.log('query, queryOptions', query, queryOptions);
 
     if (query.event) {
       query = query.event.item;
