@@ -156,7 +156,6 @@ export class EssayCreateComponent implements OnInit, AfterViewInit, OnDestroy {
           this.onEditorContentChange(e,content, editor);
         });
         editor.on('paste', (e) => {
-          // console.log('editor.on(\'paste\', (e)',editor, e);
           setTimeout(() => {
           let content = editor.getContent();
           content = cleanHtml(content);

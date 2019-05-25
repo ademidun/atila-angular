@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 
-import { Router } from '@angular/router'
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 import {environment} from '../../environments/environment';
 import {MyFirebaseService} from './myfirebase.service';
 
@@ -34,3 +34,9 @@ export class SearchService {
 
 
 }
+
+export let SearchServiceStub: Partial<SearchService> = {
+  search() {
+    return Observable.of([]).map(o => JSON.stringify(o));
+  }
+};
