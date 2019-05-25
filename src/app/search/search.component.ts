@@ -110,6 +110,7 @@ export class SearchComponent implements OnInit {
           if(this.userProfile) {
             this.customizeResults();
           }
+          console.log('this.searchResults', this.searchResults);
         } ,
 
         err => {

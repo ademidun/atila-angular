@@ -36,7 +36,14 @@ export class SearchService {
 }
 
 export let SearchServiceStub: Partial<SearchService> = {
-  search() {
-    return Observable.of([]).map(o => JSON.stringify(o));
+
+
+  search(queryString, metaData?) {
+    let data = {};
+    if (queryString === 'ivey business school') {
+      data = require('../_tests/mock-search-response-ivey-business-school.json');
+    }
+    console.log({ data });
+    return Observable.of(data).map(o => JSON.stringify(o));
   }
 };
