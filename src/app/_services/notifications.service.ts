@@ -155,8 +155,8 @@ export class NotificationsService {
       messageData.html = `Hey ${userProfile.first_name}, <br/> <br/>
       The scholarship you saved <strong>${scholarship.name} is due in ${notificationConfig.daysBeforeDeadline} on
       ${this.datePipe.transform(scholarship.deadline, 'fullDate')}. </strong> <br/> <br/>
-      <a href="${messageData.clickAction}">View Scholarship: ${scholarship.name}</a><br/><br/>
-      Or Copy paste this link in your browser: ${messageData.clickAction}<br> <br/>`;
+      <a href="${messageData.clickAction}">View Scholarship: ${scholarship.name}</a> <br/> <br/>
+      Or Copy paste this link in your browser: ${messageData.clickAction} <br> <br/>`;
     }
 
     messageData['actions'] = [
