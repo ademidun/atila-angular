@@ -122,9 +122,13 @@ export class NotificationsService {
                                        notificationConfig:
                                          { sendDate: number, notificationType: string} = {sendDate: 0, notificationType:''}) {
 
+    let createdAt: Date | number = new Date(scholarship.deadline);
+
+    createdAt = createdAt.getTime();
+
     const urlAnalyticsSuffix = `?utm_source=${notificationConfig.notificationType}
       &utm_medium=${notificationConfig.notificationType}&utm_campaign=scholarship-due-remind`;
-    const messageData = {
+    const messageData:any = {
       title: `${userProfile.first_name}, ${scholarship.name} is due in 7 days
        on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}`,
       body: `Scholarship due on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}: ${scholarship.name}.
@@ -136,7 +140,13 @@ export class NotificationsService {
       badge: 'https://storage.googleapis.com/atila-7.appspot.com/public/atila-logo-right-way-circle-transparent.png',
       sendDate: notificationConfig.sendDate || 0,
       notificationType: notificationConfig.notificationType || 'push',
+      userId: userProfile.user,
+      createdAt: createdAt,
     };
+
+    if (messageData.notificationType === 'email') {
+      messageData.email = userProfile.email;
+    }
 
     messageData['actions'] = [
       {
