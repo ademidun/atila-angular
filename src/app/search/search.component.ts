@@ -43,9 +43,6 @@ export class SearchComponent implements OnInit {
 
     this.query = this.route.snapshot.queryParams['q'];
 
-    console.log('this.query', this.query);
-    console.log('this.route', this.route);
-
     this.userId = parseInt(this.authService.decryptLocalStorage('uid'), 10);
 
     if (!isNaN(this.userId)) {
@@ -62,8 +59,6 @@ export class SearchComponent implements OnInit {
   }
 
   search(query, queryOptions = {}) {
-
-    console.log('query, queryOptions', query, queryOptions);
 
     if (query.event) {
       query = query.event.item;
@@ -93,7 +88,6 @@ export class SearchComponent implements OnInit {
         res => {
           this.searchResults = res;
 
-          console.log({ res });
           this.isSearching = false;
 
 
@@ -115,7 +109,6 @@ export class SearchComponent implements OnInit {
           if(this.userProfile) {
             this.customizeResults();
           }
-          console.log('this.searchResults', this.searchResults);
         } ,
 
         err => {

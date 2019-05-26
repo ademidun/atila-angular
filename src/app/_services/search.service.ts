@@ -46,6 +46,6 @@ export let SearchServiceStub: Partial<SearchService> = {
     }
     console.log({ data });
     */
-    return Observable.of(mockSearchResponseIveyBusinessSchool).map(o => JSON.stringify(o));
+    return Observable.of(mockSearchResponseIveyBusinessSchool);
   }
 };

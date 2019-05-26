@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, tick} from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import { SearchComponent } from './search.component';
 import {UserProfileService, userProfileServiceStub} from '../_services/user-profile.service';
@@ -24,10 +24,8 @@ import {CardGenericComponent} from '../card-generic/card-generic.component';
 import {TruncatePipe} from '../_pipes/truncate.pipe';
 import {SearchService, SearchServiceStub} from '../_services/search.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import {mockSearchResponseIveyBusinessSchool} from '../_models/_tests/mock-search-response-ivey-business-school';
-import {genericItemTransform} from '../_shared/utils';
 
 fdescribe('SearchComponent', () => {
   let component: SearchComponent;
@@ -102,9 +100,6 @@ fdescribe('SearchComponent', () => {
 
   it('should call Search', async(() => {
 
-    const router = TestBed.get(Router);
-    console.log({ router });
-
     spyOn(component, 'search');
 
     expect(component.search).toHaveBeenCalled();
@@ -126,7 +121,12 @@ fdescribe('SearchComponent', () => {
     console.log('component.searchResults', component.searchResults);
 
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.scholarship-results').textContent.toLowerCase()).toContain(iveyBusinessSchoolSearchString);
+
+    const subStrings = iveyBusinessSchoolSearchString.split(' ');
+
+    for (let i = 0; i < subStrings.length; i++) {
+      expect(compiled.querySelector('.scholarship-results').textContent.toLowerCase()).toContain(subStrings[i]);
+    }
 
   }));
 
@@ -144,28 +144,22 @@ fdescribe('SearchComponent', () => {
 
     console.log('component.searchResults', component.searchResults);
 
-    component.essays = component.searchResults.essays.map(item => {
-      return genericItemTransform(item);
-    });
-
     fixture.detectChanges();
 
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.essay-results').textContent.toLowerCase()).toContain(iveyBusinessSchoolSearchString);
 
+    expect(compiled.querySelector('.essay-results').textContent.toLowerCase()).toContain(iveyBusinessSchoolSearchString);
 
   }));
 
   it('should NOT render forum results', async(() => {
-
-    console.log('component.searchResults', component.searchResults);
 
     const compiled = fixture.debugElement.nativeElement;
 
     const resultSectionHeadings = compiled.querySelectorAll('h4'); // find all elements with id attribute ending in "-gif"
 
     for (let i = 0; i < resultSectionHeadings.length; i++) {
-      expect(resultSectionHeadings.textContent.toLowerCase()).not.toContain('Forum');
+      expect(resultSectionHeadings[i].textContent.toLowerCase()).not.toContain('forum');
     }
 
 
