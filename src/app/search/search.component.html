@@ -27,7 +27,7 @@
     <div class="card row">
       <h4>Scholarships</h4>
 
-      <div class="row">
+      <div class="row scholarship-results">
         <div *ngFor=" let scholarship of searchResults.scholarships" class="col-sm-12 col-md-10">
           <div class="card small">
             <div class="card-title">
@@ -96,7 +96,7 @@
   <div class=" card row">
     <h4>Essay</h4>
 
-    <div class="row">
+    <div class="row essay-results">
       <div  *ngFor="let essay of essays; let i = index; first as isFirst;" class="col-md-12">
         <!--<ng-container (click)="saveQueryClick(essay,'essay')" [routerLink]="essay.slug">-->
         <app-card-generic [item]="essay"

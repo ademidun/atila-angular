@@ -27,6 +27,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import {mockSearchResponseIveyBusinessSchool} from '../_models/_tests/mock-search-response-ivey-business-school';
+import {genericItemTransform} from '../_shared/utils';
 
 fdescribe('SearchComponent', () => {
   let component: SearchComponent;
@@ -51,7 +52,8 @@ fdescribe('SearchComponent', () => {
         { provide: ActivatedRoute,
           useValue: {
             snapshot: {
-              queryParams: Observable.of({q: iveyBusinessSchoolSearchString})
+              // queryParams: Observable.of({q: iveyBusinessSchoolSearchString})
+              queryParams: {q: iveyBusinessSchoolSearchString}
             }
           } },
       ],
@@ -89,6 +91,7 @@ fdescribe('SearchComponent', () => {
     fixture = TestBed.createComponent(SearchComponent);
     component = fixture.componentInstance;
     component.searchResults = mockSearchResponseIveyBusinessSchool;
+
     fixture.detectChanges();
 
   });
@@ -97,7 +100,7 @@ fdescribe('SearchComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  xit('should call Search', async(() => {
+  it('should call Search', async(() => {
 
     const router = TestBed.get(Router);
     console.log({ router });
@@ -108,13 +111,22 @@ fdescribe('SearchComponent', () => {
 
   }));
 
-  xit('should render title', async(() => {
+  it('should render title', async(() => {
 
+    component.query = iveyBusinessSchoolSearchString;
+    fixture.detectChanges();
 
-    console.log('component.searchResults', component.searchResults);
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('h1').textContent).toContain(iveyBusinessSchoolSearchString);
 
+  }));
+
+  it('should render scholarship results', async(() => {
+
+    console.log('component.searchResults', component.searchResults);
+
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('.scholarship-results').textContent.toLowerCase()).toContain(iveyBusinessSchoolSearchString);
 
   }));
 
@@ -123,7 +135,38 @@ fdescribe('SearchComponent', () => {
     console.log('component.searchResults', component.searchResults);
 
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.blog-results').textContent).toContain('Ivey Business School');
+    expect(compiled.querySelector('.blog-results').textContent.toLowerCase()).toContain(iveyBusinessSchoolSearchString);
+
+
+  }));
+
+  it('should render essay results', async(() => {
+
+    console.log('component.searchResults', component.searchResults);
+
+    component.essays = component.searchResults.essays.map(item => {
+      return genericItemTransform(item);
+    });
+
+    fixture.detectChanges();
+
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('.essay-results').textContent.toLowerCase()).toContain(iveyBusinessSchoolSearchString);
+
+
+  }));
+
+  it('should NOT render forum results', async(() => {
+
+    console.log('component.searchResults', component.searchResults);
+
+    const compiled = fixture.debugElement.nativeElement;
+
+    const resultSectionHeadings = compiled.querySelectorAll('h4'); // find all elements with id attribute ending in "-gif"
+
+    for (let i = 0; i < resultSectionHeadings.length; i++) {
+      expect(resultSectionHeadings.textContent.toLowerCase()).not.toContain('Forum');
+    }
 
 
   }));
