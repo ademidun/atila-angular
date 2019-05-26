@@ -62,31 +62,7 @@ export class NotificationsService {
           'push': [7, 1]
         };
 
-        const fullMessagePayloads = [];
-
-        for (const notificationType of Object.keys(notificationOptions)) {
-          if (!notificationOptions.hasOwnProperty(notificationType)) {
-            continue;
-          }
-          for (let i = 0; i < notificationOptions[notificationType].length; i++) {
-            const daysBeforeDeadline = notificationOptions[notificationType][i];
-
-            let sendDate: Date | number = new Date(scholarship.deadline);
-
-            sendDate.setDate(sendDate.getDate() - daysBeforeDeadline);
-            sendDate = sendDate.getTime();
-
-            const notificationConfig = { notificationType: notificationType, sendDate: sendDate};
-            const notificationMessage = this.createScholarshipNotificationMessage(userProfile, scholarship, notificationConfig);
-            const fullMessagePayload = {...sub, ...notificationMessage};
-
-            fullMessagePayload['endpoint'] = sub.endpoint;
-            fullMessagePayload['_sub'] = sub;
-            fullMessagePayload['_notificationMessage'] = notificationMessage;
-            fullMessagePayloads.push(fullMessagePayload);
-
-          }
-        }
+        const fullMessagePayloads = this.createNotificationMessages(notificationOptions, scholarship, userProfile, sub);
 
         console.log({fullMessagePayloads});
         return this.pushMessages(fullMessagePayloads)
@@ -95,14 +71,47 @@ export class NotificationsService {
       })
       .catch((err: DOMException) => {
         console.log({ err });
-        return Observable.throw({
-          message: 'Unable to createScholarshipNotifications()',
-          error: {
-            message: err.message,
-            name: err.name,
-          }
-        })
+        // todo notificationOptions will be based on userProfile preferences
+        const notificationOptions = {
+          'email': [7, 1], // each array element represents the number of days before the scholarship deadline a notification should be sent
+        };
+
+        const fullMessagePayloads = this.createNotificationMessages(notificationOptions, scholarship, userProfile, sub);
+
+        console.log({fullMessagePayloads});
+        return this.pushMessages(fullMessagePayloads)
+          .map(res => res)
+          .catch(err2 => Observable.throw(err2));
       });
+  }
+
+  createNotificationMessages(notificationOptions, scholarship: Scholarship, userProfile: UserProfile, sub: PushSubscription | any) {
+    const fullMessagePayloads = [];
+
+    for (const notificationType of Object.keys(notificationOptions)) {
+      if (!notificationOptions.hasOwnProperty(notificationType)) {
+        continue;
+      }
+      for (let i = 0; i < notificationOptions[notificationType].length; i++) {
+        const daysBeforeDeadline = notificationOptions[notificationType][i];
+
+        let sendDate: Date | number = new Date(scholarship.deadline);
+
+        sendDate.setDate(sendDate.getDate() - daysBeforeDeadline);
+        sendDate = sendDate.getTime();
+
+        const notificationConfig = {notificationType: notificationType, sendDate: sendDate};
+        const notificationMessage = this.createScholarshipNotificationMessage(userProfile, scholarship, notificationConfig);
+        const fullMessagePayload = {...sub, ...notificationMessage};
+
+        fullMessagePayload['endpoint'] = sub.endpoint;
+        fullMessagePayload['_sub'] = sub;
+        fullMessagePayload['_notificationMessage'] = notificationMessage;
+        fullMessagePayloads.push(fullMessagePayload);
+
+      }
+    }
+    return fullMessagePayloads;
   }
 
   createScholarshipNotificationMessage(userProfile: UserProfile, scholarship: Scholarship,
