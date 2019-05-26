@@ -26,13 +26,15 @@ import {SearchService, SearchServiceStub} from '../_services/search.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import {mockSearchResponseIveyBusinessSchool} from '../_models/_tests/mock-search-response-ivey-business-school';
 
 fdescribe('SearchComponent', () => {
   let component: SearchComponent;
   let fixture: ComponentFixture<SearchComponent>;
-
+  const iveyBusinessSchoolSearchString = 'ivey business school';
 
   beforeEach(async(() => {
+
     TestBed.configureTestingModule({
       declarations: [
         SearchComponent,
@@ -49,7 +51,7 @@ fdescribe('SearchComponent', () => {
         { provide: ActivatedRoute,
           useValue: {
             snapshot: {
-              queryParams: Observable.of({q: 'ivey business school'})
+              queryParams: Observable.of({q: iveyBusinessSchoolSearchString})
             }
           } },
       ],
@@ -86,22 +88,43 @@ fdescribe('SearchComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchComponent);
     component = fixture.componentInstance;
+    component.searchResults = mockSearchResponseIveyBusinessSchool;
     fixture.detectChanges();
+
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call Search', async(() => {
+  xit('should call Search', async(() => {
 
     const router = TestBed.get(Router);
     console.log({ router });
 
     spyOn(component, 'search');
 
-    expect(component.search).not.toHaveBeenCalled();
+    expect(component.search).toHaveBeenCalled();
+
+  }));
+
+  xit('should render title', async(() => {
+
+
+    console.log('component.searchResults', component.searchResults);
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('h1').textContent).toContain(iveyBusinessSchoolSearchString);
+
+
+  }));
+
+  it('should render blog results', async(() => {
+
+    console.log('component.searchResults', component.searchResults);
+
+    const compiled = fixture.debugElement.nativeElement;
+    expect(compiled.querySelector('.blog-results').textContent).toContain('Ivey Business School');
+
 
   }));
 });
-

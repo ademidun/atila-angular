@@ -43,6 +43,9 @@ export class SearchComponent implements OnInit {
 
     this.query = this.route.snapshot.queryParams['q'];
 
+    console.log('this.query', this.query);
+    console.log('this.route', this.route);
+
     this.userId = parseInt(this.authService.decryptLocalStorage('uid'), 10);
 
     if (!isNaN(this.userId)) {

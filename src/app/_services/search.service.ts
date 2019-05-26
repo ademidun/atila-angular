@@ -39,11 +39,13 @@ export let SearchServiceStub: Partial<SearchService> = {
 
 
   search(queryString, metaData?) {
-    let data = {};
+    const data = {};
+    /*
     if (queryString === 'ivey business school') {
-      data = require('../_tests/mock-search-response-ivey-business-school.json');
+      data = require('../../assets/_tests/mock-search-response-ivey-business-school.json');
     }
     console.log({ data });
+    */
     return Observable.of(data).map(o => JSON.stringify(o));
   }
 };
