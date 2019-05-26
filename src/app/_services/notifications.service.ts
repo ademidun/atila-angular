@@ -127,13 +127,13 @@ export class NotificationsService {
 
     createdAt = createdAt.getTime();
 
-    const urlAnalyticsSuffix = `?utm_source=${notificationConfig.notificationType}
-      &utm_medium=${notificationConfig.notificationType}&utm_campaign=scholarship-due-remind-${notificationConfig.daysBeforeDeadline}`;
+    const urlAnalyticsSuffix = `?utm_source=${notificationConfig.notificationType}&utm_medium=${notificationConfig.notificationType}`+
+    `&utm_campaign=scholarship-due-remind-${notificationConfig.daysBeforeDeadline}`;
 
     notificationConfig.daysBeforeDeadline = notificationConfig.daysBeforeDeadline === 1 ?
       '1 day': `${notificationConfig.daysBeforeDeadline} days`;
     const messageData:any = {
-      title: `${userProfile.first_name}, A Scholarship you saved: ${scholarship.name} is due in ${notificationConfig.daysBeforeDeadline}
+      title: `${userProfile.first_name}, a scholarship you saved: ${scholarship.name} is due in ${notificationConfig.daysBeforeDeadline}
        on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}`,
       body: `Scholarship due on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}: ${scholarship.name}.
        Submit your Application!`,
@@ -152,8 +152,11 @@ export class NotificationsService {
       messageData.email = userProfile.email;
       messageData.body = `Scholarship due on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}: ${scholarship.name}.
        Submit your Application!: ${messageData.clickAction}`;
-        messageData.html = `The ${scholarship.name} is due on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}. <br/>
-        Apply Now: <a href="${messageData.clickAction}">${scholarship.name}</a>`;
+      messageData.html = `Hey ${userProfile.first_name}, <br/> <br/>
+      The scholarship you saved <strong>${scholarship.name} is due in ${notificationConfig.daysBeforeDeadline} on
+      ${this.datePipe.transform(scholarship.deadline, 'fullDate')}. </strong> <br/> <br/>
+      <a href="${messageData.clickAction}">View Scholarship: ${scholarship.name}</a><br/><br/>
+      Or Copy paste this link in your browser: ${messageData.clickAction}<br> <br/>`;
     }
 
     messageData['actions'] = [
