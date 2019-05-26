@@ -61,7 +61,6 @@ export class SearchComponent implements OnInit {
   }
 
   search(query, queryOptions = {}) {
-    console.log({ query });
 
     if (query.event) {
       query = query.event.item;
@@ -70,10 +69,7 @@ export class SearchComponent implements OnInit {
       this.titleService.setTitle(`${this.query} - Atila Search`);
     }
 
-    console.log({ query });
-
     this.isSearching = true;
-
 
     const queryMetaData = {
       query: query,

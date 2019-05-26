@@ -57,7 +57,7 @@
     <h4>Blogs</h4>
 
     <div class="row">
-      <div *ngFor=" let blogPost of searchResults.blogs" class="col-sm-12 col-md-10">
+      <div *ngFor=" let blogPost of searchResults.blogPosts" class="col-sm-12 col-md-10">
         <div class="card small">
           <div class="card-title">
             <a (click)="saveQueryClick(blogPost,'blog')" routerLink="/blog/{{blogPost.user.username}}/{{blogPost.slug}}"> {{blogPost.title}}</a>
