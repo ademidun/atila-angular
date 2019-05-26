@@ -46,7 +46,7 @@ export class NotificationsService {
     let getPermissionPromise: Promise<PushSubscription | any> = this.getPermission();
 
     if (environment.name === 'dev') { // todo: remove before merge-master
-      getPermissionPromise = Promise.resolve({sub: 'test'});
+      getPermissionPromise = Promise.reject({error: 'Permission Denied!'});
     }
 
     return getPermissionPromise
@@ -62,7 +62,7 @@ export class NotificationsService {
           'push': [7, 1]
         };
 
-        const fullMessagePayloads = this.createNotificationMessages(notificationOptions, scholarship, userProfile, sub);
+        const fullMessagePayloads = this.customizeNotificationMessage(notificationOptions, scholarship, userProfile, sub);
 
         console.log({fullMessagePayloads});
         return this.pushMessages(fullMessagePayloads)
@@ -76,7 +76,7 @@ export class NotificationsService {
           'email': [7, 1], // each array element represents the number of days before the scholarship deadline a notification should be sent
         };
 
-        const fullMessagePayloads = this.createNotificationMessages(notificationOptions, scholarship, userProfile, sub);
+        const fullMessagePayloads = this.customizeNotificationMessage(notificationOptions, scholarship, userProfile);
 
         console.log({fullMessagePayloads});
         return this.pushMessages(fullMessagePayloads)
@@ -85,7 +85,8 @@ export class NotificationsService {
       });
   }
 
-  createNotificationMessages(notificationOptions, scholarship: Scholarship, userProfile: UserProfile, sub: PushSubscription | any) {
+  customizeNotificationMessage(notificationOptions,
+                               scholarship: Scholarship, userProfile: UserProfile, sub: PushSubscription | any ={}) {
     const fullMessagePayloads = [];
 
     for (const notificationType of Object.keys(notificationOptions)) {
@@ -102,10 +103,13 @@ export class NotificationsService {
 
         const notificationConfig = {notificationType: notificationType, sendDate: sendDate};
         const notificationMessage = this.createScholarshipNotificationMessage(userProfile, scholarship, notificationConfig);
-        const fullMessagePayload = {...sub, ...notificationMessage};
 
-        fullMessagePayload['endpoint'] = sub.endpoint;
-        fullMessagePayload['_sub'] = sub;
+        const fullMessagePayload = {...sub, ...notificationMessage};
+        if (sub && sub.endpoint) {
+          fullMessagePayload['endpoint'] = sub.endpoint;
+          fullMessagePayload['_sub'] = sub;
+        }
+
         fullMessagePayload['_notificationMessage'] = notificationMessage;
         fullMessagePayloads.push(fullMessagePayload);
 
