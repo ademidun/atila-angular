@@ -128,7 +128,7 @@ export class NotificationsService {
     createdAt = createdAt.getTime();
 
     const urlAnalyticsSuffix = `?utm_source=${notificationConfig.notificationType}
-      &utm_medium=${notificationConfig.notificationType}&utm_campaign=scholarship-due-remind`;
+      &utm_medium=${notificationConfig.notificationType}&utm_campaign=scholarship-due-remind-${notificationConfig.daysBeforeDeadline}`;
 
     notificationConfig.daysBeforeDeadline = notificationConfig.daysBeforeDeadline === 1 ?
       '1 day': `${notificationConfig.daysBeforeDeadline} days`;
@@ -153,8 +153,7 @@ export class NotificationsService {
       messageData.body = `Scholarship due on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}: ${scholarship.name}.
        Submit your Application!: ${messageData.clickAction}`;
         messageData.html = `The ${scholarship.name} is due on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}. <br/>
-        Apply Now: <a href="${messageData.clickAction}">${scholarship.name}</a>
-        <br/> Or Copy paste this link in your browser: ${messageData.clickAction}<br>`;
+        Apply Now: <a href="${messageData.clickAction}">${scholarship.name}</a>`;
     }
 
     messageData['actions'] = [
