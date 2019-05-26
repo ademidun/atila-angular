@@ -64,7 +64,6 @@ export class MyFirebaseService {
   }
 
   saveSearchAnalytics(queryData) {
-    console.log( {queryData} );
 
     queryData = this.addMetadata(queryData);
 
