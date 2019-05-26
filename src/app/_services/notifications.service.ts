@@ -101,7 +101,7 @@ export class NotificationsService {
         sendDate.setDate(sendDate.getDate() - daysBeforeDeadline);
         sendDate = sendDate.getTime();
 
-        const notificationConfig = {notificationType: notificationType, sendDate: sendDate};
+        const notificationConfig = {notificationType, sendDate, daysBeforeDeadline};
         const notificationMessage = this.createScholarshipNotificationMessage(userProfile, scholarship, notificationConfig);
 
         const fullMessagePayload = {...sub, ...notificationMessage};
@@ -120,7 +120,8 @@ export class NotificationsService {
 
   createScholarshipNotificationMessage(userProfile: UserProfile, scholarship: Scholarship,
                                        notificationConfig:
-                                         { sendDate: number, notificationType: string} = {sendDate: 0, notificationType:''}) {
+                                         { sendDate: number, notificationType: string, daysBeforeDeadline: number | string}
+                                         = {sendDate: 0, notificationType:'', daysBeforeDeadline: 1}) {
 
     let createdAt: Date | number = new Date(scholarship.deadline);
 
@@ -128,8 +129,11 @@ export class NotificationsService {
 
     const urlAnalyticsSuffix = `?utm_source=${notificationConfig.notificationType}
       &utm_medium=${notificationConfig.notificationType}&utm_campaign=scholarship-due-remind`;
+
+    notificationConfig.daysBeforeDeadline = notificationConfig.daysBeforeDeadline === 1 ?
+      '1 day': `${notificationConfig.daysBeforeDeadline} days`;
     const messageData:any = {
-      title: `${userProfile.first_name}, ${scholarship.name} is due in 7 days
+      title: `${userProfile.first_name}, A Scholarship you saved: ${scholarship.name} is due in ${notificationConfig.daysBeforeDeadline}
        on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}`,
       body: `Scholarship due on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}: ${scholarship.name}.
        Submit your Application!`,
@@ -146,6 +150,11 @@ export class NotificationsService {
 
     if (messageData.notificationType === 'email') {
       messageData.email = userProfile.email;
+      messageData.body = `Scholarship due on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}: ${scholarship.name}.
+       Submit your Application!: ${messageData.clickAction}`;
+        messageData.html = `The ${scholarship.name} is due on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}. <br/>
+        Apply Now: <a href="${messageData.clickAction}">${scholarship.name}</a>
+        <br/> Or Copy paste this link in your browser: ${messageData.clickAction}<br>`;
     }
 
     messageData['actions'] = [
