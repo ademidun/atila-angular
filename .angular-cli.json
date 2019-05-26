@@ -13,7 +13,8 @@
         "favicon.ico",
         "sw-master.js",
         "sw-notification-reminder.js",
-        "manifest.json"
+        "manifest.json",
+        { "glob": "mock-search-response-ivey-business-school.json", "input": "./", "output": "./assets/_tests/" }
       ],
       "index": "index.html",
       "main": "main.ts",

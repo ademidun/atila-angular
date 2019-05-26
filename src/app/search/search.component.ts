@@ -43,7 +43,6 @@ export class SearchComponent implements OnInit {
 
     this.query = this.route.snapshot.queryParams['q'];
 
-
     this.userId = parseInt(this.authService.decryptLocalStorage('uid'), 10);
 
     if (!isNaN(this.userId)) {
@@ -56,7 +55,6 @@ export class SearchComponent implements OnInit {
       this.titleService.setTitle(`${this.query} - Atila Search`);
       this.search(this.query, queryOptions)
     }
-
 
   }
 
@@ -89,6 +87,7 @@ export class SearchComponent implements OnInit {
       .subscribe(
         res => {
           this.searchResults = res;
+
           this.isSearching = false;
 
 

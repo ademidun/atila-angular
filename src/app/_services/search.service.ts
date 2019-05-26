@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 
-import { Router } from '@angular/router'
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 import {environment} from '../../environments/environment';
 import {MyFirebaseService} from './myfirebase.service';
+import {mockSearchResponseIveyBusinessSchool} from '../_models/_tests/mock-search-response-ivey-business-school';
 
 
 @Injectable()
@@ -34,3 +35,17 @@ export class SearchService {
 
 
 }
+
+export let SearchServiceStub: Partial<SearchService> = {
+
+
+  search(queryString, metaData?) {
+    /*
+    if (queryString === 'ivey business school') {
+      data = require('../../assets/_tests/mock-search-response-ivey-business-school.json');
+    }
+    console.log({ data });
+    */
+    return Observable.of(mockSearchResponseIveyBusinessSchool);
+  }
+};
