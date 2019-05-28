@@ -263,6 +263,8 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
 
       });
 
+    } else if (this.userProfile.metadata['allowNotifySavedScholarships']) {
+      this.createScholarshipNotificationsHandler();
     }
 
   }
