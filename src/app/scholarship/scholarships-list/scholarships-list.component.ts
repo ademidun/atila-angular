@@ -139,7 +139,14 @@ export class ScholarshipsListComponent implements OnInit {
 
             // this.pageNo = this.activatedRoute.snapshot.params['page'] || this.pageNo;
             this.getScholarshipPreview(this.pageNo);
-          }
+          },
+          err => {
+                  this.contentFetched = false;
+                  this.isLoading = false;
+                  this.scholarshipError = {
+                    error: err,
+                    errorUserInfo: 'Error getting User Profile. Try Refreshing page or logging out and logging in.'
+                  }}
         )
     }
 
@@ -236,7 +243,6 @@ export class ScholarshipsListComponent implements OnInit {
 
           },
           err => {
-
             this.contentFetched = false;
             this.isLoading = false;
             this.scholarshipError = {
@@ -724,7 +730,9 @@ export class ScholarshipsListComponent implements OnInit {
 
   refreshScholarshipCache() {
 
-    console.log('refreshScholarshipCache() this.viewAsUser, this.userId)', this.viewAsUser, this.userId);
+    if (this.userProfile && this.userProfile.is_atila_admin || this.userProfile.is_debug_mode) {
+      console.log('refreshScholarshipCache() this.viewAsUser, this.userId)', this.viewAsUser, this.userId);
+    }
     let userIdForCache = this.viewAsUser;
 
     if (this.viewAsUser && this.viewAsUser.user) {
