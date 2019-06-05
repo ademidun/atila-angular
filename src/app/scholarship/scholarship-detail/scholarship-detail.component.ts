@@ -424,6 +424,7 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
     }
     else {
       this.userProfile = saveResult[0];
+      this.createNotificationSavedScholarships();
 
       this.userProfileService.updateHelper(this.userProfile)
         .subscribe(
@@ -442,6 +443,10 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
 
     }
 
+  }
+
+  createNotificationSavedScholarships() {
+    console.log('createNotificationSavedScholarships');
   }
 
 
