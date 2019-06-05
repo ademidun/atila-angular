@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit, AfterViewInit} from '@angular/core';
 
 import {Scholarship} from '../../_models/scholarship';
-import { Comment, upVoteComment, downVoteComment } from "../../_models/comment";
+import { Comment, upVoteComment, downVoteComment } from '../../_models/comment';
 import {ActivatedRoute, ActivationEnd, Router} from '@angular/router';
 import { ScholarshipService } from '../../_services/scholarship.service';
 import { ApplicationService } from '../../_services/application.service';
@@ -13,7 +13,7 @@ import { UserProfileService } from '../../_services/user-profile.service';
 
 import {environment} from '../../../environments/environment';
 import { CommentService } from '../../_services/comment.service';
-import { AuthService } from "../../_services/auth.service";
+import { AuthService } from '../../_services/auth.service';
 import {Meta, Title} from '@angular/platform-browser';
 import {MyFirebaseService} from '../../_services/myfirebase.service';
 import {UserProfile, addToMyScholarshipHelper} from '../../_models/user-profile';
@@ -49,7 +49,7 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
   routerChanges: Subscription;
   isLoadingRelatedItems: boolean;
   public reviews: any[];
-  public reviewsLoaded: boolean = false;
+  public reviewsLoaded = false;
   public scholarshipOwner;
   public keyGetter = Object.keys;
   public environment = environment;
@@ -77,10 +77,10 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
     public searchService: SearchService,
   ) {
     // Get the id that was passed in the route
-    this.userId = parseInt(this.authService.decryptLocalStorage('uid')); // Current user, TODO: Should we use the request user ID?
+    this.userId = parseInt(this.authService.decryptLocalStorage('uid'), 10); // Current user, TODO: Should we use the request user ID?
 
 
-    //reload the url if a new slug is clicked from related items
+    // reload the url if a new slug is clicked from related items
     this.routerChanges = router.events.subscribe(data=>{
       if(data instanceof ActivationEnd){
 
@@ -141,7 +141,7 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
 
           this.getRelatedItems();
 
-          //this.updateMeta();
+          // this.updateMeta();
           // Get the user profile of the scholarship owner
           if (this.scholarship.owner){
             this.userProfileService.getById(scholarship.owner)
@@ -164,7 +164,7 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
 
                   setTimeout(()=>{
                     if(this.scholarship) {
-                      let viewData = {
+                      const viewData = {
                         item_type: 'scholarship',
                         item_id: this.scholarship.id,
                         item_name: this.scholarship.name,
@@ -219,14 +219,14 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
     }
   }
 
-  getScholarshipComments(){
-    //create an empty UserComment object
+  getScholarshipComments() {
+    // create an empty UserComment object
     this.userComment = new Comment(this.userId);
 
 
-    //this.scholarshipComments = new Array<Comment>();
+    // this.scholarshipComments = new Array<Comment>();
 
-    let postOperation = this.commentService.getComments(this.scholarship.id,'Scholarship');
+    const postOperation = this.commentService.getComments(this.scholarship.id,'Scholarship');
 
     postOperation.subscribe(
       res => {
@@ -237,16 +237,16 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
 
   }
 
-  postComment(){
+  postComment() {
 
-    //prevent ScholarshipComments from tracking the changes to UserComment;
+    // prevent ScholarshipComments from tracking the changes to UserComment;
     // TODO: Consider using deepcopy of comment
-    var commentTemp:Comment = new Comment(this.userId);
+    const commentTemp:Comment = new Comment(this.userId);
     commentTemp['scholarship'] = this.scholarship.id;
     commentTemp.text = this.userComment.text;
     commentTemp.title = this.userComment.title;
 
-    let postOperation = this.commentService.create(commentTemp);
+    const postOperation = this.commentService.create(commentTemp);
 
     postOperation.subscribe(
       res => {
@@ -262,8 +262,8 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
 
     );
 
-    this.userComment.text = "";
-    this.userComment.title = "";
+    this.userComment.text = '';
+    this.userComment.title = '';
   }
 
 
@@ -275,7 +275,7 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
   getOrCreateApp() {
 
     if(!this.userId || isNaN(this.userId)) {
-      let snackBarRef = this.snackBar.open("Account Required to Apply", 'Create Account', {
+      const snackBarRef = this.snackBar.open('Account Required to Apply', 'Create Account', {
         duration: 3000
       });
 
@@ -291,7 +291,7 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     if(this.userId){
-      var data = {
+      const data = {
         scholarshipId: this.scholarship.id,
         userId: this.userId
       }
@@ -321,7 +321,7 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
 
     if(!this.userId || isNaN(this.userId)) {
 
-      let snackBarRef = this.snackBar.open("Register to request Automation", 'Register', {
+      const snackBarRef = this.snackBar.open('Register to request Automation', 'Register', {
         duration: 4000
       });
 
@@ -344,12 +344,12 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
     }
 
 
-    let sendData = {
+    const sendData = {
       metadata: this.scholarship.metadata,
       id: this.scholarship.id,
     };
 
-    let userAnalytics: any = {
+    const userAnalytics: any = {
       user_id: this.userId,
       scholarship_id: this.scholarship.id,
     };
@@ -361,13 +361,13 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
           this.firebaseService.saveUserAnalytics(userAnalytics, 'automation_requests')
             .then(
               res => {
-                this.snackBar.open("Request Saved", '', {
+                this.snackBar.open('Request Saved', '', {
                   duration: 3000
                 });
 
               },
               err => {
-                this.snackBar.open("Error in request Automation", '', {
+                this.snackBar.open('Error in request Automation', '', {
                   duration: 3000
                 });},
             )
@@ -380,7 +380,7 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
 
   addToMyScholarships() {
 
-    let userAnalytics:any = {};
+    const userAnalytics:any = {};
 
     userAnalytics.share_type = 'save_scholarship';
     userAnalytics.share_source = 'scholarship_detail';
@@ -394,7 +394,7 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
 
 
     if (!this.userProfile) {
-      let snackBarRef = this.snackBar.open("Register to Save", 'Register', {
+      const snackBarRef = this.snackBar.open('Register to Save', 'Register', {
         duration: 5000
       });
 
@@ -408,16 +408,16 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
     }
 
     if (this.alreadySaved) {
-      this.snackBar.open("Already Saved", '', {
+      this.snackBar.open('Already Saved', '', {
         duration: 5000
       });
       return;
     }
 
-    let saveResult = addToMyScholarshipHelper(this.userProfile,this.scholarship);
+    const saveResult = addToMyScholarshipHelper(this.userProfile,this.scholarship);
 
     if(!saveResult[1]) {
-      this.snackBar.open("Already Saved", '', {
+      this.snackBar.open('Already Saved', '', {
         duration: 5000
       });
       return;
@@ -428,7 +428,7 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
       this.userProfileService.updateHelper(this.userProfile)
         .subscribe(
           res => {
-            let snackBarRef = this.snackBar.open("Saved to My Scholarships", 'My Scholarships', {
+            const snackBarRef = this.snackBar.open('Saved to My Scholarships', 'My Scholarships', {
               duration: 5000
             });
 
@@ -446,7 +446,7 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
 
 
   logRelatedItemClick(item) {
-    let itemCopy: any = {};
+    const itemCopy: any = {};
     itemCopy.item_type = item.type;
     itemCopy.title = item.title;
     itemCopy.item_id= item.id;
@@ -497,7 +497,7 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
     this.subscriber.utm_id =       this.scholarship.id;
     this.subscriber.utm_title =       this.scholarship.name;
 
-    let dialogRef = this.dialog.open(SubscriberDialogComponent, {
+    const dialogRef = this.dialog.open(SubscriberDialogComponent, {
       width: '500px',
       data: this.subscriber,
     });
@@ -530,7 +530,7 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
       });
   }
 
-   //Make this an exported member function of comment
+   // Make this an exported member function of comment
    upVoteComment(userId: number, comment: Comment): Comment{
 
 
@@ -540,7 +540,7 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
 
         return comment;
     }
-    else{
+    else {
         this['user_already_upvoted'] = true;
         comment.up_votes_count = comment.up_votes_id.push(userId);
 
@@ -548,7 +548,7 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
     }
   }
   /*
-  updateMeta(){
+  updateMeta() {
 
     const fullUrl = document.location.href;
 
