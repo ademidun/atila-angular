@@ -14,6 +14,7 @@ import {NotificationsService} from '../../_services/notifications.service';
 import * as $ from 'jquery';
 import {prettifyKeys} from '../../_shared/utils';
 import {AUTOCOMPLETE_KEY_LIST} from '../../_models/constants';
+import {notifySavedScholarship} from '../scholarship-notifications';
 
 @Component({
   selector: 'app-scholarship-card',
@@ -142,7 +143,8 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
       if (!saveResult[1]) { // saveResult[1] returns false if this item already exists
         this.alreadySaved = true;
         if (this.userProfile.is_atila_admin || this.userProfile.is_debug_mode) { // todo: remove this before-merge-master
-          this.notifySavedScholarship();
+          notifySavedScholarship(this.scholarship, this.userProfile, this.userProfileService,
+            this.notificationService, this.notificationDialog);
           this.snackBar.open('Already Saved but allow it for admin mandem again doe', '', {
             duration: 3000
           });
@@ -166,7 +168,8 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
                 this.router.navigate(['profile', this.userProfile.username, 'my-atila']);
               },
             );
-            this.notifySavedScholarship();
+            notifySavedScholarship(this.scholarship, this.userProfile, this.userProfileService,
+              this.notificationService, this.notificationDialog);
           },
           err => {
           },
@@ -217,74 +220,6 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
         });
     }
 
-  }
-
-  // todo: refactor to remove duplication in scholarships list
-  notifySavedScholarship() {
-    // todo: add test for notifySaved Scholarship
-    // Ask user for permission to notify them if:
-    // 1.We have not asked them before
-    // OR
-    // 2.user has not allowed us to notify them
-    // AND
-    // 3.user has not told us to stop asking them
-
-    if (!this.userProfile.is_debug_mode && !this.userProfile.is_atila_admin) {
-      // todo: remove before merge-master allow non admin or debug users to test notifications
-      return;
-    }
-
-    if (!this.userProfile.metadata['haveAskedIfNotifySavedScholarship'] ||
-      !this.userProfile.metadata['allowNotifySavedScholarships']
-      && !this.userProfile.metadata['dontAskAgainNotifySavedScholarship']
-      || this.userProfile.is_atila_admin) { // todo: remove before merge-master-branch
-      // Ask user if we can notify them when their saved scholarships are due
-      const dialogRef = this.notificationDialog.open(NotificationDialogComponent, {
-        width: '350px',
-        height: '350px',
-        data: {
-          notificationText: 'Remind me before my saved scholarships are due',
-          userProfile: this.userProfile
-        },
-      });
-
-      dialogRef.afterClosed().subscribe(result => {
-        this.userProfile.metadata.haveAskedIfNotifySavedScholarship = !!result;
-        if (result) {
-          this.userProfile.metadata.dontAskAgainNotifySavedScholarship = result.dontAskAgain;
-          this.userProfile.metadata.allowNotifySavedScholarships = result.notifyUser;
-        }
-
-        this.userProfileService.updateHelper(this.userProfile).subscribe(userProfileResponse => {
-          if (this.userProfile.metadata['allowNotifySavedScholarships']) {
-            this.createScholarshipNotificationsHandler();
-          }
-        });
-
-      });
-
-    } else if (this.userProfile.metadata['allowNotifySavedScholarships']) {
-      this.createScholarshipNotificationsHandler();
-    }
-
-  }
-
-
-  createScholarshipNotificationsHandler() {
-    this.notificationService.createScholarshipNotifications(this.userProfile, this.scholarship)
-      .then(observableResult => {
-          observableResult.subscribe(
-            res => {
-              console.log({res})
-            },
-            err => {
-              console.log({err})
-            },
-            () => {
-              console.log('finished')
-            })
-        }
-      )
   }
 
   logNotInterested() {
