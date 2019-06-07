@@ -160,6 +160,9 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
 
         this.userProfileService.updateHelper(this.userProfile).subscribe(
           res => {
+
+            notifySavedScholarship(this.scholarship, this.userProfile, this.userProfileService,
+              this.notificationService, this.notificationDialog);
             const snackBarRef = this.snackBar.open('Saved to My Scholarships', 'My Scholarships', {
               duration: 5000
             });
@@ -168,8 +171,6 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
                 this.router.navigate(['profile', this.userProfile.username, 'my-atila']);
               },
             );
-            notifySavedScholarship(this.scholarship, this.userProfile, this.userProfileService,
-              this.notificationService, this.notificationDialog);
           },
           err => {
           },

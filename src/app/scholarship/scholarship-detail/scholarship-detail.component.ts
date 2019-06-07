@@ -25,6 +25,8 @@ import {Subscription} from 'rxjs/Subscription';
 import {AtilaPointsPromptDialogComponent} from '../../atila-points-prompt-dialog/atila-points-prompt-dialog.component';
 import {AUTOCOMPLETE_DICT, AUTOCOMPLETE_KEY_LIST} from '../../_models/constants';
 import {HttpErrorResponse} from '@angular/common/http';
+import {notifySavedScholarship} from '../scholarship-notifications';
+import {NotificationsService} from '../../_services/notifications.service';
 
 
 @Component({
@@ -75,6 +77,8 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
     public firebaseService: MyFirebaseService,
     public seoService: SeoService,
     public searchService: SearchService,
+    public notificationDialog: MatDialog,
+    public notificationService: NotificationsService
   ) {
     // Get the id that was passed in the route
     this.userId = parseInt(this.authService.decryptLocalStorage('uid'), 10); // Current user, TODO: Should we use the request user ID?
@@ -424,7 +428,9 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
     }
     else {
       this.userProfile = saveResult[0];
-      this.createNotificationSavedScholarships();
+
+      notifySavedScholarship(this.scholarship, this.userProfile, this.userProfileService,
+        this.notificationService, this.notificationDialog);
 
       this.userProfileService.updateHelper(this.userProfile)
         .subscribe(
@@ -444,11 +450,6 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
     }
 
   }
-
-  createNotificationSavedScholarships() {
-    console.log('createNotificationSavedScholarships');
-  }
-
 
   logRelatedItemClick(item) {
     const itemCopy: any = {};
