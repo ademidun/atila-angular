@@ -42,4 +42,17 @@ fdescribe('NotificationsService', () => {
         expect(createdNotification.title).toContain(scholarship.name, 'Scholarship name not in notification');
         expect(createdNotification.body).toContain(deadline, 'Scholarship deadline not in notification');
       }));
+
+  it('should create a notification with the scholarship name and deadline',
+    inject([NotificationsService],
+      (service: NotificationsService) => {
+        service.datePipe = new DatePipe('en-US');
+        const userProfile = new UserProfile();
+        const scholarship = createTestScholarship();
+
+        const createdNotification = service.createScholarshipNotificationMessage(userProfile, scholarship);
+
+        expect(createdNotification.title).toContain(userProfile.first_name, 'User name not in notification title');
+        expect(createdNotification.body).toContain(userProfile.first_name, 'User name not in notification body');
+      }));
 });
