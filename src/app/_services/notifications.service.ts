@@ -152,8 +152,11 @@ export class NotificationsService {
 
     if (messageData.notificationType === 'email') {
       messageData.email = userProfile.email;
-      messageData.body = `Scholarship due on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}: ${scholarship.name}.
-       Submit your Application!: ${messageData.clickAction}`;
+
+      messageData.body = `Hey ${userProfile.first_name},
+      The scholarship you saved, ${scholarship.name} is due in ${notificationConfig.daysBeforeDeadline} on
+      ${this.datePipe.transform(scholarship.deadline, 'fullDate')}. View Scholarship: ${messageData.clickAction}`;
+
       messageData.html = `Hey ${userProfile.first_name}, <br/> <br/>
       The scholarship you saved, <strong>${scholarship.name} is due in ${notificationConfig.daysBeforeDeadline} on
       ${this.datePipe.transform(scholarship.deadline, 'fullDate')}. </strong> <br/> <br/>
