@@ -43,19 +43,48 @@ fdescribe('NotificationsService', () => {
         expect(createdNotification.body).toContain(deadline, 'Scholarship deadline not in notification');
       });
 
-  it('should create an email notification with the userProfile name and deadline',
+  it('#customizeNotificationMessage() should create an email notification with the userProfile and scholarship details',
     () => {
         service.DEFAULT_NOTIFICATION_CONFIG.notificationType = 'email';
         const notificationOptions = {
-          'email': [1], // each array element represents the number of days before the scholarship deadline a notification should be sent
+          'email': [1, 7], // each array element represents the number of days before the scholarship deadline a notification should be sent
         };
 
         const createdNotifications = service.customizeNotificationMessage(notificationOptions,scholarship, userProfile);
-        console.log({ createdNotifications });
+
+        expect(createdNotifications.length).toBe(notificationOptions.email.length,
+          'Notifications created should equal number of notificationOptions');
+
         const createdNotification = createdNotifications[0];
 
         expect(createdNotification.title).toContain(userProfile.first_name, 'User name not in notification title');
         expect(createdNotification.body).toContain(userProfile.first_name, 'User name not in notification body');
         expect(createdNotification.html).toContain(userProfile.first_name, 'User name not in notification html');
+
+        const deadline = service.datePipe.transform(scholarship.deadline, 'fullDate');
+
+        expect(createdNotification.title).toContain(scholarship.name, 'Scholarship name not in notification');
+        expect(createdNotification.html).toContain(deadline, 'Scholarship deadline not in notification');
+
+      });
+  it('#customizeNotificationMessage() should contain correct correct due in N days',
+    () => {
+        service.DEFAULT_NOTIFICATION_CONFIG.notificationType = 'email';
+        const notificationOptions = {
+          'email': [1, 7], // each array element represents the number of days before the scholarship deadline a notification should be sent
+        };
+
+        const createdNotifications = service.customizeNotificationMessage(notificationOptions,scholarship, userProfile);
+
+        expect(createdNotifications.length).toBe(notificationOptions.email.length,
+          'Notifications created should equal number of notificationOptions');
+
+        expect(createdNotifications[0].title).not.toContain(`${notificationOptions.email[1]} day`,
+          'scholarship due in 1 day should noy say 7 days');
+        expect(createdNotifications[0].title).toContain(`${notificationOptions.email[0]} day`,
+          'scholarship due in 1 day should say 1 days');
+        expect(createdNotifications[1].title).toContain(`${notificationOptions.email[1]} day`,
+          'scholarship due in 7 day should say 7 days');
+
       });
 });
