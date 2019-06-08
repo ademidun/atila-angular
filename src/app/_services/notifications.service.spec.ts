@@ -24,6 +24,9 @@ fdescribe('NotificationsService', () => {
     });
 
     service = TestBed.get(NotificationsService);
+    service.userProfile = createTestUserProfile();
+    service.scholarship = createTestScholarship();
+    service.datePipe = new DatePipe('en-US');
   });
 
   it('should be created', () => {
@@ -32,7 +35,6 @@ fdescribe('NotificationsService', () => {
 
   it('should create a notification with the scholarship name and deadline',
     () => {
-        service.datePipe = new DatePipe('en-US');
         const userProfile = createTestUserProfile();
         const scholarship = createTestScholarship();
 
@@ -45,7 +47,6 @@ fdescribe('NotificationsService', () => {
 
   it('should create a notification with the userProfile name and deadline',
     () => {
-        service.datePipe = new DatePipe('en-US');
         const userProfile = createTestUserProfile();
         const scholarship = createTestScholarship();
 
@@ -57,7 +58,7 @@ fdescribe('NotificationsService', () => {
 
   it('should create an email notification with the userProfile name and deadline',
     () => {
-        service.datePipe = new DatePipe('en-US');
+
         const userProfile = createTestUserProfile();
         const scholarship = createTestScholarship();
         service.DEFAULT_NOTIFICATION_CONFIG.notificationType = 'email';
@@ -65,10 +66,10 @@ fdescribe('NotificationsService', () => {
           'email': [1], // each array element represents the number of days before the scholarship deadline a notification should be sent
         };
 
-        let createdNotification = service.customizeNotificationMessage(notificationOptions, userProfile, scholarship);
-        createdNotification = createdNotification[0];
+        const createdNotifications = service.customizeNotificationMessage(notificationOptions, userProfile, scholarship);
+        const createdNotification = createdNotifications[0];
 
-        expect(createdNotification.title).toContain(userProfile.first_name+'1', 'User name not in notification title');
+        expect(createdNotification.title).toContain(userProfile.first_name, 'User name not in notification title');
         expect(createdNotification.body).toContain(userProfile.first_name, 'User name not in notification body');
         expect(createdNotification.html).toContain(userProfile.first_name, 'User name not in notification html');
       });
