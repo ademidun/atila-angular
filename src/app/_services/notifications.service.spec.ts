@@ -50,7 +50,8 @@ fdescribe('NotificationsService', () => {
           'email': [1], // each array element represents the number of days before the scholarship deadline a notification should be sent
         };
 
-        const createdNotifications = service.customizeNotificationMessage(notificationOptions, userProfile, scholarship);
+        const createdNotifications = service.customizeNotificationMessage(notificationOptions,scholarship, userProfile);
+        console.log({ createdNotifications });
         const createdNotification = createdNotifications[0];
 
         expect(createdNotification.title).toContain(userProfile.first_name, 'User name not in notification title');
