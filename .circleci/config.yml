@@ -120,7 +120,9 @@ workflows:
   build-test-and-deploy:
     jobs:
       - test
-      - build
+      - build:
+          requires:
+            - test
       - deploy:
           requires:
             - test
