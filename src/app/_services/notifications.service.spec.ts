@@ -63,10 +63,15 @@ fdescribe('NotificationsService', () => {
         const userProfile = new UserProfile();
         const scholarship = createTestScholarship();
         service.DEFAULT_NOTIFICATION_CONFIG.notificationType = 'email';
+        const notificationOptions = {
+          'email': [1], // each array element represents the number of days before the scholarship deadline a notification should be sent
+        };
 
-        const createdNotification = service.createScholarshipNotificationMessage(userProfile, scholarship);
+        let createdNotification = service.customizeNotificationMessage(notificationOptions, userProfile, scholarship);
+        createdNotification = createdNotification[0];
 
         expect(createdNotification.title).toContain(userProfile.first_name+'1', 'User name not in notification title');
         expect(createdNotification.body).toContain(userProfile.first_name, 'User name not in notification body');
+        expect(createdNotification.html).toContain(userProfile.first_name, 'User name not in notification body');
       }));
 });

@@ -17,7 +17,7 @@ export class NotificationsService {
 
   readonly VAPID_PUBLIC_KEY = 'BAjiETJuDgtXH6aRXgeCZgK8vurMT7AbFmPPhz1ybyfcDmfGFFydSXkYDC359HIXUmWw8w79-miI6NtmbfodiVI';
 
-  public DEFAULT_NOTIFICATION_CONFIG = {sendDate: 0, notificationType:'', daysBeforeDeadline: 1};
+  public DEFAULT_NOTIFICATION_CONFIG = {sendDate: 0, notificationType:'email', daysBeforeDeadline: 1};
 
   constructor(
     public db: AngularFireDatabase,
