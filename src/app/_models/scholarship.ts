@@ -128,18 +128,6 @@ export function scholarshipCreationHelper(scholarship: Scholarship) {
 
   scholarship.education_field = scholarship.education_field || EDUCATION_FIELDS;
   scholarship.education_level = scholarship.education_level || EDUCATION_LEVEL;
-  // Sometimes jQuery takes a bit too long and the change isn't reflected in the form
-  // scholarship.description = scholarship.description || $(scholarship.criteria_info).text().slice(0,300);
-  if (scholarship.criteria_info) {
-    if ($) {
-      scholarship.description = scholarship.description || $(scholarship.criteria_info).text().slice(0, 300);
-    }
-    else {
-      scholarship.description = scholarship.description ||
-        scholarship.criteria_info.replace(/<(?:.|\n)*?>/gm, '').replace('&nbsp;', '').replace('&ndash;', '').slice(0, 300);
-    }
-
-  }
 
   return scholarship;
 }
