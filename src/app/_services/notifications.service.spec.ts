@@ -8,8 +8,8 @@ import {HttpClient} from '@angular/common/http';
 import {createTestScholarship, Scholarship} from '../_models/scholarship';
 import {createTestUserProfile, UserProfile} from '../_models/user-profile';
 
-const userProfile: UserProfile;
-const scholarship: Scholarship;
+let userProfile: UserProfile;
+let scholarship: Scholarship;
 
 fdescribe('NotificationsService', () => {
   beforeEach(() => {
