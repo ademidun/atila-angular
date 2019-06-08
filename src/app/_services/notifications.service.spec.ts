@@ -43,15 +43,6 @@ fdescribe('NotificationsService', () => {
         expect(createdNotification.body).toContain(deadline, 'Scholarship deadline not in notification');
       });
 
-  it('should create a notification with the userProfile name and deadline',
-    () => {
-
-        const createdNotification = service.createScholarshipNotificationMessage(service.userProfile, service.scholarship);
-
-        expect(createdNotification.title).toContain(service.first_name, 'User name not in notification title');
-        expect(createdNotification.body).toContain(service.first_name, 'User name not in notification body');
-      });
-
   it('should create an email notification with the userProfile name and deadline',
     () => {
         service.DEFAULT_NOTIFICATION_CONFIG.notificationType = 'email';
