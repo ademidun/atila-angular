@@ -1,3 +1,4 @@
+/*
 import {createTestUserProfile, UserProfile} from '../../_models/user-profile';
 import {createTestScholarship, Scholarship} from '../../_models/scholarship';
 import {notifySavedScholarship} from './scholarship-notifications'
@@ -63,3 +64,4 @@ describe('scholarship-notification', () => {
   });
 });
 
+*/
