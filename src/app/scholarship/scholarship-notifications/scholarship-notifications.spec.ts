@@ -6,7 +6,7 @@ import {NotificationsServiceStub} from '../../_services/notifications.service';
 import {TestBed} from '@angular/core/testing';
 import {NotificationDialogComponent} from '../../notification-dialog/notification-dialog.component';
 
-describe('notifySavedScholarship', function() {
+fdescribe('notifySavedScholarship', function() {
   it('#notifySavedScholarship(): Should make sure not sent if user is not admin or testing', function() {
 
 
