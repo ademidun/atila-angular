@@ -1,16 +1,15 @@
 import {TestBed, inject} from '@angular/core/testing';
 
 import {NotificationsService} from './notifications.service';
-import {ScholarshipService, scholarshipServiceStub} from './scholarship.service';
 import {AngularFireDatabase} from 'angularfire2/database';
 import {SwPush} from '@angular/service-worker';
 import {DatePipe} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 import {createTestScholarship} from '../_models/scholarship';
 import {createTestUserProfile, UserProfile} from '../_models/user-profile';
-import {ScholarshipCardComponent} from '../scholarship/scholarship-card/scholarship-card.component';
 
-let service: NotificationsService;
+const userProfile: UserProfile;
+const scholarship: Scholarship;
 
 fdescribe('NotificationsService', () => {
   beforeEach(() => {
@@ -24,8 +23,8 @@ fdescribe('NotificationsService', () => {
     });
 
     service = TestBed.get(NotificationsService);
-    service.userProfile = createTestUserProfile();
-    service.scholarship = createTestScholarship();
+    userProfile = createTestUserProfile();
+    scholarship = createTestScholarship();
     service.datePipe = new DatePipe('en-US');
   });
 
@@ -36,10 +35,10 @@ fdescribe('NotificationsService', () => {
   it('should create a notification with the scholarship name and deadline',
     () => {
 
-        const deadline = service.datePipe.transform(service.scholarship.deadline, 'fullDate');
-        const createdNotification = service.createScholarshipNotificationMessage(service.userProfile, service.scholarship);
+        const deadline = service.datePipe.transform(scholarship.deadline, 'fullDate');
+        const createdNotification = service.createScholarshipNotificationMessage(userProfile, scholarship);
 
-        expect(createdNotification.title).toContain(service.scholarship.name, 'Scholarship name not in notification');
+        expect(createdNotification.title).toContain(scholarship.name, 'Scholarship name not in notification');
         expect(createdNotification.body).toContain(deadline, 'Scholarship deadline not in notification');
       });
 
@@ -50,11 +49,11 @@ fdescribe('NotificationsService', () => {
           'email': [1], // each array element represents the number of days before the scholarship deadline a notification should be sent
         };
 
-        const createdNotifications = service.customizeNotificationMessage(notificationOptions, service.userProfile, service.scholarship);
+        const createdNotifications = service.customizeNotificationMessage(notificationOptions, userProfile, scholarship);
         const createdNotification = createdNotifications[0];
 
-        expect(createdNotification.title).toContain(service.userProfile.first_name, 'User name not in notification title');
-        expect(createdNotification.body).toContain(service.userProfile.first_name, 'User name not in notification body');
-        expect(createdNotification.html).toContain(service.userProfile.first_name, 'User name not in notification html');
+        expect(createdNotification.title).toContain(userProfile.first_name, 'User name not in notification title');
+        expect(createdNotification.body).toContain(userProfile.first_name, 'User name not in notification body');
+        expect(createdNotification.html).toContain(userProfile.first_name, 'User name not in notification html');
       });
 });
