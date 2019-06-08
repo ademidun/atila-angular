@@ -10,6 +10,7 @@ import {createTestUserProfile, UserProfile} from '../_models/user-profile';
 
 let userProfile: UserProfile;
 let scholarship: Scholarship;
+let service: NotificationsService;
 
 fdescribe('NotificationsService', () => {
   beforeEach(() => {
