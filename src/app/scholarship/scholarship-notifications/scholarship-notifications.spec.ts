@@ -13,11 +13,11 @@ import {TruncatePipe} from '../../_pipes/truncate.pipe';
 fdescribe('scholarship-notification', () => {
 
   const ScholarshipNotification = {
-    userProfile: UserProfile,
-    scholarship: Scholarship,
-    userProfileService: UserProfileService = userProfileServiceStub,
-    notificationsService: NotificationsService = NotificationsServiceStub,
-    dialogComponent: NotificationDialogComponent,
+    userProfile = {},
+    scholarship = {},
+    userProfileService = userProfileServiceStub,
+    notificationsService = NotificationsServiceStub,
+    dialogComponent = {},
   };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
