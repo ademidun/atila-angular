@@ -14,6 +14,8 @@ import {createTestScholarship} from '../../_models/scholarship';
 import {createTestUserProfile, UserProfile} from '../../_models/user-profile';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatIconStubComponent} from '../../_shared/test-helpers';
+import {notifySavedScholarship} from '../scholarship-notifications/scholarship-notifications';
+import * as ScholarshipNotifications from '../scholarship-notifications/scholarship-notifications';
 
 
 fdescribe('ScholarshipCardComponent', () => {
@@ -116,7 +118,9 @@ fdescribe('ScholarshipCardComponent', () => {
   }));
 
   it('should not call notifySavedScholarship if already saved', async(() => {
-    spyOn(component, 'notifySavedScholarship');
+    import * as ScholarshipNotifications from '../scholarship-notifications/scholarship-notifications';
+
+    spyOn(ScholarshipNotifications, 'notifySavedScholarship');
 
     const button = fixture.debugElement.nativeElement.querySelector('.save-scholarship');
 
@@ -127,7 +131,7 @@ fdescribe('ScholarshipCardComponent', () => {
     fixture.whenStable().then(() => {
       button.click();
       fixture.whenStable().then(() => {
-        expect(component.notifySavedScholarship).not.toHaveBeenCalled();
+        expect(ScholarshipNotifications.notifySavedScholarship).not.toHaveBeenCalled();
 
       });
 
