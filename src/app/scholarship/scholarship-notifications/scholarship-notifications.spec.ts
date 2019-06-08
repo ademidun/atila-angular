@@ -12,12 +12,15 @@ import {TruncatePipe} from '../../_pipes/truncate.pipe';
 
 fdescribe('scholarship-notification', () => {
 
+  const userProfileServiceStub = userProfileServiceStub;
+  const NotificationsServiceStub = NotificationsServiceStub;
+
   const ScholarshipNotification = {
-    userProfile = {},
-    scholarship = {},
-    userProfileService = userProfileServiceStub,
-    notificationsService = NotificationsServiceStub,
-    dialogComponent = {},
+    userProfile: createTestUserProfile(),
+    scholarship: createTestScholarship(),
+    userProfileService: userProfileServiceStub,
+    notificationsService: NotificationsServiceStub,
+    dialogComponent: {},
   };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -42,19 +45,15 @@ fdescribe('scholarship-notification', () => {
           exports: [MatIconStubComponent]
         }
       })
-      .compileComponents();
 
-    const userProfile  = createTestUserProfile();
-    userProfile.is_debug_mode = false;
-    userProfile.is_atila_admin = false;
-
-    ScholarshipNotification.userProfile = userProfile;
-    ScholarshipNotification.scholarship = createTestScholarship();
     ScholarshipNotification.dialogComponent = TestBed.createComponent(NotificationDialogComponent);
 
   }));
 
   it('#notifySavedScholarship(): Should make sure not sent if user is not admin or testing', function() {
+
+    ScholarshipNotification.userProfile.is_atila_admin = false;
+    ScholarshipNotification.userProfile.is_debug_mode = false;
 
     const result = notifySavedScholarship(ScholarshipNotification.scholarship, ScholarshipNotification.userProfile,
       ScholarshipNotification.userProfileService, ScholarshipNotification.notificationsService, ScholarshipNotification.dialogComponent);
