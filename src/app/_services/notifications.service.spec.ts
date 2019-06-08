@@ -7,12 +7,11 @@ import {SwPush} from '@angular/service-worker';
 import {DatePipe} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
 import {createTestScholarship} from '../_models/scholarship';
-import {UserProfile} from '../_models/user-profile';
+import {createTestUserProfile, UserProfile} from '../_models/user-profile';
+import {ScholarshipCardComponent} from '../scholarship/scholarship-card/scholarship-card.component';
 
-const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December'
-];
-// const datePipe = new DatePipe();
+let service: NotificationsService;
+
 fdescribe('NotificationsService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -23,17 +22,18 @@ fdescribe('NotificationsService', () => {
         {provide: HttpClient, useValue: HttpClient},
       ],
     });
+
+    service = TestBed.get(NotificationsService);
   });
 
-  it('should be created', inject([NotificationsService], (service: NotificationsService) => {
+  it('should be created', () => {
     expect(service).toBeTruthy();
-  }));
+  });
 
   it('should create a notification with the scholarship name and deadline',
-    inject([NotificationsService],
-      (service: NotificationsService) => {
+    () => {
         service.datePipe = new DatePipe('en-US');
-        const userProfile = new UserProfile();
+        const userProfile = createTestUserProfile();
         const scholarship = createTestScholarship();
 
         const deadline = service.datePipe.transform(scholarship.deadline, 'fullDate');
@@ -41,26 +41,24 @@ fdescribe('NotificationsService', () => {
 
         expect(createdNotification.title).toContain(scholarship.name, 'Scholarship name not in notification');
         expect(createdNotification.body).toContain(deadline, 'Scholarship deadline not in notification');
-      }));
+      });
 
   it('should create a notification with the userProfile name and deadline',
-    inject([NotificationsService],
-      (service: NotificationsService) => {
+    () => {
         service.datePipe = new DatePipe('en-US');
-        const userProfile = new UserProfile();
+        const userProfile = createTestUserProfile();
         const scholarship = createTestScholarship();
 
         const createdNotification = service.createScholarshipNotificationMessage(userProfile, scholarship);
 
         expect(createdNotification.title).toContain(userProfile.first_name, 'User name not in notification title');
         expect(createdNotification.body).toContain(userProfile.first_name, 'User name not in notification body');
-      }));
+      });
 
   it('should create an email notification with the userProfile name and deadline',
-    inject([NotificationsService],
-      (service: NotificationsService) => {
+    () => {
         service.datePipe = new DatePipe('en-US');
-        const userProfile = new UserProfile();
+        const userProfile = createTestUserProfile();
         const scholarship = createTestScholarship();
         service.DEFAULT_NOTIFICATION_CONFIG.notificationType = 'email';
         const notificationOptions = {
@@ -72,6 +70,6 @@ fdescribe('NotificationsService', () => {
 
         expect(createdNotification.title).toContain(userProfile.first_name+'1', 'User name not in notification title');
         expect(createdNotification.body).toContain(userProfile.first_name, 'User name not in notification body');
-        expect(createdNotification.html).toContain(userProfile.first_name, 'User name not in notification body');
-      }));
+        expect(createdNotification.html).toContain(userProfile.first_name, 'User name not in notification html');
+      });
 });
