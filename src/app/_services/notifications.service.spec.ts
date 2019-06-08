@@ -1,11 +1,11 @@
-import {TestBed, inject} from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
 import {NotificationsService} from './notifications.service';
 import {AngularFireDatabase} from 'angularfire2/database';
 import {SwPush} from '@angular/service-worker';
 import {DatePipe} from '@angular/common';
 import {HttpClient} from '@angular/common/http';
-import {createTestScholarship} from '../_models/scholarship';
+import {createTestScholarship, Scholarship} from '../_models/scholarship';
 import {createTestUserProfile, UserProfile} from '../_models/user-profile';
 
 const userProfile: UserProfile;
