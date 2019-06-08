@@ -10,7 +10,7 @@ import {MatDialogModule, MatIcon, MatIconModule, MatSnackBarModule} from '@angul
 import {ScholarshipCardComponent} from '../scholarship-card/scholarship-card.component';
 import {TruncatePipe} from '../../_pipes/truncate.pipe';
 
-fdescribe('scholarship-notification', () => {
+describe('scholarship-notification', () => {
 
   const userProfileServiceStub = userProfileServiceStub;
   const NotificationsServiceStub = NotificationsServiceStub;
