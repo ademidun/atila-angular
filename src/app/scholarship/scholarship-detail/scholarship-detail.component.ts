@@ -25,7 +25,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {AtilaPointsPromptDialogComponent} from '../../atila-points-prompt-dialog/atila-points-prompt-dialog.component';
 import {AUTOCOMPLETE_DICT, AUTOCOMPLETE_KEY_LIST} from '../../_models/constants';
 import {HttpErrorResponse} from '@angular/common/http';
-import {notifySavedScholarship} from '../scholarship-notifications';
+import {notifySavedScholarship} from '../scholarship-notifications/scholarship-notifications';
 import {NotificationsService} from '../../_services/notifications.service';
 
 

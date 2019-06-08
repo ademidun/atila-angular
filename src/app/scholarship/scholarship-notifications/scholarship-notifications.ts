@@ -1,6 +1,6 @@
-import {NotificationDialogComponent} from '../notification-dialog/notification-dialog.component';
-import {UserProfile} from '../_models/user-profile';
-import {Scholarship} from '../_models/scholarship';
+import {NotificationDialogComponent} from '../../notification-dialog/notification-dialog.component';
+import {UserProfile} from '../../_models/user-profile';
+import {Scholarship} from '../../_models/scholarship';
 
 // todo: refactor to remove duplication in scholarships list
 export function notifySavedScholarship(scholarship: Scholarship, userProfile: UserProfile,

@@ -14,7 +14,7 @@ import {NotificationsService} from '../../_services/notifications.service';
 import * as $ from 'jquery';
 import {prettifyKeys} from '../../_shared/utils';
 import {AUTOCOMPLETE_KEY_LIST} from '../../_models/constants';
-import {notifySavedScholarship} from '../scholarship-notifications';
+import {notifySavedScholarship} from '../scholarship-notifications/scholarship-notifications';
 
 @Component({
   selector: 'app-scholarship-card',
