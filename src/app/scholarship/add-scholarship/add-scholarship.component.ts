@@ -497,10 +497,11 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
         this.scholarship.metadata['errors']['parse_deadline'] = {
           'error': err.toString(),
           'deadline': this.scholarship.deadline,
-        }
+        };
+        console.log({ err });
       }
     }
-    else if (!this.editMode) {
+    if (!this.editMode) {
       this.scholarship = scholarshipCreationHelper(this.scholarship);
     }
     this.scholarshipErrors = null;
