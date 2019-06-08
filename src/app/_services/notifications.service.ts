@@ -17,6 +17,8 @@ export class NotificationsService {
 
   readonly VAPID_PUBLIC_KEY = 'BAjiETJuDgtXH6aRXgeCZgK8vurMT7AbFmPPhz1ybyfcDmfGFFydSXkYDC359HIXUmWw8w79-miI6NtmbfodiVI';
 
+  public DEFAULT_NOTIFICATION_CONFIG = {sendDate: 0, notificationType:'', daysBeforeDeadline: 1};
+
   constructor(
     public db: AngularFireDatabase,
     public datePipe: DatePipe,
@@ -121,7 +123,7 @@ export class NotificationsService {
   createScholarshipNotificationMessage(userProfile: UserProfile, scholarship: Scholarship,
                                        notificationConfig:
                                          { sendDate: number, notificationType: string, daysBeforeDeadline: number | string}
-                                         = {sendDate: 0, notificationType:'', daysBeforeDeadline: 1}) {
+                                         = this.DEFAULT_NOTIFICATION_CONFIG) {
 
     let createdAt: Date | number = new Date(scholarship.deadline);
 
