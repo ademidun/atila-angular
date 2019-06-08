@@ -14,7 +14,6 @@ import {createTestScholarship} from '../../_models/scholarship';
 import {createTestUserProfile, UserProfile} from '../../_models/user-profile';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatIconStubComponent} from '../../_shared/test-helpers';
-import {notifySavedScholarship} from '../scholarship-notifications/scholarship-notifications';
 import * as ScholarshipNotifications from '../scholarship-notifications/scholarship-notifications';
 
 
@@ -118,7 +117,6 @@ fdescribe('ScholarshipCardComponent', () => {
   }));
 
   it('should not call notifySavedScholarship if already saved', async(() => {
-    import * as ScholarshipNotifications from '../scholarship-notifications/scholarship-notifications';
 
     spyOn(ScholarshipNotifications, 'notifySavedScholarship');
 
