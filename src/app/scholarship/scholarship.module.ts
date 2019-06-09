@@ -38,7 +38,6 @@ import {ScholarshipsListComponent} from './scholarships-list/scholarships-list.c
 import {SubscriberDialogComponent} from '../subscriber-dialog/subscriber-dialog.component';
 import {EditProfileModalComponent} from '../edit-profile-modal/edit-profile-modal.component';
 import { ScholarshipEditSuggestionComponent } from './scholarship-edit-suggestion/scholarship-edit-suggestion.component';
-import {NotificationDialogComponent} from '../notification-dialog/notification-dialog.component';
 
 @NgModule({
   imports: [
@@ -74,13 +73,11 @@ import {NotificationDialogComponent} from '../notification-dialog/notification-d
     ScholarshipDetailComponent,
     ScholarshipsListComponent,
     ScholarshipEditSuggestionComponent,
-    NotificationDialogComponent,
   ],
   entryComponents: [
     SubscriberDialogComponent,
     EditProfileModalComponent,
     AddQuestionModalComponent,
-    NotificationDialogComponent,
   ]
 })
 export class ScholarshipModule { }
