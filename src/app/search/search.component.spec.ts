@@ -4,7 +4,7 @@ import { SearchComponent } from './search.component';
 import {UserProfileService, userProfileServiceStub} from '../_services/user-profile.service';
 import {MyFirebaseService, MyFirebaseServiceStub} from '../_services/myfirebase.service';
 import {AuthService, AuthServiceStub} from '../_services/auth.service';
-import {MatIconStubComponent, TypeaheadStubComponent} from '../_shared/test-helpers';
+import {MatIconStubComponent, ScholarshipCardStubComponent, TypeaheadStubComponent} from '../_shared/test-helpers';
 import {SeoService, seoServiceStub} from '../_services/seo.service';
 import {
   MatDialogModule,
@@ -37,6 +37,7 @@ fdescribe('SearchComponent', () => {
       declarations: [
         SearchComponent,
         CardGenericComponent,
+        ScholarshipCardStubComponent,
         TypeaheadStubComponent,
         TruncatePipe],
       providers: [

@@ -45,6 +45,7 @@ import { ShareItemComponent } from './share-item/share-item.component';
 import {AtilaPointsPromptDialogComponent} from '../atila-points-prompt-dialog/atila-points-prompt-dialog.component';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {ScholarshipCardComponent} from '../scholarship/scholarship-card/scholarship-card.component';
+import {NotificationDialogComponent} from '../notification-dialog/notification-dialog.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -88,6 +89,7 @@ import {ScholarshipCardComponent} from '../scholarship/scholarship-card/scholars
     CardGenericComponent,
     AtilaPointsPromptDialogComponent,
     ScholarshipCardComponent,
+    NotificationDialogComponent,
     ShareItemComponent],
   exports: [
     SafeHtmlPipe,
@@ -109,6 +111,7 @@ import {ScholarshipCardComponent} from '../scholarship/scholarship-card/scholars
     AtilaPointsPromptDialogComponent,
     MatIconModule,
     ScholarshipCardComponent,
+    NotificationDialogComponent,
     ],
   providers: [
     {

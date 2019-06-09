@@ -76,6 +76,7 @@ import { AtilaPointsPromptDialogComponent } from './atila-points-prompt-dialog/a
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {NotificationsService} from './_services/notifications.service';
 import {ScholarshipCardComponent} from './scholarship/scholarship-card/scholarship-card.component';
+import {NotificationDialogComponent} from './notification-dialog/notification-dialog.component';
 
 @NgModule({
   declarations: [
@@ -169,6 +170,7 @@ import {ScholarshipCardComponent} from './scholarship/scholarship-card/scholarsh
     EditProfileModalComponent,
     AddQuestionModalComponent,
     AtilaPointsPromptDialogComponent,
+    NotificationDialogComponent,
   ]
 })
 export class AppModule {
