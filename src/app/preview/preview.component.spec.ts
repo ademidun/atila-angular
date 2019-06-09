@@ -13,7 +13,7 @@ import {NgbModule, NgbPopoverConfig, NgbPopoverModule} from '@ng-bootstrap/ng-bo
 import {FormsModule} from '@angular/forms';
 import {ShareItemComponent} from '../_shared/share-item/share-item.component';
 import {TruncatePipe} from '../_pipes/truncate.pipe';
-import {ScholarshipService, scholarshipServiceStub} from '../_services/scholarship.service';
+import {ScholarshipService, ScholarshipServiceStub} from '../_services/scholarship.service';
 import {MyFirebaseService, MyFirebaseServiceStub} from '../_services/myfirebase.service';
 import {AuthService, AuthServiceStub} from '../_services/auth.service';
 import {
@@ -55,7 +55,7 @@ fdescribe('PreviewComponent', () => {
         BrowserAnimationsModule,
       ],
       providers: [
-        {provide: ScholarshipService, useValue: scholarshipServiceStub },
+        {provide: ScholarshipService, useValue: ScholarshipServiceStub },
         {provide: MyFirebaseService, useValue: MyFirebaseServiceStub },
         {provide: AuthService, useValue: AuthServiceStub },
         {provide: GoogleAnalyticsEventsService, useValue: GoogleAnalyticsEventsServiceStub },
