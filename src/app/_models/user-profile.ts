@@ -52,7 +52,7 @@ export class UserProfile {
     public reference_letter_alternate?: any,
     public extracurricular_description?: any,
     public academic_career_goals?: any,
-    public saved_scholarships?: any,
+    public saved_scholarships?: any[],
     public saved_scholarships_metadata?: any,
     public secondary_school?: any,
     public signature?: any,
