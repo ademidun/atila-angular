@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import {CommonModule, DatePipe} from '@angular/common';
+import {CommonModule} from '@angular/common';
 
 import { ScholarshipRoutingModule } from './scholarship-routing.module';
 import {environment} from '../../environments/environment';
 
 import {MaterializeModule} from 'angular2-materialize';
-import "materialize-css";
+import 'materialize-css';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
@@ -34,7 +34,6 @@ import {SharedModule} from '../_shared/shared.module';
 import {AddScholarshipComponent} from './add-scholarship/add-scholarship.component';
 import {ScholarshipDetailComponent} from './scholarship-detail/scholarship-detail.component';
 import {AddQuestionModalComponent} from '../add-question-modal/add-question-modal.component';
-import {ScholarshipCardComponent} from './scholarship-card/scholarship-card.component';
 import {ScholarshipsListComponent} from './scholarships-list/scholarships-list.component';
 import {SubscriberDialogComponent} from '../subscriber-dialog/subscriber-dialog.component';
 import {EditProfileModalComponent} from '../edit-profile-modal/edit-profile-modal.component';
@@ -73,7 +72,6 @@ import {NotificationDialogComponent} from '../notification-dialog/notification-d
   declarations: [
     AddScholarshipComponent,
     ScholarshipDetailComponent,
-    ScholarshipCardComponent,
     ScholarshipsListComponent,
     ScholarshipEditSuggestionComponent,
     NotificationDialogComponent,

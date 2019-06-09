@@ -47,7 +47,7 @@
       <!--</div>-->
 
       <div *ngFor="let key of autoCompleteLists">
-        <ng-container *ngIf="scholarship[key].length>0">
+        <ng-container *ngIf="scholarship[key] && scholarship[key].length>0">
           <p>
             <strong>{{prettifyKeys(key)}} {{key == 'citizenship' ? 'or permanent residency': ''}}:</strong>
             {{scholarship[key]}}</p>

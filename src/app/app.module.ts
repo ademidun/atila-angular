@@ -64,7 +64,7 @@ import {SearchService} from './_services/search.service';
 import {DynamicQuestionGeneralComponent} from './dynamic-question-general/dynamic-question-general.component';
 import {CommonModule, DatePipe} from '@angular/common';
 import {MaterializeModule} from 'angular2-materialize';
-import "materialize-css";
+import 'materialize-css';
 import {MarkdownModule} from 'ngx-markdown';
 import {EditProfileModalComponent} from './edit-profile-modal/edit-profile-modal.component';
 import {FroalaEditorModule, FroalaViewModule} from 'angular-froala-wysiwyg';
@@ -75,7 +75,7 @@ import { GeneralInfoComponent } from './general-info/general-info.component';
 import { AtilaPointsPromptDialogComponent } from './atila-points-prompt-dialog/atila-points-prompt-dialog.component';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {NotificationsService} from './_services/notifications.service';
-import {AngularFireAuthModule} from 'angularfire2/auth';
+import {ScholarshipCardComponent} from './scholarship/scholarship-card/scholarship-card.component';
 
 @NgModule({
   declarations: [

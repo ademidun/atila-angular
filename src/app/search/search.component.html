@@ -29,20 +29,7 @@
 
       <div class="row scholarship-results">
         <div *ngFor=" let scholarship of searchResults.scholarships" class="col-sm-12 col-md-10">
-          <div class="card small">
-            <div class="card-title">
-              <a (click)="saveQueryClick(scholarship,'scholarship')" [routerLink]="['/scholarship', scholarship.slug]">
-                {{scholarship.name}}</a>
-            </div>
-            <div class="card-content">
-              <p>{{scholarship.description | truncate:280}}</p>
-
-              <button mat-fab  (click)="addToMyScholarships(scholarship)">
-                <mat-icon [ngStyle]="{'color': scholarship.alreadySaved ? '#4080ff' : ''}"    class="atila-blue" aria-hidden="true" aria-label="Save">bookmark</mat-icon>
-              </button>
-            </div>
-
-          </div>
+          <app-scholarship-card [scholarship]="scholarship" [userProfile]="userProfile"></app-scholarship-card>
         </div>
       </div>
 
