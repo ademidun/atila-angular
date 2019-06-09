@@ -29,7 +29,9 @@
 
       <div class="row scholarship-results">
         <div *ngFor=" let scholarship of searchResults.scholarships" class="col-sm-12 col-md-10">
-          <app-scholarship-card [scholarship]="scholarship" [userProfile]="userProfile"></app-scholarship-card>
+          <app-scholarship-card [scholarship]="scholarship" [userProfile]="userProfile" [showExtraCriteria]="false">
+
+          </app-scholarship-card>
         </div>
       </div>
 

@@ -33,6 +33,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
   // todo change to only handle one scholarship
   @Input() scholarship: Scholarship | any;
   @Input() userProfile: UserProfile;
+  @Input() showExtraCriteria = true;
   @Input() metadata: any = {
     viewAsUser: '',
     page_no: '',

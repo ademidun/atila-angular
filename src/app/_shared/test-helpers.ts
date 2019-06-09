@@ -23,6 +23,7 @@ export class MatIconStubComponent {
 export class ScholarshipCardStubComponent {
   @Input() scholarship: Scholarship | any;
   @Input() userProfile: UserProfile;
+  @Input() showExtraCriteria = true;
   @Input() metadata: any = {};
   @Output() handleClick: EventEmitter<any> = new EventEmitter();
 }

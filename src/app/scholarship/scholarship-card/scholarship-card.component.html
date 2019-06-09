@@ -35,9 +35,12 @@
     </div>
     <div class="card-content col-sm-8" >
       <p> {{scholarship.description | truncate:showMore?scholarship.description.length:240}}</p>
-      <a (click)="showMore=!showMore">Show {{showMore? 'Less':'More'}}</a>
+      <!--if not in showExtraCriteria only display showMore link if description length needs to be expanded-->
+      <a *ngIf="showExtraCriteria || scholarship.description.length>240"
+         (click)="showMore=!showMore">
+        Show {{showMore? 'Less':'More'}}</a>
     </div>
-    <div class="other-criteria" *ngIf="showMore">
+    <div class="other-criteria" *ngIf="showExtraCriteria && showMore">
 
       <h5>Other Criteria</h5>
 
