@@ -39,7 +39,7 @@ export class NotificationsService {
 
   pushMessages(messagesList) {
 
-    return this.http.post(`${environment.atilaMicroservicesApiUrlNode}notifications/save-notifications/`, messagesList);
+    return this.http.post(`${environment.atilaMicroservicesNodeApiUrl}notifications/save-notifications/`, messagesList);
 
   }
 
