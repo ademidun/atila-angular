@@ -9,12 +9,12 @@ export const environment = {
   atilaMicroservicesNodeApiUrl: 'https://ufp2d3oax7.execute-api.us-east-1.amazonaws.com/dev/',
   // atilaMicroservicesNodeApiUrl: 'http://localhost:9000/',
   firebase : {
-    apiKey: "AIzaSyDs2UY2qe7SJyGGPqKt32zutqWwB-SfANE",
-    authDomain: "atila-7.firebaseapp.com",
-    databaseURL: "https://atila-7.firebaseio.com",
-    projectId: "atila-7",
-    storageBucket: "atila-7.appspot.com",
-    messagingSenderId: "148649271725"
+    apiKey: 'AIzaSyDs2UY2qe7SJyGGPqKt32zutqWwB-SfANE',
+    authDomain: 'atila-7.firebaseapp.com',
+    databaseURL: 'https://atila-7.firebaseio.com',
+    projectId: 'atila-7',
+    storageBucket: 'atila-7.appspot.com',
+    messagingSenderId: '148649271725'
   },
 
 };
