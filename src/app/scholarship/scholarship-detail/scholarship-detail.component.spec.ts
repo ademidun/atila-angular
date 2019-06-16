@@ -34,6 +34,9 @@ import {CommentComponent} from '../../comment/comment.component';
 import {CardGenericComponent} from '../../card-generic/card-generic.component';
 import {TruncatePipe} from '../../_pipes/truncate.pipe';
 import {ApplicationService, ApplicationServiceStub} from '../../_services/application.service';
+import {CommentService, CommentServiceStub} from '../../_services/comment.service';
+import {SeoService, seoServiceStub} from '../../_services/seo.service';
+import {SearchService, SearchServiceStub} from '../../_services/search.service';
 
 fdescribe('ScholarshipDetailComponent', () => {
   let component: ScholarshipDetailComponent;
@@ -53,8 +56,12 @@ fdescribe('ScholarshipDetailComponent', () => {
         {provide: ScholarshipService, useValue: ScholarshipServiceStub},
         {provide: UserProfileService, useValue: UserProfileServiceStub},
         {provide: ApplicationService, useValue: ApplicationServiceStub},
+        {provide: CommentService, useValue: CommentServiceStub},
+        {provide: CommentService, useValue: CommentServiceStub},
+        {provide: SeoService, useValue: seoServiceStub},
         {provide: AuthService, useValue: AuthServiceStub},
         {provide: NotificationsService, useValue: NotificationsServiceStub},
+        {provide: SearchService, useValue: SearchServiceStub},
         {provide: MyFirebaseService, useValue: MyFirebaseServiceStub},
         {provide: APP_BASE_HREF, useValue : '/' }
       ],
