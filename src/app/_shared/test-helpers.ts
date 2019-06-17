@@ -31,17 +31,6 @@ export class ScholarshipCardStubComponent {
 }
 
 @Component({
-  selector: 'my-table',
-  template: '<p>TableLayoutStubComponent</p>'
-})
-export class TableLayoutStubComponent {
-  @Input() records: any[];
-  @Input() caption: string;
-  @Input() settings: ColumnSetting[];
-  @Output() tableEditEvent:EventEmitter<any[]>  = new EventEmitter<any[]>();
-}
-
-@Component({
   selector: 'app-typeahead',
   template: '<p>TypeaheadStubComponent</p>'
 })
@@ -63,6 +52,17 @@ export class NavbarStubComponent {
 }
 
 @Component({
+  selector: 'my-table',
+  template: '<p>TableLayoutStubComponent</p>'
+})
+export class TableLayoutStubComponent {
+  @Input() records: any[];
+  @Input() caption: string;
+  @Input() settings: ColumnSetting[];
+  @Output() tableEditEvent:EventEmitter<any[]>  = new EventEmitter<any[]>();
+}
+
+@Component({
   selector: 'app-share-item',
   template: '<p>ShareItemStubComponent</p>'
 })
@@ -78,6 +78,8 @@ export class ShareItemStubComponent {
     ScholarshipCardStubComponent,
     TypeaheadStubComponent,
     NavbarStubComponent,
+    TableLayoutStubComponent,
+    ShareItemStubComponent,
   ],
 })
 export class MockTestingModule {
