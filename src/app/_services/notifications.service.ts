@@ -25,6 +25,8 @@ export class NotificationsService {
   }
 
   getPermission() {
+    console.log('this.swPush', this.swPush);
+
     if (this.swPush.isEnabled) {
       return this.swPush.requestSubscription({
         serverPublicKey: this.VAPID_PUBLIC_KEY
@@ -41,55 +43,124 @@ export class NotificationsService {
 
   createScholarshipNotifications(userProfile: UserProfile, scholarship: Scholarship) {
 
-    return this.getPermission().then((sub: PushSubscription) => {
+    let getPermissionPromise: Promise<PushSubscription | any> = this.getPermission();
+
+    if (environment.name === 'dev') { // todo: remove before merge-master
+      getPermissionPromise = Promise.reject({error: 'Permission Denied!'});
+    }
+
+    return getPermissionPromise
+      .then((sub: PushSubscription|any) => {
+
+      console.log({ sub });
 
         $('#dimScreen').css('display', 'none');
-        const notificationMessage = this.createScholarshipNotificationMessage(userProfile, scholarship);
 
-        const fullMessagePayload = {...sub, ...notificationMessage};
+        // todo notificationOptions will be based on userProfile preferences
+        const notificationOptions = {
+          'email': [7, 1], // each array element represents the number of days before the scholarship deadline a notification should be sent
+          'push': [7, 1]
+        };
 
-        fullMessagePayload['endpoint'] = sub.endpoint;
-        fullMessagePayload['_sub'] = sub;
-        fullMessagePayload['_notificationMessage'] = notificationMessage;
+        const fullMessagePayloads = this.customizeNotificationMessage(notificationOptions, scholarship, userProfile, sub);
 
-        console.log({fullMessagePayload});
-        return this.pushMessages([fullMessagePayload])
+        console.log({fullMessagePayloads});
+        return this.pushMessages(fullMessagePayloads)
           .map(res => res)
           .catch(err => Observable.throw(err));
-      },
-    )
+      })
       .catch((err: DOMException) => {
-        return Observable.throw({
-          message: 'Unable to createScholarshipNotifications()',
-          error: {
-            message: err.message,
-            name: err.name,
-          }
-        })
+        console.log({ err });
+        // todo notificationOptions will be based on userProfile preferences
+        const notificationOptions = {
+          'email': [7, 1], // each array element represents the number of days before the scholarship deadline a notification should be sent
+        };
+
+        const fullMessagePayloads = this.customizeNotificationMessage(notificationOptions, scholarship, userProfile);
+
+        console.log({fullMessagePayloads});
+        return this.pushMessages(fullMessagePayloads)
+          .map(res => res)
+          .catch(err2 => Observable.throw(err2));
       });
   }
 
-  createScholarshipNotificationMessage(userProfile: UserProfile, scholarship: Scholarship) {
-    let sendDate: Date | number = new Date(scholarship.deadline);
+  customizeNotificationMessage(notificationOptions,
+                               scholarship: Scholarship, userProfile: UserProfile, sub: PushSubscription | any ={}) {
+    const fullMessagePayloads = [];
 
-    sendDate.setDate(sendDate.getDate() - 7);
-    sendDate = sendDate.getTime();
+    for (const notificationType of Object.keys(notificationOptions)) {
+      if (!notificationOptions.hasOwnProperty(notificationType)) {
+        continue;
+      }
+      for (let i = 0; i < notificationOptions[notificationType].length; i++) {
+        const daysBeforeDeadline = notificationOptions[notificationType][i];
 
-    const messageData = {
-      title: `${scholarship.name} is due in 7 days on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}`,
+        let sendDate: Date | number = new Date(scholarship.deadline);
+
+        sendDate.setDate(sendDate.getDate() - daysBeforeDeadline);
+        sendDate = sendDate.getTime();
+
+        const notificationConfig = {notificationType, sendDate, daysBeforeDeadline};
+        const notificationMessage = this.createScholarshipNotificationMessage(userProfile, scholarship, notificationConfig);
+
+        const fullMessagePayload = {...sub, ...notificationMessage};
+        if (sub && sub.endpoint) {
+          fullMessagePayload['endpoint'] = sub.endpoint;
+          fullMessagePayload['_sub'] = sub;
+        }
+
+        fullMessagePayload['_notificationMessage'] = notificationMessage;
+        fullMessagePayloads.push(fullMessagePayload);
+
+      }
+    }
+    return fullMessagePayloads;
+  }
+
+  createScholarshipNotificationMessage(userProfile: UserProfile, scholarship: Scholarship,
+                                       notificationConfig:
+                                         { sendDate: number, notificationType: string, daysBeforeDeadline: number | string}
+                                         = {sendDate: 0, notificationType:'', daysBeforeDeadline: 1}) {
+
+    let createdAt: Date | number = new Date(scholarship.deadline);
+
+    createdAt = createdAt.getTime();
+
+    const urlAnalyticsSuffix = `?utm_source=${notificationConfig.notificationType}&utm_medium=${notificationConfig.notificationType}`+
+    `&utm_campaign=scholarship-due-remind-${notificationConfig.daysBeforeDeadline}`;
+
+    notificationConfig.daysBeforeDeadline = notificationConfig.daysBeforeDeadline === 1 ?
+      '1 day': `${notificationConfig.daysBeforeDeadline} days`;
+    const messageData:any = {
+      title: `${userProfile.first_name}, a scholarship you saved: ${scholarship.name} is due in ${notificationConfig.daysBeforeDeadline}`+
+       `on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}`,
       body: `Scholarship due on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}: ${scholarship.name}.
        Submit your Application!`,
-      clickAction: `https://atila.ca/scholarship/${scholarship.slug}?utm_source=push_notification`,
+      clickAction: `https://atila.ca/scholarship/${scholarship.slug}/${urlAnalyticsSuffix}`,
       // todo: user scholarship.img_url, for now use Atila Logo to build brand awareness
       image: 'https://storage.googleapis.com/atila-7.appspot.com/public/atila-logo-right-way-circle-transparent.png',
       icon: 'https://storage.googleapis.com/atila-7.appspot.com/public/atila-logo-right-way-circle-transparent.png',
       badge: 'https://storage.googleapis.com/atila-7.appspot.com/public/atila-logo-right-way-circle-transparent.png',
-      sendDate: sendDate,
+      sendDate: notificationConfig.sendDate || 0,
+      notificationType: notificationConfig.notificationType || 'push',
+      userId: userProfile.user,
+      createdAt: createdAt,
     };
+
+    if (messageData.notificationType === 'email') {
+      messageData.email = userProfile.email;
+      messageData.body = `Scholarship due on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}: ${scholarship.name}.
+       Submit your Application!: ${messageData.clickAction}`;
+      messageData.html = `Hey ${userProfile.first_name}, <br/> <br/>
+      The scholarship you saved, <strong>${scholarship.name} is due in ${notificationConfig.daysBeforeDeadline} on
+      ${this.datePipe.transform(scholarship.deadline, 'fullDate')}. </strong> <br/> <br/>
+      <a href="${messageData.clickAction}">View Scholarship: ${scholarship.name}</a> <br/> <br/>`;
+    }
 
     messageData['actions'] = [
       {
-        action: `scholarship/${scholarship.slug}?utm_campaign=push-notification`,
+        action: `scholarship/${scholarship.slug}/${urlAnalyticsSuffix}`,
         title: 'View Scholarship',
         icon: 'https://storage.googleapis.com/atila-7.appspot.com/public/atila-logo-right-way-circle-transparent.png'
       },
@@ -100,5 +171,5 @@ export class NotificationsService {
   }
 }
 
-export let NotificationsServiceStub : Partial<NotificationsService> = {
+export let NotificationsServiceStub: Partial<NotificationsService> = {
 };

@@ -36,3 +36,9 @@ Noticed that Heroku Postgres is also sharing its database with staging. We shoul
 - Use this resource to get gifs for mobile stuff: https://mobilemoxie.com/tools/mobile-page-test/
 -  May 10 2019 UPDATE: dont use mobile moxie use Chrome devtools and show device frame works better
 - Use ezGif to convert MP4 screen shots to gif and optimize and you can select `optimize for static background` checkbox: https://ezgif.com/video-to-gif/
+
+## May 21 2019 
+**Testing Push Notifications in dev**
+- Trying to get push notifications to work in dev but the `this.swPush.requestSubscription()` handler is not being called
+- I originally thought that maybe it was working in dev before and I changed something and now it is no longer working in dev 
+but I think it was never actually working in dev. We have to use prod to debug? Or we can create a dummy Promise when testing in dev
