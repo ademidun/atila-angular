@@ -145,7 +145,7 @@ export class NotificationsService {
     `&utm_campaign=scholarship-due-remind-${notificationConfig.daysBeforeDeadline}`;
 
     notificationConfig.daysBeforeDeadline = notificationConfig.daysBeforeDeadline === 1 ?
-      '1 day': `${notificationConfig.daysBeforeDeadline} days`;
+      '1 day ': `${notificationConfig.daysBeforeDeadline} days `;
     const messageData:any = {
       title: `${userProfile.first_name}, a scholarship you saved: ${scholarship.name} is due in ${notificationConfig.daysBeforeDeadline}`+
        `on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}`,
