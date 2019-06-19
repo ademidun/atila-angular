@@ -20,6 +20,14 @@
           <h1 *ngIf="scholarshipQuery" class="registered-title">
             Scholarships for {{prettifyKeys(scholarshipQuery)}}
           </h1>
+
+          <h5 *ngIf="scholarshipQuery &&
+          transformFilterDisplay(form_data.filter_by_user) && transformFilterDisplay(form_data.filter_by_user).length != 0"
+             class="registered-title"> and
+            <span style="font-weight: bold">{{transformFilterDisplay(form_data.filter_by_user) | json}}</span>
+            <span *ngIf="!isLoggedIn">(<a routerLink="/login">Login</a> to use your actual {{prettifyKeys(form_data.filter_by_user)}})</span>
+          </h5>
+
           <h4 class="registered-title">
             <span *ngIf="viewAsUser" style="font-size: larger; color: green">Viewing As: {{viewAsUser.first_name}}</span>
             <ng-container *ngIf="userProfile && !viewAsUser">{{userProfile.first_name}}, </ng-container>
