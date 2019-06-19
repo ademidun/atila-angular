@@ -124,7 +124,7 @@ export class SearchComponent implements OnInit {
 
   }
 
-  addToMyScholarships(scholarship) {
+  addToMyScholarship(scholarship) {
 
     const userAnalytics:any = {};
 

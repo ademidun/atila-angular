@@ -163,6 +163,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
         this.userProfileService.updateHelper(this.userProfile).subscribe(
           res => {
 
+            this.alreadySaved = true;
             notifySavedScholarship(this.scholarship, this.userProfile, this.userProfileService,
               this.notificationService, this.notificationDialog);
             const snackBarRef = this.snackBar.open('Saved to My Scholarships', 'My Scholarships', {

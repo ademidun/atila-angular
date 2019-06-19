@@ -375,7 +375,7 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
 
   }
 
-  addToMyScholarships() {
+  addToMyScholarship() {
 
     const userAnalytics:any = {};
 
