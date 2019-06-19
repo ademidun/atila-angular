@@ -100,8 +100,7 @@ fdescribe('NotificationsService', () => {
 
         const createdNotifications = service.customizeNotificationMessage(notificationOptions,scholarship, userProfile);
 
-        expect(createdNotifications.length).toBe(notificationOptions.email.length,
-          'Notifications created should equal number of notificationOptions');
+        expect(createdNotifications.length).toBe(0);
 
         expect(createdNotifications).toEqual([]);
 

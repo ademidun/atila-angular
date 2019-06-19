@@ -212,7 +212,7 @@ export function createTestScholarship(scholarshipName = '') {
   scholarship.funding_amount = 1;
   scholarship.slug = convertToSlug(scholarship.name);
   const scholarshipDeadline = new Date();
-  scholarshipDeadline.setDate(scholarshipDeadline.getDate() + 7.1);
+  scholarshipDeadline.setDate(scholarshipDeadline.getDate() + 8);
   scholarship.deadline = scholarshipDeadline.toISOString();
   scholarship.img_url = 'https://cdn-images-1.medium.com/max/1200/1*WsXC2qnQf8OlhNunq3Lrcg.png';
   scholarship.metadata = {};
