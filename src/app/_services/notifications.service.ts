@@ -96,12 +96,24 @@ export class NotificationsService {
         continue;
       }
       for (let i = 0; i < notificationOptions[notificationType].length; i++) {
+        // don't create notification for scholarship if deadline was more than 1 day ago
+        // or sendDate is more than 48 hours ago
+
         const daysBeforeDeadline = notificationOptions[notificationType][i];
 
-        let sendDate: Date | number = new Date(scholarship.deadline);
+        const scholarshipDeadline: Date | number = new Date(scholarship.deadline);
+        const yesterday = scholarshipDeadline.getDate() - 1;
 
-        sendDate.setDate(sendDate.getDate() - daysBeforeDeadline);
-        sendDate = sendDate.getTime();
+        if (scholarshipDeadline.getTime() < yesterday) {
+          break
+        }
+
+        const sendDate = scholarshipDeadline.getDate() - daysBeforeDeadline;
+        const twoDaysAgo = scholarshipDeadline.getDate() - 2;
+
+        if (sendDate < twoDaysAgo) {
+          continue;
+        }
 
         const notificationConfig = {notificationType, sendDate, daysBeforeDeadline};
         const notificationMessage = this.createScholarshipNotificationMessage(userProfile, scholarship, notificationConfig);
