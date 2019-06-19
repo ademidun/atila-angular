@@ -119,7 +119,7 @@ export class NotificationsService {
           continue;
         }
 
-        sendDate = sendDate.getTime();
+        sendDate = <number>sendDate.getTime();
         const notificationConfig = {notificationType, sendDate, daysBeforeDeadline};
         const notificationMessage = this.createScholarshipNotificationMessage(userProfile, scholarship, notificationConfig);
 
