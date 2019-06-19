@@ -25,14 +25,12 @@ import {
   MatSnackBarModule
 } from '@angular/material';
 import {HttpModule} from '@angular/http';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import {environment} from '../../environments/environment';
 import {AngularFireModule} from 'angularfire2';
 import {RouterModule} from '@angular/router';
-import {BrowserModule} from '@angular/platform-browser';
 import {TokenInterceptor} from '../_services/token.interceptor';
 import {UnAuthorizedInterceptor} from '../_services/unauthorized.interceptor';
 import {TypeaheadComponent} from './typeahead/typeahead.component';
@@ -46,6 +44,8 @@ import {CardGenericComponent} from '../card-generic/card-generic.component';
 import { ShareItemComponent } from './share-item/share-item.component';
 import {AtilaPointsPromptDialogComponent} from '../atila-points-prompt-dialog/atila-points-prompt-dialog.component';
 import {AngularFireAuthModule} from 'angularfire2/auth';
+import {ScholarshipCardComponent} from '../scholarship/scholarship-card/scholarship-card.component';
+import {NotificationDialogComponent} from '../notification-dialog/notification-dialog.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -88,6 +88,8 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
     EditProfileModalComponent,
     CardGenericComponent,
     AtilaPointsPromptDialogComponent,
+    ScholarshipCardComponent,
+    NotificationDialogComponent,
     ShareItemComponent],
   exports: [
     SafeHtmlPipe,
@@ -108,6 +110,8 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
     ShareItemComponent,
     AtilaPointsPromptDialogComponent,
     MatIconModule,
+    ScholarshipCardComponent,
+    NotificationDialogComponent,
     ],
   providers: [
     {

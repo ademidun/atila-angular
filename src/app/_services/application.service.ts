@@ -5,6 +5,8 @@ import { HttpClient, HttpResponse, HttpHeaders, HttpParams} from '@angular/commo
 import { Observable } from 'rxjs/Observable';
 import {environment} from '../../environments/environment';
 import {Application} from '../_models/application';
+import {createTestUserProfile} from '../_models/user-profile';
+import {UserProfileService} from './user-profile.service';
 
 @Injectable()
 export class ApplicationService {
@@ -157,3 +159,7 @@ export class ApplicationService {
 
 }
 
+
+export let ApplicationServiceStub: Partial<ApplicationService> = {
+
+};

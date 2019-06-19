@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 
 import 'rxjs/add/operator/toPromise';
 import {environment} from '../../environments/environment';
+import {ApplicationService} from './application.service';
 @Injectable()
 export class CommentService {
 
@@ -102,3 +103,9 @@ export class CommentService {
 
   }
 }
+
+
+
+export let CommentServiceStub: Partial<CommentService> = {
+
+};

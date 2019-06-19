@@ -17,6 +17,8 @@ export class NotificationsService {
 
   readonly VAPID_PUBLIC_KEY = 'BAjiETJuDgtXH6aRXgeCZgK8vurMT7AbFmPPhz1ybyfcDmfGFFydSXkYDC359HIXUmWw8w79-miI6NtmbfodiVI';
 
+  public DEFAULT_NOTIFICATION_CONFIG = {sendDate: 0, notificationType:'email', daysBeforeDeadline: 1};
+
   constructor(
     public db: AngularFireDatabase,
     public datePipe: DatePipe,
@@ -37,7 +39,7 @@ export class NotificationsService {
 
   pushMessages(messagesList) {
 
-    return this.http.post(`${environment.atilaMicroservicesApiUrlNode}notifications/save-notifications/`, messagesList);
+    return this.http.post(`${environment.atilaMicroservicesNodeApiUrl}notifications/save-notifications/`, messagesList);
 
   }
 
@@ -89,18 +91,38 @@ export class NotificationsService {
                                scholarship: Scholarship, userProfile: UserProfile, sub: PushSubscription | any ={}) {
     const fullMessagePayloads = [];
 
+    const today = new Date();
+
+    const yesterday = new Date();
+    yesterday.setDate(today.getDate() - 1);
+
+    const twoDaysAgo = new Date();
+    twoDaysAgo.setDate(today.getDate() - 2);
+
     for (const notificationType of Object.keys(notificationOptions)) {
       if (!notificationOptions.hasOwnProperty(notificationType)) {
         continue;
       }
       for (let i = 0; i < notificationOptions[notificationType].length; i++) {
+        // don't create notification for scholarship if deadline was more than 1 day ago
+        // or sendDate is more than 48 hours ago
+
         const daysBeforeDeadline = notificationOptions[notificationType][i];
 
-        let sendDate: Date | number = new Date(scholarship.deadline);
+        const scholarshipDeadline: Date | number = new Date(scholarship.deadline);
 
-        sendDate.setDate(sendDate.getDate() - daysBeforeDeadline);
+        if (scholarshipDeadline.getTime() < yesterday.getTime()) {
+          break
+        }
+
+        let sendDate: Date | number = new Date();
+        sendDate.setDate(scholarshipDeadline.getDate() - daysBeforeDeadline);
+
+        if (sendDate.getTime() < twoDaysAgo.getTime()) {
+          continue;
+        }
+
         sendDate = sendDate.getTime();
-
         const notificationConfig = {notificationType, sendDate, daysBeforeDeadline};
         const notificationMessage = this.createScholarshipNotificationMessage(userProfile, scholarship, notificationConfig);
 
@@ -121,7 +143,7 @@ export class NotificationsService {
   createScholarshipNotificationMessage(userProfile: UserProfile, scholarship: Scholarship,
                                        notificationConfig:
                                          { sendDate: number, notificationType: string, daysBeforeDeadline: number | string}
-                                         = {sendDate: 0, notificationType:'', daysBeforeDeadline: 1}) {
+                                         = this.DEFAULT_NOTIFICATION_CONFIG) {
 
     let createdAt: Date | number = new Date(scholarship.deadline);
 
@@ -131,7 +153,7 @@ export class NotificationsService {
     `&utm_campaign=scholarship-due-remind-${notificationConfig.daysBeforeDeadline}`;
 
     notificationConfig.daysBeforeDeadline = notificationConfig.daysBeforeDeadline === 1 ?
-      '1 day': `${notificationConfig.daysBeforeDeadline} days`;
+      '1 day ': `${notificationConfig.daysBeforeDeadline} days `;
     const messageData:any = {
       title: `${userProfile.first_name}, a scholarship you saved: ${scholarship.name} is due in ${notificationConfig.daysBeforeDeadline}`+
        `on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}`,
@@ -150,8 +172,11 @@ export class NotificationsService {
 
     if (messageData.notificationType === 'email') {
       messageData.email = userProfile.email;
-      messageData.body = `Scholarship due on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}: ${scholarship.name}.
-       Submit your Application!: ${messageData.clickAction}`;
+
+      messageData.body = `Hey ${userProfile.first_name},
+      The scholarship you saved, ${scholarship.name} is due in ${notificationConfig.daysBeforeDeadline} on
+      ${this.datePipe.transform(scholarship.deadline, 'fullDate')}. View Scholarship: ${messageData.clickAction}`;
+
       messageData.html = `Hey ${userProfile.first_name}, <br/> <br/>
       The scholarship you saved, <strong>${scholarship.name} is due in ${notificationConfig.daysBeforeDeadline} on
       ${this.datePipe.transform(scholarship.deadline, 'fullDate')}. </strong> <br/> <br/>

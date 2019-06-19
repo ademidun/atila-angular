@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Input, NgModule, Output} from '@angular/core';
 import {UserProfile} from '../_models/user-profile';
 import {Scholarship} from '../_models/scholarship';
+import {ColumnSetting} from '../table-layout/models';
+import {ShareItemComponent} from './share-item/share-item.component';
 
 
 @Component({
@@ -23,6 +25,7 @@ export class MatIconStubComponent {
 export class ScholarshipCardStubComponent {
   @Input() scholarship: Scholarship | any;
   @Input() userProfile: UserProfile;
+  @Input() showExtraCriteria = true;
   @Input() metadata: any = {};
   @Output() handleClick: EventEmitter<any> = new EventEmitter();
 }
@@ -48,12 +51,35 @@ export class TypeaheadStubComponent {
 export class NavbarStubComponent {
 }
 
+@Component({
+  selector: 'my-table',
+  template: '<p>TableLayoutStubComponent</p>'
+})
+export class TableLayoutStubComponent {
+  @Input() records: any[];
+  @Input() caption: string;
+  @Input() settings: ColumnSetting[];
+  @Output() tableEditEvent:EventEmitter<any[]>  = new EventEmitter<any[]>();
+}
+
+@Component({
+  selector: 'app-share-item',
+  template: '<p>ShareItemStubComponent</p>'
+})
+export class ShareItemStubComponent {
+  @Input() item:any = {};
+  @Input() itemCopy:any = {};
+  @Input() metadata:any = {};
+}
+
 @NgModule({
   declarations: [
     MatIconStubComponent,
     ScholarshipCardStubComponent,
     TypeaheadStubComponent,
     NavbarStubComponent,
+    TableLayoutStubComponent,
+    ShareItemStubComponent,
   ],
 })
 export class MockTestingModule {

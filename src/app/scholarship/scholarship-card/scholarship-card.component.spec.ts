@@ -1,10 +1,10 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ScholarshipCardComponent} from './scholarship-card.component';
-import {ScholarshipService, scholarshipServiceStub} from '../../_services/scholarship.service';
+import {ScholarshipService, ScholarshipServiceStub} from '../../_services/scholarship.service';
 import {MyFirebaseService, MyFirebaseServiceStub} from '../../_services/myfirebase.service';
 import {AuthService, AuthServiceStub} from '../../_services/auth.service';
-import {UserProfileService, userProfileServiceStub} from '../../_services/user-profile.service';
+import {UserProfileService, UserProfileServiceStub} from '../../_services/user-profile.service';
 import {NotificationsService, NotificationsServiceStub} from '../../_services/notifications.service';
 import {MatDialogModule, MatIcon, MatIconModule, MatSnackBarModule} from '@angular/material';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -14,6 +14,7 @@ import {createTestScholarship} from '../../_models/scholarship';
 import {createTestUserProfile, UserProfile} from '../../_models/user-profile';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatIconStubComponent} from '../../_shared/test-helpers';
+import * as ScholarshipNotifications from '../scholarship-notifications/scholarship-notifications';
 
 
 fdescribe('ScholarshipCardComponent', () => {
@@ -24,8 +25,8 @@ fdescribe('ScholarshipCardComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ScholarshipCardComponent, TruncatePipe],
       providers: [
-        {provide: ScholarshipService, useValue: scholarshipServiceStub},
-        {provide: UserProfileService, useValue: userProfileServiceStub},
+        {provide: ScholarshipService, useValue: ScholarshipServiceStub},
+        {provide: UserProfileService, useValue: UserProfileServiceStub},
         {provide: AuthService, useValue: AuthServiceStub},
         {provide: NotificationsService, useValue: NotificationsServiceStub},
         {provide: MyFirebaseService, useValue: MyFirebaseServiceStub},
@@ -116,7 +117,8 @@ fdescribe('ScholarshipCardComponent', () => {
   }));
 
   it('should not call notifySavedScholarship if already saved', async(() => {
-    spyOn(component, 'notifySavedScholarship');
+
+    spyOn(ScholarshipNotifications, 'notifySavedScholarship');
 
     const button = fixture.debugElement.nativeElement.querySelector('.save-scholarship');
 
@@ -127,7 +129,7 @@ fdescribe('ScholarshipCardComponent', () => {
     fixture.whenStable().then(() => {
       button.click();
       fixture.whenStable().then(() => {
-        expect(component.notifySavedScholarship).not.toHaveBeenCalled();
+        expect(ScholarshipNotifications.notifySavedScholarship).not.toHaveBeenCalled();
 
       });
 
