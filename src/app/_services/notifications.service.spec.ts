@@ -31,8 +31,6 @@ fdescribe('NotificationsService', () => {
     scholarship = createTestScholarship();
     service.datePipe = new DatePipe('en-US');
 
-    console.log('scholarship.deadline', scholarship.deadline);
-
   });
 
   it('should be created', () => {
@@ -100,9 +98,12 @@ fdescribe('NotificationsService', () => {
           'email': [1, 7], // each array element represents the number of days before the scholarship deadline a notification should be sent
         };
 
-      const scholarshipDeadline = new Date();
-      scholarshipDeadline.setDate(scholarshipDeadline.getDate() - 2);
-      scholarship.deadline = scholarshipDeadline.toISOString();
+        const scholarshipDeadline = new Date();
+        scholarshipDeadline.setDate(scholarshipDeadline.getDate() - 3);
+        scholarship.deadline = scholarshipDeadline.toISOString();
+
+
+        console.log('scholarship.deadline', scholarship.deadline);
 
         const createdNotifications = service.customizeNotificationMessage(notificationOptions,scholarship, userProfile);
 
