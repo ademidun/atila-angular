@@ -630,15 +630,15 @@ export class ScholarshipsListComponent implements OnInit {
   transformFilterDisplay(filter_type) {
     let filterValue;
 
+    if (!this.form_data.location) {
+      this.form_data.location = {};
+    }
+
     if (this.userProfile) {
 
       let filterProfile = this.userProfile;
       if (this.viewAsUser) {
         filterProfile = this.viewAsUser;
-      }
-
-      if (!this.form_data.location) {
-        this.form_data.location = {};
       }
 
       if (['city', 'province', 'country'].indexOf(filter_type) > -1) {
@@ -650,7 +650,7 @@ export class ScholarshipsListComponent implements OnInit {
 
     }
     else {
-      if (['city', 'province', 'country'].indexOf(filter_type) > -1) {
+      if (['city', 'province', 'country'].includes(filter_type)) {
         if (!this.form_data.location[filter_type]) {
           switch (filter_type) {
             case 'city':
@@ -659,67 +659,71 @@ export class ScholarshipsListComponent implements OnInit {
 
             case 'province':
               filterValue = 'Ontario';
-              break
+              break;
 
             case 'country':
               filterValue = 'Canada';
               break;
+            default:
+              break;
           }
         }
-        filterValue = this.form_data.location[filter_type];
+        else {
+          filterValue = this.form_data.location[filter_type];
+        }
       }
+      else {
+        switch (filter_type) {
 
-      switch (filter_type) {
-
-        // todo: pick default categories based on what is most popular
-        // amongst students or has the most scholarships
-        case 'major':
-          filterValue = 'Engineering';
-          break;
-        case 'post_secondary_school':
-          filterValue = 'University of Western Ontario';
-          break;
-        case 'ethnicity':
-          filterValue = 'Asian/East-Asian';
-          break;
-        case 'heritage':
-          filterValue = 'India';
-          break;
-        case 'citizenship':
-          filterValue = 'Canada';
-          break;
-        case 'religion':
-          filterValue = 'Christianity';
-          break;
-        case 'activities':
-          filterValue = 'Drawing';
-          break;
-        case 'sports':
-          filterValue = 'Soccer';
-          break;
-        case 'disability':
-          filterValue = 'Autism';
-          break;
-        case 'language':
-          filterValue = 'French';
-          break;
-        case 'eligible_schools':
-          filterValue = [
-            'Ivey Business School',
-            'University of Waterloo',
-            'DeGroote School of Medicine'
-          ];
-          break;
-        case 'eligible_programs':
-          filterValue = [
-            'Health Sciences',
-            'Computer Engineering',
-            'Biomedical Engineering'
-          ];
-          break;
-        default:
-          filterValue = null;
-          break;
+          // todo: pick default categories based on what is most popular
+          // amongst students or has the most scholarships
+          case 'major':
+            filterValue = 'Engineering';
+            break;
+          case 'post_secondary_school':
+            filterValue = 'University of Western Ontario';
+            break;
+          case 'ethnicity':
+            filterValue = 'Asian/East-Asian';
+            break;
+          case 'heritage':
+            filterValue = 'India';
+            break;
+          case 'citizenship':
+            filterValue = 'Canada';
+            break;
+          case 'religion':
+            filterValue = 'Christianity';
+            break;
+          case 'activities':
+            filterValue = 'Drawing';
+            break;
+          case 'sports':
+            filterValue = 'Soccer';
+            break;
+          case 'disability':
+            filterValue = 'Autism';
+            break;
+          case 'language':
+            filterValue = 'French';
+            break;
+          case 'eligible_schools':
+            filterValue = [
+              'Ivey Business School',
+              'University of Waterloo',
+              'DeGroote School of Medicine'
+            ];
+            break;
+          case 'eligible_programs':
+            filterValue = [
+              'Health Sciences',
+              'Computer Engineering',
+              'Biomedical Engineering'
+            ];
+            break;
+          default:
+            break;
+        }
       }
 
     }
