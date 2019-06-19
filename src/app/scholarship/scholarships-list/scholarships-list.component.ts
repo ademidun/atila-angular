@@ -637,6 +637,10 @@ export class ScholarshipsListComponent implements OnInit {
         filterProfile = this.viewAsUser;
       }
 
+      if (!this.form_data.location) {
+        this.form_data.location = {};
+      }
+
       if (['city', 'province', 'country'].indexOf(filter_type) > -1) {
         filterValue = filterProfile[filter_type][0]['name']
       } else {
