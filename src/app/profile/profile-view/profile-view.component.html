@@ -3,15 +3,8 @@
       <mat-card class="profile-header">
 
       <mat-card-header class="row">
-        <!-- NOTE Mat card header text is hidden in css -->
-        <!--<div class="col offset-l2 offset-md-4 offset-sm-2 header-image" mat-card-avatar-->
-             <!--[ngStyle]="{ 'background-image': 'url( '+ userProfile.profile_pic_url +' )' }">-->
-             <!--&lt;!&ndash;*ngIf="profile_pic_url" [style.background]="profile_pic_url">&ndash;&gt;-->
-
-        <!--</div>-->
         <img class="header-image" mat-card-avatar [src]="userProfile.profile_pic_url" style="margin-left: 10%">
 
-        <!--Show the profile info, IN the header on regular devices.-->
         <div class="hide-on-small-and-down col-md-7">
         <div class="offset-md-1">
           <mat-card-title><h4>{{userProfile.first_name}} {{userProfile.last_name}}</h4></mat-card-title>
@@ -22,13 +15,10 @@
             <a  class="btn btn-link" [href]="userProfile['public_metadata']['profile_link_url']" target="_blank" style="background-color: #4080ff">{{userProfile['public_metadata']['profile_link_name']}}</a>
           </mat-card-subtitle>
           <div class="header-buttons">
-            <!--<button mat-raised-button class="btn white-text" (click)="message()">Message</button>-->
-            <a *ngIf="profileOwner" (click)="showPreview = !showPreview" style="cursor: pointer">Preview Profile</a> |
+            <a *ngIf="profileOwner" (click)="showPreview = !showPreview" style="cursor: pointer">
+             {{showPreview ? 'Hide ' : null}} Preview Profile
+            </a> |
             <a *ngIf="profileOwner" [routerLink]="['/profile/edit']">Edit profile</a>
-            <!-- <span  *ngIf="profileOwner" >
-                <a *ngIf="!showPreview" (click)="showPreview = !showPreview"  href="javascript:undefined">Preview Profile</a>
-                <a *ngIf="showPreview" (click)="showPreview = !showPreview"  href="javascript:undefined">Edit Profile</a>
-            </span> -->
           </div>
         </div>
 
@@ -47,13 +37,10 @@
             <a  class="btn btn-link" [href]="userProfile['public_metadata']['profile_link_url']" target="_blank" style="background-color: #4080ff">{{userProfile['public_metadata']['profile_link_name']}}</a>
           </mat-card-subtitle>
           <div class="header-buttons">
-            <!--<button mat-raised-button class="btn white-text" (click)="message()">Message</button>-->
-            <a *ngIf="profileOwner" (click)="showPreview = !showPreview;" style="cursor: pointer">Preview Profile</a> |
+            <a *ngIf="profileOwner" (click)="showPreview = !showPreview;" style="cursor: pointer">
+              {{showPreview ? 'Hide ' : null}} Preview Profile
+            </a> |
             <a *ngIf="profileOwner" [routerLink]="['/profile/edit']">Edit profile</a>
-            <!-- <span  *ngIf="profileOwner" >
-                <a *ngIf="!showPreview" (click)="showPreview = !showPreview"  href="javascript:undefined">Preview Profile</a>
-                <a *ngIf="showPreview" (click)="showPreview = !showPreview"  href="javascript:undefined">Edit Profile</a>
-            </span> -->
           </div>
         </div>
       </div>
@@ -65,7 +52,7 @@
         <nav class="nav-extended">
           <div class="nav-content">
             <ul materialize="tabs" class="tabs tabs-transparent">
-              <div  *ngIf="!(!profileOwner || showPreview)">
+              <ng-container  *ngIf="profileOwner && !showPreview">
                 <li class="tab"><a  href="#edit-profile" [ngClass]="myAtilaMode ? '' : 'active'">
                   Edit Profile</a></li>
                 <li class="tab">
@@ -75,7 +62,7 @@
                   </a>
                 </li>
                 <li (click)="getApplications()" class="tab"><a href="#my-applications">My Applications</a></li>
-              </div>
+              </ng-container>
 
               <li (click)="getBlogs()" class="tab"><a href="#my-blogs" [ngClass]="!profileOwner || showPreview? 'active' : ''">My Blogs</a></li>
               <li (click)="getContent({contentType: 'essays'})" class="tab"><a href="#my-essays">My Essays</a></li>
@@ -144,7 +131,7 @@
           </form>
         </div>
 
-        <div  *ngIf="!(!profileOwner || showPreview)">
+        <div  *ngIf="profileOwner && !showPreview">
           <div id="my-scholarships" class="col-sm-12">
             <p>
               <a (click)="getScholarships({excludeExpired: !excludeExpiredToggle}); excludeExpiredToggle=!excludeExpiredToggle">
