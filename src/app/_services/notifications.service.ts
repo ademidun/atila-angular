@@ -109,7 +109,7 @@ export class NotificationsService {
           break
         }
 
-        let sendDate: Date | Number = new Date();
+        let sendDate: Date | number = new Date();
         sendDate.setDate(scholarshipDeadline.getDate() - daysBeforeDeadline);
 
         const twoDaysAgo = new Date();
