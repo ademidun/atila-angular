@@ -109,7 +109,8 @@ export class NotificationsService {
           break
         }
 
-        const sendDate = scholarshipDeadline.getDate() - daysBeforeDeadline;
+        let sendDate: Date | Number = new Date();
+        sendDate.setDate(scholarshipDeadline.getDate() - daysBeforeDeadline);
 
         const twoDaysAgo = new Date();
         twoDaysAgo.setDate(scholarshipDeadline.getDate() - 2);
@@ -118,6 +119,7 @@ export class NotificationsService {
           continue;
         }
 
+        sendDate = sendDate.getTime();
         const notificationConfig = {notificationType, sendDate, daysBeforeDeadline};
         const notificationMessage = this.createScholarshipNotificationMessage(userProfile, scholarship, notificationConfig);
 
