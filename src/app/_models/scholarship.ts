@@ -16,7 +16,7 @@ export class Scholarship {
               public cover_letter_required?: any,
               public criteria_info?: string,
               public date_created?: string,
-              public deadline?: string|Date,
+              public deadline?: string,
               public description?: string,
               public disability?: string[],
               public financial_need?: string,
