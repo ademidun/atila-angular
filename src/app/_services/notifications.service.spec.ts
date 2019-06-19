@@ -102,9 +102,6 @@ fdescribe('NotificationsService', () => {
         scholarshipDeadline.setDate(scholarshipDeadline.getDate() - 3);
         scholarship.deadline = scholarshipDeadline.toISOString();
 
-
-        console.log('scholarship.deadline', scholarship.deadline);
-
         const createdNotifications = service.customizeNotificationMessage(notificationOptions,scholarship, userProfile);
 
         expect(createdNotifications.length).toBe(0);

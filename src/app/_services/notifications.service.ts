@@ -90,7 +90,6 @@ export class NotificationsService {
   customizeNotificationMessage(notificationOptions,
                                scholarship: Scholarship, userProfile: UserProfile, sub: PushSubscription | any ={}) {
     const fullMessagePayloads = [];
-    console.log('scholarship.deadline', scholarship.deadline);
 
     for (const notificationType of Object.keys(notificationOptions)) {
       if (!notificationOptions.hasOwnProperty(notificationType)) {
@@ -103,16 +102,19 @@ export class NotificationsService {
         const daysBeforeDeadline = notificationOptions[notificationType][i];
 
         const scholarshipDeadline: Date | number = new Date(scholarship.deadline);
-        const yesterday = scholarshipDeadline.getDate() - 1;
+        const yesterday = new Date();
+        yesterday.setDate(scholarshipDeadline.getDate() - 1);
 
-        if (scholarshipDeadline.getTime() < yesterday) {
+        if (scholarshipDeadline.getTime() < yesterday.getTime()) {
           break
         }
 
         const sendDate = scholarshipDeadline.getDate() - daysBeforeDeadline;
-        const twoDaysAgo = scholarshipDeadline.getDate() - 2;
 
-        if (sendDate < twoDaysAgo) {
+        const twoDaysAgo = new Date();
+        twoDaysAgo.setDate(scholarshipDeadline.getDate() - 2);
+
+        if (sendDate.getTime() < twoDaysAgo.getTime()) {
           continue;
         }
 
