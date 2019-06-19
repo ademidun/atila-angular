@@ -95,7 +95,7 @@ export class ScholarshipsListComponent implements OnInit {
     let seoConfig = {
       title: 'Atila Scholarships',
       description: 'Easily find and apply to scholarships. Learn and share information about education, career and life..',
-      image: 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-gradient-banner-march-14.png?alt=media&token=9d791ba9-18d0-4750-ace8-b390a4e90fdc',
+      image: 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-image-preview-jun-19-2019.png?alt=media&token=bd4ec128-8261-4957-8ff1-06566b911f0b',
       slug: `scholarship/`
     }
     this.scholarshipQuery = this.activatedRoute.snapshot.queryParams['q']

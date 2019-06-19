@@ -87,7 +87,7 @@ export class ForumDetailComponent implements OnInit, OnDestroy {
     }
 
     let defaultProfileImage = 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/user-profiles%2Fgeneral-data%2Fdefault-profile-pic.png?alt=media&token=455c59f7-3a05-43f1-a79e-89abff1eae57';
-    let atilaImage = 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-gradient-banner-march-14.png?alt=media&token=9d791ba9-18d0-4750-ace8-b390a4e90fdc"';
+    let atilaImage = 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-image-preview-jun-19-2019.png?alt=media&token=bd4ec128-8261-4957-8ff1-06566b911f0b"';
 
     if (!this.forumSlug){
       return;
