@@ -91,6 +91,14 @@ export class NotificationsService {
                                scholarship: Scholarship, userProfile: UserProfile, sub: PushSubscription | any ={}) {
     const fullMessagePayloads = [];
 
+    const today = new Date();
+
+    const yesterday = new Date();
+    yesterday.setDate(today.getDate() - 1);
+
+    const twoDaysAgo = new Date();
+    twoDaysAgo.setDate(today.getDate() - 2);
+
     for (const notificationType of Object.keys(notificationOptions)) {
       if (!notificationOptions.hasOwnProperty(notificationType)) {
         continue;
@@ -102,8 +110,6 @@ export class NotificationsService {
         const daysBeforeDeadline = notificationOptions[notificationType][i];
 
         const scholarshipDeadline: Date | number = new Date(scholarship.deadline);
-        const yesterday = new Date();
-        yesterday.setDate(scholarshipDeadline.getDate() - 1);
 
         if (scholarshipDeadline.getTime() < yesterday.getTime()) {
           break
@@ -111,9 +117,6 @@ export class NotificationsService {
 
         let sendDate: Date | number = new Date();
         sendDate.setDate(scholarshipDeadline.getDate() - daysBeforeDeadline);
-
-        const twoDaysAgo = new Date();
-        twoDaysAgo.setDate(scholarshipDeadline.getDate() - 2);
 
         if (sendDate.getTime() < twoDaysAgo.getTime()) {
           continue;
