@@ -452,7 +452,7 @@ export class UserProfileService implements OnDestroy {
   }
 }
 
-export let userProfileServiceStub: Partial<UserProfileService> = {
+export let UserProfileServiceStub: Partial<UserProfileService> = {
   userEndpoint: '',
   updateHelper: userProfile => {
     return Observable.of(userProfile);

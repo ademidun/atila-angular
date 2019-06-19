@@ -48,6 +48,16 @@ export class SearchComponent implements OnInit {
     if (!isNaN(this.userId)) {
       this.isLoggedIn = true;
     }
+
+    if (this.isLoggedIn) {
+      this.userProfileService.getById(this.userId)
+        .subscribe(
+          res => {
+            this.userProfile = res;
+          },
+        );
+    }
+
     const queryOptions = this.route.snapshot.queryParams;
 
     if (this.query) {
@@ -76,8 +86,7 @@ export class SearchComponent implements OnInit {
     };
 
 
-    if (!isNaN(this.userId)) {
-      this.isLoggedIn = true;
+    if (this.isLoggedIn) {
       queryMetaData.user_id = this.userId
     }
 
@@ -90,25 +99,9 @@ export class SearchComponent implements OnInit {
 
           this.isSearching = false;
 
-
-          // Call customizeResults() twice, since search results and user data may return at different times.
-
           this.essays = this.searchResults.essays.map(item => {
             return genericItemTransform(item);
           });
-
-          if (!this.userProfile && !isNaN(this.userId)) {
-            this.userProfileService.getById(this.userId)
-              .subscribe(
-                res2 => {
-                  this.userProfile = res2;
-                  this.customizeResults();
-                },
-              );
-          }
-          if(this.userProfile) {
-            this.customizeResults();
-          }
         } ,
 
         err => {
@@ -117,27 +110,6 @@ export class SearchComponent implements OnInit {
       )
   }
 
-  customizeResults() {
-
-
-    if(this.userProfile.saved_scholarships) {
-
-
-      this.searchResults.scholarships =  this.searchResults.scholarships.map(
-        scholarship => {
-          if (this.userProfile.saved_scholarships.includes(scholarship.id) ) {
-            scholarship.alreadySaved = true;
-          }
-
-          return scholarship;
-        }
-      );
-
-    }
-
-
-
-  }
   saveQueryClick(clickObject,objectType) {
     const clickData:any = {
       title: clickObject.title || clickObject.name,
@@ -152,7 +124,7 @@ export class SearchComponent implements OnInit {
 
   }
 
-  addToMyScholarships(scholarship) {
+  addToMyScholarship(scholarship) {
 
     const userAnalytics:any = {};
 

@@ -4,7 +4,7 @@
   <div class="row">
 
     <div class="col-sm-12 col-md-8 content-container">
-      <div class="col-sm-12">
+      <div class="col-sm-12 mb-3">
         <img class="scholarship-image" [src]="scholarship.img_url" />
       </div>
       <div class="row" style="margin-top: -1%">
@@ -56,11 +56,12 @@
           </span>
 
           <div style="margin-top: 3%">
-            <!--<button mat-fab  (click)="addToMyScholarships(scholarship)" style="margin-left: -23%">-->
-            <button mat-fab  (click)="addToMyScholarships(scholarship)" placement="bottom"
-                    ngbTooltip="Save Scholarship">
-              <mat-icon [ngStyle]="{'color': alreadySaved ? '#4080ff' : ''}"  class="atila-blue" aria-hidden="true" aria-label="Save">bookmark</mat-icon>
-            </button>
+            <a ngbTooltip="Save Scholarship"
+               class="btn-floating interactive-btn halfway-fab waves-effect waves-light atila-blue save-scholarship"
+               title="Save Scholarship"
+               (click)="addToMyScholarship(scholarship)" [ngStyle]="{'background-color': alreadySaved ? '#4080ff' : 'gray'}" style="left: 15px; bottom: 10px">
+              <i class="material-icons">bookmark</i>
+            </a>
 
             <app-share-item placement="right"
                             ngbTooltip="Share Scholarship"

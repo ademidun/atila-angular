@@ -1,7 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import { SearchComponent } from './search.component';
-import {UserProfileService, userProfileServiceStub} from '../_services/user-profile.service';
+import {UserProfileService, UserProfileServiceStub} from '../_services/user-profile.service';
 import {MyFirebaseService, MyFirebaseServiceStub} from '../_services/myfirebase.service';
 import {AuthService, AuthServiceStub} from '../_services/auth.service';
 import {MatIconStubComponent, TypeaheadStubComponent} from '../_shared/test-helpers';
@@ -26,6 +26,10 @@ import {SearchService, SearchServiceStub} from '../_services/search.service';
 import {ActivatedRoute} from '@angular/router';
 import {mockSearchResponseIveyBusinessSchool} from '../_models/_tests/mock-search-response-ivey-business-school';
 
+import {ScholarshipCardComponent} from '../scholarship/scholarship-card/scholarship-card.component';
+import {ScholarshipService, ScholarshipServiceStub} from '../_services/scholarship.service';
+import {NotificationsService, NotificationsServiceStub} from '../_services/notifications.service';
+
 fdescribe('SearchComponent', () => {
   let component: SearchComponent;
   let fixture: ComponentFixture<SearchComponent>;
@@ -37,10 +41,13 @@ fdescribe('SearchComponent', () => {
       declarations: [
         SearchComponent,
         CardGenericComponent,
+        ScholarshipCardComponent,
         TypeaheadStubComponent,
         TruncatePipe],
       providers: [
-        {provide: UserProfileService, useValue: userProfileServiceStub},
+        {provide: ScholarshipService, useValue: ScholarshipServiceStub},
+        {provide: UserProfileService, useValue: UserProfileServiceStub},
+        {provide: NotificationsService, useValue: NotificationsServiceStub},
         {provide: AuthService, useValue: AuthServiceStub},
         {provide: MyFirebaseService, useValue: MyFirebaseServiceStub},
         {provide: SeoService, useValue: seoServiceStub},
@@ -155,4 +162,13 @@ fdescribe('SearchComponent', () => {
 
 
   }));
+
+  it('A Save Scholarship button should exist', async(() => {
+
+    const button = fixture.debugElement.nativeElement.querySelector('[title="Save Scholarship"]');
+
+    expect(button).toBeTruthy('No Button with Save Scholarship title attribute');
+
+  }));
+
 });
