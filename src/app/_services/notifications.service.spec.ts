@@ -87,4 +87,40 @@ fdescribe('NotificationsService', () => {
           'scholarship due in 7 day should say 7 days');
 
       });
+  it('#customizeNotificationMessage() should not create notifications if deadline is in past',
+    () => {
+        service.DEFAULT_NOTIFICATION_CONFIG.notificationType = 'email';
+        const notificationOptions = {
+          'email': [1, 7], // each array element represents the number of days before the scholarship deadline a notification should be sent
+        };
+
+        scholarship.deadline = new Date();
+        scholarship.deadline.setDate(scholarship.deadline.getDate()-2);
+        scholarship.deadline = scholarship.deadline.toISOString();
+
+        const createdNotifications = service.customizeNotificationMessage(notificationOptions,scholarship, userProfile);
+
+        expect(createdNotifications.length).toBe(notificationOptions.email.length,
+          'Notifications created should equal number of notificationOptions');
+
+        expect(createdNotifications).toEqual([]);
+
+      });
+  it('#customizeNotificationMessage() should not create notifications if 7 days ago is more than 48 hours in past',
+    () => {
+        service.DEFAULT_NOTIFICATION_CONFIG.notificationType = 'email';
+        const notificationOptions = {
+          'email': [1, 7], // each array element represents the number of days before the scholarship deadline a notification should be sent
+        };
+
+        scholarship.deadline = new Date();
+        scholarship.deadline.setDate(scholarship.deadline.getDate());
+        scholarship.deadline = scholarship.deadline.toISOString();
+
+        const createdNotifications = service.customizeNotificationMessage(notificationOptions,scholarship, userProfile);
+
+        expect(createdNotifications.length).toBe(notificationOptions.email.length-1,
+          'Notifications created should be 1 less than number of notificationOptions');
+
+      });
 });
