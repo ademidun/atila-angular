@@ -424,6 +424,8 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
 
       notifySavedScholarship(this.scholarship, this.userProfile, this.userProfileService,
         this.notificationService, this.notificationDialog);
+      this.alreadySaved = true;
+
 
       this.userProfileService.updateHelper(this.userProfile)
         .subscribe(
