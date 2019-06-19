@@ -90,6 +90,7 @@ export class NotificationsService {
   customizeNotificationMessage(notificationOptions,
                                scholarship: Scholarship, userProfile: UserProfile, sub: PushSubscription | any ={}) {
     const fullMessagePayloads = [];
+    console.log('scholarship.deadline', scholarship.deadline);
 
     for (const notificationType of Object.keys(notificationOptions)) {
       if (!notificationOptions.hasOwnProperty(notificationType)) {

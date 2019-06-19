@@ -24,9 +24,15 @@ fdescribe('NotificationsService', () => {
     });
 
     service = TestBed.get(NotificationsService);
+  });
+
+  beforeEach(() => {
     userProfile = createTestUserProfile();
     scholarship = createTestScholarship();
     service.datePipe = new DatePipe('en-US');
+
+    console.log('scholarship.deadline', scholarship.deadline);
+
   });
 
   it('should be created', () => {
