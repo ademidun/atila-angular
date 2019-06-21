@@ -17,20 +17,26 @@
 
         <div class="center container">
 
-          <h1 *ngIf="scholarshipQuery" class="registered-title">
-            Scholarships for {{prettifyKeys(scholarshipQuery)}}
-            <ng-container *ngIf="transformFilterDisplay(form_data.filter_by_user) && transformFilterDisplay(form_data.filter_by_user).length != 0">
-              <br/> and
-              <span style="font-weight: bold">{{transformFilterDisplay(form_data.filter_by_user) | json}}</span>
-            </ng-container>
-          </h1>
-          <h5 *ngIf="scholarshipQuery && transformFilterDisplay(form_data.filter_by_user)
+          <ng-container *ngIf="scholarshipQuery">
+            <h1 class="registered-title">
+              Scholarships for {{prettifyKeys(scholarshipQuery)}}
+              <ng-container *ngIf="transformFilterDisplay(form_data.filter_by_user) && transformFilterDisplay(form_data.filter_by_user).length != 0">
+                <br/> and
+                <span style="font-weight: bold">{{transformFilterDisplay(form_data.filter_by_user) | json}}</span>
+              </ng-container>
+            </h1>
+            <h5>
+              <a routerLink="/">Back to Search</a>
+            </h5>
+
+            <h5 *ngIf="transformFilterDisplay(form_data.filter_by_user)
           && transformFilterDisplay(form_data.filter_by_user).length != 0"
-          class="registered-title">
-            <span *ngIf="!isLoggedIn">(<a routerLink="/login">Login</a>
+                class="registered-title">
+            <ng-container *ngIf="!isLoggedIn">(<a routerLink="/login">Login</a>
               to use your actual {{prettifyKeys(form_data.filter_by_user)}})
-            </span>
-          </h5>
+            </ng-container>
+            </h5>
+          </ng-container>
 
 
           <h4 class="registered-title">
