@@ -57,8 +57,14 @@
             </ng-template>
 
             <br>
-            <span *ngIf="form_data && form_data.featuredScholarshipsMode">No Information Submitted. Showing Scholarships Open to all users</span>
+            <ng-container *ngIf="form_data && form_data.featuredScholarshipsMode">
+              No Information Submitted. Showing Scholarships Open to all users
+            </ng-container>
           </h4>
+
+          <h5 *ngIf="form_data && form_data.featuredScholarshipsMode">
+            <a routerLink="/">Back to Search</a>
+          </h5>
 
         </div>
 
@@ -101,8 +107,6 @@
             <span *ngIf="!isLoggedIn">(<a routerLink="/login">Login</a> to use your actual {{prettifyKeys(form_data.filter_by_user)}})</span>
           </p>
 
-
-
           <ng-template #tryFilter >
             <p class="col-sm-12 col-md-6" style="font-size: larger"
                *ngIf="userProfile && form_data.filter_by_user && !userProfile[form_data.filter_by_user]">
@@ -110,30 +114,26 @@
               <a routerLink="/profile/edit">Edit your Profile</a> to add it now.</p>
           </ng-template>
 
-
         </div>
 
-        <!--<div class="row filter-div" *ngIf="!environment.production || userProfile.is_atila_admin">-->
-          <!--<mat-slide-toggle [checked]="userProfile.is_debug_mode" (change)="userProfile.is_debug_mode=!userProfile.is_debug_mode;-->
-          <!--toggleDebugMode($event)">Debug Mode </mat-slide-toggle>-->
-           <!--{{userProfile.is_debug_mode}}-->
-        <!--</div>-->
-        <br>
+        <div class="center container">
+        <p>Did you find a scholarship? Help others and <a routerLink="/scholarship/add">add a scholarship</a> in less than 15 seconds.</p>
+      </div>
 
-        <div class="center col-sm-12 col-md-8 offset-md-2">
+        <div class="center col-sm-12 col-md-8 offset-md-2"
+             *ngIf="isLoggedIn && (!userProfile.major || !userProfile.post_secondary_school)">
+          <br>
 
-            <strong>
-
-            <h4 *ngIf="isLoggedIn && (!userProfile.major || !userProfile.post_secondary_school)">
+            <h4>
+              <strong>
               Your account is incomplete 😢. School or program information is missing:
               <a (click)="editProfileModal({'forceOpen': true})">Complete Profile</a>
+              </strong>
             </h4>
-            </strong>
             <!---->
             <!--<p>Did you find a scholarship? Help others and <a routerLink="/scholarship/add">add a scholarship</a> in less than 15 seconds.</p>-->
 
         </div>
-        <br>
 
         <div class="offset-md-2" *ngIf="userProfile && userProfile.is_atila_admin">
 
