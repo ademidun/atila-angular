@@ -94,6 +94,40 @@
     </div>
   </div>
 
+  <!-- Blog Posts Demo-->
+  <div class="container row">
+    <h1 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"><a routerLink="/blog"> Blog </a></h1>
+    <h5 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"> Learn from other students' stories </h5>
+    <div class="row">
+      <div  *ngFor="let blog of blogs; let i = index; first as isFirst;" class="col-md-4">
+        <app-card-generic [item]="blog"
+                          [metadata]="{hideDescription: blog.image,showImageInPreviewMode: true}"
+                          [cardStyle]="{'height': '510px', 'overflow-y': 'hidden'}"
+                          [titleMaxLength]="75"
+                          [cardTitleStyle]="{height: '200px'}"> </app-card-generic>
+      </div>
+    </div>
+  </div>
+  <hr/>
+
+  <!-- Essay Posts Demo-->
+  <!--[imageStyle]="{ max-height: 200px, width: auto, margin-left: 20%, }"-->
+  <div class="container row">
+    <h1 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"><a routerLink="/essay"> Essays </a></h1>
+    <h5 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"> Read the essays that got students acceptance to top schools and win major scholarships. </h5>
+    <div class="row">
+      <div  *ngFor="let essay of essays; let i = index; first as isFirst;" class="col-md-4">
+        <app-card-generic [item]="essay"
+                          [previewDescriptionLength]="150"
+                          [metadata]="{hideDescription: false, showImageInPreviewMode: true,showEssayImage: true}"
+                          [imageStyle]="{'max-height': '200px', width: 'auto', 'margin-left': '20%'}"
+                          [cardStyle]="{'height': '550px', 'overflow-y': 'hidden'}" [titleMaxLength]="35"
+                          [cardTitleStyle]="{height: '100px'}"> </app-card-generic>
+      </div>
+    </div>
+  </div>
+  <hr/>
+
   <!-- How it Works-->
   <div class="container">
     <h1 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"><a routerLink="/blog/atila/what-is-atila"> How Atila Works </a></h1>
@@ -178,40 +212,6 @@
         <img src="" id="application-automation-gif"
              alt="Automate Scholarship Application" title="Automate Scholarship Application"
              class="landing-page-gif landing-page-gif-mobile">
-      </div>
-    </div>
-  </div>
-  <hr/>
-
-  <!-- Blog Posts Demo-->
-  <div class="container row">
-    <h1 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"><a routerLink="/blog"> Blog </a></h1>
-    <h5 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"> Learn from other students' stories </h5>
-    <div class="row">
-      <div  *ngFor="let blog of blogs; let i = index; first as isFirst;" class="col-md-4">
-        <app-card-generic [item]="blog"
-                          [metadata]="{hideDescription: blog.image,showImageInPreviewMode: true}"
-                          [cardStyle]="{'height': '510px', 'overflow-y': 'hidden'}"
-                          [titleMaxLength]="75"
-                          [cardTitleStyle]="{height: '200px'}"> </app-card-generic>
-      </div>
-    </div>
-  </div>
-  <hr/>
-
-  <!-- Essay Posts Demo-->
-  <!--[imageStyle]="{ max-height: 200px, width: auto, margin-left: 20%, }"-->
-  <div class="container row">
-    <h1 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"><a routerLink="/essay"> Essays </a></h1>
-    <h5 style="margin-top: 0; text-align: center" class="col-sm-12 atila-blue"> Read the essays that got students acceptance to top schools and win major scholarships. </h5>
-    <div class="row">
-      <div  *ngFor="let essay of essays; let i = index; first as isFirst;" class="col-md-4">
-        <app-card-generic [item]="essay"
-                          [previewDescriptionLength]="150"
-                          [metadata]="{hideDescription: false, showImageInPreviewMode: true,showEssayImage: true}"
-                          [imageStyle]="{'max-height': '200px', width: 'auto', 'margin-left': '20%'}"
-                          [cardStyle]="{'height': '550px', 'overflow-y': 'hidden'}" [titleMaxLength]="35"
-                          [cardTitleStyle]="{height: '100px'}"> </app-card-generic>
       </div>
     </div>
   </div>
