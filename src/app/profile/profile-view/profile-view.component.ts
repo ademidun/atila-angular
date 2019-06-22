@@ -243,7 +243,9 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
 
 
       },
-      error2 => {},
+      error2 => {
+        console.log({error2});
+      },
     );
   }
 
