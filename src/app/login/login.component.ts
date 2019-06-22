@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
    };
 
   isLoading =false;
+  isLoadingReset =false;
   forgotPassword = false;
   resetResponse = ' ';
 
@@ -79,12 +80,12 @@ export class LoginComponent implements OnInit {
 
   resetPassword(resetEmailUsername: HTMLInputElement) {
 
-    if (this.isLoading) {
+    if (this.isLoadingReset) {
       return;
     }
 
     this.resetResponse = null;
-    this.isLoading = true;
+    this.isLoadingReset = true;
     const userInput = {
       username: resetEmailUsername.value
     };
@@ -94,7 +95,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         res =>  {
           this.resetResponse = res.message;
-          this.isLoading = false;
+          this.isLoadingReset = false;
         },
         err => {
           if(err.error) {
@@ -103,7 +104,7 @@ export class LoginComponent implements OnInit {
           else {
             this.resetResponse = err.error || 'Rest failed. Please email admin info@atila.ca'
           }
-          this.isLoading = false;
+          this.isLoadingReset = false;
 
         }
       )

@@ -54,7 +54,7 @@
             </mat-form-field>
             <a class="waves-effect waves-light btn right" (click)="resetPassword(resetEmailUsername)">Send Email</a>
 
-            <div  *ngIf="!resetResponse || isLoading" class="col-sm-10">
+            <div  *ngIf="!resetResponse || isLoadingReset" class="col-sm-10">
               <p style="font-size: large">Sending Email...</p>
               <mat-progress-bar aria-label="Sending..." mode="indeterminate"></mat-progress-bar>
             </div>
