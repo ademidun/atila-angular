@@ -5,7 +5,7 @@ import {
   HttpEvent,
   HttpInterceptor, HttpResponse, HttpErrorResponse
 } from '@angular/common/http';
-//import { AuthService } from './auth.service';
+// import { AuthService } from './auth.service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
 import { Router } from '@angular/router'
@@ -34,18 +34,23 @@ export class UnAuthorizedInterceptor implements HttpInterceptor {
             if (err.status === 401 ||err.status === 403 ) {
 
               // Clear local storage so new keys like xkcd can be generated
-              //https://github.com/angular/angular/issues/18224#issuecomment-316957213
-              let authService = this.injector.get(AuthService);
-              authService.logout();
+              // https://github.com/angular/angular/issues/18224#issuecomment-316957213
+              const authService = this.injector.get(AuthService);
+              // authService.logout();
 
               // redirect to the login route
-              let snackBarRef = this.snackBar.open("Unauthorized Access", 'Login', {
+              const snackBarRef = this.snackBar.open('Unauthorized Access', 'Login', {
                 duration: 5000
               });
 
               snackBarRef.onAction().subscribe(
                 () => {
-                  this.router.navigate(['/login']);
+                  this.router.navigateByUrl('/login?redirect=' + this.router.url, {
+                    preserveQueryParams: true,
+                    preserveFragment: true,
+                    queryParamsHandling: 'merge'
+                  });
+                  authService.redirectUrl = this.router.url;
                 },
               );
 
