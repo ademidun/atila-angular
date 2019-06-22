@@ -120,10 +120,6 @@ export class NotificationsService {
 
         sendDate.setTime( scholarshipDeadline.getTime() - (daysBeforeDeadline * 86400000) );
 
-        console.log({sendDate, twoDaysAgo});
-
-        console.log('sendDate.getTime()', sendDate.getTime());
-        console.log('twoDaysAgo.getTime()', twoDaysAgo.getTime());
 
         if (sendDate.getTime() < twoDaysAgo.getTime()) {
           continue;
@@ -144,8 +140,6 @@ export class NotificationsService {
 
       }
     }
-
-    console.log({scholarship, notificationOptions, scholarshipDeadline, yesterday, twoDaysAgo, fullMessagePayloads});
 
     return fullMessagePayloads;
   }
