@@ -53,7 +53,12 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  login() {
+  login(event=null) {
+
+    if (this.isLoading) {
+      return;
+    }
+
     let loginOperation: Observable<any>;
     this.isLoading = true;
     loginOperation = this.authService.login(this.credentials);
