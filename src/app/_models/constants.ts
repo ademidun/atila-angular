@@ -2579,3 +2579,14 @@ export const MAJORS_DICT = [
 
 export const MASTER_LIST_EVERYTHING = MAJORS_LIST.concat(SCHOOLS_LIST).concat(EDUCATION_LEVEL).concat(ETHNICITY).
 concat(EDUCATION_FIELDS).concat(DISABILITY).concat(SPORTS).concat(ACTIVITIES).concat(RELIGION).concat(LANGUAGE).sort();
+
+export const AUTOCOMPLETE_DICT_WITHOUT_SCHOOLS_AND_MAJOR = {
+  'activities': ACTIVITIES,
+  'sports': SPORTS,
+  'ethnicity': ETHNICITY,
+  'religion': RELIGION,
+  'heritage': COUNTRIES,
+  'disability': DISABILITY,
+  'citizenship': COUNTRIES,
+  'language': LANGUAGE,
+};

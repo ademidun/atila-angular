@@ -1,7 +1,7 @@
 <div class="container">
     <div class="card">
       <div class="row card-content">
-        <form #form="ngForm" (ngSubmit)="login()"  class="col-sm-12">
+        <form #form="ngForm" (ngSubmit)="login($event)"  class="col-sm-12">
           <h4>Login</h4>
           <div class="row">
             <mat-form-field class="col-sm-12">
@@ -35,30 +35,34 @@
 
 
           </div>
+        </form>
           <div class="row">
 
             <a style="cursor: pointer;color: #039be5" (click)="forgotPassword =!forgotPassword">Forgot Password?</a>
 
-            <div *ngIf="forgotPassword" class="col-sm-12 button-container">
-              <p>An email will be sent to the provided email or username with a verification token.<br>
-                Click the link in email or go to <a routerLink="/verify" [queryParams]="{verification_type: 'reset_password'}">
-                  Reset Password</a>.</p>
-              <mat-form-field class="col-sm-12">
-                <input matInput class="browser-default" id="resetPasswordEmail" type="text" ngControl="resetPasswordEmail"
-                       required #resetEmailUsername name="username" placeholder="Email or username" autocomplete="username">
-              </mat-form-field>
-              <a class="waves-effect waves-light btn right" (click)="resetPassword(resetEmailUsername)">Send Email</a>
-
-              <div  *ngIf="!resetResponse" class="col-sm-10">
-                <p style="font-size: large">Sending Email...</p>
-                <mat-progress-bar aria-label="Sending..." mode="indeterminate"></mat-progress-bar>
-              </div>
-              <p>{{resetResponse}}</p>
-
-            </div>
-
 
           </div>
+
+        <div *ngIf="forgotPassword" class="row col-sm-12 button-container">
+          <form #forgotPasswordform="ngForm" (ngSubmit)="resetPassword(resetEmailUsername)"  class="col-sm-12">
+            <p>An email will be sent to the provided email or username with a verification token.<br>
+              Click the link in email or go to <a routerLink="/verify" [queryParams]="{verification_type: 'reset_password'}">
+                Reset Password</a>.</p>
+            <mat-form-field class="col-sm-12">
+              <input matInput class="browser-default" id="resetPasswordEmail" type="text" ngControl="resetPasswordEmail"
+                     required #resetEmailUsername name="username" placeholder="Email or username" autocomplete="username">
+            </mat-form-field>
+            <a class="waves-effect waves-light btn right" (click)="resetPassword(resetEmailUsername)">Send Email</a>
+
+            <div  *ngIf="!resetResponse || isLoadingReset" class="col-sm-10">
+              <p style="font-size: large">Sending Email...</p>
+              <mat-progress-bar aria-label="Sending..." mode="indeterminate"></mat-progress-bar>
+            </div>
+            <p>{{resetResponse}}</p>
+
+          </form>
+
+        </div>
 
 
           <!-- Loading progress circle -->
@@ -77,7 +81,6 @@
               </div>
             </div>
           </div>
-        </form>
       </div>
     </div>
   </div>

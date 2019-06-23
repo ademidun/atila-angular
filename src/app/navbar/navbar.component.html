@@ -81,7 +81,7 @@
 
                 </button>
                 </a>
-                <a *ngIf="userProfile" [routerLink]="['/profile', userProfile.username]">
+                <a *ngIf="authService.username" [routerLink]="['/profile', authService.username]">
                 <button mat-menu-item>
 
                     <span>My profile</span>
@@ -288,7 +288,7 @@
                         <span>Add Scholarship</span>
                     </button>
                   </a>
-                  <a *ngIf="userProfile" [routerLink]="['/profile', userProfile.username]">
+                  <a *ngIf="authService.username" [routerLink]="['/profile', authService.username]">
                     <button button mat-menu-item >
                       <span>My profile</span>
 

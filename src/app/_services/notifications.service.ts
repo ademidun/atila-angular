@@ -54,7 +54,7 @@ export class NotificationsService {
     return getPermissionPromise
       .then((sub: PushSubscription|any) => {
 
-      console.log({ sub });
+        console.log({ sub });
 
         $('#dimScreen').css('display', 'none');
 
@@ -93,6 +93,8 @@ export class NotificationsService {
 
     const today = new Date();
 
+    const scholarshipDeadline: Date | number = new Date(scholarship.deadline);
+
     const yesterday = new Date();
     yesterday.setDate(today.getDate() - 1);
 
@@ -107,16 +109,17 @@ export class NotificationsService {
         // don't create notification for scholarship if deadline was more than 1 day ago
         // or sendDate is more than 48 hours ago
 
-        const daysBeforeDeadline = notificationOptions[notificationType][i];
-
-        const scholarshipDeadline: Date | number = new Date(scholarship.deadline);
-
         if (scholarshipDeadline.getTime() < yesterday.getTime()) {
           break
         }
 
+        const daysBeforeDeadline = notificationOptions[notificationType][i];
         let sendDate: Date | number = new Date();
-        sendDate.setDate(scholarshipDeadline.getDate() - daysBeforeDeadline);
+        // following line fails because if deadline is July 6 and current date is June 22
+        // and sendDate is 1 day before Deadline, the send date will be June 5
+
+        sendDate.setTime( scholarshipDeadline.getTime() - (daysBeforeDeadline * 86400000) );
+
 
         if (sendDate.getTime() < twoDaysAgo.getTime()) {
           continue;
@@ -137,6 +140,7 @@ export class NotificationsService {
 
       }
     }
+
     return fullMessagePayloads;
   }
 
@@ -150,13 +154,13 @@ export class NotificationsService {
     createdAt = createdAt.getTime();
 
     const urlAnalyticsSuffix = `?utm_source=${notificationConfig.notificationType}&utm_medium=${notificationConfig.notificationType}`+
-    `&utm_campaign=scholarship-due-remind-${notificationConfig.daysBeforeDeadline}`;
+      `&utm_campaign=scholarship-due-remind-${notificationConfig.daysBeforeDeadline}`;
 
     notificationConfig.daysBeforeDeadline = notificationConfig.daysBeforeDeadline === 1 ?
       '1 day ': `${notificationConfig.daysBeforeDeadline} days `;
     const messageData:any = {
       title: `${userProfile.first_name}, a scholarship you saved: ${scholarship.name} is due in ${notificationConfig.daysBeforeDeadline}`+
-       `on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}`,
+      `on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}`,
       body: `Scholarship due on ${this.datePipe.transform(scholarship.deadline, 'fullDate')}: ${scholarship.name}.
        Submit your Application!`,
       clickAction: `https://atila.ca/scholarship/${scholarship.slug}/${urlAnalyticsSuffix}`,

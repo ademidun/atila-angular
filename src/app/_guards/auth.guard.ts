@@ -8,13 +8,13 @@ import {MatSnackBar} from '@angular/material';
 export class AuthGuard implements CanActivate {
   constructor(public authService: AuthService,
               public router: Router,
-              public snackBar: MatSnackBar){
+              public snackBar: MatSnackBar) {
 
   }
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
-    if (state.url == '/') {
-      if (this.authService.isUserLoggedIn()){
+    if (state.url === '/') {
+      if (this.authService.isUserLoggedIn()) {
         this.router.navigate(['/scholarship']);
         return false;
       }
@@ -25,10 +25,15 @@ export class AuthGuard implements CanActivate {
 
     if (this.authService.isLoggedIn) { return true; }
     // Navigate to the login page with extras
-    this.snackBar.open("Unauthorized Access", '', {
+    this.snackBar.open('Unauthorized access', '', {
       duration: 3000
     });
-    this.router.navigate(['/login']);
+    this.router.navigateByUrl('/login?redirect=' + this.router.url, {
+      preserveQueryParams: true,
+      preserveFragment: true,
+      queryParamsHandling: 'merge'
+    });
+    this.authService.redirectUrl = this.router.url;
     return false;
   }
 }

@@ -71,6 +71,7 @@ fdescribe('NotificationsService', () => {
         expect(createdNotification.html).toContain(deadline, 'Scholarship deadline not in notification');
 
       });
+
   it('#customizeNotificationMessage() should contain correct correct due in N days',
     () => {
         service.DEFAULT_NOTIFICATION_CONFIG.notificationType = 'email';
@@ -91,6 +92,7 @@ fdescribe('NotificationsService', () => {
           'scholarship due in 7 day should say 7 days');
 
       });
+
   it('#customizeNotificationMessage() should not create notifications if deadline is in past',
     () => {
         service.DEFAULT_NOTIFICATION_CONFIG.notificationType = 'email';
@@ -109,6 +111,7 @@ fdescribe('NotificationsService', () => {
         expect(createdNotifications).toEqual([]);
 
       });
+
   it('#customizeNotificationMessage() should not create notifications if 7 days ago is more than 48 hours in past',
     () => {
         service.DEFAULT_NOTIFICATION_CONFIG.notificationType = 'email';
@@ -126,4 +129,25 @@ fdescribe('NotificationsService', () => {
           'Notifications created should be 1 less than number of notificationOptions');
 
       });
+
+  it('#customizeNotificationMessage() should create notifications if deadline is a month away',
+    () => {
+      service.DEFAULT_NOTIFICATION_CONFIG.notificationType = 'email';
+
+      service.DEFAULT_NOTIFICATION_CONFIG.notificationType = 'email';
+      const notificationOptions = {
+        'push': [1, 3, 21],
+        'email': [1, 7, 14],
+      };
+
+      const scholarshipDeadline = new Date();
+      scholarshipDeadline.setDate(scholarshipDeadline.getDate() + 33);
+      scholarship.deadline = scholarshipDeadline.toISOString();
+      console.log('scholarship.deadline', scholarship.deadline);
+
+      const createdNotifications = service.customizeNotificationMessage(notificationOptions,scholarship, userProfile);
+
+      expect(createdNotifications.length).toBe(notificationOptions.email.length + notificationOptions.push.length,
+        'Notifications created should be equal to number of notificationOptions');
+    });
 });

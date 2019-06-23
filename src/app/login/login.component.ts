@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
    };
 
   isLoading =false;
+  isLoadingReset =false;
   forgotPassword = false;
   resetResponse = ' ';
 
@@ -53,7 +54,12 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  login() {
+  login(event=null) {
+
+    if (this.isLoading) {
+      return;
+    }
+
     let loginOperation: Observable<any>;
     this.isLoading = true;
     loginOperation = this.authService.login(this.credentials);
@@ -61,22 +67,26 @@ export class LoginComponent implements OnInit {
         data => {
           this.router.navigateByUrl(this.redirectUrl || "/scholarship",  {
             preserveQueryParams: true, preserveFragment: true, });
+          this.isLoading = false;
         },
         err => {
           this.snackBar.open("Incorrect login credentials", '', {
             duration: 3000
           });
           this.isLoading = false;
-        },
-
-        () => this.isLoading = false,
+        }
       );
   }
 
   resetPassword(resetEmailUsername: HTMLInputElement) {
 
+    if (this.isLoadingReset) {
+      return;
+    }
+
     this.resetResponse = null;
-    let userInput = {
+    this.isLoadingReset = true;
+    const userInput = {
       username: resetEmailUsername.value
     };
 
@@ -85,16 +95,18 @@ export class LoginComponent implements OnInit {
       .subscribe(
         res =>  {
           this.resetResponse = res.message;
+          this.isLoadingReset = false;
         },
         err => {
-          if(err.error){
+          if(err.error) {
             this.resetResponse = err.error.message || err.error.error;
           }
           else {
             this.resetResponse = err.error || 'Rest failed. Please email admin info@atila.ca'
           }
+          this.isLoadingReset = false;
 
-        },
+        }
       )
 
   }

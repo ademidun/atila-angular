@@ -27,6 +27,7 @@ export class AuthService {
   public isLoggedIn: boolean = false; //should this be public or protected?
   public secretKey: string;
   token: string;
+  public username: string;
 
   constructor(public http: HttpClient,
               public snackBar: MatSnackBar,
@@ -55,11 +56,12 @@ export class AuthService {
     return this.http.post(this.loginUrl, credentials)
       .map(res => {
 
-        let data: any = res;
+        const data: any = res;
+        console.log({ data });
 
         this.encryptlocalStorage('token', data.token);
         this.encryptlocalStorage('firebase_token', data.firebase_token);
-
+        this.username = data.username;
 
         // this.cookieService.putObject('userId', data.id);
         this.encryptlocalStorage('uid', data.id);

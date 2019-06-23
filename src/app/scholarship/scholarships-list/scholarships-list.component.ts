@@ -17,7 +17,15 @@ import {environment} from '../../../environments/environment';
 import {AutoCompleteForm, initializeAutoCompleteOptions} from '../../_shared/scholarship-form';
 import {FormGroup} from '@angular/forms';
 
-import {EDUCATION_FIELDS, EDUCATION_LEVEL, FILTER_TYPES, GRADE_LEVELS, MAJORS_LIST, SCHOOLS_LIST} from '../../_models/constants';
+import {
+  AUTOCOMPLETE_DICT_WITHOUT_SCHOOLS_AND_MAJOR,
+  EDUCATION_FIELDS,
+  EDUCATION_LEVEL,
+  FILTER_TYPES,
+  GRADE_LEVELS,
+  MAJORS_LIST,
+  SCHOOLS_LIST
+} from '../../_models/constants';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import {SeoService} from '../../_services/seo.service';
 import {Title} from '@angular/platform-browser';
@@ -66,6 +74,7 @@ export class ScholarshipsListComponent implements OnInit {
   EDUCATION_FIELD = EDUCATION_FIELDS;
   MAJORS_LIST = MAJORS_LIST;
   SCHOOLS_LIST = SCHOOLS_LIST;
+  autoCompleteLists = AUTOCOMPLETE_DICT_WITHOUT_SCHOOLS_AND_MAJOR;
   viewAsUser: any;
   extraLocationInput: any = {
     country: '',
