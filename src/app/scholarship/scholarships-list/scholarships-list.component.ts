@@ -61,6 +61,7 @@ export class ScholarshipsListComponent implements OnInit {
   subscriber: any = {};
   autoCompleteFormGroup: FormGroup;
   autoCompleteOptions: any;
+  Object = Object;
 
   locationData = {
     'city': '',
