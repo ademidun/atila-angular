@@ -29,7 +29,7 @@
   </ng-container>
 </ng-template>
 
-<div *ngIf="contentFetched">
+<div *ngIf="contentFetched" class="scholarships-list">
 
     <div *ngIf="form_data">
 
@@ -143,17 +143,12 @@
           <br>
 
             <h4>
-              <ng-template #incompleteProfileReminder>
+
+              <strong>
                 Your account is incomplete 😢. {{!userProfile.post_secondary_school ? 'school': ''}}
                 {{!userProfile.post_secondary_school && !userProfile.post_secondary_school ? 'and': ''}}
                 {{!userProfile.major ? 'program information': ''}} is missing:
                 <a (click)="editProfileModal({'forceOpen': true})">Complete Profile</a>
-              </ng-template>
-
-              <strong>
-                <ng-container
-                  *ngTemplateOutlet="incompleteProfileReminder">
-                </ng-container>
               </strong>
             </h4>
             <!---->

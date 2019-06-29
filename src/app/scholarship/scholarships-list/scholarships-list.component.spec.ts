@@ -7,7 +7,7 @@ import {
   MatDialogModule,
   MatFormFieldModule,
   MatIcon,
-  MatIconModule,
+  MatIconModule, MatInputModule,
   MatOptionModule,
   MatProgressBarModule,
   MatSelectModule,
@@ -24,6 +24,8 @@ import {FormsModule} from '@angular/forms';
 import {APP_BASE_HREF} from '@angular/common';
 import {SeoService, seoServiceStub} from '../../_services/seo.service';
 import {Router} from '@angular/router';
+import {createTestUserProfile} from '../../_models/user-profile';
+import {createTestScholarship} from '../../_models/scholarship';
 
 fdescribe('ScholarshipsListComponent', () => {
   let component: ScholarshipsListComponent;
@@ -52,6 +54,7 @@ fdescribe('ScholarshipsListComponent', () => {
         MatSnackBarModule,
         MatOptionModule,
         MatSelectModule,
+        MatInputModule,
         MatFormFieldModule,
         MatDialogModule,
         FormsModule,
@@ -77,11 +80,47 @@ fdescribe('ScholarshipsListComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ScholarshipsListComponent);
     component = fixture.componentInstance;
+
+    component.userProfile = createTestUserProfile();
+    component.contentFetched = true;
+    component.form_data = {};
+    component.scholarships = [createTestScholarship('Due Tomorrow Foundation'),
+      createTestScholarship('Due Next Week Fund'),
+      createTestScholarship('Upper Echelon Lil Baby')];
     fixture.detectChanges();
   });
 
   it('should be created', () => {
 
     expect(component).toBeTruthy();
+  });
+
+  it('should NOT show incomplete information when not logged in', () => {
+
+    const compiled = fixture.debugElement.nativeElement;
+    component.isLoggedIn = null;
+
+    const incompleteProfileDiv = compiled.querySelector('.scholarships-list');
+    expect(incompleteProfileDiv.textContent.toLowerCase()).toContain('your account is incomplete');
+  });
+
+  it('should NOT show incomplete information when major is null', () => {
+
+    const compiled = fixture.debugElement.nativeElement;
+    component.userProfile.major = null;
+
+    const incompleteProfileDiv = compiled.querySelector('.scholarships-list');
+    expect(incompleteProfileDiv.textContent.toLowerCase()).toContain('your account is incomplete');
+  });
+
+  it('should show incomplete information when data is missing', () => {
+
+    component.isLoggedIn = true;
+    const compiled = fixture.debugElement.nativeElement;
+
+    const incompleteProfileDiv = compiled.querySelector('.scholarships-list');
+
+    expect(incompleteProfileDiv.textContent.toLowerCase()).toContain('your account is incomplete',
+      "Expect 'your account is incomplete' text to be in div when profile is complete");
   });
 });
