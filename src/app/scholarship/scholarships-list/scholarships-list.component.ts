@@ -41,21 +41,21 @@ export class ScholarshipsListComponent implements OnInit {
   form_data: any;
   isLoggedIn: boolean;
   userId: string;
-  contentFetched: boolean = false;
-  inCompleteProfile: boolean = false;
+  contentFetched = false;
+  inCompleteProfile = false;
   isLoading = true;
   userProfile: UserProfile;
 
   scholarships: Scholarship[] = []; //TODO: If i use scholarship[] I can't access property members, why?
-  total_scholarship_count: number = 0;
+  total_scholarship_count = 0;
   scholarshipError: any = null;
   total_funding: any = 0;
-  show_scholarship_funding: boolean = false;
+  show_scholarship_funding = false;
   viewAsMode: boolean;
   environment = environment;
 
-  pageNo: number = 1;
-  paginationLen: number = 8; // number of items the API returns in a single result
+  pageNo = 1;
+  paginationLen = 8; // number of items the API returns in a single result
   pageLen: number; // the total number of pages (total results)/(results per API call)
   pages = [1];
   subscriber: any = {};
@@ -99,10 +99,10 @@ export class ScholarshipsListComponent implements OnInit {
   }
 
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.userId = this.authService.decryptLocalStorage('uid');
 
-    let seoConfig = {
+    const seoConfig = {
       title: 'Atila Scholarships',
       description: 'Easily find and apply to scholarships. Learn and share information about education, career and life..',
       image: 'https://firebasestorage.googleapis.com/v0/b/atila-7.appspot.com/o/public%2Fatila-image-preview-jun-19-2019.png?alt=media&token=bd4ec128-8261-4957-8ff1-06566b911f0b',
@@ -127,7 +127,7 @@ export class ScholarshipsListComponent implements OnInit {
       this.userProfileService.getById(parseInt(this.userId))
         .subscribe(
           data => {
-            let tempCity = [];
+            const tempCity = [];
             this.userProfile = data;
 
             if (this.userProfile.metadata['incomplete_profile']) {
@@ -198,7 +198,7 @@ export class ScholarshipsListComponent implements OnInit {
 
   }
 
-  getScholarshipPreview(page: number = 1, options: any = {}) {
+  getScholarshipPreview(page: number = 1, options: any = {}): void {
     if (page == 1) {
       // clear scholarships list if on first page
       this.scholarships = [];
@@ -266,7 +266,7 @@ export class ScholarshipsListComponent implements OnInit {
     }
   }
 
-  saveScholarships(res: any) {
+  saveScholarships(res: any): void {
 
     this.scholarships.push(...res['data']);
     this.total_scholarship_count = res['length'];
@@ -286,12 +286,12 @@ export class ScholarshipsListComponent implements OnInit {
 
     if (this.form_data.filter_by_user) {
 
-      let resultsPreview = [];
+      const resultsPreview = [];
 
       for (let i = 0; i < Math.min(5, this.scholarships.length); i++) {
         resultsPreview.push({id: this.scholarships[i]['id'], name: this.scholarships[i]['name']})
       }
-      let filterByUserResult = {
+      const filterByUserResult = {
         form_data: this.form_data,
         scholarship_count: this.total_scholarship_count,
         total_funding: this.total_funding,
@@ -313,7 +313,7 @@ export class ScholarshipsListComponent implements OnInit {
 
   }
 
-  prettifyKeys(str) {
+  prettifyKeys(str): any {
     if (str == 'only_automated') {
       return 'Is Automated';
     }
@@ -324,19 +324,19 @@ export class ScholarshipsListComponent implements OnInit {
     return toTitleCase(prettifyKeys(str));
   }
 
-  nextPage() {
+  nextPage(): void {
     this.pageNo++;
     this.getScholarshipPreview(this.pageNo);
     // window.scrollTo(0, 0);
   }
 
-  previousPage() {
+  previousPage(): void {
     this.pageNo--;
     this.getScholarshipPreview(this.pageNo);
     window.scrollTo(0, 0);
   }
 
-  goToPage(pageNo = 1) {
+  goToPage(pageNo = 1): void {
     this.getScholarshipPreview(pageNo);
     // todo, why isn't window.scrollTo(0, 0); working?
     window.scrollTo(0, 0);
@@ -346,7 +346,7 @@ export class ScholarshipsListComponent implements OnInit {
 
 
   // todo move this to a seperate function as it will rarely be called
-  saveUser(userForm, options = {}) {
+  saveUser(userForm, options = {}): void {
 
 
     if (userForm.valid) {
@@ -405,7 +405,7 @@ export class ScholarshipsListComponent implements OnInit {
   }
 
 
-  editProfileModal(data?) {
+  editProfileModal(data?): void {
 
     if (!data || !data['forceOpen']) {
       if (this.userProfile.major && this.userProfile.post_secondary_school) {
@@ -414,7 +414,7 @@ export class ScholarshipsListComponent implements OnInit {
 
       if (!this.userProfile.preferences['edit_profile_reminder']) {
         this.userProfile.preferences['edit_profile_reminder'] = {};
-        let reminderTime = new Date().getTime();
+        const reminderTime = new Date().getTime();
         this.userProfile.preferences['edit_profile_reminder']['last_reminder'] = reminderTime;
         this.userProfile.preferences['edit_profile_reminder']['reminders'] = [];
         this.userProfile.preferences['edit_profile_reminder']['reminders'].push(reminderTime);
@@ -423,10 +423,10 @@ export class ScholarshipsListComponent implements OnInit {
 
       else if (this.userProfile.preferences['edit_profile_reminder']['last_reminder']) {
 
-        let lastReminder = parseInt(this.userProfile.preferences['edit_profile_reminder']['last_reminder']);
+        const lastReminder = parseInt(this.userProfile.preferences['edit_profile_reminder']['last_reminder']);
 
-        let difference = new Date().getTime() - lastReminder;
-        let daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
+        const difference = new Date().getTime() - lastReminder;
+        const daysDifference = Math.floor(difference / 1000 / 60 / 60 / 24);
         if (daysDifference < 3) {
           return
         }
@@ -434,7 +434,7 @@ export class ScholarshipsListComponent implements OnInit {
       }
 
 
-      let reminderTime = new Date().getTime();
+      const reminderTime = new Date().getTime();
       this.userProfile.preferences['edit_profile_reminder']['last_reminder'] = reminderTime;
 
       if (!Array.isArray(this.userProfile.preferences['edit_profile_reminder']['reminders'])) {
@@ -449,7 +449,7 @@ export class ScholarshipsListComponent implements OnInit {
     }
 
 
-    let dialogRef = this.dialog.open(EditProfileModalComponent, {
+    const dialogRef = this.dialog.open(EditProfileModalComponent, {
       width: '500px',
       height: '500px',
       data: this.userProfile,
@@ -464,7 +464,7 @@ export class ScholarshipsListComponent implements OnInit {
     });
   }
 
-  toggleSearchModal(data?: any) {
+  toggleSearchModal(data?: any): void {
 
     if (this) {
       return;
@@ -499,7 +499,7 @@ export class ScholarshipsListComponent implements OnInit {
   }
 
 
-  addSubscriber(event?: KeyboardEvent) {
+  addSubscriber(event?: KeyboardEvent): void {
 
 
     if (!this.subscriber.email) {
@@ -516,7 +516,7 @@ export class ScholarshipsListComponent implements OnInit {
 
     this.subscriber.utm_source = 'scholarships_list';
 
-    let dialogRef = this.dialog.open(SubscriberDialogComponent, {
+    const dialogRef = this.dialog.open(SubscriberDialogComponent, {
       width: '300px',
       data: this.subscriber,
     });
@@ -549,12 +549,12 @@ export class ScholarshipsListComponent implements OnInit {
       });
   }
 
-  saveUserAnalytics(path, userData) {
+  saveUserAnalytics(path, userData): void {
     this.firebaseService.saveUserAnalytics(userData, path);
   }
 
 
-  initCompleteProfileForm() {
+  initCompleteProfileForm(): void {
 
     this.autoCompleteFormGroup = AutoCompleteForm();
     this.autoCompleteOptions = initializeAutoCompleteOptions(this.autoCompleteFormGroup);
@@ -567,7 +567,7 @@ export class ScholarshipsListComponent implements OnInit {
   }
 
 
-  typeaheadEvent(event) {
+  typeaheadEvent(event): void {
     if (event.type == 'major') {
       this.userProfile.major = event.event.item;
     }
@@ -581,7 +581,7 @@ export class ScholarshipsListComponent implements OnInit {
    * https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform
    * https://stackoverflow.com/questions/42341930/google-places-autocomplete-angular2
    */
-  placeAutoComplete(placeResult: any, autoCompleteOptions?: any) { //Assign types to the parameters place result is a PlaceResult Type, see documentation
+  placeAutoComplete(placeResult: any, autoCompleteOptions?: any): void { //Assign types to the parameters place result is a PlaceResult Type, see documentation
     this.predictLocation(placeResult, autoCompleteOptions);
 
   }
@@ -592,13 +592,13 @@ export class ScholarshipsListComponent implements OnInit {
    * @param placeResult
    * @param options
    */
-  predictLocation(placeResult, options = {}) {
+  predictLocation(placeResult, options = {}): void {
 
     options['object_key'] = options['object_key'] || 'locationData';
 
-    var addressComponents = placeResult.address_components;
+    const addressComponents = placeResult.address_components;
 
-    var keys = ['city', 'province', 'country'];
+    const keys = ['city', 'province', 'country'];
 
     //TODO: Find a more elegant solution for this.
 
@@ -626,9 +626,10 @@ export class ScholarshipsListComponent implements OnInit {
   }
 
   /**
-   * If user presses enter on location button, don't allow the form to submit because we still need to pull the location Data from Google Maps.
+   * If user presses enter on location button, don't allow the form to submit
+   * because we still need to pull the location Data from Google Maps.
    */
-  keyDownHandler(event: Event) {
+  keyDownHandler(event: Event): void {
 
     if ((<KeyboardEvent>event).keyCode == 13) {
 
@@ -637,7 +638,7 @@ export class ScholarshipsListComponent implements OnInit {
     //TODO! Change this, allow user to submit with enterButton.
   }
 
-  transformFilterDisplay(filter_type) {
+  transformFilterDisplay(filter_type): any {
     let filterValue;
 
     if (!this.form_data.location) {
@@ -741,12 +742,12 @@ export class ScholarshipsListComponent implements OnInit {
     return filterValue
   }
 
-  handleScholarshipClick(event: any) {
+  handleScholarshipClick(event: any): void {
 
 
   }
 
-  refreshScholarshipCache() {
+  refreshScholarshipCache(): void {
 
     if (this.userProfile && this.userProfile.is_atila_admin || this.userProfile.is_debug_mode) {
       console.log('refreshScholarshipCache() this.viewAsUser, this.userId)', this.viewAsUser, this.userId);
