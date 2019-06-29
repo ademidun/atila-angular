@@ -42,6 +42,32 @@
           <p class="modal-subheader">What Other Schools are you interested in?</p>
           {{userProfile.eligible_schools | json}}
           <app-typeahead [dataset]="SCHOOLS_LIST" [model]="userProfile.eligible_schools" [metadata]="{'key': 'eligible_schools','disableFocusFirst': true}"></app-typeahead>
+
+          <div class="row">
+            <div class="col-md-6" *ngFor="let entry of Object.keys(autoCompleteLists)">
+
+              <table>
+                <p style="font-weight: bold">
+
+                  {{prettifyKeys(entry)}}  {{entry == 'citizenship' ? 'or permanent residency': ''}}
+
+                </p>
+                <tr  *ngFor="let item of userProfile[entry]; let i = index" ngDefaultControl>
+                  <td>{{item}} </td>
+                  <td>
+                    <a class="waves-effect waves-light btn right" (click)="deleteArrayitem( userProfile[entry], i)">
+                      <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <app-typeahead [model]="userProfile[entry]" [dataset]="autoCompleteLists[entry]"
+                             [metadata]="{'placeholder':prettifyKeys(entry), 'key': entry,'col':'col-sm-6'}">
+              </app-typeahead>
+            </div>
+          </div>
+
         </div>
 
         You can visit<a routerLink="profile/edit" (click)="dialogRef.close()"> edit profile</a> to complete your profile.

@@ -1,15 +1,25 @@
-<div [ngbPopover]="popContent" popoverTitle="Try Search" #trySearch="ngbPopover"
+<div [ngbPopover]="popContent" popoverTitle="Finish Profile" #trySearch="ngbPopover"
      placement="bottom" triggers="manual" class="popover-anchor" style="width: 100%"
      xmlns="http://www.w3.org/1999/html">
 </div>
 <!-- todo: figure out how to get ngTemplateOutlet to work-->
-<ng-template #popContent >Try
-  Your account is incomplete 😢. {{!userProfile.post_secondary_school ? 'school': ''}}
-  {{!userProfile.post_secondary_school && !userProfile.post_secondary_school ? 'and': ''}}
-  {{!userProfile.major ? 'program information': ''}} is missing:
-  <a (click)="editProfileModal({'forceOpen': true})">Complete Profile</a> |
-  <br>
-  <a (click)="toggleEditProfileReminderPopover({'toggle':true})">Close</a>
+<ng-template #popContent >
+  <ng-container *ngIf="viewAsUser">
+    Your account is incomplete 😢. {{!viewAsUser.post_secondary_school ? 'school': ''}}
+    {{!viewAsUser.post_secondary_school && !viewAsUser.post_secondary_school ? 'and': ''}}
+    {{!viewAsUser.major ? 'program information': ''}} is missing:
+    <a (click)="editProfileModal({'forceOpen': true})">Complete Profile</a>
+    <br>
+    <a (click)="toggleEditProfileReminderPopover({'toggle':true})">Close</a>
+  </ng-container>
+  <ng-container *ngIf="!viewAsUser">
+    Your account is incomplete 😢. {{!userProfile.post_secondary_school ? 'school': ''}}
+    {{!userProfile.post_secondary_school && !userProfile.post_secondary_school ? 'and': ''}}
+    {{!userProfile.major ? 'program information': ''}} is missing:
+    <a (click)="editProfileModal({'forceOpen': true})">Complete Profile</a>
+    <br>
+    <a (click)="toggleEditProfileReminderPopover({'toggle':true})">Close</a>
+  </ng-container>
 </ng-template>
 
  <!--todo: figure out how to get ngTemplateOutlet to work-->

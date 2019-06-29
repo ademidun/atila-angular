@@ -3,7 +3,7 @@ import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {ScholarshipsListComponent} from '../scholarship/scholarships-list/scholarships-list.component';
 import {UserProfile} from '../_models/user-profile';
 
-import {SCHOOLS_LIST, MAJORS_LIST} from '../_models/constants';
+import {SCHOOLS_LIST, MAJORS_LIST, AUTOCOMPLETE_DICT} from '../_models/constants';
 @Component({
   selector: 'app-edit-profile-modal',
   templateUrl: './edit-profile-modal.component.html',
@@ -13,6 +13,7 @@ export class EditProfileModalComponent implements OnInit {
 
   SCHOOLS_LIST = SCHOOLS_LIST;
   MAJORS_LIST = MAJORS_LIST;
+  autoCompleteLists = AUTOCOMPLETE_DICT;
   seeMore = false;
   constructor(
     public dialogRef: MatDialogRef<ScholarshipsListComponent>,

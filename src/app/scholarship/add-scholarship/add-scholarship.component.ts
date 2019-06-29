@@ -72,7 +72,7 @@ export class AddScholarshipComponent implements OnInit, AfterViewInit, OnDestroy
     'Other'
   ];
   MAJORS_LIST = MAJORS_LIST;
-  autoCompleteLists = AUTOCOMPLETE_DICT
+  autoCompleteLists = AUTOCOMPLETE_DICT;
   hideExtraCriteriaInfo: boolean = true;
   stringDict = {
     'city': '',
