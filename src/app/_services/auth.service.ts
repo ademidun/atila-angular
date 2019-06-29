@@ -57,7 +57,6 @@ export class AuthService {
       .map(res => {
 
         const data: any = res;
-        console.log({ data });
 
         this.encryptlocalStorage('token', data.token);
         this.encryptlocalStorage('firebase_token', data.firebase_token);
