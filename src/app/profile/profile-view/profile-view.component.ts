@@ -19,7 +19,7 @@ import * as firebase from "firebase";
 import * as $ from 'jquery';
 import {ApplicationService} from '../../_services/application.service';
 import {MyFirebaseService} from '../../_services/myfirebase.service';
-import {SCHOOLS_LIST} from '../../_models/constants';
+import {MAJORS_LIST, SCHOOLS_LIST} from '../../_models/constants';
 import {SeoService} from '../../_services/seo.service';
 import {BlogPost} from '../../_models/blog-post';
 import {Essay} from '../../_models/essay';
@@ -41,6 +41,7 @@ export class ProfileViewComponent implements OnInit, AfterContentInit {
   userApplications: any;
   profile_pic_url;
   SCHOOLS_LIST = SCHOOLS_LIST;
+  MAJORS_LIST = MAJORS_LIST;
   blogs: any[];
   essays: Essay[];
 

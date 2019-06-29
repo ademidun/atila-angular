@@ -129,6 +129,7 @@ export class ScholarshipsListComponent implements OnInit {
           data => {
             const tempCity = [];
             this.userProfile = data;
+            this.toggleEditProfileReminderPopover();
 
             if (this.userProfile.metadata['incomplete_profile']) {
 
@@ -464,29 +465,14 @@ export class ScholarshipsListComponent implements OnInit {
     });
   }
 
-  toggleSearchModal(data?: any): void {
+  toggleEditProfileReminderPopover(): void {
+    console.log('toggleEditProfileReminderPopover');
 
-    if (this) {
+    console.log('this.isLoggedIn, this.userProfile.major, this.userProfile.post_secondary_school',
+      this.isLoggedIn, this.userProfile.major, this.userProfile.post_secondary_school);
+
+    if (!this.isLoggedIn || (this.userProfile.major && this.userProfile.post_secondary_school)) {
       return;
-    }
-    if (data && data['toggle']) {
-      const isOpen = this.popover.isOpen();
-      if (isOpen) {
-        this.popover.close()
-      }
-      else {
-        this.popover.open()
-      }
-      return;
-    }
-    if (this.userProfile) {
-      if (!this.userProfile.preferences['try_search_reminder']) {
-        this.userProfile.preferences['try_search_reminder'] = new Date().getTime();
-        this.userProfileService.updateHelper(this.userProfile).subscribe();
-      }
-      else {
-        return;
-      }
     }
 
     const isOpen = this.popover.isOpen();

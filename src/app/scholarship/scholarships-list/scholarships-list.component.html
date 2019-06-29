@@ -2,11 +2,22 @@
      placement="bottom" triggers="manual" class="popover-anchor" style="width: 100%"
      xmlns="http://www.w3.org/1999/html">
 </div>
-
+<!-- todo: figure out how to get ngTemplateOutlet to work-->
 <ng-template #popContent >Try
-  <a routerLink="/search" [queryParams]="{q_cta: 'popover',q_source:'scholarships_list'}"><b> Search</b></a>.
-  Enter your term and find matching scholarships. <a (click)="toggleSearchModal({'toggle':true})">Close</a>
+  Your account is incomplete 😢. {{!userProfile.post_secondary_school ? 'school': ''}}
+  {{!userProfile.post_secondary_school && !userProfile.post_secondary_school ? 'and': ''}}
+  {{!userProfile.major ? 'program information': ''}} is missing:
+  <a (click)="editProfileModal({'forceOpen': true})">Complete Profile</a> |
+  <br>
+  <a (click)="toggleEditProfileReminderPopover({'toggle':true})">Close</a>
 </ng-template>
+
+ <!--todo: figure out how to get ngTemplateOutlet to work-->
+<!--<ng-container *ngIf="popContent">-->
+  <!--<ng-container *ngTemplateOutlet="incompleteProfileReminder">-->
+
+  <!--</ng-container>-->
+<!--</ng-container>-->
 
 <div *ngIf="contentFetched">
 
@@ -125,9 +136,17 @@
           <br>
 
             <h4>
+              <ng-template #incompleteProfileReminder>
+                Your account is incomplete 😢. {{!userProfile.post_secondary_school ? 'school': ''}}
+                {{!userProfile.post_secondary_school && !userProfile.post_secondary_school ? 'and': ''}}
+                {{!userProfile.major ? 'program information': ''}} is missing:
+                <a (click)="editProfileModal({'forceOpen': true})">Complete Profile</a>
+              </ng-template>
+
               <strong>
-              Your account is incomplete 😢. School or program information is missing:
-              <a (click)="editProfileModal({'forceOpen': true})">Complete Profile</a>
+                <ng-container
+                  *ngTemplateOutlet="incompleteProfileReminder">
+                </ng-container>
               </strong>
             </h4>
             <!---->
