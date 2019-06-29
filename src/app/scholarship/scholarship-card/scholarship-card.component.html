@@ -54,6 +54,10 @@
           <p>
             <strong>{{prettifyKeys(key)}} {{key == 'citizenship' ? 'or permanent residency': ''}}:</strong>
             {{scholarship[key]}}</p>
+          <br>
+          <p>Don't qualify for scholarships of this {{prettifyKeys(key)}}?
+            <a routerLink="/profile/edit"> Edit Profile</a> to see correct scholarships
+          </p>
         </ng-container>
       </div>
 
