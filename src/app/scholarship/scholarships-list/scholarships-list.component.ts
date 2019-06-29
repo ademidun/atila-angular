@@ -81,7 +81,7 @@ export class ScholarshipsListComponent implements OnInit {
     country: '',
   };
 
-  @ViewChild('trySearch') public popover: NgbPopover;
+  @ViewChild('editProfilePopover') public popover: NgbPopover;
 
   constructor(
     public scholarshipService: ScholarshipService,
@@ -407,7 +407,6 @@ export class ScholarshipsListComponent implements OnInit {
 
 
   editProfileModal(data?): void {
-
     if (!data || !data['forceOpen']) {
       if (this.userProfile.major && this.userProfile.post_secondary_school) {
         return;
@@ -465,7 +464,7 @@ export class ScholarshipsListComponent implements OnInit {
     });
   }
 
-  toggleEditProfileReminderPopover(): void {
+  toggleEditProfileReminderPopover(options={forceClose: false}): void {
     console.log('toggleEditProfileReminderPopover');
 
     console.log('this.isLoggedIn, this.userProfile.major, this.userProfile.post_secondary_school',
@@ -476,7 +475,8 @@ export class ScholarshipsListComponent implements OnInit {
     }
 
     const isOpen = this.popover.isOpen();
-    if (isOpen) {
+    console.log({ isOpen });
+    if (isOpen || options.forceClose) {
       this.popover.close()
     }
     else {

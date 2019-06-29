@@ -35,16 +35,17 @@
         <a  (click)="seeMore= !seeMore">See More</a>
         <hr>
 
-        <div *ngIf="seeMore">
-          <p class="modal-subheader">What Other programs are you interested in?</p>
-          {{userProfile.eligible_programs | json}}
-          <app-typeahead [dataset]="MAJORS_LIST" [model]="userProfile.eligible_programs" [metadata]="{'key': 'eligible_programs','disableFocusFirst': true}"></app-typeahead>
-          <p class="modal-subheader">What Other Schools are you interested in?</p>
-          {{userProfile.eligible_schools | json}}
-          <app-typeahead [dataset]="SCHOOLS_LIST" [model]="userProfile.eligible_schools" [metadata]="{'key': 'eligible_schools','disableFocusFirst': true}"></app-typeahead>
 
-          <div class="row">
-            <div class="col-md-6" *ngFor="let entry of Object.keys(autoCompleteLists)">
+          <div class="row" *ngIf="seeMore">
+
+            <div *ngFor="let entry of Object.keys(autoCompleteLists)" class="col-12">
+
+              <ng-container *ngIf="entry==='eligible_programs'">
+                <p class="modal-subheader">What Other programs are you interested in?</p>
+              </ng-container>
+              <ng-container *ngIf="entry==='eligible_schools'">
+                <p class="modal-subheader">What Other Schools are you interested in?</p>
+              </ng-container>
 
               <table>
                 <p style="font-weight: bold">
@@ -66,9 +67,8 @@
                              [metadata]="{'placeholder':prettifyKeys(entry), 'key': entry,'col':'col-sm-6'}">
               </app-typeahead>
             </div>
-          </div>
 
-        </div>
+          </div>
 
         You can visit<a routerLink="profile/edit" (click)="dialogRef.close()"> edit profile</a> to complete your profile.
       </div>

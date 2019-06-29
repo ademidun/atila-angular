@@ -4,6 +4,7 @@ import {ScholarshipsListComponent} from '../scholarship/scholarships-list/schola
 import {UserProfile} from '../_models/user-profile';
 
 import {SCHOOLS_LIST, MAJORS_LIST, AUTOCOMPLETE_DICT} from '../_models/constants';
+import {prettifyKeys} from '../_shared/utils';
 @Component({
   selector: 'app-edit-profile-modal',
   templateUrl: './edit-profile-modal.component.html',
@@ -14,6 +15,7 @@ export class EditProfileModalComponent implements OnInit {
   SCHOOLS_LIST = SCHOOLS_LIST;
   MAJORS_LIST = MAJORS_LIST;
   autoCompleteLists = AUTOCOMPLETE_DICT;
+  Object = Object;
   seeMore = false;
   constructor(
     public dialogRef: MatDialogRef<ScholarshipsListComponent>,
@@ -26,4 +28,6 @@ export class EditProfileModalComponent implements OnInit {
   typeaheadEvent(event) {
     this.userProfile[event.type] = event.event.item;
   }
-}
+
+  prettifyKeys = (str) => prettifyKeys(str);
+};
