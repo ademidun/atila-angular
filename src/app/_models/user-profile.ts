@@ -144,6 +144,8 @@ export function createTestUserProfile() {
   userprofile.metadata = {};
   userprofile.first_name = 'Charles';
   userprofile.last_name = 'Barkley';
+  userprofile.major = 'Basketball';
+  userprofile.post_secondary_school = 'Auburn University';
 
   return userprofile
 }

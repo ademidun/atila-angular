@@ -20,7 +20,7 @@ export class MatIconStubComponent {
 
 @Component({
   selector: 'app-scholarship-card',
-  template: '<p>ScholarshipCardStubComponent</p>'
+  template: '<p>ScholarshipCardStubComponent:</p> <h3>{{scholarship.name}}</h3> <p>{{scholarship.description}}</p> <br><br>'
 })
 export class ScholarshipCardStubComponent {
   @Input() scholarship: Scholarship | any;

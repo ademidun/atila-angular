@@ -169,8 +169,10 @@ export let ScholarshipServiceStub: Partial<ScholarshipService> = {
   getPaginatedscholarships(form_data, page): Observable<Scholarship[]> | Observable<any> {
 
     const scholarships = [
+      createTestScholarship('Due Tomorrow Foundation'),
       createTestScholarship('Test Scholarship 1'),
-      createTestScholarship('Test Scholarship 2')
+      createTestScholarship('Test Scholarship 2'),
+      createTestScholarship('Test Scholarship 3')
     ];
     return Observable.of({
       data: scholarships,

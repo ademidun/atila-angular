@@ -220,7 +220,7 @@ export let AuthServiceStub: Partial<AuthService> = {
 
   decryptLocalStorage: key => {
     const localStorageTestDict = {
-      'uid': 0
+      'uid': -1
     };
 
     return localStorageTestDict[key]
