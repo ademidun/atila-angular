@@ -9,6 +9,7 @@ import {Subject} from 'rxjs/Subject';
 import {prettifyKeys} from '../utils';
 import {NgStyle} from '@angular/common';
 import * as M from 'materialize-css'
+import {SCHOOLS_LIST} from '../../_models/constants';
 @Component({
   selector: 'app-typeahead',
   templateUrl: './typeahead.component.html',
@@ -47,7 +48,7 @@ export class TypeaheadComponent implements OnInit {
         .merge(this.focus$)
         .merge(this.click$.filter(() => !this.instance.isPopupOpen()))
         .map(term => term.length < 1 ? this.dataset.slice(0,this.maxResultsToDisplay)
-          : this.filterUserInput(term, this.dataset).slice(0,this.maxResultsToDisplay));
+          : this.filterUserInput(term, this.dataset, this.maxResultsToDisplay));
 
 
     if (!this.metadata['noPlaceHolder']) {
@@ -56,15 +57,20 @@ export class TypeaheadComponent implements OnInit {
 
   }
 
-  filterUserInput(val: string, dataSet, keepUserInput=true): string[] {
-    //Allow user input to be used if no other choices available;
-    let customOptions = dataSet.filter(option =>
-      option.toLowerCase().indexOf(val.toLowerCase()) !== -1);
+  filterUserInput(searchTerm: string, dataSet: any[], maxResultsToDisplay: number): string[] {
 
-    if (keepUserInput){
-      customOptions.push(val);
+    // only return items that contain the search term
+    let filteredDataSet = dataSet.filter(dataSetItem =>
+      dataSetItem.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
+
+    if (maxResultsToDisplay) {
+      filteredDataSet = filteredDataSet.slice(0, maxResultsToDisplay);
     }
-    return customOptions;
+    if (!filteredDataSet.includes(searchTerm)){
+      filteredDataSet.push(searchTerm);
+    }
+
+    return filteredDataSet;
 
   }
 

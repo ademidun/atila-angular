@@ -465,17 +465,12 @@ export class ScholarshipsListComponent implements OnInit {
   }
 
   toggleEditProfileReminderPopover(options={forceClose: false}): void {
-    console.log('toggleEditProfileReminderPopover');
-
-    console.log('this.isLoggedIn, this.userProfile.major, this.userProfile.post_secondary_school',
-      this.isLoggedIn, this.userProfile.major, this.userProfile.post_secondary_school);
 
     if (!this.isLoggedIn || (this.userProfile.major && this.userProfile.post_secondary_school)) {
       return;
     }
 
     const isOpen = this.popover.isOpen();
-    console.log({ isOpen });
     if (isOpen || options.forceClose) {
       this.popover.close()
     }
