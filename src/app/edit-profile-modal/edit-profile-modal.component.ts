@@ -30,4 +30,5 @@ export class EditProfileModalComponent implements OnInit {
   }
 
   prettifyKeys = (str) => prettifyKeys(str);
+  deleteArrayitem = (arr: any[], index) => { arr.splice(index,1); }
 };
