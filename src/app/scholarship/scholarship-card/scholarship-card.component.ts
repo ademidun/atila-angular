@@ -73,6 +73,14 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
 
     if (this.userProfile && this.userProfile.saved_scholarships) {
 
+      if (this.userProfile.post_secondary_school && this.userProfile.eligible_schools.length === 0) {
+        this.userProfile.eligible_schools.push(this.userProfile.post_secondary_school)
+      }
+
+      if (this.userProfile.major && this.userProfile.eligible_programs.length === 0) {
+        this.userProfile.eligible_programs.push(this.userProfile.major)
+      }
+
       if (this.userProfile.saved_scholarships.includes(this.scholarship.id)) {
         this.alreadySaved = true;
       }

@@ -35,6 +35,11 @@ export class AuthService {
     this.token = localStorage.token;
 
     this.initializeSecretKey();
+
+    if (localStorage.getItem('username')) {
+      this.username = this.decryptLocalStorage('username');
+    }
+
   }
 
 
@@ -60,10 +65,13 @@ export class AuthService {
 
         this.encryptlocalStorage('token', data.token);
         this.encryptlocalStorage('firebase_token', data.firebase_token);
+
         this.username = data.username;
 
         // this.cookieService.putObject('userId', data.id);
         this.encryptlocalStorage('uid', data.id);
+        this.encryptlocalStorage('username', data.username);
+
         this.isLoggedIn = true;
         try {
           firebase.auth().signInWithCustomToken(data.firebase_token)
