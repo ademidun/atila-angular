@@ -54,6 +54,19 @@
           <p>
             <strong>{{prettifyKeys(key)}} {{key == 'citizenship' ? 'or permanent residency': ''}}:</strong>
             {{scholarship[key]}}</p>
+
+          <ng-container *ngIf="userProfile">
+            Your {{prettifyKeys(key)}}: {{userProfile[key] | json}}
+          </ng-container>
+
+          <p *ngIf="userProfile && userProfile[key] && userProfile[key].length===0">
+
+            Don't qualify for scholarships of these {{prettifyKeys(key)}}?
+            <a routerLink="/profile/edit"> Edit Profile</a> to see correct scholarships
+
+          </p>
+
+          <hr />
         </ng-container>
       </div>
 

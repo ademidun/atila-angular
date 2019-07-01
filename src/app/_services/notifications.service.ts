@@ -47,10 +47,6 @@ export class NotificationsService {
 
     let getPermissionPromise: Promise<PushSubscription | any> = this.getPermission();
 
-    if (environment.name === 'dev') { // todo: remove before merge-master
-      getPermissionPromise = Promise.reject({error: 'Permission Denied!'});
-    }
-
     return getPermissionPromise
       .then((sub: PushSubscription|any) => {
 

@@ -35,6 +35,11 @@ export class AuthService {
     this.token = localStorage.token;
 
     this.initializeSecretKey();
+
+    if (localStorage.getItem('username')) {
+      this.username = this.decryptLocalStorage('username');
+    }
+
   }
 
 
@@ -57,14 +62,16 @@ export class AuthService {
       .map(res => {
 
         const data: any = res;
-        console.log({ data });
 
         this.encryptlocalStorage('token', data.token);
         this.encryptlocalStorage('firebase_token', data.firebase_token);
+
         this.username = data.username;
 
         // this.cookieService.putObject('userId', data.id);
         this.encryptlocalStorage('uid', data.id);
+        this.encryptlocalStorage('username', data.username);
+
         this.isLoggedIn = true;
         try {
           firebase.auth().signInWithCustomToken(data.firebase_token)
@@ -220,7 +227,7 @@ export let AuthServiceStub: Partial<AuthService> = {
 
   decryptLocalStorage: key => {
     const localStorageTestDict = {
-      'uid': 0
+      'uid': -1
     };
 
     return localStorageTestDict[key]

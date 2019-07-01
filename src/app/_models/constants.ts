@@ -2044,6 +2044,14 @@ export const DISABILITY = [
   'Vision Loss and Blindness'
 ];
 
+export const NONE_OF_THE_ABOVE = 'None of the Above';
+
+const CATEGORY_LISTS = [ETHNICITY, COUNTRIES, LANGUAGE, RELIGION, ACTIVITIES, SPORTS, DISABILITY];
+
+for (let i = 0; i < CATEGORY_LISTS.length; i++) {
+  CATEGORY_LISTS[i].push(NONE_OF_THE_ABOVE);
+}
+
 export const GRADE_LEVELS = [
   'Grade 9',
   'Grade 10',
@@ -2577,8 +2585,10 @@ export const MAJORS_DICT = [
   }
 ];
 
-export const MASTER_LIST_EVERYTHING = MAJORS_LIST.concat(SCHOOLS_LIST).concat(EDUCATION_LEVEL).concat(ETHNICITY).
+export let MASTER_LIST_EVERYTHING = MAJORS_LIST.concat(SCHOOLS_LIST).concat(EDUCATION_LEVEL).concat(ETHNICITY).
 concat(EDUCATION_FIELDS).concat(DISABILITY).concat(SPORTS).concat(ACTIVITIES).concat(RELIGION).concat(LANGUAGE).sort();
+
+MASTER_LIST_EVERYTHING = MASTER_LIST_EVERYTHING.filter((item, index) => MASTER_LIST_EVERYTHING.indexOf(item) === index);
 
 export const AUTOCOMPLETE_DICT_WITHOUT_SCHOOLS_AND_MAJOR = {
   'activities': ACTIVITIES,

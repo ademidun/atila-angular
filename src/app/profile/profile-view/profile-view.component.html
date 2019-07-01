@@ -97,6 +97,17 @@
             </div>
             <div class="row">
               <div class="col-sm-12">
+                <app-typeahead [model]="userProfile.major" [dataset]="MAJORS_LIST"
+                               (typeaheadSelectedEvent)="typeaheadEvent($event)"
+                               [metadata]="{'placeholder':'Major e.g. Engineering, Biology, Business, Political Science',
+                                  'key':'major','tabindex':'9'}">
+                </app-typeahead>
+                <input class="browser-default" matInput id="major" type="text"
+                       [(ngModel)]="userProfile.major" name="title">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
                 <strong>{{userProfile.post_secondary_school}}</strong>
                 <app-typeahead [model]="userProfile.post_secondary_school" [dataset]="SCHOOLS_LIST"
                                (typeaheadSelectedEvent)="typeaheadEvent($event)"
