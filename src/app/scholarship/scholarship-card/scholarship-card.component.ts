@@ -152,18 +152,11 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
 
       if (!saveResult[1]) { // saveResult[1] returns false if this item already exists
         this.alreadySaved = true;
-        if (this.userProfile.is_atila_admin || this.userProfile.is_debug_mode) { // todo: remove this before-merge-master
-          notifySavedScholarship(this.scholarship, this.userProfile, this.userProfileService,
-            this.notificationService, this.notificationDialog);
-          this.snackBar.open('Already Saved but allow it for admin mandem again doe', '', {
-            duration: 3000
-          });
-        }
-        else {
-          this.snackBar.open('Already Saved', '', {
-            duration: 3000
-          });
-        }
+
+        this.snackBar.open('Already Saved', '', {
+          duration: 3000
+        });
+
         return;
       } else {
         this.userProfile = saveResult[0];

@@ -13,15 +13,9 @@ export function notifySavedScholarship(scholarship: Scholarship, userProfile: Us
   // AND
   // 3.user has not told us to stop asking them
 
-  if (!userProfile.is_debug_mode && !userProfile.is_atila_admin) {
-    // todo: remove before merge-master allow non admin or debug users to test notifications
-    return;
-  }
-
   if (!userProfile.metadata['haveAskedIfNotifySavedScholarship'] ||
-    !userProfile.metadata['allowNotifySavedScholarships']
-    && !userProfile.metadata['dontAskAgainNotifySavedScholarship']
-    || userProfile.is_atila_admin) { // todo: remove before merge-master-branch
+    (!userProfile.metadata['allowNotifySavedScholarships']
+    && !userProfile.metadata['dontAskAgainNotifySavedScholarship'])) {
     // Ask user if we can notify them when their saved scholarships are due
     const dialogRef = notificationDialog.open(NotificationDialogComponent, {
       width: '350px',
