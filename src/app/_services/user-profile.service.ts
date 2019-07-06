@@ -394,7 +394,6 @@ export class UserProfileService implements OnDestroy {
     return transformedViewData;
   }
 
-  //todo make checkViewHistory() and checkViewHistoryHandler() into helper functions.
   checkViewHistory(userProfile: UserProfile, viewData: any) {
 
     const transformedViewData = this.transformViewData(userProfile, viewData);

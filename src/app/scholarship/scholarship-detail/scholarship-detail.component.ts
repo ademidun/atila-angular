@@ -164,16 +164,9 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
                 res => {
                   this.userProfile = res;
 
-                  setTimeout(()=>{
-                    if(this.scholarship) {
-                      const viewData = {
-                        item_type: 'scholarship',
-                        item_id: this.scholarship.id,
-                        item_name: this.scholarship.name,
-                      };
-                      this.userProfileService.checkViewHistory(this.userProfile, viewData);
-                    }
-                  },3000);
+                  setTimeout(() => {
+                    this.userProfileService.checkViewHistory(this.userProfile, this.scholarship);
+                  }, 3000);
                   if(this.userProfile && this.userProfile.saved_scholarships) {
                     if (this.userProfile.saved_scholarships.includes(this.scholarship.id)) {
                       this.alreadySaved = true;
