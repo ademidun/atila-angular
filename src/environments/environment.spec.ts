@@ -1,13 +1,12 @@
 import {stagingEnvironment} from './environment.staging';
 import {prodEnvironment} from './environment.prod';
-import {devEnvironment} from './environment';
 
 
 fdescribe('Environment', () => {
 
   it('should have urls ending in trailing slashes', () => {
 
-    let environments = [ stagingEnvironment, prodEnvironment, devEnvironment];
+    let environments = [ stagingEnvironment, prodEnvironment];
 
     for (let i = 0; i < environments.length; i++) {
       console.log('environments[i]', environments[i]);
