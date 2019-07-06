@@ -1,7 +1,6 @@
 import {MyFirebaseService} from '../_services/myfirebase.service';
 import {BlogPostService} from '../_services/blog-post.service';
 import {MatSnackBar} from '@angular/material';
-import {Essay} from './essay';
 
 export class BlogPost {
 

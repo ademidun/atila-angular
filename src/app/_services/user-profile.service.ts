@@ -379,6 +379,7 @@ export class UserProfileService implements OnDestroy {
 
       case 'scholarship':
         transformedViewData.item_name = viewData.name;
+        transformedViewData.is_owner = (viewData.owner == userProfile.user);
         break;
       case 'essay':
           transformedViewData.item_name = viewData.title;

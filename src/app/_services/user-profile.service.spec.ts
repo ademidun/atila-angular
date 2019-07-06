@@ -47,21 +47,27 @@ fdescribe('UserProfileService', () => {
     const userProfile = createTestUserProfile();
     const scholarship = createTestScholarship();
     const essay = createTestEssay();
+    const blog = createTestBlogPost();
 
+
+
+    scholarship.owner = userProfile.user;
     const transformedViewData = service.transformViewData(userProfile, scholarship);
 
     expect(transformedViewData).toBeTruthy();
-    expect(transformedViewData).toContain(scholarship.name);
+    expect(transformedViewData.item_name).toContain(scholarship.name);
+    expect(transformedViewData.item_id).toBe(scholarship.id);
+    expect(transformedViewData.is_owner).toBeTruthy();
 
-    transformedViewData = service.transformViewData(essay, scholarship);
+    transformedViewData = service.transformViewData(userProfile, essay);
 
     expect(transformedViewData.item_type).toMatch('essay');
     expect(transformedViewData.is_owner).toBeFalsy();
 
 
-    const blog = createTestBlogPost();
-
     blog.user.id = userProfile.user;
+    transformedViewData = service.transformViewData(userProfile, blog);
+
     expect(transformedViewData.is_owner).toBeTruthy();
 
 
