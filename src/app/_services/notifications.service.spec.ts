@@ -34,7 +34,7 @@ fdescribe('NotificationsService', () => {
   });
 
   it('should use correct environment url', () => {
-    expect(service.environment.atilaMicroservicesApiUrl).toMatch(`${service.environment.name}d`);
+    expect(service.environment.atilaMicroservicesNodeApiUrl).toMatch(`${service.environment.name}`);
   });
 
   it('should be created', () => {
