@@ -100,6 +100,9 @@ export class EssayDetailComponent implements OnInit, OnDestroy {
           this.userProfileService.getById(this.userId).subscribe(
             resUser => {
               this.userProfile = resUser;
+              setTimeout(() => {
+                this.userProfileService.checkViewHistory(this.userProfile, this.essay);
+              }, 3000);
             }
           );
 

@@ -107,14 +107,7 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
               this.userProfile = resUserProfile;
 
               setTimeout(() => {
-                if (this.blogPost) {
-                  let viewData = {
-                    item_type: 'blog',
-                    item_id: this.blogPost.id,
-                    item_name: this.blogPost.title,
-                  };
-                  this.userProfileService.checkViewHistory(this.userProfile, viewData);
-                }
+                  this.userProfileService.checkViewHistory(this.userProfile, this.blogPost);
               }, 3000);
 
               if (this.blogPost.up_votes_id.includes(this.userId)) {//if the current user (ID) already liked the video, disable the up_vote_button

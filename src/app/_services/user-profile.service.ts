@@ -372,6 +372,7 @@ export class UserProfileService implements OnDestroy {
       item_type: getItemType(viewData),
       item_id: viewData.id,
       item_name: null,
+      is_owner: !!(viewData.user && viewData.user.id == userProfile.user)
     };
 
     switch (transformedViewData.item_type) {
@@ -389,6 +390,8 @@ export class UserProfileService implements OnDestroy {
         transformedViewData.item_name = item.starting_comment ? item.starting_comment.title || item.title : item.title;
         break;
     }
+
+    return transformedViewData;
   }
 
   //todo make checkViewHistory() and checkViewHistoryHandler() into helper functions.
