@@ -123,11 +123,6 @@ export class MyFirebaseService {
 
   }
 
-  getGeoIp(opts = {}) {
-    return $.getJSON(`https://api.ipdata.co?api-key=${IPDATA_KEY}`)
-  }
-
-
   firestoreQuery(path, queryParams = null) {
 
     if (!environment.production) {
@@ -155,14 +150,6 @@ export class MyFirebaseService {
       return this.fs.collection(path)
     }
 
-  }
-
-
-  getAPIKey(apiKey: any) {
-    apiKey = apiKey.toString();
-    return this.http.get(`${this.apiKeyUrl}?api-key-name=${apiKey}`)
-      .map(this.extractData)
-      .catch(this.handleError);
   }
 
   addMetadata(data) {

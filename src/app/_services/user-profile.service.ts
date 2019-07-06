@@ -12,14 +12,9 @@ import {AuthService} from './auth.service';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {environment} from '../../environments/environment';
 import {QuestionBase} from '../_models/question-base';
-import {DropdownQuestion} from '../_models/question-dropdown';
 import {TextboxQuestion} from '../_models/question-textbox';
-import {MyFirebaseService} from './myfirebase.service';
 import {AtilaPointsPromptDialogComponent} from '../atila-points-prompt-dialog/atila-points-prompt-dialog.component';
 import {Subscription} from 'rxjs/Subscription';
-import {Subject} from 'rxjs/Subject';
-import {Scholarship} from '../_models/scholarship';
-import {ScholarshipService} from './scholarship.service';
 import {DynamodbService} from './dynamodb.service';
 import {getItemType} from '../_shared/utils';
 
@@ -34,7 +29,6 @@ export class UserProfileService implements OnDestroy {
   constructor(public http: HttpClient,
               public authService: AuthService,
               public snackBar: MatSnackBar,
-              public firebaseService: MyFirebaseService,
               public dynamodbService: DynamodbService,
               public dialog: MatDialog,) {
   }
@@ -388,7 +382,7 @@ export class UserProfileService implements OnDestroy {
         transformedViewData.item_name = viewData.title;
         break;
       case 'forum':
-        transformedViewData.item_name = item.starting_comment ? item.starting_comment.title || item.title : item.title;
+        transformedViewData.item_name = viewData.starting_comment ? viewData.starting_comment.title || viewData.title : viewData.title;
         break;
     }
 
@@ -400,7 +394,7 @@ export class UserProfileService implements OnDestroy {
     const transformedViewData = this.transformViewData(userProfile, viewData);
 
     try {
-      this.firebaseService.getGeoIp()
+      this.dynamodbService.getGeoIp()
         .then(res => {
           transformedViewData['geo_ip'] = res;
           return this.checkViewHistoryHandler(userProfile, transformedViewData)
@@ -420,12 +414,11 @@ export class UserProfileService implements OnDestroy {
   }
 
   checkViewHistoryHandler(userProfile, viewData) {
-    let path = 'user_profiles/' + userProfile.user + '/view_history';
 
     this.dynamodbService.savePageViews(viewData)
       .subscribe( res => {
           console.log({ res });
-          this.viewHistoryChanges = this.firebaseService.firestoreQuery(path).valueChanges()
+          this.viewHistoryChanges = this.dynamodbService.getPageViews(userProfile.user)
             .subscribe(
               viewHistory => {
                 // let showPrompt = viewHistory.length % 2 == 0 && this.userProfile.atila_points < 1 ||
@@ -434,6 +427,7 @@ export class UserProfileService implements OnDestroy {
                 this.showAtilaPointsPromptDialog(userProfile, viewData, viewHistory)
               },
             );
+          console.log('this.viewHistoryChanges', this.viewHistoryChanges);
       },
         err => {
           console.log('save Firebase rejection', err);
@@ -442,7 +436,9 @@ export class UserProfileService implements OnDestroy {
   }
 
   showAtilaPointsPromptDialog(userProfile, viewData, viewHistory) {
-
+    console.log({viewData});
+    console.log({viewHistory});
+    console.log('this.viewHistoryChanges', this.viewHistoryChanges);
     if (this.dialog.openDialogs && this.dialog.openDialogs.length > 0) {
       if (this.viewHistoryChanges) {
         this.viewHistoryChanges.unsubscribe();

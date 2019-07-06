@@ -38,7 +38,7 @@ export function toTitleCase(str) {
 
 export function getItemType(item) {
 
-  const itemType: string;
+  let itemType: string;
   if (item.hasOwnProperty('deadline')) {
     itemType = 'scholarship'
   }

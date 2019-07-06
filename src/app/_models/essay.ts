@@ -20,7 +20,7 @@ export class Essay {
   user?: any;
   status?: string;
   status_other?: string;
-  constructor(userId,) {
+  constructor(userId=-1) {
     //Do we have to manually do this, is there a python-like equivalent of kwargs
     this.title = '';
     this.user= userId;
