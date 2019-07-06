@@ -456,7 +456,7 @@ export class UserProfileService implements OnDestroy {
 
     let showPrompt = true;
     if (userProfile.atila_points < 1 || userProfile.is_atila_admin) {
-      showPrompt = viewHistory.length % 5 == 0;
+      showPrompt = viewHistory.length % 5 == 0 || userProfile.is_atila_admin;
     }
 
     else {
@@ -469,7 +469,6 @@ export class UserProfileService implements OnDestroy {
         disableClose: true,
         data: {'title': viewData.name, userProfile: userProfile, viewCount: viewHistory.length},
       });
-
 
     }
 
