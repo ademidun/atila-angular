@@ -20,3 +20,8 @@ export class DynamodbService {
       .catch(err => Observable.throw(err));
   }
 }
+
+
+export let DynamodbServiceStub: Partial<DynamodbService> = {
+  apiKeyUrl: environment.apiUrl + 'api-keys/',
+};
