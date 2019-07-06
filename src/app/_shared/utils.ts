@@ -36,20 +36,27 @@ export function toTitleCase(str) {
   return str;
 }
 
+export function getItemType(item) {
+
+  const itemType: string;
+  if (item.hasOwnProperty('deadline')) {
+    itemType = 'scholarship'
+  }
+  else if (item.hasOwnProperty('starting_comment')) {
+    itemType = 'forum'
+  }
+  else if (item.hasOwnProperty('header_image_url')) {
+    itemType = 'blog'
+  }
+  else if (item.hasOwnProperty('essay_source_url')) {
+    itemType = 'essay'
+  }
+  return itemType;
+}
+
 export function genericItemTransform (item) {
 
-    if (item.hasOwnProperty('deadline')) {
-      item.type = 'scholarship'
-    }
-    else if (item.hasOwnProperty('starting_comment')) {
-      item.type = 'forum'
-    }
-    else if (item.hasOwnProperty('header_image_url')) {
-      item.type = 'blog'
-    }
-    else if (item.hasOwnProperty('essay_source_url')) {
-      item.type = 'essay'
-    }
+   item.type = getItemType(item);
 
     switch(item.type) {
       case 'scholarship':
