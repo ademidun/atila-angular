@@ -77,6 +77,7 @@ import {ServiceWorkerModule} from '@angular/service-worker';
 import {NotificationsService} from './_services/notifications.service';
 import {ScholarshipCardComponent} from './scholarship/scholarship-card/scholarship-card.component';
 import {NotificationDialogComponent} from './notification-dialog/notification-dialog.component';
+import { DynamodbService } from './_services/dynamodb.service';
 
 @NgModule({
   declarations: [
@@ -160,7 +161,8 @@ import {NotificationDialogComponent} from './notification-dialog/notification-di
       useClass: UnAuthorizedInterceptor,
       multi: true,
     },
-    NotificationsService
+    NotificationsService,
+    DynamodbService
   ],
   bootstrap: [
     AppComponent

@@ -20,6 +20,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {Subject} from 'rxjs/Subject';
 import {Scholarship} from '../_models/scholarship';
 import {ScholarshipService} from './scholarship.service';
+import {DynamodbService} from './dynamodb.service';
 
 @Injectable()
 export class UserProfileService implements OnDestroy {
@@ -33,6 +34,7 @@ export class UserProfileService implements OnDestroy {
               public authService: AuthService,
               public snackBar: MatSnackBar,
               public firebaseService: MyFirebaseService,
+              public dynamodbService: DynamodbService,
               public dialog: MatDialog,) {
   }
 
@@ -387,7 +389,7 @@ export class UserProfileService implements OnDestroy {
   checkViewHistoryHandler(userProfile, viewData) {
     let path = 'user_profiles/' + userProfile.user + '/view_history';
 
-
+    this.dynamodbService.savePageViews(viewData)
     this.firebaseService.saveAny_fs(path, viewData)
       .then(res => {
         this.viewHistoryChanges = this.firebaseService.firestoreQuery(path).valueChanges()
