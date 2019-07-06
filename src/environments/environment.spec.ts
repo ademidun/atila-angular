@@ -14,5 +14,14 @@ fdescribe('Environment', () => {
       expect(environments[i].atilaMicroservicesApiUrl.slice(-1)).toEqual('/');
     }
   });
+
+  it('should have urls containing correct environment name', () => {
+
+    let environments = [ stagingEnvironment, prodEnvironment];
+
+    for (let i = 0; i < environments.length; i++) {
+      expect(environments[i].atilaMicroservicesNodeApiUrl).toMatch(`${environments[i].name}`);
+    }
+  });
 });
 
