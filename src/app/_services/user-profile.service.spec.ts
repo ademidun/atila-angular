@@ -52,7 +52,7 @@ fdescribe('UserProfileService', () => {
 
 
     scholarship.owner = userProfile.user;
-    const transformedViewData = service.transformViewData(userProfile, scholarship);
+    let transformedViewData = service.transformViewData(userProfile, scholarship);
 
     expect(transformedViewData).toBeTruthy();
     expect(transformedViewData.item_name).toContain(scholarship.name);
