@@ -1,4 +1,4 @@
-import {environment as prodEnvironment} from './environment.prod';
+import {prodEnvironment} from './environment.prod';
 
 export const stagingEnvironment =  Object.assign({}, prodEnvironment);
 

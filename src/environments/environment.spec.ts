@@ -21,6 +21,8 @@ fdescribe('Environment', () => {
 
     for (let i = 0; i < environments.length; i++) {
       expect(environments[i].atilaMicroservicesNodeApiUrl).toMatch(`${environments[i].name}`);
+      expect(environments[i].firebase).toBeTruthy();
+      expect(environments[i].firebase.databaseURL).toBeTruthy();
     }
   });
 });
