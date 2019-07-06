@@ -120,7 +120,6 @@ export class ForumDetailComponent implements OnInit, OnDestroy {
                     item_type: 'forum',
                     item_id: this.forum.id,
                     item_name: this.forum.title,
-                    timestamp: Date.now(),
                   };
                   this.userProfileService.checkViewHistory(this.userProfile, viewData);
                 }

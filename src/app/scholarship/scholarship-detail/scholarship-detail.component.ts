@@ -170,7 +170,6 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
                         item_type: 'scholarship',
                         item_id: this.scholarship.id,
                         item_name: this.scholarship.name,
-                        timestamp: Date.now(),
                       };
                       this.userProfileService.checkViewHistory(this.userProfile, viewData);
                     }

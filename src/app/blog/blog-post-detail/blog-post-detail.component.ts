@@ -112,7 +112,6 @@ export class BlogPostDetailComponent implements OnInit, OnDestroy {
                     item_type: 'blog',
                     item_id: this.blogPost.id,
                     item_name: this.blogPost.title,
-                    timestamp: Date.now(),
                   };
                   this.userProfileService.checkViewHistory(this.userProfile, viewData);
                 }

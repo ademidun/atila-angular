@@ -366,6 +366,11 @@ export class UserProfileService implements OnDestroy {
 
   //todo make checkViewHistory() and checkViewHistoryHandler() into helper functions.
   checkViewHistory(userProfile: UserProfile, viewData: any) {
+    viewData = {
+      ...viewData,
+      user_id: userProfile.user,
+    };
+
     try {
       this.firebaseService.getGeoIp()
         .then(res => {
@@ -381,7 +386,7 @@ export class UserProfileService implements OnDestroy {
         })
     }
     catch (e) {
-      // console.log('checkViewHistory e:',e)
+      console.log('checkViewHistory e:',e)
     }
 
   }
@@ -390,22 +395,22 @@ export class UserProfileService implements OnDestroy {
     let path = 'user_profiles/' + userProfile.user + '/view_history';
 
     this.dynamodbService.savePageViews(viewData)
-    this.firebaseService.saveAny_fs(path, viewData)
-      .then(res => {
-        this.viewHistoryChanges = this.firebaseService.firestoreQuery(path).valueChanges()
-          .subscribe(
-            viewHistory => {
-              // let showPrompt = viewHistory.length % 2 == 0 && this.userProfile.atila_points < 1 ||
-              //   viewHistory.length > 10 && viewHistory.length % 10 ==0;
-              // let showPrompt = viewHistory.length % 2 == 0 && this.userProfile.atila_points < 1;
-              this.showAtilaPointsPromptDialog(userProfile, viewData, viewHistory)
-            },
-          );
-      })
-      .catch(err => {
-        console.log('save Firebase rejection', err);
-        this.showAtilaPointsPromptDialog(userProfile, viewData, ['foo', 'bar']);
-      });
+      .subscribe( res => {
+          console.log({ res });
+          this.viewHistoryChanges = this.firebaseService.firestoreQuery(path).valueChanges()
+            .subscribe(
+              viewHistory => {
+                // let showPrompt = viewHistory.length % 2 == 0 && this.userProfile.atila_points < 1 ||
+                //   viewHistory.length > 10 && viewHistory.length % 10 ==0;
+                // let showPrompt = viewHistory.length % 2 == 0 && this.userProfile.atila_points < 1;
+                this.showAtilaPointsPromptDialog(userProfile, viewData, viewHistory)
+              },
+            );
+      },
+        err => {
+          console.log('save Firebase rejection', err);
+          this.showAtilaPointsPromptDialog(userProfile, viewData, ['foo', 'bar']);
+        });
   }
 
   showAtilaPointsPromptDialog(userProfile, viewData, viewHistory) {
@@ -447,10 +452,6 @@ export class UserProfileService implements OnDestroy {
     if (this.viewHistoryChanges) {
       this.viewHistoryChanges.unsubscribe();
     }
-  }
-
-  pushSavedScholarshipNotification(subscriber, userProfile: UserProfile, scholarship: Scholarship | any) {
-
   }
 }
 

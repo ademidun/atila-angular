@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import { Injectable } from '@angular/core';
 import { HttpClient, } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
@@ -12,10 +10,12 @@ import {environment} from '../../environments/environment';
 export class DynamodbService {
 
   public environment = environment;
+  public pageViewsUrl = `${this.environment.atilaMicroservicesNodeApiUrl}page-views`;
   constructor(public http: HttpClient) { }
 
+
   savePageViews(pageViewData): Observable<any>{
-    return this.http.post(`${this.environment.atilaMicroservicesApiUrl}page-views`,pageViewData)
+    return this.http.post(this.pageViewsUrl,pageViewData)
       .map(res => res)
       .catch(err => Observable.throw(err));
   }
