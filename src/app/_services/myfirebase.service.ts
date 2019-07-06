@@ -100,12 +100,13 @@ export class MyFirebaseService {
   saveAny_fs(path, data, opts = {}) {
 
     let queryPath = path;
-    if (!environment.production) {
-      queryPath = 'DEVELOPMENT/data/' + queryPath
-    }
-    else {
-      queryPath = 'PRODUCTION/data/' + queryPath
-    }
+
+    const environmentPrefix = {
+      dev: 'DEVELOPMENT',
+      staging: 'STAGING',
+      prod: 'PRODUCTION',
+    };
+    queryPath = `${environmentPrefix[environment.name]}/data/${queryPath}`;
 
     data['firebase_path'] = queryPath;
 
