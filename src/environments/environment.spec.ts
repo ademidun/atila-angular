@@ -20,6 +20,7 @@ fdescribe('Environment', () => {
     let environments = [ stagingEnvironment, prodEnvironment];
 
     for (let i = 0; i < environments.length; i++) {
+      console.log('environments[i]', environments[i]);
       expect(environments[i].atilaMicroservicesNodeApiUrl).toMatch(`${environments[i].name}`);
       expect(environments[i].firebase).toBeTruthy();
       expect(environments[i].firebase.databaseURL).toBeTruthy();
