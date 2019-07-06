@@ -1,5 +1,5 @@
-import {stagingEnvironment} from './environment.staging';
-import {prodEnvironment} from './environment.prod';
+import {environment as stagingEnvironment} from './environment.staging';
+import {environment as prodEnvironment} from './environment.prod';
 
 
 fdescribe('Environment', () => {

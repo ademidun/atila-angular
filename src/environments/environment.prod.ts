@@ -18,5 +18,3 @@ export const environment = {
   },
 
 };
-
-export const prodEnvironment = environment;
