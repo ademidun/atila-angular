@@ -21,6 +21,7 @@ import {Subject} from 'rxjs/Subject';
 import {Scholarship} from '../_models/scholarship';
 import {ScholarshipService} from './scholarship.service';
 import {DynamodbService} from './dynamodb.service';
+import {getItemType} from '../_shared/utils';
 
 @Injectable()
 export class UserProfileService implements OnDestroy {
@@ -364,25 +365,49 @@ export class UserProfileService implements OnDestroy {
   }
 
 
+  transformViewData(userProfile: UserProfile, viewData) {
+
+    let transformedViewData = {
+      user_id: userProfile.user,
+      item_type: getItemType(viewData),
+      item_id: viewData.id,
+      item_name: null,
+    };
+
+    switch (transformedViewData.item_type) {
+
+      case 'scholarship':
+        transformedViewData.item_name = viewData.name;
+        break;
+      case 'essay':
+          transformedViewData.item_name = viewData.title;
+        break;
+      case 'blog':
+        transformedViewData.item_name = viewData.title;
+        break;
+      case 'forum':
+        transformedViewData.item_name = item.starting_comment ? item.starting_comment.title || item.title : item.title;
+        break;
+    }
+  }
+
   //todo make checkViewHistory() and checkViewHistoryHandler() into helper functions.
   checkViewHistory(userProfile: UserProfile, viewData: any) {
-    viewData = {
-      ...viewData,
-      user_id: userProfile.user,
-    };
+
+    const transformedViewData = this.transformViewData(userProfile, viewData);
 
     try {
       this.firebaseService.getGeoIp()
         .then(res => {
-          viewData['geo_ip'] = res;
-          return this.checkViewHistoryHandler(userProfile, viewData)
+          transformedViewData['geo_ip'] = res;
+          return this.checkViewHistoryHandler(userProfile, transformedViewData)
 
         })
         .catch((jqXHR, textStatus, errorThrown) => {
           if (this.environment.production || userProfile.is_atila_admin) {
           }
-          viewData['error'] = JSON.stringify(errorThrown);
-          this.checkViewHistoryHandler(userProfile, viewData)
+          transformedViewData['error'] = JSON.stringify(errorThrown);
+          this.checkViewHistoryHandler(userProfile, transformedViewData)
         })
     }
     catch (e) {
