@@ -12,6 +12,8 @@ import {DynamodbService, DynamodbServiceStub} from './dynamodb.service';
 import {createTestUserProfile} from '../_models/user-profile';
 import {createTestScholarship} from '../_models/scholarship';
 import {NotificationsService} from './notifications.service';
+import {createTestEssay} from '../_models/essay';
+import {createTestBlogPost} from '../_models/blog-post';
 
 fdescribe('UserProfileService', () => {
   let service: UserProfileService;
@@ -40,11 +42,28 @@ fdescribe('UserProfileService', () => {
 
 
 
-  it('#transformViewData()', inject([UserProfileService], (service: UserProfileService) => {
+  it('#transformViewData() should return coorect viewData', inject([UserProfileService], (service: UserProfileService) => {
 
     const userProfile = createTestUserProfile();
     const scholarship = createTestScholarship();
+    const essay = createTestEssay();
 
-    expect(service.transformViewData(userProfile, scholarship)).toBeTruthy();
+    const transformedViewData = service.transformViewData(userProfile, scholarship);
+
+    expect(transformedViewData).toBeTruthy();
+    expect(transformedViewData).toContain(scholarship.name);
+
+    transformedViewData = service.transformViewData(essay, scholarship);
+
+    expect(transformedViewData.item_type).toMatch('essay');
+    expect(transformedViewData.is_owner).toBeFalsy();
+
+
+    const blog = createTestBlogPost();
+
+    blog.user.id = userProfile.user;
+    expect(transformedViewData.is_owner).toBeTruthy();
+
+
   }));
 });

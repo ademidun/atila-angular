@@ -1,6 +1,7 @@
 import {MyFirebaseService} from '../_services/myfirebase.service';
 import {BlogPostService} from '../_services/blog-post.service';
 import {MatSnackBar} from '@angular/material';
+import {Essay} from './essay';
 
 export class BlogPost {
 
@@ -93,4 +94,18 @@ export function likeContent(content: BlogPost, userProfile?,blogService?: BlogPo
   }
 
   return content;
+}
+
+
+export function createTestBlogPost() {
+  const blog = new BlogPost();
+  blog.title = 'The Nature and Necessity of a Paper-Currency';
+
+  blog.user = {
+    id: 1706,
+    first_name: 'Benjamin',
+    last_name: 'Franklin',
+  };
+
+  return blog
 }

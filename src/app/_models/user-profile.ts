@@ -142,6 +142,7 @@ export function updateScholarshipMatchScore(userProfile: UserProfile, opts = {})
 export function createTestUserProfile() {
   const userprofile = new UserProfile();
   userprofile.metadata = {};
+  userprofile.user = 1963;
   userprofile.first_name = 'Charles';
   userprofile.last_name = 'Barkley';
   userprofile.major = 'Basketball';

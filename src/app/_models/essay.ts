@@ -1,3 +1,5 @@
+import {UserProfile} from './user-profile';
+
 export class Essay {
 
   id?: number;
@@ -24,4 +26,17 @@ export class Essay {
     this.user= userId;
   }
 
+}
+
+export function createTestEssay() {
+  const essay = new Essay();
+  essay.title = 'The Way To Wealth';
+
+  essay.user = {
+    id: 1706,
+    first_name: 'Benjamin',
+    last_name: 'Franklin',
+  };
+
+  return essay
 }

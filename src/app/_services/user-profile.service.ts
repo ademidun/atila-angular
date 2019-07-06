@@ -391,7 +391,7 @@ export class UserProfileService implements OnDestroy {
         break;
     }
 
-    return transformedViewData;
+    // return transformedViewData;
   }
 
   //todo make checkViewHistory() and checkViewHistoryHandler() into helper functions.
