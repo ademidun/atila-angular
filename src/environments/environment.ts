@@ -22,3 +22,5 @@ export const environment = {
     messagingSenderId: '148649271725'
   },
 };
+
+export const devEnvironment = environment;
