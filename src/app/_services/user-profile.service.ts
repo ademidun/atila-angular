@@ -424,7 +424,7 @@ export class UserProfileService implements OnDestroy {
                 // let showPrompt = viewHistory.length % 2 == 0 && this.userProfile.atila_points < 1 ||
                 //   viewHistory.length > 10 && viewHistory.length % 10 ==0;
                 // let showPrompt = viewHistory.length % 2 == 0 && this.userProfile.atila_points < 1;
-                this.showAtilaPointsPromptDialog(userProfile, viewData, viewHistory)
+                this.showAtilaPointsPromptDialog(userProfile, viewData, viewHistory.data)
               },
             );
           console.log('this.viewHistoryChanges', this.viewHistoryChanges);
@@ -455,7 +455,7 @@ export class UserProfileService implements OnDestroy {
 
 
     let showPrompt = true;
-    if (userProfile.atila_points < 1) {
+    if (userProfile.atila_points < 1 || userProfile.is_atila_admin) {
       showPrompt = viewHistory.length % 5 == 0;
     }
 
