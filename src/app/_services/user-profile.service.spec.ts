@@ -11,7 +11,6 @@ import {
 import {DynamodbService, DynamodbServiceStub} from './dynamodb.service';
 import {createTestUserProfile} from '../_models/user-profile';
 import {createTestScholarship} from '../_models/scholarship';
-import {NotificationsService} from './notifications.service';
 import {createTestEssay} from '../_models/essay';
 import {createTestBlogPost} from '../_models/blog-post';
 
@@ -33,7 +32,7 @@ fdescribe('UserProfileService', () => {
       ]
     });
 
-    service = TestBed.get(NotificationsService);
+    service = TestBed.get(UserProfileService);
   });
 
   it('should be created', inject([UserProfileService], (service: UserProfileService) => {
