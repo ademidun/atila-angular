@@ -10,7 +10,6 @@ import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Observable} from 'rxjs/Observable';
 import * as $ from 'jquery';
-import {ScholarshipService} from './scholarship.service';
 
 @Injectable()
 export class NotificationsService {
@@ -18,7 +17,7 @@ export class NotificationsService {
   readonly VAPID_PUBLIC_KEY = 'BAjiETJuDgtXH6aRXgeCZgK8vurMT7AbFmPPhz1ybyfcDmfGFFydSXkYDC359HIXUmWw8w79-miI6NtmbfodiVI';
 
   public DEFAULT_NOTIFICATION_CONFIG = {sendDate: 0, notificationType:'email', daysBeforeDeadline: 1};
-
+  public environment = environment;
   constructor(
     public db: AngularFireDatabase,
     public datePipe: DatePipe,
@@ -39,7 +38,7 @@ export class NotificationsService {
 
   pushMessages(messagesList) {
 
-    return this.http.post(`${environment.atilaMicroservicesNodeApiUrl}notifications/save-notifications/`, messagesList);
+    return this.http.post(`${this.environment.atilaMicroservicesNodeApiUrl}notifications/save-notifications/`, messagesList);
 
   }
 
