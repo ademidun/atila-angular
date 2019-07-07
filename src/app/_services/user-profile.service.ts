@@ -417,7 +417,6 @@ export class UserProfileService implements OnDestroy {
 
     this.dynamodbService.savePageViews(viewData)
       .subscribe( res => {
-          console.log({ res });
           this.viewHistoryChanges = this.dynamodbService.getPageViews(userProfile.user)
             .subscribe(
               viewHistory => {
@@ -427,7 +426,6 @@ export class UserProfileService implements OnDestroy {
                 this.showAtilaPointsPromptDialog(userProfile, viewData, viewHistory.data)
               },
             );
-          console.log('this.viewHistoryChanges', this.viewHistoryChanges);
       },
         err => {
           console.log('this.dynamodbService.getPageViews err', err);
@@ -435,9 +433,6 @@ export class UserProfileService implements OnDestroy {
   }
 
   showAtilaPointsPromptDialog(userProfile, viewData, viewHistory) {
-    console.log({viewData});
-    console.log({viewHistory});
-    console.log('this.viewHistoryChanges', this.viewHistoryChanges);
     if (this.dialog.openDialogs && this.dialog.openDialogs.length > 0) {
       if (this.viewHistoryChanges) {
         this.viewHistoryChanges.unsubscribe();
