@@ -60,6 +60,7 @@ fdescribe('UserProfileService', () => {
 
     transformedViewData = service.transformViewData(userProfile, essay);
 
+    console.log({ transformedViewData });
     expect(transformedViewData.item_type).toMatch('essay');
     expect(transformedViewData.is_owner).toBeFalsy();
 

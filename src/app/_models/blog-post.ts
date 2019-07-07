@@ -101,6 +101,7 @@ export function createTestBlogPost() {
   const blog = new BlogPost();
   blog.title = 'The Nature and Necessity of a Paper-Currency';
 
+  essay.header_image_url = 'https://benfranklin.org';
   blog.user = {
     id: 1706,
     first_name: 'Benjamin',
