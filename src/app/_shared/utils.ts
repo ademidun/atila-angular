@@ -1,3 +1,5 @@
+import {BlogPostService} from '../_services/blog-post.service';
+import {EssayService} from '../_services/essay.service';
 
 
 export function prettifyKeys(rawKey: string) {
@@ -126,4 +128,28 @@ export const IPDATA_KEY ='335beb2ad17cc12676f2792328a5a770c47b89d6768daf9ec2c4d8
 export function ajax_response_stub(response) {
   const deferred = $.Deferred().resolve(response);
   return deferred.promise();
+}
+
+export function loadMoreItems( userProfile, items, itemService: [BlogPostService, EssayService], totalItemCount, isLoading, pageNo = 1) {
+  isLoading = true;
+  return itemService.list(pageNo).subscribe(
+    res => {
+      items.push(...res.results);
+      totalItemCount = res.count;
+
+      if (userProfile) {
+        items.forEach(item => {
+          if (item.up_votes_id.includes(userProfile.user)) {
+            item['alreadyLiked'] = true;
+          }
+        });
+      }
+      isLoading = false;
+      console.log({userProfile, items, itemService, totalItemCount, isLoading, pageNo});
+    },
+    err =>{
+      isLoading = false;
+      console.log({ err });
+    }
+  );
 }
