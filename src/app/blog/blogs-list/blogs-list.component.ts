@@ -19,7 +19,6 @@ import {SeoService} from '../../_services/seo.service';
 export class BlogsListComponent implements OnInit {
 
   public blogs: BlogPost[] = [];
-  newBlog: BlogPost;
   blogComment:Comment;
   userProfile: UserProfile;
   isLoading= true;
@@ -51,10 +50,7 @@ export class BlogsListComponent implements OnInit {
           this.userProfile = res;
 
           this.loadMoreItems();
-        },
-        err=> {
         }
-
       );
     }
 

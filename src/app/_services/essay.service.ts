@@ -17,8 +17,8 @@ export class EssayService {
 
   constructor(public http: HttpClient) { }
 
-  list(): Observable<any>{
-    return this.http.get(`${this.essaysUrl}`)
+  list(pageNo=1): Observable<any>{
+    return this.http.get(`${this.essaysUrl}?page=${pageNo}`)
       .map(res => res)
       .catch(err => Observable.throw(err));
   }
