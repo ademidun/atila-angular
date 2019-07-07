@@ -11,7 +11,6 @@ import { AuthService } from "../../_services/auth.service";
 import {MatSnackBar} from '@angular/material';
 import { MyFirebaseService} from '../../_services/myfirebase.service';
 import {SeoService} from '../../_services/seo.service';
-import {loadMoreItems} from '../../_shared/utils';
 @Component({
   selector: 'app-blogs-list',
   templateUrl: './blogs-list.component.html',
@@ -20,6 +19,7 @@ import {loadMoreItems} from '../../_shared/utils';
 export class BlogsListComponent implements OnInit {
 
   public blogs: BlogPost[] = [];
+  newBlog: BlogPost;
   blogComment:Comment;
   userProfile: UserProfile;
   isLoading= true;
@@ -49,15 +49,17 @@ export class BlogsListComponent implements OnInit {
       this.userProfileService.getById(userId).subscribe(
         res => {
           this.userProfile = res;
-          loadMoreItems(this.userProfile, this.blogs, this.blogService, this.totalItemCount, this.isLoading,  this.pageNumber);
+
+          this.loadMoreItems();
+        },
+        err=> {
         }
+
       );
-    } else {
-      loadMoreItems(this.userProfile, this.blogs, this.blogService, this.totalItemCount, this.isLoading,  this.pageNumber)
-        .subscribe(res => {
-        console.log('this.userProfile, this.blogs, this.blogService, this.totalItemCount, this.isLoading,  this.pageNumber',
-          this.userProfile, this.blogs, this.blogService, this.totalItemCount, this.isLoading,  this.pageNumber);
-      });
+    }
+
+    else {
+      this.loadMoreItems();
     }
 
   }
@@ -66,6 +68,29 @@ export class BlogsListComponent implements OnInit {
 
     return likeContent(content, this.userProfile,this.blogService, this.firebaseService, this.snackBar)
 
+  }
+
+  loadMoreItems(pageNo = 1) {
+    this.isLoading = true;
+    this.blogService.list(pageNo).subscribe(
+      res => {
+        this.blogs.push(...res.results);
+        this.totalItemCount = res.count;
+
+        if (this.userProfile) {
+          this.blogs.forEach(blog => {
+            if (blog.up_votes_id.includes(this.userProfile.user)) {
+              blog['alreadyLiked'] = true;
+            }
+          });
+        }
+        this.isLoading = false;
+      },
+      err =>{
+        this.isLoading = false;
+        console.log({ err });
+      }
+    );
   }
 
 }
