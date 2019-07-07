@@ -31,8 +31,7 @@ export class Essay {
 export function createTestEssay() {
   const essay = new Essay();
   essay.title = 'The Way To Wealth';
-  essay.header_image_url = 'https://benfranklin.org';
-  // essay.essay_source_url = 'https://benfranklin.org';
+  essay.essay_source_url = 'https://benfranklin.org';
 
   essay.user = {
     id: 1706,
