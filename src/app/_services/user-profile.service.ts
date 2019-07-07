@@ -430,8 +430,7 @@ export class UserProfileService implements OnDestroy {
           console.log('this.viewHistoryChanges', this.viewHistoryChanges);
       },
         err => {
-          console.log('save Firebase rejection', err);
-          this.showAtilaPointsPromptDialog(userProfile, viewData, ['foo', 'bar']);
+          console.log('this.dynamodbService.getPageViews err', err);
         });
   }
 

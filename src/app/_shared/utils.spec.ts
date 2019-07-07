@@ -10,7 +10,6 @@ import {getItemType} from './utils';
 fdescribe('#getItemType()', () => {
   it('It should return correct item type', () => {
 
-    const userProfile = createTestUserProfile();
     const scholarship = createTestScholarship();
     const essay = createTestEssay();
     const blog = createTestBlogPost();
