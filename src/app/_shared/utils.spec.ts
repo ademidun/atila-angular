@@ -15,15 +15,15 @@ fdescribe('#getItemType()', () => {
     const essay = createTestEssay();
     const blog = createTestBlogPost();
 
-    let itemType = getItemType(userProfile, scholarship);
+    let itemType = getItemType(scholarship);
 
     expect(itemType).toMatch('scholarship');
 
-    itemType = getItemType(userProfile, essay);
+    itemType = getItemType(essay);
     expect(itemType).toMatch('essay');
 
 
-    itemType = getItemType(userProfile, blog);
+    itemType = getItemType(blog);
     expect(itemType).toMatch('blog');
 
   })
