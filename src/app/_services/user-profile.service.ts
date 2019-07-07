@@ -454,8 +454,8 @@ export class UserProfileService implements OnDestroy {
 
 
     let showPrompt = true;
-    if (userProfile.atila_points < 1 || userProfile.is_atila_admin) {
-      showPrompt = viewHistory.length % 5 == 0 || userProfile.is_atila_admin;
+    if (userProfile.atila_points == 0) {
+      showPrompt = viewHistory.length % 5 == 0;
     }
 
     else {
