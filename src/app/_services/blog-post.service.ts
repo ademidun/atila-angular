@@ -13,13 +13,12 @@ export class BlogPostService {
 
   public blogUrl = environment.apiUrl + 'blog/';
 
-  public blogsSlugUrl = environment.apiUrl + 'blog/blog-slug/';
   constructor(public http: HttpClient) { }
 
-  list(): Observable<any>{
-    return this.http.get(`${this.blogsUrl}`)
-    .map(res => res)
-    .catch(err => Observable.throw(err));
+  list(pageNo=1): Observable<any>{
+    return this.http.get(`${this.blogsUrl}?page=${pageNo}`)
+      .map(res => res)
+      .catch(err => Observable.throw(err));
   }
 
   getBySlug(username: string, slug: string) {

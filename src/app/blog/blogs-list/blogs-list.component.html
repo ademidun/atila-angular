@@ -72,6 +72,18 @@
 
         </div>
 
-      <!-- Loading progress circle -->
-      <mat-spinner *ngIf="!blogs"></mat-spinner>
+        <mat-spinner *ngIf="isLoading"></mat-spinner>
+
+        <div class="col-sm-12 center">
+          <a class="waves-effect btn scholarship-btn" (click)="pageNumber=pageNumber+1; loadMoreItems(pageNumber)"
+             *ngIf="blogs.length < totalItemCount">
+            Show More
+          </a>
+
+          <div *ngIf="blogs.length >= totalItemCount">
+            <p style="font-size: x-large;">
+              All caught up! 😃 Check back later for more blogs.
+            </p>
+          </div>
+        </div>
     </div>

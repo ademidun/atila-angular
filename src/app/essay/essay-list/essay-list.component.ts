@@ -16,9 +16,11 @@ import {toTitleCase} from '../../_shared/utils';
   styleUrls: ['./essay-list.component.scss']
 })
 export class EssayListComponent implements OnInit {
-  essays: Essay[];
+  essays: Essay[] = [];
   userProfile: UserProfile;
   isLoading: boolean;
+  totalItemCount: number;
+  pageNumber=1;
   constructor(
     public router: Router,
     public snackBar: MatSnackBar,
@@ -43,47 +45,16 @@ export class EssayListComponent implements OnInit {
       this.userProfileService.getById(userId).subscribe(
         res => {
           this.userProfile = res;
-
-          this.essayService.list().subscribe(
-            res => {
-              this.essays = res.results;
-
-              this.essays.forEach(essay => {
-                if (essay.up_votes_id && essay.up_votes_id.includes(this.userProfile.user)) {
-                  essay['alreadyLiked'] = true;
-                }
-
-              });
-              this.isLoading = false;
-            },
-
-            err =>{
-              this.isLoading = false;
-            }
-          );
-
-        },
-        err=> {
-        }
-
-      );
-    }
-
-    else {
-      this.essayService.list().subscribe(
-        res => {
-          this.essays = res.results;
-          this.isLoading = false;
-        },
-        err =>{
-          this.isLoading = false;
+          this.loadMoreItems();
         }
       );
+    } else {
+      this.loadMoreItems();
     }
   }
 
   // todo, uses code from essay-list, refactor common code to a shared function
-  likeContent(content: Essay, index?) {
+  likeContent(content: Essay) {
 
     if (!this.userProfile) {
       let snackBarRef = this.snackBar.open("Please log in to like.", 'Log In', {
@@ -151,4 +122,28 @@ export class EssayListComponent implements OnInit {
   toTitleCase(str) {
     return toTitleCase(str);
   }
+
+  loadMoreItems(pageNo = 1) {
+    this.isLoading = true;
+    this.essayService.list(pageNo).subscribe(
+      res => {
+        this.essays.push(...res.results);
+        this.totalItemCount = res.count;
+
+        if (this.userProfile) {
+          this.essays.forEach(essay => {
+            if (essay.up_votes_id.includes(this.userProfile.user)) {
+              essay['alreadyLiked'] = true;
+            }
+          });
+        }
+        this.isLoading = false;
+      },
+      err =>{
+        this.isLoading = false;
+        console.log({ err });
+      }
+    );
+  }
+
 }

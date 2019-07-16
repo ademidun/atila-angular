@@ -18,12 +18,13 @@ import {SeoService} from '../../_services/seo.service';
 })
 export class BlogsListComponent implements OnInit {
 
-  public blogs: BlogPost[]
-  newBlog: BlogPost;
+  public blogs: BlogPost[] = [];
   blogComment:Comment;
   userProfile: UserProfile;
   isLoading= true;
   titleMaxLength = 75;
+  totalItemCount: number;
+  pageNumber=1;
   constructor(
     public blogService: BlogPostService,
     public userProfileService: UserProfileService,
@@ -48,53 +49,44 @@ export class BlogsListComponent implements OnInit {
         res => {
           this.userProfile = res;
 
-          this.blogService.list().subscribe(
-            res => {
-              this.blogs = res.results;
-
-              this.blogs.forEach(blog => {
-                if (blog.up_votes_id.includes(this.userProfile.user)) {
-                  blog['alreadyLiked'] = true;
-                }
-              });
-              this.isLoading = true;
-            },
-
-            err =>{
-              this.isLoading = false;
-            }
-          );
-        },
-        err=> {
+          this.loadMoreItems();
         }
-
       );
     }
 
     else {
-      this.blogService.list().subscribe(
-        res => {
-          this.blogs = res.results;
-          this.isLoading = true;
-        },
-
-        err =>{
-          this.isLoading = false;
-        }
-      );
+      this.loadMoreItems();
     }
 
-
-
-
   }
-
-
 
   likeContent(content: BlogPost) {
 
     return likeContent(content, this.userProfile,this.blogService, this.firebaseService, this.snackBar)
 
+  }
+
+  loadMoreItems(pageNo = 1) {
+    this.isLoading = true;
+    this.blogService.list(pageNo).subscribe(
+      res => {
+        this.blogs.push(...res.results);
+        this.totalItemCount = res.count;
+
+        if (this.userProfile) {
+          this.blogs.forEach(blog => {
+            if (blog.up_votes_id.includes(this.userProfile.user)) {
+              blog['alreadyLiked'] = true;
+            }
+          });
+        }
+        this.isLoading = false;
+      },
+      err =>{
+        this.isLoading = false;
+        console.log({ err });
+      }
+    );
   }
 
 }

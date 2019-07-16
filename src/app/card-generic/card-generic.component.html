@@ -1,5 +1,5 @@
 <div class="card" [ngStyle]="cardStyle">
-  <div class="card-title card-header"  [ngStyle]="cardTitleStyle     ">
+  <div class="card-title card-header"  [ngStyle]="cardTitleStyle">
     <a *ngIf="item.title" [routerLink]="item.slug" [title]="item.title" (mouseenter) ="titleMaxLength=item.title.length"  (mouseleave)="titleMaxLength=100">
 
       {{previewDescription? item.title : item.title | truncate:titleMaxLength }}

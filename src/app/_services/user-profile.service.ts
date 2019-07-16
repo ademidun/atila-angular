@@ -12,14 +12,11 @@ import {AuthService} from './auth.service';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {environment} from '../../environments/environment';
 import {QuestionBase} from '../_models/question-base';
-import {DropdownQuestion} from '../_models/question-dropdown';
 import {TextboxQuestion} from '../_models/question-textbox';
-import {MyFirebaseService} from './myfirebase.service';
 import {AtilaPointsPromptDialogComponent} from '../atila-points-prompt-dialog/atila-points-prompt-dialog.component';
 import {Subscription} from 'rxjs/Subscription';
-import {Subject} from 'rxjs/Subject';
-import {Scholarship} from '../_models/scholarship';
-import {ScholarshipService} from './scholarship.service';
+import {DynamodbService} from './dynamodb.service';
+import {getItemType} from '../_shared/utils';
 
 @Injectable()
 export class UserProfileService implements OnDestroy {
@@ -32,7 +29,7 @@ export class UserProfileService implements OnDestroy {
   constructor(public http: HttpClient,
               public authService: AuthService,
               public snackBar: MatSnackBar,
-              public firebaseService: MyFirebaseService,
+              public dynamodbService: DynamodbService,
               public dialog: MatDialog,) {
   }
 
@@ -362,52 +359,80 @@ export class UserProfileService implements OnDestroy {
   }
 
 
-  //todo make checkViewHistory() and checkViewHistoryHandler() into helper functions.
+  transformViewData(userProfile: UserProfile, viewData) {
+
+    let transformedViewData = {
+      user_id: userProfile.user,
+      item_type: getItemType(viewData),
+      item_id: viewData.id,
+      item_name: null,
+      is_owner: !!(viewData.user && viewData.user.id == userProfile.user)
+    };
+
+    switch (transformedViewData.item_type) {
+
+      case 'scholarship':
+        transformedViewData.item_name = viewData.name;
+        transformedViewData.is_owner = (viewData.owner == userProfile.user);
+        break;
+      case 'essay':
+          transformedViewData.item_name = viewData.title;
+        break;
+      case 'blog':
+        transformedViewData.item_name = viewData.title;
+        break;
+      case 'forum':
+        transformedViewData.item_name = viewData.starting_comment ? viewData.starting_comment.title || viewData.title : viewData.title;
+        break;
+    }
+
+    return transformedViewData;
+  }
+
   checkViewHistory(userProfile: UserProfile, viewData: any) {
+
+    const transformedViewData = this.transformViewData(userProfile, viewData);
+
     try {
-      this.firebaseService.getGeoIp()
+      this.dynamodbService.getGeoIp()
         .then(res => {
-          viewData['geo_ip'] = res;
-          return this.checkViewHistoryHandler(userProfile, viewData)
+          transformedViewData['geo_ip'] = res;
+          return this.checkViewHistoryHandler(userProfile, transformedViewData)
 
         })
         .catch((jqXHR, textStatus, errorThrown) => {
           if (this.environment.production || userProfile.is_atila_admin) {
           }
-          viewData['error'] = JSON.stringify(errorThrown);
-          this.checkViewHistoryHandler(userProfile, viewData)
+          transformedViewData['error'] = JSON.stringify(errorThrown);
+          this.checkViewHistoryHandler(userProfile, transformedViewData)
         })
     }
     catch (e) {
-      // console.log('checkViewHistory e:',e)
+      console.log('checkViewHistory e:',e)
     }
 
   }
 
   checkViewHistoryHandler(userProfile, viewData) {
-    let path = 'user_profiles/' + userProfile.user + '/view_history';
 
-
-    this.firebaseService.saveAny_fs(path, viewData)
-      .then(res => {
-        this.viewHistoryChanges = this.firebaseService.firestoreQuery(path).valueChanges()
-          .subscribe(
-            viewHistory => {
-              // let showPrompt = viewHistory.length % 2 == 0 && this.userProfile.atila_points < 1 ||
-              //   viewHistory.length > 10 && viewHistory.length % 10 ==0;
-              // let showPrompt = viewHistory.length % 2 == 0 && this.userProfile.atila_points < 1;
-              this.showAtilaPointsPromptDialog(userProfile, viewData, viewHistory)
-            },
-          );
-      })
-      .catch(err => {
-        console.log('save Firebase rejection', err);
-        this.showAtilaPointsPromptDialog(userProfile, viewData, ['foo', 'bar']);
-      });
+    this.dynamodbService.savePageViews(viewData)
+      .subscribe( res => {
+          this.viewHistoryChanges = this.dynamodbService.getPageViews(userProfile.user)
+            .subscribe(
+              viewHistory => {
+                // let showPrompt = viewHistory.length % 2 == 0 && this.userProfile.atila_points < 1 ||
+                //   viewHistory.length > 10 && viewHistory.length % 10 ==0;
+                // let showPrompt = viewHistory.length % 2 == 0 && this.userProfile.atila_points < 1;
+                this.showAtilaPointsPromptDialog(userProfile, viewData, viewHistory.data)
+              },
+            );
+      },
+        err => {
+          console.log('this.dynamodbService.getPageViews err', err);
+        });
   }
 
   showAtilaPointsPromptDialog(userProfile, viewData, viewHistory) {
-
     if (this.dialog.openDialogs && this.dialog.openDialogs.length > 0) {
       if (this.viewHistoryChanges) {
         this.viewHistoryChanges.unsubscribe();
@@ -424,7 +449,7 @@ export class UserProfileService implements OnDestroy {
 
 
     let showPrompt = true;
-    if (userProfile.atila_points < 1) {
+    if (userProfile.atila_points == 0) {
       showPrompt = viewHistory.length % 5 == 0;
     }
 
@@ -439,16 +464,11 @@ export class UserProfileService implements OnDestroy {
         data: {'title': viewData.name, userProfile: userProfile, viewCount: viewHistory.length},
       });
 
-
     }
 
     if (this.viewHistoryChanges) {
       this.viewHistoryChanges.unsubscribe();
     }
-  }
-
-  pushSavedScholarshipNotification(subscriber, userProfile: UserProfile, scholarship: Scholarship | any) {
-
   }
 }
 

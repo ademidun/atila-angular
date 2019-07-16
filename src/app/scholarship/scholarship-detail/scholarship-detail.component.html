@@ -169,9 +169,8 @@
 
           <div  *ngFor="let item of relatedItems; let i = index; first as isFirst;">
             <div (click)="logRelatedItemClick(item)">
-              <app-card-generic [item]="item" [metadata]="{hideDescription: item.image}"
+              <app-card-generic [item]="item"
                                 [titleMaxLength]="60"
-                                [cardStyle]="{'max-height': '450px', 'overflow-y': 'hidden'}"
                                 [imageStyle]="{'max-height': '250px', 'overflow-y': 'hidden'}"> </app-card-generic>
             </div>
           </div>
@@ -182,9 +181,8 @@
             <h5>Related Essays<sup style="font-size: small;top: -1em;">Beta</sup></h5>
             <div  *ngFor="let item of scholarship.essay_set ; let i = index; first as isFirst;">
               <div (click)="logRelatedItemClick(item)">
-                <app-card-generic [item]="item" [metadata]="{hideDescription: item.image}"
+                <app-card-generic [item]="item"
                                   [titleMaxLength]="60"
-                                  [cardStyle]="{'max-height': '450px', 'overflow-y': 'hidden'}"
                                   [imageStyle]="{'max-height': '250px', 'overflow-y': 'hidden'}"> </app-card-generic>
               </div>
             </div>
@@ -203,11 +201,8 @@
     <div style="width: 100%; margin-left: 5%"><h5>Related</h5></div>
     <div  *ngFor="let item of relatedItems; let i = index; first as isFirst;" class="col-md-4">
       <div (click)="logRelatedItemClick(item)">
-        <!--<app-card-generic class="hide-on-small-and-down" [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'height': '300px', 'overflow-y': 'hidden'}"> </app-card-generic>-->
-        <!--<app-card-generic class="hide-on-med-and-up" [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'max-height': '300px', 'overflow-y': 'hidden'}"> </app-card-generic>-->
-        <app-card-generic [item]="item" [metadata]="{hideDescription: item.image}"
+        <app-card-generic [item]="item"
                           [titleMaxLength]="60"
-                          [cardStyle]="{'height': '400px', 'overflow-y': 'hidden'}"
                           [imageStyle]="{'max-height': '240px', 'overflow-y': 'hidden'}">
         </app-card-generic>
       </div>
@@ -219,12 +214,9 @@
     <div style="width: 100%; margin-left: 5%"><h5>Related Essays</h5></div>
     <div  *ngFor="let item of scholarship.essay_set; let i = index; first as isFirst;" class="col-md-4">
       <div (click)="logRelatedItemClick(item)">
-        <!--<app-card-generic class="hide-on-small-and-down" [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'height': '300px', 'overflow-y': 'hidden'}"> </app-card-generic>-->
-        <!--<app-card-generic class="hide-on-med-and-up" [item]="item" [metadata]="{hideDescription: item.image}" [cardStyle]="{'max-height': '300px', 'overflow-y': 'hidden'}"> </app-card-generic>-->
         <app-card-generic [item]="item"
                           [metadata]="{hideDescription: false}"
                           [titleMaxLength]="60"
-                          [cardStyle]="{'height': '350px', 'overflow-y': 'hidden'}"
                           [imageStyle]="{'max-height': '240px', 'overflow-y': 'hidden'}">
         </app-card-generic>
       </div>

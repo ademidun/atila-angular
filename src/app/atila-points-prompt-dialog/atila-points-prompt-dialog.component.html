@@ -10,11 +10,30 @@
   <!--</a>-->
 </h2>
 
+
+<div>
+  To get Atila Points you can:
+  <br>
+  <!--<a [routerLink]="" ngbTooltip="Each action below gives you 100 Atila points.">-->
+  <!--<i class="material-icons">-->
+  <!--help-->
+  <!--</i>-->
+  <!--</a>-->
+  <ol>
+    <li><a (click)="linkHandler($event, 'scholarship/add')" routerLink="scholarship/add">Add a Scholarship</a></li>
+    <li><a (click)="linkHandler($event, 'profile/edit', {fragment:'referral-code'})" routerLink="profile/edit#referral-code">Refer a Friend</a></li>
+    <li><a (click)="linkHandler($event, 'blog/add')" routerLink="blog/add">Write a Blog Post</a></li>
+    <li><a (click)="linkHandler($event, 'essay/add')" routerLink="essay/add">Share an Essay</a></li>
+    <!--<li><a (click)="linkHandler($event, 'forum')" routerLink="blog/add">Ask or Answer a forum post</a></li>-->
+  </ol>
+  <br>
+
+</div>
+
 <a (click)="linkHandler($event, '/blog/atila/what-is-atila', {fragment:'atila-points'})"  routerLink="/blog/atila/what-is-atila#atila-points"
    triggers="mouseenter" placement="bottom"
    [ngbPopover]="atilaPointsInfoPopover" popoverTitle="What are Atila Points?">
   What are Atila Points?</a>
-
 
 
 <ng-template #atilaPointsInfoPopover>
@@ -35,24 +54,6 @@
 <h3 mat-dialog-title>Consider helping others and get rewarded with Atila Points?</h3>
 
 <mat-dialog-actions>
-<div>
-  To get Atila Points you can:
-  <br>
-  <!--<a [routerLink]="" ngbTooltip="Each action below gives you 100 Atila points.">-->
-  <!--<i class="material-icons">-->
-  <!--help-->
-  <!--</i>-->
-  <!--</a>-->
-  <ol>
-    <li><a (click)="linkHandler($event, 'scholarship/add')" routerLink="scholarship/add">Add a Scholarship</a></li>
-    <li><a (click)="linkHandler($event, 'profile/edit', {fragment:'referral-code'})" routerLink="profile/edit#referral-code">Refer a Friend</a></li>
-    <li><a (click)="linkHandler($event, 'blog/add')" routerLink="blog/add">Write a Blog Post</a></li>
-    <li><a (click)="linkHandler($event, 'essay/add')" routerLink="essay/add">Share an Essay</a></li>
-    <!--<li><a (click)="linkHandler($event, 'forum')" routerLink="blog/add">Ask or Answer a forum post</a></li>-->
-  </ol>
-  <br>
-
-</div>
 
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
   <div class="col-sm-12">

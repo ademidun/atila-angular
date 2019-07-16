@@ -1,3 +1,5 @@
+import {UserProfile} from './user-profile';
+
 export class Essay {
 
   id?: number;
@@ -18,10 +20,24 @@ export class Essay {
   user?: any;
   status?: string;
   status_other?: string;
-  constructor(userId,) {
+  constructor(userId=-1) {
     //Do we have to manually do this, is there a python-like equivalent of kwargs
     this.title = '';
     this.user= userId;
   }
 
+}
+
+export function createTestEssay() {
+  const essay = new Essay();
+  essay.title = 'The Way To Wealth';
+  essay.essay_source_url = 'https://benfranklin.org';
+
+  essay.user = {
+    id: 1706,
+    first_name: 'Benjamin',
+    last_name: 'Franklin',
+  };
+
+  return essay
 }

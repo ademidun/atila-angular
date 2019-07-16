@@ -114,17 +114,9 @@ export class ForumDetailComponent implements OnInit, OnDestroy {
           this.userProfileService.getById(parseInt(this.userId)).subscribe(
             res => {
               this.userProfile = res;
-              setTimeout(()=>{
-                if(this.forum) {
-                  let viewData = {
-                    item_type: 'forum',
-                    item_id: this.forum.id,
-                    item_name: this.forum.title,
-                    timestamp: Date.now(),
-                  };
-                  this.userProfileService.checkViewHistory(this.userProfile, viewData);
-                }
-              },3000);
+              setTimeout(() => {
+                this.userProfileService.checkViewHistory(this.userProfile, this.forum);
+              }, 3000);
 
             }
           );

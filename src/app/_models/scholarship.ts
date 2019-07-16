@@ -210,6 +210,7 @@ export function createTestScholarship(scholarshipName = '') {
   scholarship.name = scholarshipName || 'Test Scholarship Name Title';
   scholarship.description = 'This is just a scholarship that we created for testing purposes';
   scholarship.funding_amount = 1;
+  scholarship.id = 100;
   scholarship.slug = convertToSlug(scholarship.name);
   const scholarshipDeadline = new Date();
   scholarshipDeadline.setDate(scholarshipDeadline.getDate() + 10);

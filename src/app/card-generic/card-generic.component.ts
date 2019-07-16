@@ -11,12 +11,12 @@ export class CardGenericComponent implements OnInit {
   @Input() metadata = {
     showImageInPreviewMode: false,
     showEssayImage: false,
-    hideDescription: false,
+    hideDescription: null,
   };
-  @Input() cardStyle: any = {};
+  @Input() cardStyle: any = {'max-height': '500px', 'overflow-y': 'hidden'};
   @Input() cardTitleStyle: any = {};
   @Input() imageStyle: any = {};
-  @Input() titleMaxLength = 100;
+  @Input() titleMaxLength = 75;
   @Input() previewDescriptionLength = 280;
 
   previewDescription: boolean;
@@ -24,9 +24,12 @@ export class CardGenericComponent implements OnInit {
 
   ngOnInit() {
 
-    const defaultTitleStyle = {'max-height': this.item.image && !this.previewDescription ? '280px' : null}
+    const defaultTitleStyle = {'max-height': this.item.image && !this.previewDescription ? '250px' : null};
 
     this.cardTitleStyle = {...this.cardTitleStyle, ...defaultTitleStyle};
+    if (this.metadata.hideDescription == null){
+      this.metadata.hideDescription = !!this.item.image;
+    }
   }
 
   togglePreview() {

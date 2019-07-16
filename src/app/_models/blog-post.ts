@@ -18,7 +18,8 @@ export class BlogPost {
     metadata?: any;
     up_votes_id?: any[];
     down_votes_id?: any[];
-    constructor(public user,) {
+    user:any;
+    constructor(user=-1) {
         //Do we have to manually do this, is there a python-like equivalent of kwargs
         this.title = '';
     }
@@ -93,4 +94,19 @@ export function likeContent(content: BlogPost, userProfile?,blogService?: BlogPo
   }
 
   return content;
+}
+
+
+export function createTestBlogPost() {
+  const blog = new BlogPost();
+  blog.title = 'The Nature and Necessity of a Paper-Currency';
+
+  blog.header_image_url = 'https://benfranklin.org';
+  blog.user = {
+    id: 1706,
+    first_name: 'Benjamin',
+    last_name: 'Franklin',
+  };
+
+  return blog
 }

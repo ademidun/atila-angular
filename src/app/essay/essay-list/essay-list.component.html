@@ -63,4 +63,19 @@
 
       </div>
 
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+
+  <div class="col-sm-12 center">
+    <a class="waves-effect btn scholarship-btn" (click)="pageNumber=pageNumber+1; loadMoreItems(pageNumber)"
+       *ngIf="essays.length < totalItemCount">
+      Show More
+    </a>
+
+    <div *ngIf="essays.length >= totalItemCount">
+      <p style="font-size: x-large;">
+        All caught up! 😃 Check back later for more essays.
+      </p>
+    </div>
+  </div>
+
 </div>
