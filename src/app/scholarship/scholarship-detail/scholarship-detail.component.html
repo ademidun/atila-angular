@@ -40,21 +40,6 @@
 
         <div  class="col-sm-12 col-md-4">
 
-          <span *ngIf="userProfile && userProfile.is_atila_admin && scholarship.is_automated">
-          <button mat-raised-button (click)="getOrCreateApp()"
-          style="background-color: #4080ff; min-height: 60px; min-width: 200px" class="white-text">Apply now</button>
-          </span>
-
-          <span *ngIf="scholarship">
-          <button mat-raised-button (click)="requestAutomation()"
-          style="background-color: #4080ff; min-height: 60px" class="white-text" placement="bottom"
-          ngbTooltip="Request for this scholarship's application process to be automated.">
-          Request Automation
-          </button>
-          <i class="material-icons" placement="bottom"
-          ngbTooltip="Request for this scholarship's application process to be automated.">info_outline</i>
-          </span>
-
           <div style="margin-top: 3%">
             <a ngbTooltip="Save Scholarship"
                class="btn-floating interactive-btn halfway-fab waves-effect waves-light atila-blue save-scholarship"
@@ -232,7 +217,7 @@
 
         <mat-card-content>
           <input id="comment_title" placeholder="Title" [(ngModel)]="userComment.title">
-          <textarea style="height: 5rem" id="comment_title" placeholder="What do you think?" [(ngModel)]="userComment.text">
+          <textarea style="height: 5rem" id="comment_body" placeholder="What do you think?" [(ngModel)]="userComment.text">
                         </textarea>
         </mat-card-content>
 
