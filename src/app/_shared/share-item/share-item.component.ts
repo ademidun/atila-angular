@@ -13,11 +13,7 @@ export class ShareItemComponent implements OnInit {
   @Input() item:any = {};
   @Input() itemCopy:any = {};
   @Input() metadata:any = {};
-  shareItemStyle = {
-    'left': '225px',
-    'bottom': '1px',
-  } ;
-
+  @Input() shareItemStyle:any = {};
   constructor(
     public firebaseService: MyFirebaseService,
     public authService: AuthService,
@@ -25,7 +21,7 @@ export class ShareItemComponent implements OnInit {
 
   ngOnInit() {
 
-    this.shareItemStyle = this.metadata.shareItemStyle || this.shareItemStyle;
+    this.shareItemStyle = this.metadata.shareItemStyle || {};
   }
 
   logShareType(sharingType) {
