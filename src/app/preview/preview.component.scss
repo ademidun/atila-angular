@@ -3,7 +3,11 @@
 .background-image {
   //background: linear-gradient(to left, #00c6ff, #30a0ff);
   background: linear-gradient(to left, #1976d2, #194f87);
+  height: 500px;
 
+}
+.preview-questions {
+  font-size: x-large
 }
 
 .search-box {
@@ -108,7 +112,6 @@ mat-form-field.location-div .mat-input-wrapper {
 
 .form-header {
   text-align: center;
-  font-size: 55px;
   color: white;
 }
 
@@ -155,9 +158,17 @@ mat-form-field.location-div .mat-input-wrapper {
     margin-left: 41.666667%;
   }
 
+  .preview-questions {
+    margin-top: 50px;
+    margin-bottom: 30px;
+  }
+
+  .form-header {
+    font-size: 3rem;
+  }
 }
 
-@media (max-width: 576px){
+@media (max-width: 575px){
   .subscribe-btn {
     margin-left: 5%;
   }
@@ -167,6 +178,9 @@ mat-form-field.location-div .mat-input-wrapper {
   .landing-page-gif.landing-page-gif-desktop {
     object-fit: contain;
     height: 245px;
+  }
+  .form-header {
+    font-size: 3rem;
   }
 }
 

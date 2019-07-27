@@ -316,13 +316,12 @@ export class PreviewComponent implements OnInit, OnDestroy {
 
   sampleSearches = [
     'Engineering',
+    'Female',
     'Ontario',
     'Toronto',
-    'Female',
     'Black',
     'Medical School',
-    'International Student',
-  ]
+  ];
 
   /**
    * If the Google Places API is not working, only ask for city.
