@@ -1,4 +1,5 @@
 @import '../../styles.scss';
+@import '../../material-forms-styles.scss';
 
 .background-image {
   //background: linear-gradient(to left, #00c6ff, #30a0ff);
@@ -25,78 +26,6 @@
 
 mat-select {
   width: 90%;
-}
-
-:host /deep/ .mat-select-value-text {
-  color: white;
-}
-
-.scholarship-btn {
-  margin: 1%;
-  background-color: #4080ff;
-  min-height: 75px !important;
-}
-
-:host /deep/ .mat-pseudo-checkbox-checked {
-  background-color: $primary;
-}
-
-.semi-dark-background {
-  background-color: rgba(25, 79, 135, .18);
-
-  -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
-  -moz-animation: fadein 2s; /* Firefox < 16 */
-  -ms-animation: fadein 2s; /* Internet Explorer */
-  -o-animation: fadein 2s; /* Opera < 12.1 */
-  animation: fadein 2s;
-}
-
-:host /deep/ .white-placeholder .mat-input-placeholder, .white-placeholder :host /deep/ .mat-select-placeholder {
-  color: white;
-}
-
-:host /deep/ .dark-placeholder .mat-input-placeholder {
-  color: $primary;
-}
-
-:host /deep/ .mat-select-underline {
-  background-color: white !important;
-}
-
-mat-form-field {
-  color: white;
-}
-
-:host /deep/ .white-underline {
-  .mat-input-underline, .mat-form-field-underline  {
-    background-color: white !important;
-    //background-color: transparent !important;
-  }
-}
-
-:host /deep/ .mat-select-arrow {
-  color: white !important;
-}
-
-:host /deep/ .mat-select-placeholder {
-  color: white;
-  font-size: 1.3em;
-}
-
-:host /deep/ .mat-form-field-label {
-  font-size: 100%;
-}
-
-.subheader {
-  font-size: 3.2em;
-  color: #FFFFFF;
-  width: 45%;
-  padding: 50px 0;
-  margin-left: 5%;
-}
-
-mat-form-field.location-div .mat-input-wrapper {
-  padding-bottom: 0;
 }
 
 #location {

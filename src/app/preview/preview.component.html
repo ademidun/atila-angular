@@ -19,15 +19,12 @@
         <div *ngIf="model.previewMode=='universalSearch'" class="row justify-content-center preview-questions">
 
           <div class="search-box">
-            <!--<mat-form-field class="col-sm-12">-->
-            <!--<input style="font-size: 50px; caret-color: white" matInput placeholder="Enter a Search Term" [(ngModel)]="model.searchString" name="searchString" autofocus>-->
-            <!--</mat-form-field>-->
 
             <div class="col-sm-12 input-field">
               <app-typeahead [(model)]="model.searchString" [dataset]="MASTER_LIST_EVERYTHING"
-                             [inputStyles]="{'font-size':'50px', 'caret-color': 'white', 'color': 'white'}"
+                             [inputStyles]="{'font-size':'30px', 'caret-color': 'white', 'color': 'white'}"
                              [metadata]="{'placeholder':'Enter a search term', 'key': 'searchString','disableFocusFirst': true, 'matInput': true, 'noPlaceHolder': true}"
-                             [labelStyles]="{'font-size':'50px', 'caret-color': 'white', 'color': 'white'}"
+                             [labelStyles]="{'font-size':'30px', 'caret-color': 'white', 'color': 'white'}"
                              (typeaheadSelectedEvent)="typeaheadEvent($event)">
               </app-typeahead>
             </div>
