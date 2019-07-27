@@ -34,7 +34,9 @@
       </a>
     </div>
     <div class="card-content col-sm-8" >
-      <p> {{scholarship.description | truncate:showMore?scholarship.description.length:240}}</p>
+      <p style="white-space: pre-line">
+        {{scholarship.description | truncate:showMore?scholarship.description.length:240}}
+      </p>
       <!--if not in showExtraCriteria only display showMore link if description length needs to be expanded-->
       <a *ngIf="showExtraCriteria || scholarship.description.length>240"
          (click)="showMore=!showMore">
