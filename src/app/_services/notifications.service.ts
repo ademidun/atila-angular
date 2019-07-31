@@ -28,10 +28,19 @@ export class NotificationsService {
   getPermission() {
     console.log('this.swPush', this.swPush);
 
+    if (environment.name === 'dev') {
+      // https://stackoverflow.com/questions/53810194/angular-7-pwa-swpush-push-notifications-not-working
+      // https://github.com/ademidun/atila-angular/commit/55884135cff7507171eba4e68f93eb8621eee604
+      return Promise.reject({error: 'swPush.requestSubscription does not work in DEV'});
+    }
+
     if (this.swPush.isEnabled) {
       return this.swPush.requestSubscription({
         serverPublicKey: this.VAPID_PUBLIC_KEY
       })
+    } else {
+      console.log('this.swPush.isEnabled', this.swPush.isEnabled);
+      return Promise.reject({error: 'swPush is not enabled'});
     }
 
   }
@@ -66,7 +75,7 @@ export class NotificationsService {
           .map(res => res)
           .catch(err => Observable.throw(err));
       })
-      .catch((err: DOMException) => {
+      .catch((err) => {
         console.log({ err });
         // todo notificationOptions will be based on userProfile preferences
         const notificationOptions = {
@@ -165,7 +174,7 @@ export class NotificationsService {
       badge: 'https://storage.googleapis.com/atila-7.appspot.com/public/atila-logo-right-way-circle-transparent.png',
       sendDate: notificationConfig.sendDate || 0,
       notificationType: notificationConfig.notificationType || 'push',
-      userId: userProfile.user,
+      user_id: userProfile.user, // use user_id instead of userId to match pageViews
       createdAt: createdAt,
     };
 

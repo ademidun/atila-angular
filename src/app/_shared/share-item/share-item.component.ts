@@ -13,11 +13,7 @@ export class ShareItemComponent implements OnInit {
   @Input() item:any = {};
   @Input() itemCopy:any = {};
   @Input() metadata:any = {};
-  shareItemStyle = {
-    'left': '225px',
-    'bottom': '1px',
-  } ;
-
+  @Input() shareItemStyle:any = {};
   constructor(
     public firebaseService: MyFirebaseService,
     public authService: AuthService,

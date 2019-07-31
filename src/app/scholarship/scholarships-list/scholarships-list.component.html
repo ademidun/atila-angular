@@ -130,10 +130,6 @@
 
         </div>
 
-        <div class="center container">
-        <p>Did you find a scholarship? Help others and <a routerLink="/scholarship/add">add a scholarship</a> in less than 15 seconds.</p>
-      </div>
-
         <div class="center col-sm-12 col-md-8 offset-md-2"
              *ngIf="isLoggedIn && (!userProfile.major || !userProfile.post_secondary_school)">
           <br>
@@ -197,43 +193,13 @@
             </div>
           </div>
 
-          <div class="center col-sm-8 offset-sm-2 offset-md-2">
+          <div class="center col-sm-8 offset-sm-2 offset-md-2 mb-3">
 
             <a *ngIf="total_scholarship_count!=0" class="waves-effect waves-light btn register-btn" routerLink="/register">Register to See More Scholarships</a>
             <a *ngIf="total_scholarship_count==0" class="waves-effect waves-light btn register-btn" routerLink="/register">Register to qualify for more scholarships</a>
-            <!--Remove for now to simiplify-->
-            <a   *ngIf="!isLoggedIn" class=" col-sm-12 col-md-6 waves-effect waves-light btn demo-btn" routerLink="/applications/demo">Try The Live Demo</a>
 
           </div>
 
-
-          <!-- TODO: Should we ask the user occasionally to subscribe? Even if already logged in? -->
-          <div *ngIf="!isLoggedIn" class="row center" style="text-align: center;margin-bottom: 0px;">
-            <p style="font-size: medium" class="col-sm-6">Subscribe to get updates on new <a routerLink="/">scholarships</a>, <a routerLink="/blog">blogs</a>,
-              <a routerLink="/forum">forum posts</a>, <a routerLink="/essay">essays</a>, and new product features.
-
-              <span *ngIf="subscriber.response" style="color: green">
-                  <br>
-                  {{subscriber.response}}
-            </span>
-            </p>
-
-
-            <mat-form-field class="browser-default col-sm-3 ">
-              <!-- <input matInput [(ngModel)]="model.city[0]" name="city" id="city" required placeholder="City"> -->
-              <input matInput type="email" class="form-control" style="padding-bottom: 0; margin-bottom: 0"  name="email" id="emailid"
-                     placeholder="Email Address" email [(ngModel)]="subscriber.email" (keyup.enter)="addSubscriber($event)">
-            </mat-form-field>
-            <a class="waves-effect waves-light btn browser-default col-sm-2 register-btn" style="background-color:#4080ff; " (click)="addSubscriber()">Subscribe</a>
-
-
-          </div>
-
-          <!--<div class="row center">-->
-            <!--<p class="text-align-center offset-md-2">Are we missing a scholarship you want? You can easily <a routerLink="/scholarship/add" title="Add Scholarship">Add a Scholarship </a> to Atila or-->
-              <!--<a href="https://docs.google.com/spreadsheets/d/13YshWzg38Au-tPkGyDfY4hJHGJDWl_7vUpXNXkf5afM/edit?usp=sharing"-->
-                 <!--target="_blank" title="Scholarship Spreadsheet">Tell us the link</a> and we'll automate it for you.</p>-->
-          <!--</div>-->
         </div>
 
 
