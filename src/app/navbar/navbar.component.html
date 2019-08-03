@@ -156,10 +156,6 @@
               </button>
             </a>
           </mat-menu>
-
-        <a routerLink="/search" title="Search" class="right" style="margin-right: 1%">
-          Search
-        </a>
         </ng-container>
       <a *ngIf="!authService.isLoggedIn" [href]="'/login'+'?redirect='+encodeURIComponent(router.url) " (click)="login($event)" class="atila-blue right far-right">
           Login
