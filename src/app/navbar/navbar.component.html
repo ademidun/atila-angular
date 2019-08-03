@@ -1,134 +1,21 @@
 <nav class="white" role="navigation">
   <div class="nav-wrapper container atila-blue">
-    <a [routerLink]="authService.isLoggedIn? '/scholarship' : '/'" class="brand-logo">Atila</a>
+    <a [routerLink]="authService.isLoggedIn? '/scholarship' : '/'" class="left nav-logo">Atila</a>
 
-    <!-- Show on Desktop  -->
-    <ul class="right hide-on-med-and-down">
-
-      <!--Desktop: Not Logged In -->
-      <ng-container  *ngIf="!authService.isLoggedIn">
-        <li>
-          <app-typeahead [(model)]="query" [dataset]="MASTER_LIST_EVERYTHING"
-                         [maxResultsToDisplay]="5"
-                         [showLabel]="false"
-                         [metadata]="{placeholder:'Enter to search', key: 'searchString',
-                         disableFocusFirst: true, matInput: true, noPlaceHolder: true}"
-                         (typeaheadSelectedEvent)="search($event.event.item)">
-          </app-typeahead>
-          </li>
-
-        <li>
-          <a (click)="search(query)" title="Search">
-            Search
-          </a>
-        </li>
-
-        <li>
-          <a routerLink="/blog" title="Blogs" >
-              Blog
-          </a>
-        </li>
-        <li>
-          <a routerLink="/essay" title="Essays">
-              Essays
-          </a>
-        </li>
-
-        <li>
-          <a class="atila-blue" [href]="'/login'+'?redirect='+encodeURIComponent(router.url) " (click)="login($event)">Log In</a>
-        </li>
-
-      </ng-container>
-
-      <!--Desktop: Logged In -->
-      <span *ngIf="authService.isLoggedIn">
-        <button mat-fab [matMenuTriggerFor]="desktopProfilemenu" class= "right far-right">
-              <mat-icon aria-hidden="true" md-colors="{color:'$my-lighten'}">perm_identity</mat-icon>
-        </button>
-
-            <!-- Dropdown Profile Menu -->
-            <mat-menu #desktopProfilemenu="matMenu" [overlapTrigger]="false">
-              <a routerLink="/scholarship/add">
-              <button mat-menu-item>
-
-                  <span>Add Scholarship</span>
-
-              </button>
-              </a>
-              <a *ngIf="authService.username" [routerLink]="['/profile', authService.username]">
-              <button mat-menu-item>
-
-                  <span>My profile</span>
-
-              </button>
-              </a>
-              <a routerLink="profile/edit">
-              <button mat-menu-item>
-
-                  <span>Edit profile</span>
-
-              </button>
-              </a>
-              <a (click)="logout()">
-              <button mat-menu-item>
-
-                  <span>Logout</span>
-
-              </button>
-              </a>
-            </mat-menu>
-
-          <li>
-
-          <app-typeahead [(model)]="query" [dataset]="MASTER_LIST_EVERYTHING"
-                         [maxResultsToDisplay]="5"
-                         [showLabel]="false"
-                         [metadata]="{placeholder:'Enter to search', key: 'searchString',
-                         disableFocusFirst: true, matInput: true, noPlaceHolder: true}"
-                         (typeaheadSelectedEvent)="search($event.event.item)">
-          </app-typeahead>
-          </li>
-
-          <li>
-            <a routerLink="/search" title="Search" >
-              Search
-            </a>
-          </li>
-            <li>
-                <a routerLink="/blog" title="Blogs" >
-                    Blog
-                </a>
-            </li>
-
-            <li>
-
-        <li>
-          <a routerLink="/essay" title="Essays">
-              Essays
-          </a>
-        </li>
-
-      </span>
-
-    </ul>
-
-    <!-- Show on Mobile  -->
-    <span  class= "hide-on-large-only">
-
-
-      <span class="far-left">
-        <a routerLink="/essay" class="mr-2">
-                      Essays
-                </a>
-        <a routerLink="/blog">
-                    Blogs
-              </a>
-      </span>
-
-      <!-- Horizontally the top most div is the right most div.-->
+    <div class="right">
+      <!-- Horizontally the top most div is the left most div.-->
+      <a routerLink="/search" title="Search" class= "mr-2">
+        Search
+      </a>
+      <a routerLink="/essay" class="mr-2">
+        Essays
+      </a>
+      <a routerLink="/blog">
+        Blogs
+      </a>
       <ng-container *ngIf="authService.isLoggedIn">
 
-        <button mat-fab [matMenuTriggerFor]="profileMenu" class= "right far-right">
+        <button mat-fab [matMenuTriggerFor]="profileMenu" class= "right far-right" style="zoom: 0.9">
             <mat-icon>perm_identity</mat-icon>
           </button>
 
@@ -160,20 +47,16 @@
       <a *ngIf="!authService.isLoggedIn" [href]="'/login'+'?redirect='+encodeURIComponent(router.url) " (click)="login($event)" class="atila-blue right far-right">
           Login
       </a>
-      <a routerLink="/search" title="Search" class= "right atila-blue mr-2">
-        Search
-      </a>
-      <span class="hide-on-med-and-down">
+    </div>
+    <div style="max-width: 250px;" class="right hide-on-xs">
         <app-typeahead [(model)]="query" [dataset]="MASTER_LIST_EVERYTHING"
                        [maxResultsToDisplay]="5"
                        [showLabel]="false"
                        [metadata]="{placeholder:'Enter to search', key: 'searchString',
-                           disableFocusFirst: true, matInput: true, noPlaceHolder: true}"
+                             disableFocusFirst: true, matInput: true, noPlaceHolder: true}"
                        (typeaheadSelectedEvent)="search($event.event.item)">
-            </app-typeahead>
-      </span>
-
-    </span>
+        </app-typeahead>
+    </div>
 
   </div>
 </nav>
