@@ -1,14 +1,18 @@
 @import '../../styles.scss';
 
+nav {
+  padding-bottom: 10%;
+}
+
 nav .brand-logo {
   font-family:Cambria;
   font-size:28px;
   color:$primary;
 }
 
-.atila-blue {
-    color:$primary !important;
-  }
+nav a {
+  color:$primary !important;
+}
 
 button:focus{
   background-color: #C1BCBC;
@@ -17,6 +21,7 @@ button:focus{
 li a {
   color:$primary !important;
 }
+
 button.mat-fab.mat-accent {
   background-color: white;
 }
@@ -34,10 +39,6 @@ button.mat-fab.mat-accent {
 }
 /* Smartphones (portrait) ----------- */
 @media only screen and (max-width : 480px) {
-
-  nav {
-    padding-bottom: 18%;
-  }
 
   .my-offset-ln7 {
     margin-left: -7%;
