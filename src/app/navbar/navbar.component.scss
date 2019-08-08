@@ -1,14 +1,14 @@
 @import '../../styles.scss';
 
-nav .brand-logo {
-  font-family:Cambria;
+nav .nav-logo {
+  font-family:Cambria, "Times New Roman", serif;
   font-size:28px;
   color:$primary;
 }
 
-.atila-blue {
-    color:$primary !important;
-  }
+nav a {
+  color:$primary !important;
+}
 
 button:focus{
   background-color: #C1BCBC;
@@ -17,6 +17,7 @@ button:focus{
 li a {
   color:$primary !important;
 }
+
 button.mat-fab.mat-accent {
   background-color: white;
 }
@@ -32,20 +33,22 @@ button.mat-fab.mat-accent {
 #mobile-login {
   margin-left: 3%;
 }
+span .mat-fab .mat-button-wrapper {
+  display: block;
+}
 /* Smartphones (portrait) ----------- */
-@media only screen and (max-width : 480px) {
-
-  nav {
-    padding-bottom: 18%;
-  }
-
-  .my-offset-ln7 {
-    margin-left: -7%;
-  }
-
+@media only screen and (max-width: $phone-width) {
 
   .far-right{
     margin-right: -10%;
+  }
+
+  nav {
+    padding-bottom: 65px;
+  }
+
+  .hide-on-xs {
+    display: none;
   }
 }
 

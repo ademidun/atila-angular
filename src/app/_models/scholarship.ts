@@ -1,14 +1,10 @@
 import {
-  ACTIVITIES,
-  APPLICATION_FORM_TYPES, AUTOCOMPLETE_DICT, COUNTRIES, DISABILITY, EDUCATION_FIELDS, EDUCATION_LEVEL, ETHNICITY,
-  FUNDING_TYPES, LANGUAGE,
-  MAJORS_LIST, RELIGION, SCHOOLS_LIST, SPORTS
-} from './constants';
-import {unescape} from 'querystring';
-import {unescapeHtml} from '@angular/platform-browser/src/browser/transfer_state';
+  APPLICATION_FORM_TYPES, AUTOCOMPLETE_DICT, AUTOCOMPLETE_KEY_LIST, EDUCATION_FIELDS, EDUCATION_LEVEL, FUNDING_TYPES} from './constants';
 
 export class Scholarship {
-  constructor(public activities?: string[],
+
+  constructor(
+              public activities?: string[],
               public citizenship?: string[],
               public applicants?: any[],
               public city?: any,
@@ -85,7 +81,18 @@ export class Scholarship {
       this[key] = [];
     }
   }
+}
 
+export function hasExtraCriteria(scholarship: Scholarship) {
+
+  let showExtraCriteria = AUTOCOMPLETE_KEY_LIST.some(key => scholarship[key] && scholarship[key].length > 0);
+  if (!showExtraCriteria) {
+    showExtraCriteria = ['city', 'province', 'country'].some(locationType => scholarship[locationType] && scholarship[locationType].length > 0);
+  }
+  else if (!showExtraCriteria) {
+    showExtraCriteria = scholarship.female_only || scholarship.international_students_eligible;
+  }
+  return showExtraCriteria;
 }
 
 export interface ScholarshipEdit {

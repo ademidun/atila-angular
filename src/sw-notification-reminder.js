@@ -3,7 +3,6 @@
 
 (function () {
   'use strict';
-  console.log('sw-notification-reminder', self);
 
   self.addEventListener('notificationclick', (event) => {
     // event.notification.close();

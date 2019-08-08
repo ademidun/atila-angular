@@ -8,8 +8,7 @@ import {trigger, state, animate, transition, style} from '@angular/animations';
 import {ScholarshipService} from '../../_services/scholarship.service';
 import {AuthService} from '../../_services/auth.service';
 import {environment} from '../../../environments/environment';
-import {Scholarship} from '../../_models/scholarship';
-import {NotificationDialogComponent} from '../../notification-dialog/notification-dialog.component';
+import {hasExtraCriteria, Scholarship} from '../../_models/scholarship';
 import {NotificationsService} from '../../_services/notifications.service';
 import * as $ from 'jquery';
 import {prettifyKeys} from '../../_shared/utils';
@@ -33,7 +32,6 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
   // todo change to only handle one scholarship
   @Input() scholarship: Scholarship | any;
   @Input() userProfile: UserProfile;
-  @Input() showExtraCriteria = true;
   @Input() metadata: any = {
     viewAsUser: '',
     page_no: '',
@@ -47,6 +45,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
   userId: any;
   isFirstView = true;
   showMore = false;
+  showExtraCriteria = false;
   prettifyKeys = prettifyKeys;
   autoCompleteLists = AUTOCOMPLETE_KEY_LIST;
 
@@ -123,6 +122,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
       this.scholarshipService.preventViewDoubleCount = false;
     }
 
+    this.showExtraCriteria = hasExtraCriteria(this.scholarship);
 
   }
 
