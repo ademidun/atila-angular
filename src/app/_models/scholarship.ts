@@ -92,9 +92,6 @@ export function hasExtraCriteria(scholarship: Scholarship) {
   else if (!showExtraCriteria) {
     showExtraCriteria = scholarship.female_only || scholarship.international_students_eligible;
   }
-
-  console.log('scholarhsip.name', scholarship.name);
-  console.log({ showExtraCriteria });
   return showExtraCriteria;
 }
 
