@@ -181,7 +181,8 @@ export class ScholarshipDetailComponent implements OnInit, OnDestroy, AfterViewI
             console.log('err',err);
             console.log('err.toString()',err.toString());
             if (err instanceof HttpErrorResponse && err.status == 404) {
-                this.scholarship = {name: 'Scholarship Not Found', metadata: {}};
+                this.scholarship.name = 'Scholarship Not Found';
+                this.scholarship.metadata = {};
             }
         },
 

@@ -42,3 +42,8 @@ Noticed that Heroku Postgres is also sharing its database with staging. We shoul
 - Trying to get push notifications to work in dev but the `this.swPush.requestSubscription()` handler is not being called
 - I originally thought that maybe it was working in dev before and I changed something and now it is no longer working in dev 
 but I think it was never actually working in dev. We have to use prod to debug? Or we can create a dummy Promise when testing in dev
+
+
+## August 7, 2019
+- Try to create a scholarship helper function to determine if we should show extra criteria, realized that we need more info returned in the scholarships search serializer JSON response
+
