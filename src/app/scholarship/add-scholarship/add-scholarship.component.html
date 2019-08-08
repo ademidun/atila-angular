@@ -237,6 +237,7 @@
                                     </mat-select>
                                   </mat-form-field>
                                 </div>
+
                               </div>
 
                               <div class="row">
@@ -280,6 +281,14 @@
                               </div>
 
                             </fieldset>
+
+                            <div class="col-sm-12" *ngIf="scholarship.metadata">
+
+                              <mat-form-field class="col-sm-12">
+                                <input class="browser-default" id="email_contact" type="text" [(ngModel)]="scholarship.metadata.email_contact" name="email_contact" matInput placeholder="Contact email">
+                              </mat-form-field>
+                              <label for="email_contact" data-error="Invalid input">Put the email address to contact if applicants have questsions</label>
+                            </div>
 
 
                           </fieldset>
