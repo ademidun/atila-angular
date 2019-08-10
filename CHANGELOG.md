@@ -47,3 +47,11 @@ but I think it was never actually working in dev. We have to use prod to debug? 
 ## August 7, 2019
 - Try to create a scholarship helper function to determine if we should show extra criteria, realized that we need more info returned in the scholarships search serializer JSON response
 
+## August 10, 2019
+**Switch from Google Rendertron**
+- Google rendertron is expensive so we are going to modify cloud functions to 
+use a demo URL instead
+  - https://github.com/ademidun/atila-angular/pull/82
+  - https://github.com/ademidun/atila-angular/issues/79
+- We had to enable billing for Firebase staging so we can test if firebase functions is
+working and in order to enable external resources
