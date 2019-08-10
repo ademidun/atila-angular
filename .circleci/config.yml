@@ -27,17 +27,6 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
           paths:
               - node_modules
-      - restore_cache:
-          keys:
-              - v1-dependencies-{{ checksum "./functions/package.json" }}
-              - v1-dependencies-
-      - run:
-          name: npm install in functions folder
-          command: cd functions ;  npm install ; cd ../
-      - save_cache:
-          key: v1-dependencies-{{ checksum "./functions/package.json" }}
-          paths:
-              - ./functions/node_modules
       # Run tests
       - run: npm run test-ci
   build:
@@ -50,11 +39,8 @@ jobs:
       - restore_cache:
           keys:
               - v1-dependencies-{{ checksum "package.json" }}
-              - v1-dependencies-{{ checksum "./functions/package.json" }}
               - v1-dependencies-
-      - run:
-          name: install angular and firebase functions
-          command: npm install ; cd functions ; npm install ; cd ../
+      - run: npm install
       - save_cache:
           key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
           paths:
@@ -90,7 +76,7 @@ jobs:
 #          command: sudo apt-get update && sudo apt-get install -y ca-certificates
        - run:
            name: Show workflow and workspace folder contents before attaching workspace
-           command: ls . ; ls /tmp
+           command: ls . && ls /tmp
        - attach_workspace:
            # Must be absolute path or relative path from working_directory
            at: /tmp
@@ -109,14 +95,16 @@ jobs:
            keys:
             - v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
             - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-{{ checksum "./functions/package.json" }}
             - v1-dependencies-
        - run:
           name: Show what is in folder after restoring cache
-          command: ls . && ls /tmp
+          command: ls . ; ls /tmp
        - run:
           name: Show current location
           command: pwd
+       - run:
+          name: Install firebase cloud functions
+          command: cd functions ; ls . ; npm install ; cd
        - run:
            name: Deploy Master to Firebase or Other Branch to Staging
 
