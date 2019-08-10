@@ -77,42 +77,34 @@ app.get('*', (req, res) => {
   console.log('req.headers[\'user-agent\']', req.headers['user-agent']);
   const isBot = detectBot(req.headers['user-agent']);
 
-  try {
-    if (isBot) {
+  if (isBot) {
 
-      const botUrl = generateUrl(req);
-      // If Bot, fetch url via rendertron
+    const botUrl = generateUrl(req);
+    // If Bot, fetch url via rendertron
 
-      fetch(`${renderUrl}/${botUrl}`)
-        .then(res => res.text())
-        .then(body => {
+    fetch(`${renderUrl}/${botUrl}`)
+      .then(res => res.text())
+      .then(body => {
 
-          // Set the Vary header to cache the user agent, based on code from:
-          // https://github.com/justinribeiro/pwa-firebase-functions-botrender
-          res.set('Cache-Control', 'public, max-age=300, s-maxage=600');
-          res.set('Vary', 'User-Agent');
+        // Set the Vary header to cache the user agent, based on code from:
+        // https://github.com/justinribeiro/pwa-firebase-functions-botrender
+        res.set('Cache-Control', 'public, max-age=300, s-maxage=600');
+        res.set('Vary', 'User-Agent');
 
-          res.send(body.toString())
+        res.send(body.toString())
 
-        })
-        .catch(err => console.log('error sending reply: '. err));
+      });
 
-    } else {
+  } else {
 
 
-      // Not a bot, fetch the regular Angular app
-      // Possibly faster to serve directly from from the functions directory?
-      fetch(`https://${appUrl}`)
-        .then(res => res.text())
-        .then(body => {
-          res.send(body.toString());
-        })
-        .catch(err => console.log('error sending reply: '. err));
-    }
-  }
-  catch (e) {
-    console.log('caught error, e', e);
-    res.send({error: JSON.stringify(e)});
+    // Not a bot, fetch the regular Angular app
+    // Possibly faster to serve directly from from the functions directory?
+    fetch(`https://${appUrl}`)
+      .then(res => res.text())
+      .then(body => {
+        res.send(body.toString());
+      })
   }
 
 });
