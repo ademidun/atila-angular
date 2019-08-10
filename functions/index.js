@@ -13,8 +13,8 @@ const app = express();
 // You might instead set these as environment variables
 // I just want to make this example explicitly clear
 const appUrl = 'atila.ca';
-const renderUrl = 'https://render-tron.appspot.com/render';
-// const renderUrl = 'https://atila-7.appspot.com/render';
+// const renderUrl = 'https://render-tron.appspot.com/render';
+const renderUrl = 'https://atila-7.appspot.com/render';
 
 
 // Generates the URL
@@ -72,7 +72,9 @@ function detectBot(userAgent) {
 
 app.get('*', (req, res) => {
 
-  console.log('req.headers', req.headers);
+  console.log('req.headers', req.headers.host);
+  console.log('req.headers.referer', req.headers.referer);
+  console.log('req.headers[\'user-agent\']', req.headers['user-agent']);
   const isBot = detectBot(req.headers['user-agent']);
 
   try {
