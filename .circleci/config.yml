@@ -27,6 +27,17 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
           paths:
               - node_modules
+      - restore_cache:
+          keys:
+              - v1-dependencies-{{ checksum "./functions/package.json" }}
+              - v1-dependencies-
+      - run:
+          name: npm install in functions folder
+          command: cd functions ;  npm install ; cd ../
+      - save_cache:
+          key: v1-dependencies-{{ checksum "./functions/" }}
+          paths:
+              - node_modules
       # Run tests
       - run: npm run test-ci
   build:
@@ -95,6 +106,7 @@ jobs:
            keys:
             - v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
             - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-{{ checksum "./functions/package.json" }}
             - v1-dependencies-
        - run:
           name: Show what is in folder after restoring cache
