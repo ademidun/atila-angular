@@ -35,9 +35,9 @@ jobs:
           name: npm install in functions folder
           command: cd functions ;  npm install ; cd ../
       - save_cache:
-          key: v1-dependencies-{{ checksum "./functions/" }}
+          key: v1-dependencies-{{ checksum "./functions/package.json" }}
           paths:
-              - node_modules
+              - ./functions/node_modules
       # Run tests
       - run: npm run test-ci
   build:
@@ -50,8 +50,11 @@ jobs:
       - restore_cache:
           keys:
               - v1-dependencies-{{ checksum "package.json" }}
+              - v1-dependencies-{{ checksum "./functions/package.json" }}
               - v1-dependencies-
-      - run: npm install
+      - run:
+          name: install angular and firebase functions
+          command: npm install ; cd functions ; npm install ; cd ../
       - save_cache:
           key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
           paths:
@@ -87,7 +90,7 @@ jobs:
 #          command: sudo apt-get update && sudo apt-get install -y ca-certificates
        - run:
            name: Show workflow and workspace folder contents before attaching workspace
-           command: ls . && ls /tmp
+           command: ls . ; ls /tmp
        - attach_workspace:
            # Must be absolute path or relative path from working_directory
            at: /tmp
