@@ -27,17 +27,6 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
           paths:
               - node_modules
-      - restore_cache:
-          keys:
-              - v1-dependencies-{{ checksum "./functions/package.json" }}
-              - v1-dependencies-
-      - run:
-          name: npm install in functions folder
-          command: cd functions ;  npm install ; cd ../
-      - save_cache:
-          key: v1-dependencies-{{ checksum "./functions/" }}
-          paths:
-              - node_modules
       # Run tests
       - run: npm run test-ci
   build:
@@ -109,7 +98,6 @@ jobs:
            keys:
             - v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
             - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-{{ checksum "./functions/package.json" }}
             - v1-dependencies-
        - run:
            name: Show current working directory contents before attaching workspace
@@ -120,6 +108,9 @@ jobs:
        - run:
           name: Show current location
           command: pwd
+       - run:
+          name: Install firebase cloud functions
+          command: cd functions ; ls . ; npm install ; cd
        - run:
            name: Deploy Master to Firebase or Other Branch to Staging
 
