@@ -1,7 +1,5 @@
 // The Cloud Functions for Firebase SDK to create Cloud Functions and setup triggers.
 const functions = require('firebase-functions');
-const {sendContactEmail} = require('./email');
-const {fcmSend} = require('./pushNotifications');
 
 
 const express = require('express');
@@ -14,7 +12,7 @@ const app = express();
 // I just want to make this example explicitly clear
 const appUrl = 'atila.ca';
 // const renderUrl = 'https://render-tron.appspot.com/render';
-const renderUrl = 'https://atila-7.appspot.com/render';
+const renderUrl = 'https://atila-7-staging.appspot.com/render';
 
 
 // Generates the URL
@@ -110,5 +108,3 @@ app.get('*', (req, res) => {
 });
 
 exports.rendertron = functions.https.onRequest(app);
-exports.sendContactEmail = sendContactEmail;
-exports.fcmSend = fcmSend;
