@@ -22,6 +22,7 @@ export class BlogPost {
     constructor(user=-1) {
         //Do we have to manually do this, is there a python-like equivalent of kwargs
         this.title = '';
+        this.user = user;
     }
 
 }
