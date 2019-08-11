@@ -44,6 +44,11 @@
                     [(ngModel)]="blogPost.description">
 
           </textarea>
+          <p *ngIf="blogPost.description"
+             [ngClass]="blogPost.description.length > 400 ? 'text-danger':
+              blogPost.description.length > 350 ? 'text-warning' : 'text-muted'">
+            {{blogPost.description.length}}/400
+          </p>
           <div>
             <span style="font-weight: bold" *ngIf="blogPost && blogPost.user && blogPost.user.username; else backupPrefix">
               atila.ca/blog/{{blogPost.user.username}}/</span>
