@@ -35,20 +35,21 @@
             </div>
 
         </div>
-
-          <span ngbPopover="Write a short preview of your article. Helpful for other readers, social media and search engines."
-                triggers="mouseenter:mouseleave" popoverTitle="Blog Preview">
-            <mat-icon aria-label="Write a short preview of your article. Helpful for other readers, social media and search engines.">help_outline</mat-icon>
-          </span>
-          <textarea id="blog_post_description" class="prefix_input" placeholder="Blog preview"
-                    [(ngModel)]="blogPost.description">
+          <div>
+            <textarea id="blog_post_description" class="prefix_input" placeholder="Blog preview"
+                      [(ngModel)]="blogPost.description">
 
           </textarea>
-          <p *ngIf="blogPost.description"
-             [ngClass]="blogPost.description.length > 400 ? 'text-danger':
+            <span ngbPopover="Write a short preview of your article. Helpful for other readers, social media and search engines."
+                  triggers="mouseenter:mouseleave" popoverTitle="Blog Preview">
+            <mat-icon aria-label="Write a short preview of your article. Helpful for other readers, social media and search engines.">help_outline</mat-icon>
+          </span>
+            <p *ngIf="blogPost.description"
+               [ngClass]="blogPost.description.length > 400 ? 'text-danger':
               blogPost.description.length > 350 ? 'text-warning' : 'text-muted'">
-            {{blogPost.description.length}}/400
-          </p>
+              {{blogPost.description.length}}/400
+            </p>
+          </div>
           <div>
             <span style="font-weight: bold" *ngIf="blogPost && blogPost.user && blogPost.user.username; else backupPrefix">
               atila.ca/blog/{{blogPost.user.username}}/</span>
