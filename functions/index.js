@@ -12,7 +12,7 @@ const app = express();
 // I just want to make this example explicitly clear
 const appUrl = 'atila.ca';
 // const renderUrl = 'https://render-tron.appspot.com/render';
-const renderUrl = 'https://atila-7-staging.appspot.com/render';
+const renderUrl = 'https://atila-7.appspot.com/render';
 
 
 // Generates the URL
