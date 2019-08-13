@@ -75,8 +75,11 @@ jobs:
 #          name: get docker image ca certs
 #          command: sudo apt-get update && sudo apt-get install -y ca-certificates
        - run:
-           name: Show workflow and workspace folder contents before attaching workspace
-           command: ls . && ls /tmp
+           name: Show current working directory contents before attaching workspace
+           command: ls .
+       - run:
+           name: Show tmp directory contents before attaching workspace
+           command: ls /tmp
        - attach_workspace:
            # Must be absolute path or relative path from working_directory
            at: /tmp
@@ -97,11 +100,17 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
        - run:
-          name: Show what is in folder after restoring cache
-          command: ls . && ls /tmp
+           name: Show current working directory contents before attaching workspace
+           command: ls .
+       - run:
+           name: Show tmp directory contents before attaching workspace
+           command: ls /tmp
        - run:
           name: Show current location
           command: pwd
+       - run:
+          name: Install firebase cloud functions
+          command: cd functions ; ls . ; npm install ; cd
        - run:
            name: Deploy Master to Firebase or Other Branch to Staging
 
@@ -109,10 +118,10 @@ jobs:
            command: |
                 if [ "${CIRCLE_BRANCH}" == "master" ]; then
                     echo 'deploying to prod';
-                    /tmp/node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN -P default --only hosting
+                    /tmp/node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN -P default
                 else
                     echo 'deploying to staging';
-                    /tmp/node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN -P staging --only hosting
+                    /tmp/node_modules/.bin/firebase deploy --token=$FIREBASE_DEPLOY_TOKEN -P staging
                 fi
 
 workflows:
