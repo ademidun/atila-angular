@@ -79,19 +79,27 @@ app.get('*', (req, res) => {
 
     const botUrl = generateUrl(req);
     // If Bot, fetch url via rendertron
+    console.log({botUrl});
+    if (botUrl.includes('robots.txt')) {
+      console.log("botUrl.includes('robots.txt'). Return an empty string.");
+      res.send('');
+    }
+    else {
 
-    fetch(`${renderUrl}/${botUrl}`)
-      .then(res => res.text())
-      .then(body => {
+      fetch(`${renderUrl}/${botUrl}`)
+        .then(res => res.text())
+        .then(body => {
 
-        // Set the Vary header to cache the user agent, based on code from:
-        // https://github.com/justinribeiro/pwa-firebase-functions-botrender
-        res.set('Cache-Control', 'public, max-age=300, s-maxage=600');
-        res.set('Vary', 'User-Agent');
+          // Set the Vary header to cache the user agent, based on code from:
+          // https://github.com/justinribeiro/pwa-firebase-functions-botrender
+          res.set('Cache-Control', 'public, max-age=300, s-maxage=600');
+          res.set('Vary', 'User-Agent');
 
-        res.send(body.toString())
+          res.send(body.toString())
 
-      });
+        });
+
+    }
 
   } else {
 
