@@ -9,7 +9,7 @@
     "rewrites": [
       {
         "source": "**",
-        "function": "rendertron"
+        "destination": "/index.html"
       }
     ]
   }
