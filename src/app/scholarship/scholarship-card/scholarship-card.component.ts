@@ -48,11 +48,7 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
   showExtraCriteria = false;
   prettifyKeys = prettifyKeys;
   autoCompleteLists = AUTOCOMPLETE_KEY_LIST;
-
-  old_visible: boolean;
-  userScholarship: any;
   environment = environment;
-  readonly VAPID_PUBLIC_KEY = 'BAjiETJuDgtXH6aRXgeCZgK8vurMT7AbFmPPhz1ybyfcDmfGFFydSXkYDC359HIXUmWw8w79-miI6NtmbfodiVI';
   @ViewChild('scholarshipCard') scholarshipCardRef: ElementRef;
 
   constructor(
@@ -82,20 +78,6 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
 
       if (this.userProfile.saved_scholarships.includes(this.scholarship.id)) {
         this.alreadySaved = true;
-      }
-
-      if (!environment.production || this.userProfile.is_atila_admin) {
-        let userScholarshipUserId = this.userId;
-
-        if (this.metadata.viewAsUser) {
-          userScholarshipUserId = this.metadata.viewAsUser.user;
-        }
-        this.scholarshipService.getUserScholarship(userScholarshipUserId, this.scholarship.id)
-          .subscribe(
-            res => {
-              this.userScholarship = res.results[0];
-            }
-          )
       }
 
     }
@@ -354,18 +336,8 @@ export class ScholarshipCardComponent implements OnInit, AfterViewInit, OnDestro
       'value': actionType,
     };
 
-    this.scholarshipService.sendUserScholarshipInteraction(this.userId, this.scholarship.id, actionData)
-      .subscribe(
-        res => {
-
-          this.userProfileService.userProfileRPC(this.userId + '/refresh-scholarship-cache')
-            .subscribe(
-              res2 => {
-              }
-            )
-        }
-      );
-
+    this.userProfileService.userProfileRPC(this.userId + '/refresh-scholarship-cache')
+      .subscribe(res=>console.log({ res }));
   }
 
 
