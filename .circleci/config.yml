@@ -109,9 +109,6 @@ jobs:
           name: Show current location
           command: pwd
        - run:
-          name: Install firebase cloud functions
-          command: cd functions ; ls . ; npm install ; cd
-       - run:
            name: Deploy Master to Firebase or Other Branch to Staging
 
           # todo Consider using filter key to choose deployment environment?
