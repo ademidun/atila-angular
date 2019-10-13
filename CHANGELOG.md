@@ -2,6 +2,14 @@
 
 Keep track of different things I've done
 
+## October 13, 209
+
+## Serviceworkers are stuck in the past
+- Finally made the big switch to the [new React app](https://github.com/ademidun/atila-client-web-app)
+- But because this website uses service workers it's caching the old version
+- Trying to experiment to remove the old service workers 
+- See this: https://stackoverflow.com/questions/33986976/how-can-i-remove-a-buggy-service-worker-or-implement-a-kill-switch/38980776#38980776
+
 ## May 1 2019
 
 **Heroku Staging, Redis, Refresh Scholarship Cache Async Task**
